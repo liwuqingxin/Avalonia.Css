@@ -1,0 +1,23 @@
+/* TextBlock */
+TextBlock{
+	FontSize: 48;
+    Background: Red;
+    FontWeight: Bold;
+    Margin:20;
+}
+
+Border{
+	BorderThickness:10;
+    CornerRadius:6;
+    BorderBrush:#95ff96;
+    Background:Transparent;
+}
+
+Border:pointerover{
+	Background:#444;
+}
+
+/* Button */
+:is(Button) {
+    FontSize: 36;
+}

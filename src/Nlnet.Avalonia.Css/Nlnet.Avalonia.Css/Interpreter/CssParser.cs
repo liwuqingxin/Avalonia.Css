@@ -111,13 +111,29 @@ namespace Nlnet.Avalonia.Css
             }
 
             var declareType  = property.PropertyType;
-            var parserMethod = declareType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
+            if (CssTypeResolverManager.Instance.TryGetParseType(declareType, out var parseType))
+            {
+                declareType = parseType;
+            }
+            var parserMethod = declareType?.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
             if (parserMethod == null)
             {
                 return null;
             }
 
-            return new Setter(property, parserMethod.Invoke(declareType, new object?[] { RawValue }));
+            var valueString = RawValue?.Trim();
+            if (string.IsNullOrWhiteSpace(valueString))
+            {
+                return null;
+            }
+
+            var value = parserMethod.Invoke(declareType, new object?[] {valueString});
+            if (value == null)
+            {
+                return null;
+            }
+
+            return new Setter(property, value);
         }
     }
 
@@ -128,7 +144,7 @@ namespace Nlnet.Avalonia.Css
         public IEnumerable<CssSetter> TryGetSetters(string setters);
     }
 
-    internal class CssParser : ICssParser
+    public class CssParser : ICssParser
     {
         public IEnumerable<CssStyle> TryGetStyles(string css)
         {
@@ -156,7 +172,7 @@ namespace Nlnet.Avalonia.Css
         }
     }
 
-    internal class EfficientCssParser : ICssParser
+    public class EfficientCssParser : ICssParser
     {
         public IEnumerable<CssStyle> TryGetStyles(string css)
         {

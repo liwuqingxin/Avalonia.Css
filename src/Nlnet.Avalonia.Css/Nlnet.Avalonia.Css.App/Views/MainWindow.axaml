@@ -1,17 +1,33 @@
-<Window xmlns="https://github.com/avaloniaui"
+<Window x:Class="Nlnet.Avalonia.Css.App.Views.MainWindow"
+        xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Nlnet.Avalonia.Css.App.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Nlnet.Avalonia.Css.App.Views.MainWindow"
+        xmlns:vm="using:Nlnet.Avalonia.Css.App.ViewModels"
+        Title="Nlnet.Avalonia.Css.App"
+        d:DesignHeight="450"
+        d:DesignWidth="800"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Nlnet.Avalonia.Css.App">
+        mc:Ignorable="d">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid RowDefinitions="*,Auto">
 
+        <Border HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding Greeting}" />
+        </Border>
+
+        <Button Grid.Row="1"
+                Click="ButtonLoadCss_OnClick"
+                Content="加载 avalonia.controls.css 样式" />
+
+    </Grid>
 </Window>

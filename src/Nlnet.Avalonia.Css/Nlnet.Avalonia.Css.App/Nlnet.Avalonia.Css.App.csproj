@@ -17,6 +17,10 @@
 		<Folder Include="Models\" />
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <AvaloniaResource Remove="Assets\avalonia.controls.css" />
+	</ItemGroup>
 	<ItemGroup>
 		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
 		<TrimmableAssembly Include="Avalonia.Themes.Default" />
@@ -33,5 +37,15 @@
 		</PackageReference>
 		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview4" />
 		<PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Assets\avalonia.controls.css">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>

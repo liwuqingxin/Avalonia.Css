@@ -67,8 +67,6 @@ namespace Nlnet.Avalonia.Css.Test
                     Trace.WriteLine("<selector is null.>");
                 }
             }
-
-            var instance = CssTypeProviderManager.Instance;
         }
     }
 }

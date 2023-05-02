@@ -518,7 +518,7 @@ namespace Nlnet.Avalonia.Css
 
             public Selector? ToSelector(Selector? previous)
             {
-                if (CssTypeProviderManager.Instance.TryGetType(TypeName, out var type))
+                if (CssTypeResolverManager.Instance.TryGetType(TypeName, out var type))
                 {
                     return previous.OfType(type!);
                 }
@@ -548,7 +548,7 @@ namespace Nlnet.Avalonia.Css
 
             public Selector? ToSelector(Selector? previous)
             {
-                if (CssTypeProviderManager.Instance.TryGetType(TypeName, out var type))
+                if (CssTypeResolverManager.Instance.TryGetType(TypeName, out var type))
                 {
                     var field            = type!.GetField($"{Property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
                     var avaloniaProperty = field?.GetValue(type) as AvaloniaProperty;
@@ -583,7 +583,7 @@ namespace Nlnet.Avalonia.Css
 
             public Selector? ToSelector(Selector? previous)
             {
-                if (CssTypeProviderManager.Instance.TryGetType(TypeName, out var type))
+                if (CssTypeResolverManager.Instance.TryGetType(TypeName, out var type))
                 {
                     return previous.Is(type!);
                 }
