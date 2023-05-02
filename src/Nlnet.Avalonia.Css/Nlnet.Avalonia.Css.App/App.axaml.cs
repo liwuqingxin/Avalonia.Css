@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Nlnet.Avalonia.Css.App.ViewModels;
 using Nlnet.Avalonia.Css.App.Views;
 
 namespace Nlnet.Avalonia.Css.App
@@ -19,7 +18,7 @@ namespace Nlnet.Avalonia.Css.App
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    
                 };
             }
 

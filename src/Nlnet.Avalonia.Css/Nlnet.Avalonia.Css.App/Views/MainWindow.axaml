@@ -3,29 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="using:Nlnet.Avalonia.Css.App.ViewModels"
         Title="Nlnet.Avalonia.Css.App"
         d:DesignHeight="450"
         d:DesignWidth="800"
         Icon="/Assets/avalonia-logo.ico"
         mc:Ignorable="d">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel />
-    </Design.DataContext>
-
     <Grid RowDefinitions="*,Auto">
 
-        <Border HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                BorderBrush="Black"
-                BorderThickness="1">
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="{Binding Greeting}" />
+                       Text="Welcome to Avalonia!" />
         </Border>
 
         <Button Grid.Row="1"
+                HorizontalAlignment="Right"
                 Click="ButtonLoadCss_OnClick"
                 Content="加载 avalonia.controls.css 样式" />
 

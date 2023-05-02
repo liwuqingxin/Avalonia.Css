@@ -2,9 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Nlnet.Avalonia.Css.App"
              x:Class="Nlnet.Avalonia.Css.App.App">
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>

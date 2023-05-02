@@ -17,12 +17,14 @@ namespace Nlnet.Avalonia.Css.App.Views
 
         private void ButtonLoadCss_OnClick(object? sender, RoutedEventArgs e)
         {
-            var parser  = new EfficientCssParser();
-            var cssFile = File.ReadAllText("./Assets/avalonia.controls.css");
-            var cssStyles  = parser.TryGetStyles(cssFile).ToList();
+            var parser  = new CssParser();
+            var cssFile = File.ReadAllText("../../Assets/avalonia.controls.css");
+            var cssStyles  = parser.TryGetStyles(cssFile);
 
             foreach (var cssStyle in cssStyles)
             {
+                //Trace.WriteLine(cssStyle.ToString());
+
                 var style = (cssStyle.ToAvaloniaStyle() as Style);
                 if (style?.Selector != null)
                 {

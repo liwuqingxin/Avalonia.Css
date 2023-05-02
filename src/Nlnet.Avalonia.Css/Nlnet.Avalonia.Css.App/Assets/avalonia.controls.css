@@ -15,6 +15,8 @@ Border{
 
 Border:pointerover{
 	Background:#444;
+    BorderBrush:#95ff96;
+    BorderThickness:3;
 }
 
 /* Button */
