@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
+using Avalonia;
+using Avalonia.Styling;
 
-namespace Nlnet.Avalonia.Css.Interpreter
+namespace Nlnet.Avalonia.Css
 {
     public class CssStyle
     {
@@ -19,9 +21,54 @@ namespace Nlnet.Avalonia.Css.Interpreter
             Setters = parser.TryGetSetters(setters).ToList();
         }
 
+        public IStyle ToAvaloniaStyle()
+        {
+            var style = new Style();
+
+            var       syntaxList = SelectorGrammar.Parse(Selector).ToList();
+            Selector? selector   = null;
+            var       selectors  = new List<Selector>();
+            foreach (var syntax in syntaxList)
+            {
+                if (syntax is SelectorGrammar.CommaSyntax)
+                {
+                    if (selector != null)
+                    {
+                        selectors.Add(selector);
+                    }
+                    selector = null;
+                }
+                else
+                {
+                    selector = syntax.ToSelector(selector);
+                }
+            }
+            if (selector != null)
+            {
+                selectors.Add(selector);
+            }
+            style.Selector = selectors.Count > 1 ? Selectors.Or(selectors) : selector;
+
+            if (style.Selector?.TargetType != null)
+            {
+                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(style.Selector.TargetType)).OfType<ISetter>())
+                {
+                    style.Add(setter);
+                }
+            }
+
+            return style;
+        }
+
         public override string ToString()
         {
-            return $"[{Setters.Count}] '{Selector}'";
+            var builder = new StringBuilder();
+            builder.AppendLine($"[{Setters.Count}] '{Selector}'");
+            foreach (var cssSetter in Setters)
+            {
+                builder.AppendLine($"    {cssSetter.ToString()}");
+            }
+            return builder.ToString();
         }
     }
 
@@ -29,14 +76,48 @@ namespace Nlnet.Avalonia.Css.Interpreter
     {
         public string RawSetter { get; set; }
 
+        public string? Property { get; set; }
+
+        public string? RawValue { get; set; }
+
         public CssSetter(string setter)
         {
             RawSetter = setter;
+            var splits = setter.Split(":", StringSplitOptions.RemoveEmptyEntries);
+            if (splits.Length == 2)
+            {
+                Property = splits[0];
+                RawValue = splits[1];
+            }
         }
 
         public override string ToString()
         {
             return RawSetter;
+        }
+
+        public ISetter? ToAvaloniaSetter(Type targetType)
+        {
+            if (Property == null)
+            {
+                return null;
+            }
+
+            var property = targetType.GetField($"{Property}Property", BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy)
+                ?.GetValue(targetType) as AvaloniaProperty;
+            if (property == null)
+            {
+                return null;
+            }
+
+            var declareType  = property.PropertyType;
+            var parserMethod = declareType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
+            if (parserMethod == null)
+            {
+                return null;
+            }
+
+            return new Setter(property, parserMethod.Invoke(declareType, new object?[] { RawValue }));
         }
     }
 

@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\avalonia.controls.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\nlnet.blog.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

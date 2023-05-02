@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Nlnet.Avalonia.Css.Interpreter;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css.Test
 {
@@ -45,6 +45,30 @@ namespace Nlnet.Avalonia.Css.Test
             {
                 Trace.WriteLine(cssStyle.ToString());
             }
+        }
+
+        [TestMethod]
+        public void TypeProviderTest()
+        {
+            var parser  = new EfficientCssParser();
+            var cssFile = File.ReadAllText("./Assets/avalonia.controls.css");
+            var styles  = parser.TryGetStyles(cssFile).ToList();
+
+            foreach (var cssStyle in styles)
+            {
+                var style    = (cssStyle.ToAvaloniaStyle() as Style);
+                var selector = style!.Selector;
+                if (selector != null)
+                {
+                    Trace.WriteLine(selector.ToString());
+                }
+                else
+                {
+                    Trace.WriteLine("<selector is null.>");
+                }
+            }
+
+            var instance = CssTypeProviderManager.Instance;
         }
     }
 }
