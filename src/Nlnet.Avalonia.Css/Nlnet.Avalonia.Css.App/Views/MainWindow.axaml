@@ -12,7 +12,9 @@
     <Grid RowDefinitions="*,Auto">
 
         <StackPanel>
-            <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource Accent}">
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Text="Welcome to Avalonia!" />

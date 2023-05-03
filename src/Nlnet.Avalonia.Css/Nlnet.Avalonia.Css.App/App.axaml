@@ -7,4 +7,11 @@
         <FluentTheme Mode="Light"/>
     </Application.Styles>
 
+    <Application.Resources>
+        <SolidColorBrush x:Key="Accent" Color="DeepSkyBlue"/>
+        <SolidColorBrush x:Key="Success" Color="Green"/>
+        <SolidColorBrush x:Key="Error" Color="OrangeRed"/>
+		<SolidColorBrush x:Key="Info" Color="Orange"/>
+    </Application.Resources>
+
 </Application>

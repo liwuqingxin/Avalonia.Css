@@ -54,7 +54,7 @@ CheckBox#Check{
 }
 
 CheckBox#Check /template/ Grid#RootGrid{
-    Background:Green;
+    Background:var(Accent);
 }
 
 /*OK*/
@@ -85,7 +85,7 @@ Button:pointerover /template/ ContentPresenter#PART_ContentPresenter
 /*OK*/
 Button:pointerover{
     /*OK*/CornerRadius:64;
-    Background:Yellow;
+    Background:Red;
 }
 
 /*OK*/
@@ -100,7 +100,7 @@ TextBlock{
 Border{
 	/*OK*/BorderThickness:10;
     /*OK*/CornerRadius:6;
-    /*OK*/BorderBrush:green;
+    /*OK*/BorderBrush:var(Accent);
     /*OK*/Background:#ccc;
 }
 

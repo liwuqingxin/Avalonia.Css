@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Avalonia;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -53,24 +54,32 @@ namespace Nlnet.Avalonia.Css
             }
 
             var declareType = avaloniaProperty.PropertyType;
+            if ((rawValue.StartsWith("var(")) && rawValue.EndsWith(")"))
+            {
+                var key = rawValue[4..^1];
+                var extension = new DynamicResourceExtension(key);
+                return extension;
+            }
             if (declareType.IsAssignableTo(typeof(Enum)))
             {
                 return Enum.TryParse(declareType, rawValue, true, out var value) ? value : null;
             }
-            else
+            if (declareType == typeof(string))
             {
-                if (TypeResolver.Instance.TryAdaptType(declareType, out var parseType))
-                {
-                    declareType = parseType;
-                }
-                var parserMethod = declareType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
-                if (parserMethod == null)
-                {
-                    avaloniaProperty.WriteLine($"Can not find the 'Parse' method in '{declareType}'. Skip it.");
-                    return null;
-                }
-                return parserMethod.Invoke(declareType, new object?[] { rawValue });
+                return rawValue;
             }
+
+            if (TypeResolver.Instance.TryAdaptType(declareType, out var parseType))
+            {
+                declareType = parseType;
+            }
+            var parserMethod = declareType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
+            if (parserMethod == null)
+            {
+                avaloniaProperty.WriteLine($"Can not find the 'Parse' method in '{declareType}'. Skip it.");
+                return null;
+            }
+            return parserMethod.Invoke(declareType, new object?[] { rawValue });
         }
     }
 }
