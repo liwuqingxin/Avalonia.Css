@@ -4,6 +4,7 @@
     <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
         <Setter Property="Button.BorderBrush" Value="Transparent" />
 		<Setter Property="Button.RenderTransform" Value="none" />
+        <Setter Property="CheckBox.Opacity" Value="1" />
         <Setter Property="Button.Transitions">
             <Transitions>
                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.075" />

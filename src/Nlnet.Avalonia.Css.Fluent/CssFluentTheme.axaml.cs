@@ -9,7 +9,8 @@ namespace Nlnet.Avalonia.Css.Fluent
         {
             AvaloniaXamlLoader.Load(this);
 
-            CssStyles.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/button.css", true);
+            CssStyles.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Button.css", true);
+            CssStyles.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/CheckBox.css", true);
         }
     }
 }

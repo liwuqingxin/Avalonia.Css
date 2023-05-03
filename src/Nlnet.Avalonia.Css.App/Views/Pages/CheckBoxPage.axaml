@@ -1,4 +1,4 @@
-<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.ButtonPage"
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.CheckBoxPage"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,8 +9,7 @@
     <StackPanel VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="8">
-        <Button Classes="primary" Content="确定" />
-        <Button Content="取消" />
-        <Button Content="普通按钮" />
+        <CheckBox Content="三态勾选框" IsThreeState="True" />
+        <CheckBox Content="普通勾选框" />
     </StackPanel>
 </UserControl>

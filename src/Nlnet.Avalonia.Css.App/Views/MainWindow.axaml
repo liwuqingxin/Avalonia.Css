@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
+        xmlns:views="clr-namespace:Nlnet.Avalonia.Css.App.Views"
         Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
         Width="1000"
         Height="700"
@@ -16,7 +16,10 @@
 
         <TabControl Grid.Row="1">
             <TabItem Header="Button">
-                <pages:ButtonPage />
+                <views:ButtonPage />
+            </TabItem>
+            <TabItem Header="CheckBox">
+                <views:CheckBoxPage />
             </TabItem>
         </TabControl>
 

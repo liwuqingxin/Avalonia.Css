@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
-    public partial class ButtonPage : UserControl
+    public partial class CheckBoxPage : UserControl
     {
-        public ButtonPage()
+        public CheckBoxPage()
         {
             InitializeComponent();
         }
