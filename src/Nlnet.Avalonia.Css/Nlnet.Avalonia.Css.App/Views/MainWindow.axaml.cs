@@ -1,84 +1,56 @@
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Styling;
-using Avalonia.Threading;
+using Avalonia.Themes.Fluent;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
     public partial class MainWindow : Window
     {
-        private static FileSystemWatcher? _watcher;
-
         public MainWindow()
         {
+            CssStyles.Load("../../Assets/avalonia.controls.css", true);
+
             InitializeComponent();
 
-            Loaded += MainWindow_Loaded;
-            Unloaded += MainWindow_Unloaded;
+            LoadDynamicStyle();
         }
 
-        private static void MainWindow_Loaded(object? sender, RoutedEventArgs e)
+        private static void LoadDynamicStyle()
         {
-            _watcher                     =  new FileSystemWatcher("../../Assets");
-            _watcher.EnableRaisingEvents =  true;
-            _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
-            _watcher.Filter              =  "*.css";
-            _watcher.Changed             += WatcherOnChanged;
-        }
-
-        private static void MainWindow_Unloaded(object? sender, RoutedEventArgs e)
-        {
-            _watcher?.Dispose();
-        }
-
-        private static void WatcherOnChanged(object sender, FileSystemEventArgs e)
-        {
-            if (e.ChangeType != WatcherChangeTypes.Changed)
+            Selector? selector = null;
+            selector = selector.OfType<TextBox>()
+                .Class("Search")
+                .Class(":focus-within")
+                .Template()
+                .OfType(typeof(Border))
+                .Name("PART_BorderElement");
+            var style1 = new Style
             {
-                return;
-            }
+                Selector = selector
+            };
+            style1.Setters.Add(new Setter(Border.BackgroundProperty, Brushes.Orange));
+            Application.Current?.Styles.Add(style1);
 
-            ReloadCss();
         }
 
         private void ButtonLoadCss_OnClick(object? sender, RoutedEventArgs e)
         {
-            ReloadCss();
+            CssStyles.Load("../../Assets/avalonia.controls.css", true);
         }
 
-        private static void ReloadCss()
+        private void ButtonClearTheme_OnClick(object? sender, RoutedEventArgs e)
         {
-            Task.Delay(50).ContinueWith(t =>
-            {
-                Dispatcher.UIThread.Post(() =>
-                {
-                    try
-                    {
-                        var parser    = new CssParser();
-                        var text      = File.ReadAllText("../../Assets/avalonia.controls.css");
-                        var cssStyles = parser.TryGetStyles(text);
+            Application.Current!.Styles.Clear();
+        }
 
-                        foreach (var cssStyle in cssStyles)
-                        {
-                            var style = (cssStyle.ToAvaloniaStyle() as Style);
-                            if (style?.Selector != null)
-                            {
-                                Application.Current?.Styles.Add(style);
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-                });
-            });
+        private void ButtonAddTheme_OnClick(object? sender, RoutedEventArgs e)
+        {
+            LoadDynamicStyle();
+            Application.Current!.Styles.Add(new FluentTheme(new Uri("avares://Nlnet.Avalonia.Css/", UriKind.Absolute)));
         }
     }
 }

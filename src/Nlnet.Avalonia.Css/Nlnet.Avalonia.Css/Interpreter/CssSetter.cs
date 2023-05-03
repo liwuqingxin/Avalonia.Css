@@ -35,7 +35,12 @@ public class CssSetter
             return null;
         }
 
-        var value = InterpreterHelper.ParseValue(property, RawValue?.Trim());
+        object? value = RawValue;
+        if (property.PropertyType != typeof(string))
+        {
+            value = InterpreterHelper.ParseValue(property, RawValue?.Trim());
+        }
+
         if (value == null)
         {
             return null;

@@ -16,6 +16,23 @@ namespace Nlnet.Avalonia.Css
 
         internal static AvaloniaProperty? GetAvaloniaProperty(Type avaloniaObjectType, string property)
         {
+            if (property.Contains("."))
+            {
+                var splits = property.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                if (splits.Length != 2)
+                {
+                    return null;
+                }
+
+                var declaredTypeName = splits[0];
+                property = splits[1];
+                if (TypeResolverManager.Instance.TryGetType(declaredTypeName, out var type) == false)
+                {
+                    return null;
+                }
+                avaloniaObjectType = type!;
+            }
+
             var field            = avaloniaObjectType.GetField($"{property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
             var avaloniaProperty = field?.GetValue(avaloniaObjectType) as AvaloniaProperty;
             return avaloniaProperty;
@@ -29,43 +46,23 @@ namespace Nlnet.Avalonia.Css
             }
 
             var declareType = avaloniaProperty.PropertyType;
-            if (TypeResolverManager.Instance.TryGetParseType(declareType, out var parseType))
+            if (declareType.IsAssignableTo(typeof(Enum)))
             {
-                declareType = parseType;
+                return Enum.TryParse(declareType, rawValue, true, out var value) ? value : null;
             }
-            var parserMethod = declareType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
-            if (parserMethod == null)
+            else
             {
-                return null;
+                if (TypeResolverManager.Instance.TryGetParseType(declareType, out var parseType))
+                {
+                    declareType = parseType;
+                }
+                var parserMethod = declareType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
+                if (parserMethod == null)
+                {
+                    return null;
+                }
+                return parserMethod.Invoke(declareType, new object?[] { rawValue });
             }
-            return parserMethod.Invoke(declareType, new object?[] { rawValue });
-        }
-
-        internal static object? ParseValue(Type avaloniaObjectType, string property, string? rawValue)
-        {
-            if (rawValue == null)
-            {
-                return null;
-            }
-
-            var field            = avaloniaObjectType.GetField($"{property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-            var avaloniaProperty = field?.GetValue(avaloniaObjectType) as AvaloniaProperty;
-            if (avaloniaProperty == null)
-            {
-                return null;
-            }
-            
-            var declareType  = avaloniaProperty.PropertyType;
-            if (TypeResolverManager.Instance.TryGetParseType(declareType, out var parseType))
-            {
-                declareType = parseType;
-            }
-            var parserMethod = declareType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] {typeof(string)});
-            if (parserMethod == null)
-            {
-                return null;
-            }
-            return parserMethod.Invoke(declareType, new object?[] { rawValue });
         }
     }
 }

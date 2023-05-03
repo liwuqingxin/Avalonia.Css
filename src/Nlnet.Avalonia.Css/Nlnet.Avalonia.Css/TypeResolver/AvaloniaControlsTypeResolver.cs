@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.VisualTree;
 
@@ -14,7 +15,7 @@ public class AvaloniaControlsTypeResolver : ITypeResolver
     {
         var typeSink = typeof(Control);
         var assembly = typeSink.Assembly;
-        var types    = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(IVisual)));
+        var types    = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(AvaloniaObject)));
 
         _types = types.ToDictionary(type => type.Name, type => type);
     }
