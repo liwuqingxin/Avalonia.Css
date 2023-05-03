@@ -1,0 +1,24 @@
+﻿
+TextBox {
+    Background: #FEFEFE;
+    CornerRadius: 4;
+    BorderThickness: 1;
+    BorderBrush:#2222;
+    Padding: 8,4,8,5;
+    Foreground: #333;
+    HorizontalContentAlignment: Left;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    MinWidth:40;
+    SelectionBrush:var(Accent06);
+}
+TextBox /template/ Border#PART_Indicator {
+    BorderBrush:#666;
+    BorderThickness: 0,0,0,1;
+}
+TextBox:focus-within /template/ Border#PART_Indicator {
+    BorderBrush:var(Accent);
+    BorderThickness: 0,0,0,2;
+}

@@ -21,6 +21,9 @@
             <TabItem Header="CheckBox">
                 <views:CheckBoxPage />
             </TabItem>
+            <TabItem Header="TextBox">
+                <views:TextBoxPage />
+            </TabItem>
         </TabControl>
 
     </Grid>

@@ -2,6 +2,9 @@
 TextBlock {
     FontFamily: 微软雅黑,宋体;
 }
+TextBox {
+    FontFamily: 微软雅黑,宋体;
+}
 
 Window:focus-within {
     Background: #F0F4F9;

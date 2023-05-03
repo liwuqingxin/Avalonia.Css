@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+
+    <ControlTheme x:Key="{x:Type TextBox}" TargetType="TextBox">
+        <Setter Property="TextBox.BorderBrush" Value="Transparent" />
+        <Setter Property="TextBox.RenderTransform" Value="none" />
+        <Setter Property="TextBox.Opacity" Value="1" />
+        <Setter Property="TextBox.Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.075" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.075" />
+                <BrushTransition Property="Background" Duration="0:0:0.075" />
+                <DoubleTransition Property="Opacity" Duration="0:0:0.075" />
+            </Transitions>
+        </Setter>
+        <Setter Property="TextBox.Template">
+            <ControlTemplate TargetType="TextBox">
+                <Panel>
+                    <Border x:Name="PART_Border"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <TextPresenter x:Name="PART_TextPresenter"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       CaretBrush="{TemplateBinding CaretBrush}"
+                                       CaretIndex="{TemplateBinding CaretIndex}"
+                                       SelectionBrush="{TemplateBinding SelectionBrush}"
+                                       SelectionEnd="{TemplateBinding SelectionEnd}"
+                                       SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                       SelectionStart="{TemplateBinding SelectionStart}"
+                                       Text="{TemplateBinding Text}"
+                                       TextAlignment="{TemplateBinding TextAlignment}"
+                                       TextWrapping="{TemplateBinding TextWrapping}" />
+                    </Border>
+                    <Border x:Name="PART_Indicator" CornerRadius="{TemplateBinding CornerRadius}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <ThicknessTransition Property="BorderThickness" Duration="0:0:0.075" />
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>
