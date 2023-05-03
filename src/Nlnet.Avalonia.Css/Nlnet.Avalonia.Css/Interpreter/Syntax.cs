@@ -58,7 +58,7 @@ namespace Nlnet.Avalonia.Css
                 var value = InterpreterHelper.ParseValue(avaloniaProperty, Value);
                 if (value != null)
                 {
-                    previous.PropertyEquals(avaloniaProperty, value);
+                    return previous.PropertyEquals(avaloniaProperty, value);
                 }
             }
 
@@ -121,7 +121,7 @@ namespace Nlnet.Avalonia.Css
                 var value = InterpreterHelper.ParseValue(avaloniaProperty, Value);
                 if (value != null)
                 {
-                    previous.PropertyEquals(avaloniaProperty, value);
+                    return previous.PropertyEquals(avaloniaProperty, value);
                 }
             }
 

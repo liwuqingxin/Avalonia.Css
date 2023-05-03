@@ -1,6 +1,11 @@
 /* ReSharper disable CssNotResolved */
 
 
+Button[FontSize=32]{
+    Foreground:red;
+}
+
+
 /*OK*/
 TextBox.Search{
     /*OK*/Grid.Row:0;
@@ -69,7 +74,7 @@ TextBox.Input{
 
 /*OK*/
 Button {
-    /*OK*/FontSize: 60;
+    /*OK*/FontSize: 32;
 }
 
 /*OK*/
@@ -79,7 +84,7 @@ Button {
 
 Button:pointerover /template/ ContentPresenter#PART_ContentPresenter
 {
-    FontSize:32;
+    FontSize:36;
 }
 
 /*OK*/
