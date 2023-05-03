@@ -3,44 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="Nlnet.Avalonia.Css.App"
+        xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
+        Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
+        Width="1000"
+        Height="700"
         d:DesignHeight="450"
         d:DesignWidth="800"
         Icon="/Assets/avalonia-logo.ico"
         mc:Ignorable="d">
 
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="Auto,*">
 
-        <StackPanel>
-            <Border HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="{DynamicResource Accent}">
-                <TextBlock HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="Welcome to Avalonia!" />
-            </Border>
-            <TextBox Classes="Input" Text="Abc" />
-            <Grid Width="600"
-                  Height="300"
-                  ColumnDefinitions="*,*,*"
-                  RowDefinitions="*,*,*"
-                  ShowGridLines="True">
-                <TextBox Classes="Search" Text="Abc" />
-                <CheckBox x:Name="Check"
-                          Grid.Row="2"
-                          Grid.Column="0"
-                          Content="快勾选" />
-            </Grid>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    Spacing="10">
-            <Button Click="BtnLoadCss_OnClick" Content="加载 avalonia.controls.css 样式" />
-            <Button Click="BtnClearTheme_OnClick" Content="清空主题和样式" />
-            <Button Click="BtnAddTheme_OnClick" Content="添加主题" />
-        </StackPanel>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Button">
+                <pages:ButtonPage />
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

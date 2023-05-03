@@ -34,5 +34,15 @@
 		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview4" />
 		<PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="Css\**">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 
 </Project>

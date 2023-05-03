@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nlnet.Avalonia.Css", "Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj", "{737150B9-AC64-4AF3-B080-8D4CEE64E9D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css", "Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj", "{737150B9-AC64-4AF3-B080-8D4CEE64E9D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nlnet.Avalonia.Css.App", "Nlnet.Avalonia.Css.App\Nlnet.Avalonia.Css.App.csproj", "{C6C78455-2E84-4595-B2FF-7ABD2692F6EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.App", "Nlnet.Avalonia.Css.App\Nlnet.Avalonia.Css.App.csproj", "{C6C78455-2E84-4595-B2FF-7ABD2692F6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nlnet.Avalonia.Css.Test", "Nlnet.Avalonia.Css.Test\Nlnet.Avalonia.Css.Test.csproj", "{71CDC9AB-A93C-4B11-A95E-C05C200934FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Test", "Nlnet.Avalonia.Css.Test\Nlnet.Avalonia.Css.Test.csproj", "{71CDC9AB-A93C-4B11-A95E-C05C200934FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Fluent", "Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj", "{E629FF46-4B1A-43B3-A102-E3D048DA1429}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{71CDC9AB-A93C-4B11-A95E-C05C200934FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71CDC9AB-A93C-4B11-A95E-C05C200934FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71CDC9AB-A93C-4B11-A95E-C05C200934FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

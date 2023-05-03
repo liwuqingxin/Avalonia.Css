@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Avalonia.Media;
+using Avalonia.Media.Transformation;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -13,6 +14,7 @@ internal class AvaloniaValueParsingTypeAdapter : IValueParsingTypeAdapter
         AddAdaptType(typeof(IBrush),           typeof(Brush));
         AddAdaptType(typeof(ISolidColorBrush), typeof(Brush));
         AddAdaptType(typeof(SolidColorBrush),  typeof(Brush));
+        AddAdaptType(typeof(ITransform),       typeof(TransformOperations));
     }
 
     public bool TryAdapt(Type type, out Type? adaptedType)

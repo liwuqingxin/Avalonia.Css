@@ -1,0 +1,38 @@
+﻿/* TODO 移出去 */
+TextBlock {
+    FontFamily: 微软雅黑,宋体;
+}
+
+Window:focus-within {
+    Background: #F0F4F9;
+}
+
+Button {
+    Background: #FEFEFE;
+    CornerRadius: 6;
+    BorderThickness: 1;
+    BorderBrush:#2222;
+    Padding: 8,4,8,5;
+    Foreground: #333;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+}
+
+Button.primary{
+    Background:var(Accent);
+    Foreground: #fff;
+}
+
+Button /template/ ContentPresenter#PART_ContentPresenter{
+    BoxShadow:0 1.5 0 0 #2222;
+}
+Button:pressed{
+    RenderTransform:scale(0.97,0.97);
+    Opacity:0.9;
+}
+Button:pressed /template/ ContentPresenter#PART_ContentPresenter{
+    BoxShadow:none;
+}

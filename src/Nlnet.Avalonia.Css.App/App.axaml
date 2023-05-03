@@ -1,17 +1,11 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:Nlnet.Avalonia.Css.App"
+             xmlns:fluent="https://www.nlnet.com/avalonia.css"
              x:Class="Nlnet.Avalonia.Css.App.App">
 
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+		<FluentTheme />
+		<fluent:CssFluentTheme />
     </Application.Styles>
-
-    <Application.Resources>
-        <SolidColorBrush x:Key="Accent" Color="DeepSkyBlue"/>
-        <SolidColorBrush x:Key="Success" Color="Green"/>
-        <SolidColorBrush x:Key="Error" Color="OrangeRed"/>
-		<SolidColorBrush x:Key="Info" Color="Orange"/>
-    </Application.Resources>
 
 </Application>

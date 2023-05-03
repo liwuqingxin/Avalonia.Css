@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:fluent="https://www.nlnet.com/avalonia.css"
+                       x:Class="Nlnet.Avalonia.Css.Fluent.CssFluentTheme">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Button.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="Accent" Color="#0068B5" />
+            <SolidColorBrush x:Key="Success" Color="Green" />
+            <SolidColorBrush x:Key="Error" Color="OrangeRed" />
+            <SolidColorBrush x:Key="Info" Color="Orange" />
+        </ResourceDictionary>
+    </Styles.Resources>
+
+</Styles>
