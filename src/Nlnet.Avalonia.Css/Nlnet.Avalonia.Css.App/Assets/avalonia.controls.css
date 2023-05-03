@@ -1,3 +1,6 @@
+/* ReSharper disable CssNotResolved */
+
+
 /*OK*/
 TextBox.Search{
     /*OK*/Grid.Row:0;
@@ -36,7 +39,7 @@ TextBox.Search:focus-within,TextBox.Search:pointerover{
 }
 
 TextBox.Search:focus-within /template/ Border#PART_BorderElement{
-    Background:Red;
+    Background:Blue;
     Margin:20;
 }
 
@@ -60,6 +63,7 @@ TextBox.Input{
     Background:Yellow;
     Margin:8;
     Width:100;
+    
     HorizontalAlignment:Left;
 }
 
@@ -75,7 +79,7 @@ Button {
 
 Button:pointerover /template/ ContentPresenter#PART_ContentPresenter
 {
-    FontSize:66;
+    FontSize:32;
 }
 
 /*OK*/
@@ -96,7 +100,7 @@ TextBlock{
 Border{
 	/*OK*/BorderThickness:10;
     /*OK*/CornerRadius:6;
-    /*OK*/BorderBrush:blue;
+    /*OK*/BorderBrush:green;
     /*OK*/Background:#ccc;
 }
 
@@ -106,3 +110,6 @@ Border:pointerover{
     /*OK*/BorderBrush:#25ff96;
     /*OK*/CornerRadius:20;
 }
+
+
+/* ReSharper restore CssNotResolved */

@@ -35,11 +35,9 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Spacing="10">
-            <Button Click="ButtonLoadCss_OnClick" Content="加载 avalonia.controls.css 样式" />
-
-            <Button Click="ButtonClearTheme_OnClick" Content="清空主题和样式" />
-
-            <Button Click="ButtonAddTheme_OnClick" Content="添加主题" />
+            <Button Click="BtnLoadCss_OnClick" Content="加载 avalonia.controls.css 样式" />
+            <Button Click="BtnClearTheme_OnClick" Content="清空主题和样式" />
+            <Button Click="BtnAddTheme_OnClick" Content="添加主题" />
         </StackPanel>
 
     </Grid>

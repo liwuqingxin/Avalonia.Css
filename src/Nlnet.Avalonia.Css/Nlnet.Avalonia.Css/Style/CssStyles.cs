@@ -3,59 +3,46 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Layout;
-using Avalonia.Media;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
-    public class MyButton : Button, IStyleable
-    {
-        Type IStyleable.StyleKey => typeof(MyButton);
-    }
-
-    public class CssStyles : Styles, IDisposable
+    public sealed class CssStyles : Styles, IDisposable
     {
         public static void Load(string file, bool autoLoadWhenFileChanged)
         {
-            if (Dispatcher.UIThread.CheckAccess() == false)
-            {
-                throw new InvalidOperationException($"{nameof(CssStyles)}.{nameof(Load)}() should be called in ui thread.");
-            }
-
-            if (Application.Current != null && Application.Current.Styles.OfType<CssStyles>().Any(s => s._file == file))
-            {
-                return;
-            }
-
-            var styles = new CssStyles(file, autoLoadWhenFileChanged);
-            styles.Load();
+            var styles = CreateStyles(file, autoLoadWhenFileChanged);
+            styles?.Load();
         }
 
-        public static void LoadAsync(string file, bool autoLoadWhenFileChanged)
+        public static void BeginLoad(string file, bool autoLoadWhenFileChanged)
+        {
+            var styles = CreateStyles(file, autoLoadWhenFileChanged);
+            styles?.BeginLoad();
+        }
+
+        private static CssStyles? CreateStyles(string file, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
-                throw new InvalidOperationException($"{nameof(CssStyles)}.{nameof(LoadAsync)}() should be called in ui thread.");
+                throw new InvalidOperationException($"{nameof(CssStyles)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
             if (Application.Current != null && Application.Current.Styles.OfType<CssStyles>().Any(s => s._file == file))
             {
-                return;
+                return null;
             }
 
             var styles = new CssStyles(file, autoLoadWhenFileChanged);
-            styles.LoadAsync();
-            Application.Current?.Styles.Add(styles);
+            return styles;
         }
 
 
 
-
-        private readonly string             _file;
+        private readonly string _file;
         private readonly FileSystemWatcher? _watcher;
 
         private CssStyles(string file, bool autoLoadWhenFileChanged)
@@ -80,7 +67,7 @@ namespace Nlnet.Avalonia.Css
                 return;
             }
 
-            LoadAsync();
+            BeginLoad();
         }
 
         private void Load()
@@ -90,20 +77,6 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                Selector? selector = null;
-                selector = selector.OfType<TextBox>()
-                    .Class("Search")
-                    .Class(":focus-within")
-                    .Template()
-                    .OfType(typeof(Border))
-                    .Name("PART_BorderElement");
-                var style1 = new Style
-                {
-                    Selector = selector
-                };
-                style1.Setters.Add(new Setter(Border.BackgroundProperty, Brushes.Red));
-                Application.Current?.Styles.Add(style1);
-
                 var parser    = new CssParser();
                 var text      = File.ReadAllText(_file);
                 var cssStyles = parser.TryGetStyles(text);
@@ -118,6 +91,20 @@ namespace Nlnet.Avalonia.Css
                 }
 
                 Application.Current?.Styles.Add(this);
+                switch (Application.Current?.ApplicationLifetime)
+                {
+                    case ClassicDesktopStyleApplicationLifetime lifetime:
+                    {
+                        foreach (var window in lifetime.Windows)
+                        {
+                            ForceApplyStyling(window);
+                        }
+                        break;
+                    }
+                    case ISingleViewApplicationLifetime {MainView: { }} singleView:
+                        ForceApplyStyling(singleView.MainView);
+                        break;
+                }
             }
             catch (Exception e)
             {
@@ -125,12 +112,35 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        private void LoadAsync()
+        private void BeginLoad()
         {
             Task.Delay(20).ContinueWith(t =>
             {
                 Dispatcher.UIThread.Post(Load);
             });
+        }
+
+        private static void ForceApplyStyling(StyledElement styledElement)
+        {
+            try
+            {
+                styledElement.BeginBatchUpdate();
+                AvaloniaLocator.Current.GetService<IStyler>()?.ApplyStyles(styledElement);
+
+                if (styledElement is not IVisual visual)
+                {
+                    return;
+                }
+
+                foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
+                {
+                    ForceApplyStyling(child);
+                }
+            }
+            finally
+            {
+                styledElement.EndBatchUpdate();
+            }
         }
 
         public void Dispose()

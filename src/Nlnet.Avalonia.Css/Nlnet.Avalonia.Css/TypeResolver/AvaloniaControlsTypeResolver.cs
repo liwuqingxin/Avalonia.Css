@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css;
 
-public class AvaloniaControlsTypeResolver : ITypeResolver
+internal class AvaloniaControlsTypeResolver : ITypeResolver
 {
     private readonly Dictionary<string, Type> _types;
 
@@ -18,6 +17,11 @@ public class AvaloniaControlsTypeResolver : ITypeResolver
         var types    = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(AvaloniaObject)));
 
         _types = types.ToDictionary(type => type.Name, type => type);
+        
+        foreach (var type in _types)
+        {
+            this.WriteLine($"Map '{type.Key}' to '{type.Value}'");
+        }
     }
 
     public bool TryGetType(string name, out Type? type)

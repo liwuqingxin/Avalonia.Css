@@ -5,21 +5,23 @@ namespace Nlnet.Avalonia.Css;
 
 public class CssSetter
 {
-    public string RawSetter { get; set; }
+    private string RawSetter { get; set; }
 
-    public string? Property { get; set; }
+    private string? Property { get; set; }
 
-    public string? RawValue { get; set; }
+    private string? RawValue { get; set; }
 
     public CssSetter(string setter)
     {
         RawSetter = setter;
         var splits = setter.Split(":", StringSplitOptions.RemoveEmptyEntries);
-        if (splits.Length == 2)
+        if (splits.Length != 2)
         {
-            Property = splits[0];
-            RawValue = splits[1];
+            this.WriteLine($"Invalid setter string : '{setter}'. Skip it.");
+            return;
         }
+        Property = splits[0];
+        RawValue = splits[1];
     }
 
     public ISetter? ToAvaloniaSetter(Type targetType)

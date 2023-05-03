@@ -5,14 +5,6 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
-
-        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="Red"></Setter>
-        </Style>
-
-        <!--<Style Selector="TextBox.Search:focus-within /template/ Border#PART_BorderElement">
-            <Setter Property="Background" Value="#726415"></Setter>
-        </Style>-->
-
     </Application.Styles>
+
 </Application>

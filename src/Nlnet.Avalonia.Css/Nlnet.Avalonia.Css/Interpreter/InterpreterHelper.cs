@@ -16,24 +16,30 @@ namespace Nlnet.Avalonia.Css
 
         internal static AvaloniaProperty? GetAvaloniaProperty(Type avaloniaObjectType, string property)
         {
-            if (property.Contains("."))
+            if (property.Contains('.'))
             {
                 var splits = property.Split('.', StringSplitOptions.RemoveEmptyEntries);
                 if (splits.Length != 2)
                 {
+                    avaloniaObjectType.WriteLine($"Can not recognize '{property}'. Skip it.");
                     return null;
                 }
 
                 var declaredTypeName = splits[0];
                 property = splits[1];
-                if (TypeResolverManager.Instance.TryGetType(declaredTypeName, out var type) == false)
+                if (TypeResolver.Instance.TryGetType(declaredTypeName, out var type) == false)
                 {
+                    avaloniaObjectType.WriteLine($"Can not find '{declaredTypeName}' from '{nameof(TypeResolver)}'. Skip it.");
                     return null;
                 }
                 avaloniaObjectType = type!;
             }
 
-            var field            = avaloniaObjectType.GetField($"{property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+            var field = avaloniaObjectType.GetField($"{property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+            if (field == null)
+            {
+                avaloniaObjectType.WriteLine($"Can not find '{property}Property' from '{avaloniaObjectType}'. Skip it.");
+            }
             var avaloniaProperty = field?.GetValue(avaloniaObjectType) as AvaloniaProperty;
             return avaloniaProperty;
         }
@@ -42,6 +48,7 @@ namespace Nlnet.Avalonia.Css
         {
             if (rawValue == null)
             {
+                avaloniaProperty.WriteLine($"Raw value is null. Skip it.");
                 return null;
             }
 
@@ -52,13 +59,14 @@ namespace Nlnet.Avalonia.Css
             }
             else
             {
-                if (TypeResolverManager.Instance.TryGetParseType(declareType, out var parseType))
+                if (TypeResolver.Instance.TryAdaptType(declareType, out var parseType))
                 {
                     declareType = parseType;
                 }
                 var parserMethod = declareType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
                 if (parserMethod == null)
                 {
+                    avaloniaProperty.WriteLine($"Can not find the 'Parse' method in '{declareType}'. Skip it.");
                     return null;
                 }
                 return parserMethod.Invoke(declareType, new object?[] { rawValue });

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Avalonia.Styling;
@@ -8,9 +7,9 @@ namespace Nlnet.Avalonia.Css;
 
 public class CssStyle
 {
-    public string Selector { get; set; }
+    private string Selector { get; set; }
 
-    public IEnumerable<CssSetter> Setters { get; set; }
+    private IEnumerable<CssSetter> Setters { get; set; }
 
     public CssStyle(ICssParser parser, string selector, string setters)
     {
@@ -20,13 +19,14 @@ public class CssStyle
 
     public IStyle ToAvaloniaStyle()
     {
-        Trace.WriteLine($"==== Parse style with raw selector of '{Selector}'");
+        this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
-        var style = new Style();
-
-        var       syntaxList = SelectorGrammar.Parse(Selector).ToList();
         Selector? selector   = null;
-        var       selectors  = new List<Selector>();
+
+        var style      = new Style();
+        var syntaxList = SelectorGrammar.Parse(Selector).ToList();
+        var selectors  = new List<Selector>();
+
         foreach (var syntax in syntaxList)
         {
             if (syntax is CommaSyntax)

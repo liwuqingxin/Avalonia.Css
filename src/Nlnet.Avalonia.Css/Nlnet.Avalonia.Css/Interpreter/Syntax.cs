@@ -1,15 +1,7 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Avalonia.Media;
 using Avalonia.Styling;
-
-// Don't need to override GetHashCode as the ISyntax objects will not be stored in a hash; the 
-// only reason they have overridden Equals methods is for unit testing.
-#pragma warning disable 659
 
 namespace Nlnet.Avalonia.Css
 {
@@ -33,12 +25,12 @@ namespace Nlnet.Avalonia.Css
 
         public Selector? ToSelector(Selector? previous)
         {
-            if (TypeResolverManager.Instance.TryGetType(TypeName, out var type))
+            if (TypeResolver.Instance.TryGetType(TypeName, out var type))
             {
                 return previous.OfType(type!);
             }
 
-            Trace.WriteLine($"==== Can not resolve type '{TypeName}'");
+            this.WriteLine($"Can not resolve type '{TypeName}'");
 
             return previous;
         }
@@ -56,12 +48,11 @@ namespace Nlnet.Avalonia.Css
 
         public Selector? ToSelector(Selector? previous)
         {
-            if (TypeResolverManager.Instance.TryGetType(TypeName, out var type))
+            if (TypeResolver.Instance.TryGetType(TypeName, out var type))
             {
                 var avaloniaProperty = InterpreterHelper.GetAvaloniaProperty(type!, Property);
                 if (avaloniaProperty == null)
                 {
-                    Trace.WriteLine($"==== Can not resolve avalonia property from type '{TypeName}'");
                     return previous;
                 }
                 var value = InterpreterHelper.ParseValue(avaloniaProperty, Value);
@@ -70,8 +61,6 @@ namespace Nlnet.Avalonia.Css
                     previous.PropertyEquals(avaloniaProperty, value);
                 }
             }
-
-            Trace.WriteLine($"==== Can not resolve type '{TypeName}'");
 
             return previous;
         }
@@ -85,12 +74,10 @@ namespace Nlnet.Avalonia.Css
 
         public Selector? ToSelector(Selector? previous)
         {
-            if (TypeResolverManager.Instance.TryGetType(TypeName, out var type))
+            if (TypeResolver.Instance.TryGetType(TypeName, out var type))
             {
                 return previous.Is(type!);
             }
-
-            Trace.WriteLine($"==== Can not resolve type '{TypeName}'");
 
             return previous;
         }
@@ -138,7 +125,7 @@ namespace Nlnet.Avalonia.Css
                 }
             }
 
-            Trace.WriteLine($"==== Previous selector's TargetType is null. '{Property}={Value}' skipped.");
+            this.WriteLine($"Previous selector's TargetType is null. '[{Property}={Value}]' skipped.");
 
             return previous;
         }
@@ -177,7 +164,7 @@ namespace Nlnet.Avalonia.Css
             var selector = InterpreterHelper.ToSelector(Argument);
             if (selector == null)
             {
-                Trace.WriteLine($"==== Can not apply :not selector for {Argument}");
+                this.WriteLine($"Can not apply :not selector for {Argument}");
                 return previous;
             }
 
