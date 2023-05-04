@@ -10,6 +10,10 @@ Window:focus-within {
     Background: #F0F4F9;
 }
 
+:is(Control):disabled{
+    Opacity:0.8;
+}
+
 Button {
     Background: #FEFEFE;
     CornerRadius: 6;
@@ -30,12 +34,12 @@ Button.primary{
 }
 
 Button /template/ ContentPresenter#PART_ContentPresenter{
-    BoxShadow:0 1 0 0 #2222;
+    BoxShadow:0 1 0 0 #6666;
 }
 Button:pressed{
     RenderTransform:scale(0.97,0.97);
     Opacity:0.9;
 }
-/* Button:pressed /template/ ContentPresenter#PART_ContentPresenter{
-    BoxShadow:0 4 0 0 #2222;
-} */
+Button:pressed /template/ ContentPresenter#PART_ContentPresenter{
+    BoxShadow:none;
+}

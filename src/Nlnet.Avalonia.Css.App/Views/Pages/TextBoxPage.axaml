@@ -9,6 +9,7 @@
     <StackPanel VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="8">
+        <TextBox />
         <TextBox Watermark="请输入..." />
         <TextBox Text="普通输入框" />
     </StackPanel>

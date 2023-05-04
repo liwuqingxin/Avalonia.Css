@@ -6,13 +6,23 @@ TextBox {
     BorderBrush:#2222;
     Padding: 8,4,8,5;
     Foreground: #333;
-    HorizontalContentAlignment: Left;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
     HorizontalAlignment: Center;
-    VerticalContentAlignment: Center;
     VerticalAlignment: Center;
-    ClipToBounds:False;
     MinWidth:40;
+    MaxWidth:100;
     SelectionBrush:var(Accent06);
+}
+TextBox /template/ TextBlock#PART_Watermark {
+    IsVisible:False;
+    Foreground:#aaa;
+}
+TextBox:empty /template/ TextBlock#PART_Watermark {
+    IsVisible:True;
+}
+TextBox /template/ TextPresenter#PART_TextPresenter {
+    ClipToBounds:True;
 }
 TextBox /template/ Border#PART_Indicator {
     BorderBrush:#666;

@@ -12,5 +12,6 @@
         <Button Classes="primary" Content="确定" />
         <Button Content="取消" />
         <Button Content="普通按钮" />
+        <Button Content="不可用" IsEnabled="False"/>
     </StackPanel>
 </UserControl>

@@ -22,18 +22,33 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
-                        <TextPresenter x:Name="PART_TextPresenter"
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                       CaretBrush="{TemplateBinding CaretBrush}"
-                                       CaretIndex="{TemplateBinding CaretIndex}"
-                                       SelectionBrush="{TemplateBinding SelectionBrush}"
-                                       SelectionEnd="{TemplateBinding SelectionEnd}"
-                                       SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                       SelectionStart="{TemplateBinding SelectionStart}"
-                                       Text="{TemplateBinding Text}"
-                                       TextAlignment="{TemplateBinding TextAlignment}"
-                                       TextWrapping="{TemplateBinding TextWrapping}" />
+                        <Panel>
+                            <TextBlock x:Name="PART_Watermark" Text="{TemplateBinding Watermark}" />
+                            <ScrollViewer VerticalAlignment="Stretch"
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                <TextPresenter x:Name="PART_TextPresenter"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               Background="Transparent"
+                                               CaretBrush="{TemplateBinding CaretBrush}"
+                                               CaretIndex="{TemplateBinding CaretIndex}"
+                                               Cursor="Ibeam"
+                                               LetterSpacing="{TemplateBinding LetterSpacing}"
+                                               LineHeight="{TemplateBinding LineHeight}"
+                                               PasswordChar="{TemplateBinding PasswordChar}"
+                                               RevealPassword="{TemplateBinding RevealPassword}"
+                                               SelectionBrush="{TemplateBinding SelectionBrush}"
+                                               SelectionEnd="{TemplateBinding SelectionEnd}"
+                                               SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                               SelectionStart="{TemplateBinding SelectionStart}"
+                                               Text="{TemplateBinding Text,
+                                                                      Mode=TwoWay}"
+                                               TextAlignment="{TemplateBinding TextAlignment}"
+                                               TextElement.FontSize="{TemplateBinding FontSize}"
+                                               TextWrapping="{TemplateBinding TextWrapping}" />
+                            </ScrollViewer>
+                        </Panel>
                     </Border>
                     <Border x:Name="PART_Indicator" CornerRadius="{TemplateBinding CornerRadius}">
                         <Border.Transitions>
