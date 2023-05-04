@@ -41,6 +41,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Pages\ComboBoxPage.axaml.cs">
+	    <DependentUpon>ComboBoxPage.axaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Pages\TextBoxPage.axaml.cs">
 	    <DependentUpon>TextBoxPage.axaml</DependentUpon>
 	  </Compile>

@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css.App.Views.Pages
 {
-    public partial class ButtonPage : UserControl
+    public partial class ComboBoxPage : UserControl
     {
-        public ButtonPage()
+        public ComboBoxPage()
         {
             InitializeComponent();
         }

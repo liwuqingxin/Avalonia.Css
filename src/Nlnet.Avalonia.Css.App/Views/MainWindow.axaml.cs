@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -13,6 +14,21 @@ namespace Nlnet.Avalonia.Css.App.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+
+            var pageTypes = this.GetType().Assembly
+                .GetTypes()
+                .Where(t => t.Namespace != null && t.Namespace.StartsWith("Nlnet.Avalonia.Css.App.Views.Pages") && t.IsAssignableTo(typeof(UserControl)));
+
+            TabControl.Items = pageTypes.Select(t => new TabItem()
+            {
+                Content = Activator.CreateInstance(t),
+                Header  = t.Name[..^4],
+            }).ToList();
         }
 
         private static void LoadDynamicStyle()

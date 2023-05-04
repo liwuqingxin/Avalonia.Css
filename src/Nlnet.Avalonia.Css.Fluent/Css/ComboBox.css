@@ -1,0 +1,53 @@
+﻿
+ComboBoxItem {
+    Background:#F9FAFA;
+    CornerRadius: 4;
+    Padding: 8,4,8,5;
+    Foreground: #333;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+}
+ComboBoxItem:pointerover,ComboBoxItem:selected{
+    Background: #F2F2F3;
+}
+ComboBoxItem:pressed{
+    Background: #F5F5F7;
+}
+ComboBoxItem /template/ Border#PART_Indicator {
+    Background:var(Accent);
+    HorizontalAlignment:Left;
+    Height:12;
+    Width:3;
+    CornerRadius:2;
+}
+
+ComboBox {
+    Background: #FEFEFE;
+    CornerRadius: 4;
+    BorderThickness: 1;
+    BorderBrush:#2222;
+    Padding: 8,4,8,5;
+    Foreground: #333;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Center;
+    VerticalAlignment: Center;
+    MinWidth:40;
+    SelectionBrush:var(Accent06);
+}
+
+ComboBox:pointerover{
+    Background:#F9F9F9;
+}
+ComboBox /template/ Popup#PART_Popup{
+    VerticalOffset: 3;
+}
+ComboBox /template/ Border#PopupBorder{
+    BorderThickness: 1;
+    BorderBrush:#2222;
+    Background:#FAFAFA;
+    CornerRadius: 4;
+    Padding:4;
+}
