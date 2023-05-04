@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -18,21 +17,38 @@ namespace Nlnet.Avalonia.Css
         {
             css = RemoveComments(css);
 
-            var index    = 0;
-            var selector = string.Empty;
-
+            var index          = 0;
+            var selector       = string.Empty;
+            var leftBraceCount = 0;
+            var isInStyleContent = false;
             for (var i = 0; i < css.Length; i++)
             {
                 switch (css[i])
                 {
                     case '{':
-                        selector = css[index..i];
-                        index    = i + 1;
+                        if (isInStyleContent == false)
+                        {
+                            isInStyleContent = true;
+                            selector         = css[index..i];
+                            index            = i + 1;
+                        }
+                        else
+                        {
+                            leftBraceCount++;
+                        }
                         break;
                     case '}':
-                        var setters = css[index..i];
-                        index   = i + 1;
-                        yield return new CssStyle(this, selector, setters);
+                        if (leftBraceCount == 0)
+                        {
+                            isInStyleContent = false;
+                            var setters = css[index..i];
+                            index = i + 1;
+                            yield return new CssStyle(this, selector, setters);
+                        }
+                        else
+                        {
+                            leftBraceCount--;
+                        }
                         break;
                 }
             }

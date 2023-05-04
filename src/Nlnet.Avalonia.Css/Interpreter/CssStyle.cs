@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Avalonia.Styling;
@@ -11,16 +12,35 @@ public class CssStyle
 
     private IEnumerable<CssSetter> Setters { get; set; }
 
-    public CssStyle(ICssParser parser, string selector, string setters)
+    private IEnumerable<CssStyle> Children { get; set; }
+
+    public CssStyle(ICssParser parser, string selector, string content)
     {
         Selector = selector.Trim();
-        Setters  = parser.TryGetSetters(setters);
+
+        var index1 = content.IndexOf("[[", StringComparison.Ordinal);
+        var index2 = content.IndexOf("]]", StringComparison.Ordinal);
+
+        if (index1 != -1 && index2 != -1)
+        {
+            var setters = content.Remove(index1, index2 - index1 + 2);
+            index1 += 2;
+            var childrenStyles = content[index1..index2];
+            Setters  = parser.TryGetSetters(setters);
+            Children = parser.TryGetStyles(childrenStyles);
+        }
+        else
+        {
+            Setters  = parser.TryGetSetters(content);
+            Children = Enumerable.Empty<CssStyle>();
+        }
     }
 
-    public IStyle ToAvaloniaStyle()
+    public Style ToAvaloniaStyle()
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
+        // Selector
         Selector? selector   = null;
 
         var style      = new Style();
@@ -50,11 +70,21 @@ public class CssStyle
 
         if (style.Selector?.TargetType != null)
         {
+            // Setters
             foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(style.Selector.TargetType)).OfType<ISetter>())
             {
                 style.Add(setter);
             }
+
+            // Children
+            foreach (var cssStyle in Children)
+            {
+                var childStyle = cssStyle.ToAvaloniaStyle();
+                style.Add(childStyle);
+            }
         }
+
+
 
         return style;
     }
