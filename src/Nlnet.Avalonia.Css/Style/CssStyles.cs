@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Diagnostics;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -122,6 +123,8 @@ namespace Nlnet.Avalonia.Css
 
         private static void ForceApplyStyling(StyledElement styledElement)
         {
+            ((IStyleable)styledElement).DetachStyles();
+
             try
             {
                 styledElement.BeginBatchUpdate();
