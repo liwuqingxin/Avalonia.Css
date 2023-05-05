@@ -48,7 +48,7 @@ namespace Nlnet.Avalonia.Css.Test
 
             foreach (var cssStyle in styles)
             {
-                var style    = (cssStyle.ToAvaloniaStyle() as Style);
+                var style    = (cssStyle.ToAvaloniaStyle(false) as Style);
                 var selector = style!.Selector;
                 if (selector != null)
                 {

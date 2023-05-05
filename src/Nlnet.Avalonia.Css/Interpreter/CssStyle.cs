@@ -36,13 +36,12 @@ public class CssStyle
         }
     }
 
-    public Style ToAvaloniaStyle()
+    public Style ToAvaloniaStyle(bool isChild)
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
         // Selector
-        Selector? selector   = null;
-
+        var selector   = isChild ? Selectors.Nesting(null) : null;
         var style      = new Style();
         var syntaxList = SelectorGrammar.Parse(Selector).ToList();
         var selectors  = new List<Selector>();
@@ -55,7 +54,7 @@ public class CssStyle
                 {
                     selectors.Add(selector);
                 }
-                selector = null;
+                selector = isChild ? Selectors.Nesting(null) : null;
             }
             else
             {
@@ -79,7 +78,7 @@ public class CssStyle
             // Children
             foreach (var cssStyle in Children)
             {
-                var childStyle = cssStyle.ToAvaloniaStyle();
+                var childStyle = cssStyle.ToAvaloniaStyle(true);
                 style.Add(childStyle);
             }
         }

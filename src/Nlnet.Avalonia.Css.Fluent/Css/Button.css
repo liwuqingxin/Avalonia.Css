@@ -10,20 +10,23 @@
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
-}
 
-Button.primary{
-    Background:var(Accent);
-    Foreground: #fff;
-}
-
-Button /template/ ContentPresenter#PART_ContentPresenter{
-    BoxShadow:0 1 0 0 #6666;
-}
-Button:pressed{
-    RenderTransform:scale(0.97,0.97);
-    Opacity:0.9;
-}
-Button:pressed /template/ ContentPresenter#PART_ContentPresenter{
-    BoxShadow:none;
+    [[
+        Button.primary{
+            Background:var(Accent);
+            Foreground: #fff;
+        }
+        
+        Button /template/ ContentPresenter#PART_ContentPresenter{
+            BoxShadow:0 1 0 0 #6666;
+        }
+        Button:pressed{
+            RenderTransform:scale(0.97,0.97);
+            Opacity:0.9;
+        }
+        Button:pressed /template/ ContentPresenter#PART_ContentPresenter{
+            BoxShadow:none;
+        }
+        
+    ]]
 }

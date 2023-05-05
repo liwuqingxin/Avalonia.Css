@@ -56,7 +56,7 @@ namespace Nlnet.Avalonia.Css
                 _watcher                     =  new FileSystemWatcher(dir);
                 _watcher.EnableRaisingEvents =  true;
                 _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
-                _watcher.Filter              =  "*.css";
+                _watcher.Filter              =  $"{Path.GetFileName(file)}";
                 _watcher.Changed             += OnFileChanged;
             }
         }
@@ -84,7 +84,7 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var cssStyle in cssStyles)
                 {
-                    var style = (cssStyle.ToAvaloniaStyle() as Style);
+                    var style = (cssStyle.ToAvaloniaStyle(false) as Style);
                     if (style?.Selector != null)
                     {
                         this.Add(style);
