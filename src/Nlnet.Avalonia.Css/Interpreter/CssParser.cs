@@ -68,7 +68,7 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        public static string RemoveComments(string css)
+        internal static string RemoveComments(string css)
         {
             css = css.ReplaceLineEndings(" ");
             var builder = new StringBuilder();

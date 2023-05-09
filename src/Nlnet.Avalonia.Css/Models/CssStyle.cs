@@ -14,24 +14,24 @@ public class CssStyle
 
     private IEnumerable<CssStyle> Children { get; set; }
 
-    public CssStyle(ICssParser parser, string selector, string content)
+    public CssStyle(ICssParser parser, string selector, string contentString)
     {
         Selector = selector.Trim();
 
-        var index1 = content.IndexOf("[[", StringComparison.Ordinal);
-        var index2 = content.IndexOf("]]", StringComparison.Ordinal);
+        var index1 = contentString.IndexOf("[[", StringComparison.Ordinal);
+        var index2 = contentString.IndexOf("]]", StringComparison.Ordinal);
 
         if (index1 != -1 && index2 != -1)
         {
-            var setters = content.Remove(index1, index2 - index1 + 2);
+            var setters = contentString.Remove(index1, index2 - index1 + 2);
             index1 += 2;
-            var childrenStyles = content[index1..index2];
+            var childrenStyles = contentString[index1..index2];
             Setters  = parser.TryGetSetters(setters);
             Children = parser.TryGetStyles(childrenStyles);
         }
         else
         {
-            Setters  = parser.TryGetSetters(content);
+            Setters  = parser.TryGetSetters(contentString);
             Children = Enumerable.Empty<CssStyle>();
         }
     }
@@ -82,8 +82,6 @@ public class CssStyle
                 style.Add(childStyle);
             }
         }
-
-
 
         return style;
     }

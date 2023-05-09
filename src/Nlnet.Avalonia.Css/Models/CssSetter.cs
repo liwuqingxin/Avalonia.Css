@@ -11,13 +11,13 @@ public class CssSetter
 
     private string? RawValue { get; set; }
 
-    public CssSetter(string setter)
+    public CssSetter(string setterString)
     {
-        RawSetter = setter;
-        var splits = setter.Split(":", StringSplitOptions.RemoveEmptyEntries);
+        RawSetter = setterString;
+        var splits = setterString.Split(":", StringSplitOptions.RemoveEmptyEntries);
         if (splits.Length != 2)
         {
-            this.WriteLine($"Invalid setter string : '{setter}'. Skip it.");
+            this.WriteLine($"Invalid setter string : '{setterString}'. Skip it.");
             return;
         }
         Property = splits[0];
