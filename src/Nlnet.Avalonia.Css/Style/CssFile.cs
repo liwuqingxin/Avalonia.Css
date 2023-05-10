@@ -96,6 +96,7 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var cssResourceList in cssResources)
                 {
+                    这里应该先将字典加入树，再加入动态资源
                     var dic = cssResourceList.ToResourceDictionary();
                     if (dic == null)
                     {

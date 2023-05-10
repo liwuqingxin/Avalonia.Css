@@ -1,5 +1,4 @@
 ﻿using System;
-using Avalonia;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
@@ -8,6 +7,9 @@ namespace Nlnet.Avalonia.Css;
 
 public class BrushResource : CssResource<BrushResource>
 {
+    private double  _opacity;
+    private string? _key;
+
     protected override object? Accept(string valueString)
     {
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -25,13 +27,12 @@ public class BrushResource : CssResource<BrushResource>
 
         if (IsVar(colorString, out var key))
         {
-            var dyn = new DynamicResourceExtension(key!);
-            var brush = new SolidColorBrush
-            {
-                Opacity = opacity
-            };
-            brush.Bind(SolidColorBrush.ColorProperty, dyn);
-            return brush;
+            _opacity   = opacity;
+            _key       = key;
+
+            IsDeferred = true;
+
+            return null;
         }
         else
         {
@@ -43,6 +44,17 @@ public class BrushResource : CssResource<BrushResource>
 
             return new ImmutableSolidColorBrush(color.Value, opacity);
         }
+    }
+
+    public override object? GetDeferredValue(IServiceProvider provider)
+    {
+        var brush = new SolidColorBrush
+        {
+            Opacity = _opacity,
+        };
+        var dyn = new DynamicResourceExtension(_key!);
+        brush.SetValue(SolidColorBrush.ColorProperty, dyn.ProvideValue(provider));
+        return brush;
     }
 
     private static Color? TryParseColor(string colorString)

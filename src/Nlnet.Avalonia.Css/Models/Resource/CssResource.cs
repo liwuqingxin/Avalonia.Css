@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -14,6 +15,8 @@ namespace Nlnet.Avalonia.Css
 
         public bool IsValid => Key != null;
 
+        public bool IsDeferred { get; set; } = false;
+
         public void AcceptCore(string key, string valueString)
         {
             Key         = key;
@@ -22,8 +25,13 @@ namespace Nlnet.Avalonia.Css
         }
 
         protected abstract object? Accept(string valueString);
+        
+        public virtual object? GetDeferredValue(IServiceProvider provider)
+        {
+            return null;
+        }
 
-        protected bool IsVar(string? valueString, out string? varKey)
+        protected static bool IsVar(string? valueString, out string? varKey)
         {
             if (valueString == null)
             {

@@ -33,7 +33,14 @@ public class CssResourceList
             {
                 continue;
             }
-            dic.TryAdd(resource.Key, resource.Value);
+            if (resource.IsDeferred)
+            {
+                dic.AddDeferred(resource.Key, provider => resource.GetDeferredValue(provider));
+            }
+            else
+            {
+                dic.TryAdd(resource.Key, resource.Value);
+            }
         }
 
         if (dic.Count == 0)

@@ -29,7 +29,7 @@
 :res {
 	color(AccentColor): #0068B5;
 	
-	brush(Accent): Red;
+	brush(Accent): var(AccentColor);
 	brush(Accent01): var(AccentColor) 0.1;
 	brush(Accent02): var(AccentColor) 0.2;
 	brush(Accent03): var(AccentColor) 0.3;
