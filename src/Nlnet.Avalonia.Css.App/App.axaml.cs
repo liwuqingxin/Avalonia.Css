@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Nlnet.Avalonia.Css.App.Utils;
 using Nlnet.Avalonia.Css.App.Views;
 
 namespace Nlnet.Avalonia.Css.App
@@ -9,6 +10,9 @@ namespace Nlnet.Avalonia.Css.App
     {
         public override void Initialize()
         {
+            AppLoader.Load("Nlnet.Avalonia.Svg.dll");
+            AppLoader.Load("Avalonia.DevTools.dll");
+
             AvaloniaXamlLoader.Load(this);
         }
 

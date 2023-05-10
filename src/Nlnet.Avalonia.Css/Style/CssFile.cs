@@ -3,19 +3,19 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Diagnostics;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
-    public sealed class CssStyles : Styles, IDisposable
+    public sealed class CssFile : Styles, IDisposable
     {
-        public static void Load(string file, bool autoLoadWhenFileChanged)
+        public static void Load(string filePath, bool autoLoadWhenFileChanged)
         {
-            var styles = CreateStyles(file, autoLoadWhenFileChanged);
+            var styles = CreateStyles(filePath, autoLoadWhenFileChanged);
             styles?.Load();
         }
 
@@ -25,20 +25,20 @@ namespace Nlnet.Avalonia.Css
             styles?.BeginLoad();
         }
 
-        private static CssStyles? CreateStyles(string file, bool autoLoadWhenFileChanged)
+        private static CssFile? CreateStyles(string filePath, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
-                throw new InvalidOperationException($"{nameof(CssStyles)}.{nameof(CreateStyles)}() should be called in ui thread.");
+                throw new InvalidOperationException($"{nameof(CssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (Application.Current != null && Application.Current.Styles.OfType<CssStyles>().Any(s => s._file == file))
+            if (Application.Current != null && Application.Current.Styles.OfType<CssFile>().Any(s => s._file == filePath))
             {
                 return null;
             }
 
-            var styles = new CssStyles(file, autoLoadWhenFileChanged);
-            return styles;
+            var file = new CssFile(filePath, autoLoadWhenFileChanged);
+            return file;
         }
 
 
@@ -46,17 +46,17 @@ namespace Nlnet.Avalonia.Css
         private readonly string _file;
         private readonly FileSystemWatcher? _watcher;
 
-        private CssStyles(string file, bool autoLoadWhenFileChanged)
+        private CssFile(string filePath, bool autoLoadWhenFileChanged)
         {
-            _file = file;
+            _file = filePath;
 
-            var dir = Path.GetDirectoryName(file);
+            var dir = Path.GetDirectoryName(filePath);
             if (autoLoadWhenFileChanged && dir != null)
             {
                 _watcher                     =  new FileSystemWatcher(dir);
                 _watcher.EnableRaisingEvents =  true;
                 _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
-                _watcher.Filter              =  $"{Path.GetFileName(file)}";
+                _watcher.Filter              =  $"{Path.GetFileName(filePath)}";
                 _watcher.Changed             += OnFileChanged;
             }
         }
@@ -75,20 +75,33 @@ namespace Nlnet.Avalonia.Css
         {
             Application.Current?.Styles.Remove(this);
             this.Clear();
+            this.Resources.Clear();
+            this.Resources.MergedDictionaries.Clear();
 
             try
             {
-                var parser    = new CssParser();
-                var text      = File.ReadAllText(_file);
-                var cssStyles = parser.TryGetStyles(text);
+                var cssContent   = File.ReadAllText(_file);
+                var parser       = new CssParser(cssContent);
+                var cssStyles    = parser.TryGetStyles();
+                var cssResources = parser.TryGetResources();
 
                 foreach (var cssStyle in cssStyles)
                 {
                     var style = (cssStyle.ToAvaloniaStyle(false) as Style);
-                    if (style?.Selector != null)
+                    if (style.Selector != null)
                     {
                         this.Add(style);
                     }
+                }
+
+                foreach (var cssResourceList in cssResources)
+                {
+                    var dic = cssResourceList.ToResourceDictionary();
+                    if (dic == null)
+                    {
+                        continue;
+                    }
+                    this.Resources.MergedDictionaries.Add(dic);
                 }
 
                 Application.Current?.Styles.Add(this);

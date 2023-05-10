@@ -11,20 +11,6 @@
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ComboBox.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TextBox.axaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <SolidColorBrush x:Key="Accent01" Color="#0068B5" Opacity="0.1"/>
-            <SolidColorBrush x:Key="Accent02" Color="#0068B5" Opacity="0.2"/>
-            <SolidColorBrush x:Key="Accent03" Color="#0068B5" Opacity="0.3"/>
-            <SolidColorBrush x:Key="Accent04" Color="#0068B5" Opacity="0.4"/>
-            <SolidColorBrush x:Key="Accent05" Color="#0068B5" Opacity="0.5"/>
-            <SolidColorBrush x:Key="Accent06" Color="#0068B5" Opacity="0.6"/>
-            <SolidColorBrush x:Key="Accent07" Color="#0068B5" Opacity="0.7"/>
-            <SolidColorBrush x:Key="Accent08" Color="#0068B5" Opacity="0.8"/>
-            <SolidColorBrush x:Key="Accent09" Color="#0068B5" Opacity="0.9"/>
-			<SolidColorBrush x:Key="Accent" Color="#0068B5" />
-            <SolidColorBrush x:Key="Success" Color="Green" />
-            <SolidColorBrush x:Key="Error" Color="OrangeRed" />
-            <SolidColorBrush x:Key="Info" Color="Orange" />
         </ResourceDictionary>
     </Styles.Resources>
 

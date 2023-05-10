@@ -23,6 +23,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+
+		<!--For Avalonia.DevTools-->
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview4" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.0-preview4" />
+
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
 		<PackageReference Include="Avalonia" Version="11.0.0-preview4" />
 		<PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
@@ -38,6 +43,12 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj" />
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Avalonia.DevTools">
+	    <HintPath>..\..\lib\Avalonia.DevTools.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

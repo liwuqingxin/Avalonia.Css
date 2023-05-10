@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
@@ -27,7 +25,7 @@ public class BrushResource : CssResource<BrushResource>
 
         if (IsVar(colorString, out var key))
         {
-            var dyn   = new DynamicResourceExtension(key!);
+            var dyn = new DynamicResourceExtension(key!);
             var brush = new SolidColorBrush
             {
                 Opacity = opacity
@@ -57,23 +55,5 @@ public class BrushResource : CssResource<BrushResource>
         {
             return null;
         }
-    }
-}
-
-
-public class CssResources
-{
-    private static readonly Regex Regex = new(":res(\\[(theme=.*)\\]|\\[(mode=.*)\\])*", RegexOptions.IgnoreCase);
-
-    public string? Theme { get; set; }
-    
-    public string? Mode  { get; set; }
-
-    public List<CssResource> Resources { get; set; } = new();
-
-    public bool TryGetResource(string selector, string content)
-    {
-        var match = Regex.Match(selector);
-
     }
 }

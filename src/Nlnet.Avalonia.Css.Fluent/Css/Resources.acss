@@ -1,13 +1,13 @@
 ﻿
-:res[mode=light] {
+/* :res[mode=light] {
 
 }
 
 :res[mode=dark] {
 
-}
+} */
 
-:res[theme=f] {
+/* :res[theme=f] {
 	color(AccentColor): #0068B5;
 	
 	brush(Accent): var(AccentColor);
@@ -24,62 +24,23 @@
 	brush(Error): OrangeRed;
 	brush(Warning): Orange
 	brush(Info): Blue;
-}
+} */
 
 :res {
 	color(AccentColor): #0068B5;
 	
-	brush(Accent): var(AccentColor);
+	brush(Accent): Red;
 	brush(Accent01): var(AccentColor) 0.1;
 	brush(Accent02): var(AccentColor) 0.2;
 	brush(Accent03): var(AccentColor) 0.3;
 	brush(Accent04): var(AccentColor) 0.4;
-	brush(Accent=5): var(AccentColor) 0.5;
+	brush(Accent05): var(AccentColor) 0.5;
 	brush(Accent06): var(AccentColor) 0.6;
 	brush(Accent07): var(AccentColor) 0.7;
 	brush(Accent08): var(AccentColor) 0.8;
 	brush(Accent09): var(AccentColor) 0.9;
 	brush(Success): Green;
 	brush(Error): OrangeRed;
-	brush(Warning): Orange
+	brush(Warning): Orange;
 	brush(Info): Blue;
-}
-
-
-:root[mode=light] {
-	--blog-body-bg-color: #f4f4f4;
-	--blog-bg-color: #fff;
-	--text-color: #596172;
-	--disabled-text-color: #8b8b8b;
-	--border-color: #eef2f8;
-	--catalog-bg-color: #fff;
-	--panel-bg-color: #f8f8f8;
-	--code-bg-color: #f1f1f1;
-	--code-ln-bg-color: #eeeeee;
-	--code-emphasize-color: rgb(255, 150, 80);
-	--shadow-color: rgb(0, 0, 0, .3);
-	--scroll-bar-bg-color: #f1f1f1;
-	--scroll-bar-thumb-color: #cccccc;
-	--scroll-bar-thumb-hover-color: #777777;
-	--blockquote-color: #f8f8f8;
-	--blockquote-hover-color: #ffffff;
-	--comment-body-bg-color: #eeeeee;
-	--block-bg-color: white;
-}
-
-:root[theme=f] {
-	--theme-color: #ff9700;
-	--theme-color-light: #fcb54c;
-}
-
-:root[theme=g] {
-    --theme-color: #ff9700;
-    --theme-color-light: #fcb54c;
-}
-
-
-:root:res {
-    color(AccentColor, #0068B5);
-    brush(Accent, var(AccentColor));
-    double(DisabledOpacity, 0.8);
 }

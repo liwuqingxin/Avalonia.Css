@@ -30,9 +30,9 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void EfficientCssParserTest()
         {
-            var parser  = new CssParser();
             var cssFile = File.ReadAllText("./Assets/nlnet.blog.css");
-            var styles  = parser.TryGetStyles(cssFile).ToList();
+            var parser  = new CssParser(cssFile);
+            var styles  = parser.TryGetStyles().ToList();
             foreach (var cssStyle in styles)
             {
                 Trace.WriteLine(cssStyle.ToString());
@@ -42,9 +42,9 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void TypeProviderTest()
         {
-            var parser  = new CssParser();
             var cssFile = File.ReadAllText("./Assets/avalonia.controls.css");
-            var styles  = parser.TryGetStyles(cssFile).ToList();
+            var parser  = new CssParser(cssFile);
+            var styles  = parser.TryGetStyles().ToList();
 
             foreach (var cssStyle in styles)
             {
