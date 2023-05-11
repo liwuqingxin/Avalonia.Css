@@ -31,9 +31,9 @@ namespace Nlnet.Avalonia.Css
                 throw new InvalidOperationException($"{nameof(CssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (Application.Current != null && Application.Current.Styles.OfType<CssFile>().Any(s => s._file == filePath))
+            if (Application.Current?.Styles.OfType<CssFile>().FirstOrDefault(s => s._file == filePath) is CssFile exist)
             {
-                return null;
+                return exist;
             }
 
             return new CssFile(filePath, autoLoadWhenFileChanged);

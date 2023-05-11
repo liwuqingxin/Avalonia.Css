@@ -30,12 +30,12 @@ public class CssResourceList
             return;
         }
 
-        if (Mode != null && Mode != CssManager.Current.Mode)
+        if (Mode != null && !string.Equals(Mode, CssManager.Current.Mode, StringComparison.CurrentCultureIgnoreCase))
         {
             return;
         }
 
-        if (Theme != null && Theme != CssManager.Current.Theme)
+        if (Theme != null && !string.Equals(Theme, CssManager.Current.Theme, StringComparison.CurrentCultureIgnoreCase))
         {
             return;
         }

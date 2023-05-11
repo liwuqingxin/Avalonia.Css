@@ -1,6 +1,7 @@
 <Window x:Class="Nlnet.Avalonia.Css.App.Views.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
@@ -13,9 +14,19 @@
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+    <Design.DataContext>
+        <app:MainWindowViewModel />
+    </Design.DataContext>
 
-    <Grid RowDefinitions="Auto,*">
-
+    <Grid Margin="10" RowDefinitions="Auto,*">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <ComboBox MinWidth="100"
+                      Items="{Binding Path=Modes}"
+                      SelectedItem="{Binding Path=Mode}" />
+            <ComboBox MinWidth="100"
+                      Items="{Binding Path=Themes}"
+                      SelectedItem="{Binding Path=Theme}" />
+        </StackPanel>
         <TabControl x:Name="TabControl"
                     Grid.Row="1"
                     TabStripPlacement="Left" />

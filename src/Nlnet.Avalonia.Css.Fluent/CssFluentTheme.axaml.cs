@@ -22,5 +22,10 @@ namespace Nlnet.Avalonia.Css.Fluent
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/ComboBox.acss", true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/TextBox.acss",  true);
         }
+
+        public void UpdateResource()
+        {
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources.acss", true);
+        }
     }
 }

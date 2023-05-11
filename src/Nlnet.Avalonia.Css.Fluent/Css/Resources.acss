@@ -1,15 +1,53 @@
 ﻿
-/* :res[mode=light] {
+:res[mode=light] {
 
 }
 
 :res[mode=dark] {
 
-} */
+}
 
 :res[theme=blue] {
-	color(AccentColor): #0068B5;
-	
+	color(AccentColor): #3491FA;
+}
+
+:res[theme=red] {
+	color(AccentColor): #F53F3F;
+}
+
+:res[theme=orange] {
+	color(AccentColor): #F77234;
+}
+
+:res[theme=green] {
+	color(AccentColor): #00B42A;
+}
+
+:res[theme=gold] {
+	color(AccentColor): #F7BA1E;
+}
+
+:res[theme=lime] {
+	color(AccentColor): #9FDB1D;
+}
+
+:res[theme=cyan] {
+	color(AccentColor): #14C9C9;
+}
+
+:res[theme=purple] {
+	color(AccentColor): #722ED1;
+}
+
+:res[theme=pink-purple] {
+	color(AccentColor): #D91AD9;
+}
+
+:res[theme=magenta] {
+	color(AccentColor): #F5319D;
+}
+
+:res{
 	brush(Accent): var(AccentColor);
 	brush(Accent01): var(AccentColor) 0.1;
 	brush(Accent02): var(AccentColor) 0.2;
@@ -20,13 +58,12 @@
 	brush(Accent07): var(AccentColor) 0.7;
 	brush(Accent08): var(AccentColor) 0.8;
 	brush(Accent09): var(AccentColor) 0.9;
-	brush(Success): Green;
-	brush(Error): OrangeRed;
-	brush(Warning): Orange;
-	brush(Info): Blue;
-}
 
-:res{
+	brush(Success): #25B86E;
+	brush(Error): #EB3D3D;
+	brush(Warning): #F0A000;
+	brush(Info): #2DD7FD;
+
     transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.075);
 	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.075);
 	transition(stBackground): BrushTransition(TemplatedControl.Background 0.075);
