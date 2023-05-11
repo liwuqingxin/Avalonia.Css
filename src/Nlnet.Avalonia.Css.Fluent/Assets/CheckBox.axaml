@@ -9,7 +9,15 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
-                        <Path x:Name="PART_CheckGlyph" Stretch="Uniform" />
+                        <Border x:Name="PART_CheckGlyphContainer"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                ClipToBounds="True">
+                            <Path x:Name="PART_CheckGlyph"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Stretch="Uniform" />
+                        </Border>
                     </Border>
                     <ContentPresenter x:Name="PART_ContentPresenter"
                                       Grid.Column="1"
