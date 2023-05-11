@@ -1,8 +1,8 @@
 ﻿
 Button {
-    Foreground: #333;
-    Background: #FEFEFE;
-    BorderBrush:#2222;
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
     BorderThickness: 1;
     CornerRadius: 6;
     Padding: 8,4,8,5;
@@ -14,28 +14,31 @@ Button {
     VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
-        /* TransformOperationsTransition(RenderTransform 0.075 0); */
+        /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);
         var(stBorderBrush);
+        var(stBackground);
         var(stOpacity);
     ]
 
     [[
-        Button.primary{
-            Background:var(Accent);
-            Foreground: #fff;
-        }
-        
-        Button /template/ ContentPresenter#PART_ContentPresenter{
+        Button:not(:disabled):not(:pressed) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow:0 1 0 0 #6666;
+        }
+        Button:pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
         }
         Button:pressed{
             RenderTransform:scale(0.8,0.8);
             Opacity:0.9;
         }
-        Button:pressed /template/ ContentPresenter#PART_ContentPresenter{
-            BoxShadow:none;
+        Button.primary, Button.Primary {
+            Background: var(Accent);
+            Foreground: #fff;
         }
-        
+        Button.primary:pointerover, Button.Primary:pointerover{
+            Foreground: #fff;
+        }
     ]]
 }

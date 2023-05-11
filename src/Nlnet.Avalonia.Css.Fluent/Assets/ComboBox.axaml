@@ -1,4 +1,6 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fluent="https://www.nlnet.com/avalonia.css">
 
     <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
         <Setter Property="Template">
@@ -31,6 +33,10 @@
             <ControlTemplate>
                 <DataValidationErrors>
                     <Grid ColumnDefinitions="*,32">
+                        <Grid.Resources>
+                            <fluent:FxDoubleCvt x:Key="FxDoubleCvt" Offset="10" />
+                        </Grid.Resources>
+
                         <Border x:Name="Background"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
@@ -63,23 +69,38 @@
 
                         <Popup Name="PART_Popup"
                                Grid.Column="0"
-                               MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FxDoubleCvt}}"
                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                               HorizontalOffset="-5"
                                InheritsTransform="True"
                                IsLightDismissEnabled="True"
                                IsOpen="{TemplateBinding IsDropDownOpen,
                                                         Mode=TwoWay}"
                                PlacementTarget="Background"
                                WindowManagerAddShadowHint="False">
-                            <Border x:Name="PopupBorder" HorizontalAlignment="Stretch">
-                                <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                    <ItemsPresenter Name="PART_ItemsPresenter"
-                                                    ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                    Items="{TemplateBinding Items}"
-                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
-                                                    VirtualizationMode="{TemplateBinding VirtualizationMode}" />
-                                </ScrollViewer>
-                            </Border>
+                            <Popup.Styles>
+                                <Style Selector="PopupRoot">
+                                    <Setter Property="TransparencyBackgroundFallback" Value="{x:Null}" />
+                                    <Setter Property="TransparencyLevelHint" Value="Transparent" />
+                                </Style>
+                            </Popup.Styles>
+                            <Panel>
+                                <Border x:Name="ShadowBorder"
+                                        Margin="{Binding #PopupBorder.Margin}"
+                                        Background="#fff"
+                                        CornerRadius="{Binding #PopupBorder.CornerRadius}" />
+                                <Border x:Name="PopupBorder"
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch">
+                                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                                        ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                        Items="{TemplateBinding Items}"
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                        VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Panel>
                         </Popup>
                     </Grid>
                 </DataValidationErrors>

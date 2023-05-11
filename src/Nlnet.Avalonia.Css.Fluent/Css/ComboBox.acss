@@ -1,11 +1,11 @@
 ﻿
 ComboBoxItem {
-    Background:#F9FAFA;
+    Background: var(comboboxitem-back);
+    Foreground: var(fore);
     CornerRadius: 4;
     Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
-    Foreground: #333;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
@@ -19,16 +19,17 @@ ComboBoxItem {
 
     [[
         ComboBoxItem:pointerover,ComboBoxItem:selected{
-            Background: #F2F2F3;
+            Background: var(comboboxitem-back-hover);
         }
         ComboBoxItem:pressed{
-            Background: #F5F5F7;
+            Background: var(comboboxitem-back-selected);
         }
         ComboBoxItem /template/ Border#PART_Indicator {
             Background:var(Accent);
             HorizontalAlignment:Left;
             Height:12;
             Width:3;
+            Opacity:1;
             CornerRadius:2;
             Transitions:[
                 var(stOpacity);
@@ -38,14 +39,14 @@ ComboBoxItem {
 }
 
 ComboBox {
-    Background: #FEFEFE;
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
     CornerRadius: 4;
     BorderThickness: 1;
-    BorderBrush:#2222;
     Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
-    Foreground: #333;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Center;
@@ -66,17 +67,34 @@ ComboBox {
 
     [[
         ComboBox:pointerover{
-            Background:#F9F9F9;
+            Background:var(control-back-hover);
         }
         ComboBox /template/ Popup#PART_Popup{
-            VerticalOffset: 3;
+            VerticalOffset: -15;
+            Transitions:[
+                DoubleTransition(Popup.VerticalOffset 0.2 0 SineEaseOut);
+            ]
+        }
+        ComboBox:dropdownopen /template/ Popup#PART_Popup{
+            VerticalOffset: -2;
         }
         ComboBox /template/ Border#PopupBorder{
             BorderThickness: 1;
-            BorderBrush:#2222;
-            Background:#FAFAFA;
+            BorderBrush:var(control-border);
+            Background:var(comboboxitem-back);
             CornerRadius: 4;
             Padding:4;
+            Opacity:0.1;
+            /* Transitions:[
+                DoubleTransition(Border.Opacity 0.2)
+            ] */
+        }
+        ComboBox /template/ Border#ShadowBorder{
+            BoxShadow:0 0 10 0 #15000000;
+            IsHitTestVisible:False;
+        }
+        ComboBox:dropdownopen /template/ Border#PopupBorder{
+            Opacity:1;
         }
         ComboBox /template/ PathIcon#DropDownGlyph{
             Width:12;
@@ -85,8 +103,9 @@ ComboBox {
             HorizontalAlignment:Right;
             VerticalAlignment:center;
             Data:M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z;
-            Foreground:#ff0000;
+            Foreground:var(fore);
             UseLayoutRounding:False;
+            RenderTransform:none;
             Transitions:[
                 TransformOperationsTransition(RenderTransform 0.16);
             ]

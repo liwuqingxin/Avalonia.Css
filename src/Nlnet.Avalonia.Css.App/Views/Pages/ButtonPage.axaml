@@ -13,6 +13,14 @@
         <Button Classes="primary" Content="确定" />
         <Button Content="取消" />
         <Button Content="普通按钮" />
+        <Button Width="44" Height="44">
+            <Image Source="/Assets/orange.png" />
+        </Button>
         <Button Content="不可用" IsEnabled="False" />
+        <Button Width="44"
+                Height="44"
+                IsEnabled="False">
+            <Image Source="/Assets/orange.png" />
+        </Button>
     </StackPanel>
 </UserControl>

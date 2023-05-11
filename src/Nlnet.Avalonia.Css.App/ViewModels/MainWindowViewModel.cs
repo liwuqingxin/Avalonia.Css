@@ -47,7 +47,6 @@ namespace Nlnet.Avalonia.Css.App
             {
                 "light",
                 "dark",
-                "blue",
             };
 
             Themes = new List<string>()
@@ -69,7 +68,7 @@ namespace Nlnet.Avalonia.Css.App
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(Theme) || propertyName == nameof(Mode))
+            if (propertyName is nameof(Theme) or nameof(Mode))
             {
                 CssManager.Current.Theme = Theme;
                 CssManager.Current.Mode  = Mode;

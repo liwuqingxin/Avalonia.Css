@@ -6,7 +6,10 @@ TextBox {
 }
 
 Window {
-    Background: #F0F4F9;
+    Background: var(window-back);
+    Transitions:[
+        BrushTransition(Background 0.8);
+    ]
 }
 
 :is(Control):disabled{

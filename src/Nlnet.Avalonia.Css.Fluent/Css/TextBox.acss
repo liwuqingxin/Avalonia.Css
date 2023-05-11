@@ -1,13 +1,13 @@
 ﻿
 TextBox {
-    Background: #FEFEFE;
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
     CornerRadius: 4;
     BorderThickness: 1;
-    BorderBrush:#2222;
     Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
-    Foreground: #333;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Center;
@@ -23,9 +23,13 @@ TextBox {
     ]
 
     [[
+        TextBox:pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
         TextBox /template/ TextBlock#PART_Watermark {
             IsVisible:False;
-            Foreground:#aaa;
+            Foreground:var(watermark);
         }
         TextBox:empty /template/ TextBlock#PART_Watermark {
             IsVisible:True;
@@ -34,7 +38,7 @@ TextBox {
             ClipToBounds:True;
         }
         TextBox /template/ Border#PART_Indicator {
-            BorderBrush:#666;
+            BorderBrush:var(watermark);
             BorderThickness: 0,0,0,1;
             Transitions:[
                 var(stBorderThickness);

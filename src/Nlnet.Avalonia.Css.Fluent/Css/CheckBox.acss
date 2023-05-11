@@ -1,13 +1,13 @@
 ﻿
 CheckBox {
-    Background: #FEFEFE;
-    CornerRadius: 8;
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    CornerRadius: 6;
     BorderThickness: 1;
-    BorderBrush:#2222;
     Padding: 8,4;
     Opacity: 1;
     RenderTransform: none;
-    Foreground: #333;
     HorizontalContentAlignment: Center;
     HorizontalAlignment: Center;
     VerticalContentAlignment: Center;
@@ -21,11 +21,14 @@ CheckBox {
     ]
 
     [[
+        CheckBox:pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
         CheckBox /template/ Border#PART_Box{
             Width:20;
             Height:20;
         }
-        
         CheckBox /template/ Path#PART_CheckGlyph{
             Fill:#fff;
             Margin:3;

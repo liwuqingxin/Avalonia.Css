@@ -14,8 +14,8 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         private static void Load()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Global.acss",    true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources.acss", true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Global.acss",    true);
 
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Button.acss",   true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/CheckBox.acss", true);

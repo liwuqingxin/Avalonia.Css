@@ -1,14 +1,34 @@
 ﻿
 :res[mode=light] {
+	brush(fore): #333;
+	brush(fore-hover): #111;
+	brush(window-back): #F3F3F3;
+	brush(watermark): #aaa;
+	
+	brush(control-back): #fefefe;
+	brush(control-back-hover): #F9F9F9;
+	brush(control-border): #2222;
 
+	brush(comboboxitem-back): #F9FAFA;
+	brush(comboboxitem-back-hover): #F2F2F3;
+	brush(comboboxitem-back-selected): #F5F5F7;
 }
 
 :res[mode=dark] {
+	brush(fore): #eee;
+	brush(fore-hover): #fff;
+	brush(window-back): #202020;
 
+	brush(control-back): #353535;
+	brush(control-border): #4444;
+
+	brush(comboboxitem-back): #F9FAFA;
+	brush(comboboxitem-back-hover): #F2F2F3;
+	brush(comboboxitem-back-selected): #F5F5F7;
 }
 
 :res[theme=blue] {
-	color(AccentColor): #3491FA;
+	color(AccentColor): #0068B5;
 }
 
 :res[theme=red] {
