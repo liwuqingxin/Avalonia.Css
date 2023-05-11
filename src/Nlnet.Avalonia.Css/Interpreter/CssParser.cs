@@ -16,7 +16,7 @@ namespace Nlnet.Avalonia.Css
         public ICssParser Clone(string cssContent);
     }
 
-    public class CssParser : ICssParser
+    internal class CssParser : ICssParser
     {
         private IList<CssStyle>? _styles;
         private IList<CssResourceList>? _resources;
@@ -76,28 +76,19 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        public IEnumerable<CssStyle> TryGetStyles()
+        IEnumerable<CssStyle> ICssParser.TryGetStyles()
         {
             return _styles ?? Enumerable.Empty<CssStyle>();
         }
 
-        public IEnumerable<CssResourceList> TryGetResources()
+        IEnumerable<CssResourceList> ICssParser.TryGetResources()
         {
             return _resources ?? Enumerable.Empty<CssResourceList>();
         }
 
-        public IEnumerable<CssSetter> TryGetSetters(string setters)
+        IEnumerable<CssSetter> ICssParser.TryGetSetters(string setters)
         {
-            setters = setters.ReplaceLineEndings(" ");
-            var settersList = setters.Split(";", StringSplitOptions.RemoveEmptyEntries);
-            foreach (var setter in settersList)
-            {
-                var s = setter.Trim().TrimEnd(';');
-                if (string.IsNullOrWhiteSpace(s) == false)
-                {
-                    yield return new CssSetter(s);
-                }
-            }
+            return InterpreterHelper.ParseSetters(setters);
         }
 
         public ICssParser Clone(string cssContent)
@@ -105,7 +96,7 @@ namespace Nlnet.Avalonia.Css
             return new CssParser(cssContent);
         }
 
-        internal static string RemoveComments(string css)
+        private static string RemoveComments(string css)
         {
             css = css.ReplaceLineEndings(" ");
             var builder = new StringBuilder();

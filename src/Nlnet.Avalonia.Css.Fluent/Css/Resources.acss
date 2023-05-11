@@ -7,25 +7,6 @@
 
 } */
 
-/* :res[theme=f] {
-	color(AccentColor): #0068B5;
-	
-	brush(Accent): var(AccentColor);
-	brush(Accent01): var(AccentColor) 0.1;
-	brush(Accent02): var(AccentColor) 0.2;
-	brush(Accent03): var(AccentColor) 0.3;
-	brush(Accent04): var(AccentColor) 0.4;
-	brush(Accent=5): var(AccentColor) 0.5;
-	brush(Accent06): var(AccentColor) 0.6;
-	brush(Accent07): var(AccentColor) 0.7;
-	brush(Accent08): var(AccentColor) 0.8;
-	brush(Accent09): var(AccentColor) 0.9;
-	brush(Success): Green;
-	brush(Error): OrangeRed;
-	brush(Warning): Orange
-	brush(Info): Blue;
-} */
-
 :res[theme=blue] {
 	color(AccentColor): #0068B5;
 	
@@ -43,4 +24,12 @@
 	brush(Error): OrangeRed;
 	brush(Warning): Orange;
 	brush(Info): Blue;
+}
+
+:res{
+    transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.075);
+	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.075);
+	transition(stBackground): BrushTransition(TemplatedControl.Background 0.075);
+	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity 0.075);
+	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.075);
 }

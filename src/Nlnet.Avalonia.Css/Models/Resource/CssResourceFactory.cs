@@ -21,7 +21,7 @@ public static class CssResourceFactory
             .Select(t =>
             {
                 var factory = Activator.CreateInstance(t) as IResourceFactory;
-                var key     = t.GetCustomAttribute<ResourceTypeAttribute>()?.Type.Name;
+                var key     = t.GetCustomAttribute<ResourceTypeAttribute>()?.Type;
                 return (key, factory);
             })
             .Where(t => t.key != null && t.factory != null)

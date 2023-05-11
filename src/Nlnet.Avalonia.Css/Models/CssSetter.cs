@@ -5,15 +5,12 @@ namespace Nlnet.Avalonia.Css;
 
 public class CssSetter
 {
-    private string RawSetter { get; set; }
+    internal string? Property { get; set; }
 
-    private string? Property { get; set; }
-
-    private string? RawValue { get; set; }
+    internal string? RawValue { get; set; }
 
     public CssSetter(string setterString)
     {
-        RawSetter = setterString;
         var splits = setterString.Split(":", StringSplitOptions.RemoveEmptyEntries);
         if (splits.Length != 2)
         {
@@ -24,6 +21,12 @@ public class CssSetter
         RawValue = splits[1];
     }
 
+    public CssSetter(string name, string value)
+    {
+        Property = name;
+        RawValue = value;
+    }
+
     public ISetter? ToAvaloniaSetter(Type targetType)
     {
         if (Property == null)
@@ -31,7 +34,7 @@ public class CssSetter
             return null;
         }
 
-        var property = InterpreterHelper.GetAvaloniaProperty(targetType, Property);
+        var property = InterpreterHelper.ParseAvaloniaProperty(targetType, Property);
         if (property == null)
         {
             return null;
@@ -48,6 +51,6 @@ public class CssSetter
 
     public override string ToString()
     {
-        return RawSetter;
+        return $"{Property}:{RawValue}";
     }
 }

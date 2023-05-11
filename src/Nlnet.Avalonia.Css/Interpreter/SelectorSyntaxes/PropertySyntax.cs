@@ -12,7 +12,7 @@ public class PropertySyntax : ISyntax
     {
         if (previous?.TargetType != null)
         {
-            var avaloniaProperty = InterpreterHelper.GetAvaloniaProperty(previous.TargetType, Property);
+            var avaloniaProperty = InterpreterHelper.ParseAvaloniaProperty(previous.TargetType, Property);
             if (avaloniaProperty == null)
             {
                 return previous;

@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Add Resources Here -->
 
     <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
-        <Setter Property="CheckBox.BorderBrush" Value="Transparent" />
-        <Setter Property="CheckBox.RenderTransform" Value="none" />
-        <Setter Property="CheckBox.Opacity" Value="1" />
-        <Setter Property="CheckBox.Transitions">
-            <Transitions>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.075" />
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.075" />
-                <BrushTransition Property="Background" Duration="0:0:0.075" />
-                <DoubleTransition Property="Opacity" Duration="0:0:0.075" />
-            </Transitions>
-        </Setter>
         <Setter Property="CheckBox.Template">
             <ControlTemplate TargetType="CheckBox">
                 <Grid ColumnDefinitions="Auto,*">
@@ -21,13 +9,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}">
-                        <Path x:Name="PART_CheckGlyph" Stretch="Uniform">
-                            <Path.Transitions>
-                                <Transitions>
-                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" />
-                                </Transitions>
-                            </Path.Transitions>
-                        </Path>
+                        <Path x:Name="PART_CheckGlyph" Stretch="Uniform" />
                     </Border>
                     <ContentPresenter x:Name="PART_ContentPresenter"
                                       Grid.Column="1"

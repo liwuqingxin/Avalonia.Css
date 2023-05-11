@@ -79,10 +79,10 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var cssContent   = File.ReadAllText(_file);
-                var parser       = new CssParser(cssContent);
-                var cssStyles    = parser.TryGetStyles();
-                var cssResources = parser.TryGetResources();
+                var        cssContent   = File.ReadAllText(_file);
+                ICssParser parser       = new CssParser(cssContent);
+                var        cssStyles    = parser.TryGetStyles();
+                var        cssResources = parser.TryGetResources();
 
                 foreach (var cssStyle in cssStyles)
                 {

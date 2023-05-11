@@ -5,6 +5,8 @@ TextBox {
     BorderThickness: 1;
     BorderBrush:#2222;
     Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
     Foreground: #333;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
@@ -13,6 +15,12 @@ TextBox {
     MinWidth:40;
     MaxWidth:100;
     SelectionBrush:var(Accent06);
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
 
     [[
         TextBox /template/ TextBlock#PART_Watermark {
@@ -28,6 +36,9 @@ TextBox {
         TextBox /template/ Border#PART_Indicator {
             BorderBrush:#666;
             BorderThickness: 0,0,0,1;
+            Transitions:[
+                var(stBorderThickness);
+            ]
         }
         TextBox:focus-within /template/ Border#PART_Indicator {
             BorderBrush:var(Accent);

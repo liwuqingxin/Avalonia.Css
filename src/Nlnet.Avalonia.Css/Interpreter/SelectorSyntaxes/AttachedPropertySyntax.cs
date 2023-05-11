@@ -16,7 +16,7 @@ public class AttachedPropertySyntax : ISyntax, ITypeSyntax
     {
         if (TypeResolver.Instance.TryGetType(TypeName, out var type))
         {
-            var avaloniaProperty = InterpreterHelper.GetAvaloniaProperty(type!, Property);
+            var avaloniaProperty = InterpreterHelper.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {
                 return previous;

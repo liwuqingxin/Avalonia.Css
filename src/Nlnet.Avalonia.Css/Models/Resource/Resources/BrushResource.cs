@@ -6,7 +6,7 @@ using Avalonia.Media.Immutable;
 
 namespace Nlnet.Avalonia.Css;
 
-[ResourceType(typeof(Brush))]
+[ResourceType(nameof(Brush))]
 public class BrushResource : CssResource<BrushResource>
 {
     private double  _opacity;

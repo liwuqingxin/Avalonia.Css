@@ -42,7 +42,7 @@ public class CssStyle
         }
     }
 
-    public Style ToAvaloniaStyle(bool isChild)
+    internal Style ToAvaloniaStyle(bool isChild)
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 

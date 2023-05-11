@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Avalonia.Animation;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
 
@@ -15,6 +16,7 @@ internal class AvaloniaValueParsingTypeAdapter : IValueParsingTypeAdapter
         AddAdaptType(typeof(ISolidColorBrush), typeof(Brush));
         AddAdaptType(typeof(SolidColorBrush),  typeof(Brush));
         AddAdaptType(typeof(ITransform),       typeof(TransformOperations));
+        AddAdaptType(typeof(Transitions),      typeof(TransitionsParser));
     }
 
     public bool TryAdapt(Type type, out Type? adaptedType)

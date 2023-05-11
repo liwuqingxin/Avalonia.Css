@@ -5,12 +5,20 @@ CheckBox {
     BorderThickness: 1;
     BorderBrush:#2222;
     Padding: 8,4;
+    Opacity: 1;
+    RenderTransform: none;
     Foreground: #333;
     HorizontalContentAlignment: Center;
     HorizontalAlignment: Center;
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
 
     [[
         CheckBox /template/ Border#PART_Box{
@@ -22,12 +30,13 @@ CheckBox {
             Fill:#fff;
             Margin:3;
             VerticalAlignment: Center;
+            RenderTransform:scale(0,0);
+            Transitions:[
+                var(stRenderTransform);
+            ]
         }
         CheckBox:indeterminate,CheckBox:checked{
             Background:var(Accent);
-        }
-        CheckBox /template/ Path#PART_CheckGlyph{
-            RenderTransform:scale(0,0);
         }
         CheckBox:indeterminate /template/ Path#PART_CheckGlyph{
             Data:M 3.5 22.5 A 1.50015 1.50015 0 1 0 3.5 25.5 L 44.5 25.5 A 1.50015 1.50015 0 1 0 44.5 22.5 L 3.5 22.5 z;

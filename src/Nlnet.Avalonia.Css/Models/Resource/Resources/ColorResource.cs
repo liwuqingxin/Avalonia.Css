@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using Avalonia;
+using Avalonia.Animation.Easings;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Css;
 
-[ResourceType(typeof(Color))]
+[ResourceType(nameof(Color))]
 public class ColorResource : CssResource<ColorResource>
 {
     protected override object? Accept(string valueString)

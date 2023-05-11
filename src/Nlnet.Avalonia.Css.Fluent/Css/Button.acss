@@ -1,16 +1,24 @@
 ﻿
 Button {
-    Background: #FEFEFE;
-    CornerRadius: 6;
-    BorderThickness: 1;
-    BorderBrush:#2222;
-    Padding: 8,4,8,5;
     Foreground: #333;
+    Background: #FEFEFE;
+    BorderBrush:#2222;
+    BorderThickness: 1;
+    CornerRadius: 6;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
     HorizontalContentAlignment: Center;
     HorizontalAlignment: Center;
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
+    Transitions:[
+        /* TransformOperationsTransition(RenderTransform 0.075 0); */
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stOpacity);
+    ]
 
     [[
         Button.primary{
@@ -22,7 +30,7 @@ Button {
             BoxShadow:0 1 0 0 #6666;
         }
         Button:pressed{
-            RenderTransform:scale(0.97,0.97);
+            RenderTransform:scale(0.8,0.8);
             Opacity:0.9;
         }
         Button:pressed /template/ ContentPresenter#PART_ContentPresenter{

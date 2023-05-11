@@ -1,17 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Add Resources Here -->
 
     <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
-        <Setter Property="Button.BorderBrush" Value="Transparent" />
-		<Setter Property="Button.RenderTransform" Value="none" />
-        <Setter Property="CheckBox.Opacity" Value="1" />
-        <Setter Property="Button.Transitions">
-            <Transitions>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.075" />
-				<BrushTransition Property="BorderBrush" Duration="0:0:0.075" />
-				<DoubleTransition Property="Opacity" Duration="0:0:0.075" />
-            </Transitions>
-        </Setter>
         <Setter Property="Button.Template">
             <ControlTemplate TargetType="Button">
                 <ContentPresenter x:Name="PART_ContentPresenter"

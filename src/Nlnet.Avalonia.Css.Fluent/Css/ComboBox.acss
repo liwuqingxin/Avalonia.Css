@@ -3,11 +3,19 @@ ComboBoxItem {
     Background:#F9FAFA;
     CornerRadius: 4;
     Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
     Foreground: #333;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
 
     [[
         ComboBoxItem:pointerover,ComboBoxItem:selected{
@@ -22,6 +30,9 @@ ComboBoxItem {
             Height:12;
             Width:3;
             CornerRadius:2;
+            Transitions:[
+                var(stOpacity);
+            ]
         }
     ]]
 }
@@ -32,6 +43,8 @@ ComboBox {
     BorderThickness: 1;
     BorderBrush:#2222;
     Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
     Foreground: #333;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
@@ -39,6 +52,17 @@ ComboBox {
     VerticalAlignment: Center;
     MinWidth:40;
     SelectionBrush:var(Accent06);
+    MaxDropDownHeight:600;
+    ScrollViewer.HorizontalScrollBarVisibility:Disabled;
+    ScrollViewer.VerticalScrollBarVisibility:Auto;
+    /* PlaceholderForeground:Red; */
+
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
 
     [[
         ComboBox:pointerover{
@@ -54,6 +78,13 @@ ComboBox {
             CornerRadius: 4;
             Padding:4;
         }
-        
+        ComboBox /template/ PathIcon#DropDownGlyph{
+            Transitions:[
+                TransformOperationsTransition(RenderTransform 0.16);
+            ]
+        }
+        ComboBox:dropdownopen /template/ PathIcon#DropDownGlyph{
+            RenderTransform: scale(1,-1);
+        }
     ]]
 }
