@@ -22,7 +22,7 @@ Button {
     ]
 
     [[
-        Button:not(:disabled):not(:pressed) /template/ ContentPresenter#PART_ContentPresenter{
+        Button:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow:0 1 0 0 #6666;
         }
         Button:pointerover{
@@ -32,6 +32,7 @@ Button {
         Button:pressed{
             RenderTransform:scale(0.8,0.8);
             Opacity:0.9;
+            ClipToBounds:True;
         }
         Button.primary, Button.Primary {
             Background: var(Accent);

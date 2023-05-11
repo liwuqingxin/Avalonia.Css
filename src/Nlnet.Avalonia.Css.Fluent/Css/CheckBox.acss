@@ -18,6 +18,7 @@ CheckBox {
         var(stBorderBrush);
         var(stBackground);
         var(stOpacity);
+        var(stBorderThickness);
     ]
 
     [[
