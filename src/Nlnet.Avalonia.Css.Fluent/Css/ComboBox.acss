@@ -79,6 +79,14 @@ ComboBox {
             Padding:4;
         }
         ComboBox /template/ PathIcon#DropDownGlyph{
+            Width:12;
+            Height:12;
+            Margin:0,0,10,0;
+            HorizontalAlignment:Right;
+            VerticalAlignment:center;
+            Data:M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z;
+            Foreground:#ff0000;
+            UseLayoutRounding:False;
             Transitions:[
                 TransformOperationsTransition(RenderTransform 0.16);
             ]
