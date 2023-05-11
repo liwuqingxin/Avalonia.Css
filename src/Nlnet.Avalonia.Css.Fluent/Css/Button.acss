@@ -36,9 +36,11 @@ Button {
         Button.primary, Button.Primary {
             Background: var(Accent);
             Foreground: #fff;
-        }
-        Button.primary:pointerover, Button.Primary:pointerover{
-            Foreground: #fff;
+            [[
+                Button:pointerover{
+                    Foreground: #fff;
+                }
+            ]]
         }
     ]]
 }

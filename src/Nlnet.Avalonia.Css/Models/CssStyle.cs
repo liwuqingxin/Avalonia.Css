@@ -21,7 +21,7 @@ public class CssStyle
         Selector = selector.Trim();
 
         var index1 = contentString.IndexOf("[[", StringComparison.Ordinal);
-        var index2 = contentString.IndexOf("]]", StringComparison.Ordinal);
+        var index2 = contentString.LastIndexOf("]]", StringComparison.Ordinal);
 
         if (index1 != -1 && index2 != -1)
         {
