@@ -23,9 +23,19 @@ public class CssResourceList
         
     }
 
-    public void AddTo(IList<IResourceProvider> mergedResources)
+    public void TryAddTo(IList<IResourceProvider> mergedResources)
     {
         if (Resources.Count == 0)
+        {
+            return;
+        }
+
+        if (Mode != null && Mode != CssManager.Current.Mode)
+        {
+            return;
+        }
+
+        if (Theme != null && Theme != CssManager.Current.Theme)
         {
             return;
         }
@@ -63,7 +73,7 @@ public class CssResourceList
 
         var matchTheme = RegexTheme.Match(selector);
         var matchMode  = RegexMode.Match(selector);
-        if (matchTheme.Success == false)
+        if (matchTheme.Success)
         {
             resources.Theme = matchTheme.Groups[1].Value;
         }

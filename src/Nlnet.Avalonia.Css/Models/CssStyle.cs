@@ -84,7 +84,7 @@ public class CssStyle
             // Resources
             foreach (var cssResourceList in Resources)
             {
-                cssResourceList.AddTo(style.Resources.MergedDictionaries);
+                cssResourceList.TryAddTo(style.Resources.MergedDictionaries);
             }
 
             // Children

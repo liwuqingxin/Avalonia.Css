@@ -26,7 +26,7 @@
 	brush(Info): Blue;
 } */
 
-:res {
+:res[theme=blue] {
 	color(AccentColor): #0068B5;
 	
 	brush(Accent): var(AccentColor);

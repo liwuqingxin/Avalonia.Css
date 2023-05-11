@@ -11,6 +11,7 @@
         d:DesignHeight="450"
         d:DesignWidth="800"
         Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
 
     <Grid RowDefinitions="Auto,*">

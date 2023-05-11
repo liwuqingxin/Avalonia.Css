@@ -95,7 +95,7 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var cssResourceList in cssResources)
                 {
-                    cssResourceList.AddTo(this.Resources.MergedDictionaries);
+                    cssResourceList.TryAddTo(this.Resources.MergedDictionaries);
                 }
 
                 ReapplyStyling();
