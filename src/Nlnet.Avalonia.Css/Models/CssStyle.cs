@@ -14,7 +14,7 @@ public class CssStyle
 
     private IEnumerable<CssStyle> Children { get; set; }
 
-    private IEnumerable<CssResourceList> ResourceListCollection { get; set; }
+    private IEnumerable<CssResourceList> Resources { get; set; }
 
     public CssStyle(ICssParser parser, string selector, string contentString)
     {
@@ -27,7 +27,7 @@ public class CssStyle
         {
             var setters = contentString.Remove(index1, index2 - index1 + 2);
             Setters = parser.TryGetSetters(setters);
-            ResourceListCollection = parser.TryGetResources();
+            Resources = parser.TryGetResources();
 
             index1 += 2;
             var childSection = contentString[index1..index2];
@@ -37,7 +37,7 @@ public class CssStyle
         else
         {
             Setters = parser.TryGetSetters(contentString);
-            ResourceListCollection = Enumerable.Empty<CssResourceList>();
+            Resources = Enumerable.Empty<CssResourceList>();
             Children = Enumerable.Empty<CssStyle>();
         }
     }
@@ -82,9 +82,8 @@ public class CssStyle
             }
 
             // Resources
-            foreach (var cssResourceList in ResourceListCollection)
+            foreach (var cssResourceList in Resources)
             {
-                // TODO 测试IServiceProvider是否为null
                 cssResourceList.AddTo(style.Resources.MergedDictionaries);
             }
 

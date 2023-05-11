@@ -5,11 +5,14 @@ using System.Linq;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Markup.Xaml.MarkupExtensions;
+using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css
 {
     internal static class InterpreterHelper
     {
+        private static readonly Regex VarRegex = new("var\\((.*?)\\)", RegexOptions.IgnoreCase);
+
         internal static Selector? ToSelector(IEnumerable<ISyntax> syntaxList)
         {
             return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(current));
@@ -54,10 +57,9 @@ namespace Nlnet.Avalonia.Css
             }
 
             var declareType = avaloniaProperty.PropertyType;
-            if ((rawValue.StartsWith("var(")) && rawValue.EndsWith(")"))
+            if (IsVar(rawValue, out var key))
             {
-                var key = rawValue[4..^1];
-                var extension = new DynamicResourceExtension(key);
+                var extension = new DynamicResourceExtension(key!);
                 return extension;
             }
             if (declareType.IsAssignableTo(typeof(Enum)))
@@ -80,6 +82,24 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
             return parserMethod.Invoke(declareType, new object?[] { rawValue });
+        }
+
+        internal static bool IsVar(string? valueString, out string? varKey)
+        {
+            if (valueString == null)
+            {
+                varKey = null;
+                return false;
+            }
+            var match = VarRegex.Match(valueString);
+            if (match.Success)
+            {
+                varKey = match.Groups[1].Value;
+                return true;
+            }
+
+            varKey = null;
+            return false;
         }
     }
 }

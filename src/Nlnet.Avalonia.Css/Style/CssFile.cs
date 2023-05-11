@@ -3,9 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -100,20 +98,7 @@ namespace Nlnet.Avalonia.Css
                     cssResourceList.AddTo(this.Resources.MergedDictionaries);
                 }
 
-                switch (Application.Current?.ApplicationLifetime)
-                {
-                    case ClassicDesktopStyleApplicationLifetime lifetime:
-                    {
-                        foreach (var window in lifetime.Windows)
-                        {
-                            ForceApplyStyling(window);
-                        }
-                        break;
-                    }
-                    case ISingleViewApplicationLifetime {MainView: { }} singleView:
-                        ForceApplyStyling(singleView.MainView);
-                        break;
-                }
+                ReapplyStyling();
             }
             catch (Exception e)
             {
@@ -127,6 +112,24 @@ namespace Nlnet.Avalonia.Css
             {
                 Dispatcher.UIThread.Post(Load);
             });
+        }
+
+        private static void ReapplyStyling()
+        {
+            switch (Application.Current?.ApplicationLifetime)
+            {
+                case ClassicDesktopStyleApplicationLifetime lifetime:
+                {
+                    foreach (var window in lifetime.Windows)
+                    {
+                        ForceApplyStyling(window);
+                    }
+                    break;
+                }
+                case ISingleViewApplicationLifetime { MainView: { } } singleView:
+                    ForceApplyStyling(singleView.MainView);
+                    break;
+            }
         }
 
         private static void ForceApplyStyling(StyledElement styledElement)
@@ -157,6 +160,11 @@ namespace Nlnet.Avalonia.Css
         public void Dispose()
         {
             _watcher?.Dispose();
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(CssFile)} {_file}";
         }
     }
 }
