@@ -84,12 +84,8 @@ public class CssStyle
             // Resources
             foreach (var cssResourceList in ResourceListCollection)
             {
-                var dic = cssResourceList.ToResourceDictionary();
-                if (dic == null)
-                {
-                    continue;
-                }
-                style.Resources.MergedDictionaries.Add(dic);
+                // TODO 测试IServiceProvider是否为null
+                cssResourceList.AddTo(style.Resources.MergedDictionaries);
             }
 
             // Children

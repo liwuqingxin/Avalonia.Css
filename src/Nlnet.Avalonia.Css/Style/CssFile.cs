@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -37,8 +38,7 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
 
-            var file = new CssFile(filePath, autoLoadWhenFileChanged);
-            return file;
+            return new CssFile(filePath, autoLoadWhenFileChanged);
         }
 
 
@@ -59,6 +59,8 @@ namespace Nlnet.Avalonia.Css
                 _watcher.Filter              =  $"{Path.GetFileName(filePath)}";
                 _watcher.Changed             += OnFileChanged;
             }
+
+            Application.Current?.Styles.Add(this);
         }
 
         private void OnFileChanged(object sender, FileSystemEventArgs e)
@@ -73,7 +75,6 @@ namespace Nlnet.Avalonia.Css
 
         private void Load()
         {
-            Application.Current?.Styles.Remove(this);
             this.Clear();
             this.Resources.Clear();
             this.Resources.MergedDictionaries.Clear();
@@ -96,16 +97,9 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var cssResourceList in cssResources)
                 {
-                    这里应该先将字典加入树，再加入动态资源
-                    var dic = cssResourceList.ToResourceDictionary();
-                    if (dic == null)
-                    {
-                        continue;
-                    }
-                    this.Resources.MergedDictionaries.Add(dic);
+                    cssResourceList.AddTo(this.Resources.MergedDictionaries);
                 }
 
-                Application.Current?.Styles.Add(this);
                 switch (Application.Current?.ApplicationLifetime)
                 {
                     case ClassicDesktopStyleApplicationLifetime lifetime:

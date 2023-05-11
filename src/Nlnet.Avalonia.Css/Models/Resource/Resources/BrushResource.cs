@@ -1,5 +1,6 @@
 ﻿using System;
-using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
@@ -46,14 +47,17 @@ public class BrushResource : CssResource<BrushResource>
         }
     }
 
-    public override object? GetDeferredValue(IServiceProvider provider)
+    public override object? GetDeferredValue(IServiceProvider? provider)
     {
         var brush = new SolidColorBrush
         {
             Opacity = _opacity,
         };
-        var dyn = new DynamicResourceExtension(_key!);
-        brush.SetValue(SolidColorBrush.ColorProperty, dyn.ProvideValue(provider));
+
+        if (Application.Current != null && Application.Current.TryFindResource(_key!, out var value) && value is Color c)
+        {
+            brush.Color = c;
+        }
         return brush;
     }
 

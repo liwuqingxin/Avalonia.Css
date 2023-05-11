@@ -23,9 +23,15 @@ public class CssResourceList
         
     }
 
-    public ResourceDictionary? ToResourceDictionary()
+    public void AddTo(IList<IResourceProvider> mergedResources)
     {
+        if (Resources.Count == 0)
+        {
+            return;
+        }
+
         var dic = new ResourceDictionary();
+        mergedResources.Add(dic);
 
         foreach (var resource in Resources)
         {
@@ -42,12 +48,6 @@ public class CssResourceList
                 dic.TryAdd(resource.Key, resource.Value);
             }
         }
-
-        if (dic.Count == 0)
-        {
-            return null;
-        }
-        return dic;
     }
 
     public static bool TryGetResourceList(string selector, string content, out CssResourceList? cssResources)
