@@ -17,10 +17,11 @@ namespace Nlnet.Avalonia.Css.Fluent
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources.acss", true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Global.acss",    true);
 
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Button.acss",   true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/CheckBox.acss", true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/ComboBox.acss", true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/TextBox.acss",  true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Button.acss",      true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/CheckBox.acss",    true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/ComboBox.acss",    true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/RadioButton.acss", true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/TextBox.acss",     true);
         }
 
         public void UpdateResource()

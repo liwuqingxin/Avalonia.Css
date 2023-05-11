@@ -6,7 +6,7 @@
 	brush(watermark): #aaa;
 	
 	brush(control-back): #fefefe;
-	brush(control-back-hover): #F9F9F9;
+	brush(control-back-hover): #f3f3f3;
 	brush(control-border): #2222;
 
 	brush(comboboxitem-back): #F9FAFA;

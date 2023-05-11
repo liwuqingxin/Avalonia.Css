@@ -7,8 +7,8 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
     <StackPanel Margin="8"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Orientation="Horizontal"
                 Spacing="8">
         <CheckBox Content="三态勾选框" IsThreeState="True" />
         <CheckBox Content="普通勾选框" />
@@ -16,5 +16,15 @@
                   IsChecked="True"
                   IsEnabled="False" />
         <CheckBox Content="不可用" IsEnabled="False" />
+
+        <RadioButton Content="选项一" GroupName="A" />
+        <RadioButton Content="选项二" GroupName="A" />
+        <RadioButton Content="选项三"
+                     GroupName="A"
+                     IsEnabled="False" />
+        <RadioButton Content="选项 A"
+                     IsChecked="True"
+                     IsEnabled="False" />
+
     </StackPanel>
 </UserControl>
