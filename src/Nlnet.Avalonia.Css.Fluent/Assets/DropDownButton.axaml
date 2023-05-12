@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton">
+        <Setter Property="DropDownButton.Template">
+            <ControlTemplate TargetType="DropDownButton">
+                <Border x:Name="RootBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="True"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid x:Name="InnerGrid" ColumnDefinitions="*,Auto">
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                          Grid.Column="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          RecognizesAccessKey="True" />
+                        <PathIcon x:Name="DropDownGlyph"
+                                  Grid.Column="1"
+                                  Width="12"
+                                  Height="12"
+                                  Margin="0,0,10,0"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  Data="M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z"
+                                  Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
+                                  IsHitTestVisible="False"
+                                  UseLayoutRounding="False" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

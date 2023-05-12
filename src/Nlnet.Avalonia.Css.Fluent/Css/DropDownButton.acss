@@ -1,5 +1,5 @@
 ﻿
-Button {
+DropDownButton {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -22,23 +22,23 @@ Button {
     ]
 
     [[
-        Button:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
+        DropDownButton:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow:0 1 0 0 #6666;
         }
-        Button:pointerover{
+        DropDownButton:pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        Button:pressed{
+        DropDownButton:pressed{
             RenderTransform:scale(0.8,0.8);
             Opacity:0.9;
             ClipToBounds:True;
         }
-        Button.primary, Button.Primary {
+        DropDownButton.primary, DropDownButton.Primary {
             Background: var(Accent);
             Foreground: #fff;
             [[
-                Button:pointerover{
+                DropDownButton:pointerover{
                     Foreground: #fff;
                 }
             ]]

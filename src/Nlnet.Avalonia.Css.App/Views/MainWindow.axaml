@@ -12,6 +12,7 @@
         d:DesignHeight="450"
         d:DesignWidth="800"
         Icon="/Assets/avalonia-logo.ico"
+        Topmost="True"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Design.DataContext>
