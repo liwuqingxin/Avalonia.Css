@@ -1,6 +1,7 @@
 <UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.ComboBoxPage"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behaviors="clr-namespace:Nlnet.Avalonia.Behaviors;assembly=Nlnet.Avalonia.Behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:utils="clr-namespace:Nlnet.Avalonia.Css.App.Utils"
@@ -20,7 +21,11 @@
                     Orientation="Horizontal"
                     Spacing="8">
 
-            <ComboBox Items="{utils:Enum HorizontalAlignment}" />
+            <ComboBox Items="{utils:Enum HorizontalAlignment}">
+                <Interaction.Behaviors>
+                    <behaviors:AnimateResizingBehavior />
+                </Interaction.Behaviors>
+            </ComboBox>
             <ComboBox Items="{utils:Enum HorizontalAlignment}" SelectedIndex="0" />
             <ComboBox IsTextSearchEnabled="True"
                       Items="{utils:Enum SizeToContent}"
