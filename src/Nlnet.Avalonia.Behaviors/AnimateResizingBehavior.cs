@@ -51,7 +51,7 @@ namespace Nlnet.Avalonia.Behaviors
                     new DoubleTransition()
                     {
                         Property = AnimateResizingBehavior.AnimatingWidthProperty,
-                        Duration = TimeSpan.FromMilliseconds(2000),
+                        Duration = TimeSpan.FromMilliseconds(200),
                     }
                 };
                 SetAnimatingWidth(AssociatedObject, AssociatedObject.Bounds.Width);

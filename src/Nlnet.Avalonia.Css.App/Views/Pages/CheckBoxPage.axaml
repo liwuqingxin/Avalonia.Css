@@ -26,5 +26,11 @@
                      IsChecked="True"
                      IsEnabled="False" />
 
+        <ToggleSwitch Content="开关" />
+        <ToggleSwitch Content="开关" IsEnabled="False" />
+        <ToggleSwitch Content="开关"
+                      IsChecked="True"
+                      IsEnabled="False" />
+
     </StackPanel>
 </UserControl>

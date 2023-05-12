@@ -58,7 +58,7 @@ namespace Nlnet.Avalonia.Css
                 _watcher.Changed             += OnFileChanged;
             }
 
-            Application.Current?.Styles.Add(this);
+            //Application.Current?.Styles.Add(this);
         }
 
         private void OnFileChanged(object sender, FileSystemEventArgs e)
@@ -73,6 +73,8 @@ namespace Nlnet.Avalonia.Css
 
         private void Load()
         {
+            Application.Current?.Styles.Remove(this);
+
             this.Clear();
             this.Resources.Clear();
             this.Resources.MergedDictionaries.Clear();
@@ -97,6 +99,8 @@ namespace Nlnet.Avalonia.Css
                 {
                     cssResourceList.TryAddTo(this.Resources.MergedDictionaries);
                 }
+
+                Application.Current?.Styles.Add(this);
 
                 ReapplyStyling();
             }

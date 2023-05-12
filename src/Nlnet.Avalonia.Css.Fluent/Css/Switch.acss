@@ -1,0 +1,64 @@
+﻿
+ToggleSwitch {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 16;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Left;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        BrushTransition(ToggleSwitch.Background 0.3 0 CircularEaseInOut);
+    ]
+
+    [[
+        ToggleSwitch /template/ Border#SwitchKnobBounds{
+            Width:28;
+            Height:16;
+            Height:16;
+        }
+        ToggleSwitch /template/ Canvas#PART_SwitchKnob{
+            Width:12;
+            Height:16;
+        }
+        ToggleSwitch /template/ Grid#PART_MovingKnobs{
+            Width:16;
+            Height:16;
+            Transitions:[
+                DoubleTransition(Canvas.Left 0.3 0 CircularEaseInOut);
+            ]
+        }
+        ToggleSwitch /template/ Ellipse#SwitchKnob{
+            Width:12;
+            Height:12;
+            Fill:var(fore);
+            Transitions:[
+                DoubleTransition(Ellipse.Width 0.3 0 CircularEaseInOut);
+                BrushTransition(Ellipse.Fill 0.3 0 CircularEaseInOut);
+            ]
+        }
+        ToggleSwitch:pressed /template/ Ellipse#SwitchKnob{
+            Width:16;
+        }
+        ToggleSwitch:checked /template/ Ellipse#SwitchKnob{
+            Fill:var(control-back);
+        }
+        ToggleSwitch:checked {
+            Background:var(Accent);
+        }
+        ToggleSwitch:pointerover:not(:checked){
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        ToggleSwitch:pointerover:checked{
+            Foreground: var(fore-hover);
+            Background: var(Accent09);
+        }
+    ]]
+}

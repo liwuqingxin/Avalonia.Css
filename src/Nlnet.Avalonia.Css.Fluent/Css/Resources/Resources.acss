@@ -1,4 +1,39 @@
-﻿
+﻿/* 
+"BackEaseIn" .BackEaseIn
+"BackEaseInOut" .BackEaseInOut
+"BackEaseOut" .BackEaseOut
+"BounceEaseIn" .BounceEaseIn
+"BounceEaseInOut" .BounceEaseInOut
+"BounceEaseOut" .BounceEaseOut
+"CircularEaseIn" .CircularEaseIn
+"CircularEaseInOut" .CircularEaseInOut
+"CircularEaseOut" .CircularEaseOut
+"CubicEaseIn" .CubicEaseIn
+"CubicEaseInOut" .CubicEaseInOut
+"CubicEaseOut" .CubicEaseOut
+"ElasticEaseIn" .ElasticEaseIn
+"ElasticEaseInOut" .ElasticEaseInOut
+"ElasticEaseOut" .ElasticEaseOut
+"ExponentialEaseIn" .ExponentialEaseIn
+"ExponentialEaseInOut" .ExponentialEaseInOut
+"ExponentialEaseOut" .ExponentialEaseOut
+"LinearEasing" .LinearEasing
+"QuadraticEaseIn" .QuadraticEaseIn
+"QuadraticEaseInOut" .QuadraticEaseInOut
+"QuadraticEaseOut" .QuadraticEaseOut
+"QuarticEaseIn" .QuarticEaseIn
+"QuarticEaseInOut" .QuarticEaseInOut
+"QuarticEaseOut" .QuarticEaseOut
+"QuinticEaseIn" .QuinticEaseIn
+"QuinticEaseInOut" .QuinticEaseInOut
+"QuinticEaseOut" .QuinticEaseOut
+"SineEaseIn" .SineEaseIn
+"SineEaseInOut" .SineEaseInOut
+"SineEaseOut" .SineEaseOut
+"SplineEasing" .SplineEasing
+"SpringEasing" .SpringEasing 
+*/
+
 :res[mode=light] {
 	brush(fore): #333;
 	brush(fore-hover): #111;
