@@ -1,0 +1,39 @@
+﻿:res[theme=blue] {
+	color(AccentColor): #0068B5;
+}
+
+:res[theme=red] {
+	color(AccentColor): #F53F3F;
+}
+
+:res[theme=orange] {
+	color(AccentColor): #F77234;
+}
+
+:res[theme=green] {
+	color(AccentColor): #00B42A;
+}
+
+:res[theme=gold] {
+	color(AccentColor): #F7BA1E;
+}
+
+:res[theme=lime] {
+	color(AccentColor): #9FDB1D;
+}
+
+:res[theme=cyan] {
+	color(AccentColor): #14C9C9;
+}
+
+:res[theme=purple] {
+	color(AccentColor): #722ED1;
+}
+
+:res[theme=pink-purple] {
+	color(AccentColor): #D91AD9;
+}
+
+:res[theme=magenta] {
+	color(AccentColor): #F5319D;
+}

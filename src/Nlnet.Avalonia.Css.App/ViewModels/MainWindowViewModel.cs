@@ -68,13 +68,20 @@ namespace Nlnet.Avalonia.Css.App
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName is nameof(Theme) or nameof(Mode))
+            if (propertyName is nameof(Theme))
             {
                 CssManager.Current.Theme = Theme;
-                CssManager.Current.Mode  = Mode;
+                
+                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
+                cssTheme?.UpdateTheme();
+                cssTheme?.UpdateResource();
+            }
+            else if (propertyName is nameof(Mode))
+            {
+                CssManager.Current.Mode = Mode;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
-                cssTheme?.UpdateResource();
+                cssTheme?.UpdateMode();
             }
         }
     }
