@@ -56,4 +56,5 @@
 	transition(stBackground): BrushTransition(TemplatedControl.Background 0.075);
 	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity 0.075);
 	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.075);
+	transition(stHeight): DoubleTransition(TemplatedControl.Height 0.075);
 }

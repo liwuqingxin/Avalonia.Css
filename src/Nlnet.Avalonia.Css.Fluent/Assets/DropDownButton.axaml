@@ -7,7 +7,6 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid x:Name="InnerGrid" ColumnDefinitions="*,Auto">
                         <ContentPresenter x:Name="PART_ContentPresenter"
@@ -20,15 +19,7 @@
                                           RecognizesAccessKey="True" />
                         <PathIcon x:Name="DropDownGlyph"
                                   Grid.Column="1"
-                                  Width="12"
-                                  Height="12"
-                                  Margin="0,0,10,0"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Center"
-                                  Data="M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z"
-                                  Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
-                                  IsHitTestVisible="False"
-                                  UseLayoutRounding="False" />
+                                  IsHitTestVisible="False" />
                     </Grid>
                 </Border>
             </ControlTemplate>

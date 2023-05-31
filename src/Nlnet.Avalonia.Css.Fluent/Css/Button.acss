@@ -22,6 +22,7 @@ Button {
     ]
 
     [[
+        /* 可用时显示阴影 */
         Button:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow:0 1 0 0 #6666;
         }
@@ -30,10 +31,11 @@ Button {
             Background: var(control-back-hover);
         }
         Button:pressed{
-            RenderTransform:scale(0.8,0.8);
+            RenderTransform:scale(0.97,0.97);
             Opacity:0.9;
             ClipToBounds:True;
         }
+        /* 主题分类 */
         Button.primary, Button.Primary {
             Background: var(Accent);
             Foreground: #fff;

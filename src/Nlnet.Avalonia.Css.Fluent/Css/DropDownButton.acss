@@ -14,7 +14,6 @@ DropDownButton {
     VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
-        /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);
         var(stBorderBrush);
         var(stBackground);
@@ -22,7 +21,7 @@ DropDownButton {
     ]
 
     [[
-        DropDownButton:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
+        DropDownButton:not(:disabled) /template/ Border#RootBorder{
             BoxShadow:0 1 0 0 #6666;
         }
         DropDownButton:pointerover{
@@ -30,18 +29,9 @@ DropDownButton {
             Background: var(control-back-hover);
         }
         DropDownButton:pressed{
-            RenderTransform:scale(0.8,0.8);
+            RenderTransform:scale(0.97,0.97);
             Opacity:0.9;
             ClipToBounds:True;
-        }
-        DropDownButton.primary, DropDownButton.Primary {
-            Background: var(Accent);
-            Foreground: #fff;
-            [[
-                DropDownButton:pointerover{
-                    Foreground: #fff;
-                }
-            ]]
         }
     ]]
 }

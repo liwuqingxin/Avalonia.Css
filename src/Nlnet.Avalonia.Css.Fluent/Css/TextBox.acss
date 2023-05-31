@@ -14,6 +14,7 @@ TextBox {
     VerticalAlignment: Center;
     MinWidth:40;
     MaxWidth:100;
+    ClipToBounds:True;
     SelectionBrush:var(Accent06);
     Transitions:[
         var(stRenderTransform);
@@ -38,15 +39,18 @@ TextBox {
             ClipToBounds:True;
         }
         TextBox /template/ Border#PART_Indicator {
-            BorderBrush:var(watermark);
-            BorderThickness: 0,0,0,1;
+            Background:Transparent;
+            Height:0;
             Transitions:[
-                var(stBorderThickness);
+                DoubleTransition(TemplatedControl.Height 0.075);
             ]
         }
         TextBox:focus-within /template/ Border#PART_Indicator {
-            BorderBrush:var(Accent);
-            BorderThickness: 0,0,0,2;
+            Background:var(Accent);
+            Height:2;
+            Margin:0,0,0,-1;
+            CornerRadius:0,0,3,3;
+            VerticalAlignment:Bottom;
         }
     ]]
 }
