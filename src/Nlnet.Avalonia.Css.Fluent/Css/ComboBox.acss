@@ -69,6 +69,9 @@ ComboBox {
         ComboBox:pointerover{
             Background:var(control-back-hover);
         }
+        ComboBox /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:4;
+        }
         ComboBox /template/ Popup#PART_Popup{
             VerticalOffset: -15;
             Transitions:[

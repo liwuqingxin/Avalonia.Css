@@ -17,8 +17,10 @@
 	brush(fore): #eee;
 	brush(fore-hover): #fff;
 	brush(window-back): #202020;
+	brush(watermark): #666;
 
 	brush(control-back): #353535;
+	brush(control-back-hover): #383838;
 	brush(control-border): #4444;
 
 	brush(comboboxitem-back): #F9FAFA;

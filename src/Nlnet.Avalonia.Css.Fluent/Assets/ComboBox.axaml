@@ -26,11 +26,11 @@
     <ControlTheme x:Key="{x:Type ComboBox}" TargetType="ComboBox">
         <Setter Property="ComboBox.ItemsPanel">
             <ItemsPanelTemplate>
-                <StackPanel Spacing="4" />
+                <StackPanel />
             </ItemsPanelTemplate>
         </Setter>
         <Setter Property="Template">
-            <ControlTemplate>
+            <ControlTemplate TargetType="ComboBox">
                 <DataValidationErrors>
                     <Grid ColumnDefinitions="*,32">
                         <Grid.Resources>
@@ -87,7 +87,7 @@
                             <Panel>
                                 <Border x:Name="ShadowBorder"
                                         Margin="{Binding #PopupBorder.Margin}"
-                                        Background="#fff"
+                                        Background="{Binding #PopupBorder.Background}"
                                         CornerRadius="{Binding #PopupBorder.CornerRadius}" />
                                 <Border x:Name="PopupBorder"
                                         Margin="5"
