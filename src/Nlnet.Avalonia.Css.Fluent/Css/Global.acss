@@ -14,7 +14,3 @@ Window {
         BrushTransition(Background 0.8);
     ]
 }
-
-:is(Control):disabled{
-    Opacity:0.8;
-}

@@ -13,5 +13,8 @@
         <TextBox />
         <TextBox Watermark="请输入..." />
         <TextBox Text="普通输入框" />
+
+        <TextBox IsEnabled="False" Watermark="请输入..." />
+        <TextBox IsEnabled="False" Text="普通输入框" />
     </StackPanel>
 </UserControl>

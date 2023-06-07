@@ -60,5 +60,8 @@ ToggleSwitch {
             Foreground: var(fore-hover);
             Background: var(Accent09);
         }
+        ToggleSwitch:disabled{
+            Opacity:0.4;
+        }
     ]]
 }

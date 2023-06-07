@@ -30,7 +30,11 @@
     <StackPanel Margin="8"
                 VerticalAlignment="Top"
                 Spacing="8">
-        <Button Classes="primary" Content="确定" />
+        <Button Classes="primary"
+                Content="确定"
+                ContextFlyout="{StaticResource SharedMenuFlyout}"
+                ContextMenu="{StaticResource SharedMenu}"
+                Flyout="{StaticResource SharedMenuFlyout}" />
         <Button Content="取消" />
         <Button Content="普通按钮" />
         <Button Width="44" Height="44">
@@ -47,6 +51,12 @@
                         ContextFlyout="{StaticResource SharedMenuFlyout}"
                         ContextMenu="{StaticResource SharedMenu}"
                         Flyout="{StaticResource SharedMenuFlyout}" />
+
+        <DropDownButton Content="不可用下拉按钮"
+                        ContextFlyout="{StaticResource SharedMenuFlyout}"
+                        ContextMenu="{StaticResource SharedMenu}"
+                        Flyout="{StaticResource SharedMenuFlyout}"
+                        IsEnabled="False" />
 
     </StackPanel>
 </UserControl>

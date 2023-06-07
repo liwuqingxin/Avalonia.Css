@@ -11,6 +11,9 @@
 	brush(comboboxitem-back): #F9FAFA;
 	brush(comboboxitem-back-hover): #F2F2F3;
 	brush(comboboxitem-back-selected): #F5F5F7;
+
+	brush(slider-back): #868686;
+
 }
 
 :res[mode=dark] {

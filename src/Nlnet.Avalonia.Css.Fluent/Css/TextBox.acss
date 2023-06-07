@@ -52,5 +52,8 @@ TextBox {
             CornerRadius:0,0,3,3;
             VerticalAlignment:Bottom;
         }
+        TextBox:disabled{
+            Opacity:0.4;
+        }
     ]]
 }

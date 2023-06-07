@@ -56,5 +56,8 @@ CheckBox {
         CheckBox:checked /template/ Border#PART_CheckGlyphContainer, CheckBox:indeterminate /template/ Border#PART_CheckGlyphContainer{
             Width:12;
         }
+        CheckBox:disabled{
+            Opacity:0.4;
+        }
     ]]
 }

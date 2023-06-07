@@ -33,7 +33,10 @@ Button {
         Button:pressed{
             RenderTransform:scale(0.97,0.97);
             Opacity:0.9;
-            ClipToBounds:True;
+            /* ClipToBounds:True; */
+        }
+        Button:disabled{
+            Opacity:0.4;
         }
         /* 主题分类 */
         Button.primary, Button.Primary {

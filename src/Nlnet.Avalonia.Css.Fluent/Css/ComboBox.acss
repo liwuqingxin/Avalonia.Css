@@ -35,6 +35,9 @@ ComboBoxItem {
                 var(stOpacity);
             ]
         }
+        ComboBoxItem:disabled{
+            Opacity:0.4;
+        }
     ]]
 }
 
@@ -115,6 +118,9 @@ ComboBox {
         }
         ComboBox:dropdownopen /template/ PathIcon#DropDownGlyph{
             RenderTransform: scale(1,-1);
+        }
+        ComboBox:disabled{
+            Opacity:0.4;
         }
     ]]
 }

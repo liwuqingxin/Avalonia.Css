@@ -1,0 +1,82 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.SliderPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel Margin="8"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Spacing="8">
+
+        <Slider Width="200"
+                Maximum="100"
+                Minimum="0" />
+
+        <Slider Width="200"
+                IsSnapToTickEnabled="True"
+                Maximum="100"
+                Minimum="0"
+                TickFrequency="20"
+                TickPlacement="BottomRight" />
+
+        <Slider Height="120"
+                IsSnapToTickEnabled="False"
+                Maximum="100"
+                Minimum="0"
+                Orientation="Vertical"
+                TickFrequency="20"
+                TickPlacement="Outside" />
+
+        <Slider Width="200"
+                Classes="Massiness"
+                Maximum="100"
+                Minimum="0" />
+
+        <Slider Width="200"
+                Classes="Massiness"
+                IsSnapToTickEnabled="True"
+                Maximum="100"
+                Minimum="0"
+                TickFrequency="20"
+                TickPlacement="BottomRight" />
+
+        <Slider Height="120"
+                Classes="Massiness"
+                IsSnapToTickEnabled="False"
+                Maximum="100"
+                Minimum="0"
+                Orientation="Vertical"
+                TickFrequency="20"
+                TickPlacement="BottomRight" />
+
+
+        <Slider Width="200"
+                Classes="Massiness"
+                IsEnabled="False"
+                Maximum="100"
+                Minimum="0" />
+
+        <Slider Width="200"
+                Classes="Massiness"
+                IsEnabled="False"
+                IsSnapToTickEnabled="True"
+                Maximum="100"
+                Minimum="0"
+                TickFrequency="20"
+                TickPlacement="BottomRight" />
+
+        <Slider Height="120"
+                Classes="Massiness"
+                IsEnabled="False"
+                IsSnapToTickEnabled="False"
+                Maximum="100"
+                Minimum="0"
+                Orientation="Vertical"
+                TickFrequency="20"
+                TickPlacement="BottomRight" />
+
+    </StackPanel>
+</UserControl>
