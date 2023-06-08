@@ -1,10 +1,12 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fluent="https://www.nlnet.com/avalonia.css">
 
 
     <ControlTheme x:Key="FluentSliderHorizontalRepeatButton" TargetType="RepeatButton">
         <Setter Property="RepeatButton.Template">
             <ControlTemplate TargetType="RepeatButton">
-                <Grid>
+                <Panel>
                     <Border Name="FocusTarget"
                             Margin="0,-10"
                             Background="Transparent" />
@@ -12,7 +14,7 @@
                             VerticalAlignment="Center"
                             Background="{TemplateBinding Background}"
                             CornerRadius="{TemplateBinding CornerRadius}" />
-                </Grid>
+                </Panel>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
@@ -20,7 +22,7 @@
     <ControlTheme x:Key="FluentSliderVerticalRepeatButton" TargetType="RepeatButton">
         <Setter Property="RepeatButton.Template">
             <ControlTemplate TargetType="RepeatButton">
-                <Grid>
+                <Panel>
                     <Border Name="FocusTarget"
                             Margin="0,-10"
                             Background="Transparent" />
@@ -28,7 +30,7 @@
                             HorizontalAlignment="Center"
                             Background="{TemplateBinding Background}"
                             CornerRadius="{TemplateBinding CornerRadius}" />
-                </Grid>
+                </Panel>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
@@ -45,30 +47,34 @@
     </ControlTheme>
 
     <ControlTheme x:Key="{x:Type Slider}" TargetType="Slider">
-        <Setter Property="Slider.ClipToBounds" Value="False" />
         <Style Selector="^:horizontal">
             <Setter Property="Slider.Template">
                 <ControlTemplate TargetType="Slider">
-                    <DataValidationErrors ClipToBounds="False">
+                    <DataValidationErrors>
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                ClipToBounds="False"
                                 CornerRadius="{TemplateBinding CornerRadius}">
-                            <Grid x:Name="SliderContainer"
-                                  Margin="{TemplateBinding Padding}"
-                                  ClipToBounds="False">
-                                <Grid.Styles>
+                            <Panel x:Name="SliderContainer" Margin="{TemplateBinding Padding}">
+                                <Panel.Styles>
                                     <Style Selector="TickBar">
                                         <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
                                     </Style>
-                                </Grid.Styles>
-                                <Canvas x:Name="ValueTipCanvas"
-                                        IsVisible="False"
-                                        RenderTransform="translate(0,-40px)">
-                                    <Border BoxShadow="0 0 3 3 #2222" CornerRadius="6">
-                                        <TextBlock Margin="6" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Value, StringFormat={}{0:F0}}" />
-                                    </Border>
-                                </Canvas>
+                                </Panel.Styles>
+                                <Popup x:Name="ValueTipPopup"
+                                       IsOpen="True"
+                                       PlacementTarget="{Binding #SliderContainer}">
+                                    <Popup.HorizontalOffset>
+                                        <MultiBinding Converter="{x:Static fluent:SliderValueTipOffsetCvt.HorizontalCvt}">
+                                            <Binding ElementName="SliderThumb" Path="Bounds" />
+                                            <Binding ElementName="ValueTipPopup" Path="." />
+                                        </MultiBinding>
+                                    </Popup.HorizontalOffset>
+                                    <Panel>
+                                        <Border x:Name="ValueTipBackground" />
+                                        <Border x:Name="ValueTipBorder" />
+                                        <TextBlock x:Name="ValueTipText" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Value, StringFormat={}{0:F0}}" />
+                                    </Panel>
+                                </Popup>
                                 <Grid x:Name="HorizontalTemplate" RowDefinitions="Auto,Auto,Auto">
                                     <TickBar Name="TopTickBar"
                                              IsVisible="False"
@@ -114,7 +120,7 @@
                                                Theme="{StaticResource FluentSliderThumbTheme}" />
                                     </Track>
                                 </Grid>
-                            </Grid>
+                            </Panel>
                         </Border>
                     </DataValidationErrors>
                 </ControlTemplate>
@@ -127,14 +133,27 @@
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}">
-                            <Grid x:Name="SliderContainer"
-                                  Margin="{TemplateBinding Padding}"
-                                  Background="{DynamicResource SliderContainerBackground}">
-                                <Grid.Styles>
+                            <Panel x:Name="SliderContainer" Margin="{TemplateBinding Padding}">
+                                <Panel.Styles>
                                     <Style Selector="TickBar">
                                         <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
                                     </Style>
-                                </Grid.Styles>
+                                </Panel.Styles>
+                                <Popup x:Name="ValueTipPopup"
+                                       IsOpen="True"
+                                       PlacementTarget="{Binding #SliderContainer}">
+                                    <Popup.VerticalOffset>
+                                        <MultiBinding Converter="{x:Static fluent:SliderValueTipOffsetCvt.VerticalCvt}">
+                                            <Binding ElementName="SliderThumb" Path="Bounds" />
+                                            <Binding ElementName="ValueTipPopup" Path="." />
+                                        </MultiBinding>
+                                    </Popup.VerticalOffset>
+                                    <Panel>
+                                        <Border x:Name="ValueTipBackground" />
+                                        <Border x:Name="ValueTipBorder" />
+                                        <TextBlock x:Name="ValueTipText" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Value, StringFormat={}{0:F0}}" />
+                                    </Panel>
+                                </Popup>
                                 <Grid x:Name="VerticalTemplate" ColumnDefinitions="Auto,Auto,Auto">
                                     <TickBar Name="LeftTickBar"
                                              IsVisible="False"
@@ -180,7 +199,7 @@
                                                Theme="{StaticResource FluentSliderThumbTheme}" />
                                     </Track>
                                 </Grid>
-                            </Grid>
+                            </Panel>
                         </Border>
                     </DataValidationErrors>
                 </ControlTemplate>
@@ -201,8 +220,8 @@
             <Setter Property="IsVisible" Value="True" />
         </Style>
 
-        <Style Selector="^:pressed /template/ Canvas#ValueTipCanvas">
-            <Setter Property="Canvas.IsVisible" Value="True" />
+        <Style Selector="^:pressed /template/ Popup#ValueTipPopup">
+            <Setter Property="Popup.IsOpen" Value="True" />
         </Style>
 
     </ControlTheme>

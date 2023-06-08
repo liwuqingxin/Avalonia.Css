@@ -17,11 +17,11 @@
 
     [[
         /* RepeatButton */
-        Slider[Orientation=Horizontal] RepeatButton /template/ Border#TrackBackground{
+        Slider:horizontal RepeatButton /template/ Border#TrackBackground{
             Height: 2;
             CornerRadius: 4;
         }
-        Slider[Orientation=Vertical] RepeatButton /template/ Border#TrackBackground{
+        Slider:vertical RepeatButton /template/ Border#TrackBackground{
             Width: 2;
             CornerRadius: 4;
         }
@@ -82,6 +82,34 @@
         }
         Slider:disabled{
             Opacity:0.4;
+        }
+
+        /* ValueTip */
+        Slider:horizontal /template/ Popup#ValueTipPopup{
+            VerticalOffset:-10;
+            PlacementMode:Top;
+        }
+        Slider:vertical /template/ Popup#ValueTipPopup{
+            HorizontalOffset:-10;
+            PlacementMode:Left;
+        }
+        Slider /template/ Border#ValueTipBackground{
+            Background: var(control-back);
+            MinWidth:40;
+            CornerRadius:4;
+            Margin:10;
+            BoxShadow:0 0 20 2 #2666;
+        }
+        Slider /template/ Border#ValueTipBorder{
+            BorderBrush: var(control-border);
+            BorderThickness:1;
+            Margin:10;
+            CornerRadius:4;
+        }
+        Slider /template/ TextBlock#ValueTipText{
+            HorizontalAlignment: Center;
+            Foreground:var(fore);
+            Margin:16;
         }
 
         /* Massiness */

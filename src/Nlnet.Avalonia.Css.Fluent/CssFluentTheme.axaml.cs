@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 
@@ -14,6 +15,8 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         private static void Load()
         {
+            TypeResolver.Instance.LoadResolver(new GenericResolver<CssFluentTheme>());
+
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
@@ -33,13 +36,11 @@ namespace Nlnet.Avalonia.Css.Fluent
         public void UpdateMode()
         {
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
-
         }
 
         public void UpdateTheme()
         {
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
-
         }
     }
 }

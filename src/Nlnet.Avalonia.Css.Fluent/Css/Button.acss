@@ -24,7 +24,7 @@ Button {
     [[
         /* 可用时显示阴影 */
         Button:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
-            BoxShadow:0 1 0 0 #6666;
+            BoxShadow:0 0.6 0 0 #6666;
         }
         Button:pointerover{
             Foreground: var(fore-hover);
@@ -39,7 +39,7 @@ Button {
             Opacity:0.4;
         }
         /* 主题分类 */
-        Button.primary, Button.Primary {
+        Button.primary, Button.Primary, Button[(ButtonStyles.Style)=Accent] {
             Background: var(Accent);
             Foreground: #fff;
             [[
