@@ -15,7 +15,7 @@ public class TypeResolver
 
     private readonly List<IValueParsingTypeAdapter> _typeAdapters = new()
     {
-        new AvaloniaValueParsingTypeAdapter(),
+        new AvaloniaDefaultValueParsingTypeAdapter(),
     };
 
     public void LoadResolver(ITypeResolver resolver)
