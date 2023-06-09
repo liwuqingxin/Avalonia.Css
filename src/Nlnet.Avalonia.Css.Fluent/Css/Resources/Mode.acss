@@ -2,6 +2,7 @@
 	brush(fore): #333;
 	brush(fore-hover): #111;
 	brush(window-back): #F3F3F3;
+	brush(window-back-active): #EEF4F9;
 	brush(watermark): #aaa;
 	
 	brush(control-back): #fefefe;

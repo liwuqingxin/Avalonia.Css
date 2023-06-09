@@ -10,9 +10,9 @@ Window {
     Transitions:[
         BrushTransition(Background 0.8);
     ]
-    /* [[
-        Window:focus-within {
-            Background: #EEF4F9;
+    [[
+        Window[IsActive=True] {
+            Background: var(window-back-active);
         }
-    ]] */
+    ]]
 }

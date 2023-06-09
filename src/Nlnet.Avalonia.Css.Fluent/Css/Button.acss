@@ -30,8 +30,8 @@ Button {
             Background: var(control-back-hover);
         }
         Button:pressed{
-            RenderTransform:scale(0.97,0.97);
-            Opacity:0.9;
+            /* RenderTransform:scale(0.97,0.97); */
+            Opacity:0.6;
         }
         Button:disabled{
             Opacity:0.4;
@@ -42,7 +42,11 @@ Button {
             Foreground: #fff;
             [[
                 Button:pointerover{
+                    Background: var(Accent09);
                     Foreground: #fff;
+                }
+                Button:pressed{
+                    Opacity:0.8;
                 }
             ]]
         }

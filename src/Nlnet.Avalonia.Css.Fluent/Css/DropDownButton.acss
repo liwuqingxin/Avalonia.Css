@@ -29,8 +29,8 @@ DropDownButton {
             Background: var(control-back-hover);
         }
         DropDownButton:pressed{
-            RenderTransform:scale(0.97,0.97);
-            Opacity:0.9;
+            /* RenderTransform:scale(0.97,0.97); */
+            Opacity:0.6;
             ClipToBounds:True;
         }
         DropDownButton:disabled{
