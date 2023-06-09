@@ -98,7 +98,7 @@
             MinWidth:40;
             CornerRadius:4;
             Margin:10;
-            BoxShadow:0 0 20 2 #2666;
+            BoxShadow: var(popup-shadow);
         }
         Slider /template/ Border#ValueTipBorder{
             BorderBrush: var(control-border);

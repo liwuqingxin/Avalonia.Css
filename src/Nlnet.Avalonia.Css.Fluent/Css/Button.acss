@@ -22,9 +22,8 @@ Button {
     ]
 
     [[
-        /* 可用时显示阴影 */
         Button:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
-            BoxShadow:0 0.6 0 0 #6666;
+            BoxShadow: var(button-shadow);
         }
         Button:pointerover{
             Foreground: var(fore-hover);
@@ -33,7 +32,6 @@ Button {
         Button:pressed{
             RenderTransform:scale(0.97,0.97);
             Opacity:0.9;
-            /* ClipToBounds:True; */
         }
         Button:disabled{
             Opacity:0.4;

@@ -22,7 +22,7 @@ DropDownButton {
 
     [[
         DropDownButton:not(:disabled) /template/ Border#RootBorder{
-            BoxShadow:0 0.6 0 0 #6666;
+            BoxShadow: var(button-shadow);
         }
         DropDownButton:pointerover{
             Foreground: var(fore-hover);

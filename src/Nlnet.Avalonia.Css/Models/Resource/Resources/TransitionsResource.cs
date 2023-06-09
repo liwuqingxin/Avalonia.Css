@@ -3,7 +3,7 @@
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Transition<object>))]
-public class TransitionsResource : CssResource<TransitionsResource>
+public class TransitionResource : CssResource<TransitionResource>
 {
     protected override object? Accept(string valueString)
     {

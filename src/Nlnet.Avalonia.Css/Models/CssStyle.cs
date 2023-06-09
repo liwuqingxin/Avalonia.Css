@@ -27,18 +27,18 @@ public class CssStyle
         {
             var setters = contentString.Remove(index1, index2 - index1 + 2);
             Setters = parser.TryGetSetters(setters);
-            Resources = parser.TryGetResources();
-
+            
             index1 += 2;
             var childSection = contentString[index1..index2];
-            parser = parser.Clone(childSection);
+            parser    = parser.Clone(childSection);
+            Resources = parser.TryGetResources();
             Children  = parser.TryGetStyles();
         }
         else
         {
-            Setters = parser.TryGetSetters(contentString);
+            Setters   = parser.TryGetSetters(contentString);
             Resources = Enumerable.Empty<CssResourceList>();
-            Children = Enumerable.Empty<CssStyle>();
+            Children  = Enumerable.Empty<CssStyle>();
         }
     }
 
@@ -75,16 +75,16 @@ public class CssStyle
 
         if (style.Selector?.TargetType != null)
         {
-            // Setters
-            foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(style.Selector.TargetType)).OfType<ISetter>())
-            {
-                style.Add(setter);
-            }
-
             // Resources
             foreach (var cssResourceList in Resources)
             {
                 cssResourceList.TryAddTo(style.Resources.MergedDictionaries);
+            }
+
+            // Setters
+            foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(style.Selector.TargetType)).OfType<ISetter>())
+            {
+                style.Add(setter);
             }
 
             // Children

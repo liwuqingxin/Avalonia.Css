@@ -1,5 +1,8 @@
-﻿TextBlock, AccessText, TextBox {
+﻿TextBlock, AccessText {
     FontFamily: 微软雅黑,宋体;
+}
+TextPresenter {
+    TextBlock.FontFamily: 微软雅黑,宋体;
 }
 
 Window {

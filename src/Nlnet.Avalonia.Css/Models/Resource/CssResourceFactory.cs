@@ -21,20 +21,24 @@ public static class CssResourceFactory
             .Select(t =>
             {
                 var factory = Activator.CreateInstance(t) as IResourceFactory;
-                var key     = t.GetCustomAttribute<ResourceTypeAttribute>()?.Type;
-                return (key, factory);
+                var keys    = t.GetCustomAttributes<ResourceTypeAttribute>();
+                return (keys, factory);
             })
-            .Where(t => t.key != null && t.factory != null)
+            .SelectMany(t =>
+            {
+                return t.keys.Select(key => (key.Type, t.factory));
+            })
+            .Where(t => t.factory != null)
             .ToList();
 
         foreach (var factory in factories)
         {
-            Factories[factory.key!] = factory.factory!;
+            Factories[factory.Type] = factory.factory!;
         }
 
         var builder = new StringBuilder();
         builder.Append('(');
-        builder.AppendJoin('|', factories.Select(t => t.key));
+        builder.AppendJoin('|', factories.Select(t => t.Type));
         builder.Append(")\\s*\\(([a-zA-Z0-9_\\-\\.]*?)\\)\\s*\\:\\s*(.*)[;]?");
 
         Regex = new Regex(builder.ToString(), RegexOptions.IgnoreCase);

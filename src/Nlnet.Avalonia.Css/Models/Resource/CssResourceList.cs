@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Avalonia.Controls;
 
@@ -8,13 +9,16 @@ namespace Nlnet.Avalonia.Css;
 
 public class CssResourceList
 {
-    private static readonly Regex RegexSelector = new(":res(\\[.*\\])?", RegexOptions.IgnoreCase);
-    private static readonly Regex RegexTheme    = new("\\[theme=(.*)\\]", RegexOptions.IgnoreCase);
-    private static readonly Regex RegexMode     = new("\\[mode=(.*)\\]", RegexOptions.IgnoreCase);
+    private static readonly Regex RegexSelector    = new(":res(\\[.*\\])?", RegexOptions.IgnoreCase);
+    private static readonly Regex RegexTheme       = new("\\[theme=(.*?)\\]", RegexOptions.IgnoreCase);
+    private static readonly Regex RegexMode        = new("\\[mode=(.*?)\\]", RegexOptions.IgnoreCase);
+    private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
 
     public string? Theme { get; set; }
     
     public string? Mode { get; set; }
+
+    public string? Description { get; set; }
 
     public List<CssResource> Resources { get; set; } = new();
 
@@ -60,6 +64,24 @@ public class CssResourceList
         }
     }
 
+    public override string ToString()
+    {
+        var builder = new StringBuilder();
+        if (string.IsNullOrEmpty(Description) == false)
+        {
+            builder.Append($"[{Description}]");
+        }
+        if (string.IsNullOrEmpty(Mode) == false)
+        {
+            builder.Append($"[Mode:{Mode}]");
+        }
+        if (string.IsNullOrEmpty(Theme) == false)
+        {
+            builder.Append($"[Theme:{Theme}]");
+        }
+        return builder.ToString();
+    }
+
     public static bool TryGetResourceList(string selector, string content, out CssResourceList? cssResources)
     {
         var match = RegexSelector.Match(selector);
@@ -73,6 +95,7 @@ public class CssResourceList
 
         var matchTheme = RegexTheme.Match(selector);
         var matchMode  = RegexMode.Match(selector);
+        var matchDesc  = RegexDescription.Match(selector);
         if (matchTheme.Success)
         {
             resources.Theme = matchTheme.Groups[1].Value;
@@ -80,6 +103,10 @@ public class CssResourceList
         if (matchMode.Success)
         {
             resources.Mode = matchMode.Groups[1].Value;
+        }
+        if (matchDesc.Success)
+        {
+            resources.Description = matchDesc.Groups[1].Value;
         }
 
         resources.Resources.AddRange(TryGetResources(content).ToList());

@@ -1,4 +1,4 @@
-﻿:res[mode=light] {
+﻿:res[mode=light][desc=亮色资源] {
 	brush(fore): #333;
 	brush(fore-hover): #111;
 	brush(window-back): #F3F3F3;
@@ -14,9 +14,11 @@
 
 	brush(slider-back): #868686;
 
+	BoxShadow(button-shadow): 0 0.6 0 0 #6666;
+	BoxShadow(popup-shadow): 0 0 20 2 #2666;
 }
 
-:res[mode=dark] {
+:res[mode=dark][desc=暗色资源] {
 	brush(fore): #eee;
 	brush(fore-hover): #fff;
 	brush(window-back): #202020;

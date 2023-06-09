@@ -3,13 +3,15 @@ using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Css;
 
-public class BoxShadowResource : CssResource<BoxShadowResource>
+[ResourceType(nameof(BoxShadows))]
+[ResourceType(nameof(BoxShadow))]
+public class BoxShadowsResource : CssResource<BoxShadowsResource>
 {
     protected override object? Accept(string valueString)
     {
         try
         {
-            return BoxShadow.Parse(valueString);
+            return BoxShadows.Parse(valueString);
         }
         catch (Exception e)
         {

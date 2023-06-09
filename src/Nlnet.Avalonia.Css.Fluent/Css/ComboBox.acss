@@ -77,6 +77,7 @@ ComboBox {
         }
         ComboBox /template/ Popup#PART_Popup{
             VerticalOffset: -15;
+            HorizontalOffset: -20;
             Transitions:[
                 DoubleTransition(Popup.VerticalOffset 0.2 0 SineEaseOut);
             ]
@@ -90,18 +91,21 @@ ComboBox {
             Background:var(comboboxitem-back);
             CornerRadius: 4;
             Padding:4;
-            Opacity:0.1;
-            /* Transitions:[
+            Margin:20,5,20,20;
+            
+            /* 透明度不生效 */
+            /* Opacity:0.1;
+            Transitions:[
                 DoubleTransition(Border.Opacity 0.2)
             ] */
         }
         ComboBox /template/ Border#ShadowBorder{
-            BoxShadow:0 0 10 0 #15000000;
+            BoxShadow: var(popup-shadow);
             IsHitTestVisible:False;
         }
-        ComboBox:dropdownopen /template/ Border#PopupBorder{
+        /* ComboBox:dropdownopen /template/ Border#PopupBorder{
             Opacity:1;
-        }
+        } */
         ComboBox /template/ PathIcon#DropDownGlyph{
             Width:12;
             Height:12;
