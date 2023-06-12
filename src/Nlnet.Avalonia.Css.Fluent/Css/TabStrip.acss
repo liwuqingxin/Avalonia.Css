@@ -1,0 +1,59 @@
+﻿
+TextBox {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    CornerRadius: 4;
+    BorderThickness: 1;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Center;
+    VerticalAlignment: Center;
+    MinWidth:40;
+    MaxWidth:100;
+    ClipToBounds:True;
+    SelectionBrush:var(Accent06);
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
+
+    [[
+        TextBox:pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        TextBox /template/ TextBlock#PART_Watermark {
+            IsVisible:False;
+            Foreground:var(watermark);
+        }
+        TextBox:empty /template/ TextBlock#PART_Watermark {
+            IsVisible:True;
+        }
+        TextBox /template/ TextPresenter#PART_TextPresenter {
+            ClipToBounds:True;
+        }
+        TextBox /template/ Border#PART_Indicator {
+            Background:Transparent;
+            Height:0;
+            Transitions:[
+                DoubleTransition(TemplatedControl.Height 0.075);
+            ]
+        }
+        TextBox:focus-within /template/ Border#PART_Indicator {
+            Background:var(Accent);
+            Height:2;
+            Margin:0,0,0,-1;
+            CornerRadius:0,0,3,3;
+            VerticalAlignment:Bottom;
+        }
+        TextBox:disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

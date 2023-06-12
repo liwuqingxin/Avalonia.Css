@@ -1,0 +1,16 @@
+﻿Container {
+    Background: var(control-back);
+    Padding: 8;
+    BorderBrush: var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 3;
+    Transitions:[
+        var(stBackground);
+    ]
+
+    [[
+        Container[UsePointerReaction=True]:pointerover{
+            Background: var(control-back-hover);
+        }
+    ]]
+}

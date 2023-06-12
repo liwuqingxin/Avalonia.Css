@@ -5,7 +5,7 @@ namespace Nlnet.Avalonia.Css.Fluent;
 public enum TabStripItemsPanelStyle
 {
     StackPanel,
-    WarpPanel,
+    WrapPanel,
 }
 
 public class TabStripItemsPanelStyles : AvaloniaObject
@@ -19,5 +19,5 @@ public class TabStripItemsPanelStyles : AvaloniaObject
         host.SetValue(StyleProperty, value);
     }
     public static readonly AttachedProperty<TabStripItemsPanelStyle> StyleProperty = AvaloniaProperty
-        .RegisterAttached<TabStripItemsPanelStyles, Visual, TabStripItemsPanelStyle>("Style");
+        .RegisterAttached<TabStripItemsPanelStyles, Visual, TabStripItemsPanelStyle>("Style", TabStripItemsPanelStyle.StackPanel);
 }

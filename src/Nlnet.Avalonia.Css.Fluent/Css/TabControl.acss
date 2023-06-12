@@ -1,0 +1,102 @@
+﻿TabItem {
+    Foreground: var(fore);
+    Background: Transparent;
+    Opacity: 1;
+    CornerRadius: 4;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
+
+    [[
+        TabItem /template/ Border#PART_SelectedPipe{
+            Background: var(Accent);
+            Opacity:0;
+            RenderTransform: scale(0,0);
+            Transitions:[
+                var(gstRenderTransform);
+                var(gstOpacity);
+            ]
+        }
+        TabItem:selected /template/ Border#PART_SelectedPipe{
+            RenderTransform: scale(1,1);
+            Opacity:1;
+        }
+        TabItem /template/ ContentPresenter#PART_ContentPresenter{
+            Padding:10;
+        }
+        TabItem[TabStripPlacement=Left] /template/ Border#PART_SelectedPipe{
+            Width: 3;
+            Height: 16;
+            CornerRadius: 4;
+            HorizontalAlignment: Left;
+            VerticalAlignment: Center;
+        }
+        TabItem[TabStripPlacement=Right] /template/ Border#PART_SelectedPipe{
+            Width: 3;
+            Height: 16;
+            CornerRadius: 4;
+            HorizontalAlignment: Right;
+            VerticalAlignment: Center;
+        }
+        TabItem[TabStripPlacement=Top] /template/ Border#PART_SelectedPipe{
+            Height: 3;
+            /* Width: 24; */
+            CornerRadius: 4;
+            Margin: 24,2;
+            HorizontalAlignment: Stretch;
+            VerticalAlignment: Bottom;
+        }
+        TabItem[TabStripPlacement=Bottom] /template/ Border#PART_SelectedPipe{
+            Height: 3;
+            /* Width: 24; */
+            CornerRadius: 4;
+            Margin: 24,2;
+            HorizontalAlignment: Stretch;
+            VerticalAlignment: Top;
+        }
+
+        TabItem:pointerover{
+            Foreground: var(fore-hover);
+            Background: var(item-back-hover);
+        }
+        TabItem:selected{
+            Foreground: var(fore-hover);
+            Background: var(item-back-selected);
+        }
+        TabItem:pointerover:selected{
+            
+            Background: var(item-back-selected-pointerover);
+        }
+        TabItem:pressed{
+            Background: var(item-back-selected);
+        }
+        TabItem:disabled{
+            Opacity:0.4;
+        }
+    ]]
+}
+
+
+TabControl {
+    Foreground: var(fore);
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+
+    [[
+        TabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:4;
+        }
+    ]]
+}

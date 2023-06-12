@@ -24,6 +24,16 @@
 	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.075);
 	transition(stHeight): DoubleTransition(TemplatedControl.Height 0.075);
 	transition(stWidth): DoubleTransition(TemplatedControl.Width 0.075);
+
+	transition(gstRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.125);
+	transition(gstBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.125);
+	transition(gstBackground): BrushTransition(TemplatedControl.Background 0.125);
+	transition(gstFill): BrushTransition(Shape.Fill 0.125);
+	transition(gstStroke): BrushTransition(Shape.Stroke 0.125);
+	transition(gstOpacity): DoubleTransition(TemplatedControl.Opacity 0.125);
+	transition(gstBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.125);
+	transition(gstHeight): DoubleTransition(TemplatedControl.Height 0.125);
+	transition(gstWidth): DoubleTransition(TemplatedControl.Width 0.125);
 }
 
 

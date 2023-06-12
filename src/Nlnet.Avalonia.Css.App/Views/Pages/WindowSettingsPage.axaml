@@ -11,10 +11,7 @@
     <StackPanel Margin="8"
                 VerticalAlignment="Top"
                 Spacing="4">
-        <Border Background="#FBFBFB"
-                BorderBrush="{DynamicResource control-border}"
-                BorderThickness="1"
-                CornerRadius="3">
+        <fluent:Container UsePointerReaction="True">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel Margin="16">
                     <TextBlock Text="Generic Monitor (GoBiggerR)" />
@@ -29,12 +26,9 @@
                         fluent:ButtonStyles.Style="Accent"
                         Content="连接" />
             </Grid>
-        </Border>
+        </fluent:Container>
 
-        <Border Background="#FBFBFB"
-                BorderBrush="{DynamicResource control-border}"
-                BorderThickness="1"
-                CornerRadius="3">
+        <fluent:Container UsePointerReaction="True">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel Margin="16">
                     <TextBlock Text="Generic Monitor (GoBiggerR)" />
@@ -49,12 +43,9 @@
                         fluent:ButtonStyles.Style="Accent"
                         Content="连接" />
             </Grid>
-        </Border>
+        </fluent:Container>
 
-        <Border Background="#FBFBFB"
-                BorderBrush="{DynamicResource control-border}"
-                BorderThickness="1"
-                CornerRadius="3">
+        <fluent:Container UsePointerReaction="True">
             <Grid ColumnDefinitions="*,Auto">
                 <StackPanel Margin="16">
                     <TextBlock Text="Generic Monitor (GoBiggerR)" />
@@ -69,7 +60,7 @@
                         fluent:ButtonStyles.Style="Accent"
                         Content="连接" />
             </Grid>
-        </Border>
+        </fluent:Container>
 
     </StackPanel>
 </UserControl>

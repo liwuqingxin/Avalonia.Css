@@ -11,8 +11,6 @@
         Height="700"
         d:DesignHeight="450"
         d:DesignWidth="800"
-        Icon="/Assets/avalonia-logo.ico"
-        Topmost="True"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Design.DataContext>
@@ -30,6 +28,7 @@
         </StackPanel>
         <TabControl x:Name="TabControl"
                     Grid.Row="1"
+                    Margin="12"
                     TabStripPlacement="Left" />
 
     </Grid>
