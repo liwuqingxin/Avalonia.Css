@@ -29,14 +29,6 @@
                 </Border>
             </ControlTemplate>
         </Setter>
-
-        <Style Selector="^[TabStripPlacement=Top] /template/ Border#PART_SelectedPipe, ^[TabStripPlacement=Bottom] /template/ Border#PART_SelectedPipe">
-            <Setter Property="Border.Height" Value="{DynamicResource TabItemPipeThickness}" />
-            <Setter Property="Border.Margin" Value="0,0,0,2" />
-            <Setter Property="Border.HorizontalAlignment" Value="Stretch" />
-            <Setter Property="Border.VerticalAlignment" Value="Bottom" />
-        </Style>
-
     </ControlTheme>
 
 

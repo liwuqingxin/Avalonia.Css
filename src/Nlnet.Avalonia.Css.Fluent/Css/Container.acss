@@ -3,7 +3,7 @@
     Padding: 8;
     BorderBrush: var(control-border);
     BorderThickness: 1;
-    CornerRadius: 3;
+    CornerRadius: 5;
     Transitions:[
         var(stBackground);
     ]

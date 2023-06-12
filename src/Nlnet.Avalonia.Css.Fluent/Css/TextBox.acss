@@ -39,18 +39,22 @@ TextBox {
             ClipToBounds:True;
         }
         TextBox /template/ Border#PART_Indicator {
-            Background:Transparent;
-            Height:0;
+            Background:var(Accent);
+            Height: 2;
+            Margin: 8,0,8,-1;
+            Opacity: 0;
+            CornerRadius:1;
+            VerticalAlignment:Bottom;
+            RenderTransform: scale(0,1);
             Transitions:[
-                DoubleTransition(TemplatedControl.Height 0.075);
+                var(gstRenderTransform);
+                var(gstOpacity);
             ]
         }
         TextBox:focus-within /template/ Border#PART_Indicator {
-            Background:var(Accent);
-            Height:2;
-            Margin:0,0,0,-1;
-            CornerRadius:0,0,3,3;
-            VerticalAlignment:Bottom;
+            Opacity: 1;
+            RenderTransform:scale(1,1);
+            Margin: 8,0,8,-1;
         }
         TextBox:disabled{
             Opacity:0.4;

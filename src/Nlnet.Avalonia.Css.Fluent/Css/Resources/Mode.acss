@@ -23,6 +23,8 @@
 
 	brush(slider-back): #868686;
 
+	brush(progressbar-back): #11444444;
+
 	BoxShadow(button-shadow): 0 0.6 0 0 #6666;
 	BoxShadow(popup-shadow): 0 0 20 2 #2666;
 }

@@ -37,7 +37,7 @@
                                                    TextWrapping="{TemplateBinding TextWrapping}" />
                                 </ScrollViewer>
                             </Panel>
-                            <Border x:Name="PART_Indicator" CornerRadius="{TemplateBinding CornerRadius}" />
+                            <Border x:Name="PART_Indicator" />
                         </Panel>
                     </Border>
                 </Panel>

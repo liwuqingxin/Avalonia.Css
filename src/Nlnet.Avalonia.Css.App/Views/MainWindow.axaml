@@ -11,6 +11,7 @@
         Height="700"
         d:DesignHeight="450"
         d:DesignWidth="800"
+        Topmost="True"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Design.DataContext>

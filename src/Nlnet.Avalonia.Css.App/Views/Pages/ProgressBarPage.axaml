@@ -1,0 +1,43 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.ProgressBarPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fluent="https://www.nlnet.com/avalonia"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <StackPanel Margin="8"
+                VerticalAlignment="Top"
+                Spacing="8">
+
+        <Slider x:Name="Slider"
+                Width="200"
+                fluent:SliderExtension.Format="{}{0:0%}"
+                Maximum="1"
+                Minimum="0" />
+
+        <ProgressBar Width="200" IsIndeterminate="True" />
+        <ProgressBar Width="200"
+                     Maximum="{Binding #Slider.Maximum}"
+                     Minimum="{Binding #Slider.Minimum}"
+                     Value="{Binding #Slider.Value}" />
+        <ProgressBar Width="200"
+                     Maximum="{Binding #Slider.Maximum}"
+                     Minimum="{Binding #Slider.Minimum}"
+                     ProgressTextFormat="{}{0:0%}"
+                     ShowProgressText="True"
+                     Value="{Binding #Slider.Value}" />
+
+        <ProgressBar Height="200"
+                     HorizontalAlignment="Center"
+                     Maximum="{Binding #Slider.Maximum}"
+                     Minimum="{Binding #Slider.Minimum}"
+                     Orientation="Vertical"
+                     ProgressTextFormat="进度百分比：{0:0.0%}"
+                     ShowProgressText="True"
+                     Value="{Binding #Slider.Value}" />
+
+    </StackPanel>
+</UserControl>

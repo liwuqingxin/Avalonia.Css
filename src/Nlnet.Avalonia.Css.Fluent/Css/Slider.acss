@@ -3,7 +3,7 @@
     Background: var(slider-back);
     BorderBrush: var(control-border);
     VerticalAlignment:Top;
-    HorizontalAlignment:Left;
+    HorizontalAlignment:Stretch;
     CornerRadius: 4;
     Opacity: 1;
     RenderTransform: none;
