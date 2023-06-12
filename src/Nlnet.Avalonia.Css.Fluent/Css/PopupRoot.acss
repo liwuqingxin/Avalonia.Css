@@ -1,0 +1,14 @@
+﻿
+PopupRoot {
+    [[
+        PopupRoot /template/ Border#PopupBorder{
+            BoxShadow: var(popup-shadow);
+            CornerRadius: 6;
+            BorderThickness: 1;
+            Margin: 20,5,20,20;
+            Background: White;
+            BorderBrush:var(control-border);
+            ClipToBounds:False;
+        }
+    ]]
+}

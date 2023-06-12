@@ -32,8 +32,15 @@ ComboBoxItem {
             Opacity:1;
             CornerRadius:2;
             Transitions:[
-                var(stOpacity);
+                var(gstRenderTransform);
+                var(gstOpacity);
             ]
+        }
+        ComboBoxItem:pointerover /template/ Border#PART_Indicator {
+            RenderTransform: scale(1,1.4);
+        }
+        ComboBoxItem:pressed /template/ Border#PART_Indicator {
+            RenderTransform: scale(1,1);
         }
         ComboBoxItem:disabled{
             Opacity:0.4;
@@ -85,27 +92,13 @@ ComboBox {
         ComboBox:dropdownopen /template/ Popup#PART_Popup{
             VerticalOffset: -2;
         }
-        ComboBox /template/ Border#PopupBorder{
-            BorderThickness: 1;
-            BorderBrush:var(control-border);
+        ComboBox /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);
-            CornerRadius: 4;
+        }
+        ComboBox /template/ Border#PopupBorder{
+            /* Background:var(comboboxitem-back); */
             Padding:4;
-            Margin:20,5,20,20;
-            
-            /* 透明度不生效 */
-            /* Opacity:0.1;
-            Transitions:[
-                DoubleTransition(Border.Opacity 0.2)
-            ] */
         }
-        ComboBox /template/ Border#ShadowBorder{
-            BoxShadow: var(popup-shadow);
-            IsHitTestVisible:False;
-        }
-        /* ComboBox:dropdownopen /template/ Border#PopupBorder{
-            Opacity:1;
-        } */
         ComboBox /template/ PathIcon#DropDownGlyph{
             Width:12;
             Height:12;

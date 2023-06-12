@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
@@ -26,9 +27,9 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (values.Count == 2  && values[0] is Rect bounds && values[1] is Popup popup)
+            if (values.Count >= 2  && values[0] is Rect bounds && values[1] is Popup popup)
             {
-                var popupRoot = popup.Child?.FindAncestorOfType<PopupRoot>();
+                var popupRoot = popup.Child?.FindAncestorOfType<PopupRoot>() ?? popup.Child;
                 if (popupRoot == null)
                 {
                     return BindingOperations.DoNothing;

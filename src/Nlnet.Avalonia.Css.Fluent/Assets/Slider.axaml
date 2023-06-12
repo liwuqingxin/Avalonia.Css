@@ -70,8 +70,6 @@
                                         </MultiBinding>
                                     </Popup.HorizontalOffset>
                                     <Panel>
-                                        <Border x:Name="ValueTipBackground" />
-                                        <Border x:Name="ValueTipBorder" />
                                         <TextBlock x:Name="ValueTipText">
                                             <TextBlock.Text>
                                                 <MultiBinding Converter="{x:Static fluent:SliderValueFormatCvt.Cvt}">
@@ -155,18 +153,14 @@
                                             <Binding ElementName="ValueTipPopup" Path="." />
                                         </MultiBinding>
                                     </Popup.VerticalOffset>
-                                    <Panel>
-                                        <Border x:Name="ValueTipBackground" />
-                                        <Border x:Name="ValueTipBorder" />
-                                        <TextBlock x:Name="ValueTipText">
-                                            <TextBlock.Text>
-                                                <MultiBinding Converter="{x:Static fluent:SliderValueFormatCvt.Cvt}">
-                                                    <Binding Path="." RelativeSource="{RelativeSource Mode=TemplatedParent}" />
-                                                    <Binding Path="Value" RelativeSource="{RelativeSource Mode=TemplatedParent}" />
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </Panel>
+                                    <TextBlock x:Name="ValueTipText">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{x:Static fluent:SliderValueFormatCvt.Cvt}">
+                                                <Binding Path="." RelativeSource="{RelativeSource Mode=TemplatedParent}" />
+                                                <Binding Path="Value" RelativeSource="{RelativeSource Mode=TemplatedParent}" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </Popup>
                                 <Grid x:Name="VerticalTemplate" ColumnDefinitions="Auto,Auto,Auto">
                                     <TickBar Name="LeftTickBar"

@@ -93,19 +93,6 @@
             HorizontalOffset:-10;
             PlacementMode:Left;
         }
-        Slider /template/ Border#ValueTipBackground{
-            Background: var(control-back);
-            MinWidth:40;
-            CornerRadius:4;
-            Margin:10;
-            BoxShadow: var(popup-shadow);
-        }
-        Slider /template/ Border#ValueTipBorder{
-            BorderBrush: var(control-border);
-            BorderThickness:1;
-            Margin:10;
-            CornerRadius:4;
-        }
         Slider /template/ TextBlock#ValueTipText{
             HorizontalAlignment: Center;
             Foreground:var(fore);
