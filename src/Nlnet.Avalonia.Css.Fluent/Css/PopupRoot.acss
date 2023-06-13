@@ -5,7 +5,7 @@ PopupRoot {
             BoxShadow: var(popup-shadow);
             CornerRadius: 6;
             BorderThickness: 1;
-            Margin: 20,5,20,20;
+            Margin: 10,10,10,10;
             Background: White;
             BorderBrush:var(control-border);
             ClipToBounds:False;

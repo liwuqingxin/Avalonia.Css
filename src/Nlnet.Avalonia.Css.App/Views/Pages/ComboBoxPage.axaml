@@ -29,7 +29,11 @@
             <ComboBox Items="{utils:Enum HorizontalAlignment}" SelectedIndex="0" />
             <ComboBox IsTextSearchEnabled="True"
                       Items="{utils:Enum SizeToContent}"
-                      SelectedIndex="0" />
+                      SelectedIndex="0">
+                <Interaction.Behaviors>
+                    <behaviors:ComboBoxAlignPopupToSelectionBehavior />
+                </Interaction.Behaviors>
+            </ComboBox>
             <ComboBox IsEnabled="False" Items="{utils:Enum HorizontalAlignment}" />
             <ComboBox IsEnabled="False"
                       Items="{utils:Enum HorizontalAlignment}"
