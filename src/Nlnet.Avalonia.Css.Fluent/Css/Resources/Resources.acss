@@ -28,6 +28,7 @@
 	transition(stMaxWidth): DoubleTransition(TemplatedControl.MaxWidth 0.075);
 	transition(stMinHeight): DoubleTransition(TemplatedControl.MinHeight 0.075);
 	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth 0.075);
+	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.075);
 
 	transition(gstRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.125);
 	transition(gstBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.125);
@@ -42,6 +43,7 @@
 	transition(gstMaxWidth): DoubleTransition(TemplatedControl.MaxWidth 0.125);
 	transition(gstMinHeight): DoubleTransition(TemplatedControl.MinHeight 0.125);
 	transition(gstMinWidth): DoubleTransition(TemplatedControl.MinWidth 0.125);
+	transition(gstBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.125);
 }
 
 

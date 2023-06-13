@@ -31,6 +31,7 @@ ComboBoxItem {
             Height:12;
             Width:3;
             Opacity:1;
+            Margin:1;
             CornerRadius:2;
             Transitions:[
                 var(gstRenderTransform);
@@ -84,14 +85,11 @@ ComboBox {
             Spacing:4;
         }
         ComboBox /template/ Popup#PART_Popup{
-            VerticalOffset: -15;
+            VerticalOffset: -7;
             HorizontalOffset: -10;
             Transitions:[
                 DoubleTransition(Popup.VerticalOffset 0.2 0 SineEaseOut);
             ]
-        }
-        ComboBox:dropdownopen /template/ Popup#PART_Popup{
-            VerticalOffset: -7;
         }
         ComboBox /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);

@@ -22,6 +22,7 @@
         TabItem /template/ Border#PART_SelectedPipe{
             Background: var(Accent);
             Opacity:0;
+            Margin:1;
             RenderTransform: scale(0,0);
             Transitions:[
                 var(gstRenderTransform);

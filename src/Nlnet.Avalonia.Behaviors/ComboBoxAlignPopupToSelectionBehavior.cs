@@ -12,6 +12,7 @@ namespace Nlnet.Avalonia.Behaviors
     {
         private double _horizontalOffset;
         private double _verticalOffset;
+        private bool   _isAttached;
 
         protected override void OnAttached()
         {
@@ -40,15 +41,23 @@ namespace Nlnet.Avalonia.Behaviors
         private void AttachToComboBox()
         {
             var popup = this.AssociatedObject?.FindDescendantOfType<Popup>();
-            if (popup == null)
+            if (popup == null || _isAttached)
             {
                 return;
             }
 
-            _horizontalOffset =  popup.HorizontalOffset;
-            _verticalOffset   =  popup.VerticalOffset;
+            if (_horizontalOffset == 0)
+            {
+                _horizontalOffset = popup.HorizontalOffset;
+            }
+            if (_verticalOffset == 0)
+            {
+                _verticalOffset = popup.VerticalOffset;
+            }
 
-            popup.Opened      += Popup_Opened;
+            _isAttached = true;
+
+            popup.Opened += Popup_Opened;
         }
 
         protected override void OnDetaching()
@@ -58,6 +67,8 @@ namespace Nlnet.Avalonia.Behaviors
             {
                 return;
             }
+
+            _isAttached = false;
 
             popup.Opened -= Popup_Opened;
         }
@@ -89,14 +100,14 @@ namespace Nlnet.Avalonia.Behaviors
 
             var toOffset   = -(comboBox.Bounds.Height + point.Y) + _verticalOffset;
             var fromOffset = toOffset;
-            if (popup.VerticalOffset > toOffset)
-            {
-                fromOffset += 2;
-            }
-            else
-            {
-                fromOffset -= 2;
-            }
+            //if (popup.VerticalOffset > toOffset)
+            //{
+            //    fromOffset += 4;
+            //}
+            //else if(popup.VerticalOffset < toOffset)
+            //{
+            //    fromOffset -= 4;
+            //}
             var transitions = popup.Transitions;
             popup.Transitions      = null;
             popup.VerticalOffset   = fromOffset;
