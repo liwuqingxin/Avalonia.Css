@@ -7,6 +7,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using DynamicData;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -31,7 +32,7 @@ namespace Nlnet.Avalonia.Css
                 throw new InvalidOperationException($"{nameof(CssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (Application.Current?.Styles.OfType<CssFile>().FirstOrDefault(s => s._file == filePath) is CssFile exist)
+            if (Application.Current?.Styles.OfType<CssFile>().FirstOrDefault(s => s._file == filePath) is { } exist)
             {
                 return exist;
             }
@@ -81,23 +82,29 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var        cssContent   = File.ReadAllText(_file);
-                ICssParser parser       = new CssParser(cssContent);
-                var        cssStyles    = parser.TryGetStyles();
-                var        cssResources = parser.TryGetResources();
+                var cssContent        = File.ReadAllText(_file);
+                var parser            = new CssParser();
+                var css               = CssParser.RemoveComments(cssContent.ToCharArray());
+                var sections          = parser.GetSections(css).ToList();
+                var cssStyles         = sections.OfType<ICssStyle>();
+                var cssDictionaryList = sections.OfType<ICssResourceDictionary>();
 
                 foreach (var cssStyle in cssStyles)
                 {
-                    var style = (cssStyle.ToAvaloniaStyle(false) as Style);
+                    var style = cssStyle.ToAvaloniaStyle();
                     if (style.Selector != null)
                     {
                         this.Add(style);
                     }
                 }
 
-                foreach (var cssResourceList in cssResources)
+                foreach (var dictionary in cssDictionaryList)
                 {
-                    cssResourceList.TryAddTo(this.Resources.MergedDictionaries);
+                    var dic = dictionary.ToAvaloniaResourceDictionary();
+                    if (dic != null)
+                    {
+                        this.Resources.MergedDictionaries.Add(dic);
+                    }
                 }
 
                 Application.Current?.Styles.Add(this);

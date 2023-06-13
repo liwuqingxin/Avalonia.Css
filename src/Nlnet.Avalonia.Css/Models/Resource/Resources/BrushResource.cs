@@ -7,7 +7,7 @@ using Avalonia.Media.Immutable;
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Brush))]
-public class BrushResource : CssResource<BrushResource>
+public class BrushResource : CssResourceBaseAndFac<BrushResource>
 {
     private double  _opacity;
     private string? _key;
@@ -21,16 +21,15 @@ public class BrushResource : CssResource<BrushResource>
         }
 
         var colorString = values[0];
-        var opacity     = 1d;
+        _opacity = 1d;
         if (values.Length >= 2 && double.TryParse(values[1], out var o))
         {
-            opacity = o;
+            _opacity = o;
         }
 
         if (InterpreterHelper.IsVar(colorString, out var key))
         {
-            _opacity   = opacity;
-            _key       = key;
+            _key = key;
 
             IsDeferred = true;
 
@@ -44,7 +43,7 @@ public class BrushResource : CssResource<BrushResource>
                 return null;
             }
 
-            return new ImmutableSolidColorBrush(color.Value, opacity);
+            return new ImmutableSolidColorBrush(color.Value, _opacity);
         }
     }
 

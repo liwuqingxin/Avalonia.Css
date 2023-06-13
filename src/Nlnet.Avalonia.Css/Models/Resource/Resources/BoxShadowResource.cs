@@ -5,7 +5,7 @@ namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(BoxShadows))]
 [ResourceType(nameof(BoxShadow))]
-public class BoxShadowsResource : CssResource<BoxShadowsResource>
+public class BoxShadowsResource : CssResourceBaseAndFac<BoxShadowsResource>
 {
     protected override object? Accept(string valueString)
     {

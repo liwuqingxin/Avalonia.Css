@@ -1,145 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Nlnet.Avalonia.Css
+namespace Nlnet.Avalonia.Css;
+
+public interface ICssParser
 {
-    public interface ICssParser
+    public IEnumerable<ICssSection> GetSections(ReadOnlySpan<char> css);
+}
+
+public class CssParser : ICssParser
+{
+    public IEnumerable<ICssSection> GetSections(ReadOnlySpan<char> css)
     {
-        public IEnumerable<CssStyle> TryGetStyles();
+        var list = new List<ICssSection>();
 
-        public IEnumerable<CssResourceList> TryGetResources();
+        var index = 0;
+        var selector = string.Empty;
+        var leftBraceCount = 0;
+        var isInStyleContent = false;
+        for (var i = 0; i < css.Length; i++)
+        {
+            switch (css[i])
+            {
+                case '{':
+                    if (isInStyleContent == false)
+                    {
+                        isInStyleContent = true;
+                        selector = css[index..i].ToString();
+                        index = i + 1;
+                    }
+                    else
+                    {
+                        leftBraceCount++;
+                    }
+                    break;
+                case '}':
+                    if (leftBraceCount == 0)
+                    {
+                        isInStyleContent = false;
+                        var content = css[index..i];
+                        index = i + 1;
+                        list.Add(CssSectionFactory.Build(this, selector, content));
+                    }
+                    else
+                    {
+                        leftBraceCount--;
+                    }
+                    break;
+            }
+        }
 
-        public IEnumerable<CssSetter> TryGetSetters(string setters);
-
-        public ICssParser Clone(string cssContent);
+        return list;
     }
 
-    internal class CssParser : ICssParser
+    public static ReadOnlySpan<char> RemoveComments(Span<char> css)
     {
-        private IList<CssStyle>? _styles;
-        private IList<CssResourceList>? _resources;
-
-        public CssParser(string cssContent)
+        var builder = new StringBuilder();
+        var index = 0;
+        for (var i = 0; i < css.Length; i++)
         {
-            cssContent = RemoveComments(cssContent);
-            Parse(cssContent);
-        }
-
-        private void Parse(string cssContent)
-        {
-            _styles = new List<CssStyle>();
-            _resources = new List<CssResourceList>();
-            
-            var index            = 0;
-            var selector         = string.Empty;
-            var leftBraceCount   = 0;
-            var isInStyleContent = false;
-            for (var i = 0; i < cssContent.Length; i++)
+            switch (css[i])
             {
-                switch (cssContent[i])
-                {
-                    case '{':
-                        if (isInStyleContent == false)
+                case '/':
+                    if (Check(css, i + 1, '*'))
+                    {
+                        if (index != -1)
                         {
-                            isInStyleContent = true;
-                            selector         = cssContent[index..i];
-                            index            = i + 1;
+                            builder.Append(css[index..i]);
                         }
-                        else
-                        {
-                            leftBraceCount++;
-                        }
-                        break;
-                    case '}':
-                        if (leftBraceCount == 0)
-                        {
-                            isInStyleContent = false;
-                            var content = cssContent[index..i];
-                            index = i + 1;
-                            if (CssResourceList.TryGetResourceList(selector, content, out var resource))
-                            {
-                                _resources.Add(resource!);
-                            }
-                            else
-                            {
-                                _styles.Add(new CssStyle(this, selector, content));
-                            }
-                        }
-                        else
-                        {
-                            leftBraceCount--;
-                        }
-                        break;
-                }
+                        index = -1;
+                    }
+                    else if (Check(css, i - 1, '*'))
+                    {
+                        index = i + 1;
+                    }
+                    break;
+                case '\r':
+                case '\n':
+                    css[i] = ' ';
+                    break;
+                default:
+                    break;
             }
         }
 
-        IEnumerable<CssStyle> ICssParser.TryGetStyles()
+        if (index < css.Length)
         {
-            return _styles ?? Enumerable.Empty<CssStyle>();
+            builder.Append(css[index..]);
         }
 
-        IEnumerable<CssResourceList> ICssParser.TryGetResources()
+        return builder.ToString();
+    }
+
+    private static bool Check(ReadOnlySpan<char> s, int index, char ch)
+    {
+        if (index < 0 || index >= s.Length)
         {
-            return _resources ?? Enumerable.Empty<CssResourceList>();
+            return false;
         }
 
-        IEnumerable<CssSetter> ICssParser.TryGetSetters(string setters)
-        {
-            return InterpreterHelper.ParseSetters(setters);
-        }
-
-        public ICssParser Clone(string cssContent)
-        {
-            return new CssParser(cssContent);
-        }
-
-        private static string RemoveComments(string css)
-        {
-            css = css.ReplaceLineEndings(" ");
-            var builder = new StringBuilder();
-            var index   = 0;
-            for (var i = 0; i < css.Length; i++)
-            {
-                switch (css[i])
-                {
-                    case '/':
-                        if (Check(css, i + 1, '*'))
-                        {
-                            if (index != -1)
-                            {
-                                builder.Append(css.AsSpan(index, i - index));
-                            }
-                            index = -1;
-                        }
-                        else if (Check(css, i - 1, '*'))
-                        {
-                            index = i + 1;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            if (index < css.Length)
-            {
-                builder.Append(css.AsSpan(index, css.Length - index));
-            }
-
-            return builder.ToString();
-        }
-
-        private static bool Check(string s, int index, char ch)
-        {
-            if (index < 0 || index >= s.Length)
-            {
-                return false;
-            }
-
-            return s[index] == ch;
-        }
+        return s[index] == ch;
     }
 }

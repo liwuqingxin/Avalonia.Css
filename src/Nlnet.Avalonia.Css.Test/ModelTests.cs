@@ -22,16 +22,16 @@ namespace Nlnet.Avalonia.Css.Test
             Assert.IsNotNull(resource?.Value);
 
             CssResourceFactory.TryGetResourceInstance("brush(info): var(accent) 0.4;", out resource);
-            Assert.IsNotNull(resource?.Value);
+            Assert.IsNull(resource?.Value);
 
             CssResourceFactory.TryGetResourceInstance("brush(info): var(accent) 0.4 ;", out resource);
-            Assert.IsNotNull(resource?.Value);
+            Assert.IsNull(resource?.Value);
 
             CssResourceFactory.TryGetResourceInstance("brush(info): var(accent) 0.4", out resource);
-            Assert.IsNotNull(resource?.Value);
+            Assert.IsNull(resource?.Value);
 
             CssResourceFactory.TryGetResourceInstance("brush(info): var(accent) 0.4 as", out resource);
-            Assert.IsNotNull(resource?.Value);
+            Assert.IsNull(resource?.Value);
         }
     }
 }

@@ -4,7 +4,7 @@ using Avalonia;
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Double))]
-public class DoubleResource : CssResource<DoubleResource>
+public class DoubleResource : CssResourceBaseAndFac<DoubleResource>
 {
     protected override object? Accept(string valueString)
     {

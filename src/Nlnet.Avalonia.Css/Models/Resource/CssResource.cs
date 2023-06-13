@@ -26,9 +26,15 @@ namespace Nlnet.Avalonia.Css
         }
     }
 
-    public abstract class CssResource<T> : CssResource, IResourceFactory where T : CssResource, new()
+    public interface IResourceFactory
     {
-        public CssResource Create()
+        public CssResource Create();
+    }
+
+
+    public abstract class CssResourceBaseAndFac<T> : CssResource, IResourceFactory where T : CssResource, new()
+    {
+        CssResource IResourceFactory.Create()
         {
             return new T();
         }

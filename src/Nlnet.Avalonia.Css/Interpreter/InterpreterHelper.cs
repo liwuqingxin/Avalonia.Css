@@ -212,11 +212,10 @@ namespace Nlnet.Avalonia.Css
             return duration;
         }
 
-        internal static IEnumerable<CssSetter> ParseSetters(string valueString)
+        internal static IEnumerable<CssSetter> ParseSetters(ReadOnlySpan<char> span)
         {
             var setters = new List<CssSetter>();
-
-            var span = valueString.AsSpan();
+            
             var colonsCount = 0;
             var index = 0;
             var name = string.Empty;

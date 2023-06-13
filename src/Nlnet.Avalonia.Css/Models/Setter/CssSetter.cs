@@ -3,11 +3,20 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-public class CssSetter
+public interface ICssSetter
 {
-    internal string? Property { get; set; }
+    public string Property { get; set; }
 
-    internal string? RawValue { get; set; }
+    public string? RawValue { get; set; }
+
+    public ISetter? ToAvaloniaSetter(Type targetType);
+}
+
+public class CssSetter : ICssSetter
+{
+    public string? Property { get; set; }
+
+    public string? RawValue { get; set; }
 
     public CssSetter(string setterString)
     {

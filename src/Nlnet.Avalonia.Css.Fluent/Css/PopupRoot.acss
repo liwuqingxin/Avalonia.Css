@@ -9,6 +9,31 @@ PopupRoot {
             Background: White;
             BorderBrush:var(control-border);
             ClipToBounds:False;
+            [[
+                :animation{
+                    FillMode:Forword;
+                    IterationCount:1;
+                    Duration:0:0:0.16;
+                    Children:[
+                        KeyFrame{
+                            Cue:0%;
+                            KeySpline:0.4,0,0.6,1;
+                            {
+                                Opacity:0;
+                                TranslateTransform.Y:-10;
+                            }
+                        };
+                        KeyFrame{
+                            Cue:0%;
+                            KeySpline:0.4,0,0.6,1;
+                            {
+                                Opacity:0;
+                                TranslateTransform.Y:-10;
+                            }
+                        };
+                    ]
+                }
+            ]]
         }
     ]]
 }
