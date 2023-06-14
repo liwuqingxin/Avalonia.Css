@@ -47,10 +47,10 @@ namespace Nlnet.Avalonia.Css.App.Views
                     var svg = new Icon()
                     {
                         Margin = new Thickness(12, 0, 0, 0),
-                        Width  = 24,
-                        Height = 24,
+                        Width  = 22,
+                        Height = 22,
                     };
-                    Nlnet.Avalonia.Svg.Controls.Icon.SetIconSize(svg, 24);
+                    Nlnet.Avalonia.Svg.Controls.Icon.SetIconSize(svg, 22);
                     Nlnet.Avalonia.Svg.Controls.Icon.SetIconSvg(svg, new Uri(imageUriString));
                     TabItemExtension.SetIconContent(tabItem, svg);
                 }

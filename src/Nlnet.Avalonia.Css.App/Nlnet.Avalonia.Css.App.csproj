@@ -11,6 +11,7 @@
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<!--编译时禁止自动生成netcoreapp文件夹-->
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<ApplicationIcon>Assets\brand.ico</ApplicationIcon>
 	</PropertyGroup>
 	
 	<ItemGroup>
