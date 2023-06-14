@@ -81,6 +81,9 @@ ComboBox {
         ComboBox:pointerover{
             Background:var(control-back-hover);
         }
+        ComboBox:pressed{
+            Opacity:0.6;
+        }
         ComboBox /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
@@ -99,8 +102,8 @@ ComboBox {
             Padding:4;
         }
         ComboBox /template/ PathIcon#DropDownGlyph{
-            Width:12;
-            Height:12;
+            Width:9;
+            Height:9;
             Margin:0,0,10,0;
             HorizontalAlignment:Right;
             VerticalAlignment:center;
@@ -111,6 +114,9 @@ ComboBox {
             Transitions:[
                 TransformOperationsTransition(RenderTransform 0.16);
             ]
+        }
+        ComboBox:pressed /template/ PathIcon#DropDownGlyph{
+            RenderTransform: translate(0, 3px);
         }
         ComboBox:dropdownopen /template/ PathIcon#DropDownGlyph{
             RenderTransform: scale(1,-1);
