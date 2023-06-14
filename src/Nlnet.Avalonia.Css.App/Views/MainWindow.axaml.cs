@@ -4,7 +4,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.DevTools;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Styling;
+using Nlnet.Avalonia.Css.Fluent;
+using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
@@ -27,10 +31,31 @@ namespace Nlnet.Avalonia.Css.App.Views
                 .GetTypes()
                 .Where(t => t.Namespace != null && t.Namespace.StartsWith("Nlnet.Avalonia.Css.App.Views.Pages") && t.IsAssignableTo(typeof(UserControl)));
 
-            TabControl.Items = pageTypes.Select(t => new TabItem()
+            var assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
+
+            TabControl.Items = pageTypes.Select(t =>
             {
-                Content = Activator.CreateInstance(t),
-                Header  = t.Name[..^4],
+                var tabItem = new TabItem()
+                {
+                    Content = Activator.CreateInstance(t),
+                    Header  = t.Name[..^4],
+                };
+
+                if (assetLoader != null)
+                {
+                    var imageUriString = $"avares://Nlnet.Avalonia.Css.App/Assets/Svg/{t.Name[..^4]}.svg";
+                    var svg = new Icon()
+                    {
+                        Margin = new Thickness(12, 0, 0, 0),
+                        Width  = 24,
+                        Height = 24,
+                    };
+                    Nlnet.Avalonia.Svg.Controls.Icon.SetIconSize(svg, 24);
+                    Nlnet.Avalonia.Svg.Controls.Icon.SetIconSvg(svg, new Uri(imageUriString));
+                    TabItemExtension.SetIconContent(tabItem, svg);
+                }
+
+                return tabItem;
             }).ToList();
         }
 

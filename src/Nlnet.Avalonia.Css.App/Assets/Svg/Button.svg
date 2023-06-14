@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Button" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="Button" fill="none" stroke="none" />
+    <path d="M448 256L64 256L64 85.3333C64 73.6 73.6 64 85.3333 64L426.667 64C438.4 64 448 73.6 448 85.3333L448 256L448 256Z" id="Shape" fill="#0883D9" stroke="none" />
+    <path d="M426.667 448L85.3333 448C73.6 448 64 438.4 64 426.667L64 256L448 256L448 426.667C448 438.4 438.4 448 426.667 448L426.667 448Z" id="Shape" fill="#0370C8" stroke="none" />
+  </g>
+</svg>

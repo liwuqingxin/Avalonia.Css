@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.5" y1="0.0033666492" x2="0.5" y2="1.0010667" id="gradient_1">
+      <stop offset="0%" stop-color="#21AD64" />
+      <stop offset="100%" stop-color="#088242" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.5" y1="0.0033666492" x2="0.5" y2="1.0010667" id="gradient_2">
+      <stop offset="0%" stop-color="#9DFFCE" />
+      <stop offset="100%" stop-color="#50D18D" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="1.3232231E-05" y1="0.5" x2="0.9999869" y2="0.5" id="gradient_3">
+      <stop offset="82.4%" stop-color="#135D36" />
+      <stop offset="93.09999%" stop-color="#125933" />
+      <stop offset="100%" stop-color="#11522F" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="CheckBox" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="CheckBox" fill="none" stroke="none" />
+    <path d="M426.667 448L149.333 448C137.6 448 128 438.4 128 426.667L128 149.333C128 137.6 137.6 128 149.333 128L426.667 128C438.4 128 448 137.6 448 149.333L448 426.667C448 438.4 438.4 448 426.667 448L426.667 448Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+    <path d="M405.333 128L128 128L128 405.333L366.069 405.333C387.755 405.333 405.333 387.755 405.333 366.069L405.333 128L405.333 128Z" id="Shape" fill="#000000" fill-opacity="0.05" stroke="none" />
+    <path d="M394.667 128L128 128L128 394.667L364.384 394.667C381.109 394.667 394.667 381.109 394.667 364.384L394.667 128L394.667 128Z" id="Shape" fill="#000000" fill-opacity="0.07" stroke="none" />
+    <path d="M362.667 384L85.3333 384C73.6 384 64 374.4 64 362.667L64 85.3333C64 73.6 73.6 64 85.3333 64L362.667 64C374.4 64 384 73.6 384 85.3333L384 362.667C384 374.4 374.4 384 362.667 384L362.667 384Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+    <path d="M195.125 295.541L131.125 231.541C126.955 227.371 126.955 220.619 131.125 216.459L146.208 201.376C150.379 197.205 157.131 197.205 161.291 201.376L202.667 242.752L297.376 148.043C301.547 143.872 308.299 143.872 312.459 148.043L327.541 163.125C331.712 167.296 331.712 174.048 327.541 178.208L210.208 295.541C206.048 299.712 199.285 299.712 195.125 295.541L195.125 295.541Z" id="Shape" fill="url(#gradient_3)" stroke="none" />
+  </g>
+</svg>

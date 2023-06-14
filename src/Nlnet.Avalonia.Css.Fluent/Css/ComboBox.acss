@@ -90,9 +90,6 @@ ComboBox {
         ComboBox /template/ Popup#PART_Popup{
             VerticalOffset: -7;
             HorizontalOffset: -10;
-            Transitions:[
-                DoubleTransition(Popup.VerticalOffset 0.2 0 SineEaseOut);
-            ]
         }
         ComboBox /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);
