@@ -2,10 +2,15 @@
 
 namespace Nlnet.Avalonia.Css
 {
-    public class CssManager : AvaloniaObject
+    public interface ICssManager
     {
-        public static CssManager Current { get; } = new();
+        public string? Theme { get; set; }
 
+        public string? Mode { get; set; }
+    }
+
+    public class CssManager : AvaloniaObject, ICssManager
+    {
         public string? Theme
         {
             get { return GetValue(ThemeProperty); }

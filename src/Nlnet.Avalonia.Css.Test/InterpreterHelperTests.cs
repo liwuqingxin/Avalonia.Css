@@ -11,41 +11,51 @@ namespace Nlnet.Avalonia.Css.Test
         {
             List<CssSetter>? dic = null;
 
-            dic = InterpreterHelper.ParseSetters("back:red").ToList();
+            var parser = ServiceLocator.GetService<ICssParser>();
+
+            dic = parser.ParsePairs("back:red")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 1);
             Assert.IsTrue(dic[0].RawValue == "red");
 
-            dic = InterpreterHelper.ParseSetters("back:red;fore:green").ToList();
+            dic = parser.ParsePairs("back:red;fore:green")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 2);
             Assert.IsTrue(dic[0].RawValue == "red");
             Assert.IsTrue(dic[1].RawValue == "green");
 
-            dic = InterpreterHelper.ParseSetters("back:red;").ToList();
+            dic = parser.ParsePairs("back:red;")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 1);
             Assert.IsTrue(dic[0].RawValue == "red");
 
-            dic = InterpreterHelper.ParseSetters("back:red;fore:green;").ToList();
+            dic = parser.ParsePairs("back:red;fore:green;")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 2);
             Assert.IsTrue(dic[0].RawValue == "red");
             Assert.IsTrue(dic[1].RawValue == "green");
 
-            dic = InterpreterHelper.ParseSetters("back:red fore:green;").ToList();
+            dic = parser.ParsePairs("back:red fore:green;")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 1);
             Assert.IsTrue(dic[0].RawValue == "red fore:green");
 
-            dic = InterpreterHelper.ParseSetters("back:red; fore:green; trans:trans[double:opacity 1 1 linear;double:opacity]").ToList();
+            dic = parser.ParsePairs("back:red; fore:green; trans:trans[double:opacity 1 1 linear;double:opacity]")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 3);
             Assert.IsTrue(dic[0].RawValue == "red");
             Assert.IsTrue(dic[1].RawValue == "green");
             Assert.IsTrue(dic[2].RawValue == "trans[double:opacity 1 1 linear;double:opacity]");
 
-            dic = InterpreterHelper.ParseSetters("back:red; fore:green; trans:trans[double:opacity 1 1 linear;double:opacity;]").ToList();
+            dic = parser.ParsePairs("back:red; fore:green; trans:trans[double:opacity 1 1 linear;double:opacity;]")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 3);
             Assert.IsTrue(dic[0].RawValue == "red");
             Assert.IsTrue(dic[1].RawValue == "green");
             Assert.IsTrue(dic[2].RawValue == "trans[double:opacity 1 1 linear;double:opacity;]");
 
-            dic = InterpreterHelper.ParseSetters("back:red; fore:green; trans:trans[double:opacity 1 1 linear;double:opacity;] border:1").ToList();
+            dic = parser.ParsePairs("back:red; fore:green; trans:trans[double:opacity 1 1 linear;double:opacity;] border:1")
+                .Select(p => new CssSetter(p.Item1, p.Item2)).ToList();
             Assert.IsTrue(dic.Count == 4);
             Assert.IsTrue(dic[0].RawValue == "red");
             Assert.IsTrue(dic[1].RawValue == "green");

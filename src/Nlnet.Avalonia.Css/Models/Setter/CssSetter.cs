@@ -43,13 +43,13 @@ public class CssSetter : ICssSetter
             return null;
         }
 
-        var property = InterpreterHelper.ParseAvaloniaProperty(targetType, Property);
+        var property = ServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(targetType, Property);
         if (property == null)
         {
             return null;
         }
 
-        var value = InterpreterHelper.ParseValue(property, RawValue?.Trim());
+        var value = ServiceLocator.GetService<ICssInterpreter>().ParseValue(property, RawValue?.Trim());
         if (value == null)
         {
             return null;

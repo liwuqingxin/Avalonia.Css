@@ -14,6 +14,8 @@ public interface ICssStyle : ICssSection
 
     public IEnumerable<ICssResourceDictionary>? Resources { get; set; }
 
+    public IEnumerable<ICssAnimation>? Animations { get; set; }
+
     public Style ToAvaloniaStyle();
 }
 
@@ -25,6 +27,8 @@ public class CssStyle : CssSection, ICssStyle
 
     public IEnumerable<ICssResourceDictionary>? Resources { get; set; }
 
+    public IEnumerable<ICssAnimation>? Animations { get; set; }
+
     public CssStyle(string selector) : base(selector)
     {
 
@@ -32,35 +36,21 @@ public class CssStyle : CssSection, ICssStyle
 
     public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
     {
-        var index1 = content.IndexOf("[[", StringComparison.Ordinal);
-        var index2 = content.LastIndexOf("]]", StringComparison.Ordinal);
+        parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
 
-        if (index1 != -1 && index2 != -1)
+        Setters = parser.ParsePairs(settersSpan).Select(p => new CssSetter(p.Item1, p.Item2));
+        var list = parser.ParseSections(childrenSpan).ToList();
+        if (list.Count > 0)
         {
-            var span1 = content[..(index1 - 1)];
-            var span2 = content[(index2 + 2)..];
-            var builder = new StringBuilder();
-            builder.Append(span1);
-            builder.Append(span2);
-
-            var setters = builder.ToString().AsSpan();
-            Setters = InterpreterHelper.ParseSetters(setters);
-
-            index1 += 2;
-            var childSection = content[index1..index2];
-            var list = parser.GetSections(childSection).ToList();
             foreach (var section in list)
             {
                 section.Parent = this;
             }
 
-            Children = list;
-            Resources = list.OfType<ICssResourceDictionary>();
-            Styles = list.OfType<ICssStyle>();
-        }
-        else
-        {
-            Setters = InterpreterHelper.ParseSetters(content);
+            Children   = list;
+            Styles     = list.OfType<ICssStyle>();
+            Resources  = list.OfType<ICssResourceDictionary>();
+            Animations = list.OfType<ICssAnimation>();
         }
     }
 
@@ -128,6 +118,19 @@ public class CssStyle : CssSection, ICssStyle
                 {
                     var childStyle = cssStyle.ToAvaloniaStyle();
                     style.Add(childStyle);
+                }
+            }
+
+            // Style Animations
+            if (Animations != null)
+            {
+                foreach (var cssAnimation in Animations)
+                {
+                    var animation = cssAnimation.ToAvaloniaAnimation();
+                    if (animation != null)
+                    {
+                        style.Animations.Add(animation);
+                    }
                 }
             }
         }

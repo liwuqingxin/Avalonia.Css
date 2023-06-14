@@ -59,12 +59,12 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
             return null;
         }
 
-        if (Mode != null && !string.Equals(Mode, CssManager.Current.Mode, StringComparison.CurrentCultureIgnoreCase))
+        if (Mode != null && !string.Equals(Mode, ServiceLocator.GetService<ICssManager>().Mode, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
 
-        if (Theme != null && !string.Equals(Theme, CssManager.Current.Theme, StringComparison.CurrentCultureIgnoreCase))
+        if (Theme != null && !string.Equals(Theme, ServiceLocator.GetService<ICssManager>().Theme, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
@@ -101,7 +101,7 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
             {
                 continue;
             }
-            if (CssResourceFactory.TryGetResourceInstance(resource, out var cssResource))
+            if (ServiceLocator.GetService<ICssResourceFactory>().TryGetResourceInstance(resource, out var cssResource))
             {
                 yield return cssResource!;
             }

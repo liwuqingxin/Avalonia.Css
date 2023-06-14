@@ -27,7 +27,7 @@ public class BrushResource : CssResourceBaseAndFac<BrushResource>
             _opacity = o;
         }
 
-        if (InterpreterHelper.IsVar(colorString, out var key))
+        if (ServiceLocator.GetService<ICssInterpreter>().IsVar(colorString, out var key))
         {
             _key = key;
 
@@ -37,7 +37,7 @@ public class BrushResource : CssResourceBaseAndFac<BrushResource>
         }
         else
         {
-            var color = TryParseColor(colorString);
+            var color = DataParser.TryParseColor(colorString);
             if (color == null)
             {
                 return null;
@@ -59,17 +59,5 @@ public class BrushResource : CssResourceBaseAndFac<BrushResource>
             brush.Color = c;
         }
         return brush;
-    }
-
-    private static Color? TryParseColor(string colorString)
-    {
-        try
-        {
-            return Color.Parse(colorString);
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
     }
 }

@@ -10,7 +10,8 @@ public class OfTypeSyntax : ISyntax, ITypeSyntax
 
     public Selector? ToSelector(Selector? previous)
     {
-        if (TypeResolver.Instance.TryGetType(TypeName, out var type))
+        var manager = ServiceLocator.GetService<ITypeResolverManager>();
+        if (manager.TryGetType(TypeName, out var type))
         {
             return previous.OfType(type!);
         }

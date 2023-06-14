@@ -11,26 +11,18 @@ PopupRoot {
             ClipToBounds:False;
             [[
                 :animation{
-                    FillMode:Forword;
+                    FillMode:Forward;
                     IterationCount:1;
-                    Duration:0:0:0.16;
+                    Duration:'0:0:0.16';
                     Children:[
-                        KeyFrame{
-                            Cue:0%;
-                            KeySpline:0.4,0,0.6,1;
-                            {
-                                Opacity:0;
-                                TranslateTransform.Y:-10;
-                            }
-                        };
-                        KeyFrame{
-                            Cue:0%;
-                            KeySpline:0.4,0,0.6,1;
-                            {
-                                Opacity:0;
-                                TranslateTransform.Y:-10;
-                            }
-                        };
+                        KeyFrame(0% 0.4,0,0.6,1):{
+                            Opacity:0;
+                            TranslateTransform.Y:-10; 
+                        }
+                        KeyFrame(100% 0.4,0,0.6,1):{
+                            Opacity:1;
+                            TranslateTransform.Y:0; 
+                        }
                     ]
                 }
             ]]

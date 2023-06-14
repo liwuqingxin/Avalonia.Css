@@ -10,7 +10,7 @@ public class NotSyntax : ISyntax
 
     public Selector? ToSelector(Selector? previous)
     {
-        var selector = InterpreterHelper.ToSelector(Argument);
+        var selector = ServiceLocator.GetService<ICssInterpreter>().ToSelector(Argument);
         if (selector == null)
         {
             this.WriteLine($"Can not apply :not selector for {Argument}");

@@ -29,7 +29,6 @@
                         <Setter Property="Opacity" Value="1" />
                         <Setter Property="TranslateTransform.Y" Value="0" />
                     </KeyFrame>
-
                 </Animation>
             </Style.Animations>
         </Style>

@@ -13,7 +13,7 @@ namespace Nlnet.Avalonia.Css
             var transitionList = transitionsString.Trim('[',']',' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)
             {
-                if (InterpreterHelper.IsVar(transition, out var key) && Application.Current != null)
+                if (ServiceLocator.GetService<ICssInterpreter>().IsVar(transition, out var key) && Application.Current != null)
                 {
                     if (Application.Current.TryFindResource(key!, out var resource) && resource is ITransition t)
                     {
@@ -22,7 +22,7 @@ namespace Nlnet.Avalonia.Css
                 }
                 else
                 {
-                    var t = InterpreterHelper.ParseTransition(transition);
+                    var t = ServiceLocator.GetService<ICssInterpreter>().ParseTransition(transition);
                     if (t != null)
                     {
                         transitions.Add(t);

@@ -7,7 +7,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using DynamicData;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -82,10 +81,10 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
+                var parser            = ServiceLocator.GetService<ICssParser>();
                 var cssContent        = File.ReadAllText(_file);
-                var parser            = new CssParser();
-                var css               = CssParser.RemoveComments(cssContent.ToCharArray());
-                var sections          = parser.GetSections(css).ToList();
+                var css               = parser.RemoveComments(cssContent.ToCharArray());
+                var sections          = parser.ParseSections(css).ToList();
                 var cssStyles         = sections.OfType<ICssStyle>();
                 var cssDictionaryList = sections.OfType<ICssResourceDictionary>();
 

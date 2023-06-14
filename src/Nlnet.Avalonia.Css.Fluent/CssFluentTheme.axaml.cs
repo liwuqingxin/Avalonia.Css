@@ -14,7 +14,8 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         private static void Load()
         {
-            TypeResolver.Instance.LoadResolver(new GenericResolver<CssFluentTheme>());
+            var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            manager.LoadResolver(new GenericResolver<CssFluentTheme>());
 
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);

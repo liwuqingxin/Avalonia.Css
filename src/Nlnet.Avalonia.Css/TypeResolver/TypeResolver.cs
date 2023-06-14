@@ -4,10 +4,23 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css;
 
-public class TypeResolver
+public interface ITypeResolverManager
 {
-    public static TypeResolver Instance { get; } = new();
+    public void LoadResolver(ITypeResolver resolver);
 
+    public void UnloadResolver(ITypeResolver resolver);
+
+    public void LoadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter);
+
+    public void UnloadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter);
+
+    public bool TryGetType(string name, out Type? type);
+
+    public bool TryAdaptType(Type type, out Type? adaptedType);
+}
+
+public class TypeResolverManager : ITypeResolverManager
+{
     private readonly List<ITypeResolver> _resolvers = new()
     {
         new GenericResolver<Control>(),

@@ -13,8 +13,8 @@ namespace Nlnet.Avalonia.Css.App
             AppLoader.Load("Nlnet.Avalonia.Svg.dll");
             AppLoader.Load("Avalonia.DevTools.dll");
 
-            CssManager.Current.Theme = "blue";
-            CssManager.Current.Mode  = "light";
+            ServiceLocator.GetService<ICssManager>().Theme = "blue";
+            ServiceLocator.GetService<ICssManager>().Mode  = "light";
 
             AvaloniaXamlLoader.Load(this);
         }

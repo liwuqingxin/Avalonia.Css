@@ -7,7 +7,12 @@ using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css;
 
-public static class CssResourceFactory
+public interface ICssResourceFactory
+{
+    public bool TryGetResourceInstance(string resourceString, out CssResource? resource);
+}
+
+public class CssResourceFactory : ICssResourceFactory
 {
     private static readonly Dictionary<string, IResourceFactory> Factories = new(StringComparer.OrdinalIgnoreCase);
 
@@ -44,7 +49,7 @@ public static class CssResourceFactory
         Regex = new Regex(builder.ToString(), RegexOptions.IgnoreCase);
     }
 
-    public static bool TryGetResourceInstance(string resourceString, out CssResource? resource)
+    public bool TryGetResourceInstance(string resourceString, out CssResource? resource)
     {
         var match = Regex.Match(resourceString);
         if (match.Success == false)

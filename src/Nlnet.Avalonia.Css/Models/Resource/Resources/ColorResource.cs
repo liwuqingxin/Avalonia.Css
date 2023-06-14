@@ -15,20 +15,8 @@ public class ColorResource : CssResourceBaseAndFac<ColorResource>
         }
 
         var colorString = values[0];
-        var color       = TryParseColor(colorString);
+        var color       = DataParser.TryParseColor(colorString);
 
         return color;
-    }
-
-    private static Color? TryParseColor(string colorString)
-    {
-        try
-        {
-            return Color.Parse(colorString);
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
     }
 }

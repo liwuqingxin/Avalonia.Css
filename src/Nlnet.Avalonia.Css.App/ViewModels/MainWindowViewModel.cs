@@ -70,7 +70,7 @@ namespace Nlnet.Avalonia.Css.App
 
             if (propertyName is nameof(Theme))
             {
-                CssManager.Current.Theme = Theme;
+                ServiceLocator.GetService<ICssManager>().Theme = Theme;
                 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateTheme();
@@ -78,7 +78,7 @@ namespace Nlnet.Avalonia.Css.App
             }
             else if (propertyName is nameof(Mode))
             {
-                CssManager.Current.Mode = Mode;
+                ServiceLocator.GetService<ICssManager>().Mode = Mode;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateMode();

@@ -1,4 +1,5 @@
 ﻿using Avalonia.Styling;
+using System;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -14,14 +15,15 @@ public class AttachedPropertySyntax : ISyntax, ITypeSyntax
 
     public Selector? ToSelector(Selector? previous)
     {
-        if (TypeResolver.Instance.TryGetType(TypeName, out var type))
+        var manager = ServiceLocator.GetService<ITypeResolverManager>();
+        if (manager.TryGetType(TypeName, out var type))
         {
-            var avaloniaProperty = InterpreterHelper.ParseAvaloniaProperty(type!, Property);
+            var avaloniaProperty = ServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {
                 return previous;
             }
-            var value = InterpreterHelper.ParseValue(avaloniaProperty, Value);
+            var value = ServiceLocator.GetService<ICssInterpreter>().ParseValue(avaloniaProperty, Value);
             if (value != null)
             {
                 return previous.PropertyEquals(avaloniaProperty, value);

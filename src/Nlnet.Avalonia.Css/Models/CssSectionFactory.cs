@@ -3,19 +3,24 @@ using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css;
 
-internal static class CssSectionFactory
+public interface ICssSectionFactory
 {
-    private static readonly Regex RegexResource  = new(":res(\\[.*\\])?", RegexOptions.IgnoreCase);
-    private static readonly Regex RegexAnimation = new(":animation(\\[.*\\])?", RegexOptions.IgnoreCase);
+    public ICssSection Build(ICssParser parser, string selector, ReadOnlySpan<char> content);
+}
 
-    public static ICssSection Build(ICssParser parser, string selector, ReadOnlySpan<char> content)
+internal class CssSectionFactory : ICssSectionFactory
+{
+    private readonly Regex _regexResource  = new(":res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
+    private readonly Regex _regexAnimation = new(":animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
+
+    public ICssSection Build(ICssParser parser, string selector, ReadOnlySpan<char> content)
     {
         ICssSection section;
-        if (RegexResource.IsMatch(selector))
+        if (_regexResource.IsMatch(selector))
         {
             section = new CssResourceDictionary(selector);
         }
-        else if (RegexAnimation.IsMatch(selector))
+        else if (_regexAnimation.IsMatch(selector))
         {
             section = new CssAnimation(selector);
         }

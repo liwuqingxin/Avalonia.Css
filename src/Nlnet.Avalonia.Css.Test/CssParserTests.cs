@@ -9,16 +9,16 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void RemoveCommentsTest()
         {
-            var parser = new CssParser();
-          
-            var s1 = CssParser.RemoveComments("/**/abc".ToCharArray());
-            var s2 = CssParser.RemoveComments("a/*abc*/bc".ToCharArray());
-            var s3 = CssParser.RemoveComments("abc/*abc*/".ToCharArray());
-            var s4 = CssParser.RemoveComments("abc//*abc*/".ToCharArray());
-            var s5 = CssParser.RemoveComments("abc/*a/bc*/".ToCharArray());
-            var s6 = CssParser.RemoveComments("abc/*a/*bc*/".ToCharArray());
-            var s7 = CssParser.RemoveComments("abc/*a*/bc*/-".ToCharArray());
-            var s8 = CssParser.RemoveComments("abc/*abc**//-".ToCharArray());
+            var parser = ServiceLocator.GetService<ICssParser>();
+
+            var s1 = parser.RemoveComments("/**/abc".ToCharArray());
+            var s2 = parser.RemoveComments("a/*abc*/bc".ToCharArray());
+            var s3 = parser.RemoveComments("abc/*abc*/".ToCharArray());
+            var s4 = parser.RemoveComments("abc//*abc*/".ToCharArray());
+            var s5 = parser.RemoveComments("abc/*a/bc*/".ToCharArray());
+            var s6 = parser.RemoveComments("abc/*a/*bc*/".ToCharArray());
+            var s7 = parser.RemoveComments("abc/*a*/bc*/-".ToCharArray());
+            var s8 = parser.RemoveComments("abc/*abc**//-".ToCharArray());
 
             Assert.AreEqual(s1.ToString(), "abc");
             Assert.AreEqual(s2.ToString(), "abc");
@@ -34,8 +34,8 @@ namespace Nlnet.Avalonia.Css.Test
         public void EfficientCssParserTest()
         {
             var cssFile  = File.ReadAllText("./Assets/nlnet.blog.css");
-            var parser   = new CssParser();
-            var sections = parser.GetSections(cssFile);
+            var parser   = ServiceLocator.GetService<ICssParser>();
+            var sections = parser.ParseSections(cssFile);
             var styles   = sections.OfType<ICssStyle>();
             foreach (var cssStyle in styles)
             {
@@ -47,9 +47,9 @@ namespace Nlnet.Avalonia.Css.Test
         public void TypeProviderTest()
         {
             var cssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
-            var parser   = new CssParser();
-            var css      = CssParser.RemoveComments(new Span<char>(cssFile.ToCharArray()));
-            var sections = parser.GetSections(css);
+            var parser   = ServiceLocator.GetService<ICssParser>();
+            var css      = parser.RemoveComments(new Span<char>(cssFile.ToCharArray()));
+            var sections = parser.ParseSections(css);
             var styles   = sections.OfType<ICssStyle>();
 
             foreach (var cssStyle in styles)

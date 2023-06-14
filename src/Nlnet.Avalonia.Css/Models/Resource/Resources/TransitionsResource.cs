@@ -7,6 +7,6 @@ public class TransitionResource : CssResourceBaseAndFac<TransitionResource>
 {
     protected override object? Accept(string valueString)
     {
-        return InterpreterHelper.ParseTransition(valueString);
+        return ServiceLocator.GetService<ICssInterpreter>().ParseTransition(valueString);
     }
 }

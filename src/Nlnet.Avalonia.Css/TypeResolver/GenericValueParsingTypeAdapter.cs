@@ -18,7 +18,7 @@ public abstract class GenericValueParsingTypeAdapter : IValueParsingTypeAdapter
         return _parseTypeAdapter.TryGetValue(type, out adaptedType);
     }
 
-    public void AddAdaptType(Type declaredType, Type parsingType)
+    protected void AddAdaptType(Type declaredType, Type parsingType)
     {
         _parseTypeAdapter[declaredType] = parsingType;
 
@@ -34,6 +34,8 @@ internal class AvaloniaDefaultValueParsingTypeAdapter : GenericValueParsingTypeA
         AddAdaptType(typeof(ISolidColorBrush), typeof(Brush));
         AddAdaptType(typeof(SolidColorBrush),  typeof(Brush));
         AddAdaptType(typeof(ITransform),       typeof(TransformOperations));
+        AddAdaptType(typeof(Transform),        typeof(TransformOperations));
         AddAdaptType(typeof(Transitions),      typeof(TransitionsParser));
+        AddAdaptType(typeof(KeyFrames),        typeof(KeyFramesParser));
     }
 }
