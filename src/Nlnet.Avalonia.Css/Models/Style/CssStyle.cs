@@ -16,11 +16,15 @@ public interface ICssStyle : ICssSection
 
     public IEnumerable<ICssAnimation>? Animations { get; set; }
 
+    public Selector? GetSelector();
+
     public Style ToAvaloniaStyle();
 }
 
 public class CssStyle : CssSection, ICssStyle
 {
+    private Selector? _selector;
+
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
     public IEnumerable<ICssStyle>? Styles { get; set; }
@@ -36,17 +40,14 @@ public class CssStyle : CssSection, ICssStyle
 
     public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
     {
+        _selector = CreateSelector();
+
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
 
         Setters = parser.ParsePairs(settersSpan).Select(p => new CssSetter(p.Item1, p.Item2));
-        var list = parser.ParseSections(childrenSpan).ToList();
+        var list = parser.ParseSections(this, childrenSpan).ToList();
         if (list.Count > 0)
         {
-            foreach (var section in list)
-            {
-                section.Parent = this;
-            }
-
             Children   = list;
             Styles     = list.OfType<ICssStyle>();
             Resources  = list.OfType<ICssResourceDictionary>();
@@ -54,17 +55,14 @@ public class CssStyle : CssSection, ICssStyle
         }
     }
 
-    public Style ToAvaloniaStyle()
+    private Selector? CreateSelector()
     {
-        this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
-
         var isChild = Parent != null;
 
         // Selector
-        var selector = isChild ? Selectors.Nesting(null) : null;
-        var style = new Style();
+        var selector   = isChild ? Selectors.Nesting(null) : null;
         var syntaxList = SelectorGrammar.Parse(Selector).ToList();
-        var selectors = new List<Selector>();
+        var selectors  = new List<Selector>();
 
         foreach (var syntax in syntaxList)
         {
@@ -85,7 +83,23 @@ public class CssStyle : CssSection, ICssStyle
         {
             selectors.Add(selector);
         }
-        style.Selector = selectors.Count > 1 ? Selectors.Or(selectors) : selector;
+        
+        return selectors.Count > 1 ? Selectors.Or(selectors) : selector;
+    }
+
+    public Selector? GetSelector()
+    {
+        return _selector;
+    }
+
+    public Style ToAvaloniaStyle()
+    {
+        this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
+
+        var style   = new Style
+        {
+            Selector = _selector
+        };
 
         if (style.Selector?.TargetType != null)
         {

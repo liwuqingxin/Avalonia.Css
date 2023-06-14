@@ -84,7 +84,7 @@ namespace Nlnet.Avalonia.Css
                 var parser            = ServiceLocator.GetService<ICssParser>();
                 var cssContent        = File.ReadAllText(_file);
                 var css               = parser.RemoveComments(cssContent.ToCharArray());
-                var sections          = parser.ParseSections(css).ToList();
+                var sections          = parser.ParseSections(null, css).ToList();
                 var cssStyles         = sections.OfType<ICssStyle>();
                 var cssDictionaryList = sections.OfType<ICssResourceDictionary>();
 

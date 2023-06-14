@@ -12,12 +12,14 @@ public class PropertySyntax : ISyntax
     {
         if (previous?.TargetType != null)
         {
-            var avaloniaProperty = ServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(previous.TargetType, Property);
+            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
+
+            var avaloniaProperty = interpreter.ParseAvaloniaProperty(previous.TargetType, Property);
             if (avaloniaProperty == null)
             {
                 return previous;
             }
-            var value = ServiceLocator.GetService<ICssInterpreter>().ParseValue(avaloniaProperty, Value);
+            var value = interpreter.ParseValue(avaloniaProperty, Value);
             if (value != null)
             {
                 return previous.PropertyEquals(avaloniaProperty, value);

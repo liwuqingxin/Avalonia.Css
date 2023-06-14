@@ -17,9 +17,10 @@ public interface ICssParser
     /// <summary>
     /// Try parsing sections like 'selector { content... }'. It is the same structure as section objects.
     /// </summary>
+    /// <param name="parent"></param>
     /// <param name="span"></param>
     /// <returns></returns>
-    public IEnumerable<ICssSection> ParseSections(ReadOnlySpan<char> span);
+    public IEnumerable<ICssSection> ParseSections(ICssSection? parent, ReadOnlySpan<char> span);
 
     /// <summary>
     /// Try parsing pairs like 'key:value; key2:value2...'. Note that string can be wrapped by a '.
@@ -60,6 +61,49 @@ public class CssParser : ICssParser
         {
             switch (span[i])
             {
+                case '[':
+                    if (isInStyleContent == false)
+                    {
+                        isInStyleContent = true;
+                        selector         = span[index..i].ToString();
+                        index            = i + 1;
+                    }
+                    else
+                    {
+                        leftBraceCount++;
+                    }
+                    break;
+                case ']':
+                    if (leftBraceCount == 0)
+                    {
+                        isInStyleContent = false;
+                        var content = span[index..i];
+                        index = i + 1;
+                        list.Add(new ValueTuple<string, string>(selector, content.ToString()));
+                    }
+                    else
+                    {
+                        leftBraceCount--;
+                    }
+                    break;
+            }
+        }
+
+        return list;
+    }
+
+    public IEnumerable<ICssSection> ParseSections(ICssSection? parent, ReadOnlySpan<char> span)
+    {
+        var list = new List<(string, string)>();
+
+        var index            = 0;
+        var selector         = string.Empty;
+        var leftBraceCount   = 0;
+        var isInStyleContent = false;
+        for (var i = 0; i < span.Length; i++)
+        {
+            switch (span[i])
+            {
                 case '{':
                     if (isInStyleContent == false)
                     {
@@ -88,33 +132,26 @@ public class CssParser : ICssParser
             }
         }
 
-        return list;
-    }
-
-    public IEnumerable<ICssSection> ParseSections(ReadOnlySpan<char> span)
-    {
-        var objects = ParseObjects(span);
-
-        return objects.Select(o => ServiceLocator.GetService<ICssSectionFactory>().Build(this, o.Item1, o.Item2));
+        return list.Select(o => ServiceLocator.GetService<ICssSectionFactory>().Build(this, parent, o.Item1, o.Item2));
     }
 
     public IEnumerable<(string, string)> ParsePairs(ReadOnlySpan<char> span)
     {
         var setters = new List<(string, string)>();
 
-        var    colonsCount = 0;
-        var    index       = 0;
-        var    name        = string.Empty;
+        var    index = 0;
+        var    name  = string.Empty;
         string value;
-        var    isInArray = false;
-        var    isInString = false;
+        var    colonsCount    = 0;
+        var    isInArrayCount = 0;
+        var    isInString     = false;
 
         for (var i = 0; i < span.Length; i++)
         {
             switch (span[i])
             {
                 case ':':
-                    if (isInArray || isInString)
+                    if (isInArrayCount > 0 || isInString)
                     {
                         continue;
                     }
@@ -126,7 +163,7 @@ public class CssParser : ICssParser
                     colonsCount++;
                     break;
                 case ';':
-                    if (isInArray || isInString)
+                    if (isInArrayCount > 0 || isInString)
                     {
                         continue;
                     }
@@ -137,10 +174,15 @@ public class CssParser : ICssParser
                     colonsCount--;
                     break;
                 case '[':
-                    isInArray = true;
+                    isInArrayCount++;
                     break;
                 case ']':
-                    isInArray = false;
+                    isInArrayCount--;
+                    if (isInArrayCount > 0 || isInString)
+                    {
+                        continue;
+                    }
+
                     value = span.Slice(index, i - index + 1).ToString().Trim();
                     index = i + 1;
                     setters.Add(new ValueTuple<string, string>(name, value));

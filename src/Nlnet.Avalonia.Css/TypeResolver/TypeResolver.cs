@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -24,6 +25,7 @@ public class TypeResolverManager : ITypeResolverManager
     private readonly List<ITypeResolver> _resolvers = new()
     {
         new GenericResolver<Control>(),
+        new GenericResolver<Transform>(),
     };
 
     private readonly List<IValueParsingTypeAdapter> _typeAdapters = new()

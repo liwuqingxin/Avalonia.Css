@@ -6,7 +6,7 @@
                 <VisualLayerManager IsPopup="True">
                     <Border x:Name="PopupBorder"
                             Background="{TemplateBinding Background}"
-                            Opacity="0">
+                            >
                         <ContentPresenter Name="PART_ContentPresenter"
                                           Padding="{TemplateBinding Padding}"
                                           Content="{TemplateBinding Content}"
@@ -16,22 +16,6 @@
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^ /template/ Border#PopupBorder">
-            <Style.Animations>
-                <Animation FillMode="Forward"
-                           IterationCount="1"
-                           Duration="0:0:0.16">
-                    <KeyFrame Cue="0%" KeySpline="0.4,0,0.6,1">
-                        <Setter Property="Opacity" Value="0" />
-                        <Setter Property="TranslateTransform.Y" Value="-10" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%" KeySpline="0.4,0,0.6,1">
-                        <Setter Property="Opacity" Value="1" />
-                        <Setter Property="TranslateTransform.Y" Value="0" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </ControlTheme>
 
 </ResourceDictionary>

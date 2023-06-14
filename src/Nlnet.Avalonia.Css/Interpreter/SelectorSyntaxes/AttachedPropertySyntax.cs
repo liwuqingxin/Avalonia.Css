@@ -18,12 +18,13 @@ public class AttachedPropertySyntax : ISyntax, ITypeSyntax
         var manager = ServiceLocator.GetService<ITypeResolverManager>();
         if (manager.TryGetType(TypeName, out var type))
         {
-            var avaloniaProperty = ServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(type!, Property);
+            var interpreter      = ServiceLocator.GetService<ICssInterpreter>();
+            var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {
                 return previous;
             }
-            var value = ServiceLocator.GetService<ICssInterpreter>().ParseValue(avaloniaProperty, Value);
+            var value = interpreter.ParseValue(avaloniaProperty, Value);
             if (value != null)
             {
                 return previous.PropertyEquals(avaloniaProperty, value);

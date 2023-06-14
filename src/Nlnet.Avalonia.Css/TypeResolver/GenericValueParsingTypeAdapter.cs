@@ -36,6 +36,5 @@ internal class AvaloniaDefaultValueParsingTypeAdapter : GenericValueParsingTypeA
         AddAdaptType(typeof(ITransform),       typeof(TransformOperations));
         AddAdaptType(typeof(Transform),        typeof(TransformOperations));
         AddAdaptType(typeof(Transitions),      typeof(TransitionsParser));
-        AddAdaptType(typeof(KeyFrames),        typeof(KeyFramesParser));
     }
 }

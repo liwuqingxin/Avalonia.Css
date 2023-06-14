@@ -57,7 +57,7 @@
         </Style>
 
 
-        <!-- TODO 支持动画 -->
+        <!-- TODO 支持动画（需支持绑定） -->
         <Style Selector="^:horizontal:indeterminate /template/ Border#IndeterminateProgressBarIndicator">
             <Style.Animations>
                 <Animation IterationCount="Infinite" Duration="0:0:2">

@@ -35,7 +35,7 @@ namespace Nlnet.Avalonia.Css.Test
         {
             var cssFile  = File.ReadAllText("./Assets/nlnet.blog.css");
             var parser   = ServiceLocator.GetService<ICssParser>();
-            var sections = parser.ParseSections(cssFile);
+            var sections = parser.ParseSections(null, cssFile);
             var styles   = sections.OfType<ICssStyle>();
             foreach (var cssStyle in styles)
             {
@@ -49,7 +49,7 @@ namespace Nlnet.Avalonia.Css.Test
             var cssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
             var parser   = ServiceLocator.GetService<ICssParser>();
             var css      = parser.RemoveComments(new Span<char>(cssFile.ToCharArray()));
-            var sections = parser.ParseSections(css);
+            var sections = parser.ParseSections(null, css);
             var styles   = sections.OfType<ICssStyle>();
 
             foreach (var cssStyle in styles)

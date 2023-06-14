@@ -5,7 +5,7 @@ namespace Nlnet.Avalonia.Css;
 
 public interface ICssSectionFactory
 {
-    public ICssSection Build(ICssParser parser, string selector, ReadOnlySpan<char> content);
+    public ICssSection Build(ICssParser parser, ICssSection? parent, string selector, ReadOnlySpan<char> content);
 }
 
 internal class CssSectionFactory : ICssSectionFactory
@@ -13,7 +13,7 @@ internal class CssSectionFactory : ICssSectionFactory
     private readonly Regex _regexResource  = new(":res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
     private readonly Regex _regexAnimation = new(":animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
 
-    public ICssSection Build(ICssParser parser, string selector, ReadOnlySpan<char> content)
+    public ICssSection Build(ICssParser parser, ICssSection? parent, string selector, ReadOnlySpan<char> content)
     {
         ICssSection section;
         if (_regexResource.IsMatch(selector))
@@ -29,6 +29,7 @@ internal class CssSectionFactory : ICssSectionFactory
             section = new CssStyle(selector);
         }
 
+        section.Parent = parent;
         section.InitialSection(parser, content);
         return section;
     }

@@ -9,20 +9,21 @@ PopupRoot {
             Background: White;
             BorderBrush:var(control-border);
             ClipToBounds:False;
+            Opacity:0;
             [[
                 :animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:0.16';
-                    Children:[
-                        KeyFrame(0% 0.4,0,0.6,1):{
+                    Duration:'0:0:.16';
+                    KeyFrames:[
+                        KeyFrame(0% 0.4,0,0.6,1):[
                             Opacity:0;
                             TranslateTransform.Y:-10; 
-                        }
-                        KeyFrame(100% 0.4,0,0.6,1):{
+                        ]
+                        KeyFrame(100% 0.4,0,0.6,1):[
                             Opacity:1;
                             TranslateTransform.Y:0; 
-                        }
+                        ]
                     ]
                 }
             ]]
