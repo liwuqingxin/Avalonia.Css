@@ -4,9 +4,7 @@
         <Setter Property="PopupRoot.Template">
             <ControlTemplate TargetType="PopupRoot">
                 <VisualLayerManager IsPopup="True">
-                    <Border x:Name="PopupBorder"
-                            Background="{TemplateBinding Background}"
-                            >
+                    <Border x:Name="PopupBorder" Background="{TemplateBinding Background}">
                         <ContentPresenter Name="PART_ContentPresenter"
                                           Padding="{TemplateBinding Padding}"
                                           Content="{TemplateBinding Content}"

@@ -10,12 +10,47 @@
     <UserControl.Resources>
         <MenuFlyout x:Key="SharedMenuFlyout" Placement="Bottom">
             <MenuItem Header="Item 1">
-                <MenuItem Header="SubItem 1" />
+                <MenuItem.Icon>
+                    <Image Source="/Assets/brand.ico" />
+                </MenuItem.Icon>
+                <MenuItem Header="StaysOpenOnClick" StaysOpenOnClick="True" />
+                <Separator />
+                <MenuItem Header="Disabled" IsEnabled="False" />
                 <MenuItem Header="SubItem 2" />
-                <MenuItem Header="SubItem 3" />
+                <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                <MenuItem Header="SubItem 4">
+                    <MenuItem.Icon>
+                        <Image Source="/Assets/orange.png" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="SubItem 1" />
+                    <Separator />
+                    <MenuItem Header="Disabled" IsEnabled="False" />
+                    <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                    <MenuItem Header="SubItem 4">
+                        <MenuItem.Icon>
+                            <Image Source="/Assets/orange.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="SubItem 1" />
+                        <MenuItem Header="Disabled" IsEnabled="False" />
+                        <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                        <Separator />
+                        <MenuItem Header="SubItem 4">
+                            <MenuItem.Icon>
+                                <Image Source="/Assets/orange.png" />
+                            </MenuItem.Icon>
+                            <MenuItem Header="SubItem 1" />
+                            <MenuItem Header="SubItem 2" />
+                            <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Item 2" InputGesture="Ctrl+A" />
-            <MenuItem Header="Item 3" />
+            <MenuItem Header="Item 3">
+                <MenuItem.Icon>
+                    <Image Source="/Assets/orange.png" />
+                </MenuItem.Icon>
+            </MenuItem>
         </MenuFlyout>
 
         <ContextMenu x:Key="SharedMenu">

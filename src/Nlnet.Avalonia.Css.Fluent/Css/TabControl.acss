@@ -153,13 +153,16 @@ TabControl {
                     Duration:'0:0:.5';
                     FillMode:Forward;
                     KeyFrames:[
-                        KeyFrame(0% 0,0.3,0.7,1):[
+                        KeyFrame(0% 0,0.6,0.5,1):[
                             TranslateTransform.Y: 15;
                         ]
-                        KeyFrame(20% 0,0.3,0.7,1):[
+                        KeyFrame(5% 0,0.6,0.5,1):[
                             TranslateTransform.Y: 15;
                         ]
-                        KeyFrame(100% 0,0.3,0.7,1):[
+                        KeyFrame(40% 0,0.6,0.5,1):[
+                            TranslateTransform.Y: 15;
+                        ]
+                        KeyFrame(100% 0,0.6,0.5,1):[
                             TranslateTransform.Y: 0;
                         ]
                     ]

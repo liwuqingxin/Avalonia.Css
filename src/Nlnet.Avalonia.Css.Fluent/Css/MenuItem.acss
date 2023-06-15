@@ -1,0 +1,85 @@
+﻿
+MenuItem {
+    Foreground: var(fore);
+    Background: Transparent;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    FontSize:12;
+    CornerRadius: 3;
+    RenderTransform: none;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+        Transitions:[
+        var(stBackground);
+    ]
+
+    [[
+        MenuItem:pointerover{
+            Background:var(comboboxitem-back-hover);
+        }
+
+        MenuItem /template/ Viewbox#PART_IconPresenter{
+            Width:20;
+            Height:20;
+            Margin:0,0,8,0;
+            HorizontalAlignment:Center;
+            VerticalAlignment:Center;
+            StretchDirection:DownOnly;
+        }
+        MenuItem /template/ ContentPresenter#PART_HeaderPresenter{
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Center;
+        }
+        MenuItem /template/ TextBlock#PART_InputGestureText{
+            HorizontalAlignment:Right;
+            VerticalAlignment:Center;
+            Margin:28,0,0,0;
+            FontSize:12;
+            FontWeight:Light;
+            Foreground:var(watermark);
+        }
+        MenuItem /template/ Path#PART_ChevronPath{
+            Width:9;
+            Height:9;
+            HorizontalAlignment:Right;
+            VerticalAlignment:Center;
+            Stretch:Uniform;
+            Data:M 1,0 10,10 l -9,10 -1,-1 L 8,10 -0,1 Z;
+            Fill:var(fore);
+            Foreground:var(fore);
+            UseLayoutRounding:False;
+            RenderTransform:none;
+        }
+        MenuItem:pointerover /template/ Path#PART_ChevronPath{
+            Fill:var(fore-hover);
+        }
+        MenuItem:open /template/ Path#PART_ChevronPath{
+            Fill:var(fore-hover);
+        }
+        MenuItem /template/ Popup#PART_Popup {
+            PlacementMode:Right;
+            IsLightDismissEnabled:false;
+            HorizontalOffset:-12;
+        }
+        MenuItem /template/ Popup#PART_Popup PopupRoot{
+            Background:var(comboboxitem-back);
+        }
+        MenuItem /template/ ScrollViewer#PART_PopupScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+        MenuItem /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:2;
+        }
+        MenuItem Separator{
+            Margin:0,4;
+            Background:var(watermark);
+            Opacity:0.2;
+        }
+
+        MenuItem:disabled{
+            Opacity:0.4;
+        }
+    ]]
+}
