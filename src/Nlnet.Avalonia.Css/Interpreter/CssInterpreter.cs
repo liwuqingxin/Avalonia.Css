@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System;
 using System.Globalization;
 using System.Linq;
+using Avalonia.Data;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -25,6 +26,8 @@ namespace Nlnet.Avalonia.Css
 
         public bool IsVar(string? valueString, out string? varKey);
 
+        public bool IsBinding(string? valueString, out Binding? binding);
+
         public ITransition? ParseTransition(string valueString);
 
         public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString);
@@ -33,6 +36,7 @@ namespace Nlnet.Avalonia.Css
     public class CssInterpreter : ICssInterpreter
     {
         private readonly Regex             _varRegex        = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _bindingRegex    = new("^\\s*@([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
         private readonly Regex             _transitionRegex = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
         private readonly Regex             _keyFrameRegex   = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
         private readonly IEnumerable<Type> _transitionsTypes;
@@ -87,6 +91,12 @@ namespace Nlnet.Avalonia.Css
             {
                 declaredType.WriteLine($"Raw value is null. Skip it.");
                 return null;
+            }
+
+            // Binding
+            if (IsBinding(rawValue, out var binding))
+            {
+                return binding;
             }
 
             // Resource.
@@ -147,6 +157,47 @@ namespace Nlnet.Avalonia.Css
             }
 
             varKey = null;
+            return false;
+        }
+
+        public bool IsBinding(string? valueString, out Binding? binding)
+        {
+            binding = null;
+
+            if (valueString == null)
+            {
+                return false;
+            }
+            var match = _bindingRegex.Match(valueString);
+            if (match.Success)
+            {
+                var className = match.Groups[1].Value;
+                var indexString = match.Groups[2].Value;
+                var path = match.Groups[3].Value;
+
+                if (ServiceLocator.GetService<ITypeResolverManager>().TryGetType(className, out var classType) == false)
+                {
+                    return false;
+                }
+
+                if (int.TryParse(indexString, out var index) == false)
+                {
+                    index = 1;
+                }
+
+                binding = new Binding()
+                {
+                    RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor)
+                    {
+                        AncestorType = classType,
+                        AncestorLevel = index,
+                    },
+                    Path = path,
+                };
+
+                return true;
+            }
+
             return false;
         }
 

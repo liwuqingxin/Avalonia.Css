@@ -19,6 +19,10 @@
                 Minimum="0" />
 
         <ProgressBar Width="200" IsIndeterminate="True" />
+        <ProgressBar Height="200"
+                     HorizontalAlignment="Center"
+                     IsIndeterminate="True"
+                     Orientation="Vertical" />
         <ProgressBar Width="200"
                      Maximum="{Binding #Slider.Maximum}"
                      Minimum="{Binding #Slider.Minimum}"

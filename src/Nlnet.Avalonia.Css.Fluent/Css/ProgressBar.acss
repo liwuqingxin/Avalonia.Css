@@ -8,6 +8,7 @@ ProgressBar {
             Foreground: var(fore);
         }
         ProgressBar:horizontal{
+            VerticalAlignment:Center;
             [[
                 ProgressBar:horizontal:not(:indeterminate) /template/ Border#ProgressBarRoot{
                     Height:1;
@@ -24,9 +25,49 @@ ProgressBar {
                     Margin:0,8;
                     DockPanel.Dock: Top;
                 }
+
+                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator{
+                    [[
+                        :animation{
+                            IterationCount:Infinite;
+                            Duration:'0:0:2';
+                            KeyFrames:[
+                                KeyFrame(0% 0.4,0,0.6,1):[
+                                    TranslateTransform.X: @ProgressBar.TemplateProperties.ContainerAnimationStartPosition;
+                                ]
+                                KeyFrame(75% 0.4,0,0.6,1):[
+                                    TranslateTransform.X: @ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                ]
+                                KeyFrame(100% 0.4,0,0.6,1):[
+                                    TranslateTransform.X: @ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                ]
+                            ]
+                        }
+                    ]]
+                }
+                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
+                    [[
+                        :animation{
+                            IterationCount:Infinite;
+                            Duration:'0:0:2';
+                            KeyFrames:[
+                                KeyFrame(0% 0.4,0,0.6,1):[
+                                    TranslateTransform.X: @ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                ]
+                                KeyFrame(37.5% 0.4,0,0.6,1):[
+                                    TranslateTransform.X: @ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                ]
+                                KeyFrame(100% 0.4,0,0.6,1):[
+                                    TranslateTransform.X: @ProgressBar.TemplateProperties.Container2AnimationEndPosition;
+                                ]
+                            ]
+                        }
+                    ]]
+                }
             ]]
         }
         ProgressBar:vertical{
+            HorizontalAlignment:Center;
             [[
                 ProgressBar:vertical:not(:indeterminate) /template/ Border#ProgressBarRoot{
                     Width: 1;
@@ -43,6 +84,45 @@ ProgressBar {
                     Margin: 8,0;
                     LayoutTransform: rotate(-90deg);
                     DockPanel.Dock: Left;
+                }
+
+                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator{
+                    [[
+                        :animation{
+                            IterationCount:Infinite;
+                            Duration:'0:0:2';
+                            KeyFrames:[
+                                KeyFrame(0% 0.4,0,0.6,1):[
+                                    TranslateTransform.Y: @ProgressBar.TemplateProperties.ContainerAnimationStartPosition;
+                                ]
+                                KeyFrame(75% 0.4,0,0.6,1):[
+                                    TranslateTransform.Y: @ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                ]
+                                KeyFrame(100% 0.4,0,0.6,1):[
+                                    TranslateTransform.Y: @ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                ]
+                            ]
+                        }
+                    ]]
+                }
+                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
+                    [[
+                        :animation{
+                            IterationCount:Infinite;
+                            Duration:'0:0:2';
+                            KeyFrames:[
+                                KeyFrame(0% 0.4,0,0.6,1):[
+                                    TranslateTransform.Y: @ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                ]
+                                KeyFrame(37.5% 0.4,0,0.6,1):[
+                                    TranslateTransform.Y: @ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                ]
+                                KeyFrame(100% 0.4,0,0.6,1):[
+                                    TranslateTransform.Y: @ProgressBar.TemplateProperties.Container2AnimationEndPosition;
+                                ]
+                            ]
+                        }
+                    ]]
                 }
             ]]
         }
