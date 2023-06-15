@@ -85,7 +85,7 @@
             RenderTransform:scale(1.2,1.2) rotate(9deg);
         }
         TabItem:selected /template/ ContentControl#PART_IconContent{
-            RenderTransform:scale(1.2,1.2) translate(-5px,0px) rotate(9deg);
+            RenderTransform:scale(1.2,1.2) rotate(9deg) translate(-5px,0px) ;
         }
 
         TabItem:pointerover{
