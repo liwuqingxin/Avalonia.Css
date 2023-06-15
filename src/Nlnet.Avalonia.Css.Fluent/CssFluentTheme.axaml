@@ -5,7 +5,8 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Button.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/AnimatingContainer.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Button.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/CheckBox.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ComboBox.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/PopupRoot.axaml" />

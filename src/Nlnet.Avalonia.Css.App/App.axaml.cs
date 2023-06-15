@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Nlnet.Avalonia.Css.App.Utils;
 using Nlnet.Avalonia.Css.App.Views;
 
@@ -17,6 +18,12 @@ namespace Nlnet.Avalonia.Css.App
             ServiceLocator.GetService<ICssManager>().Mode  = "light";
 
             AvaloniaXamlLoader.Load(this);
+
+            CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
+            Dispatcher.UIThread.Post(() =>
+            {
+                CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/after.loaded.acss", true);
+            });
         }
 
         public override void OnFrameworkInitializationCompleted()

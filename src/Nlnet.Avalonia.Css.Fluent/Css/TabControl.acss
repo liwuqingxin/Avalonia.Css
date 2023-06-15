@@ -123,5 +123,48 @@ TabControl {
         TabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
+        TabControl /template/ AnimatingContainer#PART_SelectedContentHost {
+            Opacity:0;
+        }
+        TabControl /template/ AnimatingContainer#PART_SelectedContentHost {
+            [[
+                :animation[desc=Tab control loading animation]{
+                    IterationCount:1;
+                    Duration:'0:0:.5';
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame(0% 0,0.3,0.7,1):[
+                            Opacity:0;
+                        ]
+                        KeyFrame(20% 0,0.3,0.7,1):[
+                            Opacity:0;
+                        ]
+                        KeyFrame(100% 0,0.3,0.7,1):[
+                            Opacity:1;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        TabControl /template/ AnimatingContainer#PART_SelectedContentHost:changed {
+            [[
+                :animation[desc=Tab control toggle animation]{
+                    IterationCount:1;
+                    Duration:'0:0:.5';
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame(0% 0,0.3,0.7,1):[
+                            TranslateTransform.Y: 15;
+                        ]
+                        KeyFrame(20% 0,0.3,0.7,1):[
+                            TranslateTransform.Y: 15;
+                        ]
+                        KeyFrame(100% 0,0.3,0.7,1):[
+                            TranslateTransform.Y: 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
     ]]
 }
