@@ -9,6 +9,7 @@ MenuItem {
     RenderTransform: none;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Center;
+    Height:28;
     ClipToBounds:False;
         Transitions:[
         var(stBackground);
@@ -20,8 +21,6 @@ MenuItem {
         }
 
         MenuItem /template/ Viewbox#PART_IconPresenter{
-            Width:20;
-            Height:20;
             Margin:0,0,8,0;
             HorizontalAlignment:Center;
             VerticalAlignment:Center;
@@ -82,4 +81,26 @@ MenuItem {
             Opacity:0.4;
         }
     ]]
+}
+
+MenuFlyoutPresenter {
+    VerticalOffset:-10;
+    [[
+        MenuFlyoutPresenter /template/ ScrollViewer#PART_ScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+    ]]
+}
+
+ContextMenu {
+    HorizontalOffset:-10;
+    VerticalOffset:-10;
+    [[
+        ContextMenu /template/ ScrollViewer#PART_ScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+    ]]
+    
 }

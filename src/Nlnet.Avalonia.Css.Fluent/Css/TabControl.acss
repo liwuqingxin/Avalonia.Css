@@ -4,6 +4,7 @@
     Opacity: 1;
     CornerRadius: 4;
     RenderTransform: none;
+    Height:36;
     HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
