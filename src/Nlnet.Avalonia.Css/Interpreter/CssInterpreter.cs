@@ -36,7 +36,7 @@ namespace Nlnet.Avalonia.Css
     public class CssInterpreter : ICssInterpreter
     {
         private readonly Regex             _varRegex            = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _bindingRegex        = new("^\\s*$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _bindingRegex        = new("^\\s*\\$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
         private readonly Regex             _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
         private readonly Regex             _transitionRegex     = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
         private readonly Regex             _keyFrameRegex       = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
