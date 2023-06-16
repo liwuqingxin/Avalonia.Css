@@ -19,6 +19,9 @@ namespace Nlnet.Avalonia.Css.App
 
             AvaloniaXamlLoader.Load(this);
 
+            var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            manager.LoadResolver(new GenericResolver<App>());
+
             CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
             Dispatcher.UIThread.Post(() =>
             {

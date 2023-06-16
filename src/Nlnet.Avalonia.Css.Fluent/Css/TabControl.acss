@@ -6,7 +6,7 @@
     RenderTransform: none;
     Height:36;
     HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
+    VerticalContentAlignment: Center;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
     Transitions:[
@@ -18,7 +18,7 @@
 
     [[
         TabItem /template/ ContentPresenter#PART_ContentPresenter{
-            Padding:10;
+            Padding:10,0;
         }
         TabItem /template/ Border#PART_SelectedPipe{
             Background: var(Accent);

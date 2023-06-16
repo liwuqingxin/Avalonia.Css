@@ -25,6 +25,18 @@
             Width: 2;
             CornerRadius: 4;
         }
+        Slider RepeatButton{
+            Transitions:null;
+        }
+        Slider:pressed RepeatButton{
+            Opacity: 1;
+        }
+        Slider RepeatButton#PART_DecreaseButton:pointerover /template/ Border#TrackBackground{
+            Background: var(Accent);
+        }
+        Slider RepeatButton#PART_IncreaseButton:pointerover /template/ Border#TrackBackground{
+            Background: var(slider-back);
+        }
 
         /* TickBar */
         Slider /template/ TickBar#TopTickBar{

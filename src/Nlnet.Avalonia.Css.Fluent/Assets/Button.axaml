@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!-- Button -->
     <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
         <Setter Property="Button.Template">
             <ControlTemplate TargetType="Button">
@@ -12,13 +13,13 @@
                                   BorderThickness="{TemplateBinding BorderThickness}"
                                   Content="{TemplateBinding Content}"
                                   ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  CornerRadius="{TemplateBinding CornerRadius}"
-                                  Foreground="{TemplateBinding Foreground}" />
+                                  CornerRadius="{TemplateBinding CornerRadius}" />
             </ControlTemplate>
         </Setter>
     </ControlTheme>
 
 
+    <!-- DropDownButton -->
     <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton">
         <Setter Property="DropDownButton.Template">
             <ControlTemplate TargetType="DropDownButton">
@@ -43,6 +44,68 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+    </ControlTheme>
+
+
+    <!-- RepeatButton -->
+    <ControlTheme x:Key="{x:Type RepeatButton}" TargetType="RepeatButton">
+        <Setter Property="RepeatButton.Template">
+            <ControlTemplate TargetType="RepeatButton">
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="{TemplateBinding CornerRadius}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+    <StreamGeometry x:Key="ButtonSpinnerIncreaseButtonIcon">M0,9 L10,0 20,9 19,10 10,2 1,10 z</StreamGeometry>
+    <StreamGeometry x:Key="ButtonSpinnerDecreaseButtonIcon">M0,1 L10,10 20,1 19,0 10,8 1,0 z</StreamGeometry>
+
+    <!-- ButtonSpinner -->
+    <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+        <Setter Property="ButtonSpinner.Template">
+            <ControlTemplate TargetType="ButtonSpinner">
+                <DataValidationErrors>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <DockPanel>
+                            <StackPanel Name="PART_SpinnerPanel"
+                                        DockPanel.Dock="Right"
+                                        IsVisible="{TemplateBinding ShowButtonSpinner}">
+                                <RepeatButton Name="PART_IncreaseButton">
+                                    <PathIcon x:Name="PART_IncreaseButtonIcon" />
+                                </RepeatButton>
+                                <RepeatButton Name="PART_DecreaseButton">
+                                    <PathIcon x:Name="PART_DecreaseButtonIcon" />
+                                </RepeatButton>
+                            </StackPanel>
+
+                            <ContentPresenter x:Name="PART_ContentPresenter"
+                                              Padding="{TemplateBinding Padding}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </DockPanel>
+                    </Border>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:left">
+            <Style Selector="^ /template/ StackPanel#PART_SpinnerPanel">
+                <Setter Property="DockPanel.Dock" Value="Left" />
+            </Style>
+        </Style>
     </ControlTheme>
 
 </ResourceDictionary>

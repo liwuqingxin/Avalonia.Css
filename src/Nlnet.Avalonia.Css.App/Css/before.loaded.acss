@@ -1,1 +1,3 @@
-﻿
+﻿ButtonPage Button, ButtonPage RepeatButton, ButtonPage ButtonSpinner, ButtonPage DropDownButton{
+    HorizontalAlignment:Left;
+}

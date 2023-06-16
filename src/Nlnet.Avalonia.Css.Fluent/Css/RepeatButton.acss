@@ -1,5 +1,5 @@
 ﻿
-DropDownButton {
+RepeatButton {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -14,6 +14,7 @@ DropDownButton {
     VerticalAlignment: Stretch;
     ClipToBounds:False;
     Transitions:[
+        /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);
         var(stBorderBrush);
         var(stBackground);
@@ -21,32 +22,18 @@ DropDownButton {
     ]
 
     [[
-        DropDownButton:not(:disabled) /template/ Border#RootBorder{
+        RepeatButton:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow: var(button-shadow);
         }
-        DropDownButton /template/ PathIcon#DropDownGlyph{
-            Width:9;
-            Height:9;
-            Margin:0,0,10,0;
-            RenderTransform:none;
-            Data:M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z;
-            Transitions:[
-                var(gstRenderTransform);
-            ]
-        }
-        DropDownButton:pressed /template/ PathIcon#DropDownGlyph{
-            RenderTransform: translate(0, 3px);
-        }
-        DropDownButton:pointerover{
+        RepeatButton:pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        DropDownButton:pressed{
+        RepeatButton:pressed{
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
-            ClipToBounds:True;
         }
-        DropDownButton:disabled{
+        RepeatButton:disabled{
             Opacity:0.4;
         }
     ]]

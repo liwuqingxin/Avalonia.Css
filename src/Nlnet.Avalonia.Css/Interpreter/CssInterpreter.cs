@@ -87,9 +87,9 @@ namespace Nlnet.Avalonia.Css
         public object? ParseValue(Type declaredType, string? rawValue)
         {
             rawValue = rawValue?.Trim('\'');
-            if (rawValue == null)
+            if (rawValue is null or "null" or "NULL")
             {
-                declaredType.WriteLine($"Raw value is null. Skip it.");
+                declaredType.WriteLine($"Raw value is null.");
                 return null;
             }
 

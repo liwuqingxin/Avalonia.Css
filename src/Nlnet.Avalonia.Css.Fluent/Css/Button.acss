@@ -9,9 +9,9 @@ Button {
     Opacity: 1;
     RenderTransform: none;
     HorizontalContentAlignment: Center;
-    HorizontalAlignment: Left;
+    HorizontalAlignment: Stretch;
     VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
+    VerticalAlignment: Stretch;
     ClipToBounds:False;
     Transitions:[
         /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */

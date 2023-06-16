@@ -109,7 +109,7 @@ ComboBox {
             UseLayoutRounding:False;
             RenderTransform:none;
             Transitions:[
-                TransformOperationsTransition(RenderTransform 0.16);
+                var(gstRenderTransform);
             ]
         }
         ComboBox:pressed /template/ PathIcon#DropDownGlyph{

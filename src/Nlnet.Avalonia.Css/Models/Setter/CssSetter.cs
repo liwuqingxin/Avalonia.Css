@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Controls;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
@@ -54,10 +55,15 @@ public class CssSetter : ICssSetter
         var value = interpreter.ParseValue(property, RawValue?.Trim());
         if (value == null)
         {
-            return null;
+            if (property.PropertyType.IsValueType)
+            {
+                value = Activator.CreateInstance(property.PropertyType);
+            }
         }
 
+#pragma warning disable CS8604
         return new Setter(property, value);
+#pragma warning restore CS8604
     }
 
     public override string ToString()
