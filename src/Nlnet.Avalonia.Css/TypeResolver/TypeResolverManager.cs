@@ -26,6 +26,7 @@ public class TypeResolverManager : ITypeResolverManager
     {
         new GenericResolver<Control>(),
         new GenericResolver<Transform>(),
+        new InternalResolver(),
     };
 
     private readonly List<IValueParsingTypeAdapter> _typeAdapters = new()

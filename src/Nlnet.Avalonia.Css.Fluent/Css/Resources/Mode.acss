@@ -1,14 +1,22 @@
 ﻿:res[mode=light][desc=亮色资源] {
+
+	/* Share */
 	brush(fore): #333;
 	brush(fore-hover): #111;
+	brush(fore-anti): #fff;
 	brush(window-back): #F3F3F3;
 	brush(window-back-active): #F0F3F9;
 	brush(watermark): #aaa;
 	
+
+	/* Control */
 	brush(control-back): #fefefe;
 	brush(control-back-hover): #f3f3f3;
+	brush(control-back-pressed): #F5F5F7;
 	brush(control-border): #2222;
 
+
+	/* Item */
 	brush(item-back): #F9FAFA;
 	brush(item-back-hover): #11444444;
 	brush(item-back-selected): #11444444;
@@ -16,15 +24,25 @@
 	brush(item-back-pressed): #11444444;
 
 
-
+	/* ComboBoxItem */
 	brush(comboboxitem-back): #F9FAFA;
 	brush(comboboxitem-back-hover): #F2F2F3;
 	brush(comboboxitem-back-selected): #F5F5F7;
 
+
+	/* Slider */
 	brush(slider-back): #868686;
 
+
+	/* ProgressBar */
 	brush(progressbar-back): #11444444;
 
+
+	/* Calendar */
+	brush(calendar-back): #ffffff;
+
+
+	/* Shadow */
 	BoxShadow(button-shadow): 0 0.6 0 0 #6666;
 	BoxShadow(popup-shadow): 0 0 20 2 #2666;
 }

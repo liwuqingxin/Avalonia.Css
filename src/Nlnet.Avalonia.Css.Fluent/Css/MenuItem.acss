@@ -19,6 +19,9 @@ MenuItem {
         MenuItem:pointerover{
             Background:var(comboboxitem-back-hover);
         }
+        MenuItem:pressed /template/ Border#PART_LayoutRoot:pointerover{
+            Background: var(comboboxitem-back-selected);
+        }
 
         MenuItem /template/ Viewbox#PART_IconPresenter{
             Margin:0,0,8,0;

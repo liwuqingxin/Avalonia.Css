@@ -35,10 +35,11 @@ namespace Nlnet.Avalonia.Css
 
     public class CssInterpreter : ICssInterpreter
     {
-        private readonly Regex             _varRegex        = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _bindingRegex    = new("^\\s*@([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _transitionRegex = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
-        private readonly Regex             _keyFrameRegex   = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _varRegex            = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _bindingRegex        = new("^\\s*$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _transitionRegex     = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
+        private readonly Regex             _keyFrameRegex       = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
         private readonly IEnumerable<Type> _transitionsTypes;
 
         public CssInterpreter()
@@ -93,12 +94,6 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
 
-            // Binding
-            if (IsBinding(rawValue, out var binding))
-            {
-                return binding;
-            }
-
             // Resource.
             if (IsVar(rawValue, out var key))
             {
@@ -118,8 +113,53 @@ namespace Nlnet.Avalonia.Css
                 return rawValue;
             }
 
-            // Adapted parser.
+            var match   = _staticInstanceRegex.Match(rawValue);
             var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            if (match.Success)
+            {
+                var className = match.Groups[1].Value;
+                var instanceName = match.Groups[2].Value;
+                if (manager.TryGetType(className, out var classType) && classType != null)
+                {
+                    try
+                    {
+                        var property = classType.GetProperty(instanceName, BindingFlags.Static | BindingFlags.Public);
+                        if (property != null)
+                        {
+                            var value = property.GetValue(classType);
+                            return value;
+                        }
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+
+                    try
+                    {
+                        var field = classType.GetField(instanceName, BindingFlags.Static | BindingFlags.Public);
+                        if (field != null)
+                        {
+                            var value = field.GetValue(classType);
+                            return value;
+                        }
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+
+                return null;
+            }
+
+            // Binding
+            if (IsBinding(rawValue, out var binding))
+            {
+                return binding;
+            }
+
+            // Adapted parser.
             if (manager.TryAdaptType(declaredType, out var parseType) && parseType != null)
             {
                 declaredType = parseType;

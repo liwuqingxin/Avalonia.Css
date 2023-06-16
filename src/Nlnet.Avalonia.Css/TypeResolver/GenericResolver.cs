@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
