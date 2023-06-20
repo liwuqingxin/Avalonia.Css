@@ -14,8 +14,9 @@
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/PopupRoot.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ProgressBar.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/RadioButton.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ScrollBar.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Slider.axaml" />
-                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Switch.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Switch.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TabControl.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TextBox.axaml" />
             </ResourceDictionary.MergedDictionaries>
