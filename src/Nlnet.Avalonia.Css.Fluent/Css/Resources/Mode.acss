@@ -42,6 +42,11 @@
 	brush(calendar-back): #ffffff;
 
 
+	/* ScrollBar */
+	brush(ScrollBar-back): #868686;
+	brush(ScrollBar-thumb): #74787E;
+
+
 	/* Shadow */
 	BoxShadow(button-shadow): 0 0.6 0 0 #6666;
 	BoxShadow(popup-shadow): 0 0 20 2 #2666;

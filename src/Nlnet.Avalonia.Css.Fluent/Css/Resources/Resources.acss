@@ -33,6 +33,7 @@
 	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.075);
 	transition(stBorderBorderBrush): BrushTransition(Border.BorderBrush 0.075);
 	transition(stBorderBorderThickness): ThicknessTransition(Border.BorderThickness 0.075);
+	transition(stCornerRadius): CornerRadiusTransition(Border.CornerRadius 0.075);
 
 	transition(gstRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.125);
 	transition(gstBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.125);
@@ -52,6 +53,7 @@
 	transition(gstBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.125);
 	transition(gstBorderBorderBrush): BrushTransition(Border.BorderBrush 0.125);
 	transition(gstBorderBorderThickness): ThicknessTransition(Border.BorderThickness 0.125);
+	transition(gstCornerRadius): CornerRadiusTransition(Border.CornerRadius 0.125);
 }
 
 

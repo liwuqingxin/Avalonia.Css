@@ -1,6 +1,7 @@
 ﻿
 ScrollBar {
-    Background: var(control-back);
+    Background: Transparent;
+    Opacity: 0.4;
     
     Transitions:[
         var(stRenderTransform);
@@ -10,12 +11,35 @@ ScrollBar {
     ]
 
     [[
+        ScrollBar:pointerover{
+            Background:var(control-back);
+            Opacity:0.8;
+        }
         ScrollBar:vertical{
-            Width:20;
+            Width:12;
             [[
+                ScrollBar:vertical /template/ Thumb{
+                    Background:var(ScrollBar-thumb);
+                    Width:2;
+                    CornerRadius:2;
+                    HorizontalAlignment:Right;
+                    Margin:1,0;
+                    Transitions:[
+                        var(stWidth);
+                        var(stCornerRadius);
+                    ]
+                }
+                ScrollBar:vertical:pointerover /template/ Thumb{
+                    Width:10;
+                    CornerRadius:10;
+                }
                 ScrollBar:vertical /template/ RepeatButton#PART_LineUpButton, ScrollBar:vertical /template/ RepeatButton#PART_LineDownButton{
                     HorizontalAlignment:Stretch;
-                    Height:20;
+                    Height:10;
+                    Opacity:0;
+                    Transitions:[
+                        var(stOpacity);
+                    ]
                 }
                 ScrollBar:vertical /template/ PathIcon#PART_LineUpButtonPathIcon{
                     Height:9;
@@ -31,11 +55,30 @@ ScrollBar {
         }
         
         ScrollBar:horizontal{
-            Height:20;
+            Height:12;
             [[
-                ScrollBar:horizontal /template/ RepeatButton#PART_LineUpButton, ScrollBar:vertical /template/ RepeatButton#PART_LineDownButton{
+                ScrollBar:horizontal /template/ Thumb{
+                    Background:var(ScrollBar-thumb);
+                    Height:2;
+                    CornerRadius:2;
+                    VerticalAlignment:Bottom;
+                    Margin:0,1;
+                    Transitions:[
+                        var(stHeight);
+                        var(stCornerRadius);
+                    ]
+                }
+                ScrollBar:horizontal:pointerover /template/ Thumb{
+                    Height:10;
+                    CornerRadius:10;
+                }
+                ScrollBar:horizontal /template/ RepeatButton#PART_LineUpButton, ScrollBar:horizontal /template/ RepeatButton#PART_LineDownButton{
                     VerticalAlignment:Stretch;
-                    Width:20;
+                    Width:10;
+                    Opacity:0;
+                    Transitions:[
+                        var(stOpacity);
+                    ]
                 }
                 ScrollBar:horizontal /template/ PathIcon#PART_LineUpButtonPathIcon{
                     Height:9;
@@ -48,6 +91,10 @@ ScrollBar {
                     Data:M 5.029297 19.091797 L 14.111328 10 L 5.029297 0.908203 L 5.908203 0.029297 L 15.888672 10 L 5.908203 19.970703 Z;
                 }
             ]]
+        }
+
+        ScrollBar:pointerover /template/ RepeatButton#PART_LineUpButton, ScrollBar:pointerover /template/ RepeatButton#PART_LineDownButton{
+            Opacity:1;
         }
     ]]
 }
