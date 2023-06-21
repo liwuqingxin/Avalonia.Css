@@ -13,6 +13,7 @@ ToggleSwitch {
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
+    FontSize:12;
     Transitions:[
         BrushTransition(ToggleSwitch.Background 0.3 0 CircularEaseInOut);
     ]

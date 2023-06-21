@@ -136,4 +136,64 @@
         </Style>
     </ControlTheme>
 
+    <!-- ScrollViewer -->
+    <ControlTheme x:Key="{x:Type ScrollViewer}" TargetType="ScrollViewer">
+        <Setter Property="ScrollViewer.Template">
+            <ControlTemplate TargetType="ScrollViewer">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+                    <ScrollContentPresenter Name="PART_ContentPresenter"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Padding="{TemplateBinding Padding}"
+                                            Background="{TemplateBinding Background}"
+                                            CanHorizontallyScroll="{TemplateBinding CanHorizontallyScroll}"
+                                            CanVerticallyScroll="{TemplateBinding CanVerticallyScroll}"
+                                            Content="{TemplateBinding Content}"
+                                            Extent="{TemplateBinding Extent,
+                                                                     Mode=TwoWay}"
+                                            IsScrollChainingEnabled="{TemplateBinding IsScrollChainingEnabled}"
+                                            Viewport="{TemplateBinding Viewport,
+                                                                       Mode=TwoWay}"
+                                            Offset="{TemplateBinding Offset,
+                                                                     Mode=TwoWay}">
+                        <ScrollContentPresenter.GestureRecognizers>
+                            <ScrollGestureRecognizer CanHorizontallyScroll="{TemplateBinding CanHorizontallyScroll}" CanVerticallyScroll="{TemplateBinding CanVerticallyScroll}" />
+                        </ScrollContentPresenter.GestureRecognizers>
+                    </ScrollContentPresenter>
+                    <ScrollBar Name="PART_HorizontalScrollBar"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               AllowAutoHide="{TemplateBinding AllowAutoHide}"
+                               Focusable="False"
+                               LargeChange="{Binding LargeChange.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               Maximum="{TemplateBinding HorizontalScrollBarMaximum}"
+                               Orientation="Horizontal"
+                               SmallChange="{Binding SmallChange.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               ViewportSize="{TemplateBinding HorizontalScrollBarViewportSize}"
+                               Visibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                               Value="{TemplateBinding HorizontalScrollBarValue,
+                                                       Mode=TwoWay}" />
+                    <ScrollBar Name="PART_VerticalScrollBar"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               AllowAutoHide="{TemplateBinding AllowAutoHide}"
+                               Focusable="False"
+                               LargeChange="{Binding LargeChange.Height, RelativeSource={RelativeSource TemplatedParent}}"
+                               Maximum="{TemplateBinding VerticalScrollBarMaximum}"
+                               Orientation="Vertical"
+                               SmallChange="{Binding SmallChange.Height, RelativeSource={RelativeSource TemplatedParent}}"
+                               ViewportSize="{TemplateBinding VerticalScrollBarViewportSize}"
+                               Visibility="{TemplateBinding VerticalScrollBarVisibility}"
+                               Value="{TemplateBinding VerticalScrollBarValue,
+                                                       Mode=TwoWay}" />
+                    <Panel x:Name="PART_ScrollBarsSeparator"
+                           Grid.Row="1"
+                           Grid.Column="1" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
 </ResourceDictionary>

@@ -9,6 +9,7 @@
     VerticalContentAlignment: Center;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
+    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -119,7 +120,7 @@ TabControl {
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
-
+    FontSize:12;
     [[
         TabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;

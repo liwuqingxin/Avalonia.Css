@@ -8,6 +8,7 @@
     Opacity: 1;
     RenderTransform: none;
     ClipToBounds: False;
+    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

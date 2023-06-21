@@ -9,6 +9,7 @@ RadioButton {
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
+    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

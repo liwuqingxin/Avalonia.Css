@@ -4,9 +4,6 @@ ScrollBar {
     Opacity: 0.4;
     
     Transitions:[
-        var(stRenderTransform);
-        var(stBorderBrush);
-        var(stBackground);
         var(stOpacity);
     ]
 
@@ -21,21 +18,21 @@ ScrollBar {
                 ScrollBar:vertical /template/ Thumb{
                     Background:var(ScrollBar-thumb);
                     Width:2;
-                    CornerRadius:2;
+                    CornerRadius:1;
                     HorizontalAlignment:Right;
-                    Margin:1,0;
+                    Margin:2,0;
                     Transitions:[
                         var(stWidth);
                         var(stCornerRadius);
                     ]
                 }
                 ScrollBar:vertical:pointerover /template/ Thumb{
-                    Width:10;
-                    CornerRadius:10;
+                    Width:8;
+                    CornerRadius:4;
                 }
                 ScrollBar:vertical /template/ RepeatButton#PART_LineUpButton, ScrollBar:vertical /template/ RepeatButton#PART_LineDownButton{
                     HorizontalAlignment:Stretch;
-                    Height:10;
+                    Height:8;
                     Opacity:0;
                     Transitions:[
                         var(stOpacity);
@@ -60,21 +57,21 @@ ScrollBar {
                 ScrollBar:horizontal /template/ Thumb{
                     Background:var(ScrollBar-thumb);
                     Height:2;
-                    CornerRadius:2;
+                    CornerRadius:1;
                     VerticalAlignment:Bottom;
-                    Margin:0,1;
+                    Margin:0,2;
                     Transitions:[
                         var(stHeight);
                         var(stCornerRadius);
                     ]
                 }
                 ScrollBar:horizontal:pointerover /template/ Thumb{
-                    Height:10;
-                    CornerRadius:10;
+                    Height:8;
+                    CornerRadius:4;
                 }
                 ScrollBar:horizontal /template/ RepeatButton#PART_LineUpButton, ScrollBar:horizontal /template/ RepeatButton#PART_LineDownButton{
                     VerticalAlignment:Stretch;
-                    Width:10;
+                    Width:8;
                     Opacity:0;
                     Transitions:[
                         var(stOpacity);

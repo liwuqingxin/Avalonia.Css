@@ -6,6 +6,11 @@ namespace Nlnet.Avalonia.Css.Fluent
 {
     public partial class CssFluentTheme : Styles
     {
+        static CssFluentTheme()
+        {
+            TemplatedControlExtension.Init();
+        }
+
         public CssFluentTheme()
         {
             AvaloniaXamlLoader.Load(this);

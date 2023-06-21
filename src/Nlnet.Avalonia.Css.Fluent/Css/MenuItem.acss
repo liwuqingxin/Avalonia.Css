@@ -11,7 +11,8 @@ MenuItem {
     VerticalAlignment: Center;
     Height:28;
     ClipToBounds:False;
-        Transitions:[
+    FontSize:12;
+    Transitions:[
         var(stBackground);
     ]
 

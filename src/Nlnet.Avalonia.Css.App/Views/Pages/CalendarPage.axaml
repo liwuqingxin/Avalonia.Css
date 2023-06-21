@@ -3,16 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
+
+    <Design.DataContext>
+        <pages:CalendarPageViewModel />
+    </Design.DataContext>
 
     <ScrollViewer>
         <StackPanel Margin="8"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Spacing="8">
+
+            <DatePicker SelectedDate="{Binding Path=DateTime}" />
+            <DatePicker IsEnabled="False" SelectedDate="2023/06/22" />
+
             <Calendar />
             <Calendar>
                 <Calendar.BlackoutDates>
@@ -24,7 +33,6 @@
                     </CalendarDateRange>
                 </Calendar.BlackoutDates>
             </Calendar>
-
             <Calendar IsEnabled="False" />
 
         </StackPanel>

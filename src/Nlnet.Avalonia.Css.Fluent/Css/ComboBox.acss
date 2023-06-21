@@ -10,6 +10,7 @@ ComboBoxItem {
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
+    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -69,7 +70,7 @@ ComboBox {
     ScrollViewer.HorizontalScrollBarVisibility:Disabled;
     ScrollViewer.VerticalScrollBarVisibility:Auto;
     /* PlaceholderForeground:Red; */
-
+    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

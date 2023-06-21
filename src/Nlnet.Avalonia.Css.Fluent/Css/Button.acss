@@ -13,6 +13,7 @@ Button {
     VerticalContentAlignment: Center;
     VerticalAlignment: Stretch;
     ClipToBounds:False;
+    FontSize:12;
     Transitions:[
         /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);
@@ -22,7 +23,7 @@ Button {
     ]
 
     [[
-        Button:not(:disabled) /template/ ContentPresenter#PART_ContentPresenter{
+        Button:not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow: var(button-shadow);
         }
         Button:pointerover{

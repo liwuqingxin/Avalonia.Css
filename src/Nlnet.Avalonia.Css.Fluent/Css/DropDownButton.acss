@@ -13,6 +13,7 @@ DropDownButton {
     VerticalContentAlignment: Center;
     VerticalAlignment: Stretch;
     ClipToBounds:False;
+    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -21,7 +22,7 @@ DropDownButton {
     ]
 
     [[
-        DropDownButton:not(:disabled) /template/ Border#RootBorder{
+        DropDownButton:not(:disabled):not(:is-part) /template/ Border#RootBorder{
             BoxShadow: var(button-shadow);
         }
         DropDownButton /template/ PathIcon#DropDownGlyph{
