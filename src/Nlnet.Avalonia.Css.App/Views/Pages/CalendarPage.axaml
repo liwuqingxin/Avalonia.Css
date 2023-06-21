@@ -22,6 +22,9 @@
             <DatePicker SelectedDate="{Binding Path=DateTime}" />
             <DatePicker IsEnabled="False" SelectedDate="2023/06/22" />
 
+            <CalendarDatePicker />
+            <CalendarDatePicker IsEnabled="False" SelectedDate="2023/06/22" />
+
             <Calendar />
             <Calendar>
                 <Calendar.BlackoutDates>
