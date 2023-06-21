@@ -30,7 +30,7 @@ Button {
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        Button:pressed{
+        Button:pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
         }
@@ -46,7 +46,7 @@ Button {
                     Background: var(Accent09);
                     Foreground: #fff;
                 }
-                Button:pressed{
+                Button:pressed:not(:is-part){
                     Opacity:0.8;
                 }
             ]]

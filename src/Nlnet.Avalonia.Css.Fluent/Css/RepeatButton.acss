@@ -30,7 +30,7 @@ RepeatButton {
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        RepeatButton:pressed{
+        RepeatButton:pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
         }

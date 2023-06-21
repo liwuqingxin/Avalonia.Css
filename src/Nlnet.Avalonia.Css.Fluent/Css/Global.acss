@@ -1,5 +1,6 @@
 ﻿TextBlock, AccessText {
     FontFamily: 微软雅黑,宋体;
+    FontSize:12;
 }
 TextPresenter {
     TextBlock.FontFamily: 微软雅黑,宋体;
