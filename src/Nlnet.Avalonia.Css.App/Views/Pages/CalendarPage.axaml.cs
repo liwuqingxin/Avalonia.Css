@@ -9,6 +9,7 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
     public sealed class CalendarPageViewModel : INotifyPropertyChanged
     {
         private DateTimeOffset? _dateTime;
+        private TimeSpan?       _timeSpan;
 
         public DateTimeOffset? DateTime
         {
@@ -18,6 +19,18 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
                 if (Nullable.Equals(value, _dateTime))
                     return;
                 _dateTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TimeSpan? Time
+        {
+            get => _timeSpan;
+            set
+            {
+                if (Nullable.Equals(value, _timeSpan))
+                    return;
+                _timeSpan = value;
                 OnPropertyChanged();
             }
         }

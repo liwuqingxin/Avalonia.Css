@@ -1,0 +1,120 @@
+﻿
+TimePickerPresenter {
+    [[
+        TimePickerPresenter /template/ DateTimePickerPanel {
+            ItemHeight:30;
+        }
+
+
+        /* RepeatButton */
+        TimePickerPresenter /template/ RepeatButton:is-part {
+            Height:30;
+            BorderThickness:0;
+            CornerRadius:0;
+        }
+        TimePickerPresenter /template/ RepeatButton[VerticalAlignment=Top] > Path {
+            Data:M0,9 L10,0 20,9 19,10 10,2 1,10 z;
+            VerticalAlignment:Stretch;
+            HorizontalAlignment:Stretch;
+            Stretch:Uniform;
+            Fill:var(fore);
+            VerticalAlignment:Center;
+            Width:12;
+            RenderTransform:none;
+            Transitions:[
+                var(gstRenderTransform);
+            ]
+        }
+        TimePickerPresenter /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
+            Data:M0,1 L10,10 20,1 19,0 10,8 1,0 z;
+            VerticalAlignment:Stretch;
+            HorizontalAlignment:Stretch;
+            Stretch:Uniform;
+            Fill:var(fore);
+            VerticalAlignment:Center;
+            Width:12;
+            RenderTransform:none;
+            Transitions:[
+                var(gstRenderTransform);
+            ]
+        }
+        TimePickerPresenter /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
+            RenderTransform:translate(0, -5px);
+        }
+        TimePickerPresenter /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
+            RenderTransform:translate(0, 5px);
+        }
+        TimePickerPresenter /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
+            CornerRadius:0,4,0,0;
+        }
+        TimePickerPresenter /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
+            CornerRadius:4,0,0,0;
+        }
+        
+
+        /* ListBoxItem */
+        TimePickerPresenter DateTimePickerPanel > ListBoxItem {
+            Padding:8,0;
+            RenderTransform:none;
+            Transitions:[
+                var(gstRenderTransform);
+            ]
+        }
+        TimePickerPresenter DateTimePickerPanel > ListBoxItem:pressed {
+            RenderTransform:scale(0.8,0.8);
+        }
+        TimePickerPresenter DateTimePickerPanel > ListBoxItem TextBlock {
+            HorizontalAlignment:Center;
+            FontSize:12;
+        }
+        TimePickerPresenter DateTimePickerPanel#PART_MonthSelector > ListBoxItem TextBlock {
+            HorizontalAlignment:Left;
+        }
+
+
+        /* 分割线 */
+        TimePickerPresenter /template/ Rectangle#HighlightRect {
+            VerticalAlignment:Center;
+            Fill:var(Accent);
+            Height:30;
+            Opacity:0;
+        }
+        TimePickerPresenter /template/ Rectangle#PART_FirstSpacer {
+            Width:1;
+            HorizontalAlignment:Center;
+            Fill:var(control-border);
+        }
+        TimePickerPresenter /template/ Rectangle#PART_SecondSpacer {
+            Width:1;
+            HorizontalAlignment:Center;
+            Fill:var(control-border);
+        }
+
+
+        /* 底栏 */
+        TimePickerPresenter /template/ Path#PART_AcceptButtonPath {
+            Data:M0.5,8.5 5,13.5 15.5,3;
+            StrokeLineCap:Round;
+            StrokeThickness:0.75;
+            Stroke:var(fore);
+        }
+        TimePickerPresenter /template/ Path#PART_DismissButtonPath {
+            Data:M2,2 14,14 M2,14 14 2;
+            StrokeLineCap:Round;
+            StrokeThickness:0.75;
+            Stroke:var(fore);
+        }
+        TimePickerPresenter /template/ Button#PART_AcceptButton {
+            Margin:4,4,2,4;
+            CornerRadius:4;
+        }
+        TimePickerPresenter /template/ Button#PART_DismissButton {
+            Margin:2,4,4,4;
+            CornerRadius:4;
+        }
+        TimePickerPresenter /template/ Rectangle#TimePickerFlyoutPresenterSpacer {
+            Height:1;
+            Fill:var(control-border);
+        }
+    ]]
+}

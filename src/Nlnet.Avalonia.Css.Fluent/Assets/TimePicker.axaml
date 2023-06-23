@@ -1,0 +1,163 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- TimePicker -->
+    <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker">
+        <Setter Property="TimePicker.Template">
+            <ControlTemplate TargetType="TimePicker">
+                <DataValidationErrors>
+                    <Grid Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+                        <Button x:Name="PART_FlyoutButton"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Foreground="{TemplateBinding Foreground}"
+                                IsEnabled="{TemplateBinding IsEnabled}">
+                            <!-- Ignore col definitions here, set in code -->
+                            <Grid Name="PART_FlyoutButtonContentGrid">
+                                <Border x:Name="PART_FirstPickerHost" Grid.Column="0">
+                                    <TextBlock x:Name="PART_HourTextBlock"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{TemplateBinding FontSize}"
+                                               FontWeight="{TemplateBinding FontWeight}" />
+                                </Border>
+
+                                <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                                <Rectangle Name="PART_FirstColumnDivider" Grid.Column="1" />
+
+                                <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                                <Border x:Name="PART_SecondPickerHost" Grid.Column="2">
+                                    <TextBlock x:Name="PART_MinuteTextBlock"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{TemplateBinding FontSize}"
+                                               FontWeight="{TemplateBinding FontWeight}" />
+                                </Border>
+
+                                <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                                <Rectangle Name="PART_SecondColumnDivider" Grid.Column="3" />
+
+                                <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                                <Border x:Name="PART_ThirdPickerHost" Grid.Column="4">
+                                    <TextBlock x:Name="PART_PeriodTextBlock"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{TemplateBinding FontSize}"
+                                               FontWeight="{TemplateBinding FontWeight}" />
+                                </Border>
+                            </Grid>
+                        </Button>
+                        <Popup Name="PART_Popup" PlacementTarget="{TemplateBinding}">
+                            <TimePickerPresenter Name="PART_PickerPresenter" Width="{Binding $parent[TimePicker].Bounds.Width}" />
+                        </Popup>
+                    </Grid>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <!-- TimePickerPresenter -->
+    <ControlTheme x:Key="{x:Type TimePickerPresenter}" TargetType="TimePickerPresenter">
+        <Setter Property="TimePickerPresenter.Template">
+            <ControlTemplate TargetType="TimePickerPresenter">
+                <Border Name="Background"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid Name="ContentPanel" RowDefinitions="*,Auto">
+                        <Grid Name="PART_PickerContainer">
+                            <!-- Column Definitions set in code, ignore here -->
+
+                            <Panel Name="PART_HourHost" Grid.Column="0">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_HourSelector"
+                                                         PanelType="Hour"
+                                                         ShouldLoop="True" />
+                                </ScrollViewer>
+                                <RepeatButton Name="PART_HourUpButton"
+                                              VerticalAlignment="Top"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_HourUpButtonPath" />
+                                </RepeatButton>
+                                <RepeatButton Name="PART_HourDownButton"
+                                              VerticalAlignment="Bottom"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_HourDownButtonPath" />
+                                </RepeatButton>
+                            </Panel>
+
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Panel Name="PART_MinuteHost" Grid.Column="2">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_MinuteSelector"
+                                                         PanelType="Minute"
+                                                         ShouldLoop="True" />
+                                </ScrollViewer>
+                                <RepeatButton Name="PART_MinuteUpButton"
+                                              VerticalAlignment="Top"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_MinuteUpButtonPath" />
+                                </RepeatButton>
+                                <RepeatButton Name="PART_MinuteDownButton"
+                                              VerticalAlignment="Bottom"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_MinuteDownButtonPath" />
+                                </RepeatButton>
+                            </Panel>
+
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Panel Name="PART_PeriodHost" Grid.Column="4">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_PeriodSelector"
+                                                         PanelType="TimePeriod"
+                                                         ShouldLoop="False" />
+                                </ScrollViewer>
+                                <RepeatButton Name="PART_PeriodUpButton"
+                                              VerticalAlignment="Top"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_PeriodUpButtonPath" />
+                                </RepeatButton>
+                                <RepeatButton Name="PART_PeriodDownButton"
+                                              VerticalAlignment="Bottom"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_PeriodDownButtonPath" />
+                                </RepeatButton>
+                            </Panel>
+
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Rectangle Name="HighlightRect"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="5"
+                                       IsHitTestVisible="False"
+                                       ZIndex="-1" />
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Rectangle Name="PART_FirstSpacer" Grid.Column="1" />
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Rectangle Name="PART_SecondSpacer" Grid.Column="3" />
+                        </Grid>
+
+                        <Grid Name="AcceptDismissGrid"
+                              Grid.Row="1"
+                              ColumnDefinitions="*,*">
+                            <Rectangle x:Name="TimePickerFlyoutPresenterSpacer"
+                                       Grid.ColumnSpan="2"
+                                       VerticalAlignment="Top" />
+                            <Button Name="PART_AcceptButton" Grid.Column="0">
+                                <Path x:Name="PART_AcceptButtonPath" />
+                            </Button>
+                            <Button Name="PART_DismissButton" Grid.Column="1">
+                                <Path x:Name="PART_DismissButtonPath" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ Panel">
+            <Style Selector="^:pointerover RepeatButton">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+    </ControlTheme>
+
+</ResourceDictionary>

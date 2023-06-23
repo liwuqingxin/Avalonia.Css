@@ -22,6 +22,13 @@
             <DatePicker SelectedDate="{Binding Path=DateTime}" />
             <DatePicker IsEnabled="False" SelectedDate="2023/06/22" />
 
+            <TimePicker SelectedTime="{Binding Path=Time}" />
+            <TimePicker IsEnabled="False" SelectedTime="12:22" />
+
+            <TimePicker ClockIdentifier="24HourClock" SelectedTime="{Binding Path=Time}" />
+			<TimePicker ClockIdentifier="12HourClock" SelectedTime="14:22" />
+			<TimePicker ClockIdentifier="12HourClock" />
+
             <CalendarDatePicker />
             <CalendarDatePicker IsEnabled="False" SelectedDate="2023/06/22" />
 

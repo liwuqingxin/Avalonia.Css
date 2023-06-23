@@ -20,6 +20,7 @@
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Switch.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TabControl.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TextBox.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TimePicker.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

@@ -29,7 +29,7 @@ CalendarItem {
             Margin:6,10;
             CornerRadius:4;
         }
-        CalendarItem /template/ Button#PART_HeaderButton{
+        CalendarItem /template/ Button#PART_HeaderButton:is-part{
             HorizontalContentAlignment:Left;
             FontWeight:Bold;
             FontSize:14;

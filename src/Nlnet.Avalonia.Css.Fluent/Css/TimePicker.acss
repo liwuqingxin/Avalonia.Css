@@ -1,0 +1,62 @@
+﻿
+TimePicker {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Left;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Stretch;
+    ClipToBounds:False;
+    MinWidth:150;
+    FontSize:12;
+    Transitions:[
+        var(stBorderBrush);
+        var(stBackground);
+    ]
+
+    [[
+        TimePicker /template/ Button#PART_FlyoutButton{
+            HorizontalContentAlignment:Stretch;
+        }
+        TimePicker:hasnotime /template/ Button#PART_FlyoutButton TextBlock{
+            Foreground:var(watermark);
+        }
+        TimePicker /template/ Popup#PART_Popup{
+            WindowManagerAddShadowHint:false;
+            PlacementMode:Bottom;
+            IsLightDismissEnabled:True;
+        }
+        TimePicker /template/ TimePickerPresenter#PART_PickerPresenter{
+            MaxHeight:300;
+        }
+
+        TimePicker /template/ TextBlock#PART_HourTextBlock{
+            Text:Hour;
+            HorizontalAlignment:Center;
+        }
+        TimePicker /template/ TextBlock#PART_MinuteTextBlock{
+            Text:Minite;
+            HorizontalAlignment:Center;
+        }
+        TimePicker /template/ TextBlock#PART_PeriodTextBlock{
+            Text:am;
+            HorizontalAlignment:Center;
+        }
+
+        TimePicker /template/ Rectangle#PART_FirstColumnDivider{
+            Width:1;
+            Fill:var(watermark);
+            Margin:8,2;
+        }
+        TimePicker /template/ Rectangle#PART_SecondColumnDivider{
+            Width:1;
+            Fill:var(watermark);
+            Margin:8,2;
+        }
+    ]]
+}

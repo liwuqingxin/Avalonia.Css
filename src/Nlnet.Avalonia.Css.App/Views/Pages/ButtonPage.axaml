@@ -105,9 +105,7 @@
                     VerticalAlignment="Top"
                     Spacing="8">
 
-            <Button Classes="primary"
-                    Content="Primary Button"
-                    ContextFlyout="{StaticResource SharedMenuFlyout}" />
+            <Button Classes="primary" Content="Primary Button" />
 
             <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
 
@@ -123,18 +121,15 @@
                 <Image Source="/Assets/orange.png" />
             </Button>
 
-            <Button Content="支持 ContextMenu 和 FlyoutMenu"
-                    ContextFlyout="{StaticResource SharedMenuFlyout}"
+            <Button Content="支持 ContextMenu 和 Flyout"
                     ContextMenu="{StaticResource SharedMenu}"
                     Flyout="{StaticResource SharedMenuFlyout}" />
 
             <DropDownButton Content="下拉按钮"
-                            ContextFlyout="{StaticResource SharedMenuFlyout}"
                             ContextMenu="{StaticResource SharedMenu}"
                             Flyout="{StaticResource SharedMenuFlyout}" />
 
             <DropDownButton Content="不可用下拉按钮"
-                            ContextFlyout="{StaticResource SharedMenuFlyout}"
                             ContextMenu="{StaticResource SharedMenu}"
                             Flyout="{StaticResource SharedMenuFlyout}"
                             IsEnabled="False" />
