@@ -13,7 +13,7 @@
         <pages:CalendarPageViewModel />
     </Design.DataContext>
 
-    <ScrollViewer>
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
         <StackPanel Margin="8"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
