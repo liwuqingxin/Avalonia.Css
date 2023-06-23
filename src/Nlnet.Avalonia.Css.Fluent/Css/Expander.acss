@@ -19,6 +19,7 @@ Expander {
         Expander /template/ ToggleButton{
             Transitions:[
                 var(stBackground);
+                var(stCornerRadius)
             ]
         }
         Expander /template/ ToggleButton:pointerover{
@@ -26,6 +27,36 @@ Expander {
         }
         Expander /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
             BoxShadow: var(button-shadow);
+        }
+
+        /* Use animation to set visibility */
+        Expander:expanded /template/ Border#ExpanderContent{
+            [[
+                :animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.001';
+                    KeyFrames:[
+                        KeyFrame(100%):[
+                            IsVisible:True;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        Expander:not(:expanded) /template/ Border#ExpanderContent{
+            [[
+                :animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.125';
+                    KeyFrames:[
+                        KeyFrame(100%):[
+                            IsVisible:False;
+                        ]
+                    ]
+                }
+            ]]
         }
 
         /* Expand Collapse Chevron */
