@@ -11,6 +11,7 @@
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/CheckBox.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ComboBox.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/DatePicker.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Expander.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Menu.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/PopupRoot.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ProgressBar.axaml" />

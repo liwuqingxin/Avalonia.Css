@@ -1,0 +1,137 @@
+﻿
+Expander {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 6;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Stretch;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Stretch;
+    ClipToBounds:False;
+    IsTabStop:false;
+
+    [[
+        Expander /template/ ToggleButton{
+            Transitions:[
+                var(stBackground);
+            ]
+        }
+        Expander /template/ ToggleButton:pointerover{
+            Background: var(control-back-hover);
+        }
+        Expander /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
+            BoxShadow: var(button-shadow);
+        }
+
+        /* Expand Collapse Chevron */
+        Expander /template/ ToggleButton#ExpanderHeader Path#ExpandCollapseChevron{
+            VerticalAlignment:Center;
+            Stroke:var(fore);
+            StrokeThickness:1;
+            Stretch:Uniform;
+            Margin:8,0;
+            Transitions:[
+                var(gstRenderTransform);
+            ]
+        }
+        Expander:up /template/ ToggleButton#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 0 7 L 7 0 L 14 7;
+            Width:9;
+        }
+        Expander:down /template/ ToggleButton#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 0 0 L 7 7 L 14 0;
+            Width:9;
+        }
+        Expander:left /template/ ToggleButton#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 7 0 L 0 7 L 7 14;
+            Height:9;
+        }
+        Expander:right /template/ ToggleButton#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 0 0 L 7 7 L 0 14;
+            Height:9;
+        }
+
+        /* pressed */
+        Expander:up /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(0, -3px);
+        }
+        Expander:down /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(0, 3px);
+        }
+        Expander:left /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(-3px, 0);
+        }
+        Expander:right /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(3px, 0);
+        }
+
+        /* expand */
+        Expander:up /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(1,-1);
+        }
+        Expander:down /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(1,-1);
+        }
+        Expander:left /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(-1,1);
+        }
+        Expander:right /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(-1,1);
+        }
+
+        /* Content Border */
+        Expander:up /template/ Border#ExpanderContent{
+            BorderThickness:1,1,1,0;
+        }
+        Expander:down /template/ Border#ExpanderContent{
+            BorderThickness:1,0,1,1;
+        }
+        Expander:left /template/ Border#ExpanderContent{
+            BorderThickness:1,1,0,1;
+        }
+        Expander:right /template/ Border#ExpanderContent{
+            BorderThickness:0,1,1,1;
+        }
+
+        /* Change layout when direction is left. */
+        Expander:left /template/ ToggleButton#ExpanderHeader ContentPresenter#PART_ContentPresenter:is-part{
+            Grid.Column:1;
+        }
+        Expander:left /template/ ToggleButton#ExpanderHeader Border#ExpandCollapseChevronBorder:is-part{
+            Grid.Column:0;
+        }
+
+        /* Transforms */
+        Expander /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(1,0);
+            RenderTransformOrigin:0%,0%;
+            Opacity:0;
+            Transitions:[
+                var(gstLayoutTransform);
+                var(gstOpacity);
+            ]
+        }
+        Expander:left /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(0,1);
+        }
+        Expander:right /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(0,1);
+        }
+        Expander:expanded /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(1,1);
+            Opacity:1;
+        }
+
+        Expander:left{
+            HorizontalAlignment:Left;
+        }
+        Expander:right{
+            HorizontalAlignment:Right;
+        }
+    ]]
+}

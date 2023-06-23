@@ -15,6 +15,7 @@
 	brush(Warning): #F0A000;
 	brush(Info): #2DD7FD;
 
+	transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.075);
     transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.075);
 	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.075);
 	transition(stBackground): BrushTransition(TemplatedControl.Background 0.075);
@@ -27,7 +28,6 @@
 	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth 0.075);
 	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.075);
 	transition(stMargin): ThicknessTransition(TemplatedControl.Margin 0.075);
-
 	transition(stFill): BrushTransition(Shape.Fill 0.075);
 	transition(stStroke): BrushTransition(Shape.Stroke 0.075);
 	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.075);
@@ -35,6 +35,7 @@
 	transition(stBorderBorderThickness): ThicknessTransition(Border.BorderThickness 0.075);
 	transition(stCornerRadius): CornerRadiusTransition(Border.CornerRadius 0.075);
 
+	transition(gstLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.125);
 	transition(gstRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.125);
 	transition(gstBorderBrush): BrushTransition(TemplatedControl.BorderBrush 0.125);
 	transition(gstBackground): BrushTransition(TemplatedControl.Background 0.125);
@@ -47,7 +48,6 @@
 	transition(gstMinWidth): DoubleTransition(TemplatedControl.MinWidth 0.125);
 	transition(gstBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.125);
 	transition(gstMargin): ThicknessTransition(TemplatedControl.Margin 0.125);
-
 	transition(gstFill): BrushTransition(Shape.Fill 0.125);
 	transition(gstStroke): BrushTransition(Shape.Stroke 0.125);
 	transition(gstBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.125);
