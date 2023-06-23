@@ -13,6 +13,7 @@
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/DatePicker.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Expander.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Menu.axaml" />
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/NumericUpDown.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/PopupRoot.axaml" />
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ProgressBar.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/RadioButton.axaml" />

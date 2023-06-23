@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- NumericUpDown -->
+    <ControlTheme x:Key="{x:Type NumericUpDown}" TargetType="NumericUpDown">
+        <Setter Property="NumericUpDown.Template">
+            <ControlTemplate TargetType="NumericUpDown">
+                <ButtonSpinner Name="PART_Spinner"
+                               AllowSpin="{TemplateBinding AllowSpin}"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
+                               CornerRadius="{TemplateBinding CornerRadius}"
+                               DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                               ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}">
+                    <TextBox Name="PART_TextBox"
+                             Padding="{TemplateBinding Padding}"
+                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                             AcceptsReturn="False"
+                             FontSize="{TemplateBinding FontSize}"
+                             Foreground="{TemplateBinding Foreground}"
+                             IsReadOnly="{TemplateBinding IsReadOnly}"
+                             Text="{TemplateBinding Text}"
+                             TextWrapping="NoWrap"
+                             Watermark="{TemplateBinding Watermark}" />
+                </ButtonSpinner>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>
