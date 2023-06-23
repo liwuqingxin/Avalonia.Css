@@ -13,7 +13,6 @@ TextBox {
     HorizontalAlignment: Center;
     VerticalAlignment: Center;
     MinWidth:40;
-    MaxWidth:100;
     ClipToBounds:True;
     SelectionBrush:var(Accent06);
     FontSize:12;

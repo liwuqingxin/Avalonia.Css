@@ -31,6 +31,8 @@ CalendarItem {
         }
         CalendarItem /template/ Button#PART_HeaderButton{
             HorizontalContentAlignment:Left;
+            FontWeight:Bold;
+            FontSize:14;
         }
         CalendarItem /template/ Path#PART_PreviousButtonPath{
             Data:M 0,9 L 9,0 L 18,9;
