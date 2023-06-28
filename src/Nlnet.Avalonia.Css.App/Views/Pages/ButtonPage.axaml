@@ -140,6 +140,13 @@
 
             <RepeatButton Content="Click And Hold : 0" IsEnabled="False" />
 
+            <ToggleButton Content="Toggle Button" />
+            <ToggleButton Content="Toggle Button" IsChecked="True" />
+            <ToggleButton Content="Toggle Button" IsEnabled="False" />
+            <ToggleButton Content="Toggle Button"
+                          IsChecked="True"
+                          IsEnabled="False" />
+
             <ButtonSpinner AllowSpin="True"
                            ButtonSpinnerLocation="Right"
                            Content="120"

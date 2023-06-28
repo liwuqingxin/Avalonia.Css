@@ -105,4 +105,24 @@
         </Style>
     </ControlTheme>
 
+
+    <!-- ToggleButton -->
+    <ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton">
+        <Setter Property="ToggleButton.Template">
+            <ControlTemplate TargetType="ToggleButton">
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  RecognizesAccessKey="True" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
 </ResourceDictionary>

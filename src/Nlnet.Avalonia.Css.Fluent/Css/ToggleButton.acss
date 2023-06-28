@@ -1,0 +1,41 @@
+﻿
+ToggleButton {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 6;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Stretch;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Stretch;
+    ClipToBounds:False;
+    FontSize:12;
+    Transitions:[
+        /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
+
+    [[
+        ToggleButton:not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
+            BoxShadow: var(button-shadow);
+        }
+        ToggleButton:pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        ToggleButton:pressed:not(:is-part){
+            /* RenderTransform:scale(0.97,0.97); */
+            Opacity:0.6;
+        }
+        ToggleButton:disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

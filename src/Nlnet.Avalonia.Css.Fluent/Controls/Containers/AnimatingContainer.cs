@@ -3,6 +3,7 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
+using Avalonia.Interactivity;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
@@ -26,9 +27,22 @@ namespace Nlnet.Avalonia.Css.Fluent
             ContentProperty.Changed.AddClassHandler<AnimatingContainer>((container, args) =>
             {
                 container.LeavingContent = args.OldValue;
-                container.PseudoClasses.Set(Pseudo_Changed, false);
-                container.PseudoClasses.Set(Pseudo_Changed, true);
+
+                if (args.OldValue is Control oldControl)
+                {
+                    oldControl.Loaded -= container.OnContentLoaded;
+                }
+                if (container.Content is Control control)
+                {
+                    control.Loaded += container.OnContentLoaded;
+                }
             });
+        }
+
+        private void OnContentLoaded(object? sender, RoutedEventArgs e)
+        {
+            PseudoClasses.Set(Pseudo_Changed, false);
+            PseudoClasses.Set(Pseudo_Changed, true);
         }
     }
 }

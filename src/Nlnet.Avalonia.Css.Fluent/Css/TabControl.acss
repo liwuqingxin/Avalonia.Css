@@ -18,7 +18,7 @@
             [[
                 :animation[desc=Tab control loading animation]{
                     IterationCount:1;
-                    Duration:'0:0:.5';
+                    Duration:'0:0:1.2';
                     FillMode:Forward;
                     KeyFrames:[
                         KeyFrame(0% 0,0.3,0.7,1):[
