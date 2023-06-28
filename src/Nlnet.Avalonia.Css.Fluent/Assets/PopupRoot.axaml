@@ -1,4 +1,6 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:css="clr-namespace:Nlnet.Avalonia.Css;assembly=Nlnet.Avalonia.Css">
 
     <ControlTheme x:Key="{x:Type PopupRoot}" TargetType="PopupRoot">
         <Setter Property="PopupRoot.Template">
@@ -14,22 +16,20 @@
             </ControlTemplate>
         </Setter>
 
-        <!--<Style Selector="^">
+        <Style Selector="^">
             <Style.Animations>
-                <Animation Delay=""
-                           DelayBetweenIterations=""
-                           Easing=""
-                           FillMode="Forward"
+                <Animation FillMode="Forward"
                            IterationCount="1"
-                           PlaybackDirection="Alternate"
-                           SpeedRatio=""
-                           Duration="" >
-                    <KeyFrame Cue="" KeySpline="">
-                        <Setter Property="Background" Value=""/>
+                           Duration="0:0:2">
+                    <KeyFrame Cue="0%">
+                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.X" Value="-20" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.X" Value="0" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
-        </Style>-->
+        </Style>
     </ControlTheme>
 
 </ResourceDictionary>
