@@ -1,3 +1,28 @@
-﻿ButtonPage Button, ButtonPage RepeatButton, ButtonPage ButtonSpinner, ButtonPage DropDownButton{
+﻿ButtonPage Button, ButtonPage RepeatButton, ButtonPage ButtonSpinner, ButtonPage DropDownButton, ButtonPage ToggleButton{
     HorizontalAlignment:Left;
+}
+
+TabItem Icon{
+    Opacity:0;
+    [[
+        :animation[desc=Svg icon loading animation]{
+            IterationCount:1;
+            Duration:'0:0:0.3';
+            FillMode:Forward;
+            KeyFrames:[
+                KeyFrame(0% 0,0.3,0.7,1):[
+                    Opacity:0;
+                    TranslateTransform.X:-5;
+                ]
+                KeyFrame(20% 0,0.3,0.7,1):[
+                    Opacity:0;
+                    TranslateTransform.X:-5;
+                ]
+                KeyFrame(100% 0,0.3,0.7,1):[
+                    Opacity:1;
+                    TranslateTransform.X:-0;
+                ]
+            ]
+        }
+    ]]
 }

@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Nlnet.Avalonia.Css.App.Utils;
 using Nlnet.Avalonia.Css.App.Views;
+using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -20,7 +21,12 @@ namespace Nlnet.Avalonia.Css.App
             AvaloniaXamlLoader.Load(this);
 
             var manager = ServiceLocator.GetService<ITypeResolverManager>();
+
+            // Nlnet.Avalonia.Css.App
             manager.LoadResolver(new GenericResolver<App>());
+
+            // Nlnet.Avalonia.Svg
+            manager.LoadResolver(new GenericResolver<Icon>());
 
             CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
             Dispatcher.UIThread.Post(() =>
