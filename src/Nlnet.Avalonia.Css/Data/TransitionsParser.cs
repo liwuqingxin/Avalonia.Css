@@ -9,7 +9,7 @@ namespace Nlnet.Avalonia.Css
     {
         public static Transitions? Parse(string transitionsString)
         {
-            var interpreter    = ServiceLocator.GetService<ICssInterpreter>();
+            var interpreter    = CssServiceLocator.GetService<ICssInterpreter>();
             var transitions    = new Transitions();
             var transitionList = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)

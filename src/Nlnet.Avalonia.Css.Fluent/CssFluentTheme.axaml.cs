@@ -19,7 +19,7 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         private static void Load()
         {
-            var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            var manager = CssServiceLocator.GetService<ITypeResolverManager>();
             manager.LoadResolver(new GenericResolver<CssFluentTheme>());
 
             CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);

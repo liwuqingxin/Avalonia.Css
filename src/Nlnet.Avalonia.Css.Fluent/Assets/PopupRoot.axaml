@@ -13,6 +13,23 @@
                 </VisualLayerManager>
             </ControlTemplate>
         </Setter>
+
+        <!--<Style Selector="^">
+            <Style.Animations>
+                <Animation Delay=""
+                           DelayBetweenIterations=""
+                           Easing=""
+                           FillMode="Forward"
+                           IterationCount="1"
+                           PlaybackDirection="Alternate"
+                           SpeedRatio=""
+                           Duration="" >
+                    <KeyFrame Cue="" KeySpline="">
+                        <Setter Property="Background" Value=""/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>-->
     </ControlTheme>
 
 </ResourceDictionary>

@@ -81,7 +81,7 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var parser            = ServiceLocator.GetService<ICssParser>();
+                var parser            = CssServiceLocator.GetService<ICssParser>();
                 var cssContent        = File.ReadAllText(_file);
                 var css               = parser.RemoveComments(cssContent.ToCharArray());
                 var sections          = parser.ParseSections(null, css).ToList();
@@ -148,6 +148,8 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
+                //styledElement.InvalidateStyles();
+
                 styledElement.BeginBatchUpdate();
                 AvaloniaLocator.Current.GetService<IStyler>()?.ApplyStyles(styledElement);
 

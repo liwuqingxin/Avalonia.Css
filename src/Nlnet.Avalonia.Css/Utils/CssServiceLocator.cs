@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Nlnet.Avalonia.Css
 {
-    public static class ServiceLocator
+    public static class CssServiceLocator
     {
         private static readonly Dictionary<Type, object> Services = new();
 
@@ -32,14 +32,14 @@ namespace Nlnet.Avalonia.Css
             throw new Exception($"Can not find the {typeof(TInterface)} service.");
         }
 
-        static ServiceLocator()
+        static CssServiceLocator()
         {
-            ServiceLocator.SetService<ITypeResolverManager, TypeResolverManager>();
-            ServiceLocator.SetService<ICssParser, CssParser>();
-            ServiceLocator.SetService<ICssInterpreter, CssInterpreter>();
-            ServiceLocator.SetService<ICssManager, CssManager>();
-            ServiceLocator.SetService<ICssSectionFactory, CssSectionFactory>();
-            ServiceLocator.SetService<ICssResourceFactory, CssResourceFactory>();
+            CssServiceLocator.SetService<ITypeResolverManager, TypeResolverManager>();
+            CssServiceLocator.SetService<ICssParser, CssParser>();
+            CssServiceLocator.SetService<ICssInterpreter, CssInterpreter>();
+            CssServiceLocator.SetService<ICssManager, CssManager>();
+            CssServiceLocator.SetService<ICssSectionFactory, CssSectionFactory>();
+            CssServiceLocator.SetService<ICssResourceFactory, CssResourceFactory>();
         }
     }
 }

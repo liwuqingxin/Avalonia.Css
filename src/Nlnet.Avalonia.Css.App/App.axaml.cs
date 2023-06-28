@@ -15,12 +15,12 @@ namespace Nlnet.Avalonia.Css.App
             AppLoader.Load("Nlnet.Avalonia.Svg.dll");
             AppLoader.Load("Avalonia.DevTools.dll");
 
-            ServiceLocator.GetService<ICssManager>().Theme = "blue";
-            ServiceLocator.GetService<ICssManager>().Mode  = "light";
+            CssServiceLocator.GetService<ICssManager>().Theme = "blue";
+            CssServiceLocator.GetService<ICssManager>().Mode  = "light";
 
             AvaloniaXamlLoader.Load(this);
 
-            var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            var manager = CssServiceLocator.GetService<ITypeResolverManager>();
 
             // Nlnet.Avalonia.Css.App
             manager.LoadResolver(new GenericResolver<App>());

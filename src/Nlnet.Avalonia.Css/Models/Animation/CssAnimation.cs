@@ -38,7 +38,7 @@ namespace Nlnet.Avalonia.Css
 
             _animation = new Animation();
 
-            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
+            var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
             var type        = typeof(Animation);
             var setters     = parser.ParsePairs(content).ToList();
             foreach (var setter in setters.Where(s => s.Item1 != nameof(Animation.Children)))

@@ -15,10 +15,10 @@ public class AttachedPropertySyntax : ISyntax, ITypeSyntax
 
     public Selector? ToSelector(Selector? previous)
     {
-        var manager = ServiceLocator.GetService<ITypeResolverManager>();
+        var manager = CssServiceLocator.GetService<ITypeResolverManager>();
         if (manager.TryGetType(TypeName, out var type))
         {
-            var interpreter      = ServiceLocator.GetService<ICssInterpreter>();
+            var interpreter      = CssServiceLocator.GetService<ICssInterpreter>();
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {

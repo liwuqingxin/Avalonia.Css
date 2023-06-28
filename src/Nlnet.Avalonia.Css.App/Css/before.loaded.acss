@@ -9,6 +9,7 @@ TabItem Icon{
             IterationCount:1;
             Duration:'0:0:0.3';
             FillMode:Forward;
+            Delay:'0:0:0.15';
             KeyFrames:[
                 KeyFrame(0% 0,0.3,0.7,1):[
                     Opacity:0;

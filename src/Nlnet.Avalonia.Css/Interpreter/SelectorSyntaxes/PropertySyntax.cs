@@ -12,7 +12,7 @@ public class PropertySyntax : ISyntax
     {
         if (previous?.TargetType != null)
         {
-            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
+            var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
 
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(previous.TargetType, Property);
             if (avaloniaProperty == null)

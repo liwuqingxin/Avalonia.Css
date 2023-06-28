@@ -132,7 +132,7 @@ public class CssParser : ICssParser
             }
         }
 
-        return list.Select(o => ServiceLocator.GetService<ICssSectionFactory>().Build(this, parent, o.Item1, o.Item2));
+        return list.Select(o => CssServiceLocator.GetService<ICssSectionFactory>().Build(this, parent, o.Item1, o.Item2));
     }
 
     public IEnumerable<(string, string)> ParsePairs(ReadOnlySpan<char> span)

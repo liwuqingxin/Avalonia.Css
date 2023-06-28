@@ -44,7 +44,7 @@ public class CssSetter : ICssSetter
             return null;
         }
 
-        var interpreter = ServiceLocator.GetService<ICssInterpreter>();
+        var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
 
         var property = interpreter.ParseAvaloniaProperty(targetType, Property);
         if (property == null)

@@ -27,7 +27,7 @@ public class BrushResource : CssResourceBaseAndFac<BrushResource>
             _opacity = o;
         }
 
-        if (ServiceLocator.GetService<ICssInterpreter>().IsVar(colorString, out var key))
+        if (CssServiceLocator.GetService<ICssInterpreter>().IsVar(colorString, out var key))
         {
             _key = key;
 

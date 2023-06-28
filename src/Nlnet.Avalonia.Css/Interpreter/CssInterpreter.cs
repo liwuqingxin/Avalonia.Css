@@ -67,7 +67,7 @@ namespace Nlnet.Avalonia.Css
 
                 var declaredTypeName = splits[0];
                 property = splits[1];
-                var manager = ServiceLocator.GetService<ITypeResolverManager>();
+                var manager = CssServiceLocator.GetService<ITypeResolverManager>();
                 if (manager.TryGetType(declaredTypeName, out var type) == false)
                 {
                     avaloniaObjectType.WriteLine($"Can not find '{declaredTypeName}' from '{nameof(TypeResolverManager)}'. Skip it.");
@@ -114,7 +114,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             var match   = _staticInstanceRegex.Match(rawValue);
-            var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            var manager = CssServiceLocator.GetService<ITypeResolverManager>();
             if (match.Success)
             {
                 var className = match.Groups[1].Value;
@@ -215,7 +215,7 @@ namespace Nlnet.Avalonia.Css
                 var indexString = match.Groups[2].Value;
                 var path = match.Groups[3].Value;
 
-                if (ServiceLocator.GetService<ITypeResolverManager>().TryGetType(className, out var classType) == false)
+                if (CssServiceLocator.GetService<ITypeResolverManager>().TryGetType(className, out var classType) == false)
                 {
                     return false;
                 }
@@ -275,7 +275,7 @@ namespace Nlnet.Avalonia.Css
                 var dotIndex = propertyString.IndexOf('.');
                 if (dotIndex >= 0)
                 {
-                    var manager = ServiceLocator.GetService<ITypeResolverManager>();
+                    var manager = CssServiceLocator.GetService<ITypeResolverManager>();
                     if (manager.TryGetType(propertyString[..dotIndex], out var t))
                     {
                         targetType = t;
@@ -307,7 +307,7 @@ namespace Nlnet.Avalonia.Css
                 }
             }
 
-            var avaloniaProperty = ServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(targetType!, property);
+            var avaloniaProperty = CssServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(targetType!, property);
             if (avaloniaProperty == null)
             {
                 return null;
@@ -327,8 +327,8 @@ namespace Nlnet.Avalonia.Css
         public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString)
         {
             valueString = valueString[1..^1].Trim(' ');
-            var parser  = ServiceLocator.GetService<ICssParser>();
-            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
+            var parser  = CssServiceLocator.GetService<ICssParser>();
+            var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
             var objects = parser.ParseObjects(valueString);
 
             foreach (var (selector, propertySettingsString) in objects)
