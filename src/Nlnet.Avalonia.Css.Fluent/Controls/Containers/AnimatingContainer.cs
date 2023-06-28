@@ -7,11 +7,12 @@ using Avalonia.Interactivity;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
-    [PseudoClasses(Pseudo_Changed)]
+    [PseudoClasses(Pseudo_Changing, Pseudo_Changed)]
     public class AnimatingContainer : ContentControl, IStyleable
     {
         Type IStyleable.StyleKey => typeof(AnimatingContainer);
 
+        private const string Pseudo_Changing = ":changing";
         private const string Pseudo_Changed = ":changed";
 
         public object? LeavingContent
@@ -27,6 +28,9 @@ namespace Nlnet.Avalonia.Css.Fluent
             ContentProperty.Changed.AddClassHandler<AnimatingContainer>((container, args) =>
             {
                 container.LeavingContent = args.OldValue;
+
+                container.PseudoClasses.Set(Pseudo_Changing, false);
+                container.PseudoClasses.Set(Pseudo_Changing, true);
 
                 if (args.OldValue is Control oldControl)
                 {

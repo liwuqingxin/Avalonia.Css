@@ -4,7 +4,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.DevTools;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -30,10 +29,10 @@ namespace Nlnet.Avalonia.Css.App.Views
 
             var pageTypes = this.GetType().Assembly
                 .GetTypes()
-                .Where(t => t.Namespace != null && t.Namespace.StartsWith("Nlnet.Avalonia.Css.App.Views.Pages") && t.IsAssignableTo(typeof(UserControl)));
+                .Where(t => t.Namespace != null && t.Namespace.StartsWith("Nlnet.Avalonia.Css.App.Views.Pages")
+                    && t.IsAssignableTo(typeof(UserControl)));
 
             var assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
-
             TabControl.Items = pageTypes.Select(t =>
             {
                 var tabItem = new TabItem()
@@ -52,16 +51,17 @@ namespace Nlnet.Avalonia.Css.App.Views
                         Height = 22,
                     };
                     Nlnet.Avalonia.Svg.Controls.Icon.SetIconSize(svg, 22);
+                    Nlnet.Avalonia.Svg.Controls.Icon.SetIconSvg(svg, new Uri(imageUriString));
                     TabItemExtension.SetIconContent(tabItem, svg);
-
-                    Dispatcher.UIThread.Post(() =>
-                    {
-                        Nlnet.Avalonia.Svg.Controls.Icon.SetIconSvg(svg, new Uri(imageUriString));
-                    }, DispatcherPriority.MinValue);
                 }
 
                 return tabItem;
             }).ToList();
+
+            if (this.DataContext is MainWindowViewModel vm)
+            {
+                vm.IsLoading = false;
+            }
         }
 
         private static void LoadDynamicStyle()

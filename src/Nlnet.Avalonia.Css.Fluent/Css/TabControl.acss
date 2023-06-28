@@ -14,11 +14,11 @@
         TabControl /template/ AnimatingContainer#PART_SelectedContentHost {
             Opacity:0;
         }
-        TabControl /template/ AnimatingContainer#PART_SelectedContentHost {
+        TabControl /template/ AnimatingContainer#PART_SelectedContentHost:changing {
             [[
                 :animation[desc=Tab control loading animation]{
                     IterationCount:1;
-                    Duration:'0:0:1.2';
+                    Duration:'0:0:.2';
                     FillMode:Forward;
                     KeyFrames:[
                         KeyFrame(0% 0,0.3,0.7,1):[

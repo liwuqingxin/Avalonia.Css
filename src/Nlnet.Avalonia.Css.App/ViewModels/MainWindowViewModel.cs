@@ -12,6 +12,7 @@ namespace Nlnet.Avalonia.Css.App
     {
         private string? _mode = "light";
         private string? _theme = "blue";
+        private bool _isLoading = true;
 
         public  List<string> Modes { get; set; }
 
@@ -37,6 +38,18 @@ namespace Nlnet.Avalonia.Css.App
                 if (value == _theme)
                     return;
                 _theme = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                if (value == _isLoading)
+                    return;
+                _isLoading = value;
                 OnPropertyChanged();
             }
         }
