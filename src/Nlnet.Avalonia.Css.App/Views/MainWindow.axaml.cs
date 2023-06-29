@@ -50,6 +50,7 @@ namespace Nlnet.Avalonia.Css.App.Views
                         Width  = 22,
                         Height = 22,
                     };
+                    LoadedStateMixin.SetUseLoadedState(svg, true);
                     Nlnet.Avalonia.Svg.Controls.Icon.SetIconSize(svg, 22);
                     Nlnet.Avalonia.Svg.Controls.Icon.SetIconSvg(svg, new Uri(imageUriString));
                     TabItemExtension.SetIconContent(tabItem, svg);

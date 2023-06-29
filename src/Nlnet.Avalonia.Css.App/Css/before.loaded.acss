@@ -2,7 +2,7 @@
     HorizontalAlignment:Left;
 }
 
-TabItem Icon{
+/* TabItem Icon{
     Opacity:0;
     [[
         :animation[desc=Svg icon loading animation]{
@@ -26,4 +26,4 @@ TabItem Icon{
             ]
         }
     ]]
-}
+} */

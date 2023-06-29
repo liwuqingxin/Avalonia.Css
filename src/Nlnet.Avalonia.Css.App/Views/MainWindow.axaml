@@ -2,6 +2,8 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+        xmlns:controls="https://nlnet.com/avalonia.svg"
+        xmlns:css="clr-namespace:Nlnet.Avalonia.Css;assembly=Nlnet.Avalonia.Css"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:Nlnet.Avalonia.Css.App.Views"
@@ -17,6 +19,29 @@
     <Design.DataContext>
         <app:MainWindowViewModel />
     </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="controls|Icon">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+		<Style Selector="controls|Icon:is-loaded">
+			<Style.Animations>
+                <Animation Delay="0:0:0.0"
+                           FillMode="Forward"
+                           IterationCount="1"
+                           Duration="0:0:0.16">
+                    <KeyFrame Cue="0%" KeySpline="0,0.2,0.8,1">
+                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.Y" Value="8" />
+                        <Setter Property="Opacity" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%" KeySpline="0,0.2,0.8,1">
+                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.Y" Value="0" />
+                        <Setter Property="Opacity" Value="1" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </Window.Styles>
 
     <Grid Margin="10" RowDefinitions="Auto,*">
         <StackPanel Orientation="Horizontal" Spacing="10">

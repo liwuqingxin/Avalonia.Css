@@ -15,21 +15,6 @@
                 </VisualLayerManager>
             </ControlTemplate>
         </Setter>
-
-        <Style Selector="^">
-            <Style.Animations>
-                <Animation FillMode="Forward"
-                           IterationCount="1"
-                           Duration="0:0:2">
-                    <KeyFrame Cue="0%">
-                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.X" Value="-20" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.X" Value="0" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </ControlTheme>
 
 </ResourceDictionary>
