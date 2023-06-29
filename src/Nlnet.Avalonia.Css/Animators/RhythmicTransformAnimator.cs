@@ -109,5 +109,15 @@ namespace Nlnet.Avalonia.Css
 
             return null;
         }
+
+
+        public static RhythmicTransformAnimator Parse(string text)
+        {
+            var instance = new RhythmicTransformAnimator();
+
+            // eg. ""
+
+            return instance;
+        }
     }
 }
