@@ -21,25 +21,11 @@
     </Design.DataContext>
 
     <Window.Styles>
-        <Style Selector="controls|Icon">
-            <Setter Property="Opacity" Value="0" />
+        <Style Selector="TabItem">
+            <Setter Property="ClipToBounds" Value="False" />
         </Style>
-		<Style Selector="controls|Icon:is-loaded">
-			<Style.Animations>
-                <Animation Delay="0:0:0.0"
-                           FillMode="Forward"
-                           IterationCount="1"
-                           Duration="0:0:0.16">
-                    <KeyFrame Cue="0%" KeySpline="0,0.2,0.8,1">
-                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.Y" Value="8" />
-                        <Setter Property="Opacity" Value="0" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%" KeySpline="0,0.2,0.8,1">
-                        <Setter Animation.Animator="css:RhythmicTransformAnimator" Property="TranslateTransform.Y" Value="0" />
-                        <Setter Property="Opacity" Value="1" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
+        <Style Selector="TabItem ContentControl">
+            <Setter Property="ClipToBounds" Value="False" />
         </Style>
     </Window.Styles>
 

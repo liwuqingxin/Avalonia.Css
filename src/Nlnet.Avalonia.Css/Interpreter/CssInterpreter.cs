@@ -40,6 +40,7 @@ namespace Nlnet.Avalonia.Css
         private readonly Regex             _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
         private readonly Regex             _transitionRegex     = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
         private readonly Regex             _keyFrameRegex       = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex             _SetterAnimatorRegex = new("\\s*(.*?)\\s*\\(([a-zA-Z0-9_]*)\\)\\s*");
         private readonly IEnumerable<Type> _transitionsTypes;
 
         public CssInterpreter()
@@ -378,7 +379,16 @@ namespace Nlnet.Avalonia.Css
                 var pairs = parser.ParsePairs(propertySettingsString);
                 foreach (var pair in pairs)
                 {
-                    var property = interpreter.ParseAvaloniaProperty(selectorTargetType, pair.Item1);
+                    var propertyName  = pair.Item1;
+                    var matchAnimator = _SetterAnimatorRegex.Match(propertyName);
+                    string? animatorType  = null;
+                    if (matchAnimator.Success)
+                    {
+                        propertyName = matchAnimator.Groups[1].Value;
+                        animatorType = matchAnimator.Groups[2].Value;
+                    }
+
+                    var property = interpreter.ParseAvaloniaProperty(selectorTargetType, propertyName);
                     if (property == null)
                     {
                         continue;
@@ -389,6 +399,15 @@ namespace Nlnet.Avalonia.Css
                         Property = property,
                         Value = value
                     };
+
+                    if (animatorType != null)
+                    {
+                        if (CssServiceLocator.GetService<ITypeResolverManager>().TryGetType(animatorType, out var animatorTypeInstance) && animatorTypeInstance != null)
+                        {
+                            Animation.SetAnimator(setter, animatorTypeInstance);
+                        }
+                    }
+
                     keyFrame.Setters.Add(setter);
                 }
 

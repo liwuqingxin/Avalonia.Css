@@ -1,29 +1,30 @@
-﻿ButtonPage Button, ButtonPage RepeatButton, ButtonPage ButtonSpinner, ButtonPage DropDownButton, ButtonPage ToggleButton{
+﻿/* 所有示例按钮靠左 */
+ButtonPage Button, ButtonPage RepeatButton, ButtonPage ButtonSpinner, ButtonPage DropDownButton, ButtonPage ToggleButton{
     HorizontalAlignment:Left;
 }
 
-/* TabItem Icon{
+TabItem Icon{
     Opacity:0;
     [[
-        :animation[desc=Svg icon loading animation]{
-            IterationCount:1;
-            Duration:'0:0:0.3';
-            FillMode:Forward;
-            Delay:'0:0:0.15';
-            KeyFrames:[
-                KeyFrame(0% 0,0.3,0.7,1):[
-                    Opacity:0;
-                    TranslateTransform.X:-5;
-                ]
-                KeyFrame(20% 0,0.3,0.7,1):[
-                    Opacity:0;
-                    TranslateTransform.X:-5;
-                ]
-                KeyFrame(100% 0,0.3,0.7,1):[
-                    Opacity:1;
-                    TranslateTransform.X:-0;
-                ]
-            ]
+        Icon:is-loaded{
+            [[
+                :animation[desc=Svg icon loading animation]{
+                    IterationCount:1;
+                    Duration:'0:0:0.16';
+                    FillMode:Forward;
+                    Delay:'0:0:0';
+                    KeyFrames:[
+                        KeyFrame(0% 0,0.2,0.8,1):[
+                            Opacity:0;
+                            TranslateTransform.Y(RhythmicTransformAnimator):16;
+                        ]
+                        KeyFrame(100% 0,0.2,0.8,1):[
+                            Opacity:1;
+                            TranslateTransform.Y(RhythmicTransformAnimator):0;
+                        ]
+                    ]
+                }
+            ]]
         }
     ]]
-} */
+}
