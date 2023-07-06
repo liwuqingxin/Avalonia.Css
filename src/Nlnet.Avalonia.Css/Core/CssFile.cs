@@ -73,7 +73,13 @@ namespace Nlnet.Avalonia.Css
 
         private void Load()
         {
-            Application.Current?.Styles.Remove(this);
+            if (Application.Current == null)
+            {
+                throw new InvalidOperationException("Application has not been prepared. Can not load the css file.");
+            }
+
+            var index = Application.Current.Styles.IndexOf(this);
+            Application.Current.Styles.Remove(this);
 
             this.Clear();
             this.Resources.Clear();
@@ -106,7 +112,14 @@ namespace Nlnet.Avalonia.Css
                     }
                 }
 
-                Application.Current?.Styles.Add(this);
+                if (index == -1)
+                {
+                    Application.Current.Styles.Add(this);
+                }
+                else
+                {
+                    Application.Current.Styles.Insert(index, this);
+                }
 
                 ReapplyStyling();
             }

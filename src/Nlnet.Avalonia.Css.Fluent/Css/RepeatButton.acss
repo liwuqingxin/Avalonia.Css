@@ -4,7 +4,7 @@ RepeatButton {
     Background: var(control-back);
     BorderBrush:var(control-border);
     BorderThickness: 1;
-    CornerRadius: 6;
+    CornerRadius: 4;
     Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
