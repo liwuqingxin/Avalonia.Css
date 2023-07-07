@@ -8,9 +8,11 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
 
-    <StackPanel Margin="8"
-                VerticalAlignment="Top"
-                Spacing="8">
+    <StackPanel VerticalAlignment="Top" Spacing="8">
+
+        <TextBlock x:Name="PageDescription"
+                   Text="Use a Slider when you want your users to be able to set defined,contiguous values (such as volume or brightness)or a range of discrete values(such as screen resolution settings)."
+                   TextWrapping="Wrap" />
 
         <Slider x:Name="Slider"
                 Width="200"

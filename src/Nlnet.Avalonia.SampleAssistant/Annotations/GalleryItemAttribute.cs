@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.SampleAssistant
 {
-    public enum ViewItemKind
+    public enum GalleryItemKind
     {
         Welcome = 0,
         View = 1,
@@ -10,29 +10,29 @@ namespace Nlnet.Avalonia.SampleAssistant
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public class ViewItemAttribute : Attribute
+    public class GalleryItemAttribute : Attribute
     {
         public string? Name { get; set; }
         public string? Icon { get; set; }
-        public ViewItemKind Kind { get; set; }
+        public GalleryItemKind Kind { get; set; }
 
-        public ViewItemAttribute()
+        public GalleryItemAttribute()
         {
             
         }
 
-        public ViewItemAttribute(string? name)
+        public GalleryItemAttribute(string? name)
         {
             Name = name;
         }
 
-        public ViewItemAttribute(ViewItemKind kind, string? name)
+        public GalleryItemAttribute(GalleryItemKind kind, string? name)
         {
             Kind = kind;
             Name = name;
         }
 
-        public ViewItemAttribute(ViewItemKind kind, string? name, string? icon)
+        public GalleryItemAttribute(GalleryItemKind kind, string? name, string? icon)
         {
             Kind = kind;
             Name = name;

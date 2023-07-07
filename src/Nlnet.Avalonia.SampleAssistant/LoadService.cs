@@ -2,6 +2,7 @@
 using Avalonia;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -24,13 +25,13 @@ namespace Nlnet.Avalonia.SampleAssistant
                 var types = assembly
                     .GetTypes()
                     .Where(t => !t.GetTypeInfo().IsDefined(typeof(CompilerGeneratedAttribute), true))
-                    .Where(t => t.GetTypeInfo().IsDefined(typeof(ViewItemAttribute), true))
+                    .Where(t => t.GetTypeInfo().IsDefined(typeof(GalleryItemAttribute), true))
                     .ToList();
 
                 types.Sort((t1, t2) =>
                 {
-                    var attr1 = t1.GetCustomAttribute<ViewItemAttribute>();
-                    var attr2 = t2.GetCustomAttribute<ViewItemAttribute>();
+                    var attr1 = t1.GetCustomAttribute<GalleryItemAttribute>();
+                    var attr2 = t2.GetCustomAttribute<GalleryItemAttribute>();
 
                     if (attr1!.Kind == attr2!.Kind)
                     {
@@ -53,12 +54,13 @@ namespace Nlnet.Avalonia.SampleAssistant
         {
             try
             {
-                var attr = type.GetCustomAttribute<ViewItemAttribute>();
+                var attr = type.GetCustomAttribute<GalleryItemAttribute>();
                 if (attr == null)
                 {
                     return;
                 }
-                var item = new GalleryItem(attr.Name, attr.Icon, type, attr.Kind, GetXaml(type));
+                var attrDescription = type.GetCustomAttribute<DescriptionAttribute>();
+                var item            = new GalleryItem(attr.Name, attr.Icon, type, attr.Kind, attrDescription?.Description, GetXaml(type));
                 list.Add(item);
             }
             catch (Exception e)

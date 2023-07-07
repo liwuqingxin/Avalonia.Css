@@ -16,7 +16,9 @@ Expander {
     IsTabStop:false;
 
     [[
-        Expander /template/ ToggleButton{
+        Expander /template/ ToggleButton:is-part{
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Stretch;
             Transitions:[
                 var(stBackground);
                 var(stCornerRadius)

@@ -1,11 +1,11 @@
 <UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.CalendarPage"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -14,39 +14,40 @@
         <pages:CalendarPageViewModel />
     </Design.DataContext>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Visible">
-        <StackPanel Margin="8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Spacing="8">
+    <StackPanel HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Spacing="8">
 
-            <DatePicker SelectedDate="{Binding Path=DateTime}" />
-            <DatePicker IsEnabled="False" SelectedDate="2023/06/22" />
+        <TextBlock x:Name="PageDescription"
+                   Text="CalendarView shows a larger view for showing and selecting dates.DatePicker by contrast has a compact view with inline selection."
+                   TextWrapping="Wrap" />
 
-            <TimePicker SelectedTime="{Binding Path=Time}" />
-            <TimePicker IsEnabled="False" SelectedTime="12:22" />
+        <DatePicker SelectedDate="{Binding Path=DateTime}" />
+        <DatePicker IsEnabled="False" SelectedDate="2023/06/22" />
 
-            <TimePicker ClockIdentifier="24HourClock" SelectedTime="{Binding Path=Time}" />
-			<TimePicker ClockIdentifier="12HourClock" SelectedTime="14:22" />
-			<TimePicker ClockIdentifier="12HourClock" />
+        <TimePicker SelectedTime="{Binding Path=Time}" />
+        <TimePicker IsEnabled="False" SelectedTime="12:22" />
 
-            <CalendarDatePicker />
-            <CalendarDatePicker IsEnabled="False" SelectedDate="2023/06/22" />
+        <TimePicker ClockIdentifier="24HourClock" SelectedTime="{Binding Path=Time}" />
+        <TimePicker ClockIdentifier="12HourClock" SelectedTime="14:22" />
+        <TimePicker ClockIdentifier="12HourClock" />
 
-            <Calendar />
-            <Calendar>
-                <Calendar.BlackoutDates>
-                    <CalendarDateRange>
-                        <x:Arguments>
-                            <system:DateTime>2023-02-4</system:DateTime>
-                            <system:DateTime>2023-06-12</system:DateTime>
-                        </x:Arguments>
-                    </CalendarDateRange>
-                </Calendar.BlackoutDates>
-            </Calendar>
-            <Calendar IsEnabled="False" />
+        <CalendarDatePicker />
+        <CalendarDatePicker IsEnabled="False" SelectedDate="2023/06/22" />
 
-        </StackPanel>
-    </ScrollViewer>
+        <Calendar />
+        <Calendar>
+            <Calendar.BlackoutDates>
+                <CalendarDateRange>
+                    <x:Arguments>
+                        <system:DateTime>2023-02-4</system:DateTime>
+                        <system:DateTime>2023-06-12</system:DateTime>
+                    </x:Arguments>
+                </CalendarDateRange>
+            </Calendar.BlackoutDates>
+        </Calendar>
+        <Calendar IsEnabled="False" />
+
+    </StackPanel>
 
 </UserControl>

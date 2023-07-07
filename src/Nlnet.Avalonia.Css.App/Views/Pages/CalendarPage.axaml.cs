@@ -7,6 +7,17 @@ using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App.Views.Pages
 {
+    [GalleryItem("Calendar")]
+    public partial class CalendarPage : UserControl
+    {
+        public CalendarPage()
+        {
+            this.DataContext = new CalendarPageViewModel();
+
+            InitializeComponent();
+        }
+    }
+
     public sealed class CalendarPageViewModel : INotifyPropertyChanged
     {
         private DateTimeOffset? _dateTime;
@@ -42,17 +53,6 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
         private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    [ViewItem("Calendar")]
-    public partial class CalendarPage : UserControl
-    {
-        public CalendarPage()
-        {
-            this.DataContext = new CalendarPageViewModel();
-
-            InitializeComponent();
         }
     }
 }

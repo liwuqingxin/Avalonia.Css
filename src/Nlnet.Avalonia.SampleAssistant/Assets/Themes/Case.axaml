@@ -1,181 +1,69 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Nlnet.Avalonia.Css.App.Controls"
-                    xmlns:controlSample="clr-namespace:Nlnet.Avalonia.SampleAssistant">
+                    xmlns:control="https://www.nlnet.com/avalonia">
 
-    <ControlTheme x:Key="{x:Type controlSample:Case}" TargetType="controlSample:Case">
-        <Setter Property="controlSample:Case.IsTabStop" Value="False" />
-        <Setter Property="controlSample:Case.Padding" Value="12" />
-        <Setter Property="controlSample:Case.Template">
-            <ControlTemplate TargetType="controlSample:Case">
+    <ControlTheme x:Key="{x:Type control:Case}" TargetType="control:Case">
+        <Setter Property="control:Case.Template">
+            <ControlTemplate TargetType="control:Case">
                 <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*,Auto">
 
                     <!-- Header -->
-                    <Grid Grid.Row="0"
-                          Grid.Column="0"
-                          ColumnDefinitions="Auto,*,Auto"
-                          RowDefinitions="Auto,Auto">
+                    <TextBlock x:Name="Header"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Text="{TemplateBinding Header}" />
 
-                        <!-- Border -->
-                        <Border Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3"
-                                Height="0.5"
-                                VerticalAlignment="Bottom"
-                                Background="White"
-                                BorderThickness="0" />
-
-                        <!-- SourceCode Switch -->
-                        <ToggleButton x:Name="Expander"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      MinWidth="0"
-                                      Padding="0,0,8,0"
-                                      HorizontalAlignment="Right"
-                                      VerticalAlignment="Center"
-                                      Focusable="False" />
-                        <!-- Title -->
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Margin="0,12"
-                                   VerticalAlignment="Center"
-                                   FontSize="12"
-                                   Opacity="0.85"
-                                   Text="{TemplateBinding Header}" />
-                    </Grid>
+                    <!-- ContentBack -->
+                    <Border x:Name="ContentBack"
+                            Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2" />
 
                     <!-- Description -->
-                    <StackPanel Grid.Row="1"
-                                Grid.Column="0"
-                                IsVisible="{Binding #Tips.BBCode, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                                Opacity="0.6"
-                                Orientation="Horizontal"
-                                Spacing="10">
-                        <TextBlock x:Name="Tips"
-                                   Margin="28,10"
-                                   FontSize="10"
-                                   Text="{TemplateBinding Description}" />
-                    </StackPanel>
+                    <TextBlock x:Name="Instruction"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               IsVisible="{Binding #Instruction.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                               Text="{TemplateBinding Description}" />
 
                     <!-- Content -->
-                    <ContentPresenter Name="PART_ContentPresenter"
+                    <ContentPresenter x:Name="PART_ContentPresenter"
                                       Grid.Row="2"
                                       Grid.Column="0"
                                       Padding="{TemplateBinding Padding}"
-                                      Content="{TemplateBinding Content}"
-                                      FontSize="12" />
-
-                    <!-- Source Code -->
-                    <Border Grid.Row="3" Grid.Column="0">
-                        <Border.Styles>
-                            <Style Selector="controlSample|CodeEditor[IsEnabled=True]">
-                                <Setter Property="MaxHeight" Value="300" />
-                            </Style>
-                            <Style Selector="controlSample|CodeEditor[MaxHeight=0]">
-                                <Setter Property="IsVisible" Value="False" />
-                            </Style>
-                        </Border.Styles>
-                        <controlSample:CodeEditor MaxHeight="0"
-                                             VerticalContentAlignment="Center"
-                                             BorderThickness="0,1,0,0"
-                                             IsEnabled="{Binding #Expander.IsChecked}"
-                                             IsReadOnly="True"
-                                             Text="{TemplateBinding Xaml}">
-                            <controlSample:CodeEditor.Transitions>
-                                <Transitions>
-                                    <DoubleTransition Property="MaxHeight" Duration="0:0:0.4">
-                                        <DoubleTransition.Easing>
-                                            <CubicEaseInOut />
-                                        </DoubleTransition.Easing>
-                                    </DoubleTransition>
-                                </Transitions>
-                            </controlSample:CodeEditor.Transitions>
-                        </controlSample:CodeEditor>
-                    </Border>
-
-                    <!-- Settings Header -->
-                    <Grid Grid.Row="0"
-                          Grid.Column="1"
-                          MinWidth="200"
-                          Margin="8,0,0,0"
-                          ColumnDefinitions="Auto,*,Auto"
-                          IsVisible="{Binding #PART_SettingsPresenter.IsVisible}"
-                          RowDefinitions="Auto,Auto">
-
-                        <!-- Border -->
-                        <Border Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3"
-                                Height="0.5"
-                                VerticalAlignment="Bottom"
-                                BorderThickness="0" />
-
-                        <!-- Title -->
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Margin="0,12"
-                                   VerticalAlignment="Center"
-                                   FontSize="12"
-                                   Opacity="0.85"
-                                   Text="实例控制" />
-                    </Grid>
+                                      Content="{TemplateBinding Content}" />
 
                     <!-- Settings Content -->
-                    <ContentPresenter Name="PART_SettingsPresenter"
+                    <ContentPresenter x:Name="PART_SettingsPresenter"
                                       Grid.Row="1"
-                                      Grid.RowSpan="3"
+                                      Grid.RowSpan="2"
                                       Grid.Column="1"
-                                      Margin="8,0,0,0"
-                                      Padding="{TemplateBinding Padding}"
-                                      Content="{TemplateBinding Settings}"
-                                      FontSize="12">
-                        <ContentPresenter.Styles>
-                            <Style Selector="TextBlock,CheckBox,ListBox">
-                                <Setter Property="TextElement.FontSize" Value="10" />
-                            </Style>
-                        </ContentPresenter.Styles>
-                    </ContentPresenter>
+                                      Content="{TemplateBinding Settings}" />
 
+                    <!-- Source Code -->
+                    <Expander x:Name="SourceCodeExpander"
+                              Grid.Row="3"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2">
+                        <Expander.Header>
+                            <TextBlock x:Name="SourceCodeTitle" />
+                        </Expander.Header>
+                        <control:CodeEditor x:Name="CodeEditor" Text="{TemplateBinding Xaml}" />
+                    </Expander>
                 </Grid>
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^[UseSourceCode=False] /template/ ToggleButton#Expander">
-            <Setter Property="ToggleButton.IsVisible" Value="False" />
+        <Style Selector="^[UseSourceCode=False] /template/ Expander#SourceCodeExpander">
+            <Setter Property="Expander.IsVisible" Value="False" />
         </Style>
         <Style Selector="^ /template/ ContentPresenter#PART_SettingsPresenter:empty">
             <Setter Property="ContentPresenter.IsVisible" Value="False" />
         </Style>
-    </ControlTheme>
-
-    <ControlTheme x:Key="{x:Type controlSample:GalleryItemControl}" TargetType="controlSample:GalleryItemControl">
-        <Setter Property="controlSample:GalleryItemControl.IsTabStop" Value="False" />
-        <Setter Property="controlSample:GalleryItemControl.Opacity" Value="0" />
-        <Setter Property="controlSample:GalleryItemControl.RenderTransform" Value="translate(0,15px)" />
-        <!--<Setter Property="controlSample:GalleryItemControl.Transitions">
-            <Transitions>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.4">
-                    <DoubleTransition.Easing>
-                        <CubicEaseInOut />
-                    </DoubleTransition.Easing>
-                </DoubleTransition>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3">
-                    <TransformOperationsTransition.Easing>
-                        <CubicEaseInOut />
-                    </TransformOperationsTransition.Easing>
-                </TransformOperationsTransition>
-            </Transitions>
-        </Setter>-->
-        <Setter Property="controlSample:GalleryItemControl.Template">
-            <ControlTemplate TargetType="controlSample:GalleryItemControl">
-                <ContentPresenter Name="PART_ContentPresenter"
-                                  Margin="{TemplateBinding Padding}"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}" />
-            </ControlTemplate>
-        </Setter>
+        <Style Selector="^ /template/ TextBlock#Instruction:empty">
+            <Setter Property="TextBlock.IsVisible" Value="False" />
+        </Style>
     </ControlTheme>
 
 </ResourceDictionary>

@@ -2,7 +2,8 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/Case.axaml" />
-        <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/CodeEditor.axaml" />
+		<ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/CodeEditor.axaml" />
+		<ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/GalleryItemControl.axaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

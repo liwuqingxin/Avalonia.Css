@@ -11,9 +11,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/Styles.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/Themes.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+
+    <Application.Styles>
+        <StyleInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Styles/Styles.axaml" />
+    </Application.Styles>
 
 </Application>

@@ -1,10 +1,72 @@
-﻿/* 所有示例按钮靠左 */
-ButtonPage Button, ButtonPage RepeatButton, ButtonPage ButtonSpinner, ButtonPage DropDownButton, ButtonPage ToggleButton{
-    HorizontalAlignment:Left;
+﻿/* Window */
+Window#RootWindow{
+    Width:1200;
+    Height:800;
+    Topmost:True;
+    WindowStartupLocation:CenterScreen;
+    [[
+        Window > Grid{
+            Margin:8,8,0,0;
+        }
+        Window > Grid > StackPanel{
+            Spacing:8;
+            Margin:0,0,0,8;
+            HorizontalAlignment:Right;
+        }
+        Window > Grid > StackPanel > CheckBox#CbxIsEnabled{
+            IsChecked:True;
+            IsThreeState:False;
+        }
+        Window Border#PageIconBorder{
+            Background:var(control-back);
+            BorderBrush:var(control-border);
+            BorderThickness:1;
+            CornerRadius:6;
+            Padding:8;
+        }
+        Window Icon#PageIcon{
+            Height:64;
+            Width:64;
+        }
+        Window TextBlock#PageName{
+            FontSize:32;
+            VerticalAlignment:Center;
+            Margin:16,0;            
+        }
+    ]]
 }
 
+
+/* Content Border of main TabControl */
+TabControl /template/ Border#PART_ContentBorder{
+    Background:#F9F9F9;
+    BorderThickness:1,1,0,0;
+    BorderBrush:var(control-border);
+    CornerRadius:8,0,0,0;
+    Padding:24,24,8,0;
+    Margin:8,0,0,0;
+}
+TabControl ScrollViewer#MainContentScrollViewer{
+    Margin:0,20,0,0;
+}
+TabControl ScrollViewer#MainContentScrollViewer > ContentControl{
+    Margin:0,0,12,0;
+}
+
+
+/* TabItem in main TabControl */
+TabItem{
+    MinWidth:250;
+    ClipToBounds:False;
+}
+TabItem ContentControl{
+    ClipToBounds:False;
+}
 TabItem Icon{
     Opacity:0;
+    Width:24;
+    Height:24;
+    Margin:16,0,0,0;
     [[
         Icon:is-loaded{
             [[
@@ -27,4 +89,47 @@ TabItem Icon{
             ]]
         }
     ]]
+}
+
+
+/* CodeEditor */
+CodeEditor{
+    SelectionBrush:var(Accent02);
+    CaretBrush:Black;
+    Padding:6;
+    BorderThickness:0;
+}
+/* Case */
+Case{
+    [[
+        Case /template/ TextBlock#Header{
+            Margin:0,8,0,16;
+        }
+        Case /template/ Border#ContentBack{
+            Background:var(window-back);
+            BorderBrush:var(contorl-border);
+            MinHeight:80;
+        }
+        Case /template/ TextBlock#Instruction{
+            Margin:12,12,12,4;
+        }
+        Case /template/ TextBlock:is-part#SourceCodeTitle{
+            HorizontalAlignment:Left;
+        }
+    ]]
+}
+/* StackPanel followed Case */
+Case > StackPanel{
+    Spacing:8;
+}
+
+
+StackPanel > TextBlock#PageDescription{
+    LineHeight:24;
+}
+
+
+/* Button in ButtonPage */
+ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
+    HorizontalAlignment:Left;
 }

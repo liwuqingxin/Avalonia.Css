@@ -6,10 +6,14 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <StackPanel Margin="8"
-                HorizontalAlignment="Left"
+    <StackPanel HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Spacing="8">
+
+        <TextBlock x:Name="PageDescription"
+                   Text="CheckBox controls let the user select a combination of binary options.In contrast,RadioButton controls allow the user to select from mutually exclusive options. The indeterminate state is used to indicate that an option is set for some,but not all,child options.Don't allow users to set an indeterminate state directly to indicate a third option."
+                   TextWrapping="Wrap" />
+
         <CheckBox Content="三态勾选框" IsThreeState="True" />
         <CheckBox Content="普通勾选框" />
         <CheckBox Content="已选不可用"

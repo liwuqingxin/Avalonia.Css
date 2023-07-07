@@ -99,80 +99,82 @@
         </ContextMenu>
     </UserControl.Resources>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Visible">
-        <StackPanel Margin="8"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Spacing="8">
 
-			<fluent:Case Header="Primary Button">
-                <Button Classes="primary" Content="Primary Button" />
-            </fluent:Case>
+    <StackPanel VerticalAlignment="Top" Spacing="24">
+        <TextBlock x:Name="PageDescription"
+                   Text="The Button control provides a Click event to respond to user input from a touch,mouse,keyboard,stylus,or other input device.You can put different kinds of content in a button,such as text or an image,or you can restyle a button to give it a new look."
+                   TextWrapping="Wrap" />
 
-			<Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
+        <fluent:Case Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
+            <fluent:Case.Settings>
+                <CheckBox Content="IsEnabled" />
+            </fluent:Case.Settings>
+            <Button Classes="primary" Content="Primary Button" />
+        </fluent:Case>
 
-            <Button Content="取消" />
-            <Button Content="普通按钮" />
+        <fluent:Case Header="Primary button that set ButtonStyles.Style='Accent'.">
+            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
+        </fluent:Case>
+
+        <fluent:Case Header="Normal button.">
+            <Button Content="Cancel" />
+        </fluent:Case>
+
+        <fluent:Case Header="Button with a image as content.">
             <Button Width="44" Height="44">
                 <Image Source="/Assets/orange.png" />
             </Button>
-            <Button Content="不可用" IsEnabled="False" />
-            <Button Width="44"
-                    Height="44"
-                    IsEnabled="False">
-                <Image Source="/Assets/orange.png" />
-            </Button>
+        </fluent:Case>
 
-            <Button Content="支持 ContextMenu 和 Flyout"
+        <fluent:Case Header="Button with ContextMenu and Flyout.">
+            <Button Content="Click to show Flyout or right click to show ContextMenu."
                     ContextMenu="{StaticResource SharedMenu}"
                     Flyout="{StaticResource SharedMenuFlyout}" />
+        </fluent:Case>
 
-            <DropDownButton Content="下拉按钮"
-                            ContextMenu="{StaticResource SharedMenu}"
-                            Flyout="{StaticResource SharedMenuFlyout}" />
+        <fluent:Case Header="DropDownButton with Flyout.">
+            <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}" />
+        </fluent:Case>
 
-            <DropDownButton Content="不可用下拉按钮"
-                            ContextMenu="{StaticResource SharedMenu}"
-                            Flyout="{StaticResource SharedMenuFlyout}"
-                            IsEnabled="False" />
-
+        <fluent:Case Header="Repeat Button.">
             <RepeatButton x:Name="RepeatButton"
                           Click="RepeatButton_OnClick"
                           Content="Click And Hold : 0" />
+        </fluent:Case>
 
-            <RepeatButton Content="Click And Hold : 0" IsEnabled="False" />
+        <fluent:Case Header="Toggle Button.">
+            <StackPanel>
+                <ToggleButton Content="Toggle" />
+                <ToggleButton Content="Toggle Button" IsChecked="True" />
+            </StackPanel>
+        </fluent:Case>
 
-            <ToggleButton Content="Toggle Button" />
-            <ToggleButton Content="Toggle Button" IsChecked="True" />
-            <ToggleButton Content="Toggle Button" IsEnabled="False" />
-            <ToggleButton Content="Toggle Button"
-                          IsChecked="True"
-                          IsEnabled="False" />
 
-            <ButtonSpinner AllowSpin="True"
-                           ButtonSpinnerLocation="Right"
-                           Content="120"
-                           ShowButtonSpinner="True" />
 
-            <ButtonSpinner AllowSpin="True"
-                           ButtonSpinnerLocation="Right"
-                           Content="City"
-                           ShowButtonSpinner="True" />
 
-            <ButtonSpinner AllowSpin="True"
-                           ButtonSpinnerLocation="Right"
-                           ShowButtonSpinner="True" />
+        <ButtonSpinner AllowSpin="True"
+                       ButtonSpinnerLocation="Right"
+                       Content="120"
+                       ShowButtonSpinner="True" />
 
-            <ButtonSpinner AllowSpin="False"
-                           ButtonSpinnerLocation="Left"
-                           ShowButtonSpinner="True" />
+        <ButtonSpinner AllowSpin="True"
+                       ButtonSpinnerLocation="Right"
+                       Content="City"
+                       ShowButtonSpinner="True" />
 
-            <ButtonSpinner AllowSpin="False"
-                           ButtonSpinnerLocation="Left"
-                           IsEnabled="False"
-                           ShowButtonSpinner="True" />
+        <ButtonSpinner AllowSpin="True"
+                       ButtonSpinnerLocation="Right"
+                       ShowButtonSpinner="True" />
 
-        </StackPanel>
-    </ScrollViewer>
+        <ButtonSpinner AllowSpin="False"
+                       ButtonSpinnerLocation="Left"
+                       ShowButtonSpinner="True" />
+
+        <ButtonSpinner AllowSpin="False"
+                       ButtonSpinnerLocation="Left"
+                       IsEnabled="False"
+                       ShowButtonSpinner="True" />
+
+    </StackPanel>
 
 </UserControl>

@@ -1,0 +1,21 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="https://www.nlnet.com/avalonia">
+
+    <Style Selector="control|CodeEditor">
+        <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="False" />
+        <Setter Property="control:CodeEditor.VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="control:CodeEditor.AcceptsReturn" Value="True" />
+        <Setter Property="control:CodeEditor.AcceptsTab" Value="True" />
+        <Setter Property="control:CodeEditor.BorderThickness" Value="1" />
+        <Setter Property="control:CodeEditor.CaretBrush" Value="Black" />
+        <Setter Property="control:CodeEditor.FontSize" Value="10" />
+        <Setter Property="control:CodeEditor.Padding" Value="6" />
+        <Setter Property="control:CodeEditor.Cursor" Value="Ibeam" />
+        <Setter Property="control:CodeEditor.LineHeight" Value="14" />
+        <Setter Property="control:CodeEditor.SelectionBrush" Value="#26ffaa1e" />
+        <Setter Property="control:CodeEditor.FontWeight" Value="Light" />
+        <Setter Property="control:CodeEditor.FontFamily" Value="Segoe UI,Consolas,新宋体,Simsun,Monospace,Seogo UI,微软雅黑" />
+    </Style>
+
+</Styles>

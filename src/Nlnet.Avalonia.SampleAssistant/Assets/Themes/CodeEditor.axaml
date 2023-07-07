@@ -1,20 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Nlnet.Avalonia.Css.App.Controls"
                     xmlns:controlSample="clr-namespace:Nlnet.Avalonia.SampleAssistant">
 
     <ControlTheme x:Key="{x:Type controlSample:CodeEditor}" TargetType="controlSample:CodeEditor">
-        <Setter Property="controlSample:CodeEditor.VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="controlSample:CodeEditor.AcceptsReturn" Value="True" />
-        <Setter Property="controlSample:CodeEditor.AcceptsTab" Value="True" />
-        <!--<Setter Property="controls:CodeEditor.Background" Value="{DynamicResource {x:Static imf:ImfColors.TextBoxBack}}" />
-        <Setter Property="controls:CodeEditor.BorderBrush" Value="{DynamicResource {x:Static imf:ImfColors.TextBoxBorder}}" />-->
-        <Setter Property="controlSample:CodeEditor.BorderThickness" Value="1" />
-        <Setter Property="controlSample:CodeEditor.CaretBrush" Value="White" />
-        <Setter Property="controlSample:CodeEditor.FontSize" Value="10" />
-        <Setter Property="controlSample:CodeEditor.LineHeight" Value="13" />
-        <Setter Property="controlSample:CodeEditor.SelectionBrush" Value="#16FFAA1E" />
-        <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
         <Setter Property="controlSample:CodeEditor.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controlSample:CodeEditor">
@@ -22,26 +10,26 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <ScrollViewer IsScrollChainingEnabled="{TemplateBinding ScrollViewer.IsScrollChainingEnabled}">
-                            <controlSample:CodePresenter Name="PART_TextPresenter"
-                                                    Margin="6"
-                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                    Background="Transparent"
-                                                    CaretBrush="{TemplateBinding CaretBrush}"
-                                                    CaretIndex="{TemplateBinding CaretIndex}"
-                                                    Cursor="Ibeam"
-                                                    FontFamily="Fira Code,Consolas,新宋体,Simsun,Monospace,Seogo UI,微软雅黑"
-                                                    LetterSpacing="{TemplateBinding LetterSpacing}"
-                                                    LineHeight="{TemplateBinding LineHeight}"
-                                                    SelectionBrush="{TemplateBinding SelectionBrush}"
-                                                    SelectionEnd="{TemplateBinding SelectionEnd}"
-                                                    SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                                    SelectionStart="{TemplateBinding SelectionStart}"
-                                                    Text="{TemplateBinding Text,
-                                                                           Mode=TwoWay}"
-                                                    TextAlignment="{TemplateBinding TextAlignment}"
-                                                    TextElement.FontSize="{TemplateBinding FontSize}"
-                                                    TextWrapping="{TemplateBinding TextWrapping}" />
+                            <controlSample:CodePresenter x:Name="PART_TextPresenter"
+                                                         Margin="{TemplateBinding Padding}"
+                                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                         CaretBrush="{TemplateBinding CaretBrush}"
+                                                         CaretIndex="{TemplateBinding CaretIndex}"
+                                                         Cursor="{TemplateBinding Cursor}"
+                                                         LetterSpacing="{TemplateBinding LetterSpacing}"
+                                                         LineHeight="{TemplateBinding LineHeight}"
+                                                         SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                         SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                         SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                         SelectionStart="{TemplateBinding SelectionStart}"
+                                                         Text="{TemplateBinding Text,
+                                                                                Mode=TwoWay}"
+                                                         TextAlignment="{TemplateBinding TextAlignment}"
+                                                         TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                                         TextElement.FontSize="{TemplateBinding FontSize}"
+                                                         TextElement.FontWeight="{TemplateBinding FontWeight}"
+                                                         TextWrapping="{TemplateBinding TextWrapping}" />
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>

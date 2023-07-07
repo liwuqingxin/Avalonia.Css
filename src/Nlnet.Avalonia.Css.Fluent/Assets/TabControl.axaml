@@ -52,12 +52,14 @@
                                             ItemsPanel="{TemplateBinding ItemsPanel}" />
                         </ScrollViewer>
 
-                        <fluent:AnimatingContainer x:Name="PART_SelectedContentHost"
-                                                   Margin="{TemplateBinding Padding}"
-                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                   Content="{TemplateBinding SelectedContent}"
-                                                   ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        <Border x:Name="PART_ContentBorder">
+                            <fluent:AnimatingContainer x:Name="PART_SelectedContentHost"
+                                                       Margin="{TemplateBinding Padding}"
+                                                       HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                       Content="{TemplateBinding SelectedContent}"
+                                                       ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        </Border>
                     </DockPanel>
                 </Border>
             </ControlTemplate>

@@ -10,18 +10,27 @@ public class GalleryItem : IXamlProvider
     private readonly ICaseXamlParser _xmlParser = new XCaseXamlParser();
     private readonly Dictionary<string, string>? _caseXamlDictionary;
 
-    public string       Title        { get; }
-    public string?      Icon         { get; }
-    public Type         ViewType     { get; }
-    public ViewItemKind ViewItemKind { get; }
-    public string?      Xaml         { get; }
+    public string          Title        { get; set; }
+    public string?         Icon         { get; set; }
+    public Type            ViewType     { get; set; }
+    public GalleryItemKind ViewItemKind { get; set; }
+    public string?         Description  { get; set; }
+    public string?         Xaml         { get; set; }
+    
+    [Obsolete("Just for Design.DataContext.")]
+    public GalleryItem()
+    {
+        Title    = "";
+        ViewType = typeof(GalleryItem);
+    }
 
-    public GalleryItem(string? title, string? icon, Type viewType, ViewItemKind viewItemKind, string? xaml)
+    public GalleryItem(string? title, string? icon, Type viewType, GalleryItemKind viewItemKind, string? description, string? xaml)
     {
         Title        = title ?? string.Empty;
         Icon         = icon;
         ViewType     = viewType;
         ViewItemKind = viewItemKind;
+        Description  = description;
         Xaml         = xaml;
 
         try

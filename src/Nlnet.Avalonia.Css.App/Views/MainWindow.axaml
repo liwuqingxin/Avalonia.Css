@@ -1,93 +1,73 @@
-<Window x:Class="Nlnet.Avalonia.Css.App.Views.MainWindow"
+<Window x:Name="RootWindow"
+        x:Class="Nlnet.Avalonia.Css.App.Views.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
         xmlns:controls="https://nlnet.com/avalonia.svg"
-        xmlns:css="clr-namespace:Nlnet.Avalonia.Css;assembly=Nlnet.Avalonia.Css"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
-        xmlns:views="clr-namespace:Nlnet.Avalonia.Css.App.Views"
         Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
-        Width="1000"
-        Height="700"
-        d:DesignHeight="450"
-        d:DesignWidth="800"
         Icon="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
-        Topmost="False"
-        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
+
     <Design.DataContext>
         <app:MainWindowViewModel />
     </Design.DataContext>
 
-    <Window.Styles>
-        <Style Selector="TabItem">
-            <Setter Property="ClipToBounds" Value="False" />
-        </Style>
-        <Style Selector="TabItem ContentControl">
-            <Setter Property="ClipToBounds" Value="False" />
-        </Style>
-    </Window.Styles>
-
-    <Grid Margin="10" RowDefinitions="Auto,*">
-        <StackPanel Orientation="Horizontal" Spacing="10">
-            <ComboBox MinWidth="100"
-                      Items="{Binding Path=Modes}"
-                      SelectedItem="{Binding Path=Mode}" />
-            <ComboBox MinWidth="100"
-                      Items="{Binding Path=Themes}"
-                      SelectedItem="{Binding Path=Theme}" />
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel Orientation="Horizontal">
+            <ComboBox Items="{Binding Path=Modes}" SelectedItem="{Binding Path=Mode}" />
+            <ComboBox Items="{Binding Path=Themes}" SelectedItem="{Binding Path=Theme}" />
+            <CheckBox x:Name="CbxIsEnabled" Content="Is Content Enabled" />
+            <CheckBox x:Name="CbxIsTopMost"
+                      Content="Is Top Most"
+                      IsChecked="{Binding $parent[Window].Topmost}" />
         </StackPanel>
-        <TextBlock Grid.Row="1"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   IsVisible="{Binding Path=IsLoading}"
-                   Opacity="0.5"
-                   Text="Loading..." />
-        <!--<TabControl x:Name="TabControl"
-                    Grid.Row="1"
-                    Margin="12"
-                    TabStripPlacement="Left" />-->
-
 
         <TabControl x:Name="TabControl"
                     Grid.Row="1"
-                    Margin="8,0,2,8"
-                    Padding="8,0,0,0"
-                    Background="Transparent"
                     Items="{Binding Path=GalleryItems}"
                     TabStripPlacement="Left">
             <TabControl.Styles>
                 <Style Selector="TabItem">
-                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="sampleAssistant:TabItemExtension.IconContent">
+                        <Template>
+                            <Design.DataContext>
+                                <sampleAssistant:GalleryItem />
+                            </Design.DataContext>
+                            <controls:Icon x:Name="TabItemIcon"
+                                           sampleAssistant:LoadedStateMixin.UseLoadedState="True"
+                                           IconSvg="{Binding Path=Icon, Converter={x:Static sampleAssistant:StringToUriCvt.Cvt}}" />
+                        </Template>
+                    </Setter>
                 </Style>
             </TabControl.Styles>
             <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Border BorderThickness="0">
-                            <ScrollViewer Margin="0,0,6,0">
-                                <ContentControl Padding="0"
-                                                VerticalAlignment="Stretch"
-                                                Content="{Binding}"
-                                                IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
-                                    <ContentControl.ContentTemplate>
-                                        <sampleAssistant:GalleryItemLocator />
-                                    </ContentControl.ContentTemplate>
-                                </ContentControl>
-                            </ScrollViewer>
-                        </Border>
+                <DataTemplate DataType="sampleAssistant:GalleryItem">
+                    <Grid RowDefinitions="Auto,*">
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+                            <Border x:Name="PageIconBorder">
+                                <controls:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static sampleAssistant:StringToUriCvt.Cvt}}" />
+                            </Border>
+                            <TextBlock x:Name="PageName"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding Path=Title}" />
+                        </Grid>
+                        <ScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
+                            <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
+                                <ContentControl.ContentTemplate>
+                                    <sampleAssistant:GalleryItemLocator />
+                                </ContentControl.ContentTemplate>
+                            </ContentControl>
+                        </ScrollViewer>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
             <TabControl.ItemTemplate>
                 <DataTemplate DataType="sampleAssistant:GalleryItem">
-                    <Grid ColumnDefinitions="20,*">
-                        <TextBlock Grid.Column="1"
-                                   FontSize="12"
-                                   Text="{Binding Path=Title}" />
-                    </Grid>
+                    <TextBlock Text="{Binding Path=Title}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>

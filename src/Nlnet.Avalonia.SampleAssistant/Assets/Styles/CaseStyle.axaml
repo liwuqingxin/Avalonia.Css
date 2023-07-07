@@ -1,0 +1,51 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="https://www.nlnet.com/avalonia">
+
+    <Style Selector="control|Case">
+        <Setter Property="control:Case.IsTabStop" Value="False" />
+        <Setter Property="control:Case.Padding" Value="12" />
+
+        <Style Selector="^ /template/ TextBlock#Header">
+            <Setter Property="TextBlock.Margin" Value="0,0,0,8" />
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+            <Setter Property="TextBlock.FontWeight" Value="Bold" />
+        </Style>
+
+        <Style Selector="^ /template/ Border#ContentBack">
+            <Setter Property="Border.Background" Value="#F3F3F3" />
+            <Setter Property="Border.BorderBrush" Value="#e3e3e3" />
+            <Setter Property="Border.BorderThickness" Value="1,1,1,0" />
+            <Setter Property="Border.CornerRadius" Value="6,6,0,0" />
+            <Setter Property="Border.MinHeight" Value="100" />
+        </Style>
+
+        <Style Selector="^ /template/ Expander#SourceCodeExpander">
+            <Setter Property="Expander.HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Expander.HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Expander.CornerRadius" Value="0,0 6,6" />
+        </Style>
+
+        <Style Selector="^ /template/ TextBlock#SourceCodeTitle">
+            <Setter Property="TextBlock.Margin" Value="8" />
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Left" />
+            <Setter Property="TextBlock.Text" Value="Source Code" />
+        </Style>
+
+        <Style Selector="^ /template/ control|CodeEditor#CodeEditor">
+            <Setter Property="control:CodeEditor.VerticalContentAlignment" Value="Center" />
+            <Setter Property="control:CodeEditor.BorderThickness" Value="0" />
+            <Setter Property="control:CodeEditor.IsReadOnly" Value="True" />
+            <Setter Property="control:CodeEditor.Transitions">
+                <Transitions>
+                    <DoubleTransition Property="MaxHeight" Duration="0:0:0.4">
+                        <DoubleTransition.Easing>
+                            <CubicEaseInOut />
+                        </DoubleTransition.Easing>
+                    </DoubleTransition>
+                </Transitions>
+            </Setter>
+        </Style>
+    </Style>
+
+</Styles>

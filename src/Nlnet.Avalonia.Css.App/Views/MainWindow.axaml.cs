@@ -1,14 +1,5 @@
-using System;
-using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.DevTools;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using Avalonia.Styling;
-using Nlnet.Avalonia.Css.Fluent;
-using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
@@ -27,10 +18,10 @@ namespace Nlnet.Avalonia.Css.App.Views
         {
             base.OnLoaded();
 
-            var pageTypes = this.GetType().Assembly
-                .GetTypes()
-                .Where(t => t.Namespace != null && t.Namespace.StartsWith("Nlnet.Avalonia.Css.App.Views.Pages")
-                    && t.IsAssignableTo(typeof(UserControl)));
+            //var pageTypes = this.GetType().Assembly
+            //    .GetTypes()
+            //    .Where(t => t.Namespace != null && t.Namespace.StartsWith("Nlnet.Avalonia.Css.App.Views.Pages")
+            //        && t.IsAssignableTo(typeof(UserControl)));
 
             //var assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
             //TabControl.Items = pageTypes.Select(t =>
@@ -68,23 +59,6 @@ namespace Nlnet.Avalonia.Css.App.Views
             {
                 vm.IsLoading = false;
             }
-        }
-
-        private static void LoadDynamicStyle()
-        {
-            Selector? selector = null;
-            selector = selector.OfType<TextBox>()
-                .Class("Search")
-                .Class(":focus-within")
-                .Template()
-                .OfType(typeof(Border))
-                .Name("PART_BorderElement");
-            var style1 = new Style
-            {
-                Selector = selector
-            };
-            style1.Setters.Add(new Setter(Border.BackgroundProperty, Brushes.Orange));
-            Application.Current?.Styles.Add(style1);
         }
     }
 }

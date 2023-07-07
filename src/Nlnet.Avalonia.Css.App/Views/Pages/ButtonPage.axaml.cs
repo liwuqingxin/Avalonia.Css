@@ -1,10 +1,11 @@
+using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App.Views.Pages
 {
-    [ViewItem("Button")]
+    [GalleryItem("Button")]
     public partial class ButtonPage : UserControl
     {
         private int _index = 1;

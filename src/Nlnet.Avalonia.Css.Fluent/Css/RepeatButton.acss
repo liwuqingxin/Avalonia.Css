@@ -9,9 +9,9 @@ RepeatButton {
     Opacity: 1;
     RenderTransform: none;
     HorizontalContentAlignment: Center;
-    HorizontalAlignment: Stretch;
+    HorizontalAlignment: Center;
     VerticalContentAlignment: Center;
-    VerticalAlignment: Stretch;
+    VerticalAlignment: Center;
     ClipToBounds:False;
     FontSize:12;
     Transitions:[
