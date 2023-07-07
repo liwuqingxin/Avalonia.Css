@@ -41,16 +41,10 @@
                     Duration:'0:0:.2';
                     FillMode:Forward;
                     KeyFrames:[
-                        KeyFrame(0% 0,0.6,0.5,1):[
-                            TranslateTransform.Y: 15;
+                        KeyFrame(0% 0,1,1,1):[
+                            TranslateTransform.Y: 200;
                         ]
-                        /* KeyFrame(5% 0,0.6,0.5,1):[
-                            TranslateTransform.Y: 15;
-                        ] */
-                        /* KeyFrame(40% 0,0.3,0.9,1):[
-                            TranslateTransform.Y: 15;
-                        ] */
-                        KeyFrame(100% 0,0.3,0.9,1):[
+                        KeyFrame(100% 0,1,1,1):[
                             TranslateTransform.Y: 0;
                         ]
                     ]

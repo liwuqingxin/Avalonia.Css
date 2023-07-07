@@ -1,17 +1,14 @@
-﻿using Avalonia.Styling;
-using System;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
-using Avalonia.Interactivity;
+using Avalonia.Controls.Presenters;
+using Avalonia.Threading;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
     [PseudoClasses(Pseudo_Changing, Pseudo_Changed)]
-    public class AnimatingContainer : ContentControl, IStyleable
+    public class AnimatingContainer : ContentPresenter
     {
-        Type IStyleable.StyleKey => typeof(AnimatingContainer);
-
         private const string Pseudo_Changing = ":changing";
         private const string Pseudo_Changed = ":changed";
 
@@ -32,21 +29,12 @@ namespace Nlnet.Avalonia.Css.Fluent
                 container.PseudoClasses.Set(Pseudo_Changing, false);
                 container.PseudoClasses.Set(Pseudo_Changing, true);
 
-                if (args.OldValue is Control oldControl)
+                Dispatcher.UIThread.Post(() =>
                 {
-                    oldControl.Loaded -= container.OnContentLoaded;
-                }
-                if (container.Content is Control control)
-                {
-                    control.Loaded += container.OnContentLoaded;
-                }
+                    container.PseudoClasses.Set(Pseudo_Changed, false);
+                    container.PseudoClasses.Set(Pseudo_Changed, true);
+                });
             });
-        }
-
-        private void OnContentLoaded(object? sender, RoutedEventArgs e)
-        {
-            PseudoClasses.Set(Pseudo_Changed, false);
-            PseudoClasses.Set(Pseudo_Changed, true);
         }
     }
 }

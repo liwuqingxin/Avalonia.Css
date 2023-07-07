@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Nlnet.Avalonia.Css.App.Utils;
+namespace Nlnet.Avalonia.Css.App;
 
 internal static class AppLoader
 {

@@ -2,7 +2,7 @@
 using System.Linq;
 using Avalonia.Markup.Xaml;
 
-namespace Nlnet.Avalonia.Css.App.Utils
+namespace Nlnet.Avalonia.Css.App
 {
     /// <summary>
     /// Xaml markup to get the enum values.

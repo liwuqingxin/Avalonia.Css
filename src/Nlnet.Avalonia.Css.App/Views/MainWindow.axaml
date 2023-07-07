@@ -6,6 +6,7 @@
         xmlns:css="clr-namespace:Nlnet.Avalonia.Css;assembly=Nlnet.Avalonia.Css"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
         xmlns:views="clr-namespace:Nlnet.Avalonia.Css.App.Views"
         Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
         Width="1000"
@@ -13,7 +14,7 @@
         d:DesignHeight="450"
         d:DesignWidth="800"
         Icon="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
-        Topmost="True"
+        Topmost="False"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Design.DataContext>
@@ -44,10 +45,52 @@
                    IsVisible="{Binding Path=IsLoading}"
                    Opacity="0.5"
                    Text="Loading..." />
-        <TabControl x:Name="TabControl"
+        <!--<TabControl x:Name="TabControl"
                     Grid.Row="1"
                     Margin="12"
-                    TabStripPlacement="Left" />
+                    TabStripPlacement="Left" />-->
+
+
+        <TabControl x:Name="TabControl"
+                    Grid.Row="1"
+                    Margin="8,0,2,8"
+                    Padding="8,0,0,0"
+                    Background="Transparent"
+                    Items="{Binding Path=GalleryItems}"
+                    TabStripPlacement="Left">
+            <TabControl.Styles>
+                <Style Selector="TabItem">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </TabControl.Styles>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Border BorderThickness="0">
+                            <ScrollViewer Margin="0,0,6,0">
+                                <ContentControl Padding="0"
+                                                VerticalAlignment="Stretch"
+                                                Content="{Binding}"
+                                                IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
+                                    <ContentControl.ContentTemplate>
+                                        <sampleAssistant:GalleryItemLocator />
+                                    </ContentControl.ContentTemplate>
+                                </ContentControl>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="sampleAssistant:GalleryItem">
+                    <Grid ColumnDefinitions="20,*">
+                        <TextBlock Grid.Column="1"
+                                   FontSize="12"
+                                   Text="{Binding Path=Title}" />
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
 
     </Grid>
 </Window>

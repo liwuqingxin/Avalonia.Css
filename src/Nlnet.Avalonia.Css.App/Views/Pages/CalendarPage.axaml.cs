@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using JetBrains.Annotations;
+using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App.Views.Pages
 {
@@ -44,6 +45,7 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
         }
     }
 
+    [ViewItem("Calendar")]
     public partial class CalendarPage : UserControl
     {
         public CalendarPage()

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia;
 using DynamicData;
-using JetBrains.Annotations;
 using Nlnet.Avalonia.Css.Fluent;
+using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -54,6 +55,8 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
+        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
+
         public MainWindowViewModel()
         {
             Modes = new List<string>()
@@ -75,6 +78,13 @@ namespace Nlnet.Avalonia.Css.App
                 "pink-purple",
                 "magenta",
             };
+
+            GalleryItems = new ObservableCollection<GalleryItem>();
+
+            LoadService.GetGalleryItemAsync(typeof(MainWindowViewModel)).ContinueWith(t =>
+            {
+                GalleryItems.AddRange(t.Result);
+            });
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)

@@ -2,8 +2,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using Nlnet.Avalonia.Css.App.Utils;
-using Nlnet.Avalonia.Css.App.Views;
 using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App
@@ -28,6 +26,8 @@ namespace Nlnet.Avalonia.Css.App
             // Nlnet.Avalonia.Svg
             manager.LoadResolver(new GenericResolver<Icon>());
 
+            CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/Case.acss", true);
+            CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/CodeEditor.acss", true);
             CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
             Dispatcher.UIThread.Post(() =>
             {
@@ -39,7 +39,7 @@ namespace Nlnet.Avalonia.Css.App
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
+                desktop.MainWindow = new Views.MainWindow
                 {
                     
                 };

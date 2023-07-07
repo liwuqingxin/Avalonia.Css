@@ -105,9 +105,11 @@
                     VerticalAlignment="Top"
                     Spacing="8">
 
-            <Button Classes="primary" Content="Primary Button" />
+			<fluent:Case Header="Primary Button">
+                <Button Classes="primary" Content="Primary Button" />
+            </fluent:Case>
 
-            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
+			<Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
 
             <Button Content="取消" />
             <Button Content="普通按钮" />

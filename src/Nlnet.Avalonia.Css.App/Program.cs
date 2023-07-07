@@ -29,6 +29,10 @@ namespace Nlnet.Avalonia.Css.App
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .UseReactiveUI();
+                .UseReactiveUI()
+                .With(new Win32PlatformOptions
+                {
+                    AllowEglInitialization = true
+                });
     }
 }
