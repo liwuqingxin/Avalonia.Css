@@ -14,10 +14,7 @@
         <pages:CalendarPageViewModel />
     </Design.DataContext>
 
-    <StackPanel HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Spacing="8">
-
+    <StackPanel>
         <TextBlock x:Name="PageDescription"
                    Text="CalendarView shows a larger view for showing and selecting dates.DatePicker by contrast has a compact view with inline selection."
                    TextWrapping="Wrap" />

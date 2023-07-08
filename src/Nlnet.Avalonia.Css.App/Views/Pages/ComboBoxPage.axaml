@@ -8,8 +8,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <StackPanel Spacing="8">
-
+    <StackPanel>
         <TextBlock x:Name="PageDescription"
                    Text="Use a ComboBox when you need to conserve on-screen space and when users select only one option at a time.A ComboBox shows only the currently selected item."
                    TextWrapping="Wrap" />

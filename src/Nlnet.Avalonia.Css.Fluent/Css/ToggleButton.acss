@@ -34,6 +34,10 @@ ToggleButton {
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
         }
+        ToggleButton:checked{
+            Foreground: var(fore-anti);
+            Background: var(Accent);
+        }
         ToggleButton:disabled{
             Opacity:0.4;
         }

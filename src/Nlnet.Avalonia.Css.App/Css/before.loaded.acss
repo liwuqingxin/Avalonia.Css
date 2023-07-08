@@ -33,12 +33,15 @@ Window#RootWindow{
             VerticalAlignment:Center;
             Margin:16,0;            
         }
+        Window TextBlock#PageDescription{
+            LineHeight:24;
+        }
     ]]
 }
 
 
 /* Content Border of main TabControl */
-TabControl /template/ Border#PART_ContentBorder{
+TabControl#MainTabControl /template/ Border#PART_ContentBorder{
     Background:#F9F9F9;
     BorderThickness:1,1,0,0;
     BorderBrush:var(control-border);
@@ -46,10 +49,10 @@ TabControl /template/ Border#PART_ContentBorder{
     Padding:24,24,8,0;
     Margin:8,0,0,0;
 }
-TabControl ScrollViewer#MainContentScrollViewer{
+TabControl#MainTabControl ScrollViewer#MainContentScrollViewer{
     Margin:0,20,0,0;
 }
-TabControl ScrollViewer#MainContentScrollViewer > ContentControl{
+TabControl#MainTabControl ScrollViewer#MainContentScrollViewer > ContentControl{
     Margin:0,0,12,0;
 }
 
@@ -124,8 +127,18 @@ Case > StackPanel{
 }
 
 
-StackPanel > TextBlock#PageDescription{
-    LineHeight:24;
+:is(UserControl) > StackPanel{
+    Spacing:24;
+    Margin:0,0,0,12;
+}
+
+
+/* Source Code Background */
+Expander#SourceCodeExpander /template/ Border:is-part#ExpanderContent{
+    Background:var(window-back);
+}
+ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
+    HorizontalAlignment:Left;
 }
 
 

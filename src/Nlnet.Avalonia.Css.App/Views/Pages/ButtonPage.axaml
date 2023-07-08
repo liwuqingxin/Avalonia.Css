@@ -100,7 +100,7 @@
     </UserControl.Resources>
 
 
-    <StackPanel VerticalAlignment="Top" Spacing="24">
+    <StackPanel>
         <TextBlock x:Name="PageDescription"
                    Text="The Button control provides a Click event to respond to user input from a touch,mouse,keyboard,stylus,or other input device.You can put different kinds of content in a button,such as text or an image,or you can restyle a button to give it a new look."
                    TextWrapping="Wrap" />
@@ -136,44 +136,33 @@
             <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}" />
         </fluent:Case>
 
-        <fluent:Case Header="Repeat Button.">
+        <fluent:Case Header="Repeat button.">
             <RepeatButton x:Name="RepeatButton"
                           Click="RepeatButton_OnClick"
                           Content="Click And Hold : 0" />
         </fluent:Case>
 
-        <fluent:Case Header="Toggle Button.">
+        <fluent:Case Header="Toggle button.">
             <StackPanel>
                 <ToggleButton Content="Toggle" />
                 <ToggleButton Content="Toggle Button" IsChecked="True" />
             </StackPanel>
         </fluent:Case>
 
-
-
-
-        <ButtonSpinner AllowSpin="True"
-                       ButtonSpinnerLocation="Right"
-                       Content="120"
-                       ShowButtonSpinner="True" />
-
-        <ButtonSpinner AllowSpin="True"
-                       ButtonSpinnerLocation="Right"
-                       Content="City"
-                       ShowButtonSpinner="True" />
-
-        <ButtonSpinner AllowSpin="True"
-                       ButtonSpinnerLocation="Right"
-                       ShowButtonSpinner="True" />
-
-        <ButtonSpinner AllowSpin="False"
-                       ButtonSpinnerLocation="Left"
-                       ShowButtonSpinner="True" />
-
-        <ButtonSpinner AllowSpin="False"
-                       ButtonSpinnerLocation="Left"
-                       IsEnabled="False"
-                       ShowButtonSpinner="True" />
+        <fluent:Case Header="Button spinner.">
+            <StackPanel>
+                <ButtonSpinner AllowSpin="True"
+                               ButtonSpinnerLocation="Right"
+                               Content="120"
+                               ShowButtonSpinner="True" />
+                <ButtonSpinner AllowSpin="True"
+                               ButtonSpinnerLocation="Right"
+                               ShowButtonSpinner="True" />
+                <ButtonSpinner AllowSpin="False"
+                               ButtonSpinnerLocation="Left"
+                               ShowButtonSpinner="True" />
+            </StackPanel>
+        </fluent:Case>
 
     </StackPanel>
 
