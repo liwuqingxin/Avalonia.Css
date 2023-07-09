@@ -16,8 +16,8 @@ namespace Nlnet.Avalonia.Css.App
             AppLoader.Load("Avalonia.DevTools.dll");
 
             // Set the current mode and theme.
-            CssServiceLocator.GetService<ICssManager>().Theme = "blue";
-            CssServiceLocator.GetService<ICssManager>().Mode  = "light";
+            CssServiceLocator.GetService<ICssConfiguration>().Theme = "blue";
+            CssServiceLocator.GetService<ICssConfiguration>().Mode  = "light";
 
             // Load this.
             AvaloniaXamlLoader.Load(this);
@@ -32,10 +32,10 @@ namespace Nlnet.Avalonia.Css.App
             manager.LoadResolver(new GenericResolver<Case>());
 
             // Load application acss files.
-            CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
+            Application.Current?.Styles.LoadCssFile("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
             Dispatcher.UIThread.Post(() =>
             {
-                CssFile.Load("../../../Nlnet.Avalonia.Css.App/Css/after.loaded.acss", true);
+                Application.Current?.Styles.LoadCssFile("../../../Nlnet.Avalonia.Css.App/Css/after.loaded.acss", true);
             });
         }
 

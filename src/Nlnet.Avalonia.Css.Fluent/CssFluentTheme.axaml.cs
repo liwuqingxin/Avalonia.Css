@@ -17,35 +17,35 @@ namespace Nlnet.Avalonia.Css.Fluent
             Load();
         }
 
-        private static void Load()
+        private void Load()
         {
-            var manager = CssServiceLocator.GetService<ITypeResolverManager>();
-            manager.LoadResolver(new GenericResolver<CssFluentTheme>());
+            var typeResolverManager = CssServiceLocator.GetService<ITypeResolverManager>();
+            typeResolverManager.LoadResolver(new GenericResolver<CssFluentTheme>());
 
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
 
             var files = Directory.GetFiles("../../../Nlnet.Avalonia.Css.Fluent/Css/");
             foreach (var file in files)
             {
-                CssFile.Load(file, true);
+                this.LoadCssFile(file, true);
             }
         }
 
         public void UpdateResource()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
         }
 
         public void UpdateMode()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
         }
 
         public void UpdateTheme()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
         }
     }
 }

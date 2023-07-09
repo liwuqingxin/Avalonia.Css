@@ -37,7 +37,7 @@ namespace Nlnet.Avalonia.Css
             CssServiceLocator.SetService<ITypeResolverManager, TypeResolverManager>();
             CssServiceLocator.SetService<ICssParser, CssParser>();
             CssServiceLocator.SetService<ICssInterpreter, CssInterpreter>();
-            CssServiceLocator.SetService<ICssManager, CssManager>();
+            CssServiceLocator.SetService<ICssConfiguration, CssConfiguration>();
             CssServiceLocator.SetService<ICssSectionFactory, CssSectionFactory>();
             CssServiceLocator.SetService<ICssResourceFactory, CssResourceFactory>();
         }

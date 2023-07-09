@@ -10,55 +10,85 @@ using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
+    /// <summary>
+    /// A acss style instance that associated to a .acss file.
+    /// </summary>
     public sealed class CssFile : Styles, IDisposable
     {
-        public static void Load(string filePath, bool autoLoadWhenFileChanged)
+        #region Static
+
+        /// <summary>
+        /// Load a avalonia css style from an acss file synchronously.
+        /// </summary>
+        /// <param name="styles"></param>
+        /// <param name="filePath"></param>
+        /// <param name="autoLoadWhenFileChanged"></param>
+        /// <returns></returns>
+        public static CssFile Load(Styles styles, string filePath, bool autoLoadWhenFileChanged)
         {
-            var styles = CreateStyles(filePath, autoLoadWhenFileChanged);
-            styles?.Load();
+            var styleFile = CreateStyles(styles, filePath, autoLoadWhenFileChanged);
+            styleFile.Load(styles);
+            return styleFile;
         }
 
-        public static void BeginLoad(string file, bool autoLoadWhenFileChanged)
+        /// <summary>
+        /// Load a avalonia css style from an acss file asynchronously.
+        /// </summary>
+        /// <param name="styles"></param>
+        /// <param name="file"></param>
+        /// <param name="autoLoadWhenFileChanged"></param>
+        /// <returns></returns>
+        public static CssFile BeginLoad(Styles styles, string file, bool autoLoadWhenFileChanged)
         {
-            var styles = CreateStyles(file, autoLoadWhenFileChanged);
-            styles?.BeginLoad();
+            var styleFile = CreateStyles(styles, file, autoLoadWhenFileChanged);
+            styleFile.BeginLoad(styles);
+            return styleFile;
         }
 
-        private static CssFile? CreateStyles(string filePath, bool autoLoadWhenFileChanged)
+        private static CssFile CreateStyles(Styles styles, string filePath, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
                 throw new InvalidOperationException($"{nameof(CssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (Application.Current?.Styles.OfType<CssFile>().FirstOrDefault(s => s._file == filePath) is { } exist)
+            if (styles.OfType<CssFile>().FirstOrDefault(s => s._file == filePath) is { } exist)
             {
                 return exist;
             }
 
-            return new CssFile(filePath, autoLoadWhenFileChanged);
+            if (File.Exists(filePath) == false)
+            {
+                throw new FileNotFoundException($"Can not find the acss file '{filePath}'.");
+            }
+
+            return new CssFile(styles, filePath, autoLoadWhenFileChanged);
         }
 
+        #endregion
 
 
+
+        private readonly Styles _styles;
         private readonly string _file;
         private readonly FileSystemWatcher? _watcher;
 
-        private CssFile(string filePath, bool autoLoadWhenFileChanged)
+        private CssFile(Styles styles, string filePath, bool autoLoadWhenFileChanged)
         {
-            _file = filePath;
+            _styles = styles;
+            _file   = Path.GetFullPath(filePath);
 
             var dir = Path.GetDirectoryName(filePath);
             if (autoLoadWhenFileChanged && dir != null)
             {
+                // TODO 改为文件监控，而不是文件夹监控
+                // TODO 统一处理监控，支持文件夹统一监控，而不用多实例监控
                 _watcher                     =  new FileSystemWatcher(dir);
                 _watcher.EnableRaisingEvents =  true;
                 _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
                 _watcher.Filter              =  $"{Path.GetFileName(filePath)}";
                 _watcher.Changed             += OnFileChanged;
             }
-
-            //Application.Current?.Styles.Add(this);
         }
 
         private void OnFileChanged(object sender, FileSystemEventArgs e)
@@ -68,18 +98,13 @@ namespace Nlnet.Avalonia.Css
                 return;
             }
 
-            BeginLoad();
+            BeginLoad(_styles);
         }
 
-        private void Load()
+        private void Load(Styles styles)
         {
-            if (Application.Current == null)
-            {
-                throw new InvalidOperationException("Application has not been prepared. Can not load the css file.");
-            }
-
-            var index = Application.Current.Styles.IndexOf(this);
-            Application.Current.Styles.Remove(this);
+            var index = styles.IndexOf(this);
+            styles.Remove(this);
 
             this.Clear();
             this.Resources.Clear();
@@ -114,11 +139,11 @@ namespace Nlnet.Avalonia.Css
 
                 if (index == -1)
                 {
-                    Application.Current.Styles.Add(this);
+                    styles.Add(this);
                 }
                 else
                 {
-                    Application.Current.Styles.Insert(index, this);
+                    styles.Insert(index, this);
                 }
 
                 ReapplyStyling();
@@ -129,11 +154,11 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        private void BeginLoad()
+        private void BeginLoad(Styles styles)
         {
             Task.Delay(20).ContinueWith(t =>
             {
-                Dispatcher.UIThread.Post(Load);
+                Dispatcher.UIThread.Post(() => Load(styles));
             });
         }
 

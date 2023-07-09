@@ -59,12 +59,12 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
             return null;
         }
 
-        if (Mode != null && !string.Equals(Mode, CssServiceLocator.GetService<ICssManager>().Mode, StringComparison.CurrentCultureIgnoreCase))
+        if (Mode != null && !string.Equals(Mode, CssServiceLocator.GetService<ICssConfiguration>().Mode, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
 
-        if (Theme != null && !string.Equals(Theme, CssServiceLocator.GetService<ICssManager>().Theme, StringComparison.CurrentCultureIgnoreCase))
+        if (Theme != null && !string.Equals(Theme, CssServiceLocator.GetService<ICssConfiguration>().Theme, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
