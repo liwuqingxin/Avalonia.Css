@@ -1,5 +1,5 @@
 ﻿
-ProgressBar {
+>ProgressBar {
     Foreground: var(Accent);
     Background: var(progressbar-back);
     CornerRadius: 4;

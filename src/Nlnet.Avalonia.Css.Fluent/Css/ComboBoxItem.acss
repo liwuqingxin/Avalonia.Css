@@ -1,5 +1,5 @@
 ﻿
-ComboBoxItem {
+>ComboBoxItem {
     Background: var(comboboxitem-back);
     Foreground: var(fore);
     CornerRadius: 4;

@@ -1,5 +1,5 @@
 ﻿
-CalendarDayButton {
+>CalendarDayButton {
     ClickMode:Release;
     Foreground: var(fore);
     Background: Transparent;

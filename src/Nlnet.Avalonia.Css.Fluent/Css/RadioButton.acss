@@ -1,5 +1,5 @@
 ﻿
-RadioButton {
+>RadioButton {
     Foreground: var(fore);
     Padding: 8,4;
     Opacity: 1;

@@ -1,5 +1,5 @@
 ﻿
-TextBox {
+>TextBox {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);

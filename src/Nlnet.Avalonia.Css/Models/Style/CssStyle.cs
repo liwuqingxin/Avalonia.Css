@@ -8,6 +8,8 @@ namespace Nlnet.Avalonia.Css;
 
 public interface ICssStyle : ICssSection
 {
+    public bool IsThemeChild { get; set; }
+
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
     public IEnumerable<ICssStyle>? Styles { get; set; }
@@ -24,6 +26,8 @@ public interface ICssStyle : ICssSection
 public class CssStyle : CssSection, ICssStyle
 {
     private Selector? _selector;
+
+    public bool IsThemeChild { get; set; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
@@ -57,7 +61,7 @@ public class CssStyle : CssSection, ICssStyle
 
     private Selector? CreateSelector()
     {
-        var isChild = Parent != null;
+        var isChild = Parent != null || IsThemeChild;
 
         // Selector
         var selector   = isChild ? Selectors.Nesting(null) : null;

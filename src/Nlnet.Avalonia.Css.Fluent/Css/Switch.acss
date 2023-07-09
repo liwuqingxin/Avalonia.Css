@@ -1,5 +1,5 @@
 ﻿
-ToggleSwitch {
+>ToggleSwitch {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);

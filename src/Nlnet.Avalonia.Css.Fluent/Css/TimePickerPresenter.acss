@@ -1,5 +1,5 @@
 ﻿
-TimePickerPresenter {
+>TimePickerPresenter {
     [[
         TimePickerPresenter /template/ DateTimePickerPanel {
             ItemHeight:30;

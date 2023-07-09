@@ -1,4 +1,4 @@
-﻿TabControl {
+﻿>TabControl {
     Foreground: var(fore);
     Opacity: 1;
     RenderTransform: none;

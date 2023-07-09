@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -11,14 +12,14 @@ using Avalonia.VisualTree;
 namespace Nlnet.Avalonia.Css
 {
     /// <summary>
-    /// A css style instance that associated to a .acss or .tcss file.
+    /// A css style instance that associated to a .acss file.
     /// </summary>
     public sealed class CssFile : Styles, IDisposable
     {
         #region Static
 
         /// <summary>
-        /// Load a avalonia css style from an acss file or a tcss file synchronously.
+        /// Load a avalonia css style from an acss file synchronously.
         /// </summary>
         /// <param name="styles"></param>
         /// <param name="filePath"></param>
@@ -32,7 +33,7 @@ namespace Nlnet.Avalonia.Css
         }
 
         /// <summary>
-        /// Load a avalonia css style from an acss file or a tcss file asynchronously.
+        /// Load a avalonia css style from an acss file asynchronously.
         /// </summary>
         /// <param name="styles"></param>
         /// <param name="file"></param>
@@ -72,6 +73,7 @@ namespace Nlnet.Avalonia.Css
         private readonly Styles _styles;
         private readonly string _file;
         private readonly FileSystemWatcher? _watcher;
+        private CompositeDisposable? _disposable;
 
         private CssFile(Styles styles, string filePath, bool autoLoadWhenFileChanged)
         {
@@ -106,18 +108,22 @@ namespace Nlnet.Avalonia.Css
             var index = styles.IndexOf(this);
             styles.Remove(this);
 
+            _disposable?.Dispose();
+            _disposable = null;
+
             this.Clear();
             this.Resources.Clear();
             this.Resources.MergedDictionaries.Clear();
 
             try
             {
-                var parser            = CssServiceLocator.GetService<ICssParser>();
-                var cssContent        = File.ReadAllText(_file);
-                var css               = parser.RemoveComments(cssContent.ToCharArray());
-                var sections          = parser.ParseSections(null, css).ToList();
-                var cssStyles         = sections.OfType<ICssStyle>();
-                var cssDictionaryList = sections.OfType<ICssResourceDictionary>();
+                var parser              = CssServiceLocator.GetService<ICssParser>();
+                var cssContent          = File.ReadAllText(_file);
+                var css                 = parser.RemoveComments(cssContent.ToCharArray());
+                var sections            = parser.ParseSections(null, css).ToList();
+                var cssStyles           = sections.OfType<ICssStyle>().Where(s => !s.IsThemeChild);
+                var cssThemeChildStyles = sections.OfType<ICssStyle>().Where(s => s.IsThemeChild).ToList();
+                var cssDictionaryList   = sections.OfType<ICssResourceDictionary>();
 
                 foreach (var cssStyle in cssStyles)
                 {
@@ -125,6 +131,23 @@ namespace Nlnet.Avalonia.Css
                     if (style.Selector != null)
                     {
                         this.Add(style);
+                    }
+                }
+
+                foreach (var cssThemeChildStyle in cssThemeChildStyles)
+                {
+                    _disposable ??= new CompositeDisposable(cssThemeChildStyles.Count);
+                    var style = cssThemeChildStyle.ToAvaloniaStyle();
+                    if (style.Selector is { TargetType: { } t })
+                    {
+                        if (styles.TryGetResource(t, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                        {
+                            theme.Children.Add(style);
+                            _disposable.Add(Disposable.Create(() =>
+                            {
+                                theme.Children.Remove(style);
+                            }));
+                        }
                     }
                 }
 
