@@ -22,30 +22,30 @@ namespace Nlnet.Avalonia.Css.Fluent
             var typeResolverManager = CssServiceLocator.GetService<ITypeResolverManager>();
             typeResolverManager.LoadResolver(new GenericResolver<CssFluentTheme>());
 
-            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
-            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
-            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss");
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss");
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss");
 
             var files = Directory.GetFiles("../../../Nlnet.Avalonia.Css.Fluent/Css/");
             foreach (var file in files)
             {
-                this.LoadCssFile(file, true);
+                this.LoadCssFile(file);
             }
         }
 
         public void UpdateResource()
         {
-            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss");
         }
 
         public void UpdateMode()
         {
-            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss");
         }
 
         public void UpdateTheme()
         {
-            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
+            this.LoadCssFile("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss");
         }
     }
 }

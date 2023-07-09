@@ -32,10 +32,10 @@ namespace Nlnet.Avalonia.Css.App
             manager.LoadResolver(new GenericResolver<Case>());
 
             // Load application acss files.
-            Application.Current?.Styles.LoadCssFile("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss", true);
+            Application.Current?.Styles.LoadCssFile("../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss");
             Dispatcher.UIThread.Post(() =>
             {
-                Application.Current?.Styles.LoadCssFile("../../../Nlnet.Avalonia.Css.App/Css/after.loaded.acss", true);
+                Application.Current?.Styles.LoadCssFile("../../../Nlnet.Avalonia.Css.App/Css/after.loaded.acss");
             });
         }
 

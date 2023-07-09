@@ -11,20 +11,20 @@ using Avalonia.VisualTree;
 namespace Nlnet.Avalonia.Css
 {
     /// <summary>
-    /// A acss style instance that associated to a .acss file.
+    /// A css style instance that associated to a .acss or .tcss file.
     /// </summary>
     public sealed class CssFile : Styles, IDisposable
     {
         #region Static
 
         /// <summary>
-        /// Load a avalonia css style from an acss file synchronously.
+        /// Load a avalonia css style from an acss file or a tcss file synchronously.
         /// </summary>
         /// <param name="styles"></param>
         /// <param name="filePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static CssFile Load(Styles styles, string filePath, bool autoLoadWhenFileChanged)
+        public static CssFile Load(Styles styles, string filePath, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(styles, filePath, autoLoadWhenFileChanged);
             styleFile.Load(styles);
@@ -32,13 +32,13 @@ namespace Nlnet.Avalonia.Css
         }
 
         /// <summary>
-        /// Load a avalonia css style from an acss file asynchronously.
+        /// Load a avalonia css style from an acss file or a tcss file asynchronously.
         /// </summary>
         /// <param name="styles"></param>
         /// <param name="file"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static CssFile BeginLoad(Styles styles, string file, bool autoLoadWhenFileChanged)
+        public static CssFile BeginLoad(Styles styles, string file, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(styles, file, autoLoadWhenFileChanged);
             styleFile.BeginLoad(styles);
@@ -59,7 +59,7 @@ namespace Nlnet.Avalonia.Css
 
             if (File.Exists(filePath) == false)
             {
-                throw new FileNotFoundException($"Can not find the acss file '{filePath}'.");
+                throw new FileNotFoundException($"Can not find the css file '{filePath}'.");
             }
 
             return new CssFile(styles, filePath, autoLoadWhenFileChanged);

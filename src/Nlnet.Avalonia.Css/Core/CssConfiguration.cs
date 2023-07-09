@@ -3,7 +3,7 @@
 namespace Nlnet.Avalonia.Css
 {
     /// <summary>
-    /// Global acss configuration.
+    /// Global css configuration.
     /// </summary>
     public interface ICssConfiguration
     {
