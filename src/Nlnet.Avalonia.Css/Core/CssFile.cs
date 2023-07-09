@@ -138,9 +138,9 @@ namespace Nlnet.Avalonia.Css
                 {
                     _disposable ??= new CompositeDisposable(cssThemeChildStyles.Count);
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
-                    if (cssThemeChildStyle.ThemeType != null)
+                    if (cssThemeChildStyle.TargetType != null)
                     {
-                        if (styles.TryGetResource(cssThemeChildStyle.ThemeType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                        if (styles.TryGetResource(cssThemeChildStyle.TargetType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
                             theme.Add(style);
 
