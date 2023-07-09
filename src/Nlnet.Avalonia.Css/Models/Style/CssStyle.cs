@@ -8,7 +8,9 @@ namespace Nlnet.Avalonia.Css;
 
 public interface ICssStyle : ICssSection
 {
-    public bool IsThemeChild { get; set; }
+    public bool IsThemeChild { get; }
+
+    public Type? ThemeType { get; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
@@ -28,6 +30,8 @@ public class CssStyle : CssSection, ICssStyle
     private Selector? _selector;
 
     public bool IsThemeChild { get; set; }
+
+    public Type? ThemeType { get; set; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
@@ -68,6 +72,12 @@ public class CssStyle : CssSection, ICssStyle
         var syntaxList = SelectorGrammar.Parse(Selector).ToList();
         var selectors  = new List<Selector>();
 
+        if(IsThemeChild)
+        {
+            ThemeType = syntaxList.First().ToSelector(null)?.TargetType;
+            syntaxList = syntaxList.Skip(1).ToList();
+        }
+
         foreach (var syntax in syntaxList)
         {
             if (syntax is CommaSyntax)
@@ -100,12 +110,13 @@ public class CssStyle : CssSection, ICssStyle
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
-        var style   = new Style
+        var style = new Style
         {
             Selector = _selector
         };
 
-        if (style.Selector?.TargetType != null)
+        var targetType = style.Selector?.TargetType ?? ThemeType;
+        if (targetType != null)
         {
             // Resources
             if (Resources != null)
@@ -123,7 +134,7 @@ public class CssStyle : CssSection, ICssStyle
             // Setters
             if (Setters != null)
             {
-                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(style.Selector.TargetType)).OfType<ISetter>())
+                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(targetType)).OfType<ISetter>())
                 {
                     style.Add(setter);
                 }

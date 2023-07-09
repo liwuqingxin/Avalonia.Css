@@ -138,11 +138,12 @@ namespace Nlnet.Avalonia.Css
                 {
                     _disposable ??= new CompositeDisposable(cssThemeChildStyles.Count);
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
-                    if (style.Selector is { TargetType: { } t })
+                    if (cssThemeChildStyle.ThemeType != null)
                     {
-                        if (styles.TryGetResource(t, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                        if (styles.TryGetResource(cssThemeChildStyle.ThemeType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
-                            theme.Children.Add(style);
+                            theme.Add(style);
+
                             _disposable.Add(Disposable.Create(() =>
                             {
                                 theme.Children.Remove(style);
@@ -232,6 +233,7 @@ namespace Nlnet.Avalonia.Css
 
         public void Dispose()
         {
+            _disposable?.Dispose();
             _watcher?.Dispose();
         }
 
