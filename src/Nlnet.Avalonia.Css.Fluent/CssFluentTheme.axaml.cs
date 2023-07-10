@@ -34,15 +34,13 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             var loader = CssBuilder.Default.BuildLoader();
 
-            _modeFile     = loader.Load(this, "../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss");
-            _themeFile    = loader.Load(this, "../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss");
-            _resourceFile = loader.Load(this, "../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss");
+            const string relativePath = "../../../Nlnet.Avalonia.Css.Fluent/";
 
-            var files = Directory.GetFiles("../../../Nlnet.Avalonia.Css.Fluent/Css/");
-            foreach (var file in files)
-            {
-                loader.Load(this, file);
-            }
+            _modeFile     = loader.Load(this, "Css/Resources/Mode.acss",      relativePath);
+            _themeFile    = loader.Load(this, "Css/Resources/Theme.acss",     relativePath);
+            _resourceFile = loader.Load(this, "Css/Resources/Resources.acss", relativePath);
+
+            loader.LoadFolder(this, "Css/", relativePath);
         }
 
         public void UpdateResource()

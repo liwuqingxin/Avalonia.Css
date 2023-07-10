@@ -6,7 +6,9 @@ namespace Nlnet.Avalonia.Css;
 
 public class CssBuilder : ICssBuilder
 {
-    private static int _prepared;
+    #region Default ICssBuilder
+
+    private static int          _prepared;
     private static ICssBuilder? _default;
 
     public static ICssBuilder Default
@@ -29,7 +31,7 @@ public class CssBuilder : ICssBuilder
     {
         if (Interlocked.Exchange(ref _prepared, 1) == 0)
         {
-            _default = new CssBuilder();   
+            _default = new CssBuilder();
         }
 
         return _default!;
@@ -37,17 +39,19 @@ public class CssBuilder : ICssBuilder
 
     public CssBuilder()
     {
-        Parser = new CssParser(this);
-        Interpreter = new CssInterpreter(this);
-        SectionFactory = new CssSectionFactory(this);
+        Parser          = new CssParser(this);
+        Interpreter     = new CssInterpreter(this);
+        SectionFactory  = new CssSectionFactory(this);
         ResourceFactory = new CssResourceFactory(this);
     }
+
+    #endregion
 
 
 
     #region ICssBuilder
 
-    public ICssBuilder Internal => (ICssBuilder)this;
+    private ICssBuilder Internal => (ICssBuilder)this;
 
     private ICssParser Parser { get; set; }
 
