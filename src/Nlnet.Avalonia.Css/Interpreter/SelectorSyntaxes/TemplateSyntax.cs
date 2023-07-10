@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css;
 
-public class TemplateSyntax : ISyntax
+internal class TemplateSyntax : ISyntax
 {
     public Selector? ToSelector(Selector? previous)
     {

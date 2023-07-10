@@ -7,12 +7,12 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssResourceDictionary : ICssSection
+internal interface ICssResourceDictionary : ICssSection
 {
     public IResourceProvider? ToAvaloniaResourceDictionary();
 }
 
-public class CssResourceDictionary : CssSection, ICssResourceDictionary
+internal class CssResourceDictionary : CssSection, ICssResourceDictionary
 {
     private static readonly Regex RegexTheme       = new("\\[theme=(.*?)\\]", RegexOptions.IgnoreCase);
     private static readonly Regex RegexMode        = new("\\[mode=(.*?)\\]", RegexOptions.IgnoreCase);
@@ -59,12 +59,12 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
             return null;
         }
 
-        if (Mode != null && !string.Equals(Mode, CssServiceLocator.GetService<ICssConfiguration>().Mode, StringComparison.CurrentCultureIgnoreCase))
+        if (Mode != null && !string.Equals(Mode, ServiceLocator.GetService<ICssConfiguration>().Mode, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
 
-        if (Theme != null && !string.Equals(Theme, CssServiceLocator.GetService<ICssConfiguration>().Theme, StringComparison.CurrentCultureIgnoreCase))
+        if (Theme != null && !string.Equals(Theme, ServiceLocator.GetService<ICssConfiguration>().Theme, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
@@ -101,7 +101,7 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
             {
                 continue;
             }
-            if (CssServiceLocator.GetService<ICssResourceFactory>().TryGetResourceInstance(resource, out var cssResource))
+            if (ServiceLocator.GetService<ICssResourceFactory>().TryGetResourceInstance(resource, out var cssResource))
             {
                 yield return cssResource!;
             }

@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css;
 
-public class PropertySyntax : ISyntax
+internal class PropertySyntax : ISyntax
 {
     public string Property { get; set; } = string.Empty;
 
@@ -12,7 +12,7 @@ public class PropertySyntax : ISyntax
     {
         if (previous?.TargetType != null)
         {
-            var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
+            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
 
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(previous.TargetType, Property);
             if (avaloniaProperty == null)

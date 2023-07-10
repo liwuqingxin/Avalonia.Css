@@ -6,7 +6,7 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssStyle : ICssSection
+internal interface ICssStyle : ICssSection
 {
     public bool IsThemeChild { get; }
 
@@ -25,7 +25,7 @@ public interface ICssStyle : ICssSection
     public Style ToAvaloniaStyle();
 }
 
-public class CssStyle : CssSection, ICssStyle
+internal class CssStyle : CssSection, ICssStyle
 {
     private Selector? _selector;
 

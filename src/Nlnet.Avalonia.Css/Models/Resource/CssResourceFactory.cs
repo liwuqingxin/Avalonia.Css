@@ -7,12 +7,12 @@ using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssResourceFactory
+internal interface ICssResourceFactory
 {
     public bool TryGetResourceInstance(string resourceString, out CssResource? resource);
 }
 
-public class CssResourceFactory : ICssResourceFactory
+internal class CssResourceFactory : ICssResourceFactory
 {
     private static readonly Dictionary<string, IResourceFactory> Factories = new(StringComparer.OrdinalIgnoreCase);
 

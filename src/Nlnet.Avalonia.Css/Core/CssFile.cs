@@ -15,7 +15,7 @@ namespace Nlnet.Avalonia.Css
     /// <summary>
     /// A css style instance that associated to a .acss file.
     /// </summary>
-    public sealed class CssFile : Styles, IDisposable
+    internal sealed class CssFile : Styles, ICssFile, IDisposable
     {
         #region Static
 
@@ -118,7 +118,7 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var parser              = CssServiceLocator.GetService<ICssParser>();
+                var parser              = ServiceLocator.GetService<ICssParser>();
                 var cssContent          = File.ReadAllText(_file);
                 var css                 = parser.RemoveComments(cssContent.ToCharArray());
                 var sections            = parser.ParseSections(null, css).ToList();
@@ -246,6 +246,11 @@ namespace Nlnet.Avalonia.Css
         public override string ToString()
         {
             return $"{nameof(CssFile)} {_file}";
+        }
+
+        public void Reload()
+        {
+            this.Load(_styles);
         }
     }
 }

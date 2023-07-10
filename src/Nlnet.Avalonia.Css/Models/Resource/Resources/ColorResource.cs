@@ -4,7 +4,7 @@ using Avalonia.Media;
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Color))]
-public class ColorResource : CssResourceBaseAndFac<ColorResource>
+internal class ColorResource : CssResourceBaseAndFac<ColorResource>
 {
     protected override object? Accept(string valueString)
     {

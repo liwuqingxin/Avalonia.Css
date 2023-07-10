@@ -1,6 +1,6 @@
 ﻿namespace Nlnet.Avalonia.Css;
 
-public interface ITypeSyntax
+internal interface ITypeSyntax
 {
     string TypeName { get; set; }
 

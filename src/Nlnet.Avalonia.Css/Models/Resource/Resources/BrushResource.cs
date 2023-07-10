@@ -7,7 +7,7 @@ using Avalonia.Media.Immutable;
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Brush))]
-public class BrushResource : CssResourceBaseAndFac<BrushResource>
+internal class BrushResource : CssResourceBaseAndFac<BrushResource>
 {
     private double  _opacity;
     private string? _key;
@@ -27,7 +27,7 @@ public class BrushResource : CssResourceBaseAndFac<BrushResource>
             _opacity = o;
         }
 
-        if (CssServiceLocator.GetService<ICssInterpreter>().IsVar(colorString, out var key))
+        if (ServiceLocator.GetService<ICssInterpreter>().IsVar(colorString, out var key))
         {
             _key = key;
 

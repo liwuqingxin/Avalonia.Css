@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css
 {
-    public abstract class CssResource
+    internal abstract class CssResource
     {
         public string? Key { get; set; }
 
@@ -26,13 +26,13 @@ namespace Nlnet.Avalonia.Css
         }
     }
 
-    public interface IResourceFactory
+    internal interface IResourceFactory
     {
         public CssResource Create();
     }
 
 
-    public abstract class CssResourceBaseAndFac<T> : CssResource, IResourceFactory where T : CssResource, new()
+    internal abstract class CssResourceBaseAndFac<T> : CssResource, IResourceFactory where T : CssResource, new()
     {
         CssResource IResourceFactory.Create()
         {

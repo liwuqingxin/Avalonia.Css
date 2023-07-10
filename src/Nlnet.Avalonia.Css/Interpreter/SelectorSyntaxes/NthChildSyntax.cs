@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css;
 
-public class NthChildSyntax : ISyntax
+internal class NthChildSyntax : ISyntax
 {
     public int Offset { get; set; }
     public int Step   { get; set; }

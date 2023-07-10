@@ -3,7 +3,7 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
-    public class CommaSyntax : ISyntax
+    internal class CommaSyntax : ISyntax
     {
         public Selector? ToSelector(Selector? previous)
         {

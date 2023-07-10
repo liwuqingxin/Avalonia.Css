@@ -7,7 +7,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType("StrokeThickness")]
 [ResourceType("Margin")]
 [ResourceType("Padding")]
-public class ThicknessResource : CssResourceBaseAndFac<ThicknessResource>
+internal class ThicknessResource : CssResourceBaseAndFac<ThicknessResource>
 {
     protected override object? Accept(string valueString)
     {

@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css;
 
-public class OfTypeSyntax : ISyntax, ITypeSyntax
+internal class OfTypeSyntax : ISyntax, ITypeSyntax
 {
     public string TypeName { get; set; } = string.Empty;
 
@@ -10,7 +10,7 @@ public class OfTypeSyntax : ISyntax, ITypeSyntax
 
     public Selector? ToSelector(Selector? previous)
     {
-        var manager = CssServiceLocator.GetService<ITypeResolverManager>();
+        var manager = ServiceLocator.GetService<ITypeResolverManager>();
         if (manager.TryGetType(TypeName, out var type))
         {
             return previous.OfType(type!);

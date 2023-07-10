@@ -20,7 +20,7 @@ public interface ITypeResolverManager
     public bool TryAdaptType(Type type, out Type? adaptedType);
 }
 
-public class TypeResolverManager : ITypeResolverManager
+internal class TypeResolverManager : ITypeResolverManager
 {
     private readonly List<ITypeResolver> _resolvers = new()
     {

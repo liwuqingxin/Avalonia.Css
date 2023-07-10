@@ -5,11 +5,11 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css
 {
-    public class TransitionsParser
+    internal class TransitionsParser
     {
         public static Transitions? Parse(string transitionsString)
         {
-            var interpreter    = CssServiceLocator.GetService<ICssInterpreter>();
+            var interpreter    = ServiceLocator.GetService<ICssInterpreter>();
             var transitions    = new Transitions();
             var transitionList = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)

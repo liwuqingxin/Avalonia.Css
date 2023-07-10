@@ -7,7 +7,7 @@ namespace Nlnet.Avalonia.Css;
 /// <summary>
 /// Internal class resolver.
 /// </summary>
-public class InternalResolver : ITypeResolver
+internal class InternalResolver : ITypeResolver
 {
     private readonly Dictionary<string, Type> _types = new();
 

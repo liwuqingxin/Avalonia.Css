@@ -3,7 +3,7 @@ using System;
 
 namespace Nlnet.Avalonia.Css;
 
-public class AttachedPropertySyntax : ISyntax, ITypeSyntax
+internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
 {
     public string Xmlns { get; set; } = string.Empty;
 
@@ -15,10 +15,10 @@ public class AttachedPropertySyntax : ISyntax, ITypeSyntax
 
     public Selector? ToSelector(Selector? previous)
     {
-        var manager = CssServiceLocator.GetService<ITypeResolverManager>();
+        var manager = ServiceLocator.GetService<ITypeResolverManager>();
         if (manager.TryGetType(TypeName, out var type))
         {
-            var interpreter      = CssServiceLocator.GetService<ICssInterpreter>();
+            var interpreter      = ServiceLocator.GetService<ICssInterpreter>();
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {

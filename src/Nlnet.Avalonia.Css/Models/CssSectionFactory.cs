@@ -4,7 +4,7 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssSectionFactory
+internal interface ICssSectionFactory
 {
     public ICssSection Build(ICssParser parser, ICssSection? parent, string selector, ReadOnlySpan<char> content);
 }

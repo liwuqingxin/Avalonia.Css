@@ -21,7 +21,7 @@ namespace Nlnet.Avalonia.Css
     /// <summary>
     /// Default implementation for <see cref="ICssConfiguration"/>.
     /// </summary>
-    public class CssConfiguration : AvaloniaObject, ICssConfiguration
+    internal class CssConfiguration : AvaloniaObject, ICssConfiguration
     {
         public string? Theme
         {

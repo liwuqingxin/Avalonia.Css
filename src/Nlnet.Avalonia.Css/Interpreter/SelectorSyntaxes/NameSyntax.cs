@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css;
 
-public class NameSyntax : ISyntax
+internal class NameSyntax : ISyntax
 {
     public string Name { get; set; } = string.Empty;
 

@@ -5,7 +5,7 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
-    public interface ICssSection
+    internal interface ICssSection
     {
         public string Selector { get; set; }
 
@@ -16,7 +16,7 @@ namespace Nlnet.Avalonia.Css
         public void InitialSection(ICssParser parser, ReadOnlySpan<char> content);
     }
 
-    public abstract class CssSection : ICssSection
+    internal abstract class CssSection : ICssSection
     {
         public string Selector { get; set; }
 
