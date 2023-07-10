@@ -8,11 +8,11 @@ internal class PropertySyntax : ISyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
     {
         if (previous?.TargetType != null)
         {
-            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
+            var interpreter = builder.Interpreter;
 
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(previous.TargetType, Property);
             if (avaloniaProperty == null)

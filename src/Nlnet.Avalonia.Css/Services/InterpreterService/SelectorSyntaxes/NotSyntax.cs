@@ -8,9 +8,9 @@ internal class NotSyntax : ISyntax
 {
     public IEnumerable<ISyntax> Argument { get; set; } = Enumerable.Empty<ISyntax>();
 
-    public Selector? ToSelector(Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
     {
-        var selector = ServiceLocator.GetService<ICssInterpreter>().ToSelector(Argument);
+        var selector = builder.Interpreter.ToSelector(Argument);
         if (selector == null)
         {
             this.WriteLine($"Can not apply :not selector for {Argument}");

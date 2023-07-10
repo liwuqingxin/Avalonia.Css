@@ -1,18 +1,16 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Animation;
-using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css
 {
     internal class TransitionsParser
     {
-        public static Transitions? Parse(string transitionsString)
+        public static Transitions? Parse(ICssBuilder builder, string transitionsString)
         {
-            var resourceProviders = ServiceLocator.GetService<IResourceProvidersManager>();
-            var interpreter       = ServiceLocator.GetService<ICssInterpreter>();
-            var transitions       = new Transitions();
-            var transitionList    = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
+            var interpreter    = builder.Interpreter;
+            var transitions    = new Transitions();
+            var transitionList = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)
             {
                 if (interpreter.IsVar(transition, out var key) && Application.Current != null)
@@ -20,7 +18,7 @@ namespace Nlnet.Avalonia.Css
                     //
                     // NOTE TryFindResource will make it static but dynamic.
                     //
-                    if (resourceProviders.TryFindResource<ITransition>(key!, out var resource))
+                    if (builder.TryFindResource<ITransition>(key!, out var resource))
                     {
                         transitions.Add(resource!);
                     }

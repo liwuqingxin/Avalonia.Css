@@ -1,21 +1,23 @@
-﻿using Avalonia.Animation.Easings;
-using Avalonia.Animation;
-using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml.MarkupExtensions;
-using Avalonia.Styling;
-using Avalonia;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using Avalonia;
+using Avalonia.Animation;
+using Avalonia.Animation.Easings;
+using Avalonia.Controls.Primitives;
 using Avalonia.Data;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
     internal class CssInterpreter : ICssInterpreter
     {
+        private readonly ICssBuilder _builder;
+
         // ' var (xxx) '
         private readonly Regex _varRegex = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
         // ' $(xxx).xxx ' or '$(xxx)#10.xxx '
@@ -31,8 +33,9 @@ namespace Nlnet.Avalonia.Css
 
         private readonly IEnumerable<Type> _transitionsTypes;
 
-        public CssInterpreter()
+        public CssInterpreter(ICssBuilder builder)
         {
+            _builder = builder;
             _transitionsTypes = typeof(Transition<>).Assembly
                 .GetTypes()
                 .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
@@ -40,7 +43,7 @@ namespace Nlnet.Avalonia.Css
 
         public Selector? ToSelector(IEnumerable<ISyntax> syntaxList)
         {
-            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(current));
+            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(_builder, current));
         }
 
         public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property)
@@ -56,7 +59,7 @@ namespace Nlnet.Avalonia.Css
 
                 var declaredTypeName = splits[0];
                 property = splits[1];
-                var manager = ServiceLocator.GetService<ITypeResolverManager>();
+                var manager = _builder.TypeResolver;
                 if (manager.TryGetType(declaredTypeName, out var type) == false)
                 {
                     avaloniaObjectType.WriteLine($"Can not find '{declaredTypeName}' from '{nameof(TypeResolverManager)}'. Skip it.");
@@ -102,8 +105,9 @@ namespace Nlnet.Avalonia.Css
                 return rawValue;
             }
 
-            var match   = _staticInstanceRegex.Match(rawValue);
-            var manager = ServiceLocator.GetService<ITypeResolverManager>();
+            // Static instance
+            var match = _staticInstanceRegex.Match(rawValue);
+            var manager = _builder.TypeResolver;
             if (match.Success)
             {
                 var className = match.Groups[1].Value;
@@ -156,12 +160,20 @@ namespace Nlnet.Avalonia.Css
 
             // Parser.
             var parserMethod = declaredType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
-            if (parserMethod == null)
+            if (parserMethod != null)
             {
-                declaredType.WriteLine($"Can not find the 'Parse' method in '{declaredType}'. Skip it.");
-                return null;
+                return parserMethod.Invoke(declaredType, new object?[] { rawValue });
             }
-            return parserMethod.Invoke(declaredType, new object?[] { rawValue });
+
+            // Internal parser.
+            var internalParserMethod = declaredType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(ICssBuilder), typeof(string) });
+            if (internalParserMethod != null)
+            {
+                return internalParserMethod.Invoke(declaredType, new object?[] { _builder, rawValue });
+            }
+
+            declaredType.WriteLine($"Can not parse the value '{rawValue}'. Skip it.");
+            return null;
         }
 
         public object? ParseValue(AvaloniaProperty avaloniaProperty, string? rawValue)
@@ -204,7 +216,7 @@ namespace Nlnet.Avalonia.Css
                 var indexString = match.Groups[2].Value;
                 var path = match.Groups[3].Value;
 
-                if (ServiceLocator.GetService<ITypeResolverManager>().TryGetType(className, out var classType) == false)
+                if (_builder.TypeResolver.TryGetType(className, out var classType) == false)
                 {
                     return false;
                 }
@@ -264,7 +276,7 @@ namespace Nlnet.Avalonia.Css
                 var dotIndex = propertyString.IndexOf('.');
                 if (dotIndex >= 0)
                 {
-                    var manager = ServiceLocator.GetService<ITypeResolverManager>();
+                    var manager = _builder.TypeResolver;
                     if (manager.TryGetType(propertyString[..dotIndex], out var t))
                     {
                         targetType = t;
@@ -296,7 +308,7 @@ namespace Nlnet.Avalonia.Css
                 }
             }
 
-            var avaloniaProperty = ServiceLocator.GetService<ICssInterpreter>().ParseAvaloniaProperty(targetType!, property);
+            var avaloniaProperty = _builder.Interpreter.ParseAvaloniaProperty(targetType!, property);
             if (avaloniaProperty == null)
             {
                 return null;
@@ -316,9 +328,9 @@ namespace Nlnet.Avalonia.Css
         public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString)
         {
             valueString = valueString[1..^1].Trim(' ');
-            var parser  = ServiceLocator.GetService<ICssParser>();
-            var interpreter = ServiceLocator.GetService<ICssInterpreter>();
-            var objects = parser.ParseObjects(valueString);
+            var parser      = _builder.Parser;
+            var interpreter = _builder.Interpreter;
+            var objects     = parser.ParseObjects(valueString);
 
             foreach (var (selector, propertySettingsString) in objects)
             {
@@ -329,9 +341,9 @@ namespace Nlnet.Avalonia.Css
                 }
 
                 // Initial.
-                var keyFrame   = new KeyFrame();
+                var keyFrame = new KeyFrame();
                 var initString = match.Groups[1].Value;
-                var splits     = initString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                var splits = initString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 if (splits.Length > 0)
                 {
                     try
@@ -367,9 +379,9 @@ namespace Nlnet.Avalonia.Css
                 var pairs = parser.ParsePairs(propertySettingsString);
                 foreach (var pair in pairs)
                 {
-                    var propertyName  = pair.Item1;
+                    var propertyName = pair.Item1;
                     var matchAnimator = _setterAnimatorRegex.Match(propertyName);
-                    string? animatorType  = null;
+                    string? animatorType = null;
                     if (matchAnimator.Success)
                     {
                         propertyName = matchAnimator.Groups[1].Value;
@@ -390,7 +402,7 @@ namespace Nlnet.Avalonia.Css
 
                     if (animatorType != null)
                     {
-                        if (ServiceLocator.GetService<ITypeResolverManager>().TryGetType(animatorType, out var animatorTypeInstance) && animatorTypeInstance != null)
+                        if (_builder.TypeResolver.TryGetType(animatorType, out var animatorTypeInstance) && animatorTypeInstance != null)
                         {
                             Animation.SetAnimator(setter, animatorTypeInstance);
                         }

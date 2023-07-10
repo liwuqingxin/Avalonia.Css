@@ -8,9 +8,9 @@ internal class OfTypeSyntax : ISyntax, ITypeSyntax
 
     public string Xmlns { get; set; } = string.Empty;
 
-    public Selector? ToSelector(Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
     {
-        var manager = ServiceLocator.GetService<ITypeResolverManager>();
+        var manager = builder.TypeResolver;
         if (manager.TryGetType(TypeName, out var type))
         {
             return previous.OfType(type!);

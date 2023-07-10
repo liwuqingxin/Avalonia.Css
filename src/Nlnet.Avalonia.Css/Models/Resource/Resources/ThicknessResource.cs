@@ -9,7 +9,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType("Padding")]
 internal class ThicknessResource : CssResourceBaseAndFac<ThicknessResource>
 {
-    protected override object? Accept(string valueString)
+    protected override object? Accept(ICssBuilder cssBuilder, string valueString)
     {
         try
         {

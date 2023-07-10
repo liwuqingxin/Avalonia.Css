@@ -5,22 +5,20 @@ namespace Nlnet.Avalonia.Css
     /// <summary>
     /// Default implementation for <see cref="ICssConfiguration"/>.
     /// </summary>
-    internal class CssConfiguration : AvaloniaObject, ICssConfiguration
+    /// <remarks>
+    /// Could not derived from <see cref="AvaloniaObject"/>, which will cause ui choppy.
+    /// </remarks>
+    internal class CssConfiguration : ICssConfiguration
     {
         public string? Theme
         {
-            get { return GetValue(ThemeProperty); }
-            set { SetValue(ThemeProperty, value); }
+            get;
+            set;
         }
-        public static readonly StyledProperty<string?> ThemeProperty = AvaloniaProperty
-            .Register<CssConfiguration, string?>(nameof(Theme), "blue");
-
         public string? Mode
         {
-            get { return GetValue(ModeProperty); }
-            set { SetValue(ModeProperty, value); }
+            get;
+            set;
         }
-        public static readonly StyledProperty<string?> ModeProperty = AvaloniaProperty
-            .Register<CssConfiguration, string?>(nameof(Mode), "light");
     }
 }

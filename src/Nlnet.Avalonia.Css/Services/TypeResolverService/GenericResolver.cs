@@ -17,7 +17,7 @@ public class GenericResolver<TTypeSink> : ITypeResolver
     {
         var typeSink = typeof(TTypeSink);
         var assembly = typeSink.Assembly;
-        var types    = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(AvaloniaObject)));
+        var types = assembly.GetTypes().Where(t => t.IsAssignableTo(typeof(AvaloniaObject)));
 
         _types = types.ToDictionary(type => type.Name, type => type);
 

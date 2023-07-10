@@ -6,9 +6,9 @@ namespace Nlnet.Avalonia.Css;
 
 public class CssBuilder : ICssBuilder
 {
-    private static int          _prepared = 0;
+    private static int _prepared;
     private static ICssBuilder? _default;
-    
+
     public static ICssBuilder Default
     {
         get
@@ -35,17 +35,49 @@ public class CssBuilder : ICssBuilder
         return _default!;
     }
 
+    public CssBuilder()
+    {
+        Parser = new CssParser(this);
+        Interpreter = new CssInterpreter(this);
+        SectionFactory = new CssSectionFactory(this);
+        ResourceFactory = new CssResourceFactory(this);
+    }
+
 
 
     #region ICssBuilder
 
+    public ICssBuilder Internal => (ICssBuilder)this;
+
+    private ICssParser Parser { get; set; }
+
+    private ICssInterpreter Interpreter { get; set; }
+
+    private ICssSectionFactory SectionFactory { get; set; }
+
+    private ICssResourceFactory ResourceFactory { get; set; }
+
+
+
     private ICssLoader? _loader;
+
+    ICssParser ICssBuilder.Parser => Parser;
+
+    ICssInterpreter ICssBuilder.Interpreter => Interpreter;
+
+    ICssSectionFactory ICssBuilder.SectionFactory => SectionFactory;
+
+    ICssResourceFactory ICssBuilder.ResourceFactory => ResourceFactory;
+
+    ITypeResolverManager ICssBuilder.TypeResolver { get; } = new TypeResolverManager();
+
+    ICssConfiguration ICssBuilder.Configuration { get; } = new CssConfiguration();
 
     ICssLoader ICssBuilder.BuildLoader()
     {
         lock (this)
         {
-            _loader ??= new CssLoader();    
+            _loader ??= new CssLoader(this);    
         }
         
         return _loader;
@@ -59,32 +91,32 @@ public class CssBuilder : ICssBuilder
 
     void ITypeResolverManager.LoadResolver(ITypeResolver resolver)
     {
-        ServiceLocator.GetService<ITypeResolverManager>().LoadResolver(resolver);
+        Internal.TypeResolver.LoadResolver(resolver);
     }
 
     void ITypeResolverManager.UnloadResolver(ITypeResolver resolver)
     {
-        ServiceLocator.GetService<ITypeResolverManager>().UnloadResolver(resolver);
+        Internal.TypeResolver.UnloadResolver(resolver);
     }
 
     void ITypeResolverManager.LoadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter)
     {
-        ServiceLocator.GetService<ITypeResolverManager>().LoadValueParsingTypeAdapter(adapter);
+        Internal.TypeResolver.LoadValueParsingTypeAdapter(adapter);
     }
 
     void ITypeResolverManager.UnloadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter)
     {
-        ServiceLocator.GetService<ITypeResolverManager>().UnloadValueParsingTypeAdapter(adapter);
+        Internal.TypeResolver.UnloadValueParsingTypeAdapter(adapter);
     }
 
     bool ITypeResolverManager.TryGetType(string name, out Type? type)
     {
-        return ServiceLocator.GetService<ITypeResolverManager>().TryGetType(name, out type);
+        return Internal.TypeResolver.TryGetType(name, out type);
     }
 
     bool ITypeResolverManager.TryAdaptType(Type type, out Type? adaptedType)
     {
-        return ServiceLocator.GetService<ITypeResolverManager>().TryAdaptType(type, out adaptedType);
+        return Internal.TypeResolver.TryAdaptType(type, out adaptedType);
     }
 
     #endregion
@@ -95,13 +127,13 @@ public class CssBuilder : ICssBuilder
 
     public string? Theme
     {
-        get => ServiceLocator.GetService<ICssConfiguration>().Theme;
-        set => ServiceLocator.GetService<ICssConfiguration>().Theme = value;
+        get => Internal.Configuration.Theme;
+        set => Internal.Configuration.Theme = value;
     }
     public string? Mode
     {
-        get => ServiceLocator.GetService<ICssConfiguration>().Mode;
-        set => ServiceLocator.GetService<ICssConfiguration>().Mode = value;
+        get => Internal.Configuration.Mode;
+        set => Internal.Configuration.Mode = value;
     }
 
     #endregion
@@ -110,19 +142,22 @@ public class CssBuilder : ICssBuilder
 
     #region IResourceHostsManager
 
+    private readonly IResourceProvidersManager _resourceProvidersManager = new ResourceProvidersManager();
+ 
+
     void IResourceProvidersManager.RegisterResourceProvider(IResourceProvider provider)
     {
-        ServiceLocator.GetService<IResourceProvidersManager>().RegisterResourceProvider(provider);
+        _resourceProvidersManager.RegisterResourceProvider(provider);
     }
 
     void IResourceProvidersManager.UnregisterResourceProvider(IResourceProvider provider)
     {
-        ServiceLocator.GetService<IResourceProvidersManager>().UnregisterResourceProvider(provider);
+        _resourceProvidersManager.UnregisterResourceProvider(provider);
     }
 
     public bool TryFindResource<T>(object key, out T? result)
     {
-        return ServiceLocator.GetService<IResourceProvidersManager>().TryFindResource(key, out result);
+        return _resourceProvidersManager.TryFindResource(key, out result);
     }
 
     #endregion

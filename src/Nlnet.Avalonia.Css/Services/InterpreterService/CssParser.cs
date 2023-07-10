@@ -7,13 +7,20 @@ namespace Nlnet.Avalonia.Css;
 
 internal class CssParser : ICssParser
 {
+    private readonly ICssBuilder _builder;
+
+    public CssParser(ICssBuilder builder)
+    {
+        _builder = builder;
+    }
+
     public IEnumerable<(string, string)> ParseObjects(ReadOnlySpan<char> span)
     {
         var list = new List<(string, string)>();
 
-        var index            = 0;
-        var selector         = string.Empty;
-        var leftBraceCount   = 0;
+        var index = 0;
+        var selector = string.Empty;
+        var leftBraceCount = 0;
         var isInStyleContent = false;
         for (var i = 0; i < span.Length; i++)
         {
@@ -23,8 +30,8 @@ internal class CssParser : ICssParser
                     if (isInStyleContent == false)
                     {
                         isInStyleContent = true;
-                        selector         = span[index..i].ToString();
-                        index            = i + 1;
+                        selector = span[index..i].ToString();
+                        index = i + 1;
                     }
                     else
                     {
@@ -54,9 +61,9 @@ internal class CssParser : ICssParser
     {
         var list = new List<(string, string)>();
 
-        var index            = 0;
-        var selector         = string.Empty;
-        var leftBraceCount   = 0;
+        var index = 0;
+        var selector = string.Empty;
+        var leftBraceCount = 0;
         var isInStyleContent = false;
         for (var i = 0; i < span.Length; i++)
         {
@@ -66,8 +73,8 @@ internal class CssParser : ICssParser
                     if (isInStyleContent == false)
                     {
                         isInStyleContent = true;
-                        selector         = span[index..i].ToString();
-                        index            = i + 1;
+                        selector = span[index..i].ToString();
+                        index = i + 1;
                     }
                     else
                     {
@@ -90,19 +97,19 @@ internal class CssParser : ICssParser
             }
         }
 
-        return list.Select(o => ServiceLocator.GetService<ICssSectionFactory>().Build(this, parent, o.Item1, o.Item2));
+        return list.Select(o => _builder.SectionFactory.Build(this, parent, o.Item1, o.Item2));
     }
 
     public IEnumerable<(string, string)> ParsePairs(ReadOnlySpan<char> span)
     {
         var setters = new List<(string, string)>();
 
-        var    index = 0;
-        var    name  = string.Empty;
+        var index = 0;
+        var name = string.Empty;
         string value;
-        var    colonsCount    = 0;
-        var    isInArrayCount = 0;
-        var    isInString     = false;
+        var colonsCount = 0;
+        var isInArrayCount = 0;
+        var isInString = false;
 
         for (var i = 0; i < span.Length; i++)
         {
@@ -169,16 +176,16 @@ internal class CssParser : ICssParser
 
         if (index1 != -1 && index2 != -1)
         {
-            var span1   = span[..(index1 - 1)];
-            var span2   = span[(index2   + 2)..];
+            var span1 = span[..(index1 - 1)];
+            var span2 = span[(index2 + 2)..];
             var builder = new StringBuilder();
             builder.Append(span1);
             builder.Append(span2);
 
             settersSpan = builder.ToString();
 
-            index1       += 2;
-            childrenSpan =  span[index1..index2];
+            index1 += 2;
+            childrenSpan = span[index1..index2];
         }
         else
         {
@@ -190,7 +197,7 @@ internal class CssParser : ICssParser
     public ReadOnlySpan<char> RemoveComments(Span<char> span)
     {
         var builder = new StringBuilder();
-        var index   = 0;
+        var index = 0;
         for (var i = 0; i < span.Length; i++)
         {
             switch (span[i])

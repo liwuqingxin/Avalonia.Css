@@ -22,13 +22,14 @@ namespace Nlnet.Avalonia.Css
         /// <summary>
         /// Load a avalonia css style from an acss file synchronously.
         /// </summary>
+        /// <param name="cssBuilder"></param>
         /// <param name="styles"></param>
         /// <param name="filePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static CssFile Load(Styles styles, string filePath, bool autoLoadWhenFileChanged = true)
+        public static CssFile Load(ICssBuilder cssBuilder, Styles styles, string filePath, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(styles, filePath, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(cssBuilder, styles, filePath, autoLoadWhenFileChanged);
             styleFile.Load(styles);
             return styleFile;
         }
@@ -36,18 +37,19 @@ namespace Nlnet.Avalonia.Css
         /// <summary>
         /// Load a avalonia css style from an acss file asynchronously.
         /// </summary>
+        /// <param name="cssBuilder"></param>
         /// <param name="styles"></param>
         /// <param name="file"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static CssFile BeginLoad(Styles styles, string file, bool autoLoadWhenFileChanged = true)
+        public static CssFile BeginLoad(ICssBuilder cssBuilder, Styles styles, string file, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(styles, file, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(cssBuilder, styles, file, autoLoadWhenFileChanged);
             styleFile.BeginLoad(styles);
             return styleFile;
         }
 
-        private static CssFile CreateStyles(Styles styles, string filePath, bool autoLoadWhenFileChanged)
+        private static CssFile CreateStyles(ICssBuilder cssBuilder, Styles styles, string filePath, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
@@ -64,22 +66,24 @@ namespace Nlnet.Avalonia.Css
                 throw new FileNotFoundException($"Can not find the css file '{filePath}'.");
             }
 
-            return new CssFile(styles, filePath, autoLoadWhenFileChanged);
+            return new CssFile(cssBuilder, styles, filePath, autoLoadWhenFileChanged);
         }
 
         #endregion
 
 
 
-        private readonly Styles _styles;
-        private readonly string _file;
-        private readonly FileSystemWatcher? _watcher;
-        private CompositeDisposable? _disposable;
+        private readonly ICssBuilder          _cssBuilder;
+        private readonly Styles               _styles;
+        private readonly string               _file;
+        private readonly FileSystemWatcher?   _watcher;
+        private          CompositeDisposable? _disposable;
 
-        private CssFile(Styles styles, string filePath, bool autoLoadWhenFileChanged)
+        private CssFile(ICssBuilder cssBuilder, Styles styles, string filePath, bool autoLoadWhenFileChanged)
         {
-            _styles = styles;
-            _file   = Path.GetFullPath(filePath);
+            _cssBuilder = cssBuilder;
+            _styles     = styles;
+            _file       = Path.GetFullPath(filePath);
 
             var dir = Path.GetDirectoryName(filePath);
             if (autoLoadWhenFileChanged && dir != null)
@@ -118,7 +122,7 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var parser              = ServiceLocator.GetService<ICssParser>();
+                var parser              = _cssBuilder.Parser;
                 var cssContent          = File.ReadAllText(_file);
                 var css                 = parser.RemoveComments(cssContent.ToCharArray());
                 var sections            = parser.ParseSections(null, css).ToList();
@@ -163,7 +167,7 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var dictionary in cssDictionaryList)
                 {
-                    var dic = dictionary.ToAvaloniaResourceDictionary();
+                    var dic = dictionary.ToAvaloniaResourceDictionary(_cssBuilder);
                     if (dic != null)
                     {
                         this.Resources.MergedDictionaries.Add(dic);

@@ -3,6 +3,7 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css.Controls
 {
+    // TODO Try to remove this.
     public class TemplatedControlExtension : AvaloniaObject
     {
         static TemplatedControlExtension()

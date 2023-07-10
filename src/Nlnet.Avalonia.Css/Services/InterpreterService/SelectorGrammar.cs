@@ -401,8 +401,8 @@ namespace Nlnet.Avalonia.Css
                 var stepOrOffset = 0;
                 var stepOrOffsetStr = r.TakeWhile(c => char.IsDigit(c) || c == '-' || c == '+').ToString();
                 if (stepOrOffsetStr.Length == 0
-                    || (stepOrOffsetStr.Length == 1
-                    && stepOrOffsetStr[0] == '+'))
+                    || stepOrOffsetStr.Length == 1
+                    && stepOrOffsetStr[0] == '+')
                 {
                     stepOrOffset = 1;
                 }

@@ -8,6 +8,11 @@ namespace Nlnet.Avalonia.Css;
 public interface ICssLoader
 {
     /// <summary>
+    /// The css builder instance.
+    /// </summary>
+    public ICssBuilder CssBuilder { get; }
+
+    /// <summary>
     /// Load a avalonia css style from an css file synchronously.
     /// </summary>
     /// <param name="styles"></param>

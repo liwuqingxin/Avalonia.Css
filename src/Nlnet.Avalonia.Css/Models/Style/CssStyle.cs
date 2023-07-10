@@ -27,7 +27,8 @@ internal interface ICssStyle : ICssSection
 
 internal class CssStyle : CssSection, ICssStyle
 {
-    private Selector? _selector;
+    private readonly ICssBuilder _builder;
+    private          Selector?   _selector;
 
     public bool IsThemeChild { get; set; }
 
@@ -41,9 +42,9 @@ internal class CssStyle : CssSection, ICssStyle
 
     public IEnumerable<ICssAnimation>? Animations { get; set; }
 
-    public CssStyle(string selector) : base(selector)
+    public CssStyle(ICssBuilder builder, string selector) : base(builder, selector)
     {
-
+        _builder = builder;
     }
 
     public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
@@ -74,7 +75,7 @@ internal class CssStyle : CssSection, ICssStyle
 
         if(IsThemeChild)
         {
-            TargetType = syntaxList.First().ToSelector(null)?.TargetType;
+            TargetType = syntaxList.First().ToSelector(_builder, null)?.TargetType;
             syntaxList = syntaxList.Skip(1).ToList();
         }
 
@@ -90,7 +91,7 @@ internal class CssStyle : CssSection, ICssStyle
             }
             else
             {
-                selector = syntax.ToSelector(selector);
+                selector = syntax.ToSelector(_builder, selector);
             }
         }
         if (selector != null)
@@ -123,7 +124,7 @@ internal class CssStyle : CssSection, ICssStyle
             {
                 foreach (var cssResourceList in Resources)
                 {
-                    var dic = cssResourceList.ToAvaloniaResourceDictionary();
+                    var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
                     if (dic != null)
                     {
                         style.Resources.MergedDictionaries.Add((dic));
@@ -134,7 +135,7 @@ internal class CssStyle : CssSection, ICssStyle
             // Setters
             if (Setters != null)
             {
-                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(targetType)).OfType<ISetter>())
+                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<ISetter>())
                 {
                     style.Add(setter);
                 }

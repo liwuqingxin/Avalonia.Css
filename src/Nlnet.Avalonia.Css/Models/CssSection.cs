@@ -7,6 +7,8 @@ namespace Nlnet.Avalonia.Css
 {
     internal interface ICssSection
     {
+        public ICssBuilder CssBuilder { get; }
+
         public string Selector { get; set; }
 
         public ICssSection? Parent { get; set; }
@@ -18,6 +20,8 @@ namespace Nlnet.Avalonia.Css
 
     internal abstract class CssSection : ICssSection
     {
+        public ICssBuilder CssBuilder { get; }
+
         public string Selector { get; set; }
 
         public ICssSection? Parent { get; set; }
@@ -26,9 +30,10 @@ namespace Nlnet.Avalonia.Css
 
         public abstract void InitialSection(ICssParser parser, ReadOnlySpan<char> content);
 
-        protected CssSection(string selector)
+        protected CssSection(ICssBuilder cssBuilder, string selector)
         {
-            Selector = selector.Trim();
+            CssBuilder = cssBuilder;
+            Selector   = selector.Trim();
         }
     }
 }

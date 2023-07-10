@@ -12,13 +12,13 @@ namespace Nlnet.Avalonia.Css
 
         public bool IsDeferred { get; set; } = false;
 
-        public void AcceptCore(string key, string valueString)
+        public void AcceptCore(ICssBuilder cssBuilder, string key, string valueString)
         {
             Key   = key;
-            Value = Accept(valueString);
+            Value = Accept(cssBuilder, valueString);
         }
 
-        protected abstract object? Accept(string valueString);
+        protected abstract object? Accept(ICssBuilder cssBuilder, string valueString);
         
         public virtual object? GetDeferredValue(IServiceProvider? provider)
         {
