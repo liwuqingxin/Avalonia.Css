@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Avalonia.Animation;
-using Avalonia.Media;
-using Avalonia.Media.Transformation;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -23,18 +20,5 @@ public abstract class GenericValueParsingTypeAdapter : IValueParsingTypeAdapter
         _parseTypeAdapter[declaredType] = parsingType;
 
         this.WriteLine($"Add value parsing adapt type '{declaredType}' to '{parsingType}'");
-    }
-}
-
-internal class AvaloniaDefaultValueParsingTypeAdapter : GenericValueParsingTypeAdapter
-{
-    public AvaloniaDefaultValueParsingTypeAdapter()
-    {
-        AddAdaptType(typeof(IBrush),           typeof(Brush));
-        AddAdaptType(typeof(ISolidColorBrush), typeof(Brush));
-        AddAdaptType(typeof(SolidColorBrush),  typeof(Brush));
-        AddAdaptType(typeof(ITransform),       typeof(TransformOperations));
-        AddAdaptType(typeof(Transform),        typeof(TransformOperations));
-        AddAdaptType(typeof(Transitions),      typeof(TransitionsParser));
     }
 }

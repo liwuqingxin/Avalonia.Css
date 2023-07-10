@@ -97,15 +97,15 @@ namespace Nlnet.Avalonia.Css.App
 
             if (propertyName is nameof(Theme))
             {
-                CssServiceLocator.GetService<ICssConfiguration>().Theme = Theme;
-                
+                CssBuilder.Default.Theme = Theme;
+
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateTheme();
                 cssTheme?.UpdateResource();
             }
             else if (propertyName is nameof(Mode))
             {
-                CssServiceLocator.GetService<ICssConfiguration>().Mode = Mode;
+                CssBuilder.Default.Mode = Mode;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateMode();

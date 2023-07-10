@@ -3,7 +3,7 @@ using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 
-namespace Nlnet.Avalonia.Css.Fluent;
+namespace Nlnet.Avalonia.Css.Controls;
 
 /// <summary>
 /// A converter to calculate '<see langword="f(x) = Factor * x^Order + Offset"/>', where x is a double.

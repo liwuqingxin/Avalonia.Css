@@ -4,7 +4,7 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Presenters;
 using Avalonia.Threading;
 
-namespace Nlnet.Avalonia.Css.Fluent
+namespace Nlnet.Avalonia.Css.Controls
 {
     [PseudoClasses(Pseudo_Changing, Pseudo_Changed)]
     public class AnimatingContainer : ContentPresenter

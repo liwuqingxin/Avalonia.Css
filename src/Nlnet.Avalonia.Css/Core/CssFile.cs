@@ -148,6 +148,9 @@ namespace Nlnet.Avalonia.Css
                                 .GetField("_childCache", BindingFlags.Instance | BindingFlags.NonPublic)
                                 ?.SetValue(theme, null);
                             
+                            //
+                            // TODO Do not consider the older of old and new styles now.
+                            //
                             theme.Add(style);
 
                             _disposable.Add(Disposable.Create(() =>

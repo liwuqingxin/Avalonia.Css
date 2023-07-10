@@ -7,9 +7,9 @@ namespace Nlnet.Avalonia.Css
     /// <summary>
     /// About fake attached property definition, see <see cref="Animation"/>.<see cref="Animation.SetAnimator"/>.
     /// </summary>
-    public class LoadedStateMixin
+    public static class LoadedStateMixin
     {
-        public const string Pseudo_IsLoaded = ":is-loaded";
+        private const string Pseudo_IsLoaded = ":is-loaded";
 
         /// <summary>
         /// Sets the value that indicates if enable the loaded-state for the control.
@@ -20,6 +20,8 @@ namespace Nlnet.Avalonia.Css
         {
             if (use == false)
             {
+                control.Loaded   -= ControlOnLoaded;
+                control.Unloaded -= ControlOnUnloaded;
                 return;
             }
 

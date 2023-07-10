@@ -5,7 +5,7 @@ using Avalonia.Media;
 namespace Nlnet.Avalonia.Css;
 
 /// <summary>
-/// Internal class resolver.
+/// Internal type resolver.
 /// </summary>
 internal class InternalResolver : ITypeResolver
 {

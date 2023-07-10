@@ -9,16 +9,20 @@ namespace Nlnet.Avalonia.Css
     {
         public static Transitions? Parse(string transitionsString)
         {
-            var interpreter    = ServiceLocator.GetService<ICssInterpreter>();
-            var transitions    = new Transitions();
-            var transitionList = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
+            var resourceProviders = ServiceLocator.GetService<IResourceProvidersManager>();
+            var interpreter       = ServiceLocator.GetService<ICssInterpreter>();
+            var transitions       = new Transitions();
+            var transitionList    = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)
             {
                 if (interpreter.IsVar(transition, out var key) && Application.Current != null)
                 {
-                    if (Application.Current.TryFindResource(key!, out var resource) && resource is ITransition t)
+                    //
+                    // NOTE TryFindResource will make it static but dynamic.
+                    //
+                    if (resourceProviders.TryFindResource<ITransition>(key!, out var resource))
                     {
-                        transitions.Add(t);
+                        transitions.Add(resource!);
                     }
                 }
                 else

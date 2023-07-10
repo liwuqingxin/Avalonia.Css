@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 
-namespace Nlnet.Avalonia.Css.Fluent
+namespace Nlnet.Avalonia.Css.Controls
 {
     public class TemplatedControlExtension : AvaloniaObject
     {

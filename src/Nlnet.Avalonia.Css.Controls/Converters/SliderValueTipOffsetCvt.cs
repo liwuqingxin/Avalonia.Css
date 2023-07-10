@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Layout;
 using Avalonia.VisualTree;
 
-namespace Nlnet.Avalonia.Css.Fluent
+namespace Nlnet.Avalonia.Css.Controls
 {
     public class SliderValueTipOffsetCvt : IMultiValueConverter
     {

@@ -5,33 +5,22 @@ using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ITypeResolverManager
-{
-    public void LoadResolver(ITypeResolver resolver);
-
-    public void UnloadResolver(ITypeResolver resolver);
-
-    public void LoadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter);
-
-    public void UnloadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter);
-
-    public bool TryGetType(string name, out Type? type);
-
-    public bool TryAdaptType(Type type, out Type? adaptedType);
-}
-
 internal class TypeResolverManager : ITypeResolverManager
 {
     private readonly List<ITypeResolver> _resolvers = new()
     {
+        // Avalonia.Controls
         new GenericResolver<Control>(),
+        // Avalonia.Base
         new GenericResolver<Transform>(),
+        // Internal Resolver.
         new InternalResolver(),
     };
 
     private readonly List<IValueParsingTypeAdapter> _typeAdapters = new()
     {
-        new AvaloniaDefaultValueParsingTypeAdapter(),
+        // Internal value parsing type adapter.
+        new InternalValueParsingTypeAdapter(),
     };
 
     public void LoadResolver(ITypeResolver resolver)

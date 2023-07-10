@@ -39,6 +39,7 @@ namespace Nlnet.Avalonia.Css
             SetService<ICssConfiguration, CssConfiguration>();
             SetService<ICssSectionFactory, CssSectionFactory>();
             SetService<ICssResourceFactory, CssResourceFactory>();
+            SetService<IResourceProvidersManager, ResourceProvidersManager>();
         }
     }
 }

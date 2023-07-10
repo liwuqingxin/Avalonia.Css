@@ -14,6 +14,14 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <AvaloniaXaml Remove="Assets\Styles.axaml" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<!--This helps with theme dll-s trimming. If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa. https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
 		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
 		<TrimmableAssembly Include="Avalonia.Themes.Default" />
@@ -30,17 +38,6 @@
 		</PackageReference>
 		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview4" />
 		<PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <None Update="Css\**">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>

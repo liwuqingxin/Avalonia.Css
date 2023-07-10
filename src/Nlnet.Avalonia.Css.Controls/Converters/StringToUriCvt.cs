@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 
-namespace Nlnet.Avalonia.Css.Fluent;
+namespace Nlnet.Avalonia.Css.Controls;
 
 public class StringToUriCvt : IValueConverter
 {

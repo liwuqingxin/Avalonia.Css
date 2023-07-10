@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Styling;
 
-namespace Nlnet.Avalonia.Css.Fluent
+namespace Nlnet.Avalonia.Css.Controls
 {
     public class Container : Border, IStyleable
     {

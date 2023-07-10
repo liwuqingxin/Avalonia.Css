@@ -1,6 +1,6 @@
 ﻿using Avalonia;
 
-namespace Nlnet.Avalonia.Css.Fluent;
+namespace Nlnet.Avalonia.Css.Controls;
 
 public class SliderExtension : AvaloniaObject
 {

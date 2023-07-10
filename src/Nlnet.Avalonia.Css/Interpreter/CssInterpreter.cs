@@ -14,33 +14,21 @@ using Avalonia.Data;
 
 namespace Nlnet.Avalonia.Css
 {
-    internal interface ICssInterpreter
-    {
-        public Selector? ToSelector(IEnumerable<ISyntax> syntaxList);
-
-        public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property);
-
-        public object? ParseValue(Type declaredType, string? rawValue);
-
-        public object? ParseValue(AvaloniaProperty avaloniaProperty, string? rawValue);
-
-        public bool IsVar(string? valueString, out string? varKey);
-
-        public bool IsBinding(string? valueString, out Binding? binding);
-
-        public ITransition? ParseTransition(string valueString);
-
-        public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString);
-    }
-
     internal class CssInterpreter : ICssInterpreter
     {
-        private readonly Regex             _varRegex            = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _bindingRegex        = new("^\\s*\\$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _transitionRegex     = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
-        private readonly Regex             _keyFrameRegex       = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
-        private readonly Regex             _SetterAnimatorRegex = new("\\s*(.*?)\\s*\\(([a-zA-Z0-9_]*)\\)\\s*");
+        // ' var (xxx) '
+        private readonly Regex _varRegex = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
+        // ' $(xxx).xxx ' or '$(xxx)#10.xxx '
+        private readonly Regex _bindingRegex = new("^\\s*\\$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
+        // ' @xxx.xxx '
+        private readonly Regex _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
+        // ' xxx(xxx) '
+        private readonly Regex _transitionRegex = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
+        // ' KeyFrame (xxx) : '
+        private readonly Regex _keyFrameRegex = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
+        // ' xxx (xxx) '
+        private readonly Regex _setterAnimatorRegex = new("\\s*(.*?)\\s*\\(([a-zA-Z0-9_]*)\\)\\s*");
+
         private readonly IEnumerable<Type> _transitionsTypes;
 
         public CssInterpreter()
@@ -380,7 +368,7 @@ namespace Nlnet.Avalonia.Css
                 foreach (var pair in pairs)
                 {
                     var propertyName  = pair.Item1;
-                    var matchAnimator = _SetterAnimatorRegex.Match(propertyName);
+                    var matchAnimator = _setterAnimatorRegex.Match(propertyName);
                     string? animatorType  = null;
                     if (matchAnimator.Success)
                     {

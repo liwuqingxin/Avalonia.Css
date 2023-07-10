@@ -5,23 +5,7 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Button.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Calendar.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/CheckBox.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ComboBox.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/DatePicker.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Expander.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Menu.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/NumericUpDown.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/PopupRoot.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ProgressBar.axaml" />
-                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/RadioButton.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/ScrollBar.axaml" />
-                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Slider.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/Switch.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TabControl.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TextBox.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Fluent/Assets/TimePicker.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Styles.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

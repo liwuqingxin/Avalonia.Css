@@ -24,14 +24,17 @@ namespace Nlnet.Avalonia.Css.App
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
+        private static AppBuilder BuildAvaloniaApp()
+        {
+            return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI()
+                .UseAvaloniaCssDefaultBuilder()
                 .With(new Win32PlatformOptions
                 {
                     AllowEglInitialization = true
                 });
+        }
     }
 }
