@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
+using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -142,6 +143,11 @@ namespace Nlnet.Avalonia.Css
                     {
                         if (styles.TryGetResource(cssThemeChildStyle.TargetType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
+                            // The child cache holds the references of old style instances.
+                            typeof(StyleBase)
+                                .GetField("_childCache", BindingFlags.Instance | BindingFlags.NonPublic)
+                                ?.SetValue(theme, null);
+                            
                             theme.Add(style);
 
                             _disposable.Add(Disposable.Create(() =>
