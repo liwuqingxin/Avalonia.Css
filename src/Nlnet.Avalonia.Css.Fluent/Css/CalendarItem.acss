@@ -28,6 +28,7 @@
             BorderThickness:0;
             Margin:6,10;
             CornerRadius:4;
+            HorizontalAlignment:Stretch;
         }
          /template/ Button#PART_HeaderButton:is-part{
             HorizontalContentAlignment:Left;

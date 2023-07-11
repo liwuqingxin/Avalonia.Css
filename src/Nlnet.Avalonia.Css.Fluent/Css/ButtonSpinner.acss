@@ -7,6 +7,7 @@
     CornerRadius: 4;
     Padding: 8,4,8,5;
     Opacity: 1;
+    MinHeight:28;
     RenderTransform: none;
     HorizontalContentAlignment: Center;
     HorizontalAlignment: Center;
@@ -30,23 +31,18 @@
         }
         /template/ StackPanel#PART_SpinnerPanel{
             Margin:1;
-            Spacing:1;
+            Spacing:2;
+            Margin:2,0;
+            Orientation:Horizontal;
+            FlowDirection:RightToLeft;
+            VerticalAlignment:Stretch;
         }
         /template/ RepeatButton#PART_IncreaseButton, /template/ RepeatButton#PART_DecreaseButton{
-            Height:12;
-            Width:24;
-        }
-        :right /template/ RepeatButton#PART_IncreaseButton{
-            CornerRadius:0,4,0,0;
-        }
-        :right /template/ RepeatButton#PART_DecreaseButton{
-            CornerRadius:0,0,4,0;
-        }
-        :left /template/ RepeatButton#PART_IncreaseButton{
-            CornerRadius:4,0,0,0;
-        }
-        :left /template/ RepeatButton#PART_DecreaseButton{
-            CornerRadius:0,0,0,4;
+            Margin:0,2;
+            Height:NaN;
+            Padding:8,0;
+            BorderThickness:0;
+            VerticalAlignment:Stretch;
         }
         /template/ PathIcon#PART_IncreaseButtonIcon{
             Data:M0,9 L10,0 20,9 19,10 10,2 1,10 z;

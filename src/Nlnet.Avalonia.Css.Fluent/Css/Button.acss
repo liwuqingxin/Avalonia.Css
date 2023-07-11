@@ -7,6 +7,7 @@
     CornerRadius: 4;
     Padding: 8,4,8,5;
     Opacity: 1;
+    MinHeight:28;
     RenderTransform: none;
     HorizontalContentAlignment: Center;
     HorizontalAlignment: Center;

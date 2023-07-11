@@ -46,7 +46,7 @@ TabControl#MainTabControl /template/ Border#PART_ContentBorder{
     BorderThickness:1,1,0,0;
     BorderBrush:var(control-border);
     CornerRadius:8,0,0,0;
-    Padding:24,24,8,0;
+    Padding:24,24,4,0;
     Margin:8,0,0,0;
 }
 TabControl#MainTabControl ScrollViewer#MainContentScrollViewer{
@@ -144,5 +144,13 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 
 /* Button in ButtonPage */
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
+    HorizontalAlignment:Left;
+}
+
+CalendarPage Calendar, CalendarPage CalendarDatePicker, CalendarPage TimePicker{
+    HorizontalAlignment:Left;
+}
+
+CheckBoxPage CheckBox, CheckBoxPage RadioButton{
     HorizontalAlignment:Left;
 }

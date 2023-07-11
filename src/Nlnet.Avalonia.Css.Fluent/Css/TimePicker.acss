@@ -22,6 +22,7 @@
     [[
          /template/ Button#PART_FlyoutButton{
             HorizontalContentAlignment:Stretch;
+            HorizontalAlignment:Stretch;
         }
         :hasnotime /template/ Button#PART_FlyoutButton TextBlock{
             Foreground:var(watermark);

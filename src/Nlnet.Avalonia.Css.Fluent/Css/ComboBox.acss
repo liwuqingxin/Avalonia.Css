@@ -43,7 +43,8 @@
             Background:var(comboboxitem-back);
         }
          /template/ Border#PopupBorder{
-            /* Background:var(comboboxitem-back); */
+            Background:var(comboboxitem-back);
+            CornerRadius:6;
             Padding:4;
         }
          /template/ PathIcon#DropDownGlyph{

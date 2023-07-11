@@ -102,7 +102,7 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="The Button control provides a Click event to respond to user input from a touch,mouse,keyboard,stylus,or other input device.You can put different kinds of content in a button,such as text or an image,or you can restyle a button to give it a new look."
+                   Text="The Button control provides a Click event to respond to user input from a touch, mouse, keyboard, stylus, or other input device. You can put different kinds of content in a button, such as text or an image, or you can restyle a button to give it a new look."
                    TextWrapping="Wrap" />
 
         <fluent:Case Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">

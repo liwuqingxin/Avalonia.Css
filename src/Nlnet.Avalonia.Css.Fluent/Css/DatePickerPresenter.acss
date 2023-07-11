@@ -9,6 +9,7 @@
         /* RepeatButton */
          /template/ RepeatButton:is-part {
             Height:30;
+            HorizontalAlignment:Stretch;
             BorderThickness:0;
             CornerRadius:0;
         }
@@ -53,21 +54,21 @@
         
 
         /* ListBoxItem */
-        DatePickerPresenter DateTimePickerPanel > ListBoxItem {
+        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem {
             Padding:8,0;
             RenderTransform:none;
             Transitions:[
                 var(gstRenderTransform);
             ]
         }
-        DatePickerPresenter DateTimePickerPanel > ListBoxItem:pressed {
+        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem:pressed {
             RenderTransform:scale(0.8,0.8);
         }
-        DatePickerPresenter DateTimePickerPanel > ListBoxItem TextBlock {
+        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem TextBlock {
             HorizontalAlignment:Center;
             FontSize:12;
         }
-        DatePickerPresenter DateTimePickerPanel#PART_MonthSelector > ListBoxItem TextBlock {
+        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem TextBlock {
             HorizontalAlignment:Left;
         }
 
@@ -107,10 +108,12 @@
         DatePickerPresenter /template/ Button#PART_AcceptButton {
             Margin:4,4,2,4;
             CornerRadius:4;
+            HorizontalAlignment:Stretch;
         }
         DatePickerPresenter /template/ Button#PART_DismissButton {
             Margin:2,4,4,4;
             CornerRadius:4;
+            HorizontalAlignment:Stretch;
         }
         DatePickerPresenter /template/ Rectangle#DatePickerFlyoutPresenterSpacer {
             Height:1;
