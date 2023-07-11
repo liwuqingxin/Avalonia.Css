@@ -32,7 +32,7 @@ public interface ICssLoader
     public ICssFile? BeginLoad(Styles styles, string filePath, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
-    /// Load avalonia css styles from an folder synchronously.
+    /// Load avalonia css styles from an folder synchronously. Note that this does not load recursively.
     /// </summary>
     /// <param name="styles"></param>
     /// <param name="folderPath"></param>
@@ -41,7 +41,7 @@ public interface ICssLoader
     public IEnumerable<ICssFile> LoadFolder(Styles styles, string folderPath, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
-    /// Load avalonia css styles from an folder synchronously.
+    /// Load avalonia css styles from an folder synchronously. Note that this does not load recursively.
     /// </summary>
     /// <param name="styles"></param>
     /// <param name="folderPath"></param>
@@ -70,7 +70,7 @@ public interface ICssLoader
     public ICssFile? BeginLoad(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
-    /// Load avalonia css styles from an folder synchronously.
+    /// Load avalonia css styles from an folder synchronously. Note that this does not load recursively.
     /// </summary>
     /// <param name="styles"></param>
     /// <param name="folderPath"></param>
@@ -80,7 +80,7 @@ public interface ICssLoader
     public IEnumerable<ICssFile> LoadFolder(Styles styles, string folderPath, string debugRelative, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
-    /// Load avalonia css styles from an folder synchronously.
+    /// Load avalonia css styles from an folder synchronously. Note that this does not load recursively.
     /// </summary>
     /// <param name="styles"></param>
     /// <param name="folderPath"></param>

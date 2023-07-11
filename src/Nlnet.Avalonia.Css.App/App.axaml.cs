@@ -29,17 +29,18 @@ namespace Nlnet.Avalonia.Css.App
             // Nlnet.Avalonia.SampleAssistant
             CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
 
-            // Load this.
+            // Load this. In this, CssFluentTheme will be loaded.
             AvaloniaXamlLoader.Load(this);
 
             if (Application.Current != null)
             {
                 // Load application acss files.
                 var loader = CssBuilder.Default.BuildLoader();
-                loader.Load(Application.Current.Styles, "../../../Nlnet.Avalonia.Css.App/Css/before.loaded.acss");
+                const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
+                loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
                 Dispatcher.UIThread.Post(() =>
                 {
-                    loader.Load(Application.Current.Styles, "../../../Nlnet.Avalonia.Css.App/Css/after.loaded.acss");
+                    loader.Load(Application.Current.Styles, "Css/after.loaded.acss", debugRelative);
                 });    
             }
         }
