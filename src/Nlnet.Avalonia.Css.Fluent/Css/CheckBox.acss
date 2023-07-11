@@ -23,41 +23,41 @@
     ]
 
     [[
-        CheckBox:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        CheckBox /template/ Border#PART_Box{
+         /template/ Border#PART_Box{
             Width:20;
             Height:20;
         }
-        CheckBox /template/ Path#PART_CheckGlyph{
+         /template/ Path#PART_CheckGlyph{
             Fill:#fff;
             Margin:1;
             Width:10;
             VerticalAlignment: Center;
         }
-        CheckBox:indeterminate,CheckBox:checked{
+        :indeterminate,:checked{
             Background:var(Accent);
             BorderBrush:var(Accent03);
             BorderThickness:4;
         }
-        CheckBox:indeterminate /template/ Path#PART_CheckGlyph{
+        :indeterminate /template/ Path#PART_CheckGlyph{
             Data:M 3.5 22.5 A 1.50015 1.50015 0 1 0 3.5 25.5 L 44.5 25.5 A 1.50015 1.50015 0 1 0 44.5 22.5 L 3.5 22.5 z;
         }
-        CheckBox:checked /template/ Path#PART_CheckGlyph{
+        :checked /template/ Path#PART_CheckGlyph{
             Data:M 43.470703 8.9863281 A 1.50015 1.50015 0 0 0 42.439453 9.4394531 L 16.5 35.378906 L 5.5605469 24.439453 A 1.50015 1.50015 0 1 0 3.4394531 26.560547 L 15.439453 38.560547 A 1.50015 1.50015 0 0 0 17.560547 38.560547 L 44.560547 11.560547 A 1.50015 1.50015 0 0 0 43.470703 8.9863281 z;
         }
-        CheckBox /template/ Border#PART_CheckGlyphContainer{
+         /template/ Border#PART_CheckGlyphContainer{
             Width:0; 
             Transitions:[
                 DoubleTransition(Border.Width 0.3)
             ]            
         }
-        CheckBox:checked /template/ Border#PART_CheckGlyphContainer, CheckBox:indeterminate /template/ Border#PART_CheckGlyphContainer{
+        :checked /template/ Border#PART_CheckGlyphContainer, :indeterminate /template/ Border#PART_CheckGlyphContainer{
             Width:12;
         }
-        CheckBox:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

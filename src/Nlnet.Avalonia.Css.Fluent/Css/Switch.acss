@@ -19,23 +19,23 @@
     ]
 
     [[
-        ToggleSwitch /template/ Border#SwitchKnobBounds{
+         /template/ Border#SwitchKnobBounds{
             Width:28;
             Height:16;
             Height:16;
         }
-        ToggleSwitch /template/ Canvas#PART_SwitchKnob{
+         /template/ Canvas#PART_SwitchKnob{
             Width:12;
             Height:16;
         }
-        ToggleSwitch /template/ Grid#PART_MovingKnobs{
+         /template/ Grid#PART_MovingKnobs{
             Width:16;
             Height:16;
             Transitions:[
                 DoubleTransition(Canvas.Left 0.3 0 CircularEaseInOut);
             ]
         }
-        ToggleSwitch /template/ Ellipse#SwitchKnob{
+         /template/ Ellipse#SwitchKnob{
             Width:12;
             Height:12;
             Fill:var(fore);
@@ -44,24 +44,24 @@
                 BrushTransition(Ellipse.Fill 0.3 0 CircularEaseInOut);
             ]
         }
-        ToggleSwitch:pressed /template/ Ellipse#SwitchKnob{
+        :pressed /template/ Ellipse#SwitchKnob{
             Width:16;
         }
-        ToggleSwitch:checked /template/ Ellipse#SwitchKnob{
+        :checked /template/ Ellipse#SwitchKnob{
             Fill:var(control-back);
         }
-        ToggleSwitch:checked {
+        :checked {
             Background:var(Accent);
         }
-        ToggleSwitch:pointerover:not(:checked){
+        :pointerover:not(:checked){
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        ToggleSwitch:pointerover:checked{
+        :pointerover:checked{
             Foreground: var(fore-hover);
             Background: var(Accent09);
         }
-        ToggleSwitch:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

@@ -24,53 +24,53 @@
         var(stOpacity);
     ]
     [[
-        CalendarDayButton /template/ Border#Root{
+        /template/ Border#Root{
             RenderTransform:none;
             BorderThickness:0;
             Transitions:[
                 var(gstRenderTransform);
             ]
         }
-        CalendarDayButton /template/ Border#Border{
+        /template/ Border#Border{
             Transitions:[
                 var(gstBorderBorderThickness);
             ]
         }
         
-        CalendarDayButton:pointerover:not(:blackout){
+        :pointerover:not(:blackout){
             Background:var(control-back-hover);
         }
-        CalendarDayButton:pressed:not(:blackout){
+        :pressed:not(:blackout){
             Background:var(control-back-pressed);
         }
-        CalendarDayButton:selected{
+        :selected{
             BorderBrush:var(Accent);
             BorderThickness:1;
         }
-        CalendarDayButton:inactive{
+        :inactive{
             Foreground:var(watermark);
         }
-        CalendarDayButton:blackout{
+        :blackout{
             Foreground:var(watermark);
         }
-        CalendarDayButton:blackout /template/ ContentControl#Content>TextBlock{
+        :blackout /template/ ContentControl#Content>TextBlock{
             TextDecorations:@TextDecorations.Strikethrough;
             Cursor:No;
         }
-        CalendarDayButton:disabled{
+        :disabled{
             Opacity:0.4;
         }
-        CalendarDayButton:today{
+        :today{
             Background:var(Accent);
             Foreground:var(fore-anti);
             [[
-                CalendarDayButton:pointerover{
+                :pointerover{
                     Background:var(Accent08);
                 }
-                CalendarDayButton:pressed{
+                :pressed{
                     Background:var(Accent07);
                 }
-                CalendarDayButton:selected /template/ Border#Root{
+                :selected /template/ Border#Root{
                     RenderTransform:scale(0.8,0.8);
                 }
             ]]

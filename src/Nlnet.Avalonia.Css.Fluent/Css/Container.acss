@@ -9,7 +9,7 @@
     ]
 
     [[
-        Container[UsePointerReaction=True]:pointerover{
+        [UsePointerReaction=True]:pointerover{
             Background: var(control-back-hover);
         }
     ]]

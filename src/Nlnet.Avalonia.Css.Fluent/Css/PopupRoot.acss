@@ -1,7 +1,7 @@
 ﻿
 >PopupRoot {
     [[
-        PopupRoot /template/ Border#PopupBorder{
+         /template/ Border#PopupBorder{
             BoxShadow: var(popup-shadow);
             CornerRadius: 6;
             BorderThickness: 1;

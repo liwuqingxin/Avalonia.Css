@@ -24,21 +24,21 @@
     ]
 
     [[
-        TextBox:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        TextBox /template/ TextBlock#PART_Watermark {
+         /template/ TextBlock#PART_Watermark {
             IsVisible:False;
             Foreground:var(watermark);
         }
-        TextBox:empty /template/ TextBlock#PART_Watermark {
+        :empty /template/ TextBlock#PART_Watermark {
             IsVisible:True;
         }
-        TextBox /template/ TextPresenter#PART_TextPresenter {
+         /template/ TextPresenter#PART_TextPresenter {
             ClipToBounds:True;
         }
-        TextBox /template/ Border#PART_Indicator {
+         /template/ Border#PART_Indicator {
             Background:var(Accent);
             Height: 2;
             Margin: 8,0,8,-1;
@@ -51,12 +51,12 @@
                 var(gstOpacity);
             ]
         }
-        TextBox:focus-within /template/ Border#PART_Indicator {
+        :focus-within /template/ Border#PART_Indicator {
             Opacity: 1;
             RenderTransform:scale(1,1);
             Margin: 8,0,8,-1;
         }
-        TextBox:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

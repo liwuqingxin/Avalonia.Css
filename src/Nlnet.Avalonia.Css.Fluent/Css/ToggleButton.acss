@@ -23,22 +23,22 @@
     ]
 
     [[
-        ToggleButton:not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
+        :not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow: var(button-shadow);
         }
-        ToggleButton:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        ToggleButton:pressed:not(:is-part){
+        :pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
         }
-        ToggleButton:checked{
+        :checked{
             Foreground: var(fore-anti);
             Background: var(Accent);
         }
-        ToggleButton:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

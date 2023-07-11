@@ -1,18 +1,18 @@
 ﻿
 >DatePickerPresenter {
     [[
-        DatePickerPresenter /template/ DateTimePickerPanel {
+         /template/ DateTimePickerPanel {
             ItemHeight:30;
         }
 
 
         /* RepeatButton */
-        DatePickerPresenter /template/ RepeatButton:is-part {
+         /template/ RepeatButton:is-part {
             Height:30;
             BorderThickness:0;
             CornerRadius:0;
         }
-        DatePickerPresenter /template/ RepeatButton[VerticalAlignment=Top] > Path {
+         /template/ RepeatButton[VerticalAlignment=Top] > Path {
             Data:M0,9 L10,0 20,9 19,10 10,2 1,10 z;
             VerticalAlignment:Stretch;
             HorizontalAlignment:Stretch;
@@ -25,7 +25,7 @@
                 var(gstRenderTransform);
             ]
         }
-        DatePickerPresenter /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
+         /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
             Data:M0,1 L10,10 20,1 19,0 10,8 1,0 z;
             VerticalAlignment:Stretch;
             HorizontalAlignment:Stretch;
@@ -38,16 +38,16 @@
                 var(gstRenderTransform);
             ]
         }
-        DatePickerPresenter /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
+         /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
             RenderTransform:translate(0, -5px);
         }
-        DatePickerPresenter /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
+         /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
             RenderTransform:translate(0, 5px);
         }
-        DatePickerPresenter /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
+         /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
             CornerRadius:0,4,0,0;
         }
-        DatePickerPresenter /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
+         /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
             CornerRadius:4,0,0,0;
         }
         

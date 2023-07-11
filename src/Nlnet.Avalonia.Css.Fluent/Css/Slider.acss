@@ -18,18 +18,18 @@
 
     [[
         /* RepeatButton */
-        Slider:horizontal RepeatButton /template/ Border#TrackBackground{
+        :horizontal RepeatButton /template/ Border#TrackBackground{
             Height: 2;
             CornerRadius: 4;
         }
-        Slider:vertical RepeatButton /template/ Border#TrackBackground{
+        :vertical RepeatButton /template/ Border#TrackBackground{
             Width: 2;
             CornerRadius: 4;
         }
         Slider RepeatButton{
             Transitions:null;
         }
-        Slider:pressed RepeatButton{
+        :pressed RepeatButton{
             Opacity: 1;
         }
         Slider RepeatButton#PART_DecreaseButton:pointerover /template/ Border#TrackBackground{
@@ -40,22 +40,22 @@
         }
 
         /* TickBar */
-        Slider /template/ TickBar#TopTickBar{
+         /template/ TickBar#TopTickBar{
             Margin:0,0,0,4;
             Height:6;
             Fill:var(slider-back);
         }        
-        Slider /template/ TickBar#BottomTickBar{
+         /template/ TickBar#BottomTickBar{
             Margin:0,4,0,0;
             Height:6;
             Fill:var(slider-back);
         }        
-        Slider /template/ TickBar#LeftTickBar{
+         /template/ TickBar#LeftTickBar{
             Margin:0,0,4,0;
             Width:6;
             Fill:var(slider-back);
         }        
-        Slider /template/ TickBar#RightTickBar{
+         /template/ TickBar#RightTickBar{
             Margin:4,0,0,0;
             Width:6;
             Fill:var(slider-back);
@@ -93,27 +93,27 @@
             Fill:var(Accent08);
             RenderTransform:scale(0.8,0.8);
         }
-        Slider:disabled{
+        :disabled{
             Opacity:0.4;
         }
 
         /* ValueTip */
-        Slider:horizontal /template/ Popup#ValueTipPopup{
+        :horizontal /template/ Popup#ValueTipPopup{
             VerticalOffset:-10;
             PlacementMode:Top;
         }
-        Slider:vertical /template/ Popup#ValueTipPopup{
+        :vertical /template/ Popup#ValueTipPopup{
             HorizontalOffset:-10;
             PlacementMode:Left;
         }
-        Slider /template/ TextBlock#ValueTipText{
+         /template/ TextBlock#ValueTipText{
             HorizontalAlignment: Center;
             Foreground:var(fore);
             Margin:16;
         }
 
         /* Massiness */
-        Slider.Massiness{
+        .Massiness{
             [[
                 Slider[Orientation=Horizontal] RepeatButton /template/ Border#TrackBackground{
                     Height: 4;

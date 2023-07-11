@@ -23,30 +23,30 @@
     ]
 
     [[
-        Button:not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
+        :not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow: var(button-shadow);
         }
-        Button:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        Button:pressed:not(:is-part){
+        :pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
         }
-        Button:disabled{
+        :disabled{
             Opacity:0.4;
         }
         /* 主题分类 */
-        Button.primary, Button.Primary, Button[(ButtonStyles.Style)=Accent] {
+        .primary, .Primary, [(ButtonStyles.Style)=Accent] {
             Background: var(Accent);
             Foreground: #fff;
             [[
-                Button:pointerover{
+                :pointerover{
                     Background: var(Accent09);
                     Foreground: #fff;
                 }
-                Button:pressed:not(:is-part){
+                :pressed:not(:is-part){
                     Opacity:0.8;
                 }
             ]]

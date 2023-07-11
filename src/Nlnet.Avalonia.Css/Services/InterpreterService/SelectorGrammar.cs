@@ -114,6 +114,20 @@ namespace Nlnet.Avalonia.Css
             {
                 return State.Name;
             }
+            //
+            // By nlb 2023/7/11: For child style started with property or attached property.
+            //
+            else if (r.TakeIf('['))
+            {
+                return State.Property;
+            }
+            //
+            // By nlb 2023/7/11: For child style started with /template/.
+            //
+            else if (r.TakeIf('/'))
+            {
+                return State.Template;
+            }
             return State.TypeName;
         }
 

@@ -20,24 +20,24 @@
         var(stOpacity);
     ]
     [[
-        CalendarButton:pointerover{
+        :pointerover{
             Background:var(control-back-hover);
         }
-        CalendarButton:pressed{
+        :pressed{
             Background:var(control-back-pressed);
         }
-        CalendarButton:selected{
+        :selected{
             Background:var(Accent);
             Foreground:var(fore-anti);
         }
-        CalendarButton:inactive{
+        :inactive{
             Foreground:var(watermark);
         }
-        CalendarButton:blackout{
+        :blackout{
             Foreground:var(watermark);
             Opacity:0.6;
         }
-        CalendarButton:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]
