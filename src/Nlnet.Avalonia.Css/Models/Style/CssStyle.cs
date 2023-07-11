@@ -10,7 +10,7 @@ internal interface ICssStyle : ICssSection
 {
     public bool IsThemeChild { get; }
 
-    public Type? TargetType { get; }
+    public Type? ThemeTargetType { get; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
@@ -32,7 +32,7 @@ internal class CssStyle : CssSection, ICssStyle
 
     public bool IsThemeChild { get; set; }
 
-    public Type? TargetType { get; set; }
+    public Type? ThemeTargetType { get; set; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
@@ -75,7 +75,7 @@ internal class CssStyle : CssSection, ICssStyle
 
         if(IsThemeChild)
         {
-            TargetType = syntaxList.First().ToSelector(_builder, null)?.TargetType;
+            ThemeTargetType = syntaxList.First().ToSelector(_builder, null)?.TargetType;
             syntaxList = syntaxList.Skip(1).ToList();
         }
 
@@ -116,7 +116,7 @@ internal class CssStyle : CssSection, ICssStyle
             Selector = _selector
         };
 
-        var targetType = style.Selector?.TargetType ?? TargetType;
+        var targetType = style.Selector?.TargetType ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
         if (targetType != null)
         {
             // Resources

@@ -142,9 +142,9 @@ namespace Nlnet.Avalonia.Css
                 {
                     _disposable ??= new CompositeDisposable(cssThemeChildStyles.Count);
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
-                    if (cssThemeChildStyle.TargetType != null)
+                    if (cssThemeChildStyle.ThemeTargetType != null)
                     {
-                        if (styles.TryGetResource(cssThemeChildStyle.TargetType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                        if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
                             // The child cache holds the references of old style instances.
                             typeof(StyleBase)
