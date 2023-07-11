@@ -1,5 +1,5 @@
 ﻿
->ScrollBar {
+^ScrollBar {
     Background: Transparent;
     Opacity: 0.4;
     

@@ -1,5 +1,5 @@
 ﻿
->MenuItem {
+^MenuItem {
     Foreground: var(fore);
     Background: Transparent;
     Padding: 8,4,8,5;
@@ -87,7 +87,7 @@
     ]]
 }
 
->MenuFlyoutPresenter {
+^MenuFlyoutPresenter {
     VerticalOffset:-10;
     [[
         MenuFlyoutPresenter /template/ ScrollViewer#PART_ScrollViewer {
@@ -97,7 +97,7 @@
     ]]
 }
 
->ContextMenu {
+^ContextMenu {
     HorizontalOffset:-10;
     VerticalOffset:-10;
     [[

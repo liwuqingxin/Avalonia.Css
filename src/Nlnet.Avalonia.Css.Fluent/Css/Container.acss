@@ -1,4 +1,4 @@
-﻿>Container {
+﻿^Container {
     Background: var(control-back);
     Padding: 8;
     BorderBrush: var(control-border);

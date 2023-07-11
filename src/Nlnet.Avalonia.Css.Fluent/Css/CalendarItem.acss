@@ -1,5 +1,5 @@
 ﻿
->CalendarItem {
+^CalendarItem {
     CornerRadius: 6;    
     [[
          /template/ Grid#PART_LayoutRoot{

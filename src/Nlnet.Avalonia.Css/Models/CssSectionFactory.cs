@@ -15,7 +15,7 @@ internal class CssSectionFactory : ICssSectionFactory
 
     private readonly Regex _regexResource        = new(":res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
     private readonly Regex _regexAnimation       = new(":animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
-    private readonly Regex _regexThemeChildStyle = new("^\\s*>\\s*(.*)", RegexOptions.IgnoreCase);
+    private readonly Regex _regexThemeChildStyle = new("^\\s*\\^\\s*(.*)", RegexOptions.IgnoreCase);
 
     public CssSectionFactory(ICssBuilder builder)
     {
