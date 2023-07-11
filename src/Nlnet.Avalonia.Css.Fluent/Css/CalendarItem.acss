@@ -15,11 +15,15 @@
             MinHeight:290;
             Margin:8;
         }
-         /template/ Grid#PART_MonthView > TextBlock.Week{
-            VerticalAlignment:Center;
-            HorizontalAlignment:Center;
-            Margin:0,12;
-            FontSize:12;
+         /template/ Grid#PART_MonthView{
+            [[
+                >TextBlock.Week{
+                    VerticalAlignment:Center;
+                    HorizontalAlignment:Center;
+                    Margin:0,12;
+                    FontSize:12;
+                }
+            ]]
         }
          /template/ Grid#PART_YearView{
             MinHeight:290;

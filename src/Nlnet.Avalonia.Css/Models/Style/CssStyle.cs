@@ -10,6 +10,8 @@ internal interface ICssStyle : ICssSection
 {
     public bool IsThemeChild { get; }
 
+    public bool IsLogicalChild { get; }
+
     public Type? ThemeTargetType { get; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
@@ -22,7 +24,7 @@ internal interface ICssStyle : ICssSection
 
     public Selector? GetSelector();
 
-    public Style ToAvaloniaStyle();
+    public ChildStyle ToAvaloniaStyle();
 }
 
 internal class CssStyle : CssSection, ICssStyle
@@ -31,6 +33,8 @@ internal class CssStyle : CssSection, ICssStyle
     private          Selector?   _selector;
 
     public bool IsThemeChild { get; set; }
+
+    public bool IsLogicalChild { get; set; }
 
     public Type? ThemeTargetType { get; set; }
 
@@ -66,7 +70,7 @@ internal class CssStyle : CssSection, ICssStyle
 
     private Selector? CreateSelector()
     {
-        var isChild = Parent != null || IsThemeChild;
+        var isChild = (Parent != null && IsLogicalChild == false) || IsThemeChild;
 
         // Selector
         var selector   = isChild ? Selectors.Nesting(null) : null;
@@ -107,14 +111,11 @@ internal class CssStyle : CssSection, ICssStyle
         return _selector;
     }
 
-    public Style ToAvaloniaStyle()
+    public ChildStyle ToAvaloniaStyle()
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
-        var style = new Style
-        {
-            Selector = _selector
-        };
+        var style = GetNewStyle();
 
         var targetType = style.Selector?.TargetType ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
         if (targetType != null)
@@ -146,8 +147,20 @@ internal class CssStyle : CssSection, ICssStyle
             {
                 foreach (var cssStyle in Styles)
                 {
-                    var childStyle = cssStyle.ToAvaloniaStyle();
-                    style.Add(childStyle);
+                    if (cssStyle.IsLogicalChild)
+                    {
+                        var setter = new Setter()
+                        {
+                            Property = ExStyler.AddingStyleProperty,
+                            Value    = cssStyle,
+                        };
+                        style.Add(setter);
+                    }
+                    else
+                    {
+                        var childStyle = cssStyle.ToAvaloniaStyle();
+                        style.Add(childStyle);
+                    }
                 }
             }
 
@@ -166,6 +179,19 @@ internal class CssStyle : CssSection, ICssStyle
         }
 
         return style;
+    }
+
+    private ChildStyle GetNewStyle()
+    {
+        return IsLogicalChild
+            ? new LogicChildStyle(this)
+            {
+                Selector = _selector
+            }
+            : new ChildStyle(this)
+            {
+                Selector = _selector
+            };
     }
 
     public override string ToString()

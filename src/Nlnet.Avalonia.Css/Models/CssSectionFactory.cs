@@ -13,9 +13,10 @@ internal class CssSectionFactory : ICssSectionFactory
 {
     private readonly ICssBuilder _builder;
 
-    private readonly Regex _regexResource        = new(":res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
-    private readonly Regex _regexAnimation       = new(":animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
-    private readonly Regex _regexThemeChildStyle = new("^\\s*\\^\\s*(.*)", RegexOptions.IgnoreCase);
+    private readonly Regex _regexResource          = new(":res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
+    private readonly Regex _regexAnimation         = new(":animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
+    private readonly Regex _regexThemeChildStyle   = new("^\\s*\\^\\s*(.*)", RegexOptions.IgnoreCase);
+    private readonly Regex _regexLogicalChildStyle = new("^\\s*>\\s*(.*)", RegexOptions.IgnoreCase);
 
     public CssSectionFactory(ICssBuilder builder)
     {
@@ -33,11 +34,18 @@ internal class CssSectionFactory : ICssSectionFactory
         {
             section = new CssAnimation(_builder, selector);
         }
-        else if (_regexThemeChildStyle.Match(selector) is { Success: true } match)
+        else if (_regexThemeChildStyle.Match(selector) is { Success: true } match1)
         {
-            section = new CssStyle(_builder, match.Groups[1].Value)
+            section = new CssStyle(_builder, match1.Groups[1].Value)
             {
                 IsThemeChild = true,
+            };
+        }
+        else if (_regexLogicalChildStyle.Match(selector) is { Success: true } match2)
+        {
+            section = new CssStyle(_builder, match2.Groups[1].Value)
+            {
+                IsLogicalChild = true,
             };
         }
         else
