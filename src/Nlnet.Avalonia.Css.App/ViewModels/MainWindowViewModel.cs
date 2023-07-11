@@ -97,7 +97,7 @@ namespace Nlnet.Avalonia.Css.App
 
             if (propertyName is nameof(Theme))
             {
-                CssBuilder.Default.Theme = Theme;
+                CssBuilder.Default.Configuration.Theme = Theme;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateTheme();
@@ -105,7 +105,7 @@ namespace Nlnet.Avalonia.Css.App
             }
             else if (propertyName is nameof(Mode))
             {
-                CssBuilder.Default.Mode = Mode;
+                CssBuilder.Default.Configuration.Mode = Mode;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateMode();

@@ -8,6 +8,11 @@ namespace Nlnet.Avalonia.Css;
 public interface ICssFile : IStyle
 {
     /// <summary>
+    /// The standard file path.
+    /// </summary>
+    public string StandardFilePath { get; }
+
+    /// <summary>
     /// Reload this from the file.
     /// </summary>
     public void Reload();

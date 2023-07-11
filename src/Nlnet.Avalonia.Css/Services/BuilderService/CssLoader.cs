@@ -15,14 +15,30 @@ internal class CssLoader : ICssLoader
 
     public ICssBuilder CssBuilder { get; }
 
-    ICssFile ICssLoader.Load(Styles styles, string filePath, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.Load(Styles styles, string filePath, bool autoReloadWhenFileChanged)
     {
-        return CssFile.Load(CssBuilder, styles, filePath, autoReloadWhenFileChanged);
+        filePath = GetStandardPath(filePath);
+        if (CssBuilder.TryGetCssFile(filePath, out _))
+        {
+            return null;
+        }
+
+        var file = CssFile.Load(CssBuilder, styles, filePath, autoReloadWhenFileChanged);
+        CssBuilder.TryAddCssFile(file);
+        return file;
     }
 
-    ICssFile ICssLoader.BeginLoad(Styles styles, string filePath, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.BeginLoad(Styles styles, string filePath, bool autoReloadWhenFileChanged)
     {
-        return CssFile.BeginLoad(CssBuilder, styles, filePath, autoReloadWhenFileChanged);
+        filePath = GetStandardPath(filePath);
+        if (CssBuilder.TryGetCssFile(filePath, out _))
+        {
+            return null;
+        }
+
+        var file = CssFile.BeginLoad(CssBuilder, styles, filePath, autoReloadWhenFileChanged);
+        CssBuilder.TryAddCssFile(file);
+        return file;
     }
 
     IEnumerable<ICssFile> ICssLoader.LoadFolder(Styles styles, string folderPath, bool autoReloadWhenFileChanged)
@@ -36,7 +52,7 @@ internal class CssLoader : ICssLoader
             .GetFiles()
             .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase));
 
-        return files.Select(f => CssFile.Load(CssBuilder, styles, f.FullName, autoReloadWhenFileChanged)).ToList();
+        return files.Select(f => ((ICssLoader)this).Load(styles, f.FullName, autoReloadWhenFileChanged)).OfType<ICssFile>().ToList();
     }
 
     IEnumerable<ICssFile> ICssLoader.BeginLoadFolder(Styles styles, string folderPath, bool autoReloadWhenFileChanged)
@@ -50,10 +66,10 @@ internal class CssLoader : ICssLoader
             .GetFiles()
             .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase));
 
-        return files.Select(f => CssFile.BeginLoad(CssBuilder, styles, f.FullName, autoReloadWhenFileChanged)).ToList();
+        return files.Select(f => ((ICssLoader)this).BeginLoad(styles, f.FullName, autoReloadWhenFileChanged)).OfType<ICssFile>().ToList();
     }
 
-    ICssFile ICssLoader.Load(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.Load(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
     {
 #if DEBUG
         var path = Path.Combine(debugRelative, filePath);
@@ -63,7 +79,7 @@ internal class CssLoader : ICssLoader
 #endif
     }
 
-    ICssFile ICssLoader.BeginLoad(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.BeginLoad(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
     {
 #if DEBUG
         var path = Path.Combine(debugRelative, filePath);
@@ -91,5 +107,12 @@ internal class CssLoader : ICssLoader
 #else
         return ((ICssLoader)this).BeginLoadFolder(styles, folderPath, autoReloadWhenFileChanged);
 #endif
+    }
+
+
+
+    private static string GetStandardPath(string path)
+    {
+        return Path.GetFullPath(path).ToLower();
     }
 }

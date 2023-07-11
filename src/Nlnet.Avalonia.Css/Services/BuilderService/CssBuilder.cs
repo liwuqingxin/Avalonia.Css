@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 using Avalonia.Controls;
 
@@ -53,17 +55,18 @@ public class CssBuilder : ICssBuilder
 
     private ICssBuilder Internal => (ICssBuilder)this;
 
-    private ICssParser Parser { get; set; }
+    private ICssParser Parser { get; }
 
-    private ICssInterpreter Interpreter { get; set; }
+    private ICssInterpreter Interpreter { get; }
 
-    private ICssSectionFactory SectionFactory { get; set; }
+    private ICssSectionFactory SectionFactory { get; }
 
-    private ICssResourceFactory ResourceFactory { get; set; }
+    private ICssResourceFactory ResourceFactory { get; }
 
 
 
     private ICssLoader? _loader;
+    private readonly ConcurrentDictionary<string, ICssFile> _files = new();
 
     ICssParser ICssBuilder.Parser => Parser;
 
@@ -74,6 +77,29 @@ public class CssBuilder : ICssBuilder
     ICssResourceFactory ICssBuilder.ResourceFactory => ResourceFactory;
 
     ITypeResolverManager ICssBuilder.TypeResolver { get; } = new TypeResolverManager();
+
+    bool ICssBuilder.TryAddCssFile(ICssFile file)
+    {
+        if (_files.TryGetValue(file.StandardFilePath, out var f))
+        {
+            return false;
+        }
+
+        _files.TryAdd(file.StandardFilePath, file);
+        return true;
+    }
+
+    bool ICssBuilder.TryGetCssFile(string standardFilePath, out ICssFile? file)
+    {
+        if (_files.TryGetValue(standardFilePath, out var f))
+        {
+            file = f;
+            return true;
+        }
+
+        file = null;
+        return false;
+    }
 
     ICssConfiguration ICssBuilder.Configuration { get; } = new CssConfiguration();
 
@@ -121,23 +147,6 @@ public class CssBuilder : ICssBuilder
     bool ITypeResolverManager.TryAdaptType(Type type, out Type? adaptedType)
     {
         return Internal.TypeResolver.TryAdaptType(type, out adaptedType);
-    }
-
-    #endregion
-
-
-    
-    #region ICssConfiguration
-
-    public string? Theme
-    {
-        get => Internal.Configuration.Theme;
-        set => Internal.Configuration.Theme = value;
-    }
-    public string? Mode
-    {
-        get => Internal.Configuration.Mode;
-        set => Internal.Configuration.Mode = value;
     }
 
     #endregion

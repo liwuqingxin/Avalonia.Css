@@ -20,7 +20,7 @@ public interface ICssLoader
     /// <param name="filePath"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public ICssFile Load(Styles styles, string filePath, bool autoReloadWhenFileChanged = true);
+    public ICssFile? Load(Styles styles, string filePath, bool autoReloadWhenFileChanged = true);
     
     /// <summary>
     /// Load a avalonia css style from an css file asynchronously.
@@ -29,7 +29,7 @@ public interface ICssLoader
     /// <param name="filePath"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public ICssFile BeginLoad(Styles styles, string filePath, bool autoReloadWhenFileChanged = true);
+    public ICssFile? BeginLoad(Styles styles, string filePath, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
     /// Load avalonia css styles from an folder synchronously.
@@ -57,7 +57,7 @@ public interface ICssLoader
     /// <param name="debugRelative"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public ICssFile Load(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
+    public ICssFile? Load(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
     /// Load a avalonia css style from an css file with relative path of debug asynchronously.
@@ -67,7 +67,7 @@ public interface ICssLoader
     /// <param name="debugRelative"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public ICssFile BeginLoad(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
+    public ICssFile? BeginLoad(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
     /// Load avalonia css styles from an folder synchronously.

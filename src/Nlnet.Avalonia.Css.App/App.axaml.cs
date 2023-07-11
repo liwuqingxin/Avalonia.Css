@@ -19,8 +19,8 @@ namespace Nlnet.Avalonia.Css.App
             CssBuilder.UseDefaultBuilder();
 
             // Set the current mode and theme.
-            CssBuilder.Default.Theme = "blue";
-            CssBuilder.Default.Mode= "light";
+            CssBuilder.Default.Configuration.Theme = "blue";
+            CssBuilder.Default.Configuration.Mode  = "light";
 
             // Nlnet.Avalonia.Css.App
             CssBuilder.Default.LoadResolver(new GenericResolver<App>());

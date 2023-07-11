@@ -56,7 +56,7 @@ namespace Nlnet.Avalonia.Css
                 throw new InvalidOperationException($"{nameof(CssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (styles.OfType<CssFile>().FirstOrDefault(s => s._file == filePath) is { } exist)
+            if (styles.OfType<CssFile>().FirstOrDefault(s => s.StandardFilePath == filePath) is { } exist)
             {
                 return exist;
             }
@@ -75,7 +75,6 @@ namespace Nlnet.Avalonia.Css
 
         private readonly ICssBuilder          _cssBuilder;
         private readonly Styles               _styles;
-        private readonly string               _file;
         private readonly FileSystemWatcher?   _watcher;
         private          CompositeDisposable? _disposable;
 
@@ -83,7 +82,7 @@ namespace Nlnet.Avalonia.Css
         {
             _cssBuilder = cssBuilder;
             _styles     = styles;
-            _file       = Path.GetFullPath(filePath);
+            StandardFilePath       = Path.GetFullPath(filePath);
 
             var dir = Path.GetDirectoryName(filePath);
             if (autoLoadWhenFileChanged && dir != null)
@@ -123,7 +122,7 @@ namespace Nlnet.Avalonia.Css
             try
             {
                 var parser              = _cssBuilder.Parser;
-                var cssContent          = File.ReadAllText(_file);
+                var cssContent          = File.ReadAllText(StandardFilePath);
                 var css                 = parser.RemoveComments(cssContent.ToCharArray());
                 var sections            = parser.ParseSections(null, css).ToList();
                 var cssStyles           = sections.OfType<ICssStyle>().Where(s => !s.IsThemeChild);
@@ -252,12 +251,20 @@ namespace Nlnet.Avalonia.Css
 
         public override string ToString()
         {
-            return $"{nameof(CssFile)} {_file}";
+            return $"{nameof(CssFile)} {StandardFilePath}";
         }
+
+
+
+        #region ICssFile
+
+        public string StandardFilePath { get; }
 
         public void Reload()
         {
             this.Load(_styles);
         }
+
+        #endregion
     }
 }

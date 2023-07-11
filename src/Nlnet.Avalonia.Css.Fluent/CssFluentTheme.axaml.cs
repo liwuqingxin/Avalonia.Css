@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Nlnet.Avalonia.Css.Controls;
 
@@ -34,13 +33,13 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             var loader = CssBuilder.Default.BuildLoader();
 
-            const string relativePath = "../../../Nlnet.Avalonia.Css.Fluent/";
+            const string debugRelative = "../../../Nlnet.Avalonia.Css.Fluent/";
 
-            _modeFile     = loader.Load(this, "Css/Resources/Mode.acss",      relativePath);
-            _themeFile    = loader.Load(this, "Css/Resources/Theme.acss",     relativePath);
-            _resourceFile = loader.Load(this, "Css/Resources/Resources.acss", relativePath);
+            _modeFile     = loader.Load(this, "Css/Resources/Mode.acss",      debugRelative);
+            _themeFile    = loader.Load(this, "Css/Resources/Theme.acss",     debugRelative);
+            _resourceFile = loader.Load(this, "Css/Resources/Resources.acss", debugRelative);
 
-            loader.LoadFolder(this, "Css/", relativePath);
+            loader.LoadFolder(this, "Css/", debugRelative);
         }
 
         public void UpdateResource()
