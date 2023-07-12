@@ -72,11 +72,6 @@
          /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:2;
         }
-        MenuItem Separator{
-            Margin:0,4;
-            Background:var(watermark);
-            Opacity:0.2;
-        }
 
         :disabled{
             Opacity:0.4;
@@ -84,10 +79,21 @@
     ]]
 }
 
+MenuItem{
+    [[
+        MenuItem Separator{
+            Margin:0,4;
+            Height:1;
+            Background:var(watermark);
+            Opacity:0.2;
+        }
+    ]]
+}
+
 ^MenuFlyoutPresenter {
     VerticalOffset:-10;
     [[
-        MenuFlyoutPresenter /template/ ScrollViewer#PART_ScrollViewer {
+         /template/ ScrollViewer#PART_ScrollViewer {
             HorizontalScrollBarVisibility:Disabled;
             Margin:4;
         }
@@ -98,7 +104,7 @@
     HorizontalOffset:-10;
     VerticalOffset:-10;
     [[
-        ContextMenu /template/ ScrollViewer#PART_ScrollViewer {
+         /template/ ScrollViewer#PART_ScrollViewer {
             HorizontalScrollBarVisibility:Disabled;
             Margin:4;
         }

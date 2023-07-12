@@ -73,18 +73,18 @@
         }
 
         /* 分割线 */
-        DatePickerPresenter /template/ Rectangle#HighlightRect {
+         /template/ Rectangle#HighlightRect {
             VerticalAlignment:Center;
             Fill:var(Accent);
             Height:30;
             Opacity:0;
         }
-        DatePickerPresenter /template/ Rectangle#PART_FirstSpacer {
+         /template/ Rectangle#PART_FirstSpacer {
             Width:1;
             HorizontalAlignment:Center;
             Fill:var(control-border);
         }
-        DatePickerPresenter /template/ Rectangle#PART_SecondSpacer {
+         /template/ Rectangle#PART_SecondSpacer {
             Width:1;
             HorizontalAlignment:Center;
             Fill:var(control-border);
@@ -92,29 +92,29 @@
 
 
         /* 底栏 */
-        DatePickerPresenter /template/ Path#PART_AcceptButtonPath {
+         /template/ Path#PART_AcceptButtonPath {
             Data:M0.5,8.5 5,13.5 15.5,3;
             StrokeLineCap:Round;
             StrokeThickness:0.75;
             Stroke:var(fore);
         }
-        DatePickerPresenter /template/ Path#PART_DismissButtonPath {
+         /template/ Path#PART_DismissButtonPath {
             Data:M2,2 14,14 M2,14 14 2;
             StrokeLineCap:Round;
             StrokeThickness:0.75;
             Stroke:var(fore);
         }
-        DatePickerPresenter /template/ Button#PART_AcceptButton {
+         /template/ Button#PART_AcceptButton {
             Margin:4,4,2,4;
             CornerRadius:4;
             HorizontalAlignment:Stretch;
         }
-        DatePickerPresenter /template/ Button#PART_DismissButton {
+         /template/ Button#PART_DismissButton {
             Margin:2,4,4,4;
             CornerRadius:4;
             HorizontalAlignment:Stretch;
         }
-        DatePickerPresenter /template/ Rectangle#DatePickerFlyoutPresenterSpacer {
+         /template/ Rectangle#DatePickerFlyoutPresenterSpacer {
             Height:1;
             Fill:var(control-border);
         }

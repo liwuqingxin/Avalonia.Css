@@ -55,11 +55,13 @@ TabControl#MainTabControl ScrollViewer#MainContentScrollViewer{
 TabControl#MainTabControl ScrollViewer#MainContentScrollViewer > ContentControl{
     Margin:0,0,12,0;
 }
+TabControl#MainTabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel{
+    MinWidth:250;
+}
 
 
 /* TabItem in main TabControl */
 TabItem{
-    MinWidth:250;
     ClipToBounds:False;
 }
 TabItem ContentControl{
@@ -152,5 +154,9 @@ CalendarPage Calendar, CalendarPage CalendarDatePicker, CalendarPage TimePicker{
 }
 
 CheckBoxPage CheckBox, CheckBoxPage RadioButton{
+    HorizontalAlignment:Left;
+}
+
+TextBoxPage TextBox{
     HorizontalAlignment:Left;
 }
