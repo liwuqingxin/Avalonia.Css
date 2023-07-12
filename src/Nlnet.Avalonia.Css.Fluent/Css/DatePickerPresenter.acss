@@ -46,32 +46,31 @@
             RenderTransform:translate(0, 5px);
         }
          /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
-            CornerRadius:0,4,0,0;
+            CornerRadius:0,6,0,0;
         }
          /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
-            CornerRadius:4,0,0,0;
+            CornerRadius:6,0,0,0;
         }
         
 
         /* ListBoxItem */
-        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem {
-            Padding:8,0;
-            RenderTransform:none;
-            Transitions:[
-                var(gstRenderTransform);
-            ]
+        /template/ DateTimePickerPanel{
+            [[
+                >ListBoxItem{
+                    Padding:8,0;
+                    RenderTransform:none;
+                    Transitions:[
+                        var(gstRenderTransform);
+                    ]
+                }
+                >ListBoxItem:pressed{
+                    RenderTransform:scale(0.97,0.97);
+                }
+                >ListBoxItem TextBlock{
+                    HorizontalAlignment:Center;
+                }
+            ]]
         }
-        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem:pressed {
-            RenderTransform:scale(0.8,0.8);
-        }
-        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem TextBlock {
-            HorizontalAlignment:Center;
-            FontSize:12;
-        }
-        /template/ DateTimePickerPanel#PART_MonthSelector > ListBoxItem TextBlock {
-            HorizontalAlignment:Left;
-        }
-
 
         /* 分割线 */
         DatePickerPresenter /template/ Rectangle#HighlightRect {

@@ -13,7 +13,6 @@
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
-    FontSize:12;
     Transitions:[
         /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);

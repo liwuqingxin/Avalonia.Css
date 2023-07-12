@@ -17,7 +17,6 @@
     ScrollViewer.HorizontalScrollBarVisibility:Disabled;
     ScrollViewer.VerticalScrollBarVisibility:Auto;
     /* PlaceholderForeground:Red; */
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

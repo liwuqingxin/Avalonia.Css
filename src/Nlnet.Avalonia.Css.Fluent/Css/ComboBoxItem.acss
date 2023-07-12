@@ -10,7 +10,6 @@
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

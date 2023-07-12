@@ -4,14 +4,12 @@
     Background: Transparent;
     Padding: 8,4,8,5;
     Opacity: 1;
-    FontSize:12;
     CornerRadius: 3;
     RenderTransform: none;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Center;
     Height:28;
     ClipToBounds:False;
-    FontSize:12;
     Transitions:[
         var(stBackground);
     ]
@@ -38,7 +36,6 @@
             HorizontalAlignment:Right;
             VerticalAlignment:Center;
             Margin:28,0,0,0;
-            FontSize:12;
             FontWeight:Light;
             Foreground:var(watermark);
         }

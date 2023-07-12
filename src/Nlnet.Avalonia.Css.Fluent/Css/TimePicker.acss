@@ -13,7 +13,6 @@
     VerticalAlignment: Stretch;
     ClipToBounds:False;
     MinWidth:150;
-    FontSize:12;
     Transitions:[
         var(stBorderBrush);
         var(stBackground);

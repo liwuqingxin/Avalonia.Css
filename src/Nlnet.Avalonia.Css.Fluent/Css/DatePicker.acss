@@ -13,7 +13,6 @@
     VerticalAlignment: Stretch;
     ClipToBounds:False;
     MinWidth:200;
-    FontSize:12;
     Transitions:[
         var(stBorderBrush);
         var(stBackground);
@@ -41,7 +40,7 @@
         }
          /template/ TextBlock#PART_MonthTextBlock{
             Text:Month;
-            HorizontalAlignment:Left;
+            HorizontalAlignment:Center;
         }
          /template/ TextBlock#PART_YearTextBlock{
             Text:Year;

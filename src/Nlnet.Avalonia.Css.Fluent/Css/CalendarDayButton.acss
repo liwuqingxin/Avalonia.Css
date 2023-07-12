@@ -10,7 +10,6 @@
     Margin:0; 
     Width:40; 
     Height:40;
-    FontSize:12;
     RenderTransform: none;
     HorizontalContentAlignment: Center;
     HorizontalAlignment: Center;

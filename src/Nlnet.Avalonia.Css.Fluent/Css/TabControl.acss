@@ -6,7 +6,6 @@
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
-    FontSize:12;
     [[
          /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;

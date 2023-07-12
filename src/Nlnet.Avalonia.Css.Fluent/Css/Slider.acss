@@ -8,7 +8,6 @@
     Opacity: 1;
     RenderTransform: none;
     ClipToBounds: False;
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -61,38 +60,60 @@
             Fill:var(slider-back);
         }
 
-        /* Thumb */
-        Slider Thumb /template/ Ellipse#PART_Border{
-            Width:14;
-            Height:14;
-            Fill: var(control-back);
-            Stroke:var(control-border);
-            StrokeThickness: 1;
-            Transitions:[
-                var(stFill);
-            ] 
+        /* Stop ClipToBounds */
+        /template/ Track#PART_Track, /template/ DataValidationErrors {
+            ClipToBounds:False;
         }
-        Slider:pointerover Thumb /template/ Ellipse#PART_Border{
+
+        /* Thumb */
+         /template/ Thumb#SliderThumb{
+            ClipToBounds:False;
+            [[
+                >Thumb /template/ Ellipse#PART_Border{
+                    Width:14;
+                    Height:14;
+                    Fill: var(control-back);
+                    Stroke:var(control-border);
+                    StrokeThickness: 1;
+                    Transitions:[
+                        var(stFill);
+                    ] 
+                }
+                >Thumb:pointerover /template/ Ellipse#PART_Border{
+                    RenderTransform:scale(1.3,1.3);
+                    Fill: var(control-back-hover);
+                }
+                >Thumb /template/ Ellipse#PART_CheckGlyph{
+                    RenderTransform:none;
+                    Width:6;
+                    Height:6;
+                    Fill:var(Accent);
+                    VerticalAlignment: Center;
+                    Transitions:[
+                        var(stRenderTransform);
+                        var(stFill);
+                    ] 
+                }
+                >Thumb:pointerover /template/ Ellipse#PART_CheckGlyph{
+                    RenderTransform:scale(1.3,1.3);
+                }
+                >Thumb:pressed /template/ Ellipse#PART_CheckGlyph{
+                    Fill:var(Accent08);
+                    RenderTransform:scale(0.8,0.8);
+                }
+            ]]
+        }
+        /* Slider:pointerover Thumb /template/ Ellipse#PART_Border{
             Fill: var(control-back-hover);
         }
-        Slider Thumb /template/ Ellipse#PART_CheckGlyph{
-            RenderTransform:none;
-            Width:6;
-            Height:6;
-            Fill:var(Accent);
-            VerticalAlignment: Center;
-            Transitions:[
-                var(stRenderTransform);
-                var(stFill);
-            ]           
-        }
+
         Slider Thumb:pointerover /template/ Ellipse#PART_CheckGlyph{
             RenderTransform:scale(1.3,1.3);
         }
         Slider:pressed Thumb /template/ Ellipse#PART_CheckGlyph{
             Fill:var(Accent08);
             RenderTransform:scale(0.8,0.8);
-        }
+        } */
         :disabled{
             Opacity:0.4;
         }

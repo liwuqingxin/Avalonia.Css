@@ -3,7 +3,6 @@
     Foreground: var(Accent);
     Background: var(progressbar-back);
     CornerRadius: 4;
-    FontSize:12;
     [[
          /template/ TextBlock#PART_ProgressText{
             Foreground: var(fore);
