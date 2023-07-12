@@ -40,7 +40,7 @@
         </fluent:Case>
 
         <fluent:Case Header="Expander with left ExpandDirection.">
-            <Expander ExpandDirection="Left">
+            <Expander HorizontalAlignment="Right" ExpandDirection="Left">
                 <Expander.Header>
                     <Button Margin="8" Content="This is a Button in the header" />
                 </Expander.Header>
@@ -53,7 +53,7 @@
         </fluent:Case>
 
         <fluent:Case Header="Expander with right ExpandDirection.">
-            <Expander ExpandDirection="Right">
+            <Expander HorizontalAlignment="Left" ExpandDirection="Right">
                 <Expander.Header>
                     <Button Margin="8" Content="This is a Button in the header" />
                 </Expander.Header>
