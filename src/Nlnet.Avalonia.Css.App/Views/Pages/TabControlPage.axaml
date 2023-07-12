@@ -20,7 +20,7 @@
             </Style>
         </StackPanel.Styles>
 
-        <fluent:Container>
+        <fluent:Case Header="TabControl with TabStripPlacement='Left'.">
             <TabControl TabStripPlacement="Left">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -63,9 +63,9 @@
                     <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </fluent:Case>
 
-        <fluent:Container>
+        <fluent:Case Header="TabControl with TabStripPlacement='Right'.">
             <TabControl TabStripPlacement="Right">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -108,9 +108,9 @@
                     <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </fluent:Case>
 
-        <fluent:Container>
+        <fluent:Case Header="TabControl with TabStripPlacement='Top'.">
             <TabControl TabStripPlacement="Top">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -153,9 +153,9 @@
                     <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </fluent:Case>
 
-        <fluent:Container>
+        <fluent:Case Header="TabControl with TabStripPlacement='Bottom'.">
             <TabControl TabStripPlacement="Bottom">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -198,7 +198,7 @@
                     <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </fluent:Case>
 
     </StackPanel>
 

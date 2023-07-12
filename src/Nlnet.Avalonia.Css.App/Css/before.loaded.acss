@@ -118,6 +118,14 @@ Case{
         Case /template/ TextBlock#Instruction{
             Margin:12,12,12,4;
         }
+        Case /template/ ContentPresenter#PART_SettingsPresenter{
+            Padding:20;
+            Margin:1,1,1,0;
+            CornerRadius:0,6,0,0;
+            BorderThickness:1,0,0,0;
+            BorderBrush:var(control-border);
+            Background:var(control-back);
+        }
         Case /template/ TextBlock:is-part#SourceCodeTitle{
             HorizontalAlignment:Left;
         }
@@ -157,6 +165,12 @@ CheckBoxPage CheckBox, CheckBoxPage RadioButton{
     HorizontalAlignment:Left;
 }
 
+ConboBoxPage ComboBox{
+    HorizontalAlignment:Left;
+    MinWidth:150;
+}
+
 TextBoxPage TextBox{
     HorizontalAlignment:Left;
+    MinWidth:150;
 }

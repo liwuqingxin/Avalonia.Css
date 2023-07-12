@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -11,27 +12,27 @@
                    Text="CheckBox controls let the user select a combination of binary options.In contrast,RadioButton controls allow the user to select from mutually exclusive options. The indeterminate state is used to indicate that an option is set for some,but not all,child options.Don't allow users to set an indeterminate state directly to indicate a third option."
                    TextWrapping="Wrap" />
 
-        <CheckBox Content="三态勾选框" IsThreeState="True" />
-        <CheckBox Content="普通勾选框" />
-        <CheckBox Content="已选不可用"
-                  IsChecked="True"
-                  IsEnabled="False" />
-        <CheckBox Content="不可用" IsEnabled="False" />
+        <sampleAssistant:Case Header="Normal CheckBox.">
+            <CheckBox Content="普通勾选框" />
+        </sampleAssistant:Case>
 
-        <RadioButton Content="选项一" GroupName="A" />
-        <RadioButton Content="选项二" GroupName="A" />
-        <RadioButton Content="选项三"
-                     GroupName="A"
-                     IsEnabled="False" />
-        <RadioButton Content="选项 A"
-                     IsChecked="True"
-                     IsEnabled="False" />
+        <sampleAssistant:Case Header="Three-state CheckBox.">
+            <CheckBox Content="三态勾选框" IsThreeState="True" />
+        </sampleAssistant:Case>
 
-        <ToggleSwitch Content="开关" />
-        <ToggleSwitch Content="开关" IsEnabled="False" />
-        <ToggleSwitch Content="开关"
-                      IsChecked="True"
-                      IsEnabled="False" />
+        <sampleAssistant:Case Header="A group of RadioButtons.">
+            <StackPanel>
+                <RadioButton Content="选项一" GroupName="A" />
+                <RadioButton Content="选项二" GroupName="A" />
+                <RadioButton Content="选项三"
+                             GroupName="A"
+                             IsEnabled="False" />
+            </StackPanel>
+        </sampleAssistant:Case>
+
+        <sampleAssistant:Case Header="ToggleSwitch.">
+            <ToggleSwitch Content="开关" />
+        </sampleAssistant:Case>
 
     </StackPanel>
 </UserControl>

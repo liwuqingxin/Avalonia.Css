@@ -106,9 +106,6 @@
                    TextWrapping="Wrap" />
 
         <fluent:Case Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
-            <fluent:Case.Settings>
-                <CheckBox Content="IsEnabled" />
-            </fluent:Case.Settings>
             <Button Classes="primary" Content="Primary Button" />
         </fluent:Case>
 

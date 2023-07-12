@@ -119,20 +119,20 @@ Slider{
             Height:6;
         }
 
-        /* Massiness */
-        Slider.Massiness:horizontal RepeatButton /template/ Border#TrackBackground {
+        /* Thick */
+        Slider.Thick:horizontal RepeatButton /template/ Border#TrackBackground {
             Height: 4;
             CornerRadius: 4;
         }
-        Slider.Massiness:vertical RepeatButton /template/ Border#TrackBackground {
+        Slider.Thick:vertical RepeatButton /template/ Border#TrackBackground {
             Width: 4;
             CornerRadius: 4;
         }
-        Slider.Massiness Thumb /template/ Ellipse#PART_Border{
+        Slider.Thick Thumb /template/ Ellipse#PART_Border{
             Width:18;
             Height:18;
         }
-        Slider.Massiness Thumb /template/ Ellipse#PART_CheckGlyph{
+        Slider.Thick Thumb /template/ Ellipse#PART_CheckGlyph{
             Width:8;
             Height:8;
         }

@@ -13,49 +13,57 @@
                    Text="The Expander has a header and can expand to show a body with more content.Use an Expander when some content is only relevant some of the time(for example to read more information or access additional options for an item)."
                    TextWrapping="Wrap" />
 
-        <Expander>
-            <Expander.Header>
-                <Button Margin="8" Content="This is a Button in the header" />
-            </Expander.Header>
-            <Expander.Content>
-                <Button Margin="15"
-                        fluent:ButtonStyles.Style="Accent"
-                        Content="This is a Button in the content" />
-            </Expander.Content>
-        </Expander>
+        <fluent:Case Header="Expander with down ExpandDirection.">
+            <Expander>
+                <Expander.Header>
+                    <Button Margin="8" Content="This is a Button in the header" />
+                </Expander.Header>
+                <Expander.Content>
+                    <Button Margin="15"
+                            fluent:ButtonStyles.Style="Accent"
+                            Content="This is a Button in the content" />
+                </Expander.Content>
+            </Expander>
+        </fluent:Case>
 
-        <Expander ExpandDirection="Up">
-            <Expander.Header>
-                <Button Margin="8" Content="This is a Button in the header" />
-            </Expander.Header>
-            <Expander.Content>
-                <Button Margin="15"
-                        fluent:ButtonStyles.Style="Accent"
-                        Content="This is a Button in the content" />
-            </Expander.Content>
-        </Expander>
+        <fluent:Case Header="Expander with up ExpandDirection.">
+            <Expander ExpandDirection="Up">
+                <Expander.Header>
+                    <Button Margin="8" Content="This is a Button in the header" />
+                </Expander.Header>
+                <Expander.Content>
+                    <Button Margin="15"
+                            fluent:ButtonStyles.Style="Accent"
+                            Content="This is a Button in the content" />
+                </Expander.Content>
+            </Expander>
+        </fluent:Case>
 
-        <Expander ExpandDirection="Left">
-            <Expander.Header>
-                <Button Margin="8" Content="This is a Button in the header" />
-            </Expander.Header>
-            <Expander.Content>
-                <Button Margin="15"
-                        fluent:ButtonStyles.Style="Accent"
-                        Content="This is a Button in the content" />
-            </Expander.Content>
-        </Expander>
+        <fluent:Case Header="Expander with left ExpandDirection.">
+            <Expander ExpandDirection="Left">
+                <Expander.Header>
+                    <Button Margin="8" Content="This is a Button in the header" />
+                </Expander.Header>
+                <Expander.Content>
+                    <Button Margin="15"
+                            fluent:ButtonStyles.Style="Accent"
+                            Content="This is a Button in the content" />
+                </Expander.Content>
+            </Expander>
+        </fluent:Case>
 
-        <Expander ExpandDirection="Right">
-            <Expander.Header>
-                <Button Margin="8" Content="This is a Button in the header" />
-            </Expander.Header>
-            <Expander.Content>
-                <Button Margin="15"
-                        fluent:ButtonStyles.Style="Accent"
-                        Content="This is a Button in the content" />
-            </Expander.Content>
-        </Expander>
+        <fluent:Case Header="Expander with right ExpandDirection.">
+            <Expander ExpandDirection="Right">
+                <Expander.Header>
+                    <Button Margin="8" Content="This is a Button in the header" />
+                </Expander.Header>
+                <Expander.Content>
+                    <Button Margin="15"
+                            fluent:ButtonStyles.Style="Accent"
+                            Content="This is a Button in the content" />
+                </Expander.Content>
+            </Expander>
+        </fluent:Case>
 
     </StackPanel>
 
