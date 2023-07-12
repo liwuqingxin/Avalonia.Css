@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml.Styling;
@@ -56,25 +58,25 @@ namespace Nlnet.Avalonia.Css
             .RegisterAttached<Styler, StyledElement, Uri?>("RemoveInclude");
 
         /// <summary>
-        /// Get the <see cref="ICssStyle"/> instance that would be adding to the host.
+        /// Get the list of <see cref="ICssStyle"/> instance that would be adding to the host.
         /// </summary>
         /// <param name="host"></param>
         /// <returns></returns>
-        internal static ICssStyle GetAddingStyle(Visual host)
+        internal static IList<ICssStyle>? GetAddingStyle(StyledElement host)
         {
             return host.GetValue(AddingStyleProperty);
         }
         /// <summary>
-        /// Set the <see cref="ICssStyle"/> instance that would be adding to the host.
+        /// Set the list of <see cref="ICssStyle"/> instance that would be adding to the host.
         /// </summary>
         /// <param name="host"></param>
         /// <param name="value"></param>
-        internal static void SetAddingStyle(Visual host, ICssStyle value)
+        internal static void SetAddingStyle(StyledElement host, IList<ICssStyle>? value)
         {
             host.SetValue(AddingStyleProperty, value);
         }
-        internal static readonly AttachedProperty<ICssStyle> AddingStyleProperty = AvaloniaProperty
-            .RegisterAttached<ExStyler, Visual, ICssStyle>("AddingStyle");
+        internal static readonly AttachedProperty<IList<ICssStyle>?> AddingStyleProperty = AvaloniaProperty
+            .RegisterAttached<ExStyler, StyledElement, IList<ICssStyle>?>("AddingStyle");
 
 
 
@@ -110,17 +112,24 @@ namespace Nlnet.Avalonia.Css
 
             AddingStyleProperty.Changed.AddClassHandler<StyledElement>((element, args) =>
             {
-                这里循环报错。考虑CssBuilder中记录所有添加动作，并添加对应的dispoasable；重新加载时直接dispose；
-                if (args.NewValue is ICssStyle cssStyle)
+                element.ClearValue(AddingStyleProperty);
+                if (args.NewValue is IList<ICssStyle> cssStyleList)
                 {
-                    var exist = element.Styles.OfType<ChildStyle>().FirstOrDefault(s => s.CssStyle == cssStyle);
-                    if (exist != null)
+                    foreach (var cssStyle in cssStyleList)
                     {
-                        //return;
-                        element.Styles.Remove(exist);
+                        // 'element.Styles.Add(s)' will cause AddingStyleProperty being changed, which should be passed.
+                        if (element.Styles.OfType<ChildStyle>().Any(child => child.CssStyle == cssStyle))
+                        {
+                            continue;
+                        }
+                    
+                        var s = cssStyle.ToAvaloniaStyle();
+                        element.Styles.Add(s);
+                        cssStyle.AddDisposable(Disposable.Create(() =>
+                        {
+                            element.Styles.Remove(s);
+                        }));   
                     }
-
-                    element.Styles.Add(cssStyle.ToAvaloniaStyle());
                 }
             });
         }

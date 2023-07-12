@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -23,14 +24,14 @@ namespace Nlnet.Avalonia.Css
         /// Load a avalonia css style from an acss file synchronously.
         /// </summary>
         /// <param name="cssBuilder"></param>
-        /// <param name="styles"></param>
+        /// <param name="owner"></param>
         /// <param name="filePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static CssFile Load(ICssBuilder cssBuilder, Styles styles, string filePath, bool autoLoadWhenFileChanged = true)
+        public static CssFile Load(ICssBuilder cssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(cssBuilder, styles, filePath, autoLoadWhenFileChanged);
-            styleFile.Load(styles);
+            var styleFile = CreateStyles(cssBuilder, owner, filePath, autoLoadWhenFileChanged);
+            styleFile.Load(owner);
             return styleFile;
         }
 
@@ -38,25 +39,25 @@ namespace Nlnet.Avalonia.Css
         /// Load a avalonia css style from an acss file asynchronously.
         /// </summary>
         /// <param name="cssBuilder"></param>
-        /// <param name="styles"></param>
+        /// <param name="owner"></param>
         /// <param name="file"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static CssFile BeginLoad(ICssBuilder cssBuilder, Styles styles, string file, bool autoLoadWhenFileChanged = true)
+        public static CssFile BeginLoad(ICssBuilder cssBuilder, Styles owner, string file, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(cssBuilder, styles, file, autoLoadWhenFileChanged);
-            styleFile.BeginLoad(styles);
+            var styleFile = CreateStyles(cssBuilder, owner, file, autoLoadWhenFileChanged);
+            styleFile.BeginLoad(owner);
             return styleFile;
         }
 
-        private static CssFile CreateStyles(ICssBuilder cssBuilder, Styles styles, string filePath, bool autoLoadWhenFileChanged)
+        private static CssFile CreateStyles(ICssBuilder cssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
                 throw new InvalidOperationException($"{nameof(CssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (styles.OfType<CssFile>().FirstOrDefault(s => s.StandardFilePath == filePath) is { } exist)
+            if (owner.OfType<CssFile>().FirstOrDefault(s => s.StandardFilePath == filePath) is { } exist)
             {
                 return exist;
             }
@@ -66,23 +67,24 @@ namespace Nlnet.Avalonia.Css
                 throw new FileNotFoundException($"Can not find the css file '{filePath}'.");
             }
 
-            return new CssFile(cssBuilder, styles, filePath, autoLoadWhenFileChanged);
+            return new CssFile(cssBuilder, owner, filePath, autoLoadWhenFileChanged);
         }
 
         #endregion
 
 
 
-        private readonly ICssBuilder          _cssBuilder;
-        private readonly Styles               _styles;
-        private readonly FileSystemWatcher?   _watcher;
-        private          CompositeDisposable? _disposable;
+        private readonly ICssBuilder             _cssBuilder;
+        private readonly Styles                  _owner;
+        private readonly FileSystemWatcher?      _watcher;
+        private          CompositeDisposable?    _disposable;
+        private          IEnumerable<ICssStyle>? _cssStyles;
 
-        private CssFile(ICssBuilder cssBuilder, Styles styles, string filePath, bool autoLoadWhenFileChanged)
+        private CssFile(ICssBuilder cssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged)
         {
-            _cssBuilder = cssBuilder;
-            _styles     = styles;
-            StandardFilePath       = Path.GetFullPath(filePath);
+            _cssBuilder      = cssBuilder;
+            _owner           = owner;
+            StandardFilePath = Path.GetFullPath(filePath);
 
             var dir = Path.GetDirectoryName(filePath);
             if (autoLoadWhenFileChanged && dir != null)
@@ -104,7 +106,7 @@ namespace Nlnet.Avalonia.Css
                 return;
             }
 
-            BeginLoad(_styles);
+            BeginLoad(_owner);
         }
 
         private void Load(Styles styles)
@@ -119,6 +121,15 @@ namespace Nlnet.Avalonia.Css
             this.Resources.Clear();
             this.Resources.MergedDictionaries.Clear();
 
+            if(_cssStyles != null)
+            {
+                foreach (var cssStyle in _cssStyles)
+                {
+                    cssStyle.Dispose();
+                }
+            }
+            _cssStyles = null;
+
             try
             {
                 var parser              = _cssBuilder.Parser;
@@ -128,6 +139,8 @@ namespace Nlnet.Avalonia.Css
                 var cssStyles           = sections.OfType<ICssStyle>().Where(s => !s.IsThemeChild);
                 var cssThemeChildStyles = sections.OfType<ICssStyle>().Where(s => s.IsThemeChild).ToList();
                 var cssDictionaryList   = sections.OfType<ICssResourceDictionary>();
+
+                _cssStyles = sections.OfType<ICssStyle>();
 
                 foreach (var cssStyle in cssStyles)
                 {
@@ -262,7 +275,7 @@ namespace Nlnet.Avalonia.Css
 
         public void Reload()
         {
-            this.Load(_styles);
+            this.Load(_owner);
         }
 
         #endregion

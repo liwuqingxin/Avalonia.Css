@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface ICssStyle : ICssSection
+internal interface ICssStyle : ICssSection, IDisposable
 {
     public bool IsThemeChild { get; }
 
@@ -25,12 +26,15 @@ internal interface ICssStyle : ICssSection
     public Selector? GetSelector();
 
     public ChildStyle ToAvaloniaStyle();
+
+    void AddDisposable(IDisposable disposable);
 }
 
 internal class CssStyle : CssSection, ICssStyle
 {
-    private readonly ICssBuilder _builder;
-    private          Selector?   _selector;
+    private readonly ICssBuilder          _builder;
+    private          Selector?            _selector;
+    private          CompositeDisposable? _compositeDisposable;
 
     public bool IsThemeChild { get; set; }
 
@@ -115,7 +119,7 @@ internal class CssStyle : CssSection, ICssStyle
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
-        var style = GetNewStyle();
+        var style = NewStyle();
 
         var targetType = style.Selector?.TargetType ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
         if (targetType != null)
@@ -149,12 +153,22 @@ internal class CssStyle : CssSection, ICssStyle
                 {
                     if (cssStyle.IsLogicalChild)
                     {
-                        var setter = new Setter()
+                        var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
+                        if (existSetter?.Value is IList<ICssStyle> list)
                         {
-                            Property = ExStyler.AddingStyleProperty,
-                            Value    = cssStyle,
-                        };
-                        style.Add(setter);
+                            list.Add(cssStyle);
+                        }
+                        else
+                        {
+                            list = new List<ICssStyle>();
+                            list.Add(cssStyle);
+                            var setter = new Setter()
+                            {
+                                Property = ExStyler.AddingStyleProperty,
+                                Value    = list,
+                            };
+                            style.Add(setter);
+                        }
                     }
                     else
                     {
@@ -181,7 +195,16 @@ internal class CssStyle : CssSection, ICssStyle
         return style;
     }
 
-    private ChildStyle GetNewStyle()
+    public void AddDisposable(IDisposable disposable)
+    {
+        lock (this)
+        {
+            _compositeDisposable ??= new CompositeDisposable();
+            _compositeDisposable.Add(disposable);
+        }
+    }
+
+    private ChildStyle NewStyle()
     {
         return IsLogicalChild
             ? new LogicChildStyle(this)
@@ -206,5 +229,19 @@ internal class CssStyle : CssSection, ICssStyle
             }
         }
         return builder.ToString();
+    }
+
+    public void Dispose()
+    {
+        _compositeDisposable?.Dispose();
+        _compositeDisposable = null;
+
+        if (Styles != null)
+        {
+            foreach (var cssStyle in Styles)
+            {
+                cssStyle.Dispose();
+            }
+        }
     }
 }

@@ -17,10 +17,13 @@
         }
          /template/ Grid#PART_MonthView{
             [[
+                /* These two styles with same selector are just instruction for child logical style. */
                 >TextBlock.Week{
                     VerticalAlignment:Center;
                     HorizontalAlignment:Center;
                     Margin:0,12;
+                }
+                >TextBlock.Week{
                     FontSize:12;
                 }
             ]]

@@ -15,7 +15,7 @@ internal class CssLoader : ICssLoader
 
     public ICssBuilder CssBuilder { get; }
 
-    ICssFile? ICssLoader.Load(Styles styles, string filePath, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.Load(Styles owner, string filePath, bool autoReloadWhenFileChanged)
     {
         filePath = GetStandardPath(filePath);
         if (CssBuilder.TryGetCssFile(filePath, out _))
@@ -23,12 +23,12 @@ internal class CssLoader : ICssLoader
             return null;
         }
 
-        var file = CssFile.Load(CssBuilder, styles, filePath, autoReloadWhenFileChanged);
+        var file = CssFile.Load(CssBuilder, owner, filePath, autoReloadWhenFileChanged);
         CssBuilder.TryAddCssFile(file);
         return file;
     }
 
-    ICssFile? ICssLoader.BeginLoad(Styles styles, string filePath, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.BeginLoad(Styles owner, string filePath, bool autoReloadWhenFileChanged)
     {
         filePath = GetStandardPath(filePath);
         if (CssBuilder.TryGetCssFile(filePath, out _))
@@ -36,12 +36,12 @@ internal class CssLoader : ICssLoader
             return null;
         }
 
-        var file = CssFile.BeginLoad(CssBuilder, styles, filePath, autoReloadWhenFileChanged);
+        var file = CssFile.BeginLoad(CssBuilder, owner, filePath, autoReloadWhenFileChanged);
         CssBuilder.TryAddCssFile(file);
         return file;
     }
 
-    IEnumerable<ICssFile> ICssLoader.LoadFolder(Styles styles, string folderPath, bool autoReloadWhenFileChanged)
+    IEnumerable<ICssFile> ICssLoader.LoadFolder(Styles owner, string folderPath, bool autoReloadWhenFileChanged)
     {
         if (Directory.Exists(folderPath) == false)
         {
@@ -52,10 +52,10 @@ internal class CssLoader : ICssLoader
             .GetFiles()
             .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase));
 
-        return files.Select(f => ((ICssLoader)this).Load(styles, f.FullName, autoReloadWhenFileChanged)).OfType<ICssFile>().ToList();
+        return files.Select(f => ((ICssLoader)this).Load(owner, f.FullName, autoReloadWhenFileChanged)).OfType<ICssFile>().ToList();
     }
 
-    IEnumerable<ICssFile> ICssLoader.BeginLoadFolder(Styles styles, string folderPath, bool autoReloadWhenFileChanged)
+    IEnumerable<ICssFile> ICssLoader.BeginLoadFolder(Styles owner, string folderPath, bool autoReloadWhenFileChanged)
     {
         if (Directory.Exists(folderPath) == false)
         {
@@ -66,46 +66,46 @@ internal class CssLoader : ICssLoader
             .GetFiles()
             .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase));
 
-        return files.Select(f => ((ICssLoader)this).BeginLoad(styles, f.FullName, autoReloadWhenFileChanged)).OfType<ICssFile>().ToList();
+        return files.Select(f => ((ICssLoader)this).BeginLoad(owner, f.FullName, autoReloadWhenFileChanged)).OfType<ICssFile>().ToList();
     }
 
-    ICssFile? ICssLoader.Load(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.Load(Styles owner, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
     {
 #if DEBUG
         var path = Path.Combine(debugRelative, filePath);
-        return ((ICssLoader)this).Load(styles, path, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).Load(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).Load(styles, filePath, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).Load(owner, filePath, autoReloadWhenFileChanged);
 #endif
     }
 
-    ICssFile? ICssLoader.BeginLoad(Styles styles, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
+    ICssFile? ICssLoader.BeginLoad(Styles owner, string filePath, string debugRelative, bool autoReloadWhenFileChanged)
     {
 #if DEBUG
         var path = Path.Combine(debugRelative, filePath);
-        return ((ICssLoader)this).BeginLoad(styles, path, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).BeginLoad(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).BeginLoad(styles, filePath, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).BeginLoad(owner, filePath, autoReloadWhenFileChanged);
 #endif
     }
 
-    IEnumerable<ICssFile> ICssLoader.LoadFolder(Styles styles, string folderPath, string debugRelative, bool autoReloadWhenFileChanged)
+    IEnumerable<ICssFile> ICssLoader.LoadFolder(Styles owner, string folderPath, string debugRelative, bool autoReloadWhenFileChanged)
     {
 #if DEBUG
         var path = Path.Combine(debugRelative, folderPath);
-        return ((ICssLoader)this).LoadFolder(styles, path, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).LoadFolder(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).LoadFolder(styles, folderPath, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).LoadFolder(owner, folderPath, autoReloadWhenFileChanged);
 #endif
     }
 
-    IEnumerable<ICssFile> ICssLoader.BeginLoadFolder(Styles styles, string folderPath, string debugRelative, bool autoReloadWhenFileChanged)
+    IEnumerable<ICssFile> ICssLoader.BeginLoadFolder(Styles owner, string folderPath, string debugRelative, bool autoReloadWhenFileChanged)
     {
 #if DEBUG
         var path = Path.Combine(debugRelative, folderPath);
-        return ((ICssLoader)this).BeginLoadFolder(styles, path, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).BeginLoadFolder(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).BeginLoadFolder(styles, folderPath, autoReloadWhenFileChanged);
+        return ((ICssLoader)this).BeginLoadFolder(owner, folderPath, autoReloadWhenFileChanged);
 #endif
     }
 
