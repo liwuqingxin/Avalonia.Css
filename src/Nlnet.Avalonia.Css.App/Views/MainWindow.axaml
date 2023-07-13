@@ -19,6 +19,7 @@
         <StackPanel Orientation="Horizontal">
             <ComboBox Items="{Binding Path=Modes}" SelectedItem="{Binding Path=Mode}" />
             <ComboBox Items="{Binding Path=Themes}" SelectedItem="{Binding Path=Theme}" />
+            <CheckBox Content="Toggle Local Dark" IsChecked="{Binding Path=IsLocalDark, Mode=TwoWay}" />
             <CheckBox x:Name="CbxIsEnabled" Content="Is Content Enabled" />
             <CheckBox x:Name="CbxIsTopMost"
                       Content="Is Top Most"

@@ -11,9 +11,10 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
-        private string? _mode = "light";
-        private string? _theme = "blue";
-        private bool _isLoading = true;
+        private string? _mode      = "light";
+        private string? _theme     = "blue";
+        private bool    _isLoading = true;
+        private bool    _isLocalDark ;
 
         public  List<string> Modes { get; set; }
 
@@ -55,6 +56,18 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
+        public bool IsLocalDark
+        {
+            get => _isLocalDark;
+            set
+            {
+                if (value == _isLocalDark)
+                    return;
+                _isLocalDark = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
 
         public MainWindowViewModel()
@@ -81,6 +94,7 @@ namespace Nlnet.Avalonia.Css.App
 
             GalleryItems = new ObservableCollection<GalleryItem>();
 
+            LoadService.XmlParser = new XCaseXamlParser<IndependentCase>();
             LoadService.GetGalleryItemAsync(typeof(MainWindowViewModel)).ContinueWith(t =>
             {
                 foreach (var item in t.Result)

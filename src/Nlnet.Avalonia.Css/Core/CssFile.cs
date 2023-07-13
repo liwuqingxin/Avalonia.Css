@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -195,7 +197,7 @@ namespace Nlnet.Avalonia.Css
                     styles.Insert(index, this);
                 }
 
-                ReapplyStyling();
+                ReapplyStyling(_owner.Owner);
             }
             catch (Exception e)
             {
@@ -211,32 +213,52 @@ namespace Nlnet.Avalonia.Css
             });
         }
 
-        private static void ReapplyStyling()
+        private static void ReapplyStyling(IResourceHost? resourceHost)
         {
-            switch (Application.Current?.ApplicationLifetime)
+            switch (resourceHost)
             {
-                case ClassicDesktopStyleApplicationLifetime lifetime:
+                case Application application:
                 {
-                    foreach (var window in lifetime.Windows)
+                    switch (application.ApplicationLifetime)
                     {
-                        ForceApplyStyling(window);
-                    }
+                        case ClassicDesktopStyleApplicationLifetime lifetime:
+                        {
+                            foreach (var window in lifetime.Windows)
+                            {
+                                ForceApplyStyling(window);
+                            }
+                            break;
+                        }
+                        case ISingleViewApplicationLifetime { MainView: { } } singleView:
+                            ForceApplyStyling(singleView.MainView);
+                            break;
+                        }
                     break;
                 }
-                case ISingleViewApplicationLifetime { MainView: { } } singleView:
-                    ForceApplyStyling(singleView.MainView);
+                case StyledElement element:
+                {
+                    ForceApplyStyling(element);
                     break;
+                }
             }
         }
 
         private static void ForceApplyStyling(StyledElement styledElement)
         {
-            ((IStyleable)styledElement).DetachStyles();
+            if (styledElement is Control { IsLoaded: false })
+            {
+                Trace.WriteLine($"The control {styledElement} is not loaded yet, skip reapply styling.");
+                return;
+            }
+            
+            Dispatcher.UIThread.Post(() =>
+            {
+                ((IStyleable)styledElement).DetachStyles();
+            });
 
             try
             {
-                //styledElement.InvalidateStyles();
-
+                // This is same as 'styledElement.InvalidateStyles();'.
                 styledElement.BeginBatchUpdate();
                 AvaloniaLocator.Current.GetService<IStyler>()?.ApplyStyles(styledElement);
 
