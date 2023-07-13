@@ -165,7 +165,7 @@ CheckBoxPage CheckBox, CheckBoxPage RadioButton{
     HorizontalAlignment:Left;
 }
 
-ConboBoxPage ComboBox{
+ComboBoxPage ComboBox{
     HorizontalAlignment:Left;
     MinWidth:150;
 }

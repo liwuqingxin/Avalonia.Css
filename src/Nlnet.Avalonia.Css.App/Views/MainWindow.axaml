@@ -28,6 +28,8 @@
         <TabControl x:Name="MainTabControl"
                     Grid.Row="1"
                     Items="{Binding Path=GalleryItems}"
+                    SelectedIndex="-1"
+                    SelectionChanged="MainTabControl_OnSelectionChanged"
                     TabStripPlacement="Left">
             <TabControl.Styles>
                 <Style Selector="TabItem">

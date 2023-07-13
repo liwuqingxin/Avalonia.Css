@@ -71,10 +71,8 @@
                                                         Mode=TwoWay}"
                                PlacementTarget="Background"
                                WindowManagerAddShadowHint="False">
-                            <Border x:Name="PopupBorder">
-                                <ScrollViewer MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
-                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                            <Border x:Name="PopupBorder" MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                     <ItemsPresenter Name="PART_ItemsPresenter"
                                                     ItemTemplate="{TemplateBinding ItemTemplate}"
                                                     Items="{TemplateBinding Items}"
