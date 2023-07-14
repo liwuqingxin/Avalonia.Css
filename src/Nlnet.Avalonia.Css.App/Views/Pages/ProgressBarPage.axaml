@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="https://www.nlnet.com/avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -13,25 +14,25 @@
                    Text="Use a Slider when you want your users to be able to set defined,contiguous values (such as volume or brightness)or a range of discrete values(such as screen resolution settings)."
                    TextWrapping="Wrap" />
 
-        <fluent:Case Header="ProgressBar with IsIndeterminate='True'.">
+        <app:IndependentCase Header="ProgressBar with IsIndeterminate='True'.">
             <ProgressBar Width="200" IsIndeterminate="True" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="ProgressBar with Orientation='Vertical'.">
+        <app:IndependentCase Header="ProgressBar with Orientation='Vertical'.">
             <ProgressBar Height="200"
                          HorizontalAlignment="Center"
                          IsIndeterminate="True"
                          Orientation="Vertical" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="ProgressBar that is indeterminate.">
-            <fluent:Case.Settings>
+        <app:IndependentCase Header="ProgressBar that is indeterminate.">
+            <app:IndependentCase.Settings>
                 <Slider x:Name="Slider"
                         Width="200"
                         fluent:SliderExtension.Format="{}{0:0%}"
                         Maximum="1"
                         Minimum="0" />
-            </fluent:Case.Settings>
+            </app:IndependentCase.Settings>
             <StackPanel>
                 <ProgressBar Width="200"
                              Maximum="{Binding #Slider.Maximum}"
@@ -53,7 +54,7 @@
                              ShowProgressText="True"
                              Value="{Binding #Slider.Value}" />
             </StackPanel>
-        </fluent:Case>
+        </app:IndependentCase>
 
 
 

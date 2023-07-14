@@ -272,6 +272,39 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
+        // Not used now.
+        private static void DelayToDetachOldStyles(AvaloniaObject element)
+        {
+            var originList       = (typeof(StyledElement).GetField("_appliedStyles")?.GetValue(element) as List<IStyleInstance>);
+            var oldAppliedStyles = originList?.ToList();
+            if (oldAppliedStyles == null)
+            {
+                throw new Exception($"Can not find the _appliedStyles for {nameof(StyledElement)}");
+            }
+            if (oldAppliedStyles?.Count > 0)
+            {
+                Dispatcher.UIThread.Post(() =>
+                {
+                    element.BeginBatchUpdate();
+
+                    try
+                    {
+                        foreach (var i in oldAppliedStyles)
+                        {
+                            i.Dispose();
+                            originList?.Remove(i);
+                        }
+
+                        oldAppliedStyles.Clear();
+                    }
+                    finally
+                    {
+                        element.EndBatchUpdate();
+                    }
+                });
+            }
+        }
+
         public void Dispose()
         {
             _disposable?.Dispose();

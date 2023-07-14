@@ -14,19 +14,19 @@
                    Text="Use a ComboBox when you need to conserve on-screen space and when users select only one option at a time.A ComboBox shows only the currently selected item."
                    TextWrapping="Wrap" />
 
-        <sampleAssistant:Case Header="ComboBox.">
+        <app:IndependentCase Header="ComboBox.">
             <ComboBox Items="{app:Enum HorizontalAlignment}">
                 <!--<Interaction.Behaviors>
                     <behaviors:AnimateResizingBehavior />
                 </Interaction.Behaviors>-->
             </ComboBox>
-        </sampleAssistant:Case>
+        </app:IndependentCase>
 
-        <sampleAssistant:Case Header="ComboBox with SelectedIndex set.">
+        <app:IndependentCase Header="ComboBox with SelectedIndex set.">
             <ComboBox Items="{app:Enum HorizontalAlignment}" SelectedIndex="0" />
-        </sampleAssistant:Case>
+        </app:IndependentCase>
 
-        <sampleAssistant:Case Header="ComboBox with ComboBoxAlignPopupToSelectionBehavior.">
+        <app:IndependentCase Header="ComboBox with ComboBoxAlignPopupToSelectionBehavior.">
             <ComboBox IsTextSearchEnabled="True"
                       Items="{app:Enum SizeToContent}"
                       SelectedIndex="0">
@@ -34,6 +34,6 @@
                     <behaviors:ComboBoxAlignPopupToSelectionBehavior />
                 </Interaction.Behaviors>
             </ComboBox>
-        </sampleAssistant:Case>
+        </app:IndependentCase>
     </StackPanel>
 </UserControl>

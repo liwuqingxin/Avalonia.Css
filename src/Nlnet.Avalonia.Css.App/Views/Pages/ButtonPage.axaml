@@ -110,44 +110,44 @@
 			<Button Classes="primary" Content="Primary Button" />
 		</app:IndependentCase>
 
-        <fluent:Case Header="Primary button that set ButtonStyles.Style='Accent'.">
+        <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
             <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="Normal button.">
+        <app:IndependentCase Header="Normal button.">
             <Button Content="Cancel" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="Button with a image as content.">
+        <app:IndependentCase Header="Button with a image as content.">
             <Button Width="44" Height="44">
                 <Image Source="/Assets/orange.png" />
             </Button>
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="Button with ContextMenu and Flyout.">
+        <app:IndependentCase Header="Button with ContextMenu and Flyout.">
             <Button Content="Click to show Flyout or right click to show ContextMenu."
                     ContextMenu="{StaticResource SharedMenu}"
                     Flyout="{StaticResource SharedMenuFlyout}" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="DropDownButton with Flyout.">
+        <app:IndependentCase Header="DropDownButton with Flyout.">
             <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="Repeat button.">
+        <app:IndependentCase Header="Repeat button.">
             <RepeatButton x:Name="RepeatButton"
                           Click="RepeatButton_OnClick"
                           Content="Click And Hold : 0" />
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="Toggle button.">
+        <app:IndependentCase Header="Toggle button.">
             <StackPanel>
                 <ToggleButton Content="Toggle" />
                 <ToggleButton Content="Toggle Button" IsChecked="True" />
             </StackPanel>
-        </fluent:Case>
+        </app:IndependentCase>
 
-        <fluent:Case Header="Button spinner.">
+        <app:IndependentCase Header="Button spinner.">
             <StackPanel>
                 <ButtonSpinner AllowSpin="True"
                                ButtonSpinnerLocation="Right"
@@ -160,7 +160,7 @@
                                ButtonSpinnerLocation="Left"
                                ShowButtonSpinner="True" />
             </StackPanel>
-        </fluent:Case>
+        </app:IndependentCase>
 
     </StackPanel>
 

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
   <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="1" y1="1" x2="-0.41030732" y2="-1.1155219" id="gradient_1">
+      <stop offset="0%" stop-color="#FFA631" />
+      <stop offset="100%" stop-color="#FEFFE0" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="1" y1="1" x2="-0.41030732" y2="-1.1155219" id="gradient_2">
+      <stop offset="0%" stop-color="#FF7631" />
+      <stop offset="100%" stop-color="#FFD955" />
+    </linearGradient>
     <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
     <clipPath id="clip_1">
       <use xlink:href="#path_1" />
@@ -8,7 +16,10 @@
   </defs>
   <g id="Button" clip-path="url(#clip_1)">
     <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="Button" fill="none" stroke="none" />
-    <path d="M448 256L64 256L64 85.3333C64 73.6 73.6 64 85.3333 64L426.667 64C438.4 64 448 73.6 448 85.3333L448 256L448 256Z" id="Shape" fill="#07ADBC" stroke="none" />
-    <path d="M426.667 448L85.3333 448C73.6 448 64 438.4 64 426.667L64 256L448 256L448 426.667C448 438.4 438.4 448 426.667 448L426.667 448Z" id="Shape" fill="#03C5C8" stroke="none" />
+    <path d="M0 0L512 0L512 512L0 512L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+    <g id="Group-2" transform="translate(66 66)">
+      <path d="M380 190L380 190L380 344C380 363.885 363.885 380 344 380L36 380C16.115 380 0 363.885 0 344L0 190L380 190Z" id="S2" fill="url(#gradient_1)" stroke="none" />
+      <path d="M344 0C363.885 0 380 16.115 380 36L380 190L0 190L0 36C0 16.115 16.115 0 36 0L344 0Z" id="S1" fill="url(#gradient_2)" stroke="none" />
+    </g>
   </g>
 </svg>

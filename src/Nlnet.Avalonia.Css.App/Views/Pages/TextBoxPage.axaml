@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -12,13 +13,13 @@
                    Text="Use a TextBox to let a user enter simple text input in your app.You can add a header and placeholder text to let the user know what the TextBox is for,and you can customize it in other ways."
                    TextWrapping="Wrap" />
 
-        <sampleAssistant:Case Header="TextBox.">
+        <app:IndependentCase Header="TextBox.">
             <TextBox />
-        </sampleAssistant:Case>
+        </app:IndependentCase>
 
-        <sampleAssistant:Case Header="TextBox with watermark.">
+        <app:IndependentCase Header="TextBox with watermark.">
             <TextBox Watermark="Enter here..." />
-        </sampleAssistant:Case>
+        </app:IndependentCase>
 
     </StackPanel>
 </UserControl>
