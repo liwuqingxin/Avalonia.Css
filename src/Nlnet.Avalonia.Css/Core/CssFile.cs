@@ -207,10 +207,7 @@ namespace Nlnet.Avalonia.Css
 
         private void BeginLoad(Styles styles)
         {
-            Task.Delay(20).ContinueWith(t =>
-            {
-                Dispatcher.UIThread.Post(() => Load(styles));
-            });
+            Dispatcher.UIThread.Post(() => Load(styles));
         }
 
         private static void ReapplyStyling(IResourceHost? resourceHost)
@@ -245,16 +242,13 @@ namespace Nlnet.Avalonia.Css
 
         private static void ForceApplyStyling(StyledElement styledElement)
         {
-            if (styledElement is Control { IsLoaded: false })
-            {
-                Trace.WriteLine($"The control {styledElement} is not loaded yet, skip reapply styling.");
-                return;
-            }
-            
-            Dispatcher.UIThread.Post(() =>
-            {
-                ((IStyleable)styledElement).DetachStyles();
-            });
+            //if (styledElement is Control { IsLoaded: false })
+            //{
+            //    Trace.WriteLine($"The control {styledElement} is not loaded yet, skip reapply styling.");
+            //    return;
+            //}
+
+            ((IStyleable)styledElement).DetachStyles();
 
             try
             {
@@ -297,7 +291,7 @@ namespace Nlnet.Avalonia.Css
 
         public void Reload()
         {
-            this.Load(_owner);
+            this.BeginLoad(_owner);
         }
 
         #endregion
