@@ -10,11 +10,12 @@ internal class PropertySyntax : ISyntax
 
     public Selector? ToSelector(ICssBuilder builder, Selector? previous)
     {
-        if (previous?.TargetType != null)
+        var previousTargetType = previous?.GetTargetType();
+        if (previousTargetType != null)
         {
             var interpreter = builder.Interpreter;
 
-            var avaloniaProperty = interpreter.ParseAvaloniaProperty(previous.TargetType, Property);
+            var avaloniaProperty = interpreter.ParseAvaloniaProperty(previousTargetType, Property);
             if (avaloniaProperty == null)
             {
                 return previous;

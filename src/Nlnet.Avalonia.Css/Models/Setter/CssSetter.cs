@@ -10,7 +10,7 @@ internal interface ICssSetter
 
     public string? RawValue { get; set; }
 
-    public ISetter? ToAvaloniaSetter(ICssBuilder builder, Type targetType);
+    public Setter? ToAvaloniaSetter(ICssBuilder builder, Type targetType);
 }
 
 internal class CssSetter : ICssSetter
@@ -37,7 +37,7 @@ internal class CssSetter : ICssSetter
         RawValue = value;
     }
 
-    public ISetter? ToAvaloniaSetter(ICssBuilder builder, Type targetType)
+    public Setter? ToAvaloniaSetter(ICssBuilder builder, Type targetType)
     {
         if (Property == null)
         {

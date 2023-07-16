@@ -62,7 +62,7 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
             return null;
         }
 
-        if (Mode != null && !string.Equals(Mode, cssBuilder.Configuration.Mode, StringComparison.CurrentCultureIgnoreCase))
+        if (Mode != null && !string.Equals(Mode, cssBuilder.Configuration.Mode.ToString(), StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }

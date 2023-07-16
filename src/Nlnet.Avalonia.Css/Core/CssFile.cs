@@ -159,7 +159,8 @@ namespace Nlnet.Avalonia.Css
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
                     if (cssThemeChildStyle.ThemeTargetType != null)
                     {
-                        if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                        // TODO 检查 ThemeVariarity;
+                        if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
                             // The child cache holds the references of old style instances.
                             typeof(StyleBase)
@@ -196,8 +197,6 @@ namespace Nlnet.Avalonia.Css
                 {
                     styles.Insert(index, this);
                 }
-
-                ReapplyStyling(_owner.Owner);
             }
             catch (Exception e)
             {
@@ -208,101 +207,6 @@ namespace Nlnet.Avalonia.Css
         private void BeginLoad(Styles styles)
         {
             Dispatcher.UIThread.Post(() => Load(styles));
-        }
-
-        private static void ReapplyStyling(IResourceHost? resourceHost)
-        {
-            switch (resourceHost)
-            {
-                case Application application:
-                {
-                    switch (application.ApplicationLifetime)
-                    {
-                        case ClassicDesktopStyleApplicationLifetime lifetime:
-                        {
-                            foreach (var window in lifetime.Windows)
-                            {
-                                ForceApplyStyling(window);
-                            }
-                            break;
-                        }
-                        case ISingleViewApplicationLifetime { MainView: { } } singleView:
-                            ForceApplyStyling(singleView.MainView);
-                            break;
-                        }
-                    break;
-                }
-                case StyledElement element:
-                {
-                    ForceApplyStyling(element);
-                    break;
-                }
-            }
-        }
-
-        private static void ForceApplyStyling(StyledElement styledElement)
-        {
-            //if (styledElement is Control { IsLoaded: false })
-            //{
-            //    Trace.WriteLine($"The control {styledElement} is not loaded yet, skip reapply styling.");
-            //    return;
-            //}
-
-            ((IStyleable)styledElement).DetachStyles();
-
-            try
-            {
-                // This is same as 'styledElement.InvalidateStyles();'.
-                styledElement.BeginBatchUpdate();
-                AvaloniaLocator.Current.GetService<IStyler>()?.ApplyStyles(styledElement);
-
-                if (styledElement is not IVisual visual)
-                {
-                    return;
-                }
-
-                foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
-                {
-                    ForceApplyStyling(child);
-                }
-            }
-            finally
-            {
-                styledElement.EndBatchUpdate();
-            }
-        }
-
-        // Not used now.
-        private static void DelayToDetachOldStyles(AvaloniaObject element)
-        {
-            var originList       = (typeof(StyledElement).GetField("_appliedStyles")?.GetValue(element) as List<IStyleInstance>);
-            var oldAppliedStyles = originList?.ToList();
-            if (oldAppliedStyles == null)
-            {
-                throw new Exception($"Can not find the _appliedStyles for {nameof(StyledElement)}");
-            }
-            if (oldAppliedStyles?.Count > 0)
-            {
-                Dispatcher.UIThread.Post(() =>
-                {
-                    element.BeginBatchUpdate();
-
-                    try
-                    {
-                        foreach (var i in oldAppliedStyles)
-                        {
-                            i.Dispose();
-                            originList?.Remove(i);
-                        }
-
-                        oldAppliedStyles.Clear();
-                    }
-                    finally
-                    {
-                        element.EndBatchUpdate();
-                    }
-                });
-            }
         }
 
         public void Dispose()

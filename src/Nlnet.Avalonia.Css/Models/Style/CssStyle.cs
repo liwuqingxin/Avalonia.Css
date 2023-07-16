@@ -83,7 +83,7 @@ internal class CssStyle : CssSection, ICssStyle
 
         if(IsThemeChild)
         {
-            ThemeTargetType = syntaxList.First().ToSelector(_builder, null)?.TargetType;
+            ThemeTargetType = syntaxList.First().ToSelector(_builder, null)?.GetTargetType();
             syntaxList = syntaxList.Skip(1).ToList();
         }
 
@@ -121,7 +121,7 @@ internal class CssStyle : CssSection, ICssStyle
 
         var style = NewStyle();
 
-        var targetType = style.Selector?.TargetType ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
+        var targetType = style.Selector?.GetTargetType() ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
         if (targetType != null)
         {
             // Resources
@@ -140,7 +140,7 @@ internal class CssStyle : CssSection, ICssStyle
             // Setters
             if (Setters != null)
             {
-                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<ISetter>())
+                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<Setter>())
                 {
                     style.Add(setter);
                 }

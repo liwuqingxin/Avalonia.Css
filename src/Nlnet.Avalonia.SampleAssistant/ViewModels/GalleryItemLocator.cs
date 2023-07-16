@@ -7,9 +7,9 @@ namespace Nlnet.Avalonia.SampleAssistant;
 
 public class GalleryItemLocator : IDataTemplate
 {
-    private readonly Dictionary<Type, IControl> _cache = new();
+    private readonly Dictionary<Type, Control> _cache = new();
 
-    public IControl Build(object? data)
+    public Control Build(object? data)
     {
         if (data is not GalleryItem item)
         {
@@ -21,7 +21,7 @@ public class GalleryItemLocator : IDataTemplate
             return ctrl;
         }
 
-        var view = (Activator.CreateInstance(item.ViewType) as IControl)!;
+        var view = (Activator.CreateInstance(item.ViewType) as Control)!;
         var galleryItemControl = new GalleryItemControl()
         {
             Content = view,

@@ -1,4 +1,6 @@
-﻿namespace Nlnet.Avalonia.Css;
+﻿using Avalonia.Styling;
+
+namespace Nlnet.Avalonia.Css;
 
 /// <summary>
 /// Global css configuration.
@@ -13,5 +15,5 @@ public interface ICssConfiguration
     /// <summary>
     /// The mode that include dark mode or light mode.
     /// </summary>
-    public string? Mode { get; set; }
+    public ThemeVariant Mode { get; set; }
 }

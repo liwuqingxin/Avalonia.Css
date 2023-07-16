@@ -10,13 +10,6 @@ namespace Nlnet.Avalonia.Css
         {
             CssStyle = cssStyle;
         }
-
-        public override SelectorMatchResult TryAttach(IStyleable target, object? host)
-        {
-            var result = base.TryAttach(target, host);
-
-            return result;
-        }
     }
 
     internal class LogicChildStyle : ChildStyle

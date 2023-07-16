@@ -73,11 +73,7 @@
                                WindowManagerAddShadowHint="False">
                             <Border x:Name="PopupBorder" MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
                                 <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                    <ItemsPresenter Name="PART_ItemsPresenter"
-                                                    ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                    Items="{TemplateBinding Items}"
-                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
-                                                    VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+                                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                 </ScrollViewer>
                             </Border>
                         </Popup>

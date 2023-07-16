@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -28,8 +29,9 @@ namespace Nlnet.Avalonia.Css
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
+        /// <param name="mode"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool TryFindResource<T>(object key, out T? result);
+        public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result);
     }
 }

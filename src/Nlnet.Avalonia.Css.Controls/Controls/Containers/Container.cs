@@ -1,13 +1,12 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css.Controls
 {
-    public class Container : Border, IStyleable
+    public class Container : Border
     {
-        Type IStyleable.StyleKey => typeof(Container);
+        protected override Type StyleKeyOverride { get; } = typeof(Container);
 
         public bool UsePointerReaction
         {

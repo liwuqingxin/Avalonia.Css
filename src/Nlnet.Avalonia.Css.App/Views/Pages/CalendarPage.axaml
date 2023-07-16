@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
              xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"

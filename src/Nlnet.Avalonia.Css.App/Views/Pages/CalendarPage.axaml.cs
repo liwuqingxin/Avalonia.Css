@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
-using JetBrains.Annotations;
 using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App.Views.Pages
@@ -49,7 +48,6 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

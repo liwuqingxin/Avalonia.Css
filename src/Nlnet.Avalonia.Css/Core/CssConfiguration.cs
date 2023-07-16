@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -15,10 +16,11 @@ namespace Nlnet.Avalonia.Css
             get;
             set;
         }
-        public string? Mode
+
+        public ThemeVariant Mode
         {
             get;
             set;
-        }
+        } = ThemeVariant.Default;
     }
 }

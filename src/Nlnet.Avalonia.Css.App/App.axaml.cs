@@ -1,9 +1,9 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using Nlnet.Avalonia.SampleAssistant;
-using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -11,21 +11,22 @@ namespace Nlnet.Avalonia.Css.App
     {
         public override void Initialize()
         {
+            // TODO Support svg and dev tools.
             // Referenced libraries.
-            AppLoader.Load("Nlnet.Avalonia.Svg.dll");
-            AppLoader.Load("Avalonia.DevTools.dll");
+            //AppLoader.Load("Nlnet.Avalonia.Svg.dll");
+            //AppLoader.Load("Avalonia.DevTools.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             CssBuilder.UseDefaultBuilder();
 
             // Set the current mode and theme.
             CssBuilder.Default.Configuration.Theme = "blue";
-            CssBuilder.Default.Configuration.Mode  = "light";
+            CssBuilder.Default.Configuration.Mode  = ThemeVariant.Light;
 
             // Nlnet.Avalonia.Css.App
             CssBuilder.Default.LoadResolver(new GenericResolver<App>());
             // Nlnet.Avalonia.Svg
-            CssBuilder.Default.LoadResolver(new GenericResolver<Icon>());
+            //CssBuilder.Default.LoadResolver(new GenericResolver<Icon>());
             // Nlnet.Avalonia.SampleAssistant
             CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
 

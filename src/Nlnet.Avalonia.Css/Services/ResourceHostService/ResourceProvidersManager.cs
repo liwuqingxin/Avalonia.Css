@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -35,7 +36,7 @@ internal class ResourceProvidersManager : IResourceProvidersManager
         }
     }
 
-    public bool TryFindResource<T>(object key, out T? result)
+    public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result)
     {
         List<WeakReference<IResourceProvider>>? list = null;
         lock (this)
@@ -47,7 +48,7 @@ internal class ResourceProvidersManager : IResourceProvidersManager
         {
             if (reference.TryGetTarget(out var target))
             {
-                if (target.TryGetResource(key, out var res) && res is T t)
+                if (target.TryGetResource(key, mode, out var res) && res is T t)
                 {
                     result = t;
                     return true;

@@ -1,14 +1,13 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Controls.Primitives;
-using Avalonia.Styling;
 using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.SampleAssistant
 {
-    public class Case : HeaderedContentControl, IStyleable
+    public class Case : HeaderedContentControl
     {
-        Type IStyleable.StyleKey => typeof(Case);
+        protected override Type StyleKeyOverride { get; } = typeof(Case);
 
 
 

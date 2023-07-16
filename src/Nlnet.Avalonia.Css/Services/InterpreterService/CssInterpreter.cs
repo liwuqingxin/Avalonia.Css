@@ -313,11 +313,12 @@ namespace Nlnet.Avalonia.Css
             {
                 return null;
             }
-
-            instance.Property = avaloniaProperty;
+            
+            var propertyProp = instance.GetType().GetProperty("Property", BindingFlags.Instance | BindingFlags.Public);
             var durationProp = instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public);
-            var delayProp = instance.GetType().GetProperty("Delay", BindingFlags.Instance | BindingFlags.Public);
-            var easingProp = instance.GetType().GetProperty("Easing", BindingFlags.Instance | BindingFlags.Public);
+            var delayProp    = instance.GetType().GetProperty("Delay",    BindingFlags.Instance | BindingFlags.Public);
+            var easingProp   = instance.GetType().GetProperty("Easing",   BindingFlags.Instance | BindingFlags.Public);
+            propertyProp?.SetValue(instance, avaloniaProperty);
             durationProp?.SetValue(instance, duration);
             delayProp?.SetValue(instance, delay);
             easingProp?.SetValue(instance, easing);
@@ -400,13 +401,14 @@ namespace Nlnet.Avalonia.Css
                         Value = value
                     };
 
-                    if (animatorType != null)
-                    {
-                        if (_builder.TypeResolver.TryGetType(animatorType, out var animatorTypeInstance) && animatorTypeInstance != null)
-                        {
-                            Animation.SetAnimator(setter, animatorTypeInstance);
-                        }
-                    }
+                    // TODO RhythmicTransformAnimator
+                    //if (animatorType != null)
+                    //{
+                    //    if (_builder.TypeResolver.TryGetType(animatorType, out var animatorTypeInstance) && animatorTypeInstance != null)
+                    //    {
+                    //        Animation.SetAnimator(setter, animatorTypeInstance);
+                    //    }
+                    //}
 
                     keyFrame.Setters.Add(setter);
                 }

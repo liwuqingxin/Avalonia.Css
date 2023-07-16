@@ -1,6 +1,6 @@
 using System.Linq;
 using Avalonia.Controls;
-using Avalonia.DevTools;
+using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css.App.Views
@@ -11,14 +11,14 @@ namespace Nlnet.Avalonia.Css.App.Views
         {
             InitializeComponent();
 
-            this.UseDevTools();
+            //this.UseDevTools();
 
             this.DataContext = new MainWindowViewModel();
         }
 
-        protected override void OnLoaded()
+        protected override void OnLoaded(RoutedEventArgs e)
         {
-            base.OnLoaded();
+            base.OnLoaded(e);
 
             if (this.DataContext is MainWindowViewModel vm)
             {
@@ -28,8 +28,9 @@ namespace Nlnet.Avalonia.Css.App.Views
 
         private void MainTabControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
-            MainTabControl?
-                .GetVisualDescendants()
+            // TODO 这里为何不能直接使用MainTabControl
+            this.FindControl<TabControl>("MainTabControl")
+                ?.GetVisualDescendants()
                 .OfType<ScrollViewer>()
                 .FirstOrDefault(s => s.Name == "MainContentScrollViewer")
                 ?.ScrollToHome();

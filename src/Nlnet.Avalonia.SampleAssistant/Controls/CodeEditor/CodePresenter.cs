@@ -109,7 +109,7 @@ namespace Nlnet.Avalonia.SampleAssistant
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var textWidth = Math.Ceiling(TextLayout.Bounds.Width);
+            var textWidth = Math.Ceiling(TextLayout.Width);
             if (finalSize.Width < textWidth)
             {
                 finalSize = finalSize.WithWidth(textWidth);

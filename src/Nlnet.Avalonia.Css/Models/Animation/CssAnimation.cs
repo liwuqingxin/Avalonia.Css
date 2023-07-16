@@ -33,7 +33,9 @@ namespace Nlnet.Avalonia.Css
                 this.WriteLine($"The style is invalid as Selector of it is null. Skip it.");
                 return;
             }
-            if (selector.TargetType == null)
+
+            var selectorTargetType = selector.GetTargetType();
+            if (selectorTargetType == null)
             {
                 this.WriteLine($"The target type of the selector of the style is null. Skip it.");
                 return;
@@ -57,7 +59,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             var childrenSetter = setters.FirstOrDefault(s => s.Item1 is nameof(Animation.Children) or nameof(KeyFrames));
-            var keyFrames      = interpreter.ParseKeyFrames(selector.TargetType, childrenSetter.Item2)?.ToList();
+            var keyFrames      = interpreter.ParseKeyFrames(selectorTargetType, childrenSetter.Item2)?.ToList();
             if (keyFrames == null)
             {
                 _animation = null;
