@@ -197,6 +197,8 @@ namespace Nlnet.Avalonia.Css
                 {
                     styles.Insert(index, this);
                 }
+
+                ReapplyStyling(_owner.Owner);
             }
             catch (Exception e)
             {
@@ -207,6 +209,54 @@ namespace Nlnet.Avalonia.Css
         private void BeginLoad(Styles styles)
         {
             Dispatcher.UIThread.Post(() => Load(styles));
+        }
+
+        private static void ReapplyStyling(IResourceHost? resourceHost)
+        {
+            switch (resourceHost)
+            {
+                case Application application:
+                {
+                    switch (application.ApplicationLifetime)
+                    {
+                        case ClassicDesktopStyleApplicationLifetime lifetime:
+                        {
+                            foreach (var window in lifetime.Windows)
+                            {
+                                ForceApplyStyling(window);
+                            }
+                            break;
+                        }
+                        case ISingleViewApplicationLifetime { MainView: { } } singleView:
+                            ForceApplyStyling(singleView.MainView);
+                            break;
+                    }
+                    break;
+                }
+                case StyledElement element:
+                {
+                    ForceApplyStyling(element);
+                    break;
+                }
+            }
+        }
+
+        private static void ForceApplyStyling(StyledElement styledElement)
+        {
+            styledElement.ApplyStyling();
+
+            typeof(StyledElement).GetMethod("OnControlThemeChanged", BindingFlags.NonPublic | BindingFlags.Instance)
+                ?.Invoke(styledElement, null);
+
+            if (styledElement is not Visual visual)
+            {
+                return;
+            }
+
+            foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
+            {
+                ForceApplyStyling(child);
+            }
         }
 
         public void Dispose()
