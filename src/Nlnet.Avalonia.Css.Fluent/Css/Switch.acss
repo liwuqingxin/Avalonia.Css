@@ -21,7 +21,6 @@
          /template/ Border#SwitchKnobBounds{
             Width:28;
             Height:16;
-            Height:16;
         }
          /template/ Canvas#PART_SwitchKnob{
             Width:12;

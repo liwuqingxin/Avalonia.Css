@@ -113,7 +113,7 @@ Case{
         }
         Case /template/ Border#ContentBack{
             Background:var(window-back);
-            BorderBrush:var(contorl-border);
+            BorderBrush:var(control-border);
             MinHeight:80;
         }
         Case /template/ TextBlock#Instruction{

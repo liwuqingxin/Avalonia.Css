@@ -37,6 +37,9 @@
             Foreground: var(fore-anti);
             Background: var(Accent);
         }
+        :checked:pointerover{
+            Background: var(Accent09);
+        }
         :disabled{
             Opacity:0.4;
         }
