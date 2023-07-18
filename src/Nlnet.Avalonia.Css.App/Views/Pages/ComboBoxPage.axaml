@@ -26,6 +26,16 @@
             <ComboBox ItemsSource="{app:Enum HorizontalAlignment}" SelectedIndex="0" />
         </app:IndependentCase>
 
+        <app:IndependentCase Header="ComboBox with SelectedIndex set.">
+            <ComboBox SelectedIndex="0" >
+                <ComboBoxItem>[1] Green</ComboBoxItem>
+                <ComboBoxItem>[2] Orange</ComboBoxItem>
+                <ComboBoxItem>[3] Black</ComboBoxItem>
+                <ComboBoxItem>[4] Blue</ComboBoxItem>
+                <ComboBoxItem>[5] Pink Pink Pink Pink Pink Pink Pink Pink</ComboBoxItem>
+            </ComboBox>
+        </app:IndependentCase>
+
         <app:IndependentCase Header="ComboBox with ComboBoxAlignPopupToSelectionBehavior.">
             <ComboBox IsTextSearchEnabled="True"
                       ItemsSource="{app:Enum SizeToContent}"

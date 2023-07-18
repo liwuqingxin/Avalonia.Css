@@ -101,6 +101,9 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
+
+        private DateTime _lastRead = DateTime.MinValue;
+
         private void OnFileChanged(object sender, FileSystemEventArgs e)
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
@@ -108,7 +111,13 @@ namespace Nlnet.Avalonia.Css
                 return;
             }
 
-            BeginLoad(_owner);
+            var lastWriteTime = File.GetLastWriteTime(StandardFilePath);
+            if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
+            {
+                BeginLoad(_owner);
+
+                _lastRead = lastWriteTime;
+            }
         }
 
         private void Load(Styles styles)
@@ -208,7 +217,13 @@ namespace Nlnet.Avalonia.Css
 
         private void BeginLoad(Styles styles)
         {
-            Dispatcher.UIThread.Post(() => Load(styles));
+            //
+            // Delay 20 milliseconds to avoid conflicting with vs code.
+            //
+            Task.Delay(20).ContinueWith(t =>
+            {
+                Dispatcher.UIThread.Post(() => Load(styles));
+            });
         }
 
         private static void ReapplyStyling(IResourceHost? resourceHost)

@@ -37,6 +37,7 @@
          /template/ Popup#PART_Popup{
             VerticalOffset: -7;
             HorizontalOffset: -11;
+            Placement:BottomEdgeAlignedLeft;
         }
          /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);

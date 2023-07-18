@@ -28,6 +28,10 @@ Window#RootWindow{
             Height:64;
             Width:64;
         }
+        Window Image#PageIcon{
+            Height:64;
+            Width:64;
+        }
         Window TextBlock#PageName{
             FontSize:32;
             VerticalAlignment:Center;
@@ -68,13 +72,13 @@ TabItem{
 TabItem ContentControl{
     ClipToBounds:False;
 }
-TabItem Icon{
-    Opacity:0;
+TabControl#MainTabControl > TabItem Image{
+    Opacity:1;
     Width:24;
     Height:24;
     Margin:16,0,0,0;
     [[
-        Icon:is-loaded{
+        Image:is-loaded{
             [[
                 :animation[desc=Svg icon loading animation]{
                     IterationCount:1;
@@ -84,11 +88,12 @@ TabItem Icon{
                     KeyFrames:[
                         KeyFrame(0% 0,0.2,0.8,1):[
                             Opacity:0;
-                            TranslateTransform.Y(RhythmicTransformAnimator):16;
+                            TranslateTransform.Y:16;
+                            /* TranslateTransform.Y(RhythmicTransformAnimator):16; */
                         ]
                         KeyFrame(100% 0,0.2,0.8,1):[
                             Opacity:1;
-                            TranslateTransform.Y(RhythmicTransformAnimator):0;
+                            TranslateTransform.Y:0;
                         ]
                     ]
                 }

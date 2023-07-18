@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Globalization;
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 
-namespace Nlnet.Avalonia.Css.Controls;
+namespace Nlnet.Avalonia.Css.App;
 
-public class StringToUriCvt : IValueConverter
+public class StringToImageSourceCvt : IValueConverter
 {
-    public static StringToUriCvt Cvt { get; } = new();
+    public static StringToImageSourceCvt Cvt { get; } = new();
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is string s)
         {
-            return new Uri(s);
+            using var stream = AssetLoader.Open(new Uri(s));
+            return new Bitmap(stream);
         }
 
         return value;

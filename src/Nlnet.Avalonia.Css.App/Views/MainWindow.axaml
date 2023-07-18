@@ -41,6 +41,10 @@
                             <!--<controls:Icon x:Name="TabItemIcon"
                                            sampleAssistant:LoadedStateMixin.UseLoadedState="True"
                                            IconSvg="{Binding Path=Icon, Converter={x:Static sampleAssistant:StringToUriCvt.Cvt}}" />-->
+                            <Image x:Name="TabItemIcon"
+                                   sampleAssistant:LoadedStateMixin.UseLoadedState="True"
+                                   RenderOptions.BitmapInterpolationMode="HighQuality"
+                                   Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />
                         </Template>
                     </Setter>
                 </Style>
@@ -51,6 +55,9 @@
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
                             <Border x:Name="PageIconBorder">
                                 <!--<controls:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static sampleAssistant:StringToUriCvt.Cvt}}" />-->
+                                <Image x:Name="PageIcon"
+                                       RenderOptions.BitmapInterpolationMode="HighQuality"
+                                       Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />
                             </Border>
                             <TextBlock x:Name="PageName"
                                        Grid.Row="0"
