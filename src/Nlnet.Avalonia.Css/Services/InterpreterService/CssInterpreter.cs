@@ -41,9 +41,9 @@ namespace Nlnet.Avalonia.Css
                 .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
         }
 
-        public Selector? ToSelector(IEnumerable<ISyntax> syntaxList)
+        public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, IEnumerable<ISyntax> syntaxList)
         {
-            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(_builder, current));
+            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(builder, cssStyle, current));
         }
 
         public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property)
@@ -79,6 +79,11 @@ namespace Nlnet.Avalonia.Css
 
         public object? ParseValue(Type declaredType, string? rawValue)
         {
+            if (declaredType.IsGenericType && declaredType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                declaredType = Nullable.GetUnderlyingType(declaredType) ?? declaredType;
+            }
+
             rawValue = rawValue?.Trim('\'');
             if (rawValue is null or "null" or "NULL")
             {

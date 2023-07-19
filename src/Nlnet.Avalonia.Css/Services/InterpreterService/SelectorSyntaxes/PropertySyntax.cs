@@ -8,9 +8,9 @@ internal class PropertySyntax : ISyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
     {
-        var previousTargetType = previous?.GetTargetType();
+        var previousTargetType = previous?.GetTargetType() ?? cssStyle.GetParentTargetType();
         if (previousTargetType != null)
         {
             var interpreter = builder.Interpreter;

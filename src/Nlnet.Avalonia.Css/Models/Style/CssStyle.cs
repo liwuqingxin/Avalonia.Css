@@ -25,6 +25,8 @@ internal interface ICssStyle : ICssSection, IDisposable
 
     public Selector? GetSelector();
 
+    public Type? GetParentTargetType();
+
     public ChildStyle ToAvaloniaStyle();
 
     void AddDisposable(IDisposable disposable);
@@ -72,6 +74,27 @@ internal class CssStyle : CssSection, ICssStyle
         }
     }
 
+    Type? ICssStyle.GetParentTargetType()
+    {
+        if (Parent is not ICssStyle cssStyle)
+        {
+            return null;
+        }
+
+        var parentSelectorTargetType = cssStyle.GetSelector()?.GetTargetType();
+        if (parentSelectorTargetType != null)
+        {
+            return parentSelectorTargetType;
+        }
+
+        if (cssStyle.IsThemeChild)
+        {
+            return cssStyle.ThemeTargetType;
+        }
+
+        return cssStyle.GetParentTargetType();
+    }
+
     private Selector? CreateSelector()
     {
         var isChild = (Parent != null && IsLogicalChild == false) || IsThemeChild;
@@ -83,7 +106,7 @@ internal class CssStyle : CssSection, ICssStyle
 
         if(IsThemeChild)
         {
-            ThemeTargetType = syntaxList.First().ToSelector(_builder, null)?.GetTargetType();
+            ThemeTargetType = syntaxList.First().ToSelector(_builder, this, null)?.GetTargetType();
             syntaxList = syntaxList.Skip(1).ToList();
         }
 
@@ -99,7 +122,7 @@ internal class CssStyle : CssSection, ICssStyle
             }
             else
             {
-                selector = syntax.ToSelector(_builder, selector);
+                selector = syntax.ToSelector(_builder, this, selector);
             }
         }
         if (selector != null)

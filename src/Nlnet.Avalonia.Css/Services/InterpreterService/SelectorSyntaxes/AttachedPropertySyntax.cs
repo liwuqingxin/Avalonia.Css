@@ -12,7 +12,7 @@ internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
     {
         var manager = builder.TypeResolver;
         if (manager.TryGetType(TypeName, out var type))
