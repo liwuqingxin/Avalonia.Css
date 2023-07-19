@@ -46,6 +46,7 @@
             IsLightDismissEnabled:true;
             VerticalOffset: -7;
             HorizontalOffset: -10.5;
+            Placement:BottomEdgeAlignedLeft;
         }
         /template/ Calendar#PART_Calendar{
             BorderThickness:0;
