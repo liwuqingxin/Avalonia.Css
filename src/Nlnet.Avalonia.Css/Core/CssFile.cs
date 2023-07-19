@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Primitives;
+using Avalonia.LogicalTree;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -258,10 +260,10 @@ namespace Nlnet.Avalonia.Css
 
         private static void ForceApplyStyling(StyledElement styledElement)
         {
+            styledElement.OnTemplatedParentControlThemeChanged();
+            styledElement.OnControlThemeChanged();
+            styledElement.InvalidStyles();
             styledElement.ApplyStyling();
-
-            typeof(StyledElement).GetMethod("OnControlThemeChanged", BindingFlags.NonPublic | BindingFlags.Instance)
-                ?.Invoke(styledElement, null);
 
             if (styledElement is not Visual visual)
             {

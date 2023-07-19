@@ -1,12 +1,30 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
+using Avalonia;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
     internal static class InternalHelper
     {
-        private static PropertyInfo? SelectorTargetTypePropertyInfo { get; } = typeof(Selector).GetProperty("TargetType", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+        private static PropertyInfo? GetPropertyInfo<T>(string name) where T : class
+        {
+            return typeof(T).GetProperty(name, BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+        }
+
+        private static MethodInfo? GetMethodInfo<T>(string name) where T : class
+        {
+            return typeof(T).GetMethod(name, BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+        }
+
+        private static PropertyInfo? SelectorTargetTypePropertyInfo { get; } = GetPropertyInfo<Selector>("TargetType");
+
+        private static MethodInfo? StyledElementInvalidateStylesMethodInfo { get; } = GetMethodInfo<StyledElement>("InvalidateStyles");
+
+        private static MethodInfo? StyledElementOnControlThemeChangedMethodInfo { get; } = GetMethodInfo<StyledElement>("OnControlThemeChanged");
+
+        private static MethodInfo? StyledElementOnTemplatedParentControlThemeChangedMethodInfo { get; } = GetMethodInfo<StyledElement>("OnTemplatedParentControlThemeChanged");
 
         public static Type? GetTargetType(this Selector selector)
         {
@@ -17,6 +35,27 @@ namespace Nlnet.Avalonia.Css
 
             var targetType = SelectorTargetTypePropertyInfo.GetValue(selector) as Type;
             return targetType;
+        }
+
+        public static void InvalidStyles(this StyledElement element)
+        {
+            // TODO Trace
+
+            StyledElementInvalidateStylesMethodInfo?.Invoke(element, new object[] { true });
+        }
+
+        public static void OnControlThemeChanged(this StyledElement element)
+        {
+            // TODO Trace
+
+            StyledElementOnControlThemeChangedMethodInfo?.Invoke(element, null);
+        }
+
+        public static void OnTemplatedParentControlThemeChanged(this StyledElement element)
+        {
+            // TODO Trace
+
+            StyledElementOnTemplatedParentControlThemeChangedMethodInfo?.Invoke(element, null);
         }
     }
 }

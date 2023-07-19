@@ -30,6 +30,7 @@
             WindowManagerAddShadowHint:false;
             PlacementMode:Bottom;
             IsLightDismissEnabled:True;
+            HorizontalOffset:-1;
         }
          /template/ TimePickerPresenter#PART_PickerPresenter{
             MaxHeight:300;
