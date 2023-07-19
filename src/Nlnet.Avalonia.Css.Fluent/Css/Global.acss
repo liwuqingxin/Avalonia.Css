@@ -3,7 +3,7 @@
     FontSize:14;
 }
 TextPresenter {
-    TextBlock.FontFamily: Nunito,微软雅黑,宋体;
+    TextBlock.FontFamily: Nunito,微软雅黑,宋体; 
 }
 
 Window {
@@ -12,7 +12,7 @@ Window {
         BrushTransition(Background 0.8);
     ]
     [[
-        Window[IsActive=True] {
+        [IsActive=True] {
             Background: var(window-back-active);
         }
     ]]

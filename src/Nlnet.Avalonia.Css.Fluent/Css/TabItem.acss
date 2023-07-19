@@ -34,11 +34,11 @@
             RenderTransform: scale(1,1);
             Opacity:1;
         }
-        [TabStripPlacement=Top]:selected:pointerover /template/ Border#PART_SelectedPipe, TabItem[TabStripPlacement=Bottom]:selected:pointerover /template/ Border#PART_SelectedPipe{
+        [TabStripPlacement=Top]:selected:pointerover /template/ Border#PART_SelectedPipe, [TabStripPlacement=Bottom]:selected:pointerover /template/ Border#PART_SelectedPipe{
             RenderTransform: scale(0.94,1);
             Opacity:1;
         }
-        [TabStripPlacement=Left]:selected:pointerover /template/ Border#PART_SelectedPipe, TabItem[TabStripPlacement=Right]:selected:pointerover /template/ Border#PART_SelectedPipe{
+        [TabStripPlacement=Left]:selected:pointerover /template/ Border#PART_SelectedPipe, [TabStripPlacement=Right]:selected:pointerover /template/ Border#PART_SelectedPipe{
             RenderTransform: scale(1,1.4);
             Opacity:1;
         }

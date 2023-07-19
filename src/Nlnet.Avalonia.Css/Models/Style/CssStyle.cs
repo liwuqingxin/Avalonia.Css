@@ -76,6 +76,11 @@ internal class CssStyle : CssSection, ICssStyle
 
     Type? ICssStyle.GetParentTargetType()
     {
+        if (ThemeTargetType != null)
+        {
+            return ThemeTargetType;
+        }
+
         if (Parent is not ICssStyle cssStyle)
         {
             return null;
@@ -85,11 +90,6 @@ internal class CssStyle : CssSection, ICssStyle
         if (parentSelectorTargetType != null)
         {
             return parentSelectorTargetType;
-        }
-
-        if (cssStyle.IsThemeChild)
-        {
-            return cssStyle.ThemeTargetType;
         }
 
         return cssStyle.GetParentTargetType();
@@ -143,8 +143,7 @@ internal class CssStyle : CssSection, ICssStyle
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
         var style = NewStyle();
-
-        var targetType = style.Selector?.GetTargetType() ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
+        var targetType = style.Selector?.GetTargetType() ?? ((ICssStyle)this).GetParentTargetType();
         if (targetType != null)
         {
             // Resources
