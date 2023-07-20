@@ -210,7 +210,7 @@ WelcomePage Image#LogoImage:is-loaded{
                 KeyFrame(0%):[
                     TranslateTransform.X:150;
                 ]
-                KeyFrame(25% 0.3,0,0.7,1):[
+                KeyFrame(25% 0.5,0,0.7,0.9):[
                     TranslateTransform.X:-180;
                 ]
                 KeyFrame(50% 0.3,0,0.7,1):[
