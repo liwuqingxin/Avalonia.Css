@@ -231,6 +231,9 @@
         <Style Selector="^:pressed /template/ Popup#ValueTipPopup">
             <Setter Property="Popup.IsOpen" Value="True" />
         </Style>
+        <Style Selector="^:not(:pressed) /template/ Popup#ValueTipPopup">
+            <Setter Property="Popup.IsOpen" Value="False" />
+        </Style>
 
     </ControlTheme>
 

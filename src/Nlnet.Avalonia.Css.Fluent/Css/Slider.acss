@@ -81,11 +81,11 @@
         /* ValueTip */
         :horizontal /template/ Popup#ValueTipPopup{
             VerticalOffset:-10;
-            PlacementMode:Top;
+            PlacementMode:TopEdgeAlignedLeft;
         }
         :vertical /template/ Popup#ValueTipPopup{
             HorizontalOffset:-10;
-            PlacementMode:Left;
+            PlacementMode:LeftEdgeAlignedTop;
         }
          /template/ TextBlock#ValueTipText{
             HorizontalAlignment: Center;
