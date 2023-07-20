@@ -33,13 +33,13 @@
                             Duration:'0:0:2';
                             KeyFrames:[
                                 KeyFrame(0% 0.4,0,0.6,1):[
-                                    TranslateTransform.X: $ProgressBar.TemplateProperties.ContainerAnimationStartPosition;
+                                    TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationStartPosition;
                                 ]
                                 KeyFrame(75% 0.4,0,0.6,1):[
-                                    TranslateTransform.X: $ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                    TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
                                 KeyFrame(100% 0.4,0,0.6,1):[
-                                    TranslateTransform.X: $ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                    TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
                             ]
                         }
@@ -52,13 +52,13 @@
                             Duration:'0:0:2';
                             KeyFrames:[
                                 KeyFrame(0% 0.4,0,0.6,1):[
-                                    TranslateTransform.X: $ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                    TranslateTransform.X: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
                                 KeyFrame(37.5% 0.4,0,0.6,1):[
-                                    TranslateTransform.X: $ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                    TranslateTransform.X: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
                                 KeyFrame(100% 0.4,0,0.6,1):[
-                                    TranslateTransform.X: $ProgressBar.TemplateProperties.Container2AnimationEndPosition;
+                                    TranslateTransform.X: $ProgressBar.TemplateSettings.Container2AnimationEndPosition;
                                 ]
                             ]
                         }
@@ -93,13 +93,13 @@
                             Duration:'0:0:2';
                             KeyFrames:[
                                 KeyFrame(0% 0.4,0,0.6,1):[
-                                    TranslateTransform.Y: $ProgressBar.TemplateProperties.ContainerAnimationStartPosition;
+                                    TranslateTransform.Y: $ProgressBar.TemplateSettings.ContainerAnimationStartPosition;
                                 ]
                                 KeyFrame(75% 0.4,0,0.6,1):[
-                                    TranslateTransform.Y: $ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                    TranslateTransform.Y: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
                                 KeyFrame(100% 0.4,0,0.6,1):[
-                                    TranslateTransform.Y: $ProgressBar.TemplateProperties.ContainerAnimationEndPosition;
+                                    TranslateTransform.Y: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
                             ]
                         }
@@ -112,13 +112,13 @@
                             Duration:'0:0:2';
                             KeyFrames:[
                                 KeyFrame(0% 0.4,0,0.6,1):[
-                                    TranslateTransform.Y: $ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                    TranslateTransform.Y: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
                                 KeyFrame(37.5% 0.4,0,0.6,1):[
-                                    TranslateTransform.Y: $ProgressBar.TemplateProperties.Container2AnimationStartPosition;
+                                    TranslateTransform.Y: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
                                 KeyFrame(100% 0.4,0,0.6,1):[
-                                    TranslateTransform.Y: $ProgressBar.TemplateProperties.Container2AnimationEndPosition;
+                                    TranslateTransform.Y: $ProgressBar.TemplateSettings.Container2AnimationEndPosition;
                                 ]
                             ]
                         }
