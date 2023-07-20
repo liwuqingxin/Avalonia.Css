@@ -10,13 +10,15 @@
              mc:Ignorable="d">
 
     <StackPanel>
-        <TextBlock x:Name="PageDescription"
-                   Text=""
-                   TextWrapping="Wrap" />
+        <TextBlock x:Name="PageDescription" TextWrapping="Wrap">
+            <Run Text="Avalonia.Css 不是一个完全支持CSS（层叠样式表）的库，它的主要目的在于赋予 Avalonia 框架 " />
+            <Run FontWeight="Bold"
+                 Foreground="{DynamicResource Accent}"
+                 Text="动态修改外观样式" />
+            <Run Text=" 的能力，同时，这也让 Avalonia 拥有了样式热重载的能力。" />
+        </TextBlock>
 
         <Image x:Name="LogoImage"
-               Width="140"
-               Height="140"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                fluent:LoadedStateMixin.UseLoadedState="True"

@@ -162,19 +162,21 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 
 
 WelcomePage Image#LogoImage:is-loaded{
+    Width:200;
+    Height:200;
     RenderTransform:none;
     [[
         :animation[desc=Logo image initial animation]{
             IterationCount:1;
-            Duration:'0:0:10';
+            Duration:'0:0:5';
             FillMode:Forward;
             Delay:'0:0:0';
             KeyFrames:[
                 /* Opacity */
                 KeyFrame(0% 0,0.2,0.8,1):[
                     Opacity:0;
-                    ScaleTransform.ScaleX:0.6;
-                    ScaleTransform.ScaleY:0.6;
+                    ScaleTransform.ScaleX:0.4;
+                    ScaleTransform.ScaleY:0.4;
                 ]
                 KeyFrame(100% 0,0.2,0.8,1):[
                     Opacity:1;
@@ -184,37 +186,41 @@ WelcomePage Image#LogoImage:is-loaded{
 
                 /* Y */
                 KeyFrame(0%):[
-                    TranslateTransform.Y:-160;
-                    RotateTransform.Angle:-20;
+                    TranslateTransform.Y:-200;
+                    RotateTransform.Angle:-10;
                 ]
                 KeyFrame(25% 0.3,0,0.7,1):[
                     TranslateTransform.Y:0;
+                    RotateTransform.Angle:40;
+                ]
+                KeyFrame(50% 0.3,0,0.7,1):[
+                    TranslateTransform.Y:60;
+                    RotateTransform.Angle:10;
+                ]
+                KeyFrame(75% 0.3,0,0.7,1):[
+                    TranslateTransform.Y:140;
                     RotateTransform.Angle:30;
                 ]
-                KeyFrame(50%):[
-                    TranslateTransform.Y:60;
-                    RotateTransform.Angle:-15;
-                ]
-                KeyFrame(75%):[
-                    TranslateTransform.Y:140;
-                    RotateTransform.Angle:20;
-                ]
-                KeyFrame(100%):[
-                    TranslateTransform.Y:200;
+                KeyFrame(100% 0.3,0,0.7,1):[
+                    TranslateTransform.Y:160;
+                    RotateTransform.Angle:00;
                 ]
 
                 /* X */
                 KeyFrame(0%):[
-                    TranslateTransform.X:100;
+                    TranslateTransform.X:150;
                 ]
                 KeyFrame(25% 0.3,0,0.7,1):[
-                    TranslateTransform.X:-130;
+                    TranslateTransform.X:-180;
                 ]
-                KeyFrame(50%):[
-                    TranslateTransform.X:90;
+                KeyFrame(50% 0.3,0,0.7,1):[
+                    TranslateTransform.X:120;
                 ]
-                KeyFrame(75%):[
-                    TranslateTransform.X:-100;
+                KeyFrame(75% 0.3,0,0.7,1):[
+                    TranslateTransform.X:-150;
+                ]
+                KeyFrame(100% 0.3,0,0.7,1):[
+                    TranslateTransform.X:0;
                 ]
             ]
         }
