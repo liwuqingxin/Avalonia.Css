@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reflection;
 using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Primitives;
-using Avalonia.LogicalTree;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -170,7 +163,7 @@ namespace Nlnet.Avalonia.Css
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
                     if (cssThemeChildStyle.ThemeTargetType != null)
                     {
-                        // TODO 检查 ThemeVariarity;
+                        // TODO 检查 ThemeVariant;
                         if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
                             // The child cache holds the references of old style instances.
@@ -209,7 +202,7 @@ namespace Nlnet.Avalonia.Css
                     styles.Insert(index, this);
                 }
 
-                ReapplyStyling(_owner.Owner);
+                StylerHelper.ReapplyStyling(_owner.Owner);
             }
             catch (Exception e)
             {
@@ -220,60 +213,12 @@ namespace Nlnet.Avalonia.Css
         private void BeginLoad(Styles styles)
         {
             //
-            // Delay 20 milliseconds to avoid conflicting with vs code.
+            // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
             //
             Task.Delay(20).ContinueWith(t =>
             {
                 Dispatcher.UIThread.Post(() => Load(styles));
             });
-        }
-
-        private static void ReapplyStyling(IResourceHost? resourceHost)
-        {
-            switch (resourceHost)
-            {
-                case Application application:
-                {
-                    switch (application.ApplicationLifetime)
-                    {
-                        case ClassicDesktopStyleApplicationLifetime lifetime:
-                        {
-                            foreach (var window in lifetime.Windows)
-                            {
-                                ForceApplyStyling(window);
-                            }
-                            break;
-                        }
-                        case ISingleViewApplicationLifetime { MainView: { } } singleView:
-                            ForceApplyStyling(singleView.MainView);
-                            break;
-                    }
-                    break;
-                }
-                case StyledElement element:
-                {
-                    ForceApplyStyling(element);
-                    break;
-                }
-            }
-        }
-
-        private static void ForceApplyStyling(StyledElement styledElement)
-        {
-            styledElement.OnTemplatedParentControlThemeChanged();
-            styledElement.OnControlThemeChanged();
-            styledElement.InvalidStyles();
-            styledElement.ApplyStyling();
-
-            if (styledElement is not Visual visual)
-            {
-                return;
-            }
-
-            foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
-            {
-                ForceApplyStyling(child);
-            }
         }
 
         public void Dispose()

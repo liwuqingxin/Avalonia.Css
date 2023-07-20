@@ -2,7 +2,12 @@
 using System.Linq;
 using System.Reactive.Disposables;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Data;
+using Avalonia.Diagnostics;
+using Avalonia.Input;
 using Avalonia.Styling;
+using Avalonia.Xaml.Interactivity;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -39,6 +44,7 @@ namespace Nlnet.Avalonia.Css
             AddingStyleProperty.Changed.AddClassHandler<StyledElement>((element, args) =>
             {
                 element.ClearValue(AddingStyleProperty);
+
                 if (args.NewValue is IList<ICssStyle> cssStyleList)
                 {
                     foreach (var cssStyle in cssStyleList)
@@ -56,6 +62,8 @@ namespace Nlnet.Avalonia.Css
                             element.Styles.Remove(s);
                         }));   
                     }
+
+                    StylerHelper.ForceApplyStyling(element, false, true, true);
                 }
             });
         }
