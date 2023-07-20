@@ -159,7 +159,68 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 }
 
 
-/* Button in ButtonPage */
+
+
+WelcomePage Image#LogoImage:is-loaded{
+    RenderTransform:none;
+    [[
+        :animation[desc=Logo image initial animation]{
+            IterationCount:1;
+            Duration:'0:0:10';
+            FillMode:Forward;
+            Delay:'0:0:0';
+            KeyFrames:[
+                /* Opacity */
+                KeyFrame(0% 0,0.2,0.8,1):[
+                    Opacity:0;
+                    ScaleTransform.ScaleX:0.6;
+                    ScaleTransform.ScaleY:0.6;
+                ]
+                KeyFrame(100% 0,0.2,0.8,1):[
+                    Opacity:1;
+                    ScaleTransform.ScaleX:1;
+                    ScaleTransform.ScaleY:1;
+                ]
+
+                /* Y */
+                KeyFrame(0%):[
+                    TranslateTransform.Y:-160;
+                    RotateTransform.Angle:-20;
+                ]
+                KeyFrame(25% 0.3,0,0.7,1):[
+                    TranslateTransform.Y:0;
+                    RotateTransform.Angle:30;
+                ]
+                KeyFrame(50%):[
+                    TranslateTransform.Y:60;
+                    RotateTransform.Angle:-15;
+                ]
+                KeyFrame(75%):[
+                    TranslateTransform.Y:140;
+                    RotateTransform.Angle:20;
+                ]
+                KeyFrame(100%):[
+                    TranslateTransform.Y:200;
+                ]
+
+                /* X */
+                KeyFrame(0%):[
+                    TranslateTransform.X:100;
+                ]
+                KeyFrame(25% 0.3,0,0.7,1):[
+                    TranslateTransform.X:-130;
+                ]
+                KeyFrame(50%):[
+                    TranslateTransform.X:90;
+                ]
+                KeyFrame(75%):[
+                    TranslateTransform.X:-100;
+                ]
+            ]
+        }
+    ]]
+}
+
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
     HorizontalAlignment:Left;
 }

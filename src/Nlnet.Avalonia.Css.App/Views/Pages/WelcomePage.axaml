@@ -1,0 +1,30 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.WelcomePage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fluent="https://www.nlnet.com/avalonia"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text=""
+                   TextWrapping="Wrap" />
+
+        <Image x:Name="LogoImage"
+               Width="140"
+               Height="140"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               fluent:LoadedStateMixin.UseLoadedState="True"
+               RenderOptions.BitmapInterpolationMode="HighQuality"
+               RenderOptions.EdgeMode="Unspecified"
+               Source="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
+               Stretch="Uniform" />
+
+    </StackPanel>
+
+</UserControl>
