@@ -42,19 +42,19 @@ namespace Nlnet.Avalonia.Css.Fluent
             loader.LoadFolder(this, "Css/", debugRelative);
         }
 
-        public void UpdateResource()
+        public void UpdateResource(bool reapplyStyle)
         {
-            _resourceFile?.Reload();
+            _resourceFile?.Reload(reapplyStyle);
         }
 
-        public void UpdateMode()
+        public void UpdateMode(bool reapplyStyle)
         {
-            _modeFile?.Reload();
+            _modeFile?.Reload(reapplyStyle);
         }
 
-        public void UpdateTheme()
+        public void UpdateTheme(bool reapplyStyle)
         {
-            _themeFile?.Reload();
+            _themeFile?.Reload(reapplyStyle);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Nlnet.Avalonia.Css.App
             }
 
             _builder.Configuration.Mode = IsLocalDark ? ThemeVariant.Dark : ThemeVariant.Light;
-            _cssFile?.Reload();
+            _cssFile?.Reload(true);
         }
 
         protected override void OnLoaded(RoutedEventArgs e)

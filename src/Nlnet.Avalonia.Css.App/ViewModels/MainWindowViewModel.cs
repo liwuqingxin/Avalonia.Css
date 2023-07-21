@@ -116,15 +116,15 @@ namespace Nlnet.Avalonia.Css.App
                 CssBuilder.Default.Configuration.Theme = Theme;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
-                cssTheme?.UpdateTheme();
-                cssTheme?.UpdateResource();
+                cssTheme?.UpdateTheme(false);
+                cssTheme?.UpdateResource(true);
             }
             else if (propertyName is nameof(Mode))
             {
                 CssBuilder.Default.Configuration.Mode = Mode;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
-                cssTheme?.UpdateMode();
+                cssTheme?.UpdateMode(true);
             }
         }
     }

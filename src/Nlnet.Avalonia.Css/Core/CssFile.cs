@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -28,7 +29,7 @@ namespace Nlnet.Avalonia.Css
         public static CssFile Load(ICssBuilder cssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(cssBuilder, owner, filePath, autoLoadWhenFileChanged);
-            styleFile.Load(owner);
+            styleFile.Load(owner, false);
             return styleFile;
         }
 
@@ -43,7 +44,7 @@ namespace Nlnet.Avalonia.Css
         public static CssFile BeginLoad(ICssBuilder cssBuilder, Styles owner, string file, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(cssBuilder, owner, file, autoLoadWhenFileChanged);
-            styleFile.BeginLoad(owner);
+            styleFile.BeginLoad(owner, false);
             return styleFile;
         }
 
@@ -109,13 +110,19 @@ namespace Nlnet.Avalonia.Css
             var lastWriteTime = File.GetLastWriteTime(StandardFilePath);
             if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
             {
-                BeginLoad(_owner);
-
+                //
+                // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
+                //
+                Task.Delay(20).ContinueWith(t =>
+                {
+                    BeginLoad(_owner, true);
+                });
+                
                 _lastRead = lastWriteTime;
             }
         }
 
-        private void Load(Styles styles)
+        private void Load(Styles styles, bool reapplyStyle)
         {
             var index = styles.IndexOf(this);
             styles.Remove(this);
@@ -202,7 +209,10 @@ namespace Nlnet.Avalonia.Css
                     styles.Insert(index, this);
                 }
 
-                StylerHelper.ReapplyStyling(_owner.Owner);
+                if (reapplyStyle)
+                {
+                    StylerHelper.ReapplyStyling(_owner.Owner);
+                }
             }
             catch (Exception e)
             {
@@ -210,15 +220,9 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        private void BeginLoad(Styles styles)
+        private void BeginLoad(Styles styles, bool reapplyStyle)
         {
-            //
-            // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
-            //
-            Task.Delay(20).ContinueWith(t =>
-            {
-                Dispatcher.UIThread.Post(() => Load(styles));
-            });
+            Dispatcher.UIThread.Post(() => Load(styles, reapplyStyle));
         }
 
         public void Dispose()
@@ -238,9 +242,9 @@ namespace Nlnet.Avalonia.Css
 
         public string StandardFilePath { get; }
 
-        public void Reload()
+        public void Reload(bool reapplyStyle)
         {
-            this.BeginLoad(_owner);
+            this.BeginLoad(_owner, reapplyStyle);
         }
 
         #endregion
