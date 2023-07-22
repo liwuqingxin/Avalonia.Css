@@ -7,6 +7,8 @@ namespace Nlnet.Avalonia.Css.App.Views
 {
     public partial class MainWindow : Window
     {
+        private readonly TabControl _mainTab;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -14,6 +16,8 @@ namespace Nlnet.Avalonia.Css.App.Views
             //this.UseDevTools();
 
             this.DataContext = new MainWindowViewModel();
+
+            _mainTab = this.FindControl<TabControl>("MainTabControl")!;
         }
 
         protected override void OnLoaded(RoutedEventArgs e)
@@ -28,9 +32,13 @@ namespace Nlnet.Avalonia.Css.App.Views
 
         private void MainTabControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
+            if (!Equals(e.Source, _mainTab))
+            {
+                return;
+            }
+
             // TODO 这里为何不能直接使用MainTabControl
-            this.FindControl<TabControl>("MainTabControl")
-                ?.GetVisualDescendants()
+            _mainTab.GetVisualDescendants()
                 .OfType<ScrollViewer>()
                 .FirstOrDefault(s => s.Name == "MainContentScrollViewer")
                 ?.ScrollToHome();
