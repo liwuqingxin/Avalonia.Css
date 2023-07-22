@@ -7,10 +7,10 @@
     CornerRadius: 4;
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Center;
     HorizontalAlignment: Left;
-    VerticalContentAlignment: Center;
     VerticalAlignment: Stretch;
+    /* HorizontalContentAlignment: Center;
+    VerticalContentAlignment: Center; */
     ClipToBounds:False;
     MinWidth:200;
     Transitions:[

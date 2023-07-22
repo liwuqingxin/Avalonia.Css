@@ -31,7 +31,6 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
     public CssResourceDictionary(ICssBuilder builder, string selector) : base(builder, selector)
     {
         _builder = builder;
-
     }
 
     public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
@@ -59,16 +58,19 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
     {
         if (Resources.Count == 0)
         {
+            this.WriteWarning($"No resource detected. Skip this.");
             return null;
         }
 
         if (Mode != null && !string.Equals(Mode, cssBuilder.Configuration.Mode.ToString(), StringComparison.CurrentCultureIgnoreCase))
         {
+            this.WriteWarning($"Current mode is '{cssBuilder.Configuration.Mode}'. This mode is '{Mode}'. Skip this.");
             return null;
         }
 
         if (Theme != null && !string.Equals(Theme, cssBuilder.Configuration.Theme, StringComparison.CurrentCultureIgnoreCase))
         {
+            this.WriteWarning($"Current theme is '{cssBuilder.Configuration.Theme}'. This theme is '{Theme}'. Skip this.");
             return null;
         }
 
@@ -100,7 +102,7 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
         foreach (var resource in resourceList)
         {
             var r = resource.Trim().TrimEnd(';');
-            if (string.IsNullOrWhiteSpace(r) != false)
+            if (string.IsNullOrWhiteSpace(r))
             {
                 continue;
             }

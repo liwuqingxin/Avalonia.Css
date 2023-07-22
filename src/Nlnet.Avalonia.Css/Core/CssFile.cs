@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -173,10 +172,10 @@ namespace Nlnet.Avalonia.Css
                         // TODO 检查 ThemeVariant;
                         if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
-                            // The child cache holds the references of old style instances.
-                            typeof(StyleBase)
-                                .GetField("_childCache", BindingFlags.Instance | BindingFlags.NonPublic)
-                                ?.SetValue(theme, null);
+                            // The child cache holds the references of old style instances. (In avalonia 11.0.0-preview4)
+                            //typeof(StyleBase)
+                            //    .GetField("_childCache", BindingFlags.Instance | BindingFlags.NonPublic)
+                            //    ?.SetValue(theme, null);
                             
                             //
                             // TODO Do not consider the older of old and new styles now.
@@ -216,7 +215,7 @@ namespace Nlnet.Avalonia.Css
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                this.WriteError(e.ToString());
             }
         }
 

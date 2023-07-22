@@ -16,6 +16,7 @@ internal class IsSyntax : ISyntax, ITypeSyntax
             return previous.Is(type!);
         }
 
+        this.WriteError($"Can not resolve the type '{TypeName}'.");
         return previous;
     }
 }

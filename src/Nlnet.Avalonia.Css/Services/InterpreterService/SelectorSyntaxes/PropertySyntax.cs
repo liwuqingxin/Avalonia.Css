@@ -11,24 +11,26 @@ internal class PropertySyntax : ISyntax
     public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
     {
         var previousTargetType = previous?.GetTargetType() ?? cssStyle.GetParentTargetType();
-        if (previousTargetType != null)
+        if (previousTargetType == null)
         {
-            var interpreter = builder.Interpreter;
-
-            var avaloniaProperty = interpreter.ParseAvaloniaProperty(previousTargetType, Property);
-            if (avaloniaProperty == null)
-            {
-                return previous;
-            }
-            var value = interpreter.ParseValue(avaloniaProperty, Value);
-            if (value != null)
-            {
-                return previous.PropertyEquals(avaloniaProperty, value);
-            }
+            this.WriteError($"Previous selector's TargetType and parent target type is null. '[{Property}={Value}]' skipped.");
+            return previous;
         }
 
-        this.WriteLine($"Previous selector's TargetType is null. '[{Property}={Value}]' skipped.");
+        var interpreter      = builder.Interpreter;
+        var avaloniaProperty = interpreter.ParseAvaloniaProperty(previousTargetType, Property);
+        if (avaloniaProperty == null)
+        {
+            this.WriteError($"Can not resolve the property '{Property}' of the type '{previousTargetType}'. '[{Property}={Value}]' skipped.");
+            return previous;
+        }
+        var value = interpreter.ParseValue(avaloniaProperty, Value);
+        if (value == null)
+        {
+            this.WriteError($"Can not resolve the value '{Value}' for property '{Property}'. Skip it.");
+            return previous;
+        }
 
-        return previous;
+        return previous.PropertyEquals(avaloniaProperty, value);
     }
 }

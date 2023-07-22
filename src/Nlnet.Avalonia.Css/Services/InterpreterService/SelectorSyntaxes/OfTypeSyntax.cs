@@ -16,8 +16,7 @@ internal class OfTypeSyntax : ISyntax, ITypeSyntax
             return previous.OfType(type!);
         }
 
-        this.WriteLine($"Can not resolve type '{TypeName}'");
-
+        this.WriteError($"Can not resolve the type '{TypeName}'.");
         return previous;
     }
 }

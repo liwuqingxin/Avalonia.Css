@@ -21,15 +21,19 @@ internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {
+                this.WriteError($"Can not resolve the property '{Property}' of the type '{type}'. '[{Property}={Value}]' skipped.");
                 return previous;
             }
             var value = interpreter.ParseValue(avaloniaProperty, Value);
-            if (value != null)
+            if (value == null)
             {
-                return previous.PropertyEquals(avaloniaProperty, value);
+                this.WriteError($"Can not resolve the value '{Value}' for property '{type}.{Property}'. Skip it.");
+                return previous;
             }
+            return previous.PropertyEquals(avaloniaProperty, value);
         }
 
+        this.WriteError($"Can not resolve the type '{TypeName}'. '[{Property}={Value}]' skipped.");
         return previous;
     }
 }

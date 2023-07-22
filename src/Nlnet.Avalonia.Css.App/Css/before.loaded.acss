@@ -203,7 +203,7 @@ WelcomePage Image#LogoImage:is-loaded{
                 ]
                 KeyFrame(100% 0.3,0,0.7,1):[
                     TranslateTransform.Y:160;
-                    RotateTransform.Angle:00;
+                    RotateTransform.Angle:0;
                 ]
 
                 /* X */
@@ -221,6 +221,34 @@ WelcomePage Image#LogoImage:is-loaded{
                 ]
                 KeyFrame(100% 0.3,0,0.7,1):[
                     TranslateTransform.X:0;
+                ]
+            ]
+        }
+    ]]
+}
+WelcomePage Image#LogoImage:pointerover{
+    [[
+        :animation[Animation for pointerover on logo image]{
+            IterationCount:1;
+            FillMode:Forward;
+            Duration:'0:0:0.3';
+            KeyFrames:[
+                KeyFrame(100% 0.5,0,0.7,0.9):[
+                    RotateTransform.Angle:10;
+                ]
+            ]
+        }
+    ]]
+}
+WelcomePage Image#LogoImage:not(:pointerover){
+    [[
+        :animation[Animation for pointerover on logo image]{
+            IterationCount:1;
+            FillMode:Forward;
+            Duration:'0:0:0.3';
+            KeyFrames:[
+                KeyFrame(100% 0.5,0,0.7,0.9):[
+                    RotateTransform.Angle:0;
                 ]
             ]
         }

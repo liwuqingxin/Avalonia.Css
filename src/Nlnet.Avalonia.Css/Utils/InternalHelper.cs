@@ -39,21 +39,30 @@ namespace Nlnet.Avalonia.Css
 
         public static void InvalidStyles(this StyledElement element)
         {
-            // TODO Trace
+            if (StyledElementInvalidateStylesMethodInfo == null)
+            {
+                throw new NotSupportedException($"Can not find the InvalidateStylesMethodInfo in the type of '{nameof(StyledElement)}'.");
+            }
 
             StyledElementInvalidateStylesMethodInfo?.Invoke(element, new object[] { true });
         }
 
         public static void OnControlThemeChanged(this StyledElement element)
         {
-            // TODO Trace
+            if (StyledElementOnControlThemeChangedMethodInfo == null)
+            {
+                throw new NotSupportedException($"Can not find the OnControlThemeChangedMethodInfo in the type of '{nameof(StyledElement)}'.");
+            }
 
             StyledElementOnControlThemeChangedMethodInfo?.Invoke(element, null);
         }
 
         public static void OnTemplatedParentControlThemeChanged(this StyledElement element)
         {
-            // TODO Trace
+            if (StyledElementOnTemplatedParentControlThemeChangedMethodInfo == null)
+            {
+                throw new NotSupportedException($"Can not find the OnTemplatedParentControlThemeChangedMethodInfo in the type of '{nameof(StyledElement)}'.");
+            }
 
             StyledElementOnTemplatedParentControlThemeChangedMethodInfo?.Invoke(element, null);
         }

@@ -14,6 +14,7 @@ public static class CssExtension
     public static AppBuilder UseAvaloniaCssDefaultBuilder(this AppBuilder builder)
     {
         CssBuilder.UseDefaultBuilder();
+        builder.WriteLine($"==== Avalonia css default builder used...");
         return builder;
     }
 
@@ -23,7 +24,6 @@ public static class CssExtension
     /// <param name="builder"></param>
     /// <param name="typeResolver"></param>
     /// <returns></returns>
-    [Obsolete("It makes UI choppy in avalonia preview-4.")]
     public static AppBuilder WithTypeResolverForDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
     {
         CssBuilder.Default.LoadResolver(typeResolver);

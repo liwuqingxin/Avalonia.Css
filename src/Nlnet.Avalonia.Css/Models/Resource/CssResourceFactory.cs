@@ -41,6 +41,7 @@ internal class CssResourceFactory : ICssResourceFactory
         foreach (var factory in factories)
         {
             Factories[factory.Type] = factory.factory!;
+            DiagnosisHelper.WriteLine($"Setup resource factory '{factory.factory}' for type '{factory.Type}'.");
         }
 
         var builder = new StringBuilder();
@@ -61,6 +62,7 @@ internal class CssResourceFactory : ICssResourceFactory
         var match = Regex.Match(resourceString);
         if (match.Success == false)
         {
+            this.WriteError($"Resource '{resourceString}' is invalid. Skip it.");
             resource = null;
             return false;
         }
@@ -76,6 +78,7 @@ internal class CssResourceFactory : ICssResourceFactory
             return true;
         }
 
+        this.WriteError($"Resource type '{type}' is not supported now.");
         resource = null;
         return false;
     }

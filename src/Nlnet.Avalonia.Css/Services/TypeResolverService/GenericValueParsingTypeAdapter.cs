@@ -19,6 +19,6 @@ public abstract class GenericValueParsingTypeAdapter : IValueParsingTypeAdapter
     {
         _parseTypeAdapter[declaredType] = parsingType;
 
-        this.WriteLine($"Add value parsing adapt type '{declaredType}' to '{parsingType}'");
+        this.WriteLine($"Add value parsing adapt type '{parsingType}' for '{declaredType}'");
     }
 }

@@ -18,12 +18,12 @@ internal class CssLoader : ICssLoader
     ICssFile? ICssLoader.Load(Styles owner, string filePath, bool autoReloadWhenFileChanged)
     {
         filePath = GetStandardPath(filePath);
-        if (CssBuilder.TryGetCssFile(filePath, out _))
+        if (CssBuilder.TryGetCssFile(filePath, out var file))
         {
-            return null;
+            return file;
         }
 
-        var file = CssFile.Load(CssBuilder, owner, filePath, autoReloadWhenFileChanged);
+        file = CssFile.Load(CssBuilder, owner, filePath, autoReloadWhenFileChanged);
         CssBuilder.TryAddCssFile(file);
         return file;
     }
@@ -31,12 +31,12 @@ internal class CssLoader : ICssLoader
     ICssFile? ICssLoader.BeginLoad(Styles owner, string filePath, bool autoReloadWhenFileChanged)
     {
         filePath = GetStandardPath(filePath);
-        if (CssBuilder.TryGetCssFile(filePath, out _))
+        if (CssBuilder.TryGetCssFile(filePath, out var file))
         {
-            return null;
+            return file;
         }
 
-        var file = CssFile.BeginLoad(CssBuilder, owner, filePath, autoReloadWhenFileChanged);
+        file = CssFile.BeginLoad(CssBuilder, owner, filePath, autoReloadWhenFileChanged);
         CssBuilder.TryAddCssFile(file);
         return file;
     }

@@ -65,6 +65,8 @@ internal class ResourceProvidersManager : IResourceProvidersManager
             }
         }
 
+        this.WriteError($"Can not find the resource with key of '{key}' in {nameof(ResourceProvidersManager)}.");
+
         result = default;
         return false;
     }

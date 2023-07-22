@@ -50,7 +50,7 @@
         }
         /template/ Calendar#PART_Calendar{
             BorderThickness:0;
-            HightLightToday:True;
+            IsTodayHighlighted:True;
         }
     ]]
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Avalonia.Controls;
-using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {

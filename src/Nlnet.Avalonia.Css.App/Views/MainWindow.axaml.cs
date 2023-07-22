@@ -11,9 +11,7 @@ namespace Nlnet.Avalonia.Css.App.Views
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            //this.UseDevTools();
+            InitializeComponent(true);
 
             this.DataContext = new MainWindowViewModel();
 

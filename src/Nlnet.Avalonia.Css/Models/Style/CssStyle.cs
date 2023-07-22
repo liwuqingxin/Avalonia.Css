@@ -34,9 +34,9 @@ internal interface ICssStyle : ICssSection, IDisposable
 
 internal class CssStyle : CssSection, ICssStyle
 {
-    private readonly ICssBuilder          _builder;
-    private          Selector?            _selector;
-    private          CompositeDisposable? _compositeDisposable;
+    private readonly ICssBuilder _builder;
+    private Selector? _selector;
+    private CompositeDisposable? _compositeDisposable;
 
     public bool IsThemeChild { get; set; }
 
@@ -140,76 +140,89 @@ internal class CssStyle : CssSection, ICssStyle
 
     public ChildStyle ToAvaloniaStyle()
     {
-        this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
+        var styleKind = IsThemeChild ? "^" : "";
+        if (IsLogicalChild)
+        {
+            styleKind = ">";
+        }
+        else if (Parent is ICssStyle parentCssStyle)
+        {
+            styleKind = $" - ";
+        }
+        
+        DiagnosisHelper.WriteLine($"---- Parsing style '{styleKind}{Selector}'.");
 
         var style = NewStyle();
         var targetType = style.Selector?.GetTargetType() ?? ((ICssStyle)this).GetParentTargetType();
-        if (targetType != null)
+        if (targetType == null)
         {
-            // Resources
-            if (Resources != null)
+            this.WriteError($"The target type is null. Empty avalonia style is created.");
+            return style;
+        }
+
+        // Resources
+        if (Resources != null)
+        {
+            foreach (var cssResourceList in Resources)
             {
-                foreach (var cssResourceList in Resources)
+                var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
+                if (dic != null)
                 {
-                    var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
-                    if (dic != null)
-                    {
-                        style.Resources.MergedDictionaries.Add((dic));
-                    }
+                    style.Resources.MergedDictionaries.Add((dic));
                 }
             }
+        }
 
-            // Setters
-            if (Setters != null)
+        // Setters
+        if (Setters != null)
+        {
+            foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<Setter>())
             {
-                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<Setter>())
-                {
-                    style.Add(setter);
-                }
+                style.Add(setter);
             }
+        }
 
-            // Children Styles
-            if (Styles != null)
+        // Children Styles
+        if (Styles != null)
+        {
+            foreach (var cssStyle in Styles)
             {
-                foreach (var cssStyle in Styles)
+                if (cssStyle.IsLogicalChild)
                 {
-                    if (cssStyle.IsLogicalChild)
+                    var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
+                    if (existSetter?.Value is IList<ICssStyle> list)
                     {
-                        var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
-                        if (existSetter?.Value is IList<ICssStyle> list)
-                        {
-                            list.Add(cssStyle);
-                        }
-                        else
-                        {
-                            list = new List<ICssStyle>();
-                            list.Add(cssStyle);
-                            var setter = new Setter()
-                            {
-                                Property = ExStyler.AddingStyleProperty,
-                                Value    = list,
-                            };
-                            style.Add(setter);
-                        }
+                        list.Add(cssStyle);
                     }
                     else
                     {
-                        var childStyle = cssStyle.ToAvaloniaStyle();
-                        style.Add(childStyle);
+                        list = new List<ICssStyle>();
+                        list.Add(cssStyle);
+                        var setter = new Setter()
+                        {
+                            Property = ExStyler.AddingStyleProperty,
+                            Value    = list,
+                        };
+                        style.Add(setter);
                     }
                 }
-            }
-
-            // Style Animations
-            if (Animations != null)
-            {
-                foreach (var cssAnimation in Animations)
+                else
                 {
-                    var animation = cssAnimation.ToAvaloniaAnimation();
-                    if (animation != null)
-                    {
-                        style.Animations.Add(animation);
-                    }
+                    var childStyle = cssStyle.ToAvaloniaStyle();
+                    style.Add(childStyle);
+                }
+            }
+        }
+
+        // Style Animations
+        if (Animations != null)
+        {
+            foreach (var cssAnimation in Animations)
+            {
+                var animation = cssAnimation.ToAvaloniaAnimation();
+                if (animation != null)
+                {
+                    style.Animations.Add(animation);
                 }
             }
         }
@@ -240,6 +253,11 @@ internal class CssStyle : CssSection, ICssStyle
     }
 
     public override string ToString()
+    {
+        return Selector;
+    }
+
+    public string ToDetailString()
     {
         var builder = new StringBuilder();
         builder.AppendLine($"'{Selector}'");

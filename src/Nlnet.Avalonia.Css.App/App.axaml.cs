@@ -23,12 +23,14 @@ namespace Nlnet.Avalonia.Css.App
             CssBuilder.Default.Configuration.Theme = "blue";
             CssBuilder.Default.Configuration.Mode  = ThemeVariant.Light;
 
-            // Nlnet.Avalonia.Css.App
-            CssBuilder.Default.LoadResolver(new GenericResolver<App>());
-            // Nlnet.Avalonia.Svg
+            // Type resolver for Nlnet.Avalonia.Css.App
+            //CssBuilder.Default.LoadResolver(new GenericResolver<App>());
+
+            // Type resolver for Nlnet.Avalonia.Svg
             //CssBuilder.Default.LoadResolver(new GenericResolver<Icon>());
-            // Nlnet.Avalonia.SampleAssistant
-            CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
+
+            // Type resolver for Nlnet.Avalonia.SampleAssistant
+            //CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
 
             // Load this. In this, CssFluentTheme will be loaded.
             AvaloniaXamlLoader.Load(this);

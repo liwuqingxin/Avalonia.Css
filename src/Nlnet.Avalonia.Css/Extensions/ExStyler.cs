@@ -2,12 +2,7 @@
 using System.Linq;
 using System.Reactive.Disposables;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Data;
-using Avalonia.Diagnostics;
-using Avalonia.Input;
 using Avalonia.Styling;
-using Avalonia.Xaml.Interactivity;
 
 namespace Nlnet.Avalonia.Css
 {

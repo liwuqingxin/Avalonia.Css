@@ -53,7 +53,7 @@ namespace Nlnet.Avalonia.Css
                 var splits = property.Split('.', StringSplitOptions.RemoveEmptyEntries);
                 if (splits.Length != 2)
                 {
-                    avaloniaObjectType.WriteLine($"Can not recognize '{property}'. Skip it.");
+                    avaloniaObjectType.WriteError($"Can not recognize '{property}'. Skip it.");
                     return null;
                 }
 
@@ -62,7 +62,6 @@ namespace Nlnet.Avalonia.Css
                 var manager = _builder.TypeResolver;
                 if (manager.TryGetType(declaredTypeName, out var type) == false)
                 {
-                    avaloniaObjectType.WriteLine($"Can not find '{declaredTypeName}' from '{nameof(TypeResolverManager)}'. Skip it.");
                     return null;
                 }
                 avaloniaObjectType = type!;
@@ -71,7 +70,7 @@ namespace Nlnet.Avalonia.Css
             var field = avaloniaObjectType.GetField($"{property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
             if (field == null)
             {
-                avaloniaObjectType.WriteLine($"Can not find '{property}Property' from '{avaloniaObjectType}'. Skip it.");
+                avaloniaObjectType.WriteError($"Can not find '{property}Property' from '{avaloniaObjectType}'. Skip it.");
             }
             var avaloniaProperty = field?.GetValue(avaloniaObjectType) as AvaloniaProperty;
             return avaloniaProperty;
@@ -101,7 +100,15 @@ namespace Nlnet.Avalonia.Css
             // Enum.
             if (declaredType.IsAssignableTo(typeof(Enum)))
             {
-                return Enum.TryParse(declaredType, rawValue, true, out var value) ? value : null;
+                if (Enum.TryParse(declaredType, rawValue, true, out var value))
+                {
+                    return value;
+                }
+                else
+                {
+                    this.WriteError($"Can not parse the value for enum type '{declaredType}'.");
+                    return null;
+                }
             }
 
             // String.
@@ -148,6 +155,8 @@ namespace Nlnet.Avalonia.Css
                     }
                 }
 
+                this.WriteError($"Can not recognize the static instance of '{rawValue}'.");
+
                 return null;
             }
 
@@ -164,7 +173,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             // Parser.
-            var parserMethod = declaredType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
+            var parserMethod = declaredType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
             if (parserMethod != null)
             {
                 return parserMethod.Invoke(declaredType, new object?[] { rawValue });
@@ -177,7 +186,7 @@ namespace Nlnet.Avalonia.Css
                 return internalParserMethod.Invoke(declaredType, new object?[] { _builder, rawValue });
             }
 
-            declaredType.WriteLine($"Can not parse the value '{rawValue}'. Skip it.");
+            declaredType.WriteError($"Can not parse the value '{rawValue}'. Skip it.");
             return null;
         }
 
@@ -252,6 +261,7 @@ namespace Nlnet.Avalonia.Css
             var match = _transitionRegex.Match(valueString);
             if (match.Success == false)
             {
+                this.WriteError($"Can not parse transition from string '{valueString}'. Skip it.");
                 return null;
             }
 
@@ -260,11 +270,13 @@ namespace Nlnet.Avalonia.Css
             var type = _transitionsTypes.FirstOrDefault(t => t.Name.Equals(typeName, StringComparison.CurrentCultureIgnoreCase));
             if (type == null)
             {
+                this.WriteError($"Can not recognize the transition type '{typeName}'. Skip it.");
                 return null;
             }
 
             if (Activator.CreateInstance(type) is not ITransition instance)
             {
+                this.WriteError($"The type '{typeName}' is not an implementation of '{nameof(ITransition)}'. Skip it.");
                 return null;
             }
 
@@ -281,10 +293,15 @@ namespace Nlnet.Avalonia.Css
                 var dotIndex = propertyString.IndexOf('.');
                 if (dotIndex >= 0)
                 {
-                    var manager = _builder.TypeResolver;
-                    if (manager.TryGetType(propertyString[..dotIndex], out var t))
+                    var manager       = _builder.TypeResolver;
+                    var ownerTypeName = propertyString[..dotIndex];
+                    if (manager.TryGetType(ownerTypeName, out var t))
                     {
                         targetType = t;
+                    }
+                    else
+                    {
+                        this.WriteError($"Can not recognize the type '{ownerTypeName}'. Use {nameof(TemplatedControl)} as default.");
                     }
                     property = propertyString[++dotIndex..];
                 }
@@ -303,14 +320,7 @@ namespace Nlnet.Avalonia.Css
             }
             if (values.Length > 3)
             {
-                try
-                {
-                    easing = Easing.Parse(values[3]);
-                }
-                catch (Exception e)
-                {
-                    // ignore
-                }
+                easing = DataParser.TryParseEasing(values[3]);
             }
 
             var avaloniaProperty = _builder.Interpreter.ParseAvaloniaProperty(targetType!, property);
@@ -363,9 +373,9 @@ namespace Nlnet.Avalonia.Css
                             keyFrame.KeyTime = TimeSpan.Parse(splits[0]);
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        Console.WriteLine(e);
+                        this.WriteError($"Can not parse Cue or KeyTime from string '{splits[0]}' in '{selector}'. Use default value.");
                     }
                 }
                 if (splits.Length > 1 && string.IsNullOrEmpty(splits[1]) == false)
@@ -375,9 +385,9 @@ namespace Nlnet.Avalonia.Css
                         var keySpline = KeySpline.Parse(splits[1], CultureInfo.InvariantCulture);
                         keyFrame.KeySpline = keySpline;
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        Console.WriteLine(e);
+                        this.WriteError($"Can not parse KeySpline from string '{splits[1]}' in '{selector}'.");
                     }
                 }
 
@@ -387,11 +397,11 @@ namespace Nlnet.Avalonia.Css
                 {
                     var propertyName = pair.Item1;
                     var matchAnimator = _setterAnimatorRegex.Match(propertyName);
-                    string? animatorType = null;
+                    string? animatorTypeName = null;
                     if (matchAnimator.Success)
                     {
                         propertyName = matchAnimator.Groups[1].Value;
-                        animatorType = matchAnimator.Groups[2].Value;
+                        animatorTypeName = matchAnimator.Groups[2].Value;
                     }
 
                     var property = interpreter.ParseAvaloniaProperty(selectorTargetType, propertyName);
@@ -406,14 +416,21 @@ namespace Nlnet.Avalonia.Css
                         Value = value
                     };
 
-                    // TODO RhythmicTransformAnimator
-                    //if (animatorType != null)
-                    //{
-                    //    if (_builder.TypeResolver.TryGetType(animatorType, out var animatorTypeInstance) && animatorTypeInstance != null)
-                    //    {
-                    //        Animation.SetAnimator(setter, animatorTypeInstance);
-                    //    }
-                    //}
+                    if (animatorTypeName != null)
+                    {
+                        if (_builder.TypeResolver.TryGetType(animatorTypeName, out var animatorType))
+                        {
+                            var animator = Activator.CreateInstance(animatorType!);
+                            if (animator is ICustomAnimator customAnimator)
+                            {
+                                Animation.SetAnimator(setter, customAnimator);
+                            }
+                            else
+                            {
+                                this.WriteError($"The type '{animatorType}' is not a {nameof(ICustomAnimator)}. It can not be an animator for an animation.");
+                            }
+                        }
+                    }
 
                     keyFrame.Setters.Add(setter);
                 }

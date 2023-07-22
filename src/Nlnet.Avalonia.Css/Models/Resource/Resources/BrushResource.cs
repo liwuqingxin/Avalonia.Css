@@ -17,6 +17,7 @@ internal class BrushResource : CssResourceBaseAndFac<BrushResource>
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)
         {
+            this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
             return null;
         }
 
@@ -40,6 +41,7 @@ internal class BrushResource : CssResourceBaseAndFac<BrushResource>
             var color = DataParser.TryParseColor(colorString);
             if (color == null)
             {
+                this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
                 return null;
             }
 
@@ -57,6 +59,10 @@ internal class BrushResource : CssResourceBaseAndFac<BrushResource>
         if (Application.Current != null && Application.Current.TryFindResource(_key!, out var value) && value is Color c)
         {
             brush.Color = c;
+        }
+        else
+        {
+            this.WriteError($"Can not find the resource with key '{_key}'.");
         }
         return brush;
     }

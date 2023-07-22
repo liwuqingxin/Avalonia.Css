@@ -13,6 +13,7 @@ internal class DoubleResource : CssResourceBaseAndFac<DoubleResource>
             return doubleValue;
         }
 
+        this.WriteError($"Can not parse {nameof(Double)} from string '{valueString}'.");
         return null;
     }
 }

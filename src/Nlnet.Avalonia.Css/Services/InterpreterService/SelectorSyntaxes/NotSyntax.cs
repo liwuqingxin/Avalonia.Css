@@ -13,7 +13,7 @@ internal class NotSyntax : ISyntax
         var selector = builder.Interpreter.ToSelector(builder, cssStyle, Argument);
         if (selector == null)
         {
-            this.WriteLine($"Can not apply :not selector for {Argument}");
+            this.WriteError($"Can not apply ':not' selector for {Argument}");
             return previous;
         }
 

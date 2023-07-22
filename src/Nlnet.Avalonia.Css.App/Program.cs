@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
+using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -30,7 +31,15 @@ namespace Nlnet.Avalonia.Css.App
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI()
-                .UseAvaloniaCssDefaultBuilder();
+
+                // Avalonia css stuff.
+                .UseAvaloniaCssDefaultBuilder()
+                // Type resolver for Nlnet.Avalonia.Css.App
+                .WithTypeResolverForDefaultBuilder(new GenericResolver<App>())
+                // Type resolver for Nlnet.Avalonia.SampleAssistant
+                .WithTypeResolverForDefaultBuilder(new GenericResolver<Case>())
+                
+                ;
         }
     }
 }

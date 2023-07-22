@@ -18,7 +18,6 @@ namespace Nlnet.Avalonia.Css
                     //
                     // NOTE TryFindResource will make it static but dynamic.
                     //
-                    // TODO 检查查找是否正确
                     if (builder.TryFindResource<ITransition>(key!, builder.Configuration.Mode, out var resource))
                     {
                         transitions.Add(resource!);
