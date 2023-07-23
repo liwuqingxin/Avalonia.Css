@@ -1,5 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Data;
+using Avalonia.Interactivity;
+using Avalonia.Styling;
 using Nlnet.Avalonia.Css.App.Views;
 using Nlnet.Avalonia.SampleAssistant;
 
@@ -7,9 +9,6 @@ namespace Nlnet.Avalonia.Css.App
 {
     internal class IndependentCase : Case
     {
-        private ICssBuilder? _builder;
-        private ICssFile?    _cssFile;
-
         public bool IsLocalDark
         {
             get { return GetValue(IsLocalDarkProperty); }
@@ -28,21 +27,12 @@ namespace Nlnet.Avalonia.Css.App
 
         private void UpdateModeResource()
         {
-            if (_builder == null)
-            {
-                _builder = new CssBuilder();
-                _builder.Configuration.Mode = IsLocalDark ? "dark" : "light";
-                _cssFile = _builder.BuildLoader().Load(this.Styles, "../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss");
-                return;
-            }
-
-            _builder.Configuration.Mode = IsLocalDark ? "dark" : "light";
-            _cssFile?.Reload();
+            this.ThemeVariant = IsLocalDark ? ThemeVariant.Dark : ThemeVariant.Light;
         }
 
-        protected override void OnLoaded()
+        protected override void OnLoaded(RoutedEventArgs e)
         {
-            base.OnLoaded();
+            base.OnLoaded(e);
 
             this.Bind(IsLocalDarkProperty, new Binding($"DataContext.{nameof(MainWindowViewModel.IsLocalDark)}")
             {

@@ -12,7 +12,7 @@ internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
     {
         var manager = builder.TypeResolver;
         if (manager.TryGetType(TypeName, out var type))
@@ -21,15 +21,19 @@ internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {
+                this.WriteError($"Can not resolve the property '{Property}' of the type '{type}'. '[{Property}={Value}]' skipped.");
                 return previous;
             }
             var value = interpreter.ParseValue(avaloniaProperty, Value);
-            if (value != null)
+            if (value == null)
             {
-                return previous.PropertyEquals(avaloniaProperty, value);
+                this.WriteError($"Can not resolve the value '{Value}' for property '{type}.{Property}'. Skip it.");
+                return previous;
             }
+            return previous.PropertyEquals(avaloniaProperty, value);
         }
 
+        this.WriteError($"Can not resolve the type '{TypeName}'. '[{Property}={Value}]' skipped.");
         return previous;
     }
 }

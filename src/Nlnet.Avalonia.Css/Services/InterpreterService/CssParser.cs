@@ -107,7 +107,7 @@ internal class CssParser : ICssParser
         var index = 0;
         var name = string.Empty;
         string value;
-        var colonsCount = 0;
+        var afterColons = false;
         var isInArrayCount = 0;
         var isInString = false;
 
@@ -120,12 +120,12 @@ internal class CssParser : ICssParser
                     {
                         continue;
                     }
-                    if (colonsCount == 0)
+                    if (afterColons == false)
                     {
                         name = span[index..i].ToString().Trim();
                         index = i + 1;
                     }
-                    colonsCount++;
+                    afterColons = true;
                     break;
                 case ';':
                     if (isInArrayCount > 0 || isInString)
@@ -135,8 +135,8 @@ internal class CssParser : ICssParser
                     value = span[index..i].ToString().Trim();
                     index = i + 1;
                     setters.Add(new ValueTuple<string, string>(name, value));
-                    name = string.Empty;
-                    colonsCount--;
+                    name        = string.Empty;
+                    afterColons = false;
                     break;
                 case '[':
                     isInArrayCount++;
@@ -151,8 +151,8 @@ internal class CssParser : ICssParser
                     value = span.Slice(index, i - index + 1).ToString().Trim();
                     index = i + 1;
                     setters.Add(new ValueTuple<string, string>(name, value));
-                    name = string.Empty;
-                    colonsCount--;
+                    name        = string.Empty;
+                    afterColons = false;
                     break;
                 case '\'':
                     isInString = !isInString;

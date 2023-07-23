@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Text;
 using Avalonia.Styling;
+using DynamicData;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -25,6 +27,8 @@ internal interface ICssStyle : ICssSection, IDisposable
 
     public Selector? GetSelector();
 
+    public Type? GetParentTargetType();
+
     public ChildStyle ToAvaloniaStyle();
 
     void AddDisposable(IDisposable disposable);
@@ -32,9 +36,9 @@ internal interface ICssStyle : ICssSection, IDisposable
 
 internal class CssStyle : CssSection, ICssStyle
 {
-    private readonly ICssBuilder          _builder;
-    private          Selector?            _selector;
-    private          CompositeDisposable? _compositeDisposable;
+    private readonly ICssBuilder _builder;
+    private Selector? _selector;
+    private CompositeDisposable? _compositeDisposable;
 
     public bool IsThemeChild { get; set; }
 
@@ -61,7 +65,23 @@ internal class CssStyle : CssSection, ICssStyle
 
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
 
-        Setters = parser.ParsePairs(settersSpan).Select(p => new CssSetter(p.Item1, p.Item2));
+        var pairs = parser.ParsePairs(settersSpan);
+        var cssSetters = new List<ICssSetter>();
+        foreach (var pair in pairs)
+        {
+            var index = cssSetters.FindIndex(s => s.Property == pair.Item1);
+            if (index != -1)
+            {
+                cssSetters.RemoveAt(index);
+                cssSetters.Insert(index, new CssSetter(pair.Item1, pair.Item2));
+                this.WriteError($"Duplicated setter for property '{pair.Item1}' is detected. Use the later one that value is '{pair.Item2}'.");
+            }
+            else
+            {
+                cssSetters.Add(new CssSetter(pair.Item1, pair.Item2));
+            }
+        }
+        Setters = cssSetters;
         var list = parser.ParseSections(this, childrenSpan).ToList();
         if (list.Count > 0)
         {
@@ -70,6 +90,27 @@ internal class CssStyle : CssSection, ICssStyle
             Resources  = list.OfType<ICssResourceDictionary>();
             Animations = list.OfType<ICssAnimation>();
         }
+    }
+
+    Type? ICssStyle.GetParentTargetType()
+    {
+        if (ThemeTargetType != null)
+        {
+            return ThemeTargetType;
+        }
+
+        if (Parent is not ICssStyle cssStyle)
+        {
+            return null;
+        }
+
+        var parentSelectorTargetType = cssStyle.GetSelector()?.GetTargetType();
+        if (parentSelectorTargetType != null)
+        {
+            return parentSelectorTargetType;
+        }
+
+        return cssStyle.GetParentTargetType();
     }
 
     private Selector? CreateSelector()
@@ -83,7 +124,7 @@ internal class CssStyle : CssSection, ICssStyle
 
         if(IsThemeChild)
         {
-            ThemeTargetType = syntaxList.First().ToSelector(_builder, null)?.TargetType;
+            ThemeTargetType = syntaxList.First().ToSelector(_builder, this, null)?.GetTargetType();
             syntaxList = syntaxList.Skip(1).ToList();
         }
 
@@ -99,7 +140,7 @@ internal class CssStyle : CssSection, ICssStyle
             }
             else
             {
-                selector = syntax.ToSelector(_builder, selector);
+                selector = syntax.ToSelector(_builder, this, selector);
             }
         }
         if (selector != null)
@@ -117,77 +158,86 @@ internal class CssStyle : CssSection, ICssStyle
 
     public ChildStyle ToAvaloniaStyle()
     {
-        this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
+        DiagnosisHelper.WriteLine($"---- Parsing style '{this}'.");
 
         var style = NewStyle();
-
-        var targetType = style.Selector?.TargetType ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
-        if (targetType != null)
+        var targetType = style.Selector?.GetTargetType() ?? ((ICssStyle)this).GetParentTargetType();
+        if (targetType == null)
         {
-            // Resources
-            if (Resources != null)
-            {
-                foreach (var cssResourceList in Resources)
-                {
-                    var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
-                    if (dic != null)
-                    {
-                        style.Resources.MergedDictionaries.Add((dic));
-                    }
-                }
-            }
+            this.WriteError($"The target type is null. Empty avalonia style is created.");
+            return style;
+        }
 
-            // Setters
-            if (Setters != null)
+        // Resources
+        if (Resources != null)
+        {
+            foreach (var cssResourceList in Resources)
             {
-                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<ISetter>())
+                var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
+                if (dic != null)
                 {
-                    style.Add(setter);
-                }
-            }
-
-            // Children Styles
-            if (Styles != null)
-            {
-                foreach (var cssStyle in Styles)
-                {
-                    if (cssStyle.IsLogicalChild)
+                    if (cssResourceList.IsModeResource())
                     {
-                        var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
-                        if (existSetter?.Value is IList<ICssStyle> list)
-                        {
-                            list.Add(cssStyle);
-                        }
-                        else
-                        {
-                            list = new List<ICssStyle>();
-                            list.Add(cssStyle);
-                            var setter = new Setter()
-                            {
-                                Property = ExStyler.AddingStyleProperty,
-                                Value    = list,
-                            };
-                            style.Add(setter);
-                        }
+                        style.Resources.ThemeDictionaries.Add(cssResourceList.GetThemeVariant(), dic);
                     }
                     else
                     {
-                        var childStyle = cssStyle.ToAvaloniaStyle();
-                        style.Add(childStyle);
+                        style.Resources.MergedDictionaries.Add(dic);
                     }
                 }
             }
+        }
 
-            // Style Animations
-            if (Animations != null)
+        // Setters
+        if (Setters != null)
+        {
+            foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<Setter>())
             {
-                foreach (var cssAnimation in Animations)
+                style.Add(setter);
+            }
+        }
+
+        // Children Styles
+        if (Styles != null)
+        {
+            foreach (var cssStyle in Styles)
+            {
+                if (cssStyle.IsLogicalChild)
                 {
-                    var animation = cssAnimation.ToAvaloniaAnimation();
-                    if (animation != null)
+                    var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
+                    if (existSetter?.Value is IList<ICssStyle> list)
                     {
-                        style.Animations.Add(animation);
+                        list.Add(cssStyle);
                     }
+                    else
+                    {
+                        list = new List<ICssStyle>();
+                        list.Add(cssStyle);
+                        var setter = new Setter()
+                        {
+                            Property = ExStyler.AddingStyleProperty,
+                            Value    = list,
+                        };
+                        style.Add(setter);
+                    }
+                }
+                else
+                {
+                    var childStyle = cssStyle.ToAvaloniaStyle();
+                    style.Add(childStyle);
+                }
+            }
+        }
+
+        // Style Animations
+        if (Animations != null)
+        {
+            foreach (var cssAnimation in Animations)
+            {
+                var animation = cssAnimation.ToAvaloniaAnimation();
+                if (animation != null)
+                {
+                    style.Animations.Add(animation);
                 }
             }
         }
@@ -218,6 +268,21 @@ internal class CssStyle : CssSection, ICssStyle
     }
 
     public override string ToString()
+    {
+        var styleKind = IsThemeChild ? "^" : "";
+        if (IsLogicalChild)
+        {
+            styleKind = ">";
+        }
+        else if (Parent is ICssStyle parentCssStyle)
+        {
+            styleKind = $" - ";
+        }
+
+        return $"{styleKind}{Selector}";
+    }
+
+    public string ToDetailString()
     {
         var builder = new StringBuilder();
         builder.AppendLine($"'{Selector}'");

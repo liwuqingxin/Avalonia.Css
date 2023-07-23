@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Avalonia.Animation;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
+using DynamicData;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -12,9 +15,13 @@ namespace Nlnet.Avalonia.Css
 
     internal class CssAnimation : CssSection, ICssAnimation
     {
+        private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
+
         private readonly ICssBuilder _builder;
 
         private Animation? _animation;
+
+        public string? Description { get; set; }
 
         public CssAnimation(ICssBuilder builder, string selector) : base(builder, selector)
         {
@@ -23,19 +30,27 @@ namespace Nlnet.Avalonia.Css
 
         public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
         {
+            var matchDesc = RegexDescription.Match(Selector);
+            if (matchDesc.Success)
+            {
+                Description = matchDesc.Groups[1].Value;
+            }
+
             if (Parent is not ICssStyle style)
             {
-                this.WriteLine($"The parent of {nameof(CssAnimation)} must be {nameof(CssStyle)}. Skip it.");
+                this.WriteError($"The parent of {nameof(CssAnimation)} must be {nameof(CssStyle)}. Skip it.");
                 return;
             }
             if (style.GetSelector() is not { } selector)
             {
-                this.WriteLine($"The style is invalid as Selector of it is null. Skip it.");
+                this.WriteError($"The style is invalid as Selector of it is null. Skip it.");
                 return;
             }
-            if (selector.TargetType == null)
+
+            var selectorTargetType = selector.GetTargetType() ?? style.GetParentTargetType();
+            if (selectorTargetType == null)
             {
-                this.WriteLine($"The target type of the selector of the style is null. Skip it.");
+                this.WriteError($"The target type of the style is null. Skip it.");
                 return;
             }
 
@@ -49,6 +64,7 @@ namespace Nlnet.Avalonia.Css
                 var property = type.GetProperty(setter.Item1);
                 if (property == null)
                 {
+                    this.WriteError($"Can not get the property '{setter.Item1}' from type of {nameof(Animation)}. Skip it.");
                     continue;
                 }
 
@@ -57,9 +73,10 @@ namespace Nlnet.Avalonia.Css
             }
 
             var childrenSetter = setters.FirstOrDefault(s => s.Item1 is nameof(Animation.Children) or nameof(KeyFrames));
-            var keyFrames      = interpreter.ParseKeyFrames(selector.TargetType, childrenSetter.Item2)?.ToList();
+            var keyFrames      = interpreter.ParseKeyFrames(selectorTargetType, childrenSetter.Item2)?.ToList();
             if (keyFrames == null)
             {
+                this.WriteWarning($"No key frames detected in animation '{Description}'.");
                 _animation = null;
             }
             else

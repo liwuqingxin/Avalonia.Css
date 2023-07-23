@@ -13,8 +13,9 @@ internal class BoxShadowsResource : CssResourceBaseAndFac<BoxShadowsResource>
         {
             return BoxShadows.Parse(valueString);
         }
-        catch (Exception e)
+        catch
         {
+            this.WriteError($"Can not parse {nameof(BoxShadows)} from string '{valueString}'.");
             return null;
         }
     }

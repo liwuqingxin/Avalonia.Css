@@ -75,17 +75,11 @@ namespace Nlnet.Avalonia.SampleAssistant
 
         private static string? GetXaml(Type type)
         {
-            var assetLoader = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            if (assetLoader == null)
-            {
-                throw new InvalidOperationException($"Can not get the service {nameof(IAssetLoader)} from {nameof(AvaloniaLocator)}.Current");
-            }
-
             try
             {
                 var resourceUriString = $"resm:{type.FullName}.axaml";
 
-                using var stream = assetLoader.Open(new Uri(resourceUriString));
+                using var stream = AssetLoader.Open(new Uri(resourceUriString));
 
                 var bytes = new byte[stream.Length];
                 var length = stream.Read(bytes, 0, (int)stream.Length);

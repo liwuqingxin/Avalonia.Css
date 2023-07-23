@@ -22,7 +22,7 @@
                 :animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:0.001';
+                    Duration:'0:0:0.1';
                     KeyFrames:[
                         KeyFrame(100%):[
                             IsVisible:True;
@@ -36,7 +36,7 @@
                 :animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:0.28';
+                    Duration:'0:0:0.2';
                     KeyFrames:[
                         KeyFrame(100%):[
                             IsVisible:False;
@@ -102,7 +102,7 @@
 
 Expander{
     [[
-        Expander /template/ ToggleButton:is-part Border#ToggleButtonBackground{
+        /template/ ToggleButton:is-part Border#ToggleButtonBackground{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
             Transitions:[
@@ -110,16 +110,16 @@ Expander{
                 var(gstCornerRadius)
             ]
         }
-        Expander /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
+        /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
             Background: var(control-back-hover);
         }
-        Expander /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
+        /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
             BoxShadow: var(button-shadow);
         }
 
 
         /* Expand Collapse Chevron */
-        Expander /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+        /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
             VerticalAlignment:Center;
             Stroke:var(fore);
             StrokeThickness:1;
@@ -129,58 +129,58 @@ Expander{
                 var(gstRenderTransform);
             ]
         }
-        Expander:up /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+        :up /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
             Data:M 0 7 L 7 0 L 14 7;
             Width:9;
         }
-        Expander:down /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+        :down /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
             Data:M 0 0 L 7 7 L 14 0;
             Width:9;
         }
-        Expander:left /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+        :left /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
             Data:M 7 0 L 0 7 L 7 14;
             Height:9;
         }
-        Expander:right /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+        :right /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
             Data:M 0 0 L 7 7 L 0 14;
             Height:9;
         }
 
         /* pressed */
-        Expander:up /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+        :up /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(0, -3px);
         }
-        Expander:down /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+        :down /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(0, 3px);
         }
-        Expander:left /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+        :left /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(-3px, 0);
         }
-        Expander:right /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+        :right /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(3px, 0);
         }
 
         /* expand */
-        Expander:up /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+        :up /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
             RenderTransform: scale(1,-1);
         }
-        Expander:down /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+        :down /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
             RenderTransform: scale(1,-1);
         }
-        Expander:left /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+        :left /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
             RenderTransform: scale(-1,1);
         }
-        Expander:right /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+        :right /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
             RenderTransform: scale(-1,1);
         }
 
 
         
         /* Change layout when direction is left. */
-        Expander:left /template/ ToggleButton#ExpanderHeader ContentPresenter#PART_ContentPresenter:is-part{
+        :left /template/ ToggleButton#ExpanderHeader ContentPresenter#PART_ContentPresenter:is-part{
             Grid.Column:1;
         }
-        Expander:left /template/ ToggleButton#ExpanderHeader Border#ExpandCollapseChevronBorder:is-part{
+        :left /template/ ToggleButton#ExpanderHeader Border#ExpandCollapseChevronBorder:is-part{
             Grid.Column:0;
         }
     ]]

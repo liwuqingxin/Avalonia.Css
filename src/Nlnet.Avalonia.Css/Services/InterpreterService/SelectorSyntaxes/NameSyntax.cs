@@ -6,7 +6,7 @@ internal class NameSyntax : ISyntax
 {
     public string Name { get; set; } = string.Empty;
 
-    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
     {
         return previous.Name(Name);
     }

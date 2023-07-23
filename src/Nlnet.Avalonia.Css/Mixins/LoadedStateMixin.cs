@@ -25,7 +25,9 @@ namespace Nlnet.Avalonia.Css
                 return;
             }
 
-            control.Loaded += ControlOnLoaded;
+            control.Loaded   -= ControlOnLoaded;
+            control.Unloaded -= ControlOnUnloaded;
+            control.Loaded   += ControlOnLoaded;
             control.Unloaded += ControlOnUnloaded;
         }
 

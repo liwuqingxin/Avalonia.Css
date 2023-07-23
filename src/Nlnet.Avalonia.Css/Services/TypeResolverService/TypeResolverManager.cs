@@ -55,7 +55,7 @@ internal class TypeResolverManager : ITypeResolverManager
             }
         }
 
-        this.WriteLine($"Can not resolve type '{name}'.");
+        this.WriteError($"Can not resolve type '{name}'.");
 
         type = null;
         return false;
@@ -71,7 +71,7 @@ internal class TypeResolverManager : ITypeResolverManager
             }
         }
 
-        this.WriteLine($"Can not adapt type '{type}'.");
+        //this.WriteWarning($"Can not adapt type '{type}'.");
 
         adaptedType = null;
         return false;

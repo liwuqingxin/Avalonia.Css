@@ -1,12 +1,11 @@
 ﻿using System;
 using Avalonia.Controls;
-using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.SampleAssistant;
 
-public class GalleryItemControl : ContentControl, IStyleable, IXamlProvider
+public class GalleryItemControl : ContentControl, IXamlProvider
 {
-    Type IStyleable.StyleKey => typeof(GalleryItemControl);
+    protected override Type StyleKeyOverride { get; } = typeof(GalleryItemControl);
 
     public string? ProvideXaml(string key)
     {

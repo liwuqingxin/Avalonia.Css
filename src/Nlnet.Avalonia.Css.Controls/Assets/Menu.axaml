@@ -44,8 +44,6 @@
                             <ScrollViewer x:Name="PART_PopupScrollViewer">
                                 <ItemsPresenter Name="PART_ItemsPresenter"
                                                 Grid.IsSharedSizeScope="True"
-                                                ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                Items="{TemplateBinding Items}"
                                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
                             </ScrollViewer>
                         </Border>
@@ -86,8 +84,6 @@
                                   VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                         <ItemsPresenter x:Name="PART_ItemsPresenter"
                                         Grid.IsSharedSizeScope="True"
-                                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                                        Items="{TemplateBinding Items}"
                                         ItemsPanel="{TemplateBinding ItemsPanel}"
                                         KeyboardNavigation.TabNavigation="Continue" />
                     </ScrollViewer>
@@ -115,8 +111,6 @@
                                   VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                         <ItemsPresenter Name="PART_ItemsPresenter"
                                         Grid.IsSharedSizeScope="True"
-                                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                                        Items="{TemplateBinding Items}"
                                         ItemsPanel="{TemplateBinding ItemsPanel}"
                                         KeyboardNavigation.TabNavigation="Continue" />
                     </ScrollViewer>
@@ -168,8 +162,6 @@
                                     <ItemsPresenter Name="PART_ItemsPresenter"
                                                     Margin="{DynamicResource MenuFlyoutScrollerMargin}"
                                                     Grid.IsSharedSizeScope="True"
-                                                    ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                    Items="{TemplateBinding Items}"
                                                     ItemsPanel="{TemplateBinding ItemsPanel}" />
                                 </ScrollViewer>
                             </Border>
@@ -222,8 +214,6 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <ItemsPresenter Name="PART_ItemsPresenter"
                                     VerticalAlignment="Stretch"
-                                    ItemTemplate="{TemplateBinding ItemTemplate}"
-                                    Items="{TemplateBinding Items}"
                                     ItemsPanel="{TemplateBinding ItemsPanel}"
                                     KeyboardNavigation.TabNavigation="Continue" />
                 </Border>

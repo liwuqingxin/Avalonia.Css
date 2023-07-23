@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using Avalonia.Controls;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -89,6 +90,11 @@ public class CssBuilder : ICssBuilder
         return true;
     }
 
+    bool ICssBuilder.TryRemoveCssFile(ICssFile file)
+    {
+        return _files.TryRemove(file.StandardFilePath, out _);
+    }
+
     bool ICssBuilder.TryGetCssFile(string standardFilePath, out ICssFile? file)
     {
         if (_files.TryGetValue(standardFilePath, out var f))
@@ -168,9 +174,9 @@ public class CssBuilder : ICssBuilder
         _resourceProvidersManager.UnregisterResourceProvider(provider);
     }
 
-    public bool TryFindResource<T>(object key, out T? result)
+    public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result)
     {
-        return _resourceProvidersManager.TryFindResource(key, out result);
+        return _resourceProvidersManager.TryFindResource(key, mode, out result);
     }
 
     #endregion

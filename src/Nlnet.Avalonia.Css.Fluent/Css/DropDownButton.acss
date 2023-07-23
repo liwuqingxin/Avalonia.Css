@@ -21,7 +21,7 @@
     ]
 
     [[
-        :not(:disabled):not(:is-part) /template/ Border#RootBorder{
+        :not(:disabled):not(:is-part):not(:pressed) /template/ Border#RootBorder{
             BoxShadow: var(button-shadow);
         }
          /template/ PathIcon#DropDownGlyph{

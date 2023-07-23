@@ -42,11 +42,12 @@
             Background: var(Accent);
             Foreground: #fff;
             [[
-                :pointerover{
+                /* 非主题样式的嵌套子样式，前面需带上类型名（11.0版本问题） */
+                Button:pointerover{
                     Background: var(Accent09);
                     Foreground: #fff;
                 }
-                :pressed:not(:is-part){
+                Button:pressed:not(:is-part){
                     Opacity:0.8;
                 }
             ]]

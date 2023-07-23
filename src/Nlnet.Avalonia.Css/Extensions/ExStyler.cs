@@ -39,6 +39,7 @@ namespace Nlnet.Avalonia.Css
             AddingStyleProperty.Changed.AddClassHandler<StyledElement>((element, args) =>
             {
                 element.ClearValue(AddingStyleProperty);
+
                 if (args.NewValue is IList<ICssStyle> cssStyleList)
                 {
                     foreach (var cssStyle in cssStyleList)
@@ -56,6 +57,8 @@ namespace Nlnet.Avalonia.Css
                             element.Styles.Remove(s);
                         }));   
                     }
+
+                    StylerHelper.ReapplyStyling(element, false, true, true);
                 }
             });
         }

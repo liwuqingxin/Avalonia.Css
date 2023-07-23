@@ -1,33 +1,37 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using Avalonia.Threading;
-using Nlnet.Avalonia.SampleAssistant;
-using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App
 {
     public partial class App : Application
     {
+        public ICssFile? BeforeLoadedCssFile;
+        public ICssFile? AfterLoadedCssFile;
+
         public override void Initialize()
         {
+            // TODO Support svg and dev tools.
             // Referenced libraries.
-            AppLoader.Load("Nlnet.Avalonia.Svg.dll");
-            AppLoader.Load("Avalonia.DevTools.dll");
+            //AppLoader.Load("Nlnet.Avalonia.Svg.dll");
+            //AppLoader.Load("Avalonia.DevTools.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             CssBuilder.UseDefaultBuilder();
 
             // Set the current mode and theme.
             CssBuilder.Default.Configuration.Theme = "blue";
-            CssBuilder.Default.Configuration.Mode  = "light";
 
-            // Nlnet.Avalonia.Css.App
-            CssBuilder.Default.LoadResolver(new GenericResolver<App>());
-            // Nlnet.Avalonia.Svg
-            CssBuilder.Default.LoadResolver(new GenericResolver<Icon>());
-            // Nlnet.Avalonia.SampleAssistant
-            CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
+            // Type resolver for Nlnet.Avalonia.Css.App
+            //CssBuilder.Default.LoadResolver(new GenericResolver<App>());
+
+            // Type resolver for Nlnet.Avalonia.Svg
+            //CssBuilder.Default.LoadResolver(new GenericResolver<Icon>());
+
+            // Type resolver for Nlnet.Avalonia.SampleAssistant
+            //CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
 
             // Load this. In this, CssFluentTheme will be loaded.
             AvaloniaXamlLoader.Load(this);
@@ -37,12 +41,25 @@ namespace Nlnet.Avalonia.Css.App
                 // Load application acss files.
                 var loader = CssBuilder.Default.BuildLoader();
                 const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
-                loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
+
+                BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
                 Dispatcher.UIThread.Post(() =>
                 {
-                    loader.Load(Application.Current.Styles, "Css/after.loaded.acss", debugRelative);
+                    AfterLoadedCssFile = loader.Load(Application.Current.Styles, "Css/after.loaded.acss", debugRelative);
                 });    
             }
+        }
+
+        public void LoadBeforeLoadedCssFile()
+        {
+            if (Application.Current == null)
+            {
+                return;
+            }
+
+            var loader = CssBuilder.Default.BuildLoader();
+            const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
+            BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
         }
 
         public override void OnFrameworkInitializationCompleted()

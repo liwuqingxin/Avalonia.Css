@@ -17,6 +17,8 @@ public interface ICssBuilder : ITypeResolverManager, IResourceProvidersManager
 
     internal bool TryAddCssFile(ICssFile file);
 
+    internal bool TryRemoveCssFile(ICssFile file);
+
     internal bool TryGetCssFile(string standardFilePath, out ICssFile? file);
 
     /// <summary>

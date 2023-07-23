@@ -47,7 +47,6 @@
             Stretch:Uniform;
             Data:M 1,0 10,10 l -9,10 -1,-1 L 8,10 -0,1 Z;
             Fill:var(fore);
-            Foreground:var(fore);
             UseLayoutRounding:False;
             RenderTransform:none;
         }
@@ -91,7 +90,7 @@ MenuItem{
 }
 
 ^MenuFlyoutPresenter {
-    VerticalOffset:-10;
+    /* VerticalOffset:-10; */
     [[
          /template/ ScrollViewer#PART_ScrollViewer {
             HorizontalScrollBarVisibility:Disabled;

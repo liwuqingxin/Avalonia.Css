@@ -8,7 +8,7 @@ internal class IsSyntax : ISyntax, ITypeSyntax
 
     public string Xmlns { get; set; } = string.Empty;
 
-    public Selector? ToSelector(ICssBuilder builder, Selector? previous)
+    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
     {
         var manager = builder.TypeResolver;
         if (manager.TryGetType(TypeName, out var type))
@@ -16,6 +16,7 @@ internal class IsSyntax : ISyntax, ITypeSyntax
             return previous.Is(type!);
         }
 
+        this.WriteError($"Can not resolve the type '{TypeName}'.");
         return previous;
     }
 }

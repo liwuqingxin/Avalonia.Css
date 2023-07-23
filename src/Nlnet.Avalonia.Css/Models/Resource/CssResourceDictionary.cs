@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Avalonia.Controls;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
 internal interface ICssResourceDictionary : ICssSection
 {
-    public IResourceProvider? ToAvaloniaResourceDictionary(ICssBuilder cssBuilder);
+    public ResourceDictionary? ToAvaloniaResourceDictionary(ICssBuilder cssBuilder);
+
+    public bool IsModeResource();
+
+    public ThemeVariant GetThemeVariant();
 }
 
 internal class CssResourceDictionary : CssSection, ICssResourceDictionary
@@ -31,7 +36,6 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
     public CssResourceDictionary(ICssBuilder builder, string selector) : base(builder, selector)
     {
         _builder = builder;
-
     }
 
     public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
@@ -55,20 +59,17 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
         Resources.AddRange(TryGetResources(content.ToString()).ToList());
     }
 
-    public IResourceProvider? ToAvaloniaResourceDictionary(ICssBuilder cssBuilder)
+    public ResourceDictionary? ToAvaloniaResourceDictionary(ICssBuilder cssBuilder)
     {
         if (Resources.Count == 0)
         {
-            return null;
-        }
-
-        if (Mode != null && !string.Equals(Mode, cssBuilder.Configuration.Mode, StringComparison.CurrentCultureIgnoreCase))
-        {
+            this.WriteWarning($"No resource detected. Skip this.");
             return null;
         }
 
         if (Theme != null && !string.Equals(Theme, cssBuilder.Configuration.Theme, StringComparison.CurrentCultureIgnoreCase))
         {
+            this.WriteWarning($"Current theme is '{cssBuilder.Configuration.Theme}'. This theme is '{Theme}'. Skip this.");
             return null;
         }
 
@@ -93,6 +94,26 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
         return dic;
     }
 
+    public ThemeVariant GetThemeVariant()
+    {
+        switch (Mode)
+        {
+            case "Dark":
+            case "dark":
+                return ThemeVariant.Dark;
+            case "Light":
+            case "light":
+                return ThemeVariant.Light;
+            default:
+                return ThemeVariant.Default;
+        }
+    }
+
+    public bool IsModeResource()
+    {
+        return string.IsNullOrEmpty(Mode) == false;
+    }
+
     private IEnumerable<CssResource> TryGetResources(string resources)
     {
         resources = resources.ReplaceLineEndings(" ");
@@ -100,7 +121,7 @@ internal class CssResourceDictionary : CssSection, ICssResourceDictionary
         foreach (var resource in resourceList)
         {
             var r = resource.Trim().TrimEnd(';');
-            if (string.IsNullOrWhiteSpace(r) != false)
+            if (string.IsNullOrWhiteSpace(r))
             {
                 continue;
             }

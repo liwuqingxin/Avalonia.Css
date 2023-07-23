@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -11,11 +12,6 @@ namespace Nlnet.Avalonia.Css
     internal class CssConfiguration : ICssConfiguration
     {
         public string? Theme
-        {
-            get;
-            set;
-        }
-        public string? Mode
         {
             get;
             set;

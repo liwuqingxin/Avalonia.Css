@@ -15,8 +15,9 @@ internal class ThicknessResource : CssResourceBaseAndFac<ThicknessResource>
         {
             return Thickness.Parse(valueString);
         }
-        catch (Exception e)
+        catch
         {
+            this.WriteError($"Can not parse {nameof(Thickness)} from string '{valueString}'.");
             return null;
         }
     }

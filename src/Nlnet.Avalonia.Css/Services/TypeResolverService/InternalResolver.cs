@@ -14,7 +14,7 @@ internal class InternalResolver : ITypeResolver
     public InternalResolver()
     {
         _types.Add(nameof(TextDecorations), typeof(TextDecorations));
-        _types.Add(nameof(RhythmicTransformAnimator), typeof(RhythmicTransformAnimator));
+        //_types.Add(nameof(RhythmicTransformAnimator), typeof(RhythmicTransformAnimator));
     }
 
     public bool TryGetType(string name, out Type? type)

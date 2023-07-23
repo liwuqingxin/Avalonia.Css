@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
-using System.Reflection;
 using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -33,7 +27,7 @@ namespace Nlnet.Avalonia.Css
         public static CssFile Load(ICssBuilder cssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(cssBuilder, owner, filePath, autoLoadWhenFileChanged);
-            styleFile.Load(owner);
+            styleFile.Load(owner, false);
             return styleFile;
         }
 
@@ -48,7 +42,7 @@ namespace Nlnet.Avalonia.Css
         public static CssFile BeginLoad(ICssBuilder cssBuilder, Styles owner, string file, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(cssBuilder, owner, file, autoLoadWhenFileChanged);
-            styleFile.BeginLoad(owner);
+            styleFile.BeginLoad(owner, false);
             return styleFile;
         }
 
@@ -101,6 +95,9 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
+
+        private DateTime _lastRead = DateTime.MinValue;
+
         private void OnFileChanged(object sender, FileSystemEventArgs e)
         {
             if (e.ChangeType != WatcherChangeTypes.Changed)
@@ -108,29 +105,46 @@ namespace Nlnet.Avalonia.Css
                 return;
             }
 
-            BeginLoad(_owner);
+            var lastWriteTime = File.GetLastWriteTime(StandardFilePath);
+            if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
+            {
+                //
+                // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
+                //
+                Task.Delay(20).ContinueWith(t =>
+                {
+                    BeginLoad(_owner, true);
+                });
+                
+                _lastRead = lastWriteTime;
+            }
         }
 
-        private void Load(Styles styles)
+        private void Load(Styles styles, bool reapplyStyle)
         {
             var index = styles.IndexOf(this);
-            styles.Remove(this);
-
+            
             _disposable?.Dispose();
             _disposable = null;
+            _disposable ??= new CompositeDisposable();
 
-            this.Clear();
-            this.Resources.Clear();
-            this.Resources.MergedDictionaries.Clear();
-
-            if(_cssStyles != null)
+            _disposable.Add(Disposable.Create(() =>
             {
-                foreach (var cssStyle in _cssStyles)
+                styles.Remove(this);
+
+                this.Clear();
+                this.Resources.Clear();
+                this.Resources.MergedDictionaries.Clear();
+
+                if (_cssStyles != null)
                 {
-                    cssStyle.Dispose();
+                    foreach (var cssStyle in _cssStyles)
+                    {
+                        cssStyle.Dispose();
+                    }
                 }
-            }
-            _cssStyles = null;
+                _cssStyles = null;
+            }));
 
             try
             {
@@ -155,16 +169,16 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var cssThemeChildStyle in cssThemeChildStyles)
                 {
-                    _disposable ??= new CompositeDisposable(cssThemeChildStyles.Count);
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
                     if (cssThemeChildStyle.ThemeTargetType != null)
                     {
-                        if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                        // TODO 检查 ThemeVariant;
+                        if (styles.TryGetResource(cssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
                         {
-                            // The child cache holds the references of old style instances.
-                            typeof(StyleBase)
-                                .GetField("_childCache", BindingFlags.Instance | BindingFlags.NonPublic)
-                                ?.SetValue(theme, null);
+                            // The child cache holds the references of old style instances. (In avalonia 11.0.0-preview4)
+                            //typeof(StyleBase)
+                            //    .GetField("_childCache", BindingFlags.Instance | BindingFlags.NonPublic)
+                            //    ?.SetValue(theme, null);
                             
                             //
                             // TODO Do not consider the older of old and new styles now.
@@ -184,7 +198,14 @@ namespace Nlnet.Avalonia.Css
                     var dic = dictionary.ToAvaloniaResourceDictionary(_cssBuilder);
                     if (dic != null)
                     {
-                        this.Resources.MergedDictionaries.Add(dic);
+                        if (dictionary.IsModeResource())
+                        {
+                            this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
+                        }
+                        else
+                        {
+                            this.Resources.MergedDictionaries.Add(dic);
+                        }
                     }
                 }
 
@@ -197,112 +218,20 @@ namespace Nlnet.Avalonia.Css
                     styles.Insert(index, this);
                 }
 
-                ReapplyStyling(_owner.Owner);
+                if (reapplyStyle)
+                {
+                    StylerHelper.ReapplyStyling(_owner.Owner);
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                this.WriteError(e.ToString());
             }
         }
 
-        private void BeginLoad(Styles styles)
+        private void BeginLoad(Styles styles, bool reapplyStyle)
         {
-            Dispatcher.UIThread.Post(() => Load(styles));
-        }
-
-        private static void ReapplyStyling(IResourceHost? resourceHost)
-        {
-            switch (resourceHost)
-            {
-                case Application application:
-                {
-                    switch (application.ApplicationLifetime)
-                    {
-                        case ClassicDesktopStyleApplicationLifetime lifetime:
-                        {
-                            foreach (var window in lifetime.Windows)
-                            {
-                                ForceApplyStyling(window);
-                            }
-                            break;
-                        }
-                        case ISingleViewApplicationLifetime { MainView: { } } singleView:
-                            ForceApplyStyling(singleView.MainView);
-                            break;
-                        }
-                    break;
-                }
-                case StyledElement element:
-                {
-                    ForceApplyStyling(element);
-                    break;
-                }
-            }
-        }
-
-        private static void ForceApplyStyling(StyledElement styledElement)
-        {
-            //if (styledElement is Control { IsLoaded: false })
-            //{
-            //    Trace.WriteLine($"The control {styledElement} is not loaded yet, skip reapply styling.");
-            //    return;
-            //}
-
-            ((IStyleable)styledElement).DetachStyles();
-
-            try
-            {
-                // This is same as 'styledElement.InvalidateStyles();'.
-                styledElement.BeginBatchUpdate();
-                AvaloniaLocator.Current.GetService<IStyler>()?.ApplyStyles(styledElement);
-
-                if (styledElement is not IVisual visual)
-                {
-                    return;
-                }
-
-                foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
-                {
-                    ForceApplyStyling(child);
-                }
-            }
-            finally
-            {
-                styledElement.EndBatchUpdate();
-            }
-        }
-
-        // Not used now.
-        private static void DelayToDetachOldStyles(AvaloniaObject element)
-        {
-            var originList       = (typeof(StyledElement).GetField("_appliedStyles")?.GetValue(element) as List<IStyleInstance>);
-            var oldAppliedStyles = originList?.ToList();
-            if (oldAppliedStyles == null)
-            {
-                throw new Exception($"Can not find the _appliedStyles for {nameof(StyledElement)}");
-            }
-            if (oldAppliedStyles?.Count > 0)
-            {
-                Dispatcher.UIThread.Post(() =>
-                {
-                    element.BeginBatchUpdate();
-
-                    try
-                    {
-                        foreach (var i in oldAppliedStyles)
-                        {
-                            i.Dispose();
-                            originList?.Remove(i);
-                        }
-
-                        oldAppliedStyles.Clear();
-                    }
-                    finally
-                    {
-                        element.EndBatchUpdate();
-                    }
-                });
-            }
+            Dispatcher.UIThread.Post(() => Load(styles, reapplyStyle));
         }
 
         public void Dispose()
@@ -322,9 +251,21 @@ namespace Nlnet.Avalonia.Css
 
         public string StandardFilePath { get; }
 
-        public void Reload()
+        public void Reload(bool reapplyStyle)
         {
-            this.BeginLoad(_owner);
+            this.BeginLoad(_owner, reapplyStyle);
+        }
+
+        public void Unload(bool reapplyStyle)
+        {
+            this.Dispose();
+
+            if (reapplyStyle)
+            {
+                StylerHelper.ReapplyStyling(_owner.Owner);
+            }
+
+            _cssBuilder.TryRemoveCssFile(this);
         }
 
         #endregion

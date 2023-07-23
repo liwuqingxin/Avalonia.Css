@@ -12,7 +12,6 @@
     HorizontalAlignment: Center;
     VerticalAlignment: Center;
     MinWidth:40;
-    SelectionBrush:var(Accent06);
     MaxDropDownHeight:600;
     ScrollViewer.HorizontalScrollBarVisibility:Disabled;
     ScrollViewer.VerticalScrollBarVisibility:Auto;
@@ -37,6 +36,7 @@
          /template/ Popup#PART_Popup{
             VerticalOffset: -7;
             HorizontalOffset: -11;
+            Placement:BottomEdgeAlignedLeft;
         }
          /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);

@@ -16,8 +16,8 @@
 
         <StackPanel.Styles>
             <Style Selector="TabItem>Image">
-                <Setter Property="Width" Value="180" />
-                <Setter Property="Height" Value="180" />
+                <Setter Property="Width" Value="96" />
+                <Setter Property="Height" Value="96" />
             </Style>
         </StackPanel.Styles>
 

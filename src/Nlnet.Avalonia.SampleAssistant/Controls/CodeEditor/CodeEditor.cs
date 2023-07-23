@@ -1,11 +1,10 @@
 ﻿using System;
 using Avalonia.Controls;
-using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.SampleAssistant
 {
-    public class CodeEditor : TextBox, IStyleable
+    public class CodeEditor : TextBox
     {
-        Type IStyleable.StyleKey => typeof(CodeEditor);
+        protected override Type StyleKeyOverride { get; } = typeof(CodeEditor);
     }
 }

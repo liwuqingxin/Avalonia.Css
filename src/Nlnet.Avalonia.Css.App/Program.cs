@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
+using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -19,7 +20,11 @@ namespace Nlnet.Avalonia.Css.App
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                typeof(App).WriteError(e.ToString());
+                if (e.InnerException != null)
+                {
+                    typeof(App).WriteError(e.InnerException.ToString());
+                }
             }
         }
 
@@ -30,11 +35,15 @@ namespace Nlnet.Avalonia.Css.App
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI()
+
+                // Avalonia css stuff.
                 .UseAvaloniaCssDefaultBuilder()
-                .With(new Win32PlatformOptions
-                {
-                    AllowEglInitialization = true
-                });
+                // Type resolver for Nlnet.Avalonia.Css.App
+                .WithTypeResolverForDefaultBuilder(new GenericResolver<App>())
+                // Type resolver for Nlnet.Avalonia.SampleAssistant
+                .WithTypeResolverForDefaultBuilder(new GenericResolver<Case>())
+                
+                ;
         }
     }
 }

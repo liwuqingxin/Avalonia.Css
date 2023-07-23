@@ -9,7 +9,7 @@ namespace Nlnet.Avalonia.Css;
 
 internal interface ICssInterpreter
 {
-    public Selector? ToSelector(IEnumerable<ISyntax> syntaxList);
+    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, IEnumerable<ISyntax> syntaxList);
 
     public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property);
 

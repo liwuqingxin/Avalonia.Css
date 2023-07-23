@@ -1,0 +1,31 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.WelcomePage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fluent="https://www.nlnet.com/avalonia"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBlock x:Name="PageDescription" TextWrapping="Wrap">
+            <Run Text="Avalonia.Css 不是一个完全支持CSS（层叠样式表）的库，它的主要目的在于赋予 Avalonia 框架 " />
+            <Run FontWeight="Bold"
+                 Foreground="{DynamicResource Accent}"
+                 Text="动态修改外观样式" />
+            <Run Text=" 的能力，同时，这也让 Avalonia 拥有了样式热重载的能力。" />
+        </TextBlock>
+
+        <Image x:Name="LogoImage"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               fluent:LoadedStateMixin.UseLoadedState="True"
+               RenderOptions.BitmapInterpolationMode="HighQuality"
+               RenderOptions.EdgeMode="Unspecified"
+               Source="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
+               Stretch="Uniform" />
+
+    </StackPanel>
+
+</UserControl>

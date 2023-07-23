@@ -6,9 +6,9 @@ using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.SampleAssistant
 {
-    public class Case : HeaderedContentControl, IStyleable
+    public class Case : HeaderedContentControl
     {
-        Type IStyleable.StyleKey => typeof(Case);
+        protected override Type StyleKeyOverride { get; } = typeof(Case);
 
 
 
@@ -43,6 +43,14 @@ namespace Nlnet.Avalonia.SampleAssistant
         }
         public static readonly StyledProperty<bool> UseSourceCodeProperty = AvaloniaProperty
             .Register<Case, bool>(nameof(UseSourceCode), true);
+
+        public ThemeVariant ThemeVariant
+        {
+            get { return GetValue(ThemeVariantProperty); }
+            set { SetValue(ThemeVariantProperty, value); }
+        }
+        public static readonly StyledProperty<ThemeVariant> ThemeVariantProperty = AvaloniaProperty
+            .Register<Case, ThemeVariant>(nameof(ThemeVariant), ThemeVariant.Default);
 
 
 

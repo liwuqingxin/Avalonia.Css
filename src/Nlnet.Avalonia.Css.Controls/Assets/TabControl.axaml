@@ -46,10 +46,7 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <DockPanel>
                         <ScrollViewer x:Name="PART_ItemsScrollViewer" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
-                            <ItemsPresenter Name="PART_ItemsPresenter"
-                                            ItemTemplate="{TemplateBinding ItemTemplate}"
-                                            Items="{TemplateBinding Items}"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                         </ScrollViewer>
 
                         <Border x:Name="PART_ContentBorder">
@@ -150,10 +147,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <ScrollViewer x:Name="PART_ItemsScrollViewer">
-                        <ItemsPresenter Name="PART_ItemsPresenter"
-                                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                                        Items="{TemplateBinding Items}"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                     </ScrollViewer>
                 </Border>
             </ControlTemplate>

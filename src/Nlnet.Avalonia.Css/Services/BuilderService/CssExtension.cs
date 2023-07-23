@@ -1,4 +1,5 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css;
@@ -9,11 +10,11 @@ public static class CssExtension
     /// Use the default <see cref="ICssBuilder"/> as avalonia css builder.
     /// </summary>
     /// <param name="builder"></param>
-    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static T UseAvaloniaCssDefaultBuilder<T>(this T builder) where T : AppBuilderBase<T>, new()
+    public static AppBuilder UseAvaloniaCssDefaultBuilder(this AppBuilder builder)
     {
         CssBuilder.UseDefaultBuilder();
+        builder.WriteLine($"==== Avalonia css default builder used...");
         return builder;
     }
 
@@ -22,10 +23,8 @@ public static class CssExtension
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="typeResolver"></param>
-    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    [Obsolete("It makes UI choppy in avalonia preview-4.")]
-    public static T WithTypeResolverForDefaultBuilder<T>(this T builder, ITypeResolver typeResolver) where T : AppBuilderBase<T>, new()
+    public static AppBuilder WithTypeResolverForDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
     {
         CssBuilder.Default.LoadResolver(typeResolver);
         return builder;

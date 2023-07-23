@@ -1,5 +1,4 @@
 ﻿using System;
-using Avalonia.Controls;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
@@ -10,7 +9,7 @@ internal interface ICssSetter
 
     public string? RawValue { get; set; }
 
-    public ISetter? ToAvaloniaSetter(ICssBuilder builder, Type targetType);
+    public Setter? ToAvaloniaSetter(ICssBuilder builder, Type targetType);
 }
 
 internal class CssSetter : ICssSetter
@@ -21,14 +20,14 @@ internal class CssSetter : ICssSetter
 
     public CssSetter(string setterString)
     {
-        var splits = setterString.Split(":", StringSplitOptions.RemoveEmptyEntries);
-        if (splits.Length != 2)
+        var index = setterString.IndexOf(':');
+        if (index == -1)
         {
-            this.WriteLine($"Invalid setter string : '{setterString}'. Skip it.");
+            this.WriteError($"Invalid setter string : '{setterString}'. Skip it.");
             return;
         }
-        Property = splits[0];
-        RawValue = splits[1];
+        Property = setterString[..index];
+        RawValue = setterString.Substring(index + 1, setterString.Length - index - 1);
     }
 
     public CssSetter(string name, string value)
@@ -37,7 +36,7 @@ internal class CssSetter : ICssSetter
         RawValue = value;
     }
 
-    public ISetter? ToAvaloniaSetter(ICssBuilder builder, Type targetType)
+    public Setter? ToAvaloniaSetter(ICssBuilder builder, Type targetType)
     {
         if (Property == null)
         {
@@ -45,8 +44,7 @@ internal class CssSetter : ICssSetter
         }
 
         var interpreter = builder.Interpreter;
-
-        var property = interpreter.ParseAvaloniaProperty(targetType, Property);
+        var property    = interpreter.ParseAvaloniaProperty(targetType, Property);
         if (property == null)
         {
             return null;
