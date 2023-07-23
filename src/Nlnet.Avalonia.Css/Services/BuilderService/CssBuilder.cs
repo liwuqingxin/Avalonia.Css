@@ -90,6 +90,11 @@ public class CssBuilder : ICssBuilder
         return true;
     }
 
+    bool ICssBuilder.TryRemoveCssFile(ICssFile file)
+    {
+        return _files.TryRemove(file.StandardFilePath, out _);
+    }
+
     bool ICssBuilder.TryGetCssFile(string standardFilePath, out ICssFile? file)
     {
         if (_files.TryGetValue(standardFilePath, out var f))

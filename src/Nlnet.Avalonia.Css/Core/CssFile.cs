@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
-using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -124,23 +123,28 @@ namespace Nlnet.Avalonia.Css
         private void Load(Styles styles, bool reapplyStyle)
         {
             var index = styles.IndexOf(this);
-            styles.Remove(this);
-
+            
             _disposable?.Dispose();
             _disposable = null;
+            _disposable ??= new CompositeDisposable();
 
-            this.Clear();
-            this.Resources.Clear();
-            this.Resources.MergedDictionaries.Clear();
-
-            if(_cssStyles != null)
+            _disposable.Add(Disposable.Create(() =>
             {
-                foreach (var cssStyle in _cssStyles)
+                styles.Remove(this);
+
+                this.Clear();
+                this.Resources.Clear();
+                this.Resources.MergedDictionaries.Clear();
+
+                if (_cssStyles != null)
                 {
-                    cssStyle.Dispose();
+                    foreach (var cssStyle in _cssStyles)
+                    {
+                        cssStyle.Dispose();
+                    }
                 }
-            }
-            _cssStyles = null;
+                _cssStyles = null;
+            }));
 
             try
             {
@@ -165,7 +169,6 @@ namespace Nlnet.Avalonia.Css
 
                 foreach (var cssThemeChildStyle in cssThemeChildStyles)
                 {
-                    _disposable ??= new CompositeDisposable(cssThemeChildStyles.Count);
                     var style = cssThemeChildStyle.ToAvaloniaStyle();
                     if (cssThemeChildStyle.ThemeTargetType != null)
                     {
@@ -244,6 +247,18 @@ namespace Nlnet.Avalonia.Css
         public void Reload(bool reapplyStyle)
         {
             this.BeginLoad(_owner, reapplyStyle);
+        }
+
+        public void Unload(bool reapplyStyle)
+        {
+            this.Dispose();
+
+            if (reapplyStyle)
+            {
+                StylerHelper.ReapplyStyling(_owner.Owner);
+            }
+
+            _cssBuilder.TryRemoveCssFile(this);
         }
 
         #endregion

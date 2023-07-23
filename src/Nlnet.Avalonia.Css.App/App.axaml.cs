@@ -3,12 +3,14 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App
 {
     public partial class App : Application
     {
+        public ICssFile? BeforeLoadedCssFile;
+        public ICssFile? AfterLoadedCssFile;
+
         public override void Initialize()
         {
             // TODO Support svg and dev tools.
@@ -40,12 +42,25 @@ namespace Nlnet.Avalonia.Css.App
                 // Load application acss files.
                 var loader = CssBuilder.Default.BuildLoader();
                 const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
-                loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
+
+                BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
                 Dispatcher.UIThread.Post(() =>
                 {
-                    loader.Load(Application.Current.Styles, "Css/after.loaded.acss", debugRelative);
+                    AfterLoadedCssFile = loader.Load(Application.Current.Styles, "Css/after.loaded.acss", debugRelative);
                 });    
             }
+        }
+
+        public void LoadBeforeLoadedCssFile()
+        {
+            if (Application.Current == null)
+            {
+                return;
+            }
+
+            var loader = CssBuilder.Default.BuildLoader();
+            const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
+            BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
         }
 
         public override void OnFrameworkInitializationCompleted()

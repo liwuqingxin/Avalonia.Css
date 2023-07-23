@@ -16,6 +16,7 @@ namespace Nlnet.Avalonia.Css.App
         private string?      _theme     = "blue";
         private bool         _isLoading = true;
         private bool         _isLocalDark;
+        private bool         _isBeforeLoadedAcssFileLoaded = true;
 
         public  List<ThemeVariant> Modes { get; set; }
 
@@ -126,6 +127,24 @@ namespace Nlnet.Avalonia.Css.App
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateMode(true);
             }
+        }
+
+        public void ToggleBeforeLoadedAcssFile()
+        {
+            if (Application.Current is not App app)
+            {
+                return;
+            }
+
+            if (_isBeforeLoadedAcssFileLoaded)
+            {
+                app.BeforeLoadedCssFile?.Unload(true);
+            }
+            else
+            {
+                app.LoadBeforeLoadedCssFile();
+            }
+            _isBeforeLoadedAcssFileLoaded = !_isBeforeLoadedAcssFileLoaded;
         }
     }
 }

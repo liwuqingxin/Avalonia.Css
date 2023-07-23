@@ -17,4 +17,9 @@ public interface ICssFile : IStyle
     /// </summary>
     /// <param name="reapplyStyle"></param>
     public void Reload(bool reapplyStyle);
+
+    /// <summary>
+    /// Unload this file.
+    /// </summary>
+    public void Unload(bool reapplyStyle);
 }
