@@ -16,11 +16,5 @@ namespace Nlnet.Avalonia.Css
             get;
             set;
         }
-
-        public ThemeVariant Mode
-        {
-            get;
-            set;
-        } = ThemeVariant.Default;
     }
 }

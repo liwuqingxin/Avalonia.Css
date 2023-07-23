@@ -11,9 +11,4 @@ public interface ICssConfiguration
     /// The theme that decides which accent color would be used.
     /// </summary>
     public string? Theme { get; set; }
-
-    /// <summary>
-    /// The mode that include dark mode or light mode.
-    /// </summary>
-    public ThemeVariant Mode { get; set; }
 }

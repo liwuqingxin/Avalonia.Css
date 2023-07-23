@@ -3,13 +3,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
     internal static class StylerHelper
     {
-        public static void ReapplyStyling(IResourceHost? resourceHost)
+        internal static void ReapplyStyling(IResourceHost? resourceHost)
         {
             switch (resourceHost)
             {
@@ -39,7 +40,12 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        public static void ForceApplyStyling(StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
+        internal static void ReapplyStyling(StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
+        {
+            ForceApplyStyling(styledElement, parentControlTheme, controlTheme, styling);
+        }
+
+        private static void ForceApplyStyling(StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
         {
             if (parentControlTheme)
             {

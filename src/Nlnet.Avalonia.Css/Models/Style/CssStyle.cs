@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -175,7 +176,14 @@ internal class CssStyle : CssSection, ICssStyle
                 var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
                 if (dic != null)
                 {
-                    style.Resources.MergedDictionaries.Add((dic));
+                    if (cssResourceList.IsModeResource())
+                    {
+                        style.Resources.ThemeDictionaries.Add(cssResourceList.GetThemeVariant(), dic);
+                    }
+                    else
+                    {
+                        style.Resources.MergedDictionaries.Add(dic);
+                    }
                 }
             }
         }

@@ -198,7 +198,14 @@ namespace Nlnet.Avalonia.Css
                     var dic = dictionary.ToAvaloniaResourceDictionary(_cssBuilder);
                     if (dic != null)
                     {
-                        this.Resources.MergedDictionaries.Add(dic);
+                        if (dictionary.IsModeResource())
+                        {
+                            this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
+                        }
+                        else
+                        {
+                            this.Resources.MergedDictionaries.Add(dic);
+                        }
                     }
                 }
 

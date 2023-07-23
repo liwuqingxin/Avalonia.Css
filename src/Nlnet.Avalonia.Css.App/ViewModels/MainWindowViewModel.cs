@@ -122,10 +122,10 @@ namespace Nlnet.Avalonia.Css.App
             }
             else if (propertyName is nameof(Mode))
             {
-                CssBuilder.Default.Configuration.Mode = Mode;
-
-                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
-                cssTheme?.UpdateMode(true);
+                if (Application.Current != null)
+                {
+                    Application.Current.RequestedThemeVariant = Mode;
+                }
             }
         }
 
