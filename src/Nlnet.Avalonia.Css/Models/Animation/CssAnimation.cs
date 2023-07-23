@@ -5,17 +5,20 @@ using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Css
 {
-    public interface ICssAnimation : ICssSection
+    internal interface ICssAnimation : ICssSection
     {
         IAnimation? ToAvaloniaAnimation();
     }
 
-    public class CssAnimation : CssSection, ICssAnimation
+    internal class CssAnimation : CssSection, ICssAnimation
     {
+        private readonly ICssBuilder _builder;
+
         private Animation? _animation;
 
-        public CssAnimation(string selector) : base(selector)
+        public CssAnimation(ICssBuilder builder, string selector) : base(builder, selector)
         {
+            _builder = builder;
         }
 
         public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
@@ -38,7 +41,7 @@ namespace Nlnet.Avalonia.Css
 
             _animation = new Animation();
 
-            var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
+            var interpreter = _builder.Interpreter;
             var type        = typeof(Animation);
             var setters     = parser.ParsePairs(content).ToList();
             foreach (var setter in setters.Where(s => s.Item1 != nameof(Animation.Children)))

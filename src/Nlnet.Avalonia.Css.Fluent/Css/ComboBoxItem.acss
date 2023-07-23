@@ -1,5 +1,5 @@
 ﻿
-ComboBoxItem {
+^ComboBoxItem {
     Background: var(comboboxitem-back);
     Foreground: var(fore);
     CornerRadius: 4;
@@ -10,7 +10,6 @@ ComboBoxItem {
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -19,13 +18,13 @@ ComboBoxItem {
     ]
 
     [[
-        ComboBoxItem:pointerover,ComboBoxItem:selected{
+        :pointerover,:selected{
             Background: var(comboboxitem-back-hover);
         }
-        ComboBoxItem:pressed{
+        :pressed{
             Background: var(comboboxitem-back-selected);
         }
-        ComboBoxItem /template/ Border#PART_Indicator {
+         /template/ Border#PART_Indicator {
             Background:var(Accent);
             HorizontalAlignment:Left;
             RenderTransform: scale(1,1);
@@ -39,13 +38,13 @@ ComboBoxItem {
                 var(gstOpacity);
             ]
         }
-        ComboBoxItem:pointerover /template/ Border#PART_Indicator {
+        :pointerover /template/ Border#PART_Indicator {
             RenderTransform: scale(1,1.4);
         }
-        ComboBoxItem:pressed /template/ Border#PART_Indicator {
+        :pressed /template/ Border#PART_Indicator {
             RenderTransform: scale(1,1);
         }
-        ComboBoxItem:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

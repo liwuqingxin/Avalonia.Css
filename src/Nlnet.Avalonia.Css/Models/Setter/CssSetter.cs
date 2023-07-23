@@ -4,16 +4,16 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssSetter
+internal interface ICssSetter
 {
     public string Property { get; set; }
 
     public string? RawValue { get; set; }
 
-    public ISetter? ToAvaloniaSetter(Type targetType);
+    public ISetter? ToAvaloniaSetter(ICssBuilder builder, Type targetType);
 }
 
-public class CssSetter : ICssSetter
+internal class CssSetter : ICssSetter
 {
     public string? Property { get; set; }
 
@@ -37,14 +37,14 @@ public class CssSetter : ICssSetter
         RawValue = value;
     }
 
-    public ISetter? ToAvaloniaSetter(Type targetType)
+    public ISetter? ToAvaloniaSetter(ICssBuilder builder, Type targetType)
     {
         if (Property == null)
         {
             return null;
         }
 
-        var interpreter = CssServiceLocator.GetService<ICssInterpreter>();
+        var interpreter = builder.Interpreter;
 
         var property = interpreter.ParseAvaloniaProperty(targetType, Property);
         if (property == null)

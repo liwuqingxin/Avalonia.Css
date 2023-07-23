@@ -9,7 +9,8 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void RemoveCommentsTest()
         {
-            var parser = CssServiceLocator.GetService<ICssParser>();
+            ICssBuilder builder = new CssBuilder();
+            var         parser  = builder.Parser;
 
             var s1 = parser.RemoveComments("/**/abc".ToCharArray());
             var s2 = parser.RemoveComments("a/*abc*/bc".ToCharArray());
@@ -33,10 +34,13 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void EfficientCssParserTest()
         {
+            ICssBuilder builder  = new CssBuilder();
+
+            var parser   = builder.Parser;
             var cssFile  = File.ReadAllText("./Assets/nlnet.blog.css");
-            var parser   = CssServiceLocator.GetService<ICssParser>();
             var sections = parser.ParseSections(null, cssFile);
             var styles   = sections.OfType<ICssStyle>();
+
             foreach (var cssStyle in styles)
             {
                 Trace.WriteLine(cssStyle.ToString());
@@ -46,8 +50,10 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void TypeProviderTest()
         {
+            ICssBuilder builder  = new CssBuilder();
+
             var cssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
-            var parser   = CssServiceLocator.GetService<ICssParser>();
+            var parser   = builder.Parser;
             var css      = parser.RemoveComments(new Span<char>(cssFile.ToCharArray()));
             var sections = parser.ParseSections(null, css);
             var styles   = sections.OfType<ICssStyle>();

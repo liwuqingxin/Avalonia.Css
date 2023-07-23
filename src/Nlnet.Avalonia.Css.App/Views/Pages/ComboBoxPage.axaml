@@ -5,6 +5,7 @@
              xmlns:behaviors="clr-namespace:Nlnet.Avalonia.Behaviors;assembly=Nlnet.Avalonia.Behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -13,24 +14,19 @@
                    Text="Use a ComboBox when you need to conserve on-screen space and when users select only one option at a time.A ComboBox shows only the currently selected item."
                    TextWrapping="Wrap" />
 
-        <StackPanel Orientation="Horizontal" Spacing="8">
-            <ComboBoxItem Content="下拉框选项" />
-            <ComboBoxItem Content="下拉框选项" IsSelected="True" />
-            <ComboBoxItem Content="下拉框选项" IsEnabled="False" />
-            <ComboBoxItem Content="下拉框选项"
-                          IsEnabled="False"
-                          IsSelected="True" />
-        </StackPanel>
-        <StackPanel VerticalAlignment="Top"
-                    Orientation="Horizontal"
-                    Spacing="8">
-
+        <app:IndependentCase Header="ComboBox.">
             <ComboBox Items="{app:Enum HorizontalAlignment}">
                 <!--<Interaction.Behaviors>
                     <behaviors:AnimateResizingBehavior />
                 </Interaction.Behaviors>-->
             </ComboBox>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="ComboBox with SelectedIndex set.">
             <ComboBox Items="{app:Enum HorizontalAlignment}" SelectedIndex="0" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="ComboBox with ComboBoxAlignPopupToSelectionBehavior.">
             <ComboBox IsTextSearchEnabled="True"
                       Items="{app:Enum SizeToContent}"
                       SelectedIndex="0">
@@ -38,10 +34,6 @@
                     <behaviors:ComboBoxAlignPopupToSelectionBehavior />
                 </Interaction.Behaviors>
             </ComboBox>
-            <ComboBox IsEnabled="False" Items="{app:Enum HorizontalAlignment}" />
-            <ComboBox IsEnabled="False"
-                      Items="{app:Enum HorizontalAlignment}"
-                      SelectedIndex="0" />
-        </StackPanel>
+        </app:IndependentCase>
     </StackPanel>
 </UserControl>

@@ -4,9 +4,9 @@ using Avalonia.Media;
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Color))]
-public class ColorResource : CssResourceBaseAndFac<ColorResource>
+internal class ColorResource : CssResourceBaseAndFac<ColorResource>
 {
-    protected override object? Accept(string valueString)
+    protected override object? Accept(ICssBuilder cssBuilder, string valueString)
     {
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)

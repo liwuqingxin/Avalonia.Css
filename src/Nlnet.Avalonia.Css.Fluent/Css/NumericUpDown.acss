@@ -1,5 +1,5 @@
 ﻿
-NumericUpDown {
+^NumericUpDown {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -22,12 +22,12 @@ NumericUpDown {
     ]
 
     [[
-        NumericUpDown /template/ ButtonSpinner#PART_Spinner:is-part{
+         /template/ ButtonSpinner#PART_Spinner:is-part{
             Padding:0;
             HorizontalContentAlignment:Stretch;
             VerticalContentAlignment:Stretch;
         }
-        NumericUpDown /template/ TextBox#PART_TextBox:is-part{
+         /template/ TextBox#PART_TextBox:is-part{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
             BorderThickness:0;

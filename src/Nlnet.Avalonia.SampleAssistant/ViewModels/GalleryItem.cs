@@ -7,7 +7,6 @@ namespace Nlnet.Avalonia.SampleAssistant;
 
 public class GalleryItem : IXamlProvider
 {
-    private readonly ICaseXamlParser _xmlParser = new XCaseXamlParser();
     private readonly Dictionary<string, string>? _caseXamlDictionary;
 
     public string          Title        { get; set; }
@@ -35,7 +34,7 @@ public class GalleryItem : IXamlProvider
 
         try
         {
-            _caseXamlDictionary = _xmlParser.ParseCases(xaml);
+            _caseXamlDictionary = LoadService.XmlParser.ParseCases(xaml);
         }
         catch (Exception e)
         {

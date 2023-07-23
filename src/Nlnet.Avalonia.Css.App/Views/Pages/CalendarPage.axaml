@@ -1,11 +1,12 @@
 <UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.CalendarPage"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -19,31 +20,42 @@
                    Text="CalendarView shows a larger view for showing and selecting dates.DatePicker by contrast has a compact view with inline selection."
                    TextWrapping="Wrap" />
 
-        <DatePicker SelectedDate="{Binding Path=DateTime}" />
-        <DatePicker IsEnabled="False" SelectedDate="2023/06/22" />
+        <app:IndependentCase Header="DatePicker with SelectedData binding to ViewModel.">
+			<DatePicker SelectedDate="{Binding Path=DateTime}" />
+        </app:IndependentCase>
 
-        <TimePicker SelectedTime="{Binding Path=Time}" />
-        <TimePicker IsEnabled="False" SelectedTime="12:22" />
+        <app:IndependentCase Header="TimePicker with SelectedData binding to ViewModel.">
+            <TimePicker SelectedTime="{Binding Path=Time}" />
+        </app:IndependentCase>
 
-        <TimePicker ClockIdentifier="24HourClock" SelectedTime="{Binding Path=Time}" />
-        <TimePicker ClockIdentifier="12HourClock" SelectedTime="14:22" />
-        <TimePicker ClockIdentifier="12HourClock" />
+        <app:IndependentCase Header="TimePicker with ClockIdentifier='24HourClock'.">
+            <TimePicker ClockIdentifier="24HourClock" SelectedTime="{Binding Path=Time}" />
+		</app:IndependentCase>
 
-        <CalendarDatePicker />
-        <CalendarDatePicker IsEnabled="False" SelectedDate="2023/06/22" />
+        <app:IndependentCase Header="TimePicker with ClockIdentifier='12HourClock'.">
+            <TimePicker ClockIdentifier="12HourClock" SelectedTime="14:22" />
+        </app:IndependentCase>
 
-        <Calendar />
-        <Calendar>
-            <Calendar.BlackoutDates>
-                <CalendarDateRange>
-                    <x:Arguments>
-                        <system:DateTime>2023-02-4</system:DateTime>
-                        <system:DateTime>2023-06-12</system:DateTime>
-                    </x:Arguments>
-                </CalendarDateRange>
-            </Calendar.BlackoutDates>
-        </Calendar>
-        <Calendar IsEnabled="False" />
+        <app:IndependentCase Header="CalendarDatePicker.">
+			<CalendarDatePicker />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Calendar.">
+			<Calendar />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Calendar with BlackoutDates.">
+			<Calendar>
+                <Calendar.BlackoutDates>
+                    <CalendarDateRange>
+                        <x:Arguments>
+                            <system:DateTime>2023-02-4</system:DateTime>
+                            <system:DateTime>2023-06-12</system:DateTime>
+                        </x:Arguments>
+                    </CalendarDateRange>
+                </Calendar.BlackoutDates>
+            </Calendar>
+		</app:IndependentCase>
 
     </StackPanel>
 

@@ -1,4 +1,4 @@
-﻿ComboBox {
+﻿^ComboBox {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -17,7 +17,6 @@
     ScrollViewer.HorizontalScrollBarVisibility:Disabled;
     ScrollViewer.VerticalScrollBarVisibility:Auto;
     /* PlaceholderForeground:Red; */
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -26,27 +25,28 @@
     ]
 
     [[
-        ComboBox:pointerover{
+        :pointerover{
             Background:var(control-back-hover);
         }
-        ComboBox:pressed{
+        :pressed{
             Opacity:0.6;
         }
-        ComboBox /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
-        ComboBox /template/ Popup#PART_Popup{
+         /template/ Popup#PART_Popup{
             VerticalOffset: -7;
-            HorizontalOffset: -10;
+            HorizontalOffset: -11;
         }
-        ComboBox /template/ Popup#PART_Popup PopupRoot{
+         /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);
         }
-        ComboBox /template/ Border#PopupBorder{
-            /* Background:var(comboboxitem-back); */
+         /template/ Border#PopupBorder{
+            Background:var(comboboxitem-back);
+            CornerRadius:6;
             Padding:4;
         }
-        ComboBox /template/ PathIcon#DropDownGlyph{
+         /template/ PathIcon#DropDownGlyph{
             Width:9;
             Height:9;
             Margin:0,0,10,0;
@@ -60,13 +60,13 @@
                 var(gstRenderTransform);
             ]
         }
-        ComboBox:pressed /template/ PathIcon#DropDownGlyph{
+        :pressed /template/ PathIcon#DropDownGlyph{
             RenderTransform: translate(0, 3px);
         }
-        ComboBox:dropdownopen /template/ PathIcon#DropDownGlyph{
+        :dropdownopen /template/ PathIcon#DropDownGlyph{
             RenderTransform: scale(1,-1);
         }
-        ComboBox:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

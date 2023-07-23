@@ -1,48 +1,45 @@
 ﻿
-MenuItem {
+^MenuItem {
     Foreground: var(fore);
     Background: Transparent;
     Padding: 8,4,8,5;
     Opacity: 1;
-    FontSize:12;
     CornerRadius: 3;
     RenderTransform: none;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Center;
     Height:28;
     ClipToBounds:False;
-    FontSize:12;
     Transitions:[
         var(stBackground);
     ]
 
     [[
-        MenuItem:pointerover{
+        :pointerover{
             Background:var(comboboxitem-back-hover);
         }
-        MenuItem:pressed /template/ Border#PART_LayoutRoot:pointerover{
+        :pressed /template/ Border#PART_LayoutRoot:pointerover{
             Background: var(comboboxitem-back-selected);
         }
 
-        MenuItem /template/ Viewbox#PART_IconPresenter{
+         /template/ Viewbox#PART_IconPresenter{
             Margin:0,0,8,0;
             HorizontalAlignment:Center;
             VerticalAlignment:Center;
             StretchDirection:DownOnly;
         }
-        MenuItem /template/ ContentPresenter#PART_HeaderPresenter{
+         /template/ ContentPresenter#PART_HeaderPresenter{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Center;
         }
-        MenuItem /template/ TextBlock#PART_InputGestureText{
+         /template/ TextBlock#PART_InputGestureText{
             HorizontalAlignment:Right;
             VerticalAlignment:Center;
             Margin:28,0,0,0;
-            FontSize:12;
             FontWeight:Light;
             Foreground:var(watermark);
         }
-        MenuItem /template/ Path#PART_ChevronPath{
+         /template/ Path#PART_ChevronPath{
             Width:9;
             Height:9;
             HorizontalAlignment:Right;
@@ -54,54 +51,60 @@ MenuItem {
             UseLayoutRounding:False;
             RenderTransform:none;
         }
-        MenuItem:pointerover /template/ Path#PART_ChevronPath{
+        :pointerover /template/ Path#PART_ChevronPath{
             Fill:var(fore-hover);
         }
-        MenuItem:open /template/ Path#PART_ChevronPath{
+        :open /template/ Path#PART_ChevronPath{
             Fill:var(fore-hover);
         }
-        MenuItem /template/ Popup#PART_Popup {
+         /template/ Popup#PART_Popup {
             PlacementMode:Right;
             IsLightDismissEnabled:false;
             HorizontalOffset:-12;
         }
-        MenuItem /template/ Popup#PART_Popup PopupRoot{
+         /template/ Popup#PART_Popup PopupRoot{
             Background:var(comboboxitem-back);
         }
-        MenuItem /template/ ScrollViewer#PART_PopupScrollViewer {
+         /template/ ScrollViewer#PART_PopupScrollViewer {
             HorizontalScrollBarVisibility:Disabled;
             Margin:4;
         }
-        MenuItem /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:2;
         }
-        MenuItem Separator{
-            Margin:0,4;
-            Background:var(watermark);
-            Opacity:0.2;
-        }
 
-        MenuItem:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]
 }
 
-MenuFlyoutPresenter {
+MenuItem{
+    [[
+        MenuItem Separator{
+            Margin:0,4;
+            Height:1;
+            Background:var(watermark);
+            Opacity:0.2;
+        }
+    ]]
+}
+
+^MenuFlyoutPresenter {
     VerticalOffset:-10;
     [[
-        MenuFlyoutPresenter /template/ ScrollViewer#PART_ScrollViewer {
+         /template/ ScrollViewer#PART_ScrollViewer {
             HorizontalScrollBarVisibility:Disabled;
             Margin:4;
         }
     ]]
 }
 
-ContextMenu {
+^ContextMenu {
     HorizontalOffset:-10;
     VerticalOffset:-10;
     [[
-        ContextMenu /template/ ScrollViewer#PART_ScrollViewer {
+         /template/ ScrollViewer#PART_ScrollViewer {
             HorizontalScrollBarVisibility:Disabled;
             Margin:4;
         }

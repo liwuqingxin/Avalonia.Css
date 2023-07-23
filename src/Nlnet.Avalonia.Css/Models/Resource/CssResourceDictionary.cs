@@ -7,13 +7,15 @@ using Avalonia.Controls;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssResourceDictionary : ICssSection
+internal interface ICssResourceDictionary : ICssSection
 {
-    public IResourceProvider? ToAvaloniaResourceDictionary();
+    public IResourceProvider? ToAvaloniaResourceDictionary(ICssBuilder cssBuilder);
 }
 
-public class CssResourceDictionary : CssSection, ICssResourceDictionary
+internal class CssResourceDictionary : CssSection, ICssResourceDictionary
 {
+    private readonly ICssBuilder _builder;
+
     private static readonly Regex RegexTheme       = new("\\[theme=(.*?)\\]", RegexOptions.IgnoreCase);
     private static readonly Regex RegexMode        = new("\\[mode=(.*?)\\]", RegexOptions.IgnoreCase);
     private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
@@ -26,8 +28,9 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
 
     public List<CssResource> Resources { get; set; } = new();
 
-    public CssResourceDictionary(string selector) : base(selector)
+    public CssResourceDictionary(ICssBuilder builder, string selector) : base(builder, selector)
     {
+        _builder = builder;
 
     }
 
@@ -52,19 +55,19 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
         Resources.AddRange(TryGetResources(content.ToString()).ToList());
     }
 
-    public IResourceProvider? ToAvaloniaResourceDictionary()
+    public IResourceProvider? ToAvaloniaResourceDictionary(ICssBuilder cssBuilder)
     {
         if (Resources.Count == 0)
         {
             return null;
         }
 
-        if (Mode != null && !string.Equals(Mode, CssServiceLocator.GetService<ICssManager>().Mode, StringComparison.CurrentCultureIgnoreCase))
+        if (Mode != null && !string.Equals(Mode, cssBuilder.Configuration.Mode, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
 
-        if (Theme != null && !string.Equals(Theme, CssServiceLocator.GetService<ICssManager>().Theme, StringComparison.CurrentCultureIgnoreCase))
+        if (Theme != null && !string.Equals(Theme, cssBuilder.Configuration.Theme, StringComparison.CurrentCultureIgnoreCase))
         {
             return null;
         }
@@ -90,7 +93,7 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
         return dic;
     }
 
-    private static IEnumerable<CssResource> TryGetResources(string resources)
+    private IEnumerable<CssResource> TryGetResources(string resources)
     {
         resources = resources.ReplaceLineEndings(" ");
         var resourceList = resources.Split(";", StringSplitOptions.RemoveEmptyEntries);
@@ -101,7 +104,7 @@ public class CssResourceDictionary : CssSection, ICssResourceDictionary
             {
                 continue;
             }
-            if (CssServiceLocator.GetService<ICssResourceFactory>().TryGetResourceInstance(resource, out var cssResource))
+            if (_builder.ResourceFactory.TryGetResourceInstance(resource, out var cssResource))
             {
                 yield return cssResource!;
             }

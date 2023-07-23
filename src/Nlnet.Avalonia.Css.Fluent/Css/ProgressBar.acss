@@ -1,33 +1,32 @@
 ﻿
-ProgressBar {
+^ProgressBar {
     Foreground: var(Accent);
     Background: var(progressbar-back);
     CornerRadius: 4;
-    FontSize:12;
     [[
-        ProgressBar /template/ TextBlock#PART_ProgressText{
+         /template/ TextBlock#PART_ProgressText{
             Foreground: var(fore);
         }
-        ProgressBar:horizontal{
+        :horizontal{
             VerticalAlignment:Center;
             [[
-                ProgressBar:horizontal:not(:indeterminate) /template/ Border#ProgressBarRoot{
+                :not(:indeterminate) /template/ Border#ProgressBarRoot{
                     Height:1;
                     Background: var(slider-back);
                 }
-                ProgressBar:horizontal /template/ Panel#IndeterminateRoot, ProgressBar:horizontal /template/ Panel#DeterminateRoot{
+                 /template/ Panel#IndeterminateRoot, :horizontal /template/ Panel#DeterminateRoot{
                     Height:3;
                 }
-                ProgressBar:horizontal /template/ Border#PART_Indicator{
+                 /template/ Border#PART_Indicator{
                     HorizontalAlignment: Left;
                     VerticalAlignment: Stretch;
                 }
-                ProgressBar:horizontal /template/ LayoutTransformControl#PART_LayoutTransformControl{
+                 /template/ LayoutTransformControl#PART_LayoutTransformControl{
                     Margin:0,8;
                     DockPanel.Dock: Top;
                 }
 
-                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator{
+                :indeterminate /template/ Border#IndeterminateProgressBarIndicator{
                     [[
                         :animation{
                             IterationCount:Infinite;
@@ -46,7 +45,7 @@ ProgressBar {
                         }
                     ]]
                 }
-                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
+                :indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
                     [[
                         :animation{
                             IterationCount:Infinite;
@@ -67,27 +66,27 @@ ProgressBar {
                 }
             ]]
         }
-        ProgressBar:vertical{
+        :vertical{
             HorizontalAlignment:Center;
             [[
-                ProgressBar:vertical:not(:indeterminate) /template/ Border#ProgressBarRoot{
+                :not(:indeterminate) /template/ Border#ProgressBarRoot{
                     Width: 1;
                     Background: var(slider-back);
                 }
-                ProgressBar:vertical /template/ Panel#IndeterminateRoot, ProgressBar:vertical /template/ Panel#DeterminateRoot{
+                 /template/ Panel#IndeterminateRoot, :vertical /template/ Panel#DeterminateRoot{
                     Width: 3;
                 }
-                ProgressBar:vertical /template/ Border#PART_Indicator{
+                 /template/ Border#PART_Indicator{
                     HorizontalAlignment: Stretch;
                     VerticalAlignment: Bottom;
                 }
-                ProgressBar:vertical /template/ LayoutTransformControl#PART_LayoutTransformControl{
+                 /template/ LayoutTransformControl#PART_LayoutTransformControl{
                     Margin: 8,0;
                     LayoutTransform: rotate(-90deg);
                     DockPanel.Dock: Left;
                 }
 
-                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator{
+                :indeterminate /template/ Border#IndeterminateProgressBarIndicator{
                     [[
                         :animation{
                             IterationCount:Infinite;
@@ -106,7 +105,7 @@ ProgressBar {
                         }
                     ]]
                 }
-                ProgressBar:indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
+                :indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
                     [[
                         :animation{
                             IterationCount:Infinite;

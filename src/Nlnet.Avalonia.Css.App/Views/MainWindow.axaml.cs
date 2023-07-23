@@ -1,5 +1,7 @@
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.DevTools;
+using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
@@ -22,6 +24,15 @@ namespace Nlnet.Avalonia.Css.App.Views
             {
                 vm.IsLoading = false;
             }
+        }
+
+        private void MainTabControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            MainTabControl?
+                .GetVisualDescendants()
+                .OfType<ScrollViewer>()
+                .FirstOrDefault(s => s.Name == "MainContentScrollViewer")
+                ?.ScrollToHome();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿TabControl {
+﻿^TabControl {
     Foreground: var(fore);
     Opacity: 1;
     RenderTransform: none;
@@ -6,15 +6,14 @@
     VerticalContentAlignment: Stretch;
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
-    FontSize:12;
     [[
-        TabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
-        TabControl /template/ AnimatingContainer#PART_SelectedContentHost {
+         /template/ AnimatingContainer#PART_SelectedContentHost {
             Opacity:0;
         }
-        TabControl /template/ AnimatingContainer#PART_SelectedContentHost:changing {
+         /template/ AnimatingContainer#PART_SelectedContentHost:changing {
             [[
                 :animation[desc=Tab control loading animation]{
                     IterationCount:1;
@@ -34,7 +33,7 @@
                 }
             ]]
         }
-        TabControl /template/ AnimatingContainer#PART_SelectedContentHost:changed {
+         /template/ AnimatingContainer#PART_SelectedContentHost:changed {
             [[
                 :animation[desc=Tab control toggle animation]{
                     IterationCount:1;

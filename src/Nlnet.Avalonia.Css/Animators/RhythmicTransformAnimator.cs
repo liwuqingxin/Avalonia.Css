@@ -11,7 +11,7 @@ namespace Nlnet.Avalonia.Css
     /// <summary>
     /// Rhythmic Animator that handles <see cref="T:Avalonia.Media.Transform" /> properties.
     /// </summary>
-    public sealed class RhythmicTransformAnimator : TransformAnimator
+    internal sealed class RhythmicTransformAnimator : TransformAnimator
     {
         public double Step { get; set; } = 30;
 

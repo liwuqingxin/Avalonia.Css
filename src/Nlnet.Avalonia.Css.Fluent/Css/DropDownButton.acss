@@ -1,5 +1,5 @@
 ﻿
-DropDownButton {
+^DropDownButton {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -13,7 +13,6 @@ DropDownButton {
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -22,10 +21,10 @@ DropDownButton {
     ]
 
     [[
-        DropDownButton:not(:disabled):not(:is-part) /template/ Border#RootBorder{
+        :not(:disabled):not(:is-part) /template/ Border#RootBorder{
             BoxShadow: var(button-shadow);
         }
-        DropDownButton /template/ PathIcon#DropDownGlyph{
+         /template/ PathIcon#DropDownGlyph{
             Width:9;
             Height:9;
             Margin:0,0,10,0;
@@ -35,19 +34,19 @@ DropDownButton {
                 var(gstRenderTransform);
             ]
         }
-        DropDownButton:pressed /template/ PathIcon#DropDownGlyph{
+        :pressed /template/ PathIcon#DropDownGlyph{
             RenderTransform: translate(0, 3px);
         }
-        DropDownButton:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        DropDownButton:pressed:not(:is-part){
+        :pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
             ClipToBounds:True;
         }
-        DropDownButton:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

@@ -1,11 +1,15 @@
-﻿using System.IO;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using Nlnet.Avalonia.Css.Controls;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
     public partial class CssFluentTheme : Styles
     {
+        private ICssFile? _modeFile;
+        private ICssFile? _themeFile;
+        private ICssFile? _resourceFile;
+        
         static CssFluentTheme()
         {
             TemplatedControlExtension.Init();
@@ -17,35 +21,40 @@ namespace Nlnet.Avalonia.Css.Fluent
             Load();
         }
 
-        private static void Load()
+        private void Load()
         {
-            var manager = CssServiceLocator.GetService<ITypeResolverManager>();
-            manager.LoadResolver(new GenericResolver<CssFluentTheme>());
+            CssBuilder.UseDefaultBuilder();
 
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
+            // This is not added to application's styles till now. Register this to resource manager to enable resource access to this.
+            CssBuilder.Default.RegisterResourceProvider(this);
 
-            var files = Directory.GetFiles("../../../Nlnet.Avalonia.Css.Fluent/Css/");
-            foreach (var file in files)
-            {
-                CssFile.Load(file, true);
-            }
+            // Nlnet.Avalonia.Css.Controls
+            CssBuilder.Default.LoadResolver(new GenericResolver<AnimatingContainer>());
+
+            var loader = CssBuilder.Default.BuildLoader();
+
+            const string debugRelative = "../../../Nlnet.Avalonia.Css.Fluent/";
+
+            _modeFile     = loader.Load(this, "Css/Resources/Mode.acss",      debugRelative);
+            _themeFile    = loader.Load(this, "Css/Resources/Theme.acss",     debugRelative);
+            _resourceFile = loader.Load(this, "Css/Resources/Resources.acss", debugRelative);
+
+            loader.LoadFolder(this, "Css/", debugRelative);
         }
 
         public void UpdateResource()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Resources.acss", true);
+            _resourceFile?.Reload();
         }
 
         public void UpdateMode()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Mode.acss", true);
+            _modeFile?.Reload();
         }
 
         public void UpdateTheme()
         {
-            CssFile.Load("../../../Nlnet.Avalonia.Css.Fluent/Css/Resources/Theme.acss", true);
+            _themeFile?.Reload();
         }
     }
 }

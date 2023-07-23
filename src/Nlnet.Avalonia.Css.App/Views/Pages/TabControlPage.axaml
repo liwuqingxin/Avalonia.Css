@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="https://www.nlnet.com/avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -20,7 +21,7 @@
             </Style>
         </StackPanel.Styles>
 
-        <fluent:Container>
+        <app:IndependentCase Header="TabControl with TabStripPlacement='Left'.">
             <TabControl TabStripPlacement="Left">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -30,7 +31,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="Second Image">
                     <fluent:TabItemExtension.IconContent>
@@ -40,7 +41,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第三张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -50,7 +51,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第四张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -60,12 +61,12 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </app:IndependentCase>
 
-        <fluent:Container>
+        <app:IndependentCase Header="TabControl with TabStripPlacement='Right'.">
             <TabControl TabStripPlacement="Right">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -75,7 +76,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="Second Image">
                     <fluent:TabItemExtension.IconContent>
@@ -85,7 +86,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第三张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -95,7 +96,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第四张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -105,12 +106,12 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </app:IndependentCase>
 
-        <fluent:Container>
+        <app:IndependentCase Header="TabControl with TabStripPlacement='Top'.">
             <TabControl TabStripPlacement="Top">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -120,7 +121,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="Second Image">
                     <fluent:TabItemExtension.IconContent>
@@ -130,7 +131,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第三张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -140,7 +141,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第四张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -150,12 +151,12 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </app:IndependentCase>
 
-        <fluent:Container>
+        <app:IndependentCase Header="TabControl with TabStripPlacement='Bottom'.">
             <TabControl TabStripPlacement="Bottom">
                 <TabItem Header="First Image">
                     <fluent:TabItemExtension.IconContent>
@@ -165,7 +166,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="Second Image">
                     <fluent:TabItemExtension.IconContent>
@@ -175,7 +176,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第三张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -185,7 +186,7 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
                 <TabItem Header="第四张图片">
                     <fluent:TabItemExtension.IconContent>
@@ -195,10 +196,10 @@
                                Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
                                Stretch="Uniform" />
                     </fluent:TabItemExtension.IconContent>
-                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png" />
+                    <Image RenderOptions.BitmapInterpolationMode="HighQuality" Source="avares://Nlnet.Avalonia.Css.App/Assets/xlh.ico" />
                 </TabItem>
             </TabControl>
-        </fluent:Container>
+        </app:IndependentCase>
 
     </StackPanel>
 

@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-public interface ICssStyle : ICssSection
+internal interface ICssStyle : ICssSection, IDisposable
 {
+    public bool IsThemeChild { get; }
+
+    public bool IsLogicalChild { get; }
+
+    public Type? ThemeTargetType { get; }
+
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
     public IEnumerable<ICssStyle>? Styles { get; set; }
@@ -18,12 +25,22 @@ public interface ICssStyle : ICssSection
 
     public Selector? GetSelector();
 
-    public Style ToAvaloniaStyle();
+    public ChildStyle ToAvaloniaStyle();
+
+    void AddDisposable(IDisposable disposable);
 }
 
-public class CssStyle : CssSection, ICssStyle
+internal class CssStyle : CssSection, ICssStyle
 {
-    private Selector? _selector;
+    private readonly ICssBuilder          _builder;
+    private          Selector?            _selector;
+    private          CompositeDisposable? _compositeDisposable;
+
+    public bool IsThemeChild { get; set; }
+
+    public bool IsLogicalChild { get; set; }
+
+    public Type? ThemeTargetType { get; set; }
 
     public IEnumerable<ICssSetter>? Setters { get; set; }
 
@@ -33,9 +50,9 @@ public class CssStyle : CssSection, ICssStyle
 
     public IEnumerable<ICssAnimation>? Animations { get; set; }
 
-    public CssStyle(string selector) : base(selector)
+    public CssStyle(ICssBuilder builder, string selector) : base(builder, selector)
     {
-
+        _builder = builder;
     }
 
     public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
@@ -57,12 +74,18 @@ public class CssStyle : CssSection, ICssStyle
 
     private Selector? CreateSelector()
     {
-        var isChild = Parent != null;
+        var isChild = (Parent != null && IsLogicalChild == false) || IsThemeChild;
 
         // Selector
         var selector   = isChild ? Selectors.Nesting(null) : null;
         var syntaxList = SelectorGrammar.Parse(Selector).ToList();
         var selectors  = new List<Selector>();
+
+        if(IsThemeChild)
+        {
+            ThemeTargetType = syntaxList.First().ToSelector(_builder, null)?.TargetType;
+            syntaxList = syntaxList.Skip(1).ToList();
+        }
 
         foreach (var syntax in syntaxList)
         {
@@ -76,7 +99,7 @@ public class CssStyle : CssSection, ICssStyle
             }
             else
             {
-                selector = syntax.ToSelector(selector);
+                selector = syntax.ToSelector(_builder, selector);
             }
         }
         if (selector != null)
@@ -92,23 +115,21 @@ public class CssStyle : CssSection, ICssStyle
         return _selector;
     }
 
-    public Style ToAvaloniaStyle()
+    public ChildStyle ToAvaloniaStyle()
     {
         this.WriteLine($"==== Begin parsing style with raw selector of '{Selector}'.");
 
-        var style   = new Style
-        {
-            Selector = _selector
-        };
+        var style = NewStyle();
 
-        if (style.Selector?.TargetType != null)
+        var targetType = style.Selector?.TargetType ?? ThemeTargetType ?? (Parent as ICssStyle)?.ThemeTargetType;
+        if (targetType != null)
         {
             // Resources
             if (Resources != null)
             {
                 foreach (var cssResourceList in Resources)
                 {
-                    var dic = cssResourceList.ToAvaloniaResourceDictionary();
+                    var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
                     if (dic != null)
                     {
                         style.Resources.MergedDictionaries.Add((dic));
@@ -119,7 +140,7 @@ public class CssStyle : CssSection, ICssStyle
             // Setters
             if (Setters != null)
             {
-                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(style.Selector.TargetType)).OfType<ISetter>())
+                foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<ISetter>())
                 {
                     style.Add(setter);
                 }
@@ -130,8 +151,30 @@ public class CssStyle : CssSection, ICssStyle
             {
                 foreach (var cssStyle in Styles)
                 {
-                    var childStyle = cssStyle.ToAvaloniaStyle();
-                    style.Add(childStyle);
+                    if (cssStyle.IsLogicalChild)
+                    {
+                        var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
+                        if (existSetter?.Value is IList<ICssStyle> list)
+                        {
+                            list.Add(cssStyle);
+                        }
+                        else
+                        {
+                            list = new List<ICssStyle>();
+                            list.Add(cssStyle);
+                            var setter = new Setter()
+                            {
+                                Property = ExStyler.AddingStyleProperty,
+                                Value    = list,
+                            };
+                            style.Add(setter);
+                        }
+                    }
+                    else
+                    {
+                        var childStyle = cssStyle.ToAvaloniaStyle();
+                        style.Add(childStyle);
+                    }
                 }
             }
 
@@ -152,6 +195,28 @@ public class CssStyle : CssSection, ICssStyle
         return style;
     }
 
+    public void AddDisposable(IDisposable disposable)
+    {
+        lock (this)
+        {
+            _compositeDisposable ??= new CompositeDisposable();
+            _compositeDisposable.Add(disposable);
+        }
+    }
+
+    private ChildStyle NewStyle()
+    {
+        return IsLogicalChild
+            ? new LogicChildStyle(this)
+            {
+                Selector = _selector
+            }
+            : new ChildStyle(this)
+            {
+                Selector = _selector
+            };
+    }
+
     public override string ToString()
     {
         var builder = new StringBuilder();
@@ -164,5 +229,19 @@ public class CssStyle : CssSection, ICssStyle
             }
         }
         return builder.ToString();
+    }
+
+    public void Dispose()
+    {
+        _compositeDisposable?.Dispose();
+        _compositeDisposable = null;
+
+        if (Styles != null)
+        {
+            foreach (var cssStyle in Styles)
+            {
+                cssStyle.Dispose();
+            }
+        }
     }
 }

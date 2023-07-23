@@ -1,5 +1,5 @@
 ﻿
-TimePicker {
+^TimePicker {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -13,47 +13,47 @@ TimePicker {
     VerticalAlignment: Stretch;
     ClipToBounds:False;
     MinWidth:150;
-    FontSize:12;
     Transitions:[
         var(stBorderBrush);
         var(stBackground);
     ]
 
     [[
-        TimePicker /template/ Button#PART_FlyoutButton{
+         /template/ Button#PART_FlyoutButton{
             HorizontalContentAlignment:Stretch;
+            HorizontalAlignment:Stretch;
         }
-        TimePicker:hasnotime /template/ Button#PART_FlyoutButton TextBlock{
+        :hasnotime /template/ Button#PART_FlyoutButton TextBlock{
             Foreground:var(watermark);
         }
-        TimePicker /template/ Popup#PART_Popup{
+         /template/ Popup#PART_Popup{
             WindowManagerAddShadowHint:false;
             PlacementMode:Bottom;
             IsLightDismissEnabled:True;
         }
-        TimePicker /template/ TimePickerPresenter#PART_PickerPresenter{
+         /template/ TimePickerPresenter#PART_PickerPresenter{
             MaxHeight:300;
         }
 
-        TimePicker /template/ TextBlock#PART_HourTextBlock{
+         /template/ TextBlock#PART_HourTextBlock{
             Text:Hour;
             HorizontalAlignment:Center;
         }
-        TimePicker /template/ TextBlock#PART_MinuteTextBlock{
+         /template/ TextBlock#PART_MinuteTextBlock{
             Text:Minite;
             HorizontalAlignment:Center;
         }
-        TimePicker /template/ TextBlock#PART_PeriodTextBlock{
+         /template/ TextBlock#PART_PeriodTextBlock{
             Text:am;
             HorizontalAlignment:Center;
         }
 
-        TimePicker /template/ Rectangle#PART_FirstColumnDivider{
+         /template/ Rectangle#PART_FirstColumnDivider{
             Width:1;
             Fill:var(watermark);
             Margin:8,2;
         }
-        TimePicker /template/ Rectangle#PART_SecondColumnDivider{
+         /template/ Rectangle#PART_SecondColumnDivider{
             Width:1;
             Fill:var(watermark);
             Margin:8,2;

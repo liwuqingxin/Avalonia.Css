@@ -1,5 +1,5 @@
 ﻿
-RepeatButton {
+^RepeatButton {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -13,7 +13,6 @@ RepeatButton {
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
-    FontSize:12;
     Transitions:[
         /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);
@@ -23,18 +22,18 @@ RepeatButton {
     ]
 
     [[
-        RepeatButton:not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
+        :not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
             BoxShadow: var(button-shadow);
         }
-        RepeatButton:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        RepeatButton:pressed:not(:is-part){
+        :pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
         }
-        RepeatButton:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

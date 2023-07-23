@@ -1,5 +1,5 @@
 ﻿
-RadioButton {
+^RadioButton {
     Foreground: var(fore);
     Padding: 8,4;
     Opacity: 1;
@@ -9,7 +9,6 @@ RadioButton {
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
     ClipToBounds:False;
-    FontSize:12;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -19,20 +18,20 @@ RadioButton {
     ]
 
     [[
-        RadioButton:pointerover{
+        :pointerover{
             Foreground: var(fore-hover);
         }
-        RadioButton /template/ Ellipse#PART_Border{
+         /template/ Ellipse#PART_Border{
             Width:20;
             Height:20;
             Fill: var(control-back);
             Stroke:var(control-border);
             StrokeThickness: 1;
         }
-        RadioButton:pointerover /template/ Ellipse#PART_Border{
+        :pointerover /template/ Ellipse#PART_Border{
             Fill: var(control-back-hover);
         }
-        RadioButton /template/ Ellipse#PART_CheckGlyph{
+         /template/ Ellipse#PART_CheckGlyph{
             Width:0;
             Height:0;
             StrokeThickness:10;
@@ -42,28 +41,28 @@ RadioButton {
                 DoubleTransition(Ellipse.StrokeThickness 0.1);
             ]           
         }
-        RadioButton:checked /template/ Ellipse#PART_CheckGlyph{
+        :checked /template/ Ellipse#PART_CheckGlyph{
             Fill:var(control-back);
             Width:20;
             Height:20;
             Stroke:var(Accent);
             StrokeThickness:5;
         }
-        RadioButton:checked:pointerover /template/ Ellipse#PART_CheckGlyph{
+        :checked:pointerover /template/ Ellipse#PART_CheckGlyph{
             StrokeThickness:4;
         }
-        RadioButton:pressed:not(:checked) /template/ Ellipse#PART_CheckGlyph{
+        :pressed:not(:checked) /template/ Ellipse#PART_CheckGlyph{
             Fill:var(control-back);
             Width:18;
             Height:18;
             StrokeThickness:5;
             Stroke:#E5E5E5;
         }
-        RadioButton:checked:pressed /template/ Ellipse#PART_CheckGlyph{
+        :checked:pressed /template/ Ellipse#PART_CheckGlyph{
             StrokeThickness:5;
             Stroke:var(Accent08);
         }
-        RadioButton:disabled{
+        :disabled{
             Opacity:0.4;
         }
     ]]

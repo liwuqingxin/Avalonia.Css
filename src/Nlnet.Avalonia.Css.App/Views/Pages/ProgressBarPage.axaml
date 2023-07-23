@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="https://www.nlnet.com/avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -13,36 +14,50 @@
                    Text="Use a Slider when you want your users to be able to set defined,contiguous values (such as volume or brightness)or a range of discrete values(such as screen resolution settings)."
                    TextWrapping="Wrap" />
 
-        <Slider x:Name="Slider"
-                Width="200"
-                fluent:SliderExtension.Format="{}{0:0%}"
-                Maximum="1"
-                Minimum="0" />
+        <app:IndependentCase Header="ProgressBar with IsIndeterminate='True'.">
+            <ProgressBar Width="200" IsIndeterminate="True" />
+        </app:IndependentCase>
 
-        <ProgressBar Width="200" IsIndeterminate="True" />
-        <ProgressBar Height="200"
-                     HorizontalAlignment="Center"
-                     IsIndeterminate="True"
-                     Orientation="Vertical" />
-        <ProgressBar Width="200"
-                     Maximum="{Binding #Slider.Maximum}"
-                     Minimum="{Binding #Slider.Minimum}"
-                     Value="{Binding #Slider.Value}" />
-        <ProgressBar Width="200"
-                     Maximum="{Binding #Slider.Maximum}"
-                     Minimum="{Binding #Slider.Minimum}"
-                     ProgressTextFormat="{}{0:0%}"
-                     ShowProgressText="True"
-                     Value="{Binding #Slider.Value}" />
+        <app:IndependentCase Header="ProgressBar with Orientation='Vertical'.">
+            <ProgressBar Height="200"
+                         HorizontalAlignment="Center"
+                         IsIndeterminate="True"
+                         Orientation="Vertical" />
+        </app:IndependentCase>
 
-        <ProgressBar Height="200"
-                     HorizontalAlignment="Center"
-                     Maximum="{Binding #Slider.Maximum}"
-                     Minimum="{Binding #Slider.Minimum}"
-                     Orientation="Vertical"
-                     ProgressTextFormat="进度百分比：{0:0.0%}"
-                     ShowProgressText="True"
-                     Value="{Binding #Slider.Value}" />
+        <app:IndependentCase Header="ProgressBar that is indeterminate.">
+            <app:IndependentCase.Settings>
+                <Slider x:Name="Slider"
+                        Width="200"
+                        fluent:SliderExtension.Format="{}{0:0%}"
+                        Maximum="1"
+                        Minimum="0" />
+            </app:IndependentCase.Settings>
+            <StackPanel>
+                <ProgressBar Width="200"
+                             Maximum="{Binding #Slider.Maximum}"
+                             Minimum="{Binding #Slider.Minimum}"
+                             Value="{Binding #Slider.Value}" />
+                <ProgressBar Width="200"
+                             Maximum="{Binding #Slider.Maximum}"
+                             Minimum="{Binding #Slider.Minimum}"
+                             ProgressTextFormat="{}{0:0%}"
+                             ShowProgressText="True"
+                             Value="{Binding #Slider.Value}" />
+
+                <ProgressBar Height="200"
+                             HorizontalAlignment="Center"
+                             Maximum="{Binding #Slider.Maximum}"
+                             Minimum="{Binding #Slider.Minimum}"
+                             Orientation="Vertical"
+                             ProgressTextFormat="进度百分比：{0:0.0%}"
+                             ShowProgressText="True"
+                             Value="{Binding #Slider.Value}" />
+            </StackPanel>
+        </app:IndependentCase>
+
+
+
 
     </StackPanel>
 </UserControl>

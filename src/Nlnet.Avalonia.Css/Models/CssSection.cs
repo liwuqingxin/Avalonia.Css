@@ -5,8 +5,10 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
-    public interface ICssSection
+    internal interface ICssSection
     {
+        public ICssBuilder CssBuilder { get; }
+
         public string Selector { get; set; }
 
         public ICssSection? Parent { get; set; }
@@ -16,8 +18,10 @@ namespace Nlnet.Avalonia.Css
         public void InitialSection(ICssParser parser, ReadOnlySpan<char> content);
     }
 
-    public abstract class CssSection : ICssSection
+    internal abstract class CssSection : ICssSection
     {
+        public ICssBuilder CssBuilder { get; }
+
         public string Selector { get; set; }
 
         public ICssSection? Parent { get; set; }
@@ -26,9 +30,10 @@ namespace Nlnet.Avalonia.Css
 
         public abstract void InitialSection(ICssParser parser, ReadOnlySpan<char> content);
 
-        protected CssSection(string selector)
+        protected CssSection(ICssBuilder cssBuilder, string selector)
         {
-            Selector = selector.Trim();
+            CssBuilder = cssBuilder;
+            Selector   = selector.Trim();
         }
     }
 }

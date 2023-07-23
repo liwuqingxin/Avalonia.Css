@@ -11,9 +11,10 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
-        private string? _mode = "light";
-        private string? _theme = "blue";
-        private bool _isLoading = true;
+        private string? _mode      = "light";
+        private string? _theme     = "blue";
+        private bool    _isLoading = true;
+        private bool    _isLocalDark ;
 
         public  List<string> Modes { get; set; }
 
@@ -55,6 +56,18 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
+        public bool IsLocalDark
+        {
+            get => _isLocalDark;
+            set
+            {
+                if (value == _isLocalDark)
+                    return;
+                _isLocalDark = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
 
         public MainWindowViewModel()
@@ -81,6 +94,7 @@ namespace Nlnet.Avalonia.Css.App
 
             GalleryItems = new ObservableCollection<GalleryItem>();
 
+            LoadService.XmlParser = new XCaseXamlParser<IndependentCase>();
             LoadService.GetGalleryItemAsync(typeof(MainWindowViewModel)).ContinueWith(t =>
             {
                 foreach (var item in t.Result)
@@ -97,15 +111,15 @@ namespace Nlnet.Avalonia.Css.App
 
             if (propertyName is nameof(Theme))
             {
-                CssServiceLocator.GetService<ICssManager>().Theme = Theme;
-                
+                CssBuilder.Default.Configuration.Theme = Theme;
+
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateTheme();
                 cssTheme?.UpdateResource();
             }
             else if (propertyName is nameof(Mode))
             {
-                CssServiceLocator.GetService<ICssManager>().Mode = Mode;
+                CssBuilder.Default.Configuration.Mode = Mode;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateMode();

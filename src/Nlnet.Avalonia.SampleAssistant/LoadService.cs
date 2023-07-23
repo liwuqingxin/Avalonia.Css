@@ -14,6 +14,10 @@ namespace Nlnet.Avalonia.SampleAssistant
 {
     public static class LoadService
     {
+        public static ICaseXamlParser XmlParser = new XCaseXamlParser<Case>();
+
+
+
         #region Load Gallery
 
         public static async Task<IEnumerable<GalleryItem>> GetGalleryItemAsync(Type sink)

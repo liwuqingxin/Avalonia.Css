@@ -33,12 +33,12 @@ namespace Nlnet.Avalonia.SampleAssistant
         }
     }
 
-    internal interface ICaseXamlParser
+    public interface ICaseXamlParser
     {
         Dictionary<string, string> ParseCases(string? xaml);
     }
 
-    public class DefaultCaseXamlParser : ICaseXamlParser
+    internal class DefaultCaseXamlParser : ICaseXamlParser
     {
         public Dictionary<string, string> ParseCases(string? xaml)
         {
@@ -98,7 +98,7 @@ namespace Nlnet.Avalonia.SampleAssistant
         }
     }
 
-    public class XCaseXamlParser : ICaseXamlParser
+    public class XCaseXamlParser<TCase> : ICaseXamlParser where TCase : Case
     {
         public Dictionary<string, string> ParseCases(string? xaml)
         {
@@ -110,7 +110,7 @@ namespace Nlnet.Avalonia.SampleAssistant
 
             var xDocument  = LoadWithoutNamespace(xaml);
             var childNodes = xDocument.Elements().DescendantsAndSelf();
-            var cases      = childNodes.Where(e => e.Name.LocalName == nameof(Case));
+            var cases      = childNodes.Where(e => e.Name.LocalName == typeof(TCase).Name);
             foreach (var childNode in cases)
             {
                 var header = childNode.Attribute(nameof(Case.Header))?.Value;

@@ -35,6 +35,7 @@ Window#RootWindow{
         }
         Window TextBlock#PageDescription{
             LineHeight:24;
+            Foreground:var(fore);
         }
     ]]
 }
@@ -46,7 +47,7 @@ TabControl#MainTabControl /template/ Border#PART_ContentBorder{
     BorderThickness:1,1,0,0;
     BorderBrush:var(control-border);
     CornerRadius:8,0,0,0;
-    Padding:24,24,8,0;
+    Padding:24,24,4,0;
     Margin:8,0,0,0;
 }
 TabControl#MainTabControl ScrollViewer#MainContentScrollViewer{
@@ -55,11 +56,13 @@ TabControl#MainTabControl ScrollViewer#MainContentScrollViewer{
 TabControl#MainTabControl ScrollViewer#MainContentScrollViewer > ContentControl{
     Margin:0,0,12,0;
 }
+TabControl#MainTabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel{
+    MinWidth:250;
+}
 
 
 /* TabItem in main TabControl */
 TabItem{
-    MinWidth:250;
     ClipToBounds:False;
 }
 TabItem ContentControl{
@@ -115,6 +118,15 @@ Case{
         }
         Case /template/ TextBlock#Instruction{
             Margin:12,12,12,4;
+            Foreground:var(fore);
+        }
+        Case /template/ ContentPresenter#PART_SettingsPresenter{
+            Padding:20;
+            Margin:1,1,1,0;
+            CornerRadius:0,6,0,0;
+            BorderThickness:1,0,0,0;
+            BorderBrush:var(control-border);
+            Background:var(control-back);
         }
         Case /template/ TextBlock:is-part#SourceCodeTitle{
             HorizontalAlignment:Left;
@@ -145,4 +157,22 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 /* Button in ButtonPage */
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
     HorizontalAlignment:Left;
+}
+
+CalendarPage Calendar, CalendarPage CalendarDatePicker, CalendarPage TimePicker{
+    HorizontalAlignment:Left;
+}
+
+CheckBoxPage CheckBox, CheckBoxPage RadioButton{
+    HorizontalAlignment:Left;
+}
+
+ComboBoxPage ComboBox{
+    HorizontalAlignment:Left;
+    MinWidth:150;
+}
+
+TextBoxPage TextBox{
+    HorizontalAlignment:Left;
+    MinWidth:150;
 }
