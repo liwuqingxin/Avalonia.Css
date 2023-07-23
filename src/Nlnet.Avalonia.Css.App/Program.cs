@@ -20,7 +20,11 @@ namespace Nlnet.Avalonia.Css.App
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                typeof(App).WriteError(e.ToString());
+                if (e.InnerException != null)
+                {
+                    typeof(App).WriteError(e.InnerException.ToString());
+                }
             }
         }
 

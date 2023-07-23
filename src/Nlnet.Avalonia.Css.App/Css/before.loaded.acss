@@ -231,7 +231,7 @@ WelcomePage Image#LogoImage:pointerover{
         :animation[Animation for pointerover on logo image]{
             IterationCount:1;
             FillMode:Forward;
-            Duration:'0:0:0.3';
+            Duration:0:0:0.3;
             KeyFrames:[
                 KeyFrame(100% 0.5,0,0.7,0.9):[
                     RotateTransform.Angle:10;
