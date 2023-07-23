@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Text;
 using Avalonia.Styling;
+using DynamicData;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -63,7 +64,23 @@ internal class CssStyle : CssSection, ICssStyle
 
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
 
-        Setters = parser.ParsePairs(settersSpan).Select(p => new CssSetter(p.Item1, p.Item2));
+        var pairs = parser.ParsePairs(settersSpan);
+        var cssSetters = new List<ICssSetter>();
+        foreach (var pair in pairs)
+        {
+            var index = cssSetters.FindIndex(s => s.Property == pair.Item1);
+            if (index != -1)
+            {
+                cssSetters.RemoveAt(index);
+                cssSetters.Insert(index, new CssSetter(pair.Item1, pair.Item2));
+                this.WriteError($"Duplicated setter for property '{pair.Item1}' is detected. Use the later one that value is '{pair.Item2}'.");
+            }
+            else
+            {
+                cssSetters.Add(new CssSetter(pair.Item1, pair.Item2));
+            }
+        }
+        Setters = cssSetters;
         var list = parser.ParseSections(this, childrenSpan).ToList();
         if (list.Count > 0)
         {
@@ -140,17 +157,7 @@ internal class CssStyle : CssSection, ICssStyle
 
     public ChildStyle ToAvaloniaStyle()
     {
-        var styleKind = IsThemeChild ? "^" : "";
-        if (IsLogicalChild)
-        {
-            styleKind = ">";
-        }
-        else if (Parent is ICssStyle parentCssStyle)
-        {
-            styleKind = $" - ";
-        }
-        
-        DiagnosisHelper.WriteLine($"---- Parsing style '{styleKind}{Selector}'.");
+        DiagnosisHelper.WriteLine($"---- Parsing style '{this}'.");
 
         var style = NewStyle();
         var targetType = style.Selector?.GetTargetType() ?? ((ICssStyle)this).GetParentTargetType();
@@ -254,7 +261,17 @@ internal class CssStyle : CssSection, ICssStyle
 
     public override string ToString()
     {
-        return Selector;
+        var styleKind = IsThemeChild ? "^" : "";
+        if (IsLogicalChild)
+        {
+            styleKind = ">";
+        }
+        else if (Parent is ICssStyle parentCssStyle)
+        {
+            styleKind = $" - ";
+        }
+
+        return $"{styleKind}{Selector}";
     }
 
     public string ToDetailString()
