@@ -118,7 +118,7 @@ namespace Nlnet.Avalonia.Css.App
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
                 cssTheme?.UpdateTheme(false);
-                cssTheme?.UpdateResource(true);
+                cssTheme?.UpdateResource(false);
             }
             else if (propertyName is nameof(Mode))
             {

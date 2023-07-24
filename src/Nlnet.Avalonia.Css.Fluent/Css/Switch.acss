@@ -16,6 +16,9 @@
     Transitions:[
         BrushTransition(ToggleSwitch.Background 0.3 0 CircularEaseInOut);
     ]
+    KnobTransitions:[
+        DoubleTransition(Canvas.Left 0.3 0 CubicEaseOut);
+    ]
 
     [[
          /template/ Border#SwitchKnobBounds{
@@ -29,9 +32,6 @@
          /template/ Grid#PART_MovingKnobs{
             Width:16;
             Height:16;
-            Transitions:[
-                DoubleTransition(Canvas.Left 0.3 0 CircularEaseInOut);
-            ]
         }
          /template/ Ellipse#SwitchKnob{
             Width:12;
