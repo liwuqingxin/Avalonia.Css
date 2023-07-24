@@ -28,7 +28,7 @@
         }
         :selected{
             Background:var(Accent);
-            Foreground:var(fore-anti);
+            Foreground:var(fore-selected-hover);
         }
         :inactive{
             Foreground:var(watermark);

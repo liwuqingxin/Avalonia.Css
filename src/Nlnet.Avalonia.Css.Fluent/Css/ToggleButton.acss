@@ -34,7 +34,7 @@
             Opacity:0.6;
         }
         :checked{
-            Foreground: var(fore-anti);
+            Foreground: var(fore-selected-hover);
             Background: var(Accent);
         }
         :checked:pointerover{

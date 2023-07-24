@@ -19,7 +19,7 @@
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
-        var(stBackground);
+        /* var(stBackground); */
         var(stOpacity);
     ]
     [[
@@ -61,7 +61,7 @@
         }
         :today{
             Background:var(Accent);
-            Foreground:var(fore-anti);
+            Foreground:var(fore-selected-hover);
             [[
                 :pointerover{
                     Background:var(Accent08);

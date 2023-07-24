@@ -3,6 +3,7 @@
 	/* Share */
 	brush(fore): #333;
 	brush(fore-hover): #111;
+	brush(fore-selected-hover): #fff;
 	brush(fore-anti): #fff;
 	brush(window-back): #F3F3F3;
 	brush(window-back-active): #F0F3F9;
@@ -57,6 +58,7 @@
 	/* Share */
 	brush(fore): #eee;
 	brush(fore-hover): #fff;
+	brush(fore-selected-hover): #fff;
 	brush(fore-anti): #333;
 	brush(window-back): #202020;
 	brush(window-back-active): #1A2228;
@@ -66,8 +68,8 @@
 	/* Control */
 	brush(control-back): #353535;
 	brush(control-back-hover): #383838;
-	brush(control-back-pressed): #F5F5F7;
-	brush(control-border): #353535;
+	brush(control-back-pressed): #414141;
+	brush(control-border): #424240;
 
 
 	/* Item */

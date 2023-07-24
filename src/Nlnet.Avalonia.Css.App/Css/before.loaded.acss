@@ -41,6 +41,10 @@ Window#RootWindow{
             LineHeight:24;
             Foreground:var(fore);
         }
+        Window TextBlock#PageDescription>Run{
+            LineHeight:24;
+            Foreground:var(fore);
+        }
     ]]
 }
 

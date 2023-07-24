@@ -6,7 +6,6 @@
             CornerRadius: 6;
             BorderThickness: 1;
             Margin: 10,10,10,10;
-            Background: White;
             BorderBrush:var(control-border);
             ClipToBounds:False;
             Opacity:0;
