@@ -16,7 +16,7 @@
 
     <Grid RowDefinitions="Auto,*">
         <StackPanel Orientation="Horizontal">
-            <CheckBox Content="Toggle 'before.loaded.acss'" Command="{Binding Path=ToggleBeforeLoadedAcssFile}"/>
+            <CheckBox Command="{Binding Path=ToggleBeforeLoadedAcssFile}" Content="Toggle 'before.loaded.acss'" />
             <ComboBox ItemsSource="{Binding Path=Modes}" SelectedItem="{Binding Path=Mode}" />
             <ComboBox ItemsSource="{Binding Path=Themes}" SelectedItem="{Binding Path=Theme}" />
             <CheckBox Content="Toggle Local Dark" IsChecked="{Binding Path=IsLocalDark, Mode=TwoWay}" />

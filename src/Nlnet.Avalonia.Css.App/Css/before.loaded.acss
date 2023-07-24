@@ -47,7 +47,7 @@ Window#RootWindow{
 
 /* Content Border of main TabControl */
 TabControl#MainTabControl /template/ Border#PART_ContentBorder{
-    Background:#F9F9F9;
+    Background: var(control-back);
     BorderThickness:1,1,0,0;
     BorderBrush:var(control-border);
     CornerRadius:8,0,0,0;

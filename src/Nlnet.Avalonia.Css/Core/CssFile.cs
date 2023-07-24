@@ -134,6 +134,7 @@ namespace Nlnet.Avalonia.Css
 
                 this.Clear();
                 this.Resources.Clear();
+                this.Resources.ThemeDictionaries.Clear();
                 this.Resources.MergedDictionaries.Clear();
 
                 if (_cssStyles != null)
