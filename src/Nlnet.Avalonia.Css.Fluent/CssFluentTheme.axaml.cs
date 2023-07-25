@@ -1,6 +1,7 @@
 ﻿using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Nlnet.Avalonia.Css.Controls;
+using Nlnet.Avalonia.Senior.Controls;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
@@ -31,6 +32,9 @@ namespace Nlnet.Avalonia.Css.Fluent
             // Nlnet.Avalonia.Css.Controls
             CssBuilder.Default.LoadResolver(new GenericResolver<AnimatingContainer>());
 
+            // Nlnet.Avalonia.Senior
+            CssBuilder.Default.LoadResolver(new GenericResolver<NtScrollViewer>());
+
             var loader = CssBuilder.Default.BuildLoader();
 
             const string debugRelative = "../../../Nlnet.Avalonia.Css.Fluent/";
@@ -40,6 +44,7 @@ namespace Nlnet.Avalonia.Css.Fluent
             _resourceFile = loader.Load(this, "Css/Resources/Resources.acss", debugRelative);
 
             loader.LoadFolder(this, "Css/", debugRelative);
+            loader.LoadFolder(this, "Css/Senior", debugRelative);
         }
 
         public void UpdateResource(bool reapplyStyle)

@@ -65,13 +65,13 @@
                                        Grid.Column="1"
                                        Text="{Binding Path=Title}" />
                         </Grid>
-                        <ScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
+                        <sampleAssistant:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
                             <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
                                 <ContentControl.ContentTemplate>
                                     <sampleAssistant:GalleryItemLocator />
                                 </ContentControl.ContentTemplate>
                             </ContentControl>
-                        </ScrollViewer>
+                        </sampleAssistant:NtScrollViewer>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>

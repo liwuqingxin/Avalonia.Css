@@ -191,6 +191,10 @@ namespace Nlnet.Avalonia.Css
                                 theme.Children.Remove(style);
                             }));
                         }
+                        else
+                        {
+
+                        }
                     }
                 }
 

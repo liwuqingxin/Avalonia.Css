@@ -15,6 +15,10 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<!--This helps with theme dll-s trimming. If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa. https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
 		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
 		<TrimmableAssembly Include="Avalonia.Themes.Default" />
@@ -31,22 +35,9 @@
 		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'">
-		  <Version>11.0.0</Version>
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0">
 		</PackageReference>
 		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Senior\Nlnet.Avalonia.Senior.csproj" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <None Update="Css\**">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>
