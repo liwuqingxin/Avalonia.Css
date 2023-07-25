@@ -10,12 +10,45 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription" TextWrapping="Wrap">
-            <Run Foreground="{Binding $parent[TextBlock].Foreground}" Text="Avalonia.Css 不是一个完全支持 CSS（层叠样式表）的库，它的主要目的在于赋予 Avalonia 框架 " />
+            <Run Text="Avalonia.Css 不是一个完全支持 CSS（层叠样式表）的库，它的主要目的在于赋予 Avalonia 框架 " />
             <Run FontWeight="Bold"
                  Foreground="{DynamicResource Accent}"
-                 Text="动态修改外观样式" />
-            <Run Foreground="{Binding $parent[TextBlock].Foreground}" Text=" 的能力，同时，这也让 Avalonia 拥有了样式热重载的能力。" />
+                 Text="快捷、动态修改外观样式" />
+            <Run Text=" 的能力，同时，这也让 Avalonia 可以支持样式热重载。" />
+            <LineBreak />
+            <LineBreak />
+            <Run Text="目前支持：" />
+            <Run FontWeight="Bold"
+                 Foreground="{DynamicResource Accent}"
+                 Text="资源定义、Theme子样式、普通样式、逻辑子样式、动画等系统" />
+            <Run Text="。" />
         </TextBlock>
+
+        <Grid x:Name="InfoGrid"
+              ColumnDefinitions="Auto,12,*"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              ShowGridLines="False">
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="版本" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Avalonia 版本" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="仓库" />
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="2"
+                       Text="1.0.0" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="2"
+                       Text="Avalonia 11.0" />
+            <Button Grid.Row="2"
+                    Grid.Column="2"
+                    Click="BtnOpenRepo_OnClick"
+                    Content="https://github.com/liwuqingxin/Avalonia.Css" />
+        </Grid>
 
         <Image x:Name="LogoImage"
                HorizontalAlignment="Center"

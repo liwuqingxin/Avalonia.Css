@@ -113,6 +113,6 @@ internal class CssLoader : ICssLoader
 
     private static string GetStandardPath(string path)
     {
-        return Path.GetFullPath(path).ToLower();
+        return Path.GetFullPath(path)/*.ToLower()*/;
     }
 }

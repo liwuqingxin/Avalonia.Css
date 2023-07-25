@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
+using Avalonia.Logging;
 using Nlnet.Avalonia.SampleAssistant;
 
 namespace Nlnet.Avalonia.Css.App
@@ -25,6 +26,8 @@ namespace Nlnet.Avalonia.Css.App
                 {
                     typeof(App).WriteError(e.InnerException.ToString());
                 }
+
+                Logger.Sink?.Log(LogEventLevel.Error, nameof(Program), null, e.ToString());
             }
         }
 
@@ -35,6 +38,7 @@ namespace Nlnet.Avalonia.Css.App
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI()
+                .LogToLocalFile()
 
                 // Avalonia css stuff.
                 .UseAvaloniaCssDefaultBuilder()

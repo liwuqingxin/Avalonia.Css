@@ -164,7 +164,41 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 
 
 
-
+WelcomePage Grid#InfoGrid > TextBlock{
+    Margin:0,8;
+    FontSize:12;
+    [[
+        TextBlock[(Grid.Column)=0]{
+            HorizontalAlignment:Right;
+            Foreground:var(watermark);
+        }
+        TextBlock[(Grid.Column)=2]{
+            HorizontalAlignment:Left;
+            FontWeight:Bold;
+        }
+    ]]
+}
+WelcomePage Grid#InfoGrid > Button{
+    FontSize:12;
+    HorizontalAlignment:Left;
+    CornerRadius:0;
+    BorderThickness:0,0,0,1;
+    BorderBrush:var(control-back);
+    Padding:0;
+    Height:18;
+    MinHeight:0;
+    Foreground:var(Accent);
+    [[
+        :not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
+            BoxShadow: null;
+        }
+        :pointerover{
+            Foreground: var(Accent08);
+            Background: var(control-back);
+            BorderBrush:var(Accent);
+        }
+    ]]
+}
 WelcomePage Image#LogoImage:is-loaded{
     Width:200;
     Height:200;
@@ -230,7 +264,7 @@ WelcomePage Image#LogoImage:is-loaded{
         }
     ]]
 }
-WelcomePage Image#LogoImage:pointerover{
+/* WelcomePage Image#LogoImage:pointerover{
     [[
         :animation[Animation for pointerover on logo image]{
             IterationCount:1;
@@ -257,7 +291,7 @@ WelcomePage Image#LogoImage:not(:pointerover){
             ]
         }
     ]]
-}
+} */
 
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
     HorizontalAlignment:Left;
