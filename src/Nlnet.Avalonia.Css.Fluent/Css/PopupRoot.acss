@@ -1,5 +1,6 @@
 ﻿
 ^PopupRoot {
+    Background:var(item-back);
     [[
          /template/ Border#PopupBorder{
             BoxShadow: var(popup-shadow);

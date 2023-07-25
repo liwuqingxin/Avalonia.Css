@@ -89,7 +89,7 @@ namespace Nlnet.Avalonia.Behaviors
                 return;
             }
 
-            var container = comboBox.ItemContainerGenerator.ContainerFromIndex(index);
+            var container = comboBox.ContainerFromIndex(index);
             var matrix    = container?.TransformToVisual(popupRoot);
             if (matrix == null)
             {
@@ -113,7 +113,7 @@ namespace Nlnet.Avalonia.Behaviors
             popup.VerticalOffset   = fromOffset;
             popup.Transitions      = transitions;
             popup.VerticalOffset   = toOffset;
-            popup.HorizontalOffset = -point.X + _horizontalOffset;
+            popup.HorizontalOffset = /*-point.X*/ + _horizontalOffset;
         }
     }
 }

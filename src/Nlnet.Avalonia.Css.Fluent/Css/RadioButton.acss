@@ -11,11 +11,11 @@
     VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
-        var(stRenderTransform);
-        var(stBorderBrush);
-        var(stBackground);
-        var(stOpacity);
-        var(stBorderThickness);
+        var(gstRenderTransform);
+        var(gstBorderBrush);
+        var(gstBackground);
+        var(gstOpacity);
+        var(gstBorderThickness);
     ]
 
     [[
@@ -28,6 +28,9 @@
             Fill: var(control-back);
             Stroke:var(control-border);
             StrokeThickness: 1;
+            Transitions:[
+                var(gstFill);
+            ] 
         }
         :pointerover /template/ Ellipse#PART_Border{
             Fill: var(control-back-hover);
@@ -36,10 +39,11 @@
             Width:0;
             Height:0;
             StrokeThickness:10;
-            Fill:#fff;
+            Fill:var(control-back);
             VerticalAlignment: Center;
             Transitions:[
-                DoubleTransition(Ellipse.StrokeThickness 0.1);
+                DoubleTransition(Ellipse.StrokeThickness 0.125);
+                var(gstFill);
             ]           
         }
         :checked /template/ Ellipse#PART_CheckGlyph{
@@ -56,8 +60,8 @@
             Fill:var(control-back);
             Width:18;
             Height:18;
-            StrokeThickness:5;
-            Stroke:#E5E5E5;
+            StrokeThickness:3;
+            Stroke:var(control-back-pressed);
         }
         :checked:pressed /template/ Ellipse#PART_CheckGlyph{
             StrokeThickness:5;

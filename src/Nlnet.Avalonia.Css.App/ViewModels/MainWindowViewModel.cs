@@ -12,7 +12,7 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
-        private ThemeVariant _mode      = ThemeVariant.Light;
+        private ThemeVariant _mode      = ThemeVariant.Dark;
         private string?      _theme     = "blue";
         private bool         _isLoading = true;
         private bool         _isLocalDark;

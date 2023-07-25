@@ -38,15 +38,19 @@
             Height:12;
             Fill:var(fore);
             Transitions:[
-                DoubleTransition(Ellipse.Width 0.3 0 CircularEaseInOut);
-                BrushTransition(Ellipse.Fill 0.3 0 CircularEaseInOut);
+                TransformOperationsTransition(TemplatedControl.RenderTransform 0.14);
+                DoubleTransition(Ellipse.Width 0.14 0 CircularEaseInOut);
+                BrushTransition(Ellipse.Fill 0.1);
             ]
         }
-        :pressed /template/ Ellipse#SwitchKnob{
-            Width:16;
+        :pressed:not(:checked) /template/ Ellipse#SwitchKnob{
+            RenderTransform:translate(2px,0) scale(1.3,1);
+        }
+        :pressed:checked /template/ Ellipse#SwitchKnob{
+            RenderTransform:translate(-2px,0) scale(1.3,1);
         }
         :checked /template/ Ellipse#SwitchKnob{
-            Fill:var(control-back);
+            Fill:var(fore-selected-hover);
         }
         :checked {
             Background:var(Accent);

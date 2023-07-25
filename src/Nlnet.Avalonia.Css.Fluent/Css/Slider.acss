@@ -19,22 +19,22 @@
         /* TickBar */
          /template/ TickBar#TopTickBar{
             Margin:0,0,0,4;
-            Height:6;
+            Height:3;
             Fill:var(slider-back);
         }        
          /template/ TickBar#BottomTickBar{
             Margin:0,4,0,0;
-            Height:6;
+            Height:3;
             Fill:var(slider-back);
         }        
          /template/ TickBar#LeftTickBar{
             Margin:0,0,4,0;
-            Width:6;
+            Width:3;
             Fill:var(slider-back);
         }        
          /template/ TickBar#RightTickBar{
             Margin:4,0,0,0;
-            Width:6;
+            Width:3;
             Fill:var(slider-back);
         }
 

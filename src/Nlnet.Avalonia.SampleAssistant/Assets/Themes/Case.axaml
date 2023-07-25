@@ -5,55 +5,58 @@
     <ControlTheme x:Key="{x:Type control:Case}" TargetType="control:Case">
         <Setter Property="control:Case.Template">
             <ControlTemplate TargetType="control:Case">
-                <ThemeVariantScope RequestedThemeVariant="{TemplateBinding ThemeVariant}">
-					<Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*,Auto">
+                <Grid RowDefinitions="Auto,*">
 
-						<!-- Header -->
-						<TextBlock x:Name="Header"
-								   Grid.Row="0"
-								   Grid.Column="0"
-								   Text="{TemplateBinding Header}" />
+                    <!-- Header -->
+                    <TextBlock x:Name="Header"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Text="{TemplateBinding Header}" />
 
-						<!-- ContentBack -->
-						<Border x:Name="ContentBack"
-								Grid.Row="1"
-								Grid.RowSpan="2"
-								Grid.Column="0"
-								Grid.ColumnSpan="2" />
+                    <ThemeVariantScope Grid.Row="1" RequestedThemeVariant="{TemplateBinding ThemeVariant}">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*,Auto">
 
-						<!-- Description -->
-						<TextBlock x:Name="Instruction"
-								   Grid.Row="1"
-								   Grid.Column="0"
-								   IsVisible="{Binding #Instruction.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-								   Text="{TemplateBinding Description}" />
+                            <!-- ContentBack -->
+                            <Border x:Name="ContentBack"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2" />
 
-						<!-- Content -->
-						<ContentPresenter x:Name="PART_ContentPresenter"
-										  Grid.Row="2"
-										  Grid.Column="0"
-										  Padding="{TemplateBinding Padding}"
-										  Content="{TemplateBinding Content}" />
+                            <!-- Description -->
+                            <TextBlock x:Name="Instruction"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       IsVisible="{Binding #Instruction.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                       Text="{TemplateBinding Description}" />
 
-						<!-- Settings Content -->
-						<ContentPresenter x:Name="PART_SettingsPresenter"
-										  Grid.Row="1"
-										  Grid.RowSpan="2"
-										  Grid.Column="1"
-										  Content="{TemplateBinding Settings}" />
+                            <!-- Content -->
+                            <ContentPresenter x:Name="PART_ContentPresenter"
+                                              Grid.Row="1"
+                                              Grid.Column="0"
+                                              Padding="{TemplateBinding Padding}"
+                                              Content="{TemplateBinding Content}" />
 
-						<!-- Source Code -->
-						<Expander x:Name="SourceCodeExpander"
-								  Grid.Row="3"
-								  Grid.Column="0"
-								  Grid.ColumnSpan="2">
-							<Expander.Header>
-								<TextBlock x:Name="SourceCodeTitle" />
-							</Expander.Header>
-							<control:CodeEditor x:Name="CodeEditor" Text="{TemplateBinding Xaml}" />
-						</Expander>
-					</Grid>
-                </ThemeVariantScope>
+                            <!-- Settings Content -->
+                            <ContentPresenter x:Name="PART_SettingsPresenter"
+                                              Grid.Row="0"
+                                              Grid.RowSpan="2"
+                                              Grid.Column="1"
+                                              Content="{TemplateBinding Settings}" />
+
+                            <!-- Source Code -->
+                            <Expander x:Name="SourceCodeExpander"
+                                      Grid.Row="2"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2">
+                                <Expander.Header>
+                                    <TextBlock x:Name="SourceCodeTitle" />
+                                </Expander.Header>
+                                <control:CodeEditor x:Name="CodeEditor" Text="{TemplateBinding Xaml}" />
+                            </Expander>
+                        </Grid>
+                    </ThemeVariantScope>
+                </Grid>
             </ControlTemplate>
         </Setter>
 
