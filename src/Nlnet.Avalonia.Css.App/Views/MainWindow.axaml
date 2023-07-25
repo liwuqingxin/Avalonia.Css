@@ -5,7 +5,7 @@
         xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
+        xmlns:nlnet="https://www.nlnet.com/avalonia"
         Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
         Icon="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
         mc:Ignorable="d">
@@ -34,16 +34,16 @@
                     TabStripPlacement="Left">
             <TabControl.Styles>
                 <Style Selector="TabItem">
-                    <Setter Property="sampleAssistant:TabItemExtension.IconContent">
+                    <Setter Property="nlnet:TabItemExtension.IconContent">
                         <Template>
                             <Design.DataContext>
-                                <sampleAssistant:GalleryItem />
+                                <nlnet:GalleryItem />
                             </Design.DataContext>
                             <!--<controls:Icon x:Name="TabItemIcon"
                                            sampleAssistant:LoadedStateMixin.UseLoadedState="True"
                                            IconSvg="{Binding Path=Icon, Converter={x:Static sampleAssistant:StringToUriCvt.Cvt}}" />-->
                             <Image x:Name="TabItemIcon"
-                                   sampleAssistant:LoadedStateMixin.UseLoadedState="True"
+                                   nlnet:LoadedStateMixin.UseLoadedState="True"
                                    RenderOptions.BitmapInterpolationMode="HighQuality"
                                    Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />
                         </Template>
@@ -51,7 +51,7 @@
                 </Style>
             </TabControl.Styles>
             <TabControl.ContentTemplate>
-                <DataTemplate DataType="sampleAssistant:GalleryItem">
+                <DataTemplate DataType="nlnet:GalleryItem">
                     <Grid RowDefinitions="Auto,*">
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
                             <Border x:Name="PageIconBorder">
@@ -65,18 +65,18 @@
                                        Grid.Column="1"
                                        Text="{Binding Path=Title}" />
                         </Grid>
-                        <sampleAssistant:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
+                        <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
                             <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
                                 <ContentControl.ContentTemplate>
-                                    <sampleAssistant:GalleryItemLocator />
+                                    <nlnet:GalleryItemLocator />
                                 </ContentControl.ContentTemplate>
                             </ContentControl>
-                        </sampleAssistant:NtScrollViewer>
+                        </nlnet:NtScrollViewer>
                     </Grid>
                 </DataTemplate>
             </TabControl.ContentTemplate>
             <TabControl.ItemTemplate>
-                <DataTemplate DataType="sampleAssistant:GalleryItem">
+                <DataTemplate DataType="nlnet:GalleryItem">
                     <TextBlock Text="{Binding Path=Title}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>

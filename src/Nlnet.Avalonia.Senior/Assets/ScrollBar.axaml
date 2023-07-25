@@ -140,7 +140,6 @@
 
     <!-- NtScrollViewer -->
     <ControlTheme x:Key="{x:Type controls:NtScrollViewer}" TargetType="controls:NtScrollViewer">
-        <Setter Property="controls:NtScrollViewer.Offset" Value="0,0" />
         <Setter Property="controls:NtScrollViewer.Template">
             <ControlTemplate TargetType="controls:NtScrollViewer">
                 <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
@@ -179,7 +178,7 @@
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^[UseSmoothScrolling=true] /template/ controls|NtScrollContentPresenter#PART_ContentPresenter">
+        <Style Selector="^[UseSmoothScrolling=True][UseCustomScrollAnimation=False] /template/ controls|NtScrollContentPresenter#PART_ContentPresenter">
             <Setter Property="controls:NtScrollContentPresenter.Transitions">
                 <Transitions>
                     <VectorTransition Property="AnimatableOffset" Duration="0:0:0.3">

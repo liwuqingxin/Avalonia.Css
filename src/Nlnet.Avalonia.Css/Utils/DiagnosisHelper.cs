@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css
 {
-    public static class DiagnosisHelper
+    internal static class DiagnosisHelper
     {
         private static readonly string? Assembly;
 

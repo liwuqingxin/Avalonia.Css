@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
+using Nlnet.Avalonia.Css;
 
 namespace Nlnet.Avalonia.Senior.Controls;
 
@@ -16,6 +21,12 @@ namespace Nlnet.Avalonia.Senior.Controls;
 /// TODO ScrollGesture, ChildChanged, UpdateScrollableSubscription, UpdateFromScrollable
 public class NtScrollContentPresenter : ScrollContentPresenter
 {
+    private bool _isUpdatingByAnimation = false;
+    private bool _isUpdatingByUser = false;
+    private readonly Queue<Action> _actions = new();
+    private Vector _localOffset;
+
+
     public Vector AnimatableOffset
     {
         get { return GetValue(AnimatableOffsetProperty); }
@@ -28,56 +39,85 @@ public class NtScrollContentPresenter : ScrollContentPresenter
 
     static NtScrollContentPresenter()
     {
-        var isUpdating = false;
-
         AnimatableOffsetProperty.Changed.AddClassHandler<NtScrollContentPresenter>((presenter, args) =>
         {
-            if (isUpdating)
+            if (presenter._isUpdatingByUser)
             {
                 return;
             }
-            // Update offset of scroll viewer. Animating value should not be passed to scroll viewer.
-            //var localValue = presenter.GetBaseValue(AnimatableOffsetProperty, BindingPriority.LocalValue);
-            var localValue = presenter.AnimatableOffset;
-            if (presenter.TemplatedParent is NtScrollViewer viewer)
+
+            presenter.WriteLine($"AnimatableOffset Changed with priority is {args.Priority}.");
+
+            if (args.Priority == BindingPriority.LocalValue)
             {
-                //viewer.Offset = localValue.Value;
-                //viewer.Offset = localValue;
+                presenter._localOffset = args.NewValue is Vector value ? value : default;
+                presenter.WriteLine($"Store local offset : {presenter._localOffset}.");
             }
 
-            // Update offset of presenter.
-            isUpdating = true;
-            presenter.SetCurrentValue(OffsetProperty, presenter.AnimatableOffset);
-            isUpdating = false;
-            //presenter.Offset = presenter.AnimatableOffset;
+            var scrollViewer = presenter.FindAncestorOfType<ScrollViewer>();
+
+            presenter._actions.Enqueue(() =>
+            {
+                // Update offset of Presenter. The value will be also passed to ScrollViewer at the time.
+                presenter._isUpdatingByAnimation = true;
+                presenter.SetCurrentValue(OffsetProperty, presenter.AnimatableOffset);
+                if (scrollViewer != null)
+                {
+                    scrollViewer.Offset = presenter._localOffset;
+                    presenter.WriteLine($"Set local offset : {presenter._localOffset} to ScrollViewer.");
+                }
+                presenter._isUpdatingByAnimation = false;
+                presenter.WriteLine($"Scroll to {presenter.AnimatableOffset}...");
+                //presenter.WriteLine($"Parent ScrollViewer.Offset is '{presenter.FindAncestorOfType<ScrollViewer>()?.Offset}'.");
+            });
+
+            presenter.PostConsumeTask();
         });
 
         ScrollViewer.OffsetProperty.Changed.AddClassHandler<NtScrollViewer>((viewer, args) =>
         {
-            if (isUpdating)
-            {
-                return;
-            }
             if (viewer.Presenter is not NtScrollContentPresenter presenter)
             {
                 return;
             }
 
-            //var localValue = viewer.GetBaseValue(ScrollViewer.OffsetProperty, BindingPriority.LocalValue);
-            //presenter.AnimatableOffset = localValue.Value;
+            if (presenter._isUpdatingByAnimation)
+            {
+                return;
+            }
+
+            presenter.WriteLine($"ScrollViewer.OffsetProperty Changed By User: {args.NewValue} [{args.Priority}].");
 
             // Update AnimatableOffset when parent ScrollViewer's offset is changed.
-            var localValue = viewer.Offset;
-            isUpdating = true;
-            presenter.AnimatableOffset = localValue;
-            isUpdating = false;
+            presenter._isUpdatingByUser = true;
+            presenter.WriteLine($"Clear old actions : {presenter._actions.Count}.");
+            presenter._actions.Clear();
+            presenter._localOffset      = viewer.Offset;
+            presenter.AnimatableOffset  = viewer.Offset;
+            presenter._isUpdatingByUser = false;
         });
     }
 
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    private void PostConsumeTask()
     {
+        Dispatcher.UIThread.Post(ConsumeAction, DispatcherPriority.ApplicationIdle);
+    }
 
-        base.OnPropertyChanged(change);
+    private void ConsumeAction()
+    {
+        if (_actions.Count == 0)
+        {
+            return;
+        }
+        var first = _actions.Dequeue();
+
+        first.Invoke();
+        this.WriteLine($"Invoke action...");
+
+        if (_actions.Count > 0)
+        {
+            PostConsumeTask();
+        }
     }
 
     public NtScrollContentPresenter() : base()
@@ -87,6 +127,9 @@ public class NtScrollContentPresenter : ScrollContentPresenter
 
         // We will override it.
         AddHandler(RequestBringIntoViewEvent, BringIntoViewRequested);
+
+        // Set the Offset property to prevent the binding between it and the ScrollViewer's Offset.
+        Offset = new Vector();
     }
 
     private void TryRemoveRequestBringIntoViewEventHandler()

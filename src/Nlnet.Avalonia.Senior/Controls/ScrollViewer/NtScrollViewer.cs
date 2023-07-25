@@ -24,12 +24,12 @@ namespace Nlnet.Avalonia.Senior.Controls
         public static readonly StyledProperty<double> SmoothScrollingStepProperty = AvaloniaProperty
             .Register<NtScrollViewer, double>(nameof(SmoothScrollingStep), 400d);
 
-        public bool UseAutoHide
+        public bool UseCustomScrollAnimation
         {
-            get { return GetValue(UseAutoHideProperty); }
-            set { SetValue(UseAutoHideProperty, value); }
+            get { return GetValue(UseCustomScrollAnimationProperty); }
+            set { SetValue(UseCustomScrollAnimationProperty, value); }
         }
-        public static readonly StyledProperty<bool> UseAutoHideProperty = AvaloniaProperty
-            .Register<NtScrollViewer, bool>(nameof(UseAutoHide), true);
+        public static readonly StyledProperty<bool> UseCustomScrollAnimationProperty = AvaloniaProperty
+            .Register<NtScrollViewer, bool>(nameof(UseCustomScrollAnimation));
     }
 }

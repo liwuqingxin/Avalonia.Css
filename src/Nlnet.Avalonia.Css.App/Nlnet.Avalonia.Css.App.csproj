@@ -21,6 +21,10 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
 		<TrimmableAssembly Include="Avalonia.Themes.Default" />
 	</ItemGroup>
