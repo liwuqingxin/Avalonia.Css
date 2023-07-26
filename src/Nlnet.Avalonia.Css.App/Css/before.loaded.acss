@@ -4,6 +4,10 @@ Window#RootWindow{
     Height:800;
     Topmost:True;
     WindowStartupLocation:CenterScreen;
+    .acss:combobox.popup.align;
+    .acss:share.dragmove(right 50);
+    .acss:window.esc.close;
+    -acss:window.esc.close;
     [[
         Window > Grid{
             Margin:8,8,0,0;
@@ -58,10 +62,10 @@ TabControl#MainTabControl /template/ Border#PART_ContentBorder{
     Padding:24,24,4,0;
     Margin:8,0,0,0;
 }
-TabControl#MainTabControl ScrollViewer#MainContentScrollViewer{
+TabControl#MainTabControl NtScrollViewer#MainContentScrollViewer{
     Margin:0,20,0,0;
 }
-TabControl#MainTabControl ScrollViewer#MainContentScrollViewer > ContentControl{
+TabControl#MainTabControl NtScrollViewer#MainContentScrollViewer > ContentControl{
     Margin:0,0,12,0;
 }
 TabControl#MainTabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel{
