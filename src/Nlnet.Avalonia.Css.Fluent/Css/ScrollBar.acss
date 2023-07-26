@@ -12,6 +12,9 @@
             Background:var(control-back);
             Opacity:0.8;
         }
+        /template/ RepeatButton#PART_PageUpButton, /template/ RepeatButton#PART_PageDownButton{
+            Background:Transparent;
+        }
         :vertical{
             Width:12;
             [[

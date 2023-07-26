@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
@@ -9,7 +8,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Nlnet.Avalonia.Css;
 
@@ -21,10 +19,10 @@ namespace Nlnet.Avalonia.Senior.Controls;
 /// TODO ScrollGesture, ChildChanged, UpdateScrollableSubscription, UpdateFromScrollable
 public class NtScrollContentPresenter : ScrollContentPresenter
 {
-    private bool _isUpdatingByAnimation = false;
-    private bool _isUpdatingByUser = false;
-    private readonly Queue<Action> _actions = new();
+    private bool   _isUpdatingByAnimation = false;
+    private bool   _isUpdatingByUser      = false;
     private Vector _localOffset;
+
 
 
     public Vector AnimatableOffset
@@ -46,32 +44,29 @@ public class NtScrollContentPresenter : ScrollContentPresenter
                 return;
             }
 
-            presenter.WriteLine($"AnimatableOffset Changed with priority is {args.Priority}.");
+            //presenter.WriteLine($"AnimatableOffset Changed with priority is {args.Priority}.");
 
-            if (args.Priority == BindingPriority.LocalValue)
+            if (args.Priority == BindingPriority.LocalValue && args.NewValue is Vector value)
             {
-                presenter._localOffset = args.NewValue is Vector value ? value : default;
+                presenter._localOffset = value;
                 presenter.WriteLine($"Store local offset : {presenter._localOffset}.");
             }
 
             var scrollViewer = presenter.FindAncestorOfType<ScrollViewer>();
 
-            presenter._actions.Enqueue(() =>
+            // Update offset of Presenter. The value will be also passed to ScrollViewer at the time.
+            presenter._isUpdatingByAnimation = true;
+            presenter.SetCurrentValue(OffsetProperty, presenter.AnimatableOffset);
+            if (scrollViewer != null)
             {
-                // Update offset of Presenter. The value will be also passed to ScrollViewer at the time.
-                presenter._isUpdatingByAnimation = true;
-                presenter.SetCurrentValue(OffsetProperty, presenter.AnimatableOffset);
-                if (scrollViewer != null)
-                {
-                    scrollViewer.Offset = presenter._localOffset;
-                    presenter.WriteLine($"Set local offset : {presenter._localOffset} to ScrollViewer.");
-                }
-                presenter._isUpdatingByAnimation = false;
-                presenter.WriteLine($"Scroll to {presenter.AnimatableOffset}...");
-                //presenter.WriteLine($"Parent ScrollViewer.Offset is '{presenter.FindAncestorOfType<ScrollViewer>()?.Offset}'.");
-            });
-
-            presenter.PostConsumeTask();
+                // ScrollViewer's offset should be newest for next user scrolling.
+                // If not, next user scrolling will go with offset starting at the current animating value. It sucks.
+                scrollViewer.Offset = presenter._localOffset;
+                presenter.WriteLine($"Set local offset : {presenter._localOffset} to ScrollViewer.");
+            }
+            presenter._isUpdatingByAnimation = false;
+            presenter.WriteLine($"Scroll to {presenter.AnimatableOffset}...");
+            //presenter.WriteLine($"Parent ScrollViewer.Offset is '{presenter.FindAncestorOfType<ScrollViewer>()?.Offset}'.");
         });
 
         ScrollViewer.OffsetProperty.Changed.AddClassHandler<NtScrollViewer>((viewer, args) =>
@@ -86,38 +81,14 @@ public class NtScrollContentPresenter : ScrollContentPresenter
                 return;
             }
 
-            presenter.WriteLine($"ScrollViewer.OffsetProperty Changed By User: {args.NewValue} [{args.Priority}].");
+            presenter.WriteLine($"ScrollViewer.OffsetProperty changed By User: {args.NewValue} [{args.Priority}].");
 
             // Update AnimatableOffset when parent ScrollViewer's offset is changed.
             presenter._isUpdatingByUser = true;
-            presenter.WriteLine($"Clear old actions : {presenter._actions.Count}.");
-            presenter._actions.Clear();
             presenter._localOffset      = viewer.Offset;
             presenter.AnimatableOffset  = viewer.Offset;
             presenter._isUpdatingByUser = false;
         });
-    }
-
-    private void PostConsumeTask()
-    {
-        Dispatcher.UIThread.Post(ConsumeAction, DispatcherPriority.ApplicationIdle);
-    }
-
-    private void ConsumeAction()
-    {
-        if (_actions.Count == 0)
-        {
-            return;
-        }
-        var first = _actions.Dequeue();
-
-        first.Invoke();
-        this.WriteLine($"Invoke action...");
-
-        if (_actions.Count > 0)
-        {
-            PostConsumeTask();
-        }
     }
 
     public NtScrollContentPresenter() : base()
