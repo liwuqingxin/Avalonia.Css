@@ -54,4 +54,13 @@
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Reference Include="Avalonia.DevTools">
+	    <HintPath>..\..\lib\Avalonia.DevTools.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Nlnet.Avalonia.Svg">
+	    <HintPath>..\..\lib\Nlnet.Avalonia.Svg.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
 </Project>

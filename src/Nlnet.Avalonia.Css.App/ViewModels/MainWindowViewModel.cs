@@ -101,8 +101,8 @@ namespace Nlnet.Avalonia.Css.App
             {
                 foreach (var item in t.Result)
                 {
-                    //item.Icon = $"avares://Nlnet.Avalonia.Css.App/Assets/Svg/{item.ViewType.Name[..^4]}.svg";
-                    item.Icon = $"avares://Nlnet.Avalonia.Css.App/Assets/Png/{item.ViewType.Name[..^4]}.png";
+                    item.Icon = $"avares://Nlnet.Avalonia.Css.App/Assets/Svg/{item.ViewType.Name[..^4]}.svg";
+                    //item.Icon = $"avares://Nlnet.Avalonia.Css.App/Assets/Png/{item.ViewType.Name[..^4]}.png";
                 }
                 GalleryItems.AddRange(t.Result);
             });

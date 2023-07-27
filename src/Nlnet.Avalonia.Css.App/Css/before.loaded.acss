@@ -80,7 +80,7 @@ TabItem{
 TabItem ContentControl{
     ClipToBounds:False;
 }
-TabControl#MainTabControl > TabItem Image{
+TabControl#MainTabControl > TabItem Icon, TabControl#MainTabControl > TabItem Image{
     Opacity:1;
     Width:24;
     Height:24;

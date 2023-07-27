@@ -13,10 +13,9 @@ namespace Nlnet.Avalonia.Css.App
 
         public override void Initialize()
         {
-            // TODO Support svg and dev tools.
             // Referenced libraries.
-            //AppLoader.Load("Nlnet.Avalonia.Svg.dll");
-            //AppLoader.Load("Avalonia.DevTools.dll");
+            AppLoader.Load("Nlnet.Avalonia.Svg.dll");
+            AppLoader.Load("Avalonia.DevTools.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             CssBuilder.UseDefaultBuilder();

@@ -3,6 +3,7 @@ using Avalonia.ReactiveUI;
 using System;
 using Avalonia.Logging;
 using Nlnet.Avalonia.SampleAssistant;
+using Nlnet.Avalonia.Svg.Controls;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -46,7 +47,9 @@ namespace Nlnet.Avalonia.Css.App
                 .WithTypeResolverForDefaultBuilder(new GenericResolver<App>())
                 // Type resolver for Nlnet.Avalonia.SampleAssistant
                 .WithTypeResolverForDefaultBuilder(new GenericResolver<Case>())
-                
+                // Type resolver for Nlnet.Avalonia.Svg
+                .WithTypeResolverForDefaultBuilder(new GenericResolver<Icon>())
+
                 ;
         }
     }

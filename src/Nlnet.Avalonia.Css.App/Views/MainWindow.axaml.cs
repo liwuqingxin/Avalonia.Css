@@ -1,5 +1,7 @@
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.DevTools;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
@@ -16,6 +18,8 @@ namespace Nlnet.Avalonia.Css.App.Views
             this.DataContext = new MainWindowViewModel();
 
             _mainTab = this.FindControl<TabControl>("MainTabControl")!;
+
+            this.UseDevTools();
         }
 
         protected override void OnLoaded(RoutedEventArgs e)
