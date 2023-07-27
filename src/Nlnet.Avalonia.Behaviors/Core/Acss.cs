@@ -23,11 +23,11 @@ namespace Nlnet.Avalonia.Behaviors
         {
             if (args.OldValue.HasValue)
             {
-                args.OldValue.Value.OnDetached(args.Sender);
+                args.OldValue.Value.Detach(args.Sender);
             }
             if (args.NewValue.HasValue)
             {
-                args.NewValue.Value.OnAttached(args.Sender);
+                args.NewValue.Value.Attach(args.Sender);
             }
         }
 

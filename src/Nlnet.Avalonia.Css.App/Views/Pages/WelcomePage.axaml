@@ -50,14 +50,23 @@
                     Content="https://github.com/liwuqingxin/Avalonia.Css" />
         </Grid>
 
-        <Image x:Name="LogoImage"
+
+        <fluent:Icon x:Name="LogoImage"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     fluent:LoadedStateMixin.UseLoadedState="True"
+                     IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                     RenderOptions.BitmapInterpolationMode="HighQuality"
+                     RenderOptions.EdgeMode="Unspecified" />
+
+        <!--<Image x:Name="LogoImage"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                fluent:LoadedStateMixin.UseLoadedState="True"
                RenderOptions.BitmapInterpolationMode="HighQuality"
                RenderOptions.EdgeMode="Unspecified"
                Source="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
-               Stretch="Uniform" />
+               Stretch="Uniform" />-->
 
     </StackPanel>
 

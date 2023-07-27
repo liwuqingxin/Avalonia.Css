@@ -203,7 +203,7 @@ WelcomePage Grid#InfoGrid > Button{
         }
     ]]
 }
-WelcomePage Image#LogoImage:is-loaded{
+WelcomePage Icon#LogoImage:is-loaded{
     Width:200;
     Height:200;
     RenderTransform:none;
@@ -268,7 +268,7 @@ WelcomePage Image#LogoImage:is-loaded{
         }
     ]]
 }
-/* WelcomePage Image#LogoImage:pointerover{
+/* WelcomePage Icon#LogoImage:pointerover{
     [[
         :animation[Animation for pointerover on logo image]{
             IterationCount:1;
@@ -282,7 +282,7 @@ WelcomePage Image#LogoImage:is-loaded{
         }
     ]]
 }
-WelcomePage Image#LogoImage:not(:pointerover){
+WelcomePage Icon#LogoImage:not(:pointerover){
     [[
         :animation[Animation for pointerover on logo image]{
             IterationCount:1;

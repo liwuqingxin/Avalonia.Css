@@ -1,10 +1,45 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 using Avalonia.VisualTree;
+using Avalonia.Xaml.Interactivity;
 
 namespace Nlnet.Avalonia.Behaviors;
+
+public interface IBehaviorFactory
+{
+    public AcssBehavior GetAcssBehavior();
+}
+
+public class FactoryComboBoxPopupAlignBehavior : IBehaviorFactory
+{
+    public AcssBehavior GetAcssBehavior()
+    {
+        return new ComboBoxPopupAlignBehavior();
+    }
+}
+
+public static class AcssBehaviorFactories
+{
+    static AcssBehaviorFactories()
+    {
+        var factories = typeof(AcssBehaviorFactories).Assembly.GetTypes()
+            .Where(t => t.IsAssignableTo(typeof(AcssBehavior)) && t.IsAbstract == false)
+            .Select(t => (attr: t.GetCustomAttribute<BehaviorAttribute>(), facType: t))
+            .Where(tuple => tuple.attr != null)
+            .Select(tuple => (tuple.attr, fac: Activator.CreateInstance(tuple.facType) as ISvgTagFactory))
+            .ToDictionary(tuple => tuple.attr!.Tag, tuple => tuple.fac)!;
+
+
+        typeof(AcssBehaviorFactories).Assembly
+            .GetTypes()
+            .Where(t => t.IsAssignableTo(typeof(AcssBehavior)) && t.IsAbstract == false)
+    }
+}
 
 [Behavior("combobox.popup.align", typeof(ComboBox))]
 public class ComboBoxPopupAlignBehavior : AcssBehavior
@@ -13,7 +48,7 @@ public class ComboBoxPopupAlignBehavior : AcssBehavior
     private double _verticalOffset;
     private bool   _isAttached;
 
-    public override void OnAttached(AvaloniaObject target)
+    protected override void OnAttached(AvaloniaObject target)
     {
         if (target is not ComboBox comboBox)
         {
@@ -26,35 +61,60 @@ public class ComboBoxPopupAlignBehavior : AcssBehavior
         }
         else
         {
-            comboBox.Loaded += OnAssociatedObjectOnLoaded;
+            comboBox.Loaded += AssociatedObjectOnLoaded;
         }
     }
 
-    public override void OnDetached(AvaloniaObject target)
+    private void AssociatedObjectOnLoaded(object? sender, RoutedEventArgs args)
     {
-        if (target is not ComboBox comboBox)
+        if (AssociatedObject is not ComboBox comboBox)
         {
             return;
         }
 
-        var popup = comboBox.FindDescendantOfType<Popup>();
-        if (popup == null)
+        comboBox.Loaded -= AssociatedObjectOnLoaded;
+
+        AttachToComboBox();
+    }
+
+    private void AttachToComboBox()
+    {
+        if (AssociatedObject is not ComboBox comboBox)
         {
             return;
         }
 
-        _isAttached = false;
+        var popup = Get<ComboBox>().FindDescendantOfType<Popup>();
 
-        popup.Opened -= Popup_Opened;
+        if (popup == null || _isAttached)
+        {
+            return;
+        }
+
+        if (_horizontalOffset == 0)
+        {
+            _horizontalOffset = popup.HorizontalOffset;
+        }
+        if (_verticalOffset == 0)
+        {
+            _verticalOffset = popup.VerticalOffset;
+        }
+
+        _isAttached = true;
+
+        popup.Opened += Popup_Opened;
     }
 
     private void Popup_Opened(object? sender, EventArgs e)
     {
-        var comboBox  = AssociatedObject!;
+        if (AssociatedObject is not ComboBox comboBox)
+        {
+            return;
+        }
+
         var popup     = (Popup)sender!;
         var popupRoot = popup.Child!;
-
-        var index = comboBox.SelectedIndex;
+        var index     = comboBox.SelectedIndex;
         if (index == -1 && comboBox.ItemCount > 0)
         {
             index = 0;
@@ -89,5 +149,18 @@ public class ComboBoxPopupAlignBehavior : AcssBehavior
         popup.Transitions      = transitions;
         popup.VerticalOffset   = toOffset;
         popup.HorizontalOffset = /*-point.X*/ +_horizontalOffset;
+    }
+
+    protected override void OnDetached(AvaloniaObject target)
+    {
+        var popup = Get<ComboBox>().FindDescendantOfType<Popup>();
+        if (popup == null)
+        {
+            return;
+        }
+
+        _isAttached = false;
+
+        popup.Opened -= Popup_Opened;
     }
 }
