@@ -1,48 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
-using Avalonia.Xaml.Interactivity;
 
 namespace Nlnet.Avalonia.Behaviors;
 
-public interface IBehaviorFactory
-{
-    public AcssBehavior GetAcssBehavior();
-}
-
-public class FactoryComboBoxPopupAlignBehavior : IBehaviorFactory
-{
-    public AcssBehavior GetAcssBehavior()
-    {
-        return new ComboBoxPopupAlignBehavior();
-    }
-}
-
-public static class AcssBehaviorFactories
-{
-    static AcssBehaviorFactories()
-    {
-        var factories = typeof(AcssBehaviorFactories).Assembly.GetTypes()
-            .Where(t => t.IsAssignableTo(typeof(AcssBehavior)) && t.IsAbstract == false)
-            .Select(t => (attr: t.GetCustomAttribute<BehaviorAttribute>(), facType: t))
-            .Where(tuple => tuple.attr != null)
-            .Select(tuple => (tuple.attr, fac: Activator.CreateInstance(tuple.facType) as ISvgTagFactory))
-            .ToDictionary(tuple => tuple.attr!.Tag, tuple => tuple.fac)!;
-
-
-        typeof(AcssBehaviorFactories).Assembly
-            .GetTypes()
-            .Where(t => t.IsAssignableTo(typeof(AcssBehavior)) && t.IsAbstract == false)
-    }
-}
-
 [Behavior("combobox.popup.align", typeof(ComboBox))]
-public class ComboBoxPopupAlignBehavior : AcssBehavior
+public class ComboBoxPopupAlignBehavior : AcssBehavior<ComboBoxPopupAlignBehavior>
 {
     private double _horizontalOffset;
     private double _verticalOffset;
@@ -84,7 +50,7 @@ public class ComboBoxPopupAlignBehavior : AcssBehavior
             return;
         }
 
-        var popup = Get<ComboBox>().FindDescendantOfType<Popup>();
+        var popup = As<ComboBox>().FindDescendantOfType<Popup>();
 
         if (popup == null || _isAttached)
         {
@@ -153,7 +119,7 @@ public class ComboBoxPopupAlignBehavior : AcssBehavior
 
     protected override void OnDetached(AvaloniaObject target)
     {
-        var popup = Get<ComboBox>().FindDescendantOfType<Popup>();
+        var popup = As<ComboBox>().FindDescendantOfType<Popup>();
         if (popup == null)
         {
             return;

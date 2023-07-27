@@ -8,7 +8,23 @@ namespace Nlnet.Avalonia.Css;
 public interface ITypeResolver
 {
     /// <summary>
-    /// Try get type from string.
+    /// Try to add a name-type pair.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public bool TryAddType(string name, Type type);
+
+    /// <summary>
+    /// Try to add a name-type pair.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool TryAddType<T>(string name);
+
+    /// <summary>
+    /// Try to get type from string.
     /// </summary>
     /// <param name="name"></param>
     /// <param name="type"></param>

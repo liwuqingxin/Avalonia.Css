@@ -41,4 +41,8 @@
 		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+	</ItemGroup>
+
 </Project>
