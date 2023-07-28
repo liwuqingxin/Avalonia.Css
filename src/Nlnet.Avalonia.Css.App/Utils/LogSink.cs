@@ -13,7 +13,6 @@ namespace Nlnet.Avalonia.Css.App
         /// <summary>
         /// Logs Avalonia events to the <see cref="System.Diagnostics.Trace"/> sink.
         /// </summary>
-        /// <typeparam name="T">The application class type.</typeparam>
         /// <param name="builder">The app builder instance.</param>
         /// <param name="level">The minimum level to log.</param>
         /// <param name="areas">The areas to log. Valid values are listed in <see cref="LogArea"/>.</param>

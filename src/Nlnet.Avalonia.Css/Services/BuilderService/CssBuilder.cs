@@ -20,7 +20,7 @@ public class CssBuilder : ICssBuilder
         {
             if (_default == null)
             {
-                throw new InvalidOperationException($"{nameof(CssExtension)}.{nameof(CssExtension.UseAvaloniaCssDefaultBuilder)}() or {nameof(CssBuilder)}.{nameof(CssBuilder.UseDefaultBuilder)}() must be called before accessing the {nameof(CssBuilder)}.{nameof(Default)}.");
+                throw new InvalidOperationException($"{nameof(CssExtension)}.{nameof(CssExtension.UseAcssDefaultBuilder)}() or {nameof(CssBuilder)}.{nameof(CssBuilder.UseDefaultBuilder)}() must be called before accessing the {nameof(CssBuilder)}.{nameof(Default)}.");
             }
             return _default;
         }

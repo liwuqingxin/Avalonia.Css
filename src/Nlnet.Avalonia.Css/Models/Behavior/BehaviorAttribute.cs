@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia;
 
-namespace Nlnet.Avalonia.Behaviors;
+namespace Nlnet.Avalonia.Css;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 public sealed class BehaviorAttribute : Attribute

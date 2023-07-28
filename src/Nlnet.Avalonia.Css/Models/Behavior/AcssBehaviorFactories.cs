@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Nlnet.Avalonia.Behaviors;
+namespace Nlnet.Avalonia.Css;
 
 public static class AcssBehaviorFactories
 {
@@ -30,7 +29,7 @@ public static class AcssBehaviorFactories
     {
         if (Factories.TryGetValue(key, out var zero))
         {
-            behavior = zero;
+            behavior = zero.Get();
             return true;
         }
 

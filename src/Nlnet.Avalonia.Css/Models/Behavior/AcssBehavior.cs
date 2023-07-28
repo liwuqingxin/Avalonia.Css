@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia;
 
-namespace Nlnet.Avalonia.Behaviors;
+namespace Nlnet.Avalonia.Css;
 
 public abstract class AcssBehavior
 {
@@ -25,7 +25,7 @@ public abstract class AcssBehavior
 
     protected abstract void OnDetached(AvaloniaObject target);
 
-    protected abstract AcssBehavior Get();
+    protected internal abstract AcssBehavior Get();
 
     internal abstract void DoNotDeriveThisUseGenericInstead();
 
@@ -33,11 +33,35 @@ public abstract class AcssBehavior
     {
         return AssociatedObject as T;
     }
+
+
+
+    //public static bool ApplyBehaviorByKey(ICssBuilder cssBuilder, string cls, string key)
+    //{
+    //    if (cssBuilder.TryGetType(cls, out var t) == false)
+    //    {
+    //        return false;
+    //    }
+
+    //    if (AcssBehaviorFactories.TryGetBehavior(key, out var behavior) == false)
+    //    {
+    //        return false;
+    //    }
+
+    //    var propertyName = $"{behavior!.GetType().Name}Property";
+    //    var property = cssBuilder.Interpreter.ParseAvaloniaProperty(t!, propertyName);
+    //    if (property == null)
+    //    {
+    //        return false;
+    //    }
+
+    //    return true;
+    //}
 }
 
 public abstract class AcssBehavior<T> : AcssBehavior where T : AcssBehavior<T>, new()
 {
-    protected override T Get()
+    protected internal override T Get()
     {
         return new T();
     }

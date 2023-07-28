@@ -42,7 +42,7 @@ namespace Nlnet.Avalonia.Css.App
                 .LogToLocalFile()
 
                 // Avalonia css stuff.
-                .UseAvaloniaCssDefaultBuilder()
+                .UseAcssDefaultBuilder()
                 // Type resolver for Nlnet.Avalonia.Css.App
                 .WithTypeResolverForDefaultBuilder(new GenericResolver<App>())
                 // Type resolver for Nlnet.Avalonia.SampleAssistant
