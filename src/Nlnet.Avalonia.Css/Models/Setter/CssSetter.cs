@@ -5,7 +5,7 @@ namespace Nlnet.Avalonia.Css;
 
 internal interface ICssSetter
 {
-    public string Property { get; set; }
+    public string? Property { get; set; }
 
     public string? RawValue { get; set; }
 
@@ -44,7 +44,10 @@ internal class CssSetter : ICssSetter
         }
 
         var interpreter = builder.Interpreter;
-        var property    = interpreter.ParseAvaloniaProperty(targetType, Property);
+        var property =
+            interpreter.ParseAvaloniaProperty(targetType, Property)
+            ?? interpreter.ParseAcssBehaviorProperty(targetType, Property, RawValue);
+
         if (property == null)
         {
             return null;

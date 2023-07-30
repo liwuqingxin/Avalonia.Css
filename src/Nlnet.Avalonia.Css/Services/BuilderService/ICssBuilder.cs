@@ -15,6 +15,8 @@ public interface ICssBuilder : ITypeResolverManager, IResourceProvidersManager
 
     internal ITypeResolverManager TypeResolver { get; }
 
+    internal IBehaviorDeclarerManager BehaviourDeclarerManager { get; }
+
     internal bool TryAddCssFile(ICssFile file);
 
     internal bool TryRemoveCssFile(ICssFile file);

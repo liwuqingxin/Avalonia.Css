@@ -76,6 +76,38 @@ namespace Nlnet.Avalonia.Css
             return avaloniaProperty;
         }
 
+        public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue)
+        {
+            if (rawValue == null)
+            {
+                return null;
+            }
+            var declarerName = property[1..];
+            if (_builder.BehaviourDeclarerManager.TryGetBehaviorDeclarer(declarerName, out var declarerType) == false)
+            {
+                return null;
+            }
+            111
+            if(AcssBehaviorFactories.TryGetBehavior(rawValue, out var behavior) == false)
+            {
+                
+                return null;
+            }
+
+
+
+            if (property.StartsWith("."))
+            {
+                
+            }
+            else if (property.StartsWith("-"))
+            {
+
+            }
+
+            return null;
+        }
+
         public object? ParseValue(Type declaredType, string? rawValue)
         {
             if (declaredType.IsGenericType && declaredType.GetGenericTypeDefinition() == typeof(Nullable<>))

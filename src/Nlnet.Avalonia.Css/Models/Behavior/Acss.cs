@@ -3,7 +3,7 @@ using Avalonia;
 
 namespace Nlnet.Avalonia.Css
 {
-    public partial class Acss
+    public partial class Acss : IBehaviorDeclarer
     {
         public static AcssBehavior GetComboBoxPopupAlignBehavior(Visual host)
         {

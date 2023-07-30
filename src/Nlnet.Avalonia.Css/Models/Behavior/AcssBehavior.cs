@@ -5,7 +5,7 @@ namespace Nlnet.Avalonia.Css;
 
 public abstract class AcssBehavior
 {
-    internal AvaloniaObject? AssociatedObject { get; private set; }
+    public AvaloniaObject? AssociatedObject { get; private set; }
 
     internal Type? TargetType { get; set; }
 

@@ -5,7 +5,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
-namespace Nlnet.Avalonia.Behaviors;
+namespace Nlnet.Avalonia.Css.Behaviors;
 
 [Behavior("combobox.popup.align", typeof(ComboBox))]
 public class ComboBoxPopupAlignBehavior : AcssBehavior<ComboBoxPopupAlignBehavior>

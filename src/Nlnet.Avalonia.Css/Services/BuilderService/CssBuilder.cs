@@ -46,6 +46,9 @@ public class CssBuilder : ICssBuilder
         Interpreter     = new CssInterpreter(this);
         SectionFactory  = new CssSectionFactory(this);
         ResourceFactory = new CssResourceFactory(this);
+
+        Internal.BehaviourDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
+        Internal.BehaviourDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
     }
 
     #endregion
@@ -78,6 +81,8 @@ public class CssBuilder : ICssBuilder
     ICssResourceFactory ICssBuilder.ResourceFactory => ResourceFactory;
 
     ITypeResolverManager ICssBuilder.TypeResolver { get; } = new TypeResolverManager();
+
+    IBehaviorDeclarerManager ICssBuilder.BehaviourDeclarerManager { get; } = new BehaviorDeclarerManager();
 
     bool ICssBuilder.TryAddCssFile(ICssFile file)
     {
@@ -162,8 +167,7 @@ public class CssBuilder : ICssBuilder
     #region IResourceHostsManager
 
     private readonly IResourceProvidersManager _resourceProvidersManager = new ResourceProvidersManager();
- 
-
+    
     void IResourceProvidersManager.RegisterResourceProvider(IResourceProvider provider)
     {
         _resourceProvidersManager.RegisterResourceProvider(provider);

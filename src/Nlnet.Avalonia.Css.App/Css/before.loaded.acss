@@ -4,10 +4,6 @@ Window#RootWindow{
     Height:800;
     Topmost:True;
     WindowStartupLocation:CenterScreen;
-    .acss:combobox.popup.align;
-    .acss:share.dragmove(right 50);
-    .acss:window.esc.close;
-    -acss:window.esc.close;
     [[
         Window > Grid{
             Margin:8,8,0,0;

@@ -5,4 +5,4 @@ using Avalonia.Metadata;
 [assembly: XmlnsPrefix("https://www.nlnet.com/avalonia", "nlnet")]
 
 // 添加新的命名空间在此添加对应代码行
-[assembly: XmlnsDefinition("https://www.nlnet.com/avalonia", "Nlnet.Avalonia.Behaviors")]
+[assembly: XmlnsDefinition("https://www.nlnet.com/avalonia", "Nlnet.Avalonia.Css.Behaviors")]
