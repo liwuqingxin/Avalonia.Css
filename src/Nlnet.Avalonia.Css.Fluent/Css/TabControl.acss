@@ -17,13 +17,13 @@
             [[
                 :animation[desc=Tab control loading animation]{
                     IterationCount:1;
-                    Duration:'0:0:0.05';
+                    Duration:'0:0:0.2';
                     FillMode:Forward;
                     KeyFrames:[
                         KeyFrame(0% 0,0.3,0.7,1):[
                             Opacity:0;
                         ]
-                        KeyFrame(20% 0,0.3,0.7,1):[
+                        KeyFrame(0:0:.15 0,0.3,0.7,1):[
                             Opacity:0;
                         ]
                         KeyFrame(100% 0,0.3,0.7,1):[
@@ -38,6 +38,7 @@
                 :animation[desc=Tab control toggle animation]{
                     IterationCount:1;
                     Duration:'0:0:.2';
+                    Delay:0:0:.15;
                     FillMode:Forward;
                     KeyFrames:[
                         KeyFrame(0% 0,1,1,1):[
