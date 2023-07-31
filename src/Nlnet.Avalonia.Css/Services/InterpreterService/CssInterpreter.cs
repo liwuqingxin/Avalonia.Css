@@ -76,36 +76,28 @@ namespace Nlnet.Avalonia.Css
             return avaloniaProperty;
         }
 
-        public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue)
+        public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue, out object? value)
         {
             if (rawValue == null)
             {
+                value = null;
                 return null;
             }
             var declarerName = property[1..];
-            if (_builder.BehaviourDeclarerManager.TryGetBehaviorDeclarer(declarerName, out var declarerType) == false)
+            if (_builder.BehaviorDeclarerManager.TryGetBehaviorDeclarer(declarerName, out var declarerType) == false)
             {
-                return null;
-            }
-            111
-            if(AcssBehaviorFactories.TryGetBehavior(rawValue, out var behavior) == false)
-            {
-                
+                value = null;
                 return null;
             }
 
-
-
-            if (property.StartsWith("."))
+            if (_builder.BehaviorResolverManager.TryGetType(rawValue, out var behaviorType) == false)
             {
-                
-            }
-            else if (property.StartsWith("-"))
-            {
-
+                value = null;
+                return null;
             }
 
-            return null;
+            value = Activator.CreateInstance(behaviorType!);
+            return _builder.Interpreter.ParseAvaloniaProperty(declarerType!, behaviorType!.Name);
         }
 
         public object? ParseValue(Type declaredType, string? rawValue)
@@ -151,12 +143,11 @@ namespace Nlnet.Avalonia.Css
 
             // Static instance
             var match = _staticInstanceRegex.Match(rawValue);
-            var manager = _builder.TypeResolver;
             if (match.Success)
             {
                 var className = match.Groups[1].Value;
                 var instanceName = match.Groups[2].Value;
-                if (manager.TryGetType(className, out var classType) && classType != null)
+                if (_builder.TypeResolver.TryGetType(className, out var classType) && classType != null)
                 {
                     try
                     {
@@ -199,7 +190,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             // Adapted parser.
-            if (manager.TryAdaptType(declaredType, out var parseType) && parseType != null)
+            if (_builder.ValueParsingTypeAdapter.TryAdaptType(declaredType, out var parseType) && parseType != null)
             {
                 declaredType = parseType;
             }

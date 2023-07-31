@@ -26,7 +26,7 @@ public static class CssExtension
     /// <returns></returns>
     public static AppBuilder WithTypeResolverForDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
     {
-        CssBuilder.Default.LoadResolver(typeResolver);
+        CssBuilder.Default.TypeResolver.LoadResolver(typeResolver);
         return builder;
     }
 
@@ -38,31 +38,31 @@ public static class CssExtension
 
     private static ITypeResolver GetInternalTypeResolver()
     {
-        var typeResolver = new GenericResolver<Acss>();
+        var typeResolver = new GenericTypeResolver<Acss>();
         typeResolver.TryAddType("acss", typeof(Acss));
         return typeResolver;
     }
 
     /// <summary>
-    /// Add a <see cref="ITypeResolver"/> to the default <see cref="ICssBuilder"/>.
+    /// Use acss behavior feature for default css builder.
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static AppBuilder WithAcssBehaviorTypeResolverForDefaultBuilder(this AppBuilder builder)
+    public static AppBuilder UseAcssBehaviorForDefaultBuilder(this AppBuilder builder)
     {
-        CssBuilder.Default.LoadResolver(GetInternalTypeResolver());
+        CssBuilder.Default.TypeResolver.LoadResolver(GetInternalTypeResolver());
         return builder;
     }
 
     /// <summary>
-    /// Add a <see cref="ITypeResolver"/> to the <see cref="ICssBuilder"/>.
+    /// Use acss behavior feature.
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="cssBuilder"></param>
     /// <returns></returns>
-    public static AppBuilder WithAcssBehaviorTypeResolver(this AppBuilder builder, ICssBuilder cssBuilder)
+    public static AppBuilder UseAcssBehavior(this AppBuilder builder, ICssBuilder cssBuilder)
     {
-        cssBuilder.LoadResolver(GetInternalTypeResolver());
+        cssBuilder.TypeResolver.LoadResolver(GetInternalTypeResolver());
         return builder;
     }
 

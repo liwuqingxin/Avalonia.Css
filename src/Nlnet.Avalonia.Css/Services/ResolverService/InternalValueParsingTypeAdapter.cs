@@ -7,7 +7,7 @@ namespace Nlnet.Avalonia.Css;
 /// <summary>
 /// Internal value parsing type adapter.
 /// </summary>
-internal class InternalValueParsingTypeAdapter : GenericValueParsingTypeAdapter
+internal class InternalValueParsingTypeAdapter : ValueParsingTypeAdapter
 {
     public InternalValueParsingTypeAdapter()
     {

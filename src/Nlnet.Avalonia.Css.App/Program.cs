@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.ReactiveUI;
 using System;
 using Avalonia.Logging;
+using Nlnet.Avalonia.Css.Behaviors;
 using Nlnet.Avalonia.SampleAssistant;
 using Nlnet.Avalonia.Svg.Controls;
 
@@ -41,16 +42,19 @@ namespace Nlnet.Avalonia.Css.App
                 .UseReactiveUI()
                 .LogToLocalFile()
 
-                // Avalonia css stuff.
+                // Use avalonia css stuff.
                 .UseAcssDefaultBuilder()
-                // Type resolver for Nlnet.Avalonia.Css.App
-                .WithTypeResolverForDefaultBuilder(new GenericResolver<App>())
-                // Type resolver for Nlnet.Avalonia.SampleAssistant
-                .WithTypeResolverForDefaultBuilder(new GenericResolver<Case>())
                 // Type resolver for Nlnet.Avalonia.Svg
-                .WithTypeResolverForDefaultBuilder(new GenericResolver<Icon>())
+                .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<Icon>())
+                // Type resolver for Nlnet.Avalonia.SampleAssistant
+                .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<Case>())
+                // Type resolver for Nlnet.Avalonia.Css.App
+                .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<App>())
 
-                ;
+                // Use avalonia behavior.
+                .UseAcssBehaviorForDefaultBuilder()
+                // Behavior resolver.
+                .WithAcssBehaviorResolverForDefaultBuilder();
         }
     }
 }

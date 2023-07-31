@@ -69,6 +69,11 @@ internal class CssStyle : CssSection, ICssStyle
         var cssSetters = new List<ICssSetter>();
         foreach (var pair in pairs)
         {
+            if (pair.Item1.StartsWith(BehaviorConstraints.AddToken) || pair.Item1.StartsWith(BehaviorConstraints.RemoveToken))
+            {
+                cssSetters.Add(new CssSetter(pair.Item1, pair.Item2));
+                continue;
+            }
             var index = cssSetters.FindIndex(s => s.Property == pair.Item1);
             if (index != -1)
             {

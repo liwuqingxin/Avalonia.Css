@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Nlnet.Avalonia.Behaviors\Nlnet.Avalonia.Behaviors.csproj" />
+	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Behaviors\Nlnet.Avalonia.Css.Behaviors.csproj" />
 	  <ProjectReference Include="..\Nlnet.Avalonia.SampleAssistant\Nlnet.Avalonia.SampleAssistant.csproj" />
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj" />
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />

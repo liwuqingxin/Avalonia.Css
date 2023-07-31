@@ -3,7 +3,7 @@ namespace Nlnet.Avalonia.Css;
 /// <summary>
 /// Use this building css components.
 /// </summary>
-public interface ICssBuilder : ITypeResolverManager, IResourceProvidersManager
+public interface ICssBuilder
 {
     internal ICssParser Parser { get; }
 
@@ -13,15 +13,23 @@ public interface ICssBuilder : ITypeResolverManager, IResourceProvidersManager
 
     internal ICssResourceFactory ResourceFactory { get; }
 
-    internal ITypeResolverManager TypeResolver { get; }
+    public ITypeResolverManager TypeResolver { get; }
 
-    internal IBehaviorDeclarerManager BehaviourDeclarerManager { get; }
+    public IValueParsingTypeAdapterManager ValueParsingTypeAdapter { get; }
+
+    public IResourceProvidersManager ResourceProvidersManager { get; }
+
+    public IBehaviorDeclarerManager BehaviorDeclarerManager { get; }
+
+    public IBehaviorResolverManager BehaviorResolverManager { get; }
 
     internal bool TryAddCssFile(ICssFile file);
 
     internal bool TryRemoveCssFile(ICssFile file);
 
     internal bool TryGetCssFile(string standardFilePath, out ICssFile? file);
+
+
 
     /// <summary>
     /// Css configuration.

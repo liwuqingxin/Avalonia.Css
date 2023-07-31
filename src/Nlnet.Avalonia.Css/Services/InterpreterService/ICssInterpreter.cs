@@ -13,7 +13,7 @@ internal interface ICssInterpreter
 
     public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property);
 
-    public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue);
+    public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue, out object? value);
 
     public object? ParseValue(Type declaredType, string? rawValue);
 

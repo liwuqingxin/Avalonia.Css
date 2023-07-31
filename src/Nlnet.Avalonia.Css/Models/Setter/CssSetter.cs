@@ -44,27 +44,29 @@ internal class CssSetter : ICssSetter
         }
 
         var interpreter = builder.Interpreter;
-        var property =
-            interpreter.ParseAvaloniaProperty(targetType, Property)
-            ?? interpreter.ParseAcssBehaviorProperty(targetType, Property, RawValue);
-
+        var property = interpreter.ParseAvaloniaProperty(targetType, Property);
+        object? value;
         if (property == null)
         {
-            return null;
-        }
-
-        var value = interpreter.ParseValue(property, RawValue?.Trim());
-        if (value == null)
-        {
-            if (property.PropertyType.IsValueType)
+            property = interpreter.ParseAcssBehaviorProperty(targetType, Property, RawValue, out value);
+            if (property == null)
             {
-                value = Activator.CreateInstance(property.PropertyType);
+                return null;
+            }
+        }
+        else
+        {
+            value = interpreter.ParseValue(property, RawValue?.Trim());
+            if (value == null)
+            {
+                if (property.PropertyType.IsValueType)
+                {
+                    value = Activator.CreateInstance(property.PropertyType);
+                }
             }
         }
 
-#pragma warning disable CS8604
         return new Setter(property, value);
-#pragma warning restore CS8604
     }
 
     public override string ToString()

@@ -16,6 +16,10 @@
     ScrollViewer.HorizontalScrollBarVisibility:Disabled;
     ScrollViewer.VerticalScrollBarVisibility:Auto;
     /* PlaceholderForeground:Red; */
+        .acss:combobox.popup.align;
+    .acss:share.dragmove(right 50);
+    .acss:window.esc.close;
+    -acss:window.esc.close;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

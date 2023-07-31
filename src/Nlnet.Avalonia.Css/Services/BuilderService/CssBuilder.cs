@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Styling;
@@ -42,13 +41,13 @@ public class CssBuilder : ICssBuilder
 
     public CssBuilder()
     {
-        Parser          = new CssParser(this);
-        Interpreter     = new CssInterpreter(this);
-        SectionFactory  = new CssSectionFactory(this);
-        ResourceFactory = new CssResourceFactory(this);
+        _parser          = new CssParser(this);
+        _interpreter     = new CssInterpreter(this);
+        _sectionFactory  = new CssSectionFactory(this);
+        _resourceFactory = new CssResourceFactory(this);
 
-        Internal.BehaviourDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
-        Internal.BehaviourDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
+        Internal.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
+        Internal.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
     }
 
     #endregion
@@ -59,34 +58,37 @@ public class CssBuilder : ICssBuilder
 
     private ICssBuilder Internal => (ICssBuilder)this;
 
-    private ICssParser Parser { get; }
-
-    private ICssInterpreter Interpreter { get; }
-
-    private ICssSectionFactory SectionFactory { get; }
-
-    private ICssResourceFactory ResourceFactory { get; }
+    private readonly ICssParser _parser;
+    private readonly ICssInterpreter _interpreter;
+    private readonly ICssSectionFactory _sectionFactory;
+    private readonly ICssResourceFactory _resourceFactory;
 
 
 
     private ICssLoader? _loader;
     private readonly ConcurrentDictionary<string, ICssFile> _files = new();
 
-    ICssParser ICssBuilder.Parser => Parser;
+    ICssParser ICssBuilder.Parser => _parser;
 
-    ICssInterpreter ICssBuilder.Interpreter => Interpreter;
+    ICssInterpreter ICssBuilder.Interpreter => _interpreter;
 
-    ICssSectionFactory ICssBuilder.SectionFactory => SectionFactory;
+    ICssSectionFactory ICssBuilder.SectionFactory => _sectionFactory;
 
-    ICssResourceFactory ICssBuilder.ResourceFactory => ResourceFactory;
+    ICssResourceFactory ICssBuilder.ResourceFactory => _resourceFactory;
 
     ITypeResolverManager ICssBuilder.TypeResolver { get; } = new TypeResolverManager();
 
-    IBehaviorDeclarerManager ICssBuilder.BehaviourDeclarerManager { get; } = new BehaviorDeclarerManager();
+    IValueParsingTypeAdapterManager ICssBuilder.ValueParsingTypeAdapter { get; } = new ValueParsingTypeAdapterManager();
+
+    IResourceProvidersManager ICssBuilder.ResourceProvidersManager { get; } = new ResourceProvidersManager();
+
+    IBehaviorDeclarerManager ICssBuilder.BehaviorDeclarerManager { get; } = new BehaviorDeclarerManager();
+
+    IBehaviorResolverManager ICssBuilder.BehaviorResolverManager { get; } = new BehaviorResolverManager();
 
     bool ICssBuilder.TryAddCssFile(ICssFile file)
     {
-        if (_files.TryGetValue(file.StandardFilePath, out var f))
+        if (_files.TryGetValue(file.StandardFilePath, out _))
         {
             return false;
         }
@@ -122,65 +124,6 @@ public class CssBuilder : ICssBuilder
         }
         
         return _loader;
-    }
-
-    #endregion
-
-
-    
-    #region ITypeResolverManager
-
-    void ITypeResolverManager.LoadResolver(ITypeResolver resolver)
-    {
-        Internal.TypeResolver.LoadResolver(resolver);
-    }
-
-    void ITypeResolverManager.UnloadResolver(ITypeResolver resolver)
-    {
-        Internal.TypeResolver.UnloadResolver(resolver);
-    }
-
-    void ITypeResolverManager.LoadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter)
-    {
-        Internal.TypeResolver.LoadValueParsingTypeAdapter(adapter);
-    }
-
-    void ITypeResolverManager.UnloadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter)
-    {
-        Internal.TypeResolver.UnloadValueParsingTypeAdapter(adapter);
-    }
-
-    bool ITypeResolverManager.TryGetType(string name, out Type? type)
-    {
-        return Internal.TypeResolver.TryGetType(name, out type);
-    }
-
-    bool ITypeResolverManager.TryAdaptType(Type type, out Type? adaptedType)
-    {
-        return Internal.TypeResolver.TryAdaptType(type, out adaptedType);
-    }
-
-    #endregion
-
-
-
-    #region IResourceHostsManager
-
-    private readonly IResourceProvidersManager _resourceProvidersManager = new ResourceProvidersManager();
-    
-    void IResourceProvidersManager.RegisterResourceProvider(IResourceProvider provider)
-    {
-        _resourceProvidersManager.RegisterResourceProvider(provider);
-    }
-
-    void IResourceProvidersManager.UnregisterResourceProvider(IResourceProvider provider)
-    {
-        _resourceProvidersManager.UnregisterResourceProvider(provider);
-    }
-
-    public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result)
-    {
-        return _resourceProvidersManager.TryFindResource(key, mode, out result);
     }
 
     #endregion

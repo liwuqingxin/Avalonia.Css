@@ -3,6 +3,7 @@ using Avalonia;
 
 namespace Nlnet.Avalonia.Css
 {
+    没有生效：看Combobox.acss; 且这里需要整理，使用代码生成；
     public partial class Acss : IBehaviorDeclarer
     {
         public static AcssBehavior GetComboBoxPopupAlignBehavior(Visual host)
@@ -21,11 +22,11 @@ namespace Nlnet.Avalonia.Css
     {
         private static void OnInstanceChanged(AvaloniaPropertyChangedEventArgs<AcssBehavior> args)
         {
-            if (args.OldValue.HasValue)
+            if (args.OldValue is { HasValue: true, Value: not null })
             {
                 args.OldValue.Value.Detach(args.Sender);
             }
-            if (args.NewValue.HasValue)
+            if (args.NewValue is { HasValue: true, Value: not null })
             {
                 args.NewValue.Value.Attach(args.Sender);
             }

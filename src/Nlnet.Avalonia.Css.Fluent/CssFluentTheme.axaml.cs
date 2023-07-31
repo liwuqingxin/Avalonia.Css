@@ -27,13 +27,13 @@ namespace Nlnet.Avalonia.Css.Fluent
             CssBuilder.UseDefaultBuilder();
 
             // This is not added to application's styles till now. Register this to resource manager to enable resource access to this.
-            CssBuilder.Default.RegisterResourceProvider(this);
+            CssBuilder.Default.ResourceProvidersManager.RegisterResourceProvider(this);
 
             // Nlnet.Avalonia.Css.Controls
-            CssBuilder.Default.LoadResolver(new GenericResolver<AnimatingContainer>());
+            CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingContainer>());
 
             // Nlnet.Avalonia.Senior
-            CssBuilder.Default.LoadResolver(new GenericResolver<NtScrollViewer>());
+            CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());
 
             var loader = CssBuilder.Default.BuildLoader();
 
