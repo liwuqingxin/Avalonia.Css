@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
@@ -48,11 +49,13 @@ internal class CssSetter : ICssSetter
         object? value;
         if (property == null)
         {
-            property = interpreter.ParseAcssBehaviorProperty(targetType, Property, RawValue, out value);
+            property = interpreter.ParseAcssBehaviorProperty(targetType, Property, RawValue, out var behavior);
             if (property == null)
             {
                 return null;
             }
+
+            value = new BehaviorTemplate(() => behavior?.Get());
         }
         else
         {

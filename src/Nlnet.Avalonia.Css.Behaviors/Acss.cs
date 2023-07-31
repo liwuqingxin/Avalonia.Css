@@ -1,9 +1,8 @@
 ﻿using System;
 using Avalonia;
 
-namespace Nlnet.Avalonia.Css
+namespace Nlnet.Avalonia.Css.Behaviors
 {
-    没有生效：看Combobox.acss; 且这里需要整理，使用代码生成；
     public partial class Acss : IBehaviorDeclarer
     {
         public static AcssBehavior GetComboBoxPopupAlignBehavior(Visual host)

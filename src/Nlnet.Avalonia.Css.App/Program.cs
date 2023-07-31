@@ -52,9 +52,7 @@ namespace Nlnet.Avalonia.Css.App
                 .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<App>())
 
                 // Use avalonia behavior.
-                .UseAcssBehaviorForDefaultBuilder()
-                // Behavior resolver.
-                .WithAcssBehaviorResolverForDefaultBuilder();
+                .UseAcssBehaviorForDefaultBuilder();
         }
     }
 }

@@ -1,4 +1,5 @@
 using Avalonia;
+using DynamicData.Kernel;
 
 namespace Nlnet.Avalonia.Css.Behaviors;
 
@@ -6,26 +7,41 @@ public static class AcssBehaviorsExtensions
 {
     #region Behavior
 
+    private static ITypeResolver GetInternalTypeResolver()
+    {
+        var typeResolver = new GenericTypeResolver<Acss>();
+        typeResolver.TryAddType("acss", typeof(Acss));
+        return typeResolver;
+    }
+
     /// <summary>
-    /// Add a <see cref="ITypeResolver"/> to the default <see cref="ICssBuilder"/>.
+    /// Use acss behavior feature for default css builder.
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static AppBuilder WithAcssBehaviorResolverForDefaultBuilder(this AppBuilder builder)
+    public static AppBuilder UseAcssBehaviorForDefaultBuilder(this AppBuilder builder)
     {
-        CssBuilder.Default.BehaviorResolverManager.LoadResolver(new GenericBehaviorResolver<ComboBoxPopupAlignBehavior>());
+        //CssBuilder.Default.TypeResolver.LoadResolver(GetInternalTypeResolver());
+        CssBuilder.Default.BehaviorResolverManager.LoadResolver(new GenericBehaviorResolver<Acss>());
+        CssBuilder.Default.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
+        CssBuilder.Default.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
+
         return builder;
     }
 
     /// <summary>
-    /// Add a <see cref="ITypeResolver"/> to the <see cref="ICssBuilder"/>.
+    /// Use acss behavior feature.
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="cssBuilder"></param>
     /// <returns></returns>
-    public static AppBuilder WithAcssBehaviorResolver(this AppBuilder builder, ICssBuilder cssBuilder)
+    public static AppBuilder UseAcssBehavior(this AppBuilder builder, ICssBuilder cssBuilder)
     {
-        cssBuilder.BehaviorResolverManager.LoadResolver(new GenericBehaviorResolver<ComboBoxPopupAlignBehavior>());
+        //cssBuilder.TypeResolver.LoadResolver(GetInternalTypeResolver());
+        cssBuilder.BehaviorResolverManager.LoadResolver(new GenericBehaviorResolver<Acss>());
+        cssBuilder.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
+        cssBuilder.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
+
         return builder;
     }
 

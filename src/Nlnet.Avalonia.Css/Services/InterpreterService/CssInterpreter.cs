@@ -48,6 +48,11 @@ namespace Nlnet.Avalonia.Css
 
         public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property)
         {
+            if (property.StartsWith(BehaviorConstraints.AddToken) || property.StartsWith(BehaviorConstraints.RemoveToken))
+            {
+                return null;
+            }
+
             if (property.Contains('.'))
             {
                 var splits = property.Split('.', StringSplitOptions.RemoveEmptyEntries);
@@ -76,7 +81,7 @@ namespace Nlnet.Avalonia.Css
             return avaloniaProperty;
         }
 
-        public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue, out object? value)
+        public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue, out AcssBehavior? value)
         {
             if (rawValue == null)
             {
@@ -96,7 +101,10 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
 
-            value = Activator.CreateInstance(behaviorType!);
+            value = property.StartsWith(BehaviorConstraints.AddToken)
+                ? Activator.CreateInstance(behaviorType!) as AcssBehavior
+                : null;
+
             return _builder.Interpreter.ParseAvaloniaProperty(declarerType!, behaviorType!.Name);
         }
 

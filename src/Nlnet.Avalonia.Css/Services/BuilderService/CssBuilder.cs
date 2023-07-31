@@ -45,9 +45,6 @@ public class CssBuilder : ICssBuilder
         _interpreter     = new CssInterpreter(this);
         _sectionFactory  = new CssSectionFactory(this);
         _resourceFactory = new CssResourceFactory(this);
-
-        Internal.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
-        Internal.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
     }
 
     #endregion
