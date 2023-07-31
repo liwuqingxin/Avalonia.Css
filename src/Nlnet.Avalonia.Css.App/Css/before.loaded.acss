@@ -309,7 +309,7 @@ ComboBoxPage ComboBox{
     HorizontalAlignment:Left;
     MinWidth:150;
 }
-ComboBoxPage ComboBox[IsTextSearchEnabled=True]{
+ComboBoxPage ComboBox#C1{
     .acss:combobox.popup.align;
     /* .acss:share.dragmove(right 50);
     .acss:window.esc.close;

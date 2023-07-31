@@ -43,8 +43,10 @@
             </ComboBox>
         </app:IndependentCase>
 
-        <app:IndependentCase x:Name="C1" Header="ComboBox set 'acss:combobox.popup.align'.">
-            <ComboBox ItemsSource="{app:Enum SizeToContent}" SelectedIndex="0" />
+        <app:IndependentCase Header="ComboBox set 'acss:combobox.popup.align'.">
+            <ComboBox x:Name="C1"
+                      ItemsSource="{app:Enum SizeToContent}"
+                      SelectedIndex="0" />
         </app:IndependentCase>
     </StackPanel>
 </UserControl>
