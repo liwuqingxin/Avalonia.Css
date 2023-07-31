@@ -3,21 +3,7 @@ using Avalonia;
 
 namespace Nlnet.Avalonia.Css.Behaviors
 {
-    public partial class Acss : IBehaviorDeclarer
-    {
-        public static AcssBehavior GetComboBoxPopupAlignBehavior(Visual host)
-        {
-            return host.GetValue(ComboBoxPopupAlignBehaviorProperty);
-        }
-        public static void SetComboBoxPopupAlignBehavior(Visual host, AcssBehavior value)
-        {
-            host.SetValue(ComboBoxPopupAlignBehaviorProperty, value);
-        }
-        public static readonly AttachedProperty<AcssBehavior> ComboBoxPopupAlignBehaviorProperty = AvaloniaProperty
-            .RegisterAttached<Acss, Visual, AcssBehavior>("ComboBoxPopupAlignBehavior");
-    }
-
-    public partial class Acss : AvaloniaObject
+    public partial class Acss : AvaloniaObject, IBehaviorDeclarer
     {
         private static void OnInstanceChanged(AvaloniaPropertyChangedEventArgs<AcssBehavior> args)
         {
@@ -29,11 +15,6 @@ namespace Nlnet.Avalonia.Css.Behaviors
             {
                 args.NewValue.Value.Attach(args.Sender);
             }
-        }
-
-        static Acss()
-        {
-            ComboBoxPopupAlignBehaviorProperty.Changed.Subscribe(OnInstanceChanged);
         }
     }
 }

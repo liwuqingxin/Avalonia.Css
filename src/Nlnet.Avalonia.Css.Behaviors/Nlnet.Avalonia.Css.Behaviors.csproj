@@ -45,4 +45,9 @@
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
 	</ItemGroup>
 
+	<!-- Add this as a new ItemGroup, replacing paths and names appropriately -->
+	<ItemGroup>
+		<ProjectReference Include="..\Nlnet.Avalonia.Css.CompileGenerator\Nlnet.Avalonia.Css.CompileGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
 </Project>
