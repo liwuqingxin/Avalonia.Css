@@ -91,7 +91,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         nlnet:LoadedStateMixin.UseLoadedState="True"
-                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
                         RenderOptions.BitmapInterpolationMode="HighQuality"
                         RenderOptions.EdgeMode="Unspecified" />
         </Border>

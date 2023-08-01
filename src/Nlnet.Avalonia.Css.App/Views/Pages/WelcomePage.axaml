@@ -52,7 +52,7 @@
 
 
         <fluent:Icon x:Name="LogoImage"
-                     HorizontalAlignment="Center"
+                     HorizontalAlignment="Right"
                      VerticalAlignment="Center"
                      fluent:LoadedStateMixin.UseLoadedState="True"
                      IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
