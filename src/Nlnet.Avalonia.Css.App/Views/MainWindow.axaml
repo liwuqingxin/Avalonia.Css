@@ -87,13 +87,23 @@
         </Grid>
 
         <Border x:Name="WelcomeHost">
-            <nlnet:Icon x:Name="WelcomeLogo"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        nlnet:LoadedStateMixin.UseLoadedState="True"
-                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
-                        RenderOptions.BitmapInterpolationMode="HighQuality"
-                        RenderOptions.EdgeMode="Unspecified" />
+            <Panel>
+                <nlnet:Icon x:Name="WelcomeLogo"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            nlnet:LoadedStateMixin.UseLoadedState="True"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            RenderOptions.EdgeMode="Unspecified" />
+                
+                <nlnet:Icon x:Name="LogoImage"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Center"
+                             nlnet:LoadedStateMixin.UseLoadedState="True"
+                             IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                             RenderOptions.BitmapInterpolationMode="HighQuality"
+                             RenderOptions.EdgeMode="Unspecified" />
+            </Panel>
         </Border>
 
     </Panel>

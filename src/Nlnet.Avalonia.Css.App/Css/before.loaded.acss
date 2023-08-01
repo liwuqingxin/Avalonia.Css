@@ -6,16 +6,17 @@ Window#RootWindow{
     WindowStartupLocation:CenterScreen;
     [[
         Window > Panel > Border#WelcomeHost{
-            /* We use direct color here to avoid render delay. */
+            /* We use direct color here to avoid rendering delay. */
             Background: #1A2228;
         }
+        /* Animation to hide the welcome elements. */
         Window > Panel > Border#WelcomeHost{
             [[
                 :animation[desc=Hide the welcome elements]{
                     IterationCount:1;
                     Duration:'0:0:0.4';
                     FillMode:Forward;
-                    Delay:'0:0:1.1';
+                    Delay:'0:0:2.1';
                     KeyFrames:[
                         KeyFrame(100% 0,0.6,0.6,1):[
                             Opacity:0;
@@ -25,14 +26,15 @@ Window#RootWindow{
                 }
             ]]
         }
-        Window > Panel > Border > Icon#WelcomeLogo{
+        /* Animation to show logo-text. */
+        Window > Panel > Border > Panel > Icon#WelcomeLogo{
             Opacity:0;
             Width:200;
             Height:200;
             [[
                 :animation[desc=Welcome animation]{
                     IterationCount:1;
-                    Duration:'0:0:1';
+                    Duration:'0:0:2';
                     FillMode:Forward;
                     Delay:'0:0:0.6';
                     KeyFrames:[
@@ -43,6 +45,76 @@ Window#RootWindow{
                         KeyFrame(100% 0,0.6,0.6,1):[
                             Opacity:1;
                             TranslateTransform.Y:0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        /* Animation to show logo. */
+        Window Icon#LogoImage{
+            Opacity:0;
+        }
+        Window Icon#LogoImage:is-loaded{
+            Width:200;
+            Height:200;
+            RenderTransform:none;
+            Opacity:0;
+            [[
+                :animation[desc=Logo image initial animation]{
+                    IterationCount:1;
+                    Duration:'0:0:5';
+                    FillMode:Forward;
+                    Delay:'0:0:0';
+                    KeyFrames:[
+                        /* Opacity */
+                        KeyFrame(0% 0,0.2,0.8,1):[
+                            Opacity:0;
+                            ScaleTransform.ScaleX:0.4;
+                            ScaleTransform.ScaleY:0.4;
+                        ]
+                        KeyFrame(100% 0,0.2,0.8,1):[
+                            Opacity:1;
+                            ScaleTransform.ScaleX:1;
+                            ScaleTransform.ScaleY:1;
+                        ]
+        
+                        /* Y */
+                        KeyFrame(0%):[
+                            TranslateTransform.Y:-200;
+                            RotateTransform.Angle:-10;
+                        ]
+                        KeyFrame(25% 0.3,0,0.7,1):[
+                            TranslateTransform.Y:0;
+                            RotateTransform.Angle:40;
+                        ]
+                        KeyFrame(50% 0.3,0,0.7,1):[
+                            TranslateTransform.Y:60;
+                            RotateTransform.Angle:10;
+                        ]
+                        KeyFrame(75% 0.3,0,0.7,1):[
+                            TranslateTransform.Y:140;
+                            RotateTransform.Angle:30;
+                        ]
+                        KeyFrame(100% 0.3,0,0.7,1):[
+                            TranslateTransform.Y:160;
+                            RotateTransform.Angle:0;
+                        ]
+        
+                        /* X */
+                        KeyFrame(0%):[
+                            TranslateTransform.X:150;
+                        ]
+                        KeyFrame(25% 0.5,0,0.7,0.9):[
+                            TranslateTransform.X:-180;
+                        ]
+                        KeyFrame(50% 0.3,0,0.7,1):[
+                            TranslateTransform.X:120;
+                        ]
+                        KeyFrame(75% 0.3,0,0.7,1):[
+                            TranslateTransform.X:-150;
+                        ]
+                        KeyFrame(100% 0.3,0,0.7,1):[
+                            TranslateTransform.X:0;
                         ]
                     ]
                 }
@@ -207,7 +279,7 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 }
 
 
-
+/* WelcomePage */
 WelcomePage Grid#InfoGrid > TextBlock{
     Margin:0,8;
     FontSize:12;
@@ -243,100 +315,6 @@ WelcomePage Grid#InfoGrid > Button{
         }
     ]]
 }
-WelcomePage Icon#LogoImage:is-loaded{
-    Width:200;
-    Height:200;
-    RenderTransform:none;
-    Opacity:0;
-    [[
-        :animation[desc=Logo image initial animation]{
-            IterationCount:1;
-            Duration:'0:0:5';
-            FillMode:Forward;
-            Delay:'0:0:0';
-            KeyFrames:[
-                /* Opacity */
-                KeyFrame(0% 0,0.2,0.8,1):[
-                    Opacity:0;
-                    ScaleTransform.ScaleX:0.4;
-                    ScaleTransform.ScaleY:0.4;
-                ]
-                KeyFrame(100% 0,0.2,0.8,1):[
-                    Opacity:1;
-                    ScaleTransform.ScaleX:1;
-                    ScaleTransform.ScaleY:1;
-                ]
-
-                /* Y */
-                KeyFrame(0%):[
-                    TranslateTransform.Y:-200;
-                    RotateTransform.Angle:-10;
-                ]
-                KeyFrame(25% 0.3,0,0.7,1):[
-                    TranslateTransform.Y:0;
-                    RotateTransform.Angle:40;
-                ]
-                KeyFrame(50% 0.3,0,0.7,1):[
-                    TranslateTransform.Y:60;
-                    RotateTransform.Angle:10;
-                ]
-                KeyFrame(75% 0.3,0,0.7,1):[
-                    TranslateTransform.Y:140;
-                    RotateTransform.Angle:30;
-                ]
-                KeyFrame(100% 0.3,0,0.7,1):[
-                    TranslateTransform.Y:160;
-                    RotateTransform.Angle:0;
-                ]
-
-                /* X */
-                KeyFrame(0%):[
-                    TranslateTransform.X:150;
-                ]
-                KeyFrame(25% 0.5,0,0.7,0.9):[
-                    TranslateTransform.X:-180;
-                ]
-                KeyFrame(50% 0.3,0,0.7,1):[
-                    TranslateTransform.X:120;
-                ]
-                KeyFrame(75% 0.3,0,0.7,1):[
-                    TranslateTransform.X:-150;
-                ]
-                KeyFrame(100% 0.3,0,0.7,1):[
-                    TranslateTransform.X:0;
-                ]
-            ]
-        }
-    ]]
-}
-/* WelcomePage Icon#LogoImage:pointerover{
-    [[
-        :animation[Animation for pointerover on logo image]{
-            IterationCount:1;
-            FillMode:Forward;
-            Duration:0:0:0.3;
-            KeyFrames:[
-                KeyFrame(100% 0.5,0,0.7,0.9):[
-                    RotateTransform.Angle:10;
-                ]
-            ]
-        }
-    ]]
-}
-WelcomePage Icon#LogoImage:not(:pointerover){
-    [[
-        :animation[Animation for pointerover on logo image]{
-            IterationCount:1;
-            FillMode:Forward;
-            Duration:'0:0:0.3';
-            KeyFrames:[
-                KeyFrame(100% 0.5,0,0.7,0.9):[
-                    RotateTransform.Angle:0;
-                ]
-            ]
-        }
-    ]]
-} */
 
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
     HorizontalAlignment:Left;
