@@ -6,6 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:nlnet="https://www.nlnet.com/avalonia"
+        xmlns:views="clr-namespace:Nlnet.Avalonia.Css.App.Views"
         Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
         Icon="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
         mc:Ignorable="d">
@@ -14,73 +15,86 @@
         <app:MainWindowViewModel />
     </Design.DataContext>
 
-    <Grid RowDefinitions="Auto,*">
-        <StackPanel Orientation="Horizontal">
-            <CheckBox Command="{Binding Path=ToggleBeforeLoadedAcssFile}" Content="Toggle 'before.loaded.acss'" />
-            <ComboBox ItemsSource="{Binding Path=Modes}" SelectedItem="{Binding Path=Mode}" />
-            <ComboBox ItemsSource="{Binding Path=Themes}" SelectedItem="{Binding Path=Theme}" />
-            <CheckBox Content="Toggle Local Dark" IsChecked="{Binding Path=IsLocalDark, Mode=TwoWay}" />
-            <CheckBox x:Name="CbxIsEnabled" Content="Is Content Enabled" />
-            <CheckBox x:Name="CbxIsTopMost"
-                      Content="Is Top Most"
-                      IsChecked="{Binding $parent[Window].Topmost}" />
-        </StackPanel>
+    <Panel>
+        <Grid RowDefinitions="Auto,*">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Command="{Binding Path=ToggleBeforeLoadedAcssFile}" Content="Toggle 'before.loaded.acss'" />
+                <ComboBox ItemsSource="{Binding Path=Modes}" SelectedItem="{Binding Path=Mode}" />
+                <ComboBox ItemsSource="{Binding Path=Themes}" SelectedItem="{Binding Path=Theme}" />
+                <CheckBox Content="Toggle Local Dark" IsChecked="{Binding Path=IsLocalDark, Mode=TwoWay}" />
+                <CheckBox x:Name="CbxIsEnabled" Content="Is Content Enabled" />
+                <CheckBox x:Name="CbxIsTopMost"
+                          Content="Is Top Most"
+                          IsChecked="{Binding $parent[Window].Topmost}" />
+            </StackPanel>
 
-        <TabControl x:Name="MainTabControl"
-                    Grid.Row="1"
-                    ItemsSource="{Binding Path=GalleryItems}"
-                    SelectedIndex="-1"
-                    SelectionChanged="MainTabControl_OnSelectionChanged"
-                    TabStripPlacement="Left">
-            <TabControl.Styles>
-                <Style Selector="TabItem">
-                    <Setter Property="nlnet:TabItemExtension.IconContent">
-                        <Template>
-                            <Design.DataContext>
-                                <nlnet:GalleryItem />
-                            </Design.DataContext>
-                            <nlnet:Icon x:Name="TabItemIcon"
-                                        nlnet:LoadedStateMixin.UseLoadedState="True"
-                                        IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
-                            <!--<Image x:Name="TabItemIcon"
+            <TabControl x:Name="MainTabControl"
+                        Grid.Row="1"
+                        ItemsSource="{Binding Path=GalleryItems}"
+                        SelectedIndex="-1"
+                        SelectionChanged="MainTabControl_OnSelectionChanged"
+                        TabStripPlacement="Left">
+                <TabControl.Styles>
+                    <Style Selector="TabItem">
+                        <Setter Property="nlnet:TabItemExtension.IconContent">
+                            <Template>
+                                <Design.DataContext>
+                                    <nlnet:GalleryItem />
+                                </Design.DataContext>
+                                <nlnet:Icon x:Name="TabItemIcon"
+                                            nlnet:LoadedStateMixin.UseLoadedState="True"
+                                            IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                                <!--<Image x:Name="TabItemIcon"
                                    nlnet:LoadedStateMixin.UseLoadedState="True"
                                    RenderOptions.BitmapInterpolationMode="HighQuality"
                                    Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />-->
-                        </Template>
-                    </Setter>
-                </Style>
-            </TabControl.Styles>
-            <TabControl.ContentTemplate>
-                <DataTemplate DataType="nlnet:GalleryItem">
-                    <Grid RowDefinitions="Auto,*">
-                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
-                            <Border x:Name="PageIconBorder">
-                                <nlnet:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
-                                <!--<Image x:Name="PageIcon"
+                            </Template>
+                        </Setter>
+                    </Style>
+                </TabControl.Styles>
+                <TabControl.ContentTemplate>
+                    <DataTemplate DataType="nlnet:GalleryItem">
+                        <Grid RowDefinitions="Auto,*">
+                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+                                <Border x:Name="PageIconBorder">
+                                    <nlnet:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                                    <!--<Image x:Name="PageIcon"
                                        RenderOptions.BitmapInterpolationMode="HighQuality"
                                        Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />-->
-                            </Border>
-                            <TextBlock x:Name="PageName"
-                                       Grid.Row="0"
-                                       Grid.Column="1"
-                                       Text="{Binding Path=Title}" />
+                                </Border>
+                                <TextBlock x:Name="PageName"
+                                           Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding Path=Title}" />
+                            </Grid>
+                            <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
+                                <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
+                                    <ContentControl.ContentTemplate>
+                                        <nlnet:GalleryItemLocator />
+                                    </ContentControl.ContentTemplate>
+                                </ContentControl>
+                            </nlnet:NtScrollViewer>
                         </Grid>
-                        <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
-                            <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
-                                <ContentControl.ContentTemplate>
-                                    <nlnet:GalleryItemLocator />
-                                </ContentControl.ContentTemplate>
-                            </ContentControl>
-                        </nlnet:NtScrollViewer>
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-            <TabControl.ItemTemplate>
-                <DataTemplate DataType="nlnet:GalleryItem">
-                    <TextBlock Text="{Binding Path=Title}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-        </TabControl>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+                <TabControl.ItemTemplate>
+                    <DataTemplate DataType="nlnet:GalleryItem">
+                        <TextBlock Text="{Binding Path=Title}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
 
-    </Grid>
+        </Grid>
+
+        <Border x:Name="WelcomeHost">
+            <nlnet:Icon x:Name="WelcomeLogo"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        nlnet:LoadedStateMixin.UseLoadedState="True"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        RenderOptions.EdgeMode="Unspecified" />
+        </Border>
+
+    </Panel>
 </Window>

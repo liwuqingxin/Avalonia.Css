@@ -5,15 +5,59 @@ Window#RootWindow{
     Topmost:True;
     WindowStartupLocation:CenterScreen;
     [[
-        Window > Grid{
+        Window > Panel > Border#WelcomeHost{
+            /* We use direct color here to avoid render delay. */
+            Background: #1A2228;
+        }
+        Window > Panel > Border#WelcomeHost{
+            [[
+                :animation[desc=Hide the welcome elements]{
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    FillMode:Forward;
+                    Delay:'0:0:1.1';
+                    KeyFrames:[
+                        KeyFrame(100% 0,0.6,0.6,1):[
+                            Opacity:0;
+                            IsVisible:False;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        Window > Panel > Border > Icon#WelcomeLogo{
+            Opacity:0;
+            Width:200;
+            Height:200;
+            [[
+                :animation[desc=Welcome animation]{
+                    IterationCount:1;
+                    Duration:'0:0:1';
+                    FillMode:Forward;
+                    Delay:'0:0:0.6';
+                    KeyFrames:[
+                        KeyFrame(0% 0,0.6,0.6,1):[
+                            Opacity:0;
+                            TranslateTransform.Y:256;
+                        ]
+                        KeyFrame(100% 0,0.6,0.6,1):[
+                            Opacity:1;
+                            TranslateTransform.Y:0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+
+        Window > Panel > Grid{
             Margin:8,8,0,0;
         }
-        Window > Grid > StackPanel{
+        Window > Panel > Grid > StackPanel{
             Spacing:8;
             Margin:0,0,0,8;
             HorizontalAlignment:Right;
         }
-        Window > Grid > StackPanel > CheckBox#CbxIsEnabled{
+        Window > Panel > Grid > StackPanel > CheckBox#CbxIsEnabled{
             IsChecked:True;
             IsThreeState:False;
         }
@@ -203,6 +247,7 @@ WelcomePage Icon#LogoImage:is-loaded{
     Width:200;
     Height:200;
     RenderTransform:none;
+    Opacity:0;
     [[
         :animation[desc=Logo image initial animation]{
             IterationCount:1;
