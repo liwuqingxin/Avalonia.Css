@@ -10,29 +10,6 @@
          /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
-         /template/ AnimatingContainer#PART_SelectedContentHost {
-            Opacity:0;
-        }
-         /template/ AnimatingContainer#PART_SelectedContentHost:changing {
-            [[
-                :animation[desc=Tab control loading animation]{
-                    IterationCount:1;
-                    Duration:'0:0:0.2';
-                    FillMode:Forward;
-                    KeyFrames:[
-                        KeyFrame(0% 0,0.3,0.7,1):[
-                            Opacity:0;
-                        ]
-                        KeyFrame(0:0:.15 0,0.3,0.7,1):[
-                            Opacity:0;
-                        ]
-                        KeyFrame(100% 0,0.3,0.7,1):[
-                            Opacity:1;
-                        ]
-                    ]
-                }
-            ]]
-        }
          /template/ AnimatingContainer#PART_SelectedContentHost:changed {
             [[
                 :animation[desc=Tab control toggle animation]{
@@ -42,10 +19,12 @@
                     FillMode:Forward;
                     KeyFrames:[
                         KeyFrame(0% 0,1,1,1):[
-                            TranslateTransform.Y: 200;
+                            TranslateTransform.Y: 100;
+                            Opacity:1;
                         ]
                         KeyFrame(100% 0,1,1,1):[
                             TranslateTransform.Y: 0;
+                            Opacity:1;
                         ]
                     ]
                 }

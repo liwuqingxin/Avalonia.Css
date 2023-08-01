@@ -30,7 +30,7 @@ namespace Nlnet.Avalonia.Css.Fluent
             CssBuilder.Default.ResourceProvidersManager.RegisterResourceProvider(this);
 
             // Nlnet.Avalonia.Css.Controls
-            CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingContainer>());
+            CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingPresenter>());
 
             // Nlnet.Avalonia.Senior
             CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());

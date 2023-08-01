@@ -7,7 +7,7 @@ using Avalonia.Threading;
 namespace Nlnet.Avalonia.Css.Controls
 {
     [PseudoClasses(Pseudo_Changing, Pseudo_Changed)]
-    public class AnimatingContainer : ContentPresenter
+    public class AnimatingPresenter : ContentPresenter
     {
         private const string Pseudo_Changing = ":changing";
         private const string Pseudo_Changed = ":changed";
@@ -18,22 +18,24 @@ namespace Nlnet.Avalonia.Css.Controls
             set { SetValue(LeavingContentProperty, value); }
         }
         public static readonly StyledProperty<object?> LeavingContentProperty = AvaloniaProperty
-            .Register<AnimatingContainer, object?>(nameof(LeavingContent));
+            .Register<AnimatingPresenter, object?>(nameof(LeavingContent));
 
-        static AnimatingContainer()
+        static AnimatingPresenter()
         {
-            ContentProperty.Changed.AddClassHandler<AnimatingContainer>((container, args) =>
+            ContentProperty.Changed.AddClassHandler<AnimatingPresenter>((container, args) =>
             {
                 container.LeavingContent = args.OldValue;
 
                 container.PseudoClasses.Set(Pseudo_Changing, false);
                 container.PseudoClasses.Set(Pseudo_Changing, true);
 
+                container.SetCurrentValue(Control.OpacityProperty, 0);
+
                 Dispatcher.UIThread.Post(() =>
                 {
                     container.PseudoClasses.Set(Pseudo_Changed, false);
                     container.PseudoClasses.Set(Pseudo_Changed, true);
-                });
+                }, DispatcherPriority.ApplicationIdle);
             });
         }
     }
