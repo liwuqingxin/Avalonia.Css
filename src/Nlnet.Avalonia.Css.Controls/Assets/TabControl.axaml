@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:fluent="https://www.nlnet.com/avalonia">
+                    xmlns:nlnet="https://www.nlnet.com/avalonia">
 
     <!-- TabItem -->
     <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
@@ -14,7 +14,7 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Panel>
                         <StackPanel x:Name="ContentStackPanel" Orientation="Horizontal">
-                            <ContentControl x:Name="PART_IconContent" Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(fluent:TabItemExtension.IconContent)}" />
+                            <ContentControl x:Name="PART_IconContent" Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(nlnet:TabItemExtension.IconContent)}" />
                             <ContentPresenter Name="PART_ContentPresenter"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -50,7 +50,7 @@
                         </ScrollViewer>
 
                         <Border x:Name="PART_ContentBorder">
-                            <fluent:AnimatingPresenter x:Name="PART_SelectedContentHost"
+                            <nlnet:AnimatingPresenter x:Name="PART_SelectedContentHost"
                                                        Margin="{TemplateBinding Padding}"
                                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -88,14 +88,14 @@
             <Setter Property="StackPanel.Orientation" Value="Horizontal" />
         </Style>
 
-        <Style Selector="^[(fluent|TabStripItemsPanelStyles.Style)=StackPanel]">
+        <Style Selector="^[(nlnet|TabStripItemsPanelStyles.Style)=StackPanel]">
             <Setter Property="TabStrip.ItemsPanel">
                 <ItemsPanelTemplate>
                     <StackPanel />
                 </ItemsPanelTemplate>
             </Setter>
         </Style>
-        <Style Selector="^[(fluent|TabStripItemsPanelStyles.Style)=WrapPanel]">
+        <Style Selector="^[(nlnet|TabStripItemsPanelStyles.Style)=WrapPanel]">
             <Setter Property="TabStrip.ItemsPanel">
                 <ItemsPanelTemplate>
                     <WrapPanel />
@@ -153,14 +153,14 @@
             </ControlTemplate>
         </Setter>
 
-        <Style Selector="^[(fluent|TabStripItemsPanelStyles.Style)=StackPanel]">
+        <Style Selector="^[(nlnet|TabStripItemsPanelStyles.Style)=StackPanel]">
             <Setter Property="TabStrip.ItemsPanel">
                 <ItemsPanelTemplate>
                     <StackPanel />
                 </ItemsPanelTemplate>
             </Setter>
         </Style>
-        <Style Selector="^[(fluent|TabStripItemsPanelStyles.Style)=WrapPanel]">
+        <Style Selector="^[(nlnet|TabStripItemsPanelStyles.Style)=WrapPanel]">
             <Setter Property="TabStrip.ItemsPanel">
                 <ItemsPanelTemplate>
                     <WrapPanel />
