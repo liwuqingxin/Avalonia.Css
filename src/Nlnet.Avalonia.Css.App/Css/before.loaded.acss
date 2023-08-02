@@ -16,7 +16,7 @@ Window#RootWindow{
                     IterationCount:1;
                     Duration:'0:0:0.4';
                     FillMode:Forward;
-                    Delay:'0:0:2.1';
+                    Delay:'0:0:2.4';
                     KeyFrames:[
                         KeyFrame(100% 0,0.6,0.6,1):[
                             Opacity:0;
@@ -40,11 +40,17 @@ Window#RootWindow{
                     KeyFrames:[
                         KeyFrame(0% 0,0.6,0.6,1):[
                             Opacity:0;
-                            TranslateTransform.Y:256;
+                            TranslateTransform.Y:120;
                         ]
-                        KeyFrame(100% 0,0.6,0.6,1):[
+                        KeyFrame(50% 0,0.6,0.6,1):[
                             Opacity:1;
-                            TranslateTransform.Y:0;
+                            TranslateTransform.Y:-40;
+                        ]
+                        KeyFrame(70% 0,0.6,0.6,1):[
+                            TranslateTransform.Y:-40;
+                        ]
+                        KeyFrame(100% 0.6,0,1,1):[
+                            TranslateTransform.Y:-400;
                         ]
                     ]
                 }
@@ -80,23 +86,23 @@ Window#RootWindow{
         
                         /* Y */
                         KeyFrame(0%):[
-                            TranslateTransform.Y:-200;
+                            TranslateTransform.Y:-280;
                             RotateTransform.Angle:-10;
                         ]
                         KeyFrame(25% 0.3,0,0.7,1):[
-                            TranslateTransform.Y:0;
+                            TranslateTransform.Y:-80;
                             RotateTransform.Angle:40;
                         ]
                         KeyFrame(50% 0.3,0,0.7,1):[
-                            TranslateTransform.Y:60;
+                            TranslateTransform.Y:-20;
                             RotateTransform.Angle:10;
                         ]
                         KeyFrame(75% 0.3,0,0.7,1):[
-                            TranslateTransform.Y:140;
+                            TranslateTransform.Y:60;
                             RotateTransform.Angle:30;
                         ]
                         KeyFrame(100% 0.3,0,0.7,1):[
-                            TranslateTransform.Y:160;
+                            TranslateTransform.Y:80;
                             RotateTransform.Angle:0;
                         ]
         
@@ -121,6 +127,7 @@ Window#RootWindow{
             ]]
         }
 
+        /* Main layout. */
         Window > Panel > Grid{
             Margin:8,8,0,0;
         }
@@ -263,7 +270,7 @@ Case > StackPanel{
     Spacing:8;
 }
 
-
+/* StackPanel followed UserControl */
 :is(UserControl) > StackPanel{
     Spacing:24;
     Margin:0,0,0,12;
@@ -279,7 +286,7 @@ ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
 }
 
 
-/* WelcomePage */
+/* Pages from here... */
 WelcomePage Grid#InfoGrid > TextBlock{
     Margin:0,8;
     FontSize:12;
