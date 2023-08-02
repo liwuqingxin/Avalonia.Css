@@ -25,9 +25,17 @@
         :pointerover{
             Foreground: var(fore-hover);
         }
+        :pressed{
+            /* RenderTransform:scale(0.97,0.97); */
+            Opacity:0.6;
+        }
+        :pressed /template/ XBorder#PART_Border{
+            ShowXBorder:false;
+        }
         :disabled{
             Opacity:0.4;
         }
+        
         /template/ StackPanel#PART_SpinnerPanel{
             Spacing:2;
             Margin:2,0;

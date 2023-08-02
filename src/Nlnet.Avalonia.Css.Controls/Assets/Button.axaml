@@ -1,19 +1,22 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:nlnet="https://www.nlnet.com/avalonia">
 
     <!-- Button -->
     <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
         <Setter Property="Button.Template">
             <ControlTemplate TargetType="Button">
-                <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Padding="{TemplateBinding Padding}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  CornerRadius="{TemplateBinding CornerRadius}" />
+                <nlnet:XBorder x:Name="PART_Border"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               CornerRadius="{TemplateBinding CornerRadius}"
+                               BorderThickness="{TemplateBinding BorderThickness}">
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </nlnet:XBorder>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
@@ -23,11 +26,11 @@
     <ControlTheme x:Key="{x:Type DropDownButton}" TargetType="DropDownButton">
         <Setter Property="DropDownButton.Template">
             <ControlTemplate TargetType="DropDownButton">
-                <Border x:Name="RootBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                <nlnet:XBorder x:Name="PART_Border"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid x:Name="InnerGrid" ColumnDefinitions="*,Auto">
                         <ContentPresenter x:Name="PART_ContentPresenter"
                                           Grid.Column="0"
@@ -41,7 +44,7 @@
                                   Grid.Column="1"
                                   IsHitTestVisible="False" />
                     </Grid>
-                </Border>
+                </nlnet:XBorder>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
@@ -51,16 +54,18 @@
     <ControlTheme x:Key="{x:Type RepeatButton}" TargetType="RepeatButton">
         <Setter Property="RepeatButton.Template">
             <ControlTemplate TargetType="RepeatButton">
-                <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Padding="{TemplateBinding Padding}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  CornerRadius="{TemplateBinding CornerRadius}" />
+                <nlnet:XBorder x:Name="PART_Border"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </nlnet:XBorder>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
@@ -71,10 +76,10 @@
         <Setter Property="ButtonSpinner.Template">
             <ControlTemplate TargetType="ButtonSpinner">
                 <DataValidationErrors>
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                    <nlnet:XBorder x:Name="PART_Border" Background="{TemplateBinding Background}"
+                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                   CornerRadius="{TemplateBinding CornerRadius}">
                         <DockPanel>
                             <StackPanel Name="PART_SpinnerPanel"
                                         DockPanel.Dock="Right"
@@ -94,7 +99,7 @@
                                               Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}" />
                         </DockPanel>
-                    </Border>
+                    </nlnet:XBorder>
                 </DataValidationErrors>
             </ControlTemplate>
         </Setter>
@@ -110,17 +115,19 @@
     <ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton">
         <Setter Property="ToggleButton.Template">
             <ControlTemplate TargetType="ToggleButton">
-                <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Padding="{TemplateBinding Padding}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  CornerRadius="{TemplateBinding CornerRadius}"
-                                  RecognizesAccessKey="True" />
+                <nlnet:XBorder x:Name="PART_Border"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                      Padding="{TemplateBinding Padding}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      RecognizesAccessKey="True" />
+                </nlnet:XBorder>
             </ControlTemplate>
         </Setter>
     </ControlTheme>

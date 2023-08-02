@@ -39,10 +39,35 @@ namespace Nlnet.Avalonia.Css.Controls
         public static readonly StyledProperty<BoxShadows> BoxShadowProperty =
             AvaloniaProperty.Register<XBorder, BoxShadows>(nameof(BoxShadow));
 
-        private readonly BorderRenderHelper _borderRenderHelper = new BorderRenderHelper();
+        /// <summary>
+        /// Indicates if show the x border.
+        /// </summary>
+        public static readonly StyledProperty<bool> ShowXBorderProperty =
+            AvaloniaProperty.Register<XBorder, bool>(nameof(ShowXBorder), true);
+
+        /// <summary>
+        /// Indicates the height of bottom edge.
+        /// </summary>
+        public static readonly StyledProperty<double> BottomEdgeHeightProperty = AvaloniaProperty
+            .Register<XBorder, double>(nameof(BottomEdgeHeight));
+
+        /// <summary>
+        /// Defines the bottom edge brush.
+        /// </summary>
+        public static readonly StyledProperty<IBrush?> BottomEdgeBrushProperty = AvaloniaProperty
+            .Register<XBorder, IBrush?>(nameof(BottomEdgeBrush));
+
+        /// <summary>
+        /// Indicates if show the bottom edge.
+        /// </summary>
+        public static readonly StyledProperty<bool> ShowBottomEdgeProperty = AvaloniaProperty
+            .Register<XBorder, bool>(nameof(ShowBottomEdge), true);
+
+
+
+        private readonly BorderRenderHelper _borderRenderHelper = new();
         private Thickness? _layoutThickness;
         private double _scale;
-        private CompositionBorderVisual? _borderVisual;
 
         /// <summary>
         /// Initializes static members of the <see cref="XBorder"/> class.
@@ -54,7 +79,10 @@ namespace Nlnet.Avalonia.Css.Controls
                 BorderBrushProperty,
                 BorderThicknessProperty,
                 CornerRadiusProperty,
-                BoxShadowProperty);
+                BoxShadowProperty,
+                ShowXBorderProperty,
+                BottomEdgeHeightProperty,
+                BottomEdgeBrushProperty);
             AffectsMeasure<XBorder>(BorderThicknessProperty);
         }
 
@@ -68,8 +96,7 @@ namespace Nlnet.Avalonia.Css.Controls
                     _layoutThickness = null;
                     break;
                 case nameof(CornerRadius):
-                    if (_borderVisual != null)
-                        _borderVisual.CornerRadius = CornerRadius;
+                    
                     break;
             }
         }
@@ -119,6 +146,42 @@ namespace Nlnet.Avalonia.Css.Controls
             set => SetValue(BoxShadowProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the value that indicates if show the x border.
+        /// </summary>
+        public bool ShowXBorder
+        {
+            get => GetValue(ShowXBorderProperty);
+            set => SetValue(ShowXBorderProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the height of bottom edge.
+        /// </summary>
+        public double BottomEdgeHeight
+        {
+            get { return GetValue(BottomEdgeHeightProperty); }
+            set { SetValue(BottomEdgeHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the bottom edge brush.
+        /// </summary>
+        public IBrush? BottomEdgeBrush
+        {
+            get { return GetValue(BottomEdgeBrushProperty); }
+            set { SetValue(BottomEdgeBrushProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the value that indicates if show the bottom edge.
+        /// </summary>
+        public bool ShowBottomEdge
+        {
+            get { return GetValue(ShowBottomEdgeProperty); }
+            set { SetValue(ShowBottomEdgeProperty, value); }
+        }
+
         private Thickness LayoutThickness
         {
             get
@@ -155,6 +218,16 @@ namespace Nlnet.Avalonia.Css.Controls
         /// <param name="context">The drawing context.</param>
         public sealed override void Render(DrawingContext context)
         {
+            if (ShowXBorder)
+            {
+                var rect = new Rect(Bounds.X, Bounds.Bottom - 2, Bounds.Width, 2);
+                var corner = CornerRadius.BottomLeft + 2;
+                using (context.PushClip(rect))
+                {
+                    context.DrawRectangle(null, new Pen(Brush.Parse("#c1c1c1")), Bounds, corner,corner);
+                }
+            }
+
             _borderRenderHelper.Render(
                 context,
                 Bounds.Size,
@@ -163,6 +236,16 @@ namespace Nlnet.Avalonia.Css.Controls
                 Background,
                 BorderBrush,
                 BoxShadow);
+
+            if (BottomEdgeHeight > 0 && ShowBottomEdge)
+            {
+                var rect = new Rect(Bounds.X-1, Bounds.Bottom - BottomEdgeHeight, Bounds.Width + 2, BottomEdgeHeight);
+                var corner = CornerRadius.BottomLeft + 2;
+                using (context.PushClip(rect))
+                {
+                    context.DrawRectangle(BottomEdgeBrush, null, Bounds, corner, corner);
+                }
+            }
         }
 
         /// <summary>
@@ -183,14 +266,6 @@ namespace Nlnet.Avalonia.Css.Controls
         protected override Size ArrangeOverride(Size finalSize)
         {
             return LayoutHelper.ArrangeChild(Child, finalSize, Padding, BorderThickness);
-        }
-
-        private protected override CompositionDrawListVisual CreateCompositionVisual(Compositor compositor)
-        {
-            return _borderVisual = new CompositionBorderVisual(compositor, this)
-            {
-                CornerRadius = CornerRadius
-            };
         }
 
         public CornerRadius ClipToBoundsRadius => CornerRadius;

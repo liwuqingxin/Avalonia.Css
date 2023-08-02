@@ -25,7 +25,7 @@ internal class BorderRenderHelper
         this._backendSupportsIndividualCorners.GetValueOrDefault();
         if (!this._backendSupportsIndividualCorners.HasValue)
         {
-            this._backendSupportsIndividualCorners = new bool?(AvaloniaLocator.Current.GetRequiredService<IPlatformRenderInterface>().SupportsIndividualRoundRects);
+            this._backendSupportsIndividualCorners = true;
         }
         this._size            = finalSize;
         this._borderThickness = borderThickness;
@@ -49,12 +49,12 @@ internal class BorderRenderHelper
         this._useComplexRendering = true;
         Rect                                       boundRect1      = new Rect(finalSize);
         Rect                                       boundRect2      = boundRect1.Deflate(borderThickness);
-        BorderRenderHelper.BorderGeometryKeypoints keypoints1      = (BorderRenderHelper.BorderGeometryKeypoints)null;
+        BorderRenderHelper.BorderGeometryKeyPoints keypoints1      = (BorderRenderHelper.BorderGeometryKeyPoints)null;
         StreamGeometry                             streamGeometry1 = (StreamGeometry)null;
         if (boundRect2.Width != 0.0 && boundRect2.Height != 0.0)
         {
             streamGeometry1 = new StreamGeometry();
-            keypoints1 = new BorderRenderHelper.BorderGeometryKeypoints(boundRect2, borderThickness, cornerRadius, true);
+            keypoints1 = new BorderRenderHelper.BorderGeometryKeyPoints(boundRect2, borderThickness, cornerRadius, true);
             using (StreamGeometryContext context = streamGeometry1.Open())
                 BorderRenderHelper.CreateGeometry(context, boundRect2, keypoints1);
             this._backgroundGeometryCache = streamGeometry1;
@@ -63,7 +63,7 @@ internal class BorderRenderHelper
             this._backgroundGeometryCache = (StreamGeometry)null;
         if (boundRect1.Width != 0.0 && boundRect1.Height != 0.0)
         {
-            BorderRenderHelper.BorderGeometryKeypoints keypoints2 = new BorderRenderHelper.BorderGeometryKeypoints(boundRect1, borderThickness, cornerRadius, false);
+            BorderRenderHelper.BorderGeometryKeyPoints keypoints2 = new BorderRenderHelper.BorderGeometryKeyPoints(boundRect1, borderThickness, cornerRadius, false);
             StreamGeometry streamGeometry2 = new StreamGeometry();
             using (StreamGeometryContext context = streamGeometry2.Open())
             {
@@ -135,66 +135,66 @@ internal class BorderRenderHelper
     private static void CreateGeometry(
         StreamGeometryContext context,
         Rect boundRect,
-        BorderRenderHelper.BorderGeometryKeypoints keypoints)
+        BorderRenderHelper.BorderGeometryKeyPoints keyPoints)
     {
-        context.BeginFigure(keypoints.TopLeft, true);
-        context.LineTo(keypoints.TopRight);
+        context.BeginFigure(keyPoints.TopLeft, true);
+        context.LineTo(keyPoints.TopRight);
         Point  topRight = boundRect.TopRight;
         double x1       = topRight.X;
-        topRight = keypoints.TopRight;
+        topRight = keyPoints.TopRight;
         double x2     = topRight.X;
         double width1 = x1 - x2;
-        Point  point1 = keypoints.RightTop;
+        Point  point1 = keyPoints.RightTop;
         double y1     = point1.Y;
         point1 = boundRect.TopRight;
         double y2      = point1.Y;
         double height1 = y1 - y2;
         if (width1 != 0.0 || height1 != 0.0)
-            context.ArcTo(keypoints.RightTop, new Size(width1, height1), 0.0, false, SweepDirection.Clockwise);
-        context.LineTo(keypoints.RightBottom);
+            context.ArcTo(keyPoints.RightTop, new Size(width1, height1), 0.0, false, SweepDirection.Clockwise);
+        context.LineTo(keyPoints.RightBottom);
         double x3          = boundRect.BottomRight.X;
-        Point  bottomRight = keypoints.BottomRight;
+        Point  bottomRight = keyPoints.BottomRight;
         double x4          = bottomRight.X;
         double width2      = x3 - x4;
         bottomRight = boundRect.BottomRight;
         double y3      = bottomRight.Y;
-        Point  point2  = keypoints.RightBottom;
+        Point  point2  = keyPoints.RightBottom;
         double y4      = point2.Y;
         double height2 = y3 - y4;
         if (width2 != 0.0 || height2 != 0.0)
-            context.ArcTo(keypoints.BottomRight, new Size(width2, height2), 0.0, false, SweepDirection.Clockwise);
-        context.LineTo(keypoints.BottomLeft);
-        point2 = keypoints.BottomLeft;
+            context.ArcTo(keyPoints.BottomRight, new Size(width2, height2), 0.0, false, SweepDirection.Clockwise);
+        context.LineTo(keyPoints.BottomLeft);
+        point2 = keyPoints.BottomLeft;
         double x5 = point2.X;
         point2 = boundRect.BottomLeft;
         double x6     = point2.X;
         double width3 = x5 - x6;
         point2 = boundRect.BottomLeft;
         double y5 = point2.Y;
-        point2 = keypoints.LeftBottom;
+        point2 = keyPoints.LeftBottom;
         double y6      = point2.Y;
         double height3 = y5 - y6;
         if (width3 != 0.0 || height3 != 0.0)
-            context.ArcTo(keypoints.LeftBottom, new Size(width3, height3), 0.0, false, SweepDirection.Clockwise);
-        context.LineTo(keypoints.LeftTop);
-        point2 = keypoints.TopLeft;
+            context.ArcTo(keyPoints.LeftBottom, new Size(width3, height3), 0.0, false, SweepDirection.Clockwise);
+        context.LineTo(keyPoints.LeftTop);
+        point2 = keyPoints.TopLeft;
         double x7 = point2.X;
         point2 = boundRect.TopLeft;
         double x8     = point2.X;
         double width4 = x7 - x8;
-        point2 = keypoints.LeftTop;
+        point2 = keyPoints.LeftTop;
         double y7 = point2.Y;
         point2 = boundRect.TopLeft;
         double y8      = point2.Y;
         double height4 = y7 - y8;
         if (width4 != 0.0 || height4 != 0.0)
-            context.ArcTo(keypoints.TopLeft, new Size(width4, height4), 0.0, false, SweepDirection.Clockwise);
+            context.ArcTo(keyPoints.TopLeft, new Size(width4, height4), 0.0, false, SweepDirection.Clockwise);
         context.EndFigure(true);
     }
 
-    private class BorderGeometryKeypoints
+    private class BorderGeometryKeyPoints
     {
-        internal BorderGeometryKeypoints(
+        internal BorderGeometryKeyPoints(
             Rect boundRect,
             Thickness borderThickness,
             CornerRadius cornerRadius,

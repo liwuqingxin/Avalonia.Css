@@ -21,10 +21,7 @@
     ]
 
     [[
-        :not(:disabled):not(:is-part):not(:pressed) /template/ Border#RootBorder{
-            BoxShadow: var(button-shadow);
-        }
-         /template/ PathIcon#DropDownGlyph{
+        /template/ PathIcon#DropDownGlyph{
             Width:9;
             Height:9;
             Margin:0,0,10,0;
@@ -41,10 +38,12 @@
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        :pressed:not(:is-part){
+        :pressed{
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
-            ClipToBounds:True;
+        }
+        :pressed /template/ XBorder#PART_Border{
+            ShowXBorder:false;
         }
         :disabled{
             Opacity:0.4;

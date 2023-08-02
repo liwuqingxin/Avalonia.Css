@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls">
+                    xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
+                    xmlns:nlnet="https://www.nlnet.com/avalonia">
 
     <converters:CornerRadiusFilterConverter x:Key="TopCornerRadiusFilterConverter" Filter="TopLeft, TopRight" />
     <converters:CornerRadiusFilterConverter x:Key="RightCornerRadiusFilterConverter" Filter="TopRight, BottomRight" />
@@ -11,11 +12,11 @@
     <ControlTheme x:Key="FluentExpanderToggleButtonTheme" TargetType="ToggleButton">
         <Setter Property="ToggleButton.Template">
             <ControlTemplate TargetType="ToggleButton">
-                <Border x:Name="ToggleButtonBackground"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                <nlnet:XBorder x:Name="ToggleButtonBackground"
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid x:Name="ToggleButtonGrid" ColumnDefinitions="*,Auto">
                         <ContentPresenter x:Name="PART_ContentPresenter"
                                           Margin="{TemplateBinding Padding}"
@@ -28,7 +29,7 @@
                             <Path x:Name="ExpandCollapseChevron" />
                         </Border>
                     </Grid>
-                </Border>
+                </nlnet:XBorder>
             </ControlTemplate>
         </Setter>
     </ControlTheme>

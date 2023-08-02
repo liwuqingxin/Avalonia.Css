@@ -1,5 +1,6 @@
 ﻿
 ^TextBox {
+    CaretBrush: var(fore);
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -37,23 +38,15 @@
          /template/ TextPresenter#PART_TextPresenter {
             ClipToBounds:True;
         }
-         /template/ Border#PART_Indicator {
-            Background:var(Accent);
-            Height: 1;
-            Margin: 8,0,8,-1;
-            Opacity: 0;
-            CornerRadius:1;
-            VerticalAlignment:Bottom;
-            RenderTransform: scale(0,1);
+        
+        /template/ XBorder#PART_Border{
+            BottomEdgeBrush:var(Accent);
             Transitions:[
-                TransformOperationsTransition(TemplatedControl.RenderTransform 0.14 0 CircularEaseInOut);
-                var(gstOpacity);
+                DoubleTransition(XBorder.BottomEdgeHeight 0.2 0 CircularEaseInOut);
             ]
         }
-        :focus-within /template/ Border#PART_Indicator {
-            Opacity: 1;
-            RenderTransform:scale(1,1);
-            Margin: 2,0,2,-1;
+        :focus-within /template/ XBorder#PART_Border{
+            BottomEdgeHeight:2;
         }
         :disabled{
             Opacity:0.4;
