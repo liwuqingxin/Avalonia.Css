@@ -8,27 +8,27 @@ using DynamicData;
 
 namespace Nlnet.Avalonia.Css
 {
-    internal interface ICssAnimation : ICssSection
+    internal interface IAcssAnimation : IAcssSection
     {
         IAnimation? ToAvaloniaAnimation();
     }
 
-    internal class CssAnimation : CssSection, ICssAnimation
+    internal class AcssAnimation : AcssSection, IAcssAnimation
     {
         private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
 
-        private readonly ICssBuilder _builder;
+        private readonly IAcssBuilder _builder;
 
         private Animation? _animation;
 
         public string? Description { get; set; }
 
-        public CssAnimation(ICssBuilder builder, string selector) : base(builder, selector)
+        public AcssAnimation(IAcssBuilder builder, string selector) : base(builder, selector)
         {
             _builder = builder;
         }
 
-        public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
+        public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
         {
             var matchDesc = RegexDescription.Match(Selector);
             if (matchDesc.Success)
@@ -36,9 +36,9 @@ namespace Nlnet.Avalonia.Css
                 Description = matchDesc.Groups[1].Value;
             }
 
-            if (Parent is not ICssStyle style)
+            if (Parent is not IAcssStyle style)
             {
-                this.WriteError($"The parent of {nameof(CssAnimation)} must be {nameof(CssStyle)}. Skip it.");
+                this.WriteError($"The parent of {nameof(AcssAnimation)} must be {nameof(AcssStyle)}. Skip it.");
                 return;
             }
             if (style.GetSelector() is not { } selector)

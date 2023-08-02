@@ -114,9 +114,9 @@ namespace Nlnet.Avalonia.Css.App
 
             if (propertyName is nameof(Theme))
             {
-                CssBuilder.Default.Configuration.Theme = Theme;
+                AcssBuilder.Default.Configuration.Theme = Theme;
 
-                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is CssFluentTheme) as CssFluentTheme;
+                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
                 cssTheme?.UpdateTheme(false);
                 cssTheme?.UpdateResource(false);
             }

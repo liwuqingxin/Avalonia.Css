@@ -7,22 +7,22 @@ using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface ICssResourceFactory
+internal interface IAcssResourceFactory
 {
-    public bool TryGetResourceInstance(string resourceString, out CssResource? resource);
+    public bool TryGetResourceInstance(string resourceString, out AcssResource? resource);
 }
 
-internal class CssResourceFactory : ICssResourceFactory
+internal class AcssResourceFactory : IAcssResourceFactory
 {
-    private readonly ICssBuilder _builder;
+    private readonly IAcssBuilder _builder;
 
     private static readonly Dictionary<string, IResourceFactory> Factories = new(StringComparer.OrdinalIgnoreCase);
 
     private static readonly Regex Regex;
 
-    static CssResourceFactory()
+    static AcssResourceFactory()
     {
-        var factories = typeof(CssResourceFactory).Assembly
+        var factories = typeof(AcssResourceFactory).Assembly
             .GetTypes()
             .Where(t => t.IsAssignableTo(typeof(IResourceFactory)) && t.IsAbstract == false)
             .Select(t =>
@@ -52,12 +52,12 @@ internal class CssResourceFactory : ICssResourceFactory
         Regex = new Regex(builder.ToString(), RegexOptions.IgnoreCase);
     }
 
-    public CssResourceFactory(ICssBuilder builder)
+    public AcssResourceFactory(IAcssBuilder builder)
     {
         _builder = builder;
     }
 
-    public bool TryGetResourceInstance(string resourceString, out CssResource? resource)
+    public bool TryGetResourceInstance(string resourceString, out AcssResource? resource)
     {
         var match = Regex.Match(resourceString);
         if (match.Success == false)

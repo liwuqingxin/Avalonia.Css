@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css
 {
     internal class TransitionsParser
     {
-        public static Transitions? Parse(ICssBuilder builder, string transitionsString)
+        public static Transitions? Parse(IAcssBuilder builder, string transitionsString)
         {
             var interpreter    = builder.Interpreter;
             var transitions    = new Transitions();

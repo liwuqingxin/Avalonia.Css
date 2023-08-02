@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(Double))]
 internal class DoubleResource : CssResourceBaseAndFac<DoubleResource>
 {
-    protected override object? Accept(ICssBuilder cssBuilder, string valueString)
+    protected override object? Accept(IAcssBuilder cssBuilder, string valueString)
     {
         if (double.TryParse(valueString, out var doubleValue))
         {

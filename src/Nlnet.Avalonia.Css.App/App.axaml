@@ -6,7 +6,7 @@
 
     <Application.Styles>
         <FluentTheme />
-        <fluent:CssFluentTheme />
+        <fluent:AcssFluentTheme />
     </Application.Styles>
 
     <Application.Resources>

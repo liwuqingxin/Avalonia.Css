@@ -9,7 +9,7 @@ using DynamicData;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface ICssStyle : ICssSection, IDisposable
+internal interface IAcssStyle : IAcssSection, IDisposable
 {
     public bool IsThemeChild { get; }
 
@@ -17,13 +17,13 @@ internal interface ICssStyle : ICssSection, IDisposable
 
     public Type? ThemeTargetType { get; }
 
-    public IEnumerable<ICssSetter>? Setters { get; set; }
+    public IEnumerable<IAcssSetter>? Setters { get; set; }
 
-    public IEnumerable<ICssStyle>? Styles { get; set; }
+    public IEnumerable<IAcssStyle>? Styles { get; set; }
 
-    public IEnumerable<ICssResourceDictionary>? Resources { get; set; }
+    public IEnumerable<IAcssResourceDictionary>? Resources { get; set; }
 
-    public IEnumerable<ICssAnimation>? Animations { get; set; }
+    public IEnumerable<IAcssAnimation>? Animations { get; set; }
 
     public Selector? GetSelector();
 
@@ -34,9 +34,9 @@ internal interface ICssStyle : ICssSection, IDisposable
     void AddDisposable(IDisposable disposable);
 }
 
-internal class CssStyle : CssSection, ICssStyle
+internal class AcssStyle : AcssSection, IAcssStyle
 {
-    private readonly ICssBuilder _builder;
+    private readonly IAcssBuilder _builder;
     private Selector? _selector;
     private CompositeDisposable? _compositeDisposable;
 
@@ -46,76 +46,76 @@ internal class CssStyle : CssSection, ICssStyle
 
     public Type? ThemeTargetType { get; set; }
 
-    public IEnumerable<ICssSetter>? Setters { get; set; }
+    public IEnumerable<IAcssSetter>? Setters { get; set; }
 
-    public IEnumerable<ICssStyle>? Styles { get; set; }
+    public IEnumerable<IAcssStyle>? Styles { get; set; }
 
-    public IEnumerable<ICssResourceDictionary>? Resources { get; set; }
+    public IEnumerable<IAcssResourceDictionary>? Resources { get; set; }
 
-    public IEnumerable<ICssAnimation>? Animations { get; set; }
+    public IEnumerable<IAcssAnimation>? Animations { get; set; }
 
-    public CssStyle(ICssBuilder builder, string selector) : base(builder, selector)
+    public AcssStyle(IAcssBuilder builder, string selector) : base(builder, selector)
     {
         _builder = builder;
     }
 
-    public override void InitialSection(ICssParser parser, ReadOnlySpan<char> content)
+    public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
         _selector = CreateSelector();
 
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
 
         var pairs = parser.ParsePairs(settersSpan);
-        var cssSetters = new List<ICssSetter>();
+        var acssSetters = new List<IAcssSetter>();
         foreach (var pair in pairs)
         {
             if (pair.Item1.StartsWith(BehaviorConstraints.AddToken) || pair.Item1.StartsWith(BehaviorConstraints.RemoveToken))
             {
-                cssSetters.Add(new CssSetter(pair.Item1, pair.Item2));
+                acssSetters.Add(new AcssSetter(pair.Item1, pair.Item2));
                 continue;
             }
-            var index = cssSetters.FindIndex(s => s.Property == pair.Item1);
+            var index = acssSetters.FindIndex(s => s.Property == pair.Item1);
             if (index != -1)
             {
-                cssSetters.RemoveAt(index);
-                cssSetters.Insert(index, new CssSetter(pair.Item1, pair.Item2));
+                acssSetters.RemoveAt(index);
+                acssSetters.Insert(index, new AcssSetter(pair.Item1, pair.Item2));
                 this.WriteError($"Duplicated setter for property '{pair.Item1}' is detected. Use the later one that value is '{pair.Item2}'.");
             }
             else
             {
-                cssSetters.Add(new CssSetter(pair.Item1, pair.Item2));
+                acssSetters.Add(new AcssSetter(pair.Item1, pair.Item2));
             }
         }
-        Setters = cssSetters;
+        Setters = acssSetters;
         var list = parser.ParseSections(this, childrenSpan).ToList();
         if (list.Count > 0)
         {
             Children   = list;
-            Styles     = list.OfType<ICssStyle>();
-            Resources  = list.OfType<ICssResourceDictionary>();
-            Animations = list.OfType<ICssAnimation>();
+            Styles     = list.OfType<IAcssStyle>();
+            Resources  = list.OfType<IAcssResourceDictionary>();
+            Animations = list.OfType<IAcssAnimation>();
         }
     }
 
-    Type? ICssStyle.GetParentTargetType()
+    Type? IAcssStyle.GetParentTargetType()
     {
         if (ThemeTargetType != null)
         {
             return ThemeTargetType;
         }
 
-        if (Parent is not ICssStyle cssStyle)
+        if (Parent is not IAcssStyle acssStyle)
         {
             return null;
         }
 
-        var parentSelectorTargetType = cssStyle.GetSelector()?.GetTargetType();
+        var parentSelectorTargetType = acssStyle.GetSelector()?.GetTargetType();
         if (parentSelectorTargetType != null)
         {
             return parentSelectorTargetType;
         }
 
-        return cssStyle.GetParentTargetType();
+        return acssStyle.GetParentTargetType();
     }
 
     private Selector? CreateSelector()
@@ -166,7 +166,7 @@ internal class CssStyle : CssSection, ICssStyle
         DiagnosisHelper.WriteLine($"---- Parsing style '{this}'.");
 
         var style = NewStyle();
-        var targetType = style.Selector?.GetTargetType() ?? ((ICssStyle)this).GetParentTargetType();
+        var targetType = style.Selector?.GetTargetType() ?? ((IAcssStyle)this).GetParentTargetType();
         if (targetType == null)
         {
             this.WriteError($"The target type is null. Empty avalonia style is created.");
@@ -176,14 +176,14 @@ internal class CssStyle : CssSection, ICssStyle
         // Resources
         if (Resources != null)
         {
-            foreach (var cssResourceList in Resources)
+            foreach (var acssResourceList in Resources)
             {
-                var dic = cssResourceList.ToAvaloniaResourceDictionary(_builder);
+                var dic = acssResourceList.ToAvaloniaResourceDictionary(_builder);
                 if (dic != null)
                 {
-                    if (cssResourceList.IsModeResource())
+                    if (acssResourceList.IsModeResource())
                     {
-                        style.Resources.ThemeDictionaries.Add(cssResourceList.GetThemeVariant(), dic);
+                        style.Resources.ThemeDictionaries.Add(acssResourceList.GetThemeVariant(), dic);
                     }
                     else
                     {
@@ -205,19 +205,19 @@ internal class CssStyle : CssSection, ICssStyle
         // Children Styles
         if (Styles != null)
         {
-            foreach (var cssStyle in Styles)
+            foreach (var acssStyle in Styles)
             {
-                if (cssStyle.IsLogicalChild)
+                if (acssStyle.IsLogicalChild)
                 {
                     var existSetter = style.Setters.OfType<Setter>().FirstOrDefault(s => s.Property == ExStyler.AddingStyleProperty);
-                    if (existSetter?.Value is IList<ICssStyle> list)
+                    if (existSetter?.Value is IList<IAcssStyle> list)
                     {
-                        list.Add(cssStyle);
+                        list.Add(acssStyle);
                     }
                     else
                     {
-                        list = new List<ICssStyle>();
-                        list.Add(cssStyle);
+                        list = new List<IAcssStyle>();
+                        list.Add(acssStyle);
                         var setter = new Setter()
                         {
                             Property = ExStyler.AddingStyleProperty,
@@ -228,7 +228,7 @@ internal class CssStyle : CssSection, ICssStyle
                 }
                 else
                 {
-                    var childStyle = cssStyle.ToAvaloniaStyle();
+                    var childStyle = acssStyle.ToAvaloniaStyle();
                     style.Add(childStyle);
                 }
             }
@@ -237,9 +237,9 @@ internal class CssStyle : CssSection, ICssStyle
         // Style Animations
         if (Animations != null)
         {
-            foreach (var cssAnimation in Animations)
+            foreach (var acssAnimation in Animations)
             {
-                var animation = cssAnimation.ToAvaloniaAnimation();
+                var animation = acssAnimation.ToAvaloniaAnimation();
                 if (animation != null)
                 {
                     style.Animations.Add(animation);
@@ -279,7 +279,7 @@ internal class CssStyle : CssSection, ICssStyle
         {
             styleKind = ">";
         }
-        else if (Parent is ICssStyle parentCssStyle)
+        else if (Parent is IAcssStyle parentAcssStyle)
         {
             styleKind = $" - ";
         }
@@ -293,9 +293,9 @@ internal class CssStyle : CssSection, ICssStyle
         builder.AppendLine($"'{Selector}'");
         if (Setters != null)
         {
-            foreach (var cssSetter in Setters)
+            foreach (var acssSetter in Setters)
             {
-                builder.AppendLine($"    {cssSetter.ToString()}");
+                builder.AppendLine($"    {acssSetter.ToString()}");
             }
         }
         return builder.ToString();
@@ -308,9 +308,9 @@ internal class CssStyle : CssSection, ICssStyle
 
         if (Styles != null)
         {
-            foreach (var cssStyle in Styles)
+            foreach (var acssStyle in Styles)
             {
-                cssStyle.Dispose();
+                acssStyle.Dispose();
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface ICssParser
+internal interface IAcssParser
 {
     /// <summary>
     /// Try parsing section objects like 'definition { setters...}'.
@@ -18,7 +18,7 @@ internal interface ICssParser
     /// <param name="parent"></param>
     /// <param name="span"></param>
     /// <returns></returns>
-    public IEnumerable<ICssSection> ParseSections(ICssSection? parent, ReadOnlySpan<char> span);
+    public IEnumerable<IAcssSection> ParseSections(IAcssSection? parent, ReadOnlySpan<char> span);
 
     /// <summary>
     /// Try parsing pairs like 'key:value; key2:value2...'. Note that string can be wrapped by a '.

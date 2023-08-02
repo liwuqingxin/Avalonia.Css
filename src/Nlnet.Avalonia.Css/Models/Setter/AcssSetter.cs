@@ -4,22 +4,22 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface ICssSetter
+internal interface IAcssSetter
 {
     public string? Property { get; set; }
 
     public string? RawValue { get; set; }
 
-    public Setter? ToAvaloniaSetter(ICssBuilder builder, Type targetType);
+    public Setter? ToAvaloniaSetter(IAcssBuilder builder, Type targetType);
 }
 
-internal class CssSetter : ICssSetter
+internal class AcssSetter : IAcssSetter
 {
     public string? Property { get; set; }
 
     public string? RawValue { get; set; }
 
-    public CssSetter(string setterString)
+    public AcssSetter(string setterString)
     {
         var index = setterString.IndexOf(':');
         if (index == -1)
@@ -31,13 +31,13 @@ internal class CssSetter : ICssSetter
         RawValue = setterString.Substring(index + 1, setterString.Length - index - 1);
     }
 
-    public CssSetter(string name, string value)
+    public AcssSetter(string name, string value)
     {
         Property = name;
         RawValue = value;
     }
 
-    public Setter? ToAvaloniaSetter(ICssBuilder builder, Type targetType)
+    public Setter? ToAvaloniaSetter(IAcssBuilder builder, Type targetType)
     {
         if (Property == null)
         {

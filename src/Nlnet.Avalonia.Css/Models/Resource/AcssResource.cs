@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css
 {
-    internal abstract class CssResource
+    internal abstract class AcssResource
     {
         public string? Key { get; set; }
 
@@ -12,13 +12,13 @@ namespace Nlnet.Avalonia.Css
 
         public bool IsDeferred { get; set; } = false;
 
-        public void AcceptCore(ICssBuilder cssBuilder, string key, string valueString)
+        public void AcceptCore(IAcssBuilder cssBuilder, string key, string valueString)
         {
             Key   = key;
             Value = Accept(cssBuilder, valueString);
         }
 
-        protected abstract object? Accept(ICssBuilder cssBuilder, string valueString);
+        protected abstract object? Accept(IAcssBuilder acssBuilder, string valueString);
         
         public virtual object? GetDeferredValue(IServiceProvider? provider)
         {
@@ -28,13 +28,13 @@ namespace Nlnet.Avalonia.Css
 
     internal interface IResourceFactory
     {
-        public CssResource Create();
+        public AcssResource Create();
     }
 
 
-    internal abstract class CssResourceBaseAndFac<T> : CssResource, IResourceFactory where T : CssResource, new()
+    internal abstract class CssResourceBaseAndFac<T> : AcssResource, IResourceFactory where T : AcssResource, new()
     {
-        CssResource IResourceFactory.Create()
+        AcssResource IResourceFactory.Create()
         {
             return new T();
         }

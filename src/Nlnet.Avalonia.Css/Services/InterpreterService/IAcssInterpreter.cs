@@ -7,9 +7,9 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface ICssInterpreter
+internal interface IAcssInterpreter
 {
-    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, IEnumerable<ISyntax> syntaxList);
+    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, IEnumerable<ISyntax> syntaxList);
 
     public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property);
 

@@ -8,8 +8,8 @@ namespace Nlnet.Avalonia.Css.App
 {
     public partial class App : Application
     {
-        public ICssFile? BeforeLoadedCssFile;
-        public ICssFile? AfterLoadedCssFile;
+        public IAcssFile? BeforeLoadedCssFile;
+        public IAcssFile? AfterLoadedCssFile;
 
         public override void Initialize()
         {
@@ -18,10 +18,10 @@ namespace Nlnet.Avalonia.Css.App
             AppLoader.Load("Avalonia.DevTools.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
-            CssBuilder.UseDefaultBuilder();
+            AcssBuilder.UseDefaultBuilder();
 
             // Set the current mode and theme.
-            CssBuilder.Default.Configuration.Theme = "blue";
+            AcssBuilder.Default.Configuration.Theme = "blue";
 
             // Type resolver for Nlnet.Avalonia.Css.App
             //CssBuilder.Default.LoadResolver(new GenericResolver<App>());
@@ -38,13 +38,13 @@ namespace Nlnet.Avalonia.Css.App
             if (Application.Current != null)
             {
                 // Load application acss files.
-                var loader = CssBuilder.Default.BuildLoader();
+                var loader = AcssBuilder.Default.BuildLoader();
                 const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
 
-                BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
+                BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Acss/before.loaded.acss", debugRelative);
                 Dispatcher.UIThread.Post(() =>
                 {
-                    AfterLoadedCssFile = loader.Load(Application.Current.Styles, "Css/after.loaded.acss", debugRelative);
+                    AfterLoadedCssFile = loader.Load(Application.Current.Styles, "Acss/after.loaded.acss", debugRelative);
                 });    
             }
         }
@@ -56,9 +56,9 @@ namespace Nlnet.Avalonia.Css.App
                 return;
             }
 
-            var loader = CssBuilder.Default.BuildLoader();
+            var loader = AcssBuilder.Default.BuildLoader();
             const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
-            BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Css/before.loaded.acss", debugRelative);
+            BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Acss/before.loaded.acss", debugRelative);
         }
 
         public override void OnFrameworkInitializationCompleted()

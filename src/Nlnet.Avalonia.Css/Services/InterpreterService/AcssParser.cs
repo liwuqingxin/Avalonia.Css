@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Nlnet.Avalonia.Css;
 
-internal class CssParser : ICssParser
+internal class AcssParser : IAcssParser
 {
-    private readonly ICssBuilder _builder;
+    private readonly IAcssBuilder _builder;
 
-    public CssParser(ICssBuilder builder)
+    public AcssParser(IAcssBuilder builder)
     {
         _builder = builder;
     }
@@ -57,7 +57,7 @@ internal class CssParser : ICssParser
         return list;
     }
 
-    public IEnumerable<ICssSection> ParseSections(ICssSection? parent, ReadOnlySpan<char> span)
+    public IEnumerable<IAcssSection> ParseSections(IAcssSection? parent, ReadOnlySpan<char> span)
     {
         var list = new List<(string, string)>();
 

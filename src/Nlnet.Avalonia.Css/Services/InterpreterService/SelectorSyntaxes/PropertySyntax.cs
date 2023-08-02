@@ -8,9 +8,9 @@ internal class PropertySyntax : ISyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
+    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
     {
-        var previousTargetType = previous?.GetTargetType() ?? cssStyle.GetParentTargetType();
+        var previousTargetType = previous?.GetTargetType() ?? acssStyle.GetParentTargetType();
         if (previousTargetType == null)
         {
             this.WriteError($"Previous selector's TargetType and parent target type is null. '[{Property}={Value}]' skipped.");

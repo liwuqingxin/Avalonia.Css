@@ -9,7 +9,7 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void RemoveCommentsTest()
         {
-            ICssBuilder builder = new CssBuilder();
+            IAcssBuilder builder = new AcssBuilder();
             var         parser  = builder.Parser;
 
             var s1 = parser.RemoveComments("/**/abc".ToCharArray());
@@ -34,33 +34,33 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void EfficientCssParserTest()
         {
-            ICssBuilder builder  = new CssBuilder();
+            IAcssBuilder builder  = new AcssBuilder();
 
             var parser   = builder.Parser;
             var cssFile  = File.ReadAllText("./Assets/nlnet.blog.css");
             var sections = parser.ParseSections(null, cssFile);
-            var styles   = sections.OfType<ICssStyle>();
+            var styles   = sections.OfType<IAcssStyle>();
 
-            foreach (var cssStyle in styles)
+            foreach (var acssStyle in styles)
             {
-                Trace.WriteLine(cssStyle.ToString());
+                Trace.WriteLine(acssStyle.ToString());
             }
         }
 
         [TestMethod]
         public void TypeProviderTest()
         {
-            ICssBuilder builder  = new CssBuilder();
+            IAcssBuilder builder  = new AcssBuilder();
 
-            var cssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
+            var acssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
             var parser   = builder.Parser;
-            var css      = parser.RemoveComments(new Span<char>(cssFile.ToCharArray()));
+            var css      = parser.RemoveComments(new Span<char>(acssFile.ToCharArray()));
             var sections = parser.ParseSections(null, css);
-            var styles   = sections.OfType<ICssStyle>();
+            var styles   = sections.OfType<IAcssStyle>();
 
-            foreach (var cssStyle in styles)
+            foreach (var acssStyle in styles)
             {
-                var style    = cssStyle.ToAvaloniaStyle();
+                var style    = acssStyle.ToAvaloniaStyle();
                 var selector = style!.Selector;
                 Trace.WriteLine(selector != null ? selector.ToString() : "<selector is null.>");
             }

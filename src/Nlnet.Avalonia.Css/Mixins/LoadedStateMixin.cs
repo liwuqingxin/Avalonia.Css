@@ -4,9 +4,6 @@ using Avalonia.Interactivity;
 
 namespace Nlnet.Avalonia.Css
 {
-    /// <summary>
-    /// About fake attached property definition, see <see cref="Animation"/>.<see cref="Animation.SetAnimator"/>.
-    /// </summary>
     public static class LoadedStateMixin
     {
         private const string Pseudo_IsLoaded = ":is-loaded";

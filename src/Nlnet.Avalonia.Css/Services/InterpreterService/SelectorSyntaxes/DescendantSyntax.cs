@@ -4,7 +4,7 @@ namespace Nlnet.Avalonia.Css;
 
 internal class DescendantSyntax : ISyntax
 {
-    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
+    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
     {
         return previous?.Descendant();
     }

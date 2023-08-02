@@ -5,18 +5,18 @@ using Nlnet.Avalonia.Senior.Controls;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
-    public partial class CssFluentTheme : Styles
+    public partial class AcssFluentTheme : Styles
     {
-        private ICssFile? _modeFile;
-        private ICssFile? _themeFile;
-        private ICssFile? _resourceFile;
+        private IAcssFile? _modeFile;
+        private IAcssFile? _themeFile;
+        private IAcssFile? _resourceFile;
         
-        static CssFluentTheme()
+        static AcssFluentTheme()
         {
             TemplatedControlExtension.Init();
         }
 
-        public CssFluentTheme()
+        public AcssFluentTheme()
         {
             AvaloniaXamlLoader.Load(this);
             Load();
@@ -24,27 +24,27 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         private void Load()
         {
-            CssBuilder.UseDefaultBuilder();
+            AcssBuilder.UseDefaultBuilder();
 
             // This is not added to application's styles till now. Register this to resource manager to enable resource access to this.
-            CssBuilder.Default.ResourceProvidersManager.RegisterResourceProvider(this);
+            AcssBuilder.Default.ResourceProvidersManager.RegisterResourceProvider(this);
 
             // Nlnet.Avalonia.Css.Controls
-            CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingPresenter>());
+            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingPresenter>());
 
             // Nlnet.Avalonia.Senior
-            CssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());
+            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());
 
-            var loader = CssBuilder.Default.BuildLoader();
+            var loader = AcssBuilder.Default.BuildLoader();
 
             const string debugRelative = "../../../Nlnet.Avalonia.Css.Fluent/";
 
-            _modeFile     = loader.Load(this, "Css/Resources/Mode.acss",      debugRelative);
-            _themeFile    = loader.Load(this, "Css/Resources/Theme.acss",     debugRelative);
-            _resourceFile = loader.Load(this, "Css/Resources/Resources.acss", debugRelative);
+            _modeFile     = loader.Load(this, "Acss/Resources/Mode.acss",      debugRelative);
+            _themeFile    = loader.Load(this, "Acss/Resources/Theme.acss",     debugRelative);
+            _resourceFile = loader.Load(this, "Acss/Resources/Resources.acss", debugRelative);
 
-            loader.LoadFolder(this, "Css/", debugRelative);
-            loader.LoadFolder(this, "Css/Senior", debugRelative);
+            loader.LoadFolder(this, "Acss/", debugRelative);
+            loader.LoadFolder(this, "Acss/Senior", debugRelative);
         }
 
         public void UpdateResource(bool reapplyStyle)

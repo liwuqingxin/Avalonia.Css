@@ -14,9 +14,9 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
-    internal class CssInterpreter : ICssInterpreter
+    internal class AcssInterpreter : IAcssInterpreter
     {
-        private readonly ICssBuilder _builder;
+        private readonly IAcssBuilder _builder;
 
         // ' var (xxx) '
         private readonly Regex _varRegex = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
@@ -33,7 +33,7 @@ namespace Nlnet.Avalonia.Css
 
         private readonly IEnumerable<Type> _transitionsTypes;
 
-        public CssInterpreter(ICssBuilder builder)
+        public AcssInterpreter(IAcssBuilder builder)
         {
             _builder = builder;
             _transitionsTypes = typeof(Transition<>).Assembly
@@ -41,9 +41,9 @@ namespace Nlnet.Avalonia.Css
                 .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
         }
 
-        public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, IEnumerable<ISyntax> syntaxList)
+        public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, IEnumerable<ISyntax> syntaxList)
         {
-            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(builder, cssStyle, current));
+            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(builder, acssStyle, current));
         }
 
         public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property)
@@ -211,7 +211,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             // Internal parser.
-            var internalParserMethod = declaredType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(ICssBuilder), typeof(string) });
+            var internalParserMethod = declaredType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(IAcssBuilder), typeof(string) });
             if (internalParserMethod != null)
             {
                 return internalParserMethod.Invoke(declaredType, new object?[] { _builder, rawValue });

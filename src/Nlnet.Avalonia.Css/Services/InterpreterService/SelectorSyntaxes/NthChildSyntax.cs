@@ -7,7 +7,7 @@ internal class NthChildSyntax : ISyntax
     public int Offset { get; set; }
     public int Step { get; set; }
 
-    public Selector? ToSelector(ICssBuilder builder, ICssStyle cssStyle, Selector? previous)
+    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
     {
         return previous?.NthChild(Step, Offset);
     }

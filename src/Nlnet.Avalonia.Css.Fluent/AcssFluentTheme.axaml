@@ -1,4 +1,4 @@
-<Styles x:Class="Nlnet.Avalonia.Css.Fluent.CssFluentTheme"
+<Styles x:Class="Nlnet.Avalonia.Css.Fluent.AcssFluentTheme"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 

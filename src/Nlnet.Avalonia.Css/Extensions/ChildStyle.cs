@@ -4,17 +4,17 @@ namespace Nlnet.Avalonia.Css
 {
     internal class ChildStyle : Style
     {
-        public ICssStyle CssStyle { get; }
+        public IAcssStyle AcssStyle { get; }
 
-        public ChildStyle(ICssStyle cssStyle)
+        public ChildStyle(IAcssStyle acssStyle)
         {
-            CssStyle = cssStyle;
+            AcssStyle = acssStyle;
         }
     }
 
     internal class LogicChildStyle : ChildStyle
     {
-        public LogicChildStyle(ICssStyle cssStyle) : base(cssStyle)
+        public LogicChildStyle(IAcssStyle acssStyle) : base(acssStyle)
         {
 
         }
