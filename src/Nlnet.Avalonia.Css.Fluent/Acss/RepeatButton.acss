@@ -22,16 +22,16 @@
     ]
 
     [[
+        :not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
+            BoxShadow: var(button-shadow);
+        }
         :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        :pressed{
+        :pressed:not(:is-part){
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
-        }
-        :pressed /template/ XBorder#PART_Border{
-            ShowXBorder:false;
         }
         :disabled{
             Opacity:0.4;

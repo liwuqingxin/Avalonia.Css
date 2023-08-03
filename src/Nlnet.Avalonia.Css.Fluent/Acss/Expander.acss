@@ -102,7 +102,7 @@
 
 Expander{
     [[
-        /template/ ToggleButton:is-part XBorder#ToggleButtonBackground{
+        /template/ ToggleButton:is-part Border#ToggleButtonBackground{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
             Transitions:[
@@ -110,9 +110,11 @@ Expander{
                 var(gstCornerRadius)
             ]
         }
-        /template/ ToggleButton:pointerover XBorder#ToggleButtonBackground{
+        /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
             Background: var(control-back-hover);
-            ShowXBorder: true;
+        }
+        /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
+            BoxShadow: var(button-shadow);
         }
 
 

@@ -30,9 +30,6 @@
         :pressed{
             Opacity:0.6;
         }
-        :pressed /template/ XBorder#PART_Border{
-            ShowXBorder:False;
-        }
          /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }

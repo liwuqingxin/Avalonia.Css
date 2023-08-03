@@ -1,5 +1,4 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:nlnet="https://www.nlnet.com/avalonia">
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
         <Setter Property="Template">
@@ -33,13 +32,13 @@
                 <DataValidationErrors>
                     <Grid ColumnDefinitions="*,32">
 
-                        <nlnet:XBorder x:Name="PART_Border"
-                                       Grid.Column="0"
-                                       Grid.ColumnSpan="2"
-                                       Background="{TemplateBinding Background}"
-                                       BorderBrush="{TemplateBinding BorderBrush}"
-                                       BorderThickness="{TemplateBinding BorderThickness}"
-                                       CornerRadius="{TemplateBinding CornerRadius}" />
+                        <Border x:Name="Background"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}" />
 
                         <TextBlock x:Name="PlaceholderTextBlock"
                                    Grid.Column="0"
@@ -70,15 +69,11 @@
                                IsLightDismissEnabled="True"
                                IsOpen="{TemplateBinding IsDropDownOpen,
                                                         Mode=TwoWay}"
-                               PlacementTarget="PART_Border"
+                               PlacementTarget="Background"
                                WindowManagerAddShadowHint="False">
-                            <Border x:Name="PopupBorder"
-                                    MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
-                                <ScrollViewer
-                                    HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                    VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                    <ItemsPresenter Name="PART_ItemsPresenter"
-                                                    ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            <Border x:Name="PopupBorder" MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
                                 </ScrollViewer>
                             </Border>
                         </Popup>
