@@ -20,15 +20,24 @@ namespace Nlnet.Avalonia.Css.Test
             var s6 = parser.RemoveComments("abc/*a/*bc*/".ToCharArray());
             var s7 = parser.RemoveComments("abc/*a*/bc*/-".ToCharArray());
             var s8 = parser.RemoveComments("abc/*abc**//-".ToCharArray());
+            var s9 = parser.RemoveComments("ab/*c//asdf*/asd".ToCharArray());
+            var s10 = parser.RemoveComments("a//bc\rdef".ToCharArray());
+            var s11 = parser.RemoveComments("abc//d\nef".ToCharArray());
+            var s12 = parser.RemoveComments("ab//c\r\ndef".ToCharArray());
+
 
             Assert.AreEqual(s1.ToString(), "abc");
             Assert.AreEqual(s2.ToString(), "abc");
             Assert.AreEqual(s3.ToString(), "abc");
-            Assert.AreEqual(s4.ToString(), "abc/");
+            Assert.AreEqual(s4.ToString(), "abc");
             Assert.AreEqual(s5.ToString(), "abc");
             Assert.AreEqual(s6.ToString(), "abc");
             Assert.AreEqual(s7.ToString(), "abc-");
             Assert.AreEqual(s8.ToString(), "abc/-");
+            Assert.AreEqual(s9.ToString(), "abasd");
+            Assert.AreEqual(s10.ToString(), "adef");
+            Assert.AreEqual(s11.ToString(), "abcef");
+            Assert.AreEqual(s12.ToString(), "ab def");
         }
 
         [TestMethod]

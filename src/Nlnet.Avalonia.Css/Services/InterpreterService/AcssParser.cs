@@ -35,6 +35,18 @@ internal class AcssParser : IAcssParser
                     {
                         index = i + 1;
                     }
+                    else if (Check(span, i + 1, '/'))
+                    {
+                        if (index != -1)
+                        {
+                            builder.Append(span[index..i]);
+                        }
+                        index = SkipTill(span, i + 1, '\r', '\n');
+                        if (index > 0)
+                        {
+                            i = index - 1;
+                        }
+                    }
                     break;
                 case '\r':
                 case '\n':
@@ -61,6 +73,19 @@ internal class AcssParser : IAcssParser
         }
 
         return s[index] == ch;
+    }
+
+    private static int SkipTill(Span<char> span, int cur, params char[] chars)
+    {
+        for (var i = cur; i < span.Length; i++)
+        {
+            if (chars.Contains(span[i]))
+            {
+                return i + 1;
+            }
+        }
+
+        return -1;
     }
 
     public IEnumerable<(string, string)> ParseObjects(ReadOnlySpan<char> span)

@@ -34,7 +34,7 @@
         :disabled{
             Opacity:0.4;
         }
-        /* 主题分类 */
+        // 主题分类
         .primary, .Primary, [(ButtonStyles.Style)=Accent] {
             Background: var(Accent);
             Foreground: #fff;
