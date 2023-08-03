@@ -14,7 +14,7 @@ internal class AcssParser : IAcssParser
         _builder = builder;
     }
 
-    public ReadOnlySpan<char> RemoveComments(Span<char> span)
+    public ReadOnlySpan<char> RemoveCommentsAndLineBreaks(Span<char> span)
     {
         var builder = new StringBuilder();
         var index = 0;
@@ -207,7 +207,7 @@ internal class AcssParser : IAcssParser
         var name = string.Empty;
         string value;
         var afterColons = false;
-        var isInArrayCount = 0;
+        var isInChildCount = 0;
         var isInString = false;
 
         for (var i = 0; i < span.Length; i++)
@@ -215,7 +215,7 @@ internal class AcssParser : IAcssParser
             switch (span[i])
             {
                 case ':':
-                    if (isInArrayCount > 0 || isInString)
+                    if (isInChildCount > 0 || isInString)
                     {
                         continue;
                     }
@@ -227,7 +227,7 @@ internal class AcssParser : IAcssParser
                     afterColons = true;
                     break;
                 case ';':
-                    if (isInArrayCount > 0 || isInString)
+                    if (isInChildCount > 0 || isInString)
                     {
                         continue;
                     }
@@ -238,11 +238,13 @@ internal class AcssParser : IAcssParser
                     afterColons = false;
                     break;
                 case '[':
-                    isInArrayCount++;
+                case '{':
+                    isInChildCount++;
                     break;
                 case ']':
-                    isInArrayCount--;
-                    if (isInArrayCount > 0 || isInString)
+                case '}':
+                    isInChildCount--;
+                    if (isInChildCount > 0 || isInString)
                     {
                         continue;
                     }

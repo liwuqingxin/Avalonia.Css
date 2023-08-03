@@ -151,7 +151,7 @@ namespace Nlnet.Avalonia.Css
             {
                 var parser = _acssBuilder.Parser;
                 var acssContent = File.ReadAllText(StandardFilePath);
-                var acss = parser.RemoveComments(acssContent.ToCharArray());
+                var acss = parser.RemoveCommentsAndLineBreaks(acssContent.ToCharArray());
                 var sections = parser.ParseSections(null, acss).ToList();
                 var acssStyles = sections.OfType<IAcssStyle>().Where(s => !s.IsThemeChild);
                 var acssThemeChildStyles = sections.OfType<IAcssStyle>().Where(s => s.IsThemeChild).ToList();

@@ -6,11 +6,11 @@ namespace Nlnet.Avalonia.Css;
 internal interface IAcssParser
 {
     /// <summary>
-    /// Try removing comments like '/* ... */' from span content.
+    /// Try removing comments like '/* ... */', '//...' and line breaks from span content.
     /// </summary>
     /// <param name="span"></param>
     /// <returns></returns>
-    public ReadOnlySpan<char> RemoveComments(Span<char> span);
+    public ReadOnlySpan<char> RemoveCommentsAndLineBreaks(Span<char> span);
     
     /// <summary>
     /// Try parsing section objects like 'definition { setters...}'.

@@ -12,18 +12,18 @@ namespace Nlnet.Avalonia.Css.Test
             IAcssBuilder builder = new AcssBuilder();
             var         parser  = builder.Parser;
 
-            var s1 = parser.RemoveComments("/**/abc".ToCharArray());
-            var s2 = parser.RemoveComments("a/*abc*/bc".ToCharArray());
-            var s3 = parser.RemoveComments("abc/*abc*/".ToCharArray());
-            var s4 = parser.RemoveComments("abc//*abc*/".ToCharArray());
-            var s5 = parser.RemoveComments("abc/*a/bc*/".ToCharArray());
-            var s6 = parser.RemoveComments("abc/*a/*bc*/".ToCharArray());
-            var s7 = parser.RemoveComments("abc/*a*/bc*/-".ToCharArray());
-            var s8 = parser.RemoveComments("abc/*abc**//-".ToCharArray());
-            var s9 = parser.RemoveComments("ab/*c//asdf*/asd".ToCharArray());
-            var s10 = parser.RemoveComments("a//bc\rdef".ToCharArray());
-            var s11 = parser.RemoveComments("abc//d\nef".ToCharArray());
-            var s12 = parser.RemoveComments("ab//c\r\ndef".ToCharArray());
+            var s1 = parser.RemoveCommentsAndLineBreaks("/**/abc".ToCharArray());
+            var s2 = parser.RemoveCommentsAndLineBreaks("a/*abc*/bc".ToCharArray());
+            var s3 = parser.RemoveCommentsAndLineBreaks("abc/*abc*/".ToCharArray());
+            var s4 = parser.RemoveCommentsAndLineBreaks("abc//*abc*/".ToCharArray());
+            var s5 = parser.RemoveCommentsAndLineBreaks("abc/*a/bc*/".ToCharArray());
+            var s6 = parser.RemoveCommentsAndLineBreaks("abc/*a/*bc*/".ToCharArray());
+            var s7 = parser.RemoveCommentsAndLineBreaks("abc/*a*/bc*/-".ToCharArray());
+            var s8 = parser.RemoveCommentsAndLineBreaks("abc/*abc**//-".ToCharArray());
+            var s9 = parser.RemoveCommentsAndLineBreaks("ab/*c//asdf*/asd".ToCharArray());
+            var s10 = parser.RemoveCommentsAndLineBreaks("a//bc\rdef".ToCharArray());
+            var s11 = parser.RemoveCommentsAndLineBreaks("abc//d\nef".ToCharArray());
+            var s12 = parser.RemoveCommentsAndLineBreaks("ab//c\r\ndef".ToCharArray());
 
 
             Assert.AreEqual(s1.ToString(), "abc");
@@ -63,7 +63,7 @@ namespace Nlnet.Avalonia.Css.Test
 
             var acssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
             var parser   = builder.Parser;
-            var css      = parser.RemoveComments(new Span<char>(acssFile.ToCharArray()));
+            var css      = parser.RemoveCommentsAndLineBreaks(new Span<char>(acssFile.ToCharArray()));
             var sections = parser.ParseSections(null, css);
             var styles   = sections.OfType<IAcssStyle>();
 
