@@ -32,7 +32,7 @@ namespace Nlnet.Avalonia.Css
     }
 
 
-    internal abstract class CssResourceBaseAndFac<T> : AcssResource, IResourceFactory where T : AcssResource, new()
+    internal abstract class AcssResourceBaseAndFac<T> : AcssResource, IResourceFactory where T : AcssResource, new()
     {
         AcssResource IResourceFactory.Create()
         {

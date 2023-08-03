@@ -6,6 +6,13 @@ namespace Nlnet.Avalonia.Css;
 internal interface IAcssParser
 {
     /// <summary>
+    /// Try removing comments like '/* ... */' from span content.
+    /// </summary>
+    /// <param name="span"></param>
+    /// <returns></returns>
+    public ReadOnlySpan<char> RemoveComments(Span<char> span);
+    
+    /// <summary>
     /// Try parsing section objects like 'definition { setters...}'.
     /// </summary>
     /// <param name="span"></param>
@@ -21,13 +28,6 @@ internal interface IAcssParser
     public IEnumerable<IAcssSection> ParseSections(IAcssSection? parent, ReadOnlySpan<char> span);
 
     /// <summary>
-    /// Try parsing pairs like 'key:value; key2:value2...'. Note that string can be wrapped by a '.
-    /// </summary>
-    /// <param name="span"></param>
-    /// <returns></returns>
-    public IEnumerable<(string, string)> ParsePairs(ReadOnlySpan<char> span);
-
-    /// <summary>
     /// Try parsing setters and children like 'key:value;... [[ children... ]]'.
     /// </summary>
     /// <param name="span"></param>
@@ -37,10 +37,9 @@ internal interface IAcssParser
     public void ParseSettersAndChildren(ReadOnlySpan<char> span, out ReadOnlySpan<char> settersSpan, out ReadOnlySpan<char> childrenSpan);
 
     /// <summary>
-    /// Try removing comments like '/* ... */' from span content.
+    /// Try parsing pairs like 'key:value; key2:value2...'. Note that string can be wrapped by a '.
     /// </summary>
     /// <param name="span"></param>
     /// <returns></returns>
-    public ReadOnlySpan<char> RemoveComments(Span<char> span);
-
+    public IEnumerable<(string, string)> ParsePairs(ReadOnlySpan<char> span);
 }

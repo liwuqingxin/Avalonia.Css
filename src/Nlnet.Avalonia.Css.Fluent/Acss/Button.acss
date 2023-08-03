@@ -1,7 +1,7 @@
 ﻿^Button {
     Foreground: var(fore);
     Background: var(control-back);
-    BorderBrush:var(control-border);
+    BorderBrush:var(fluent-border);
     BorderThickness: 1;
     CornerRadius: 4;
     Padding: 8,4,8,5;

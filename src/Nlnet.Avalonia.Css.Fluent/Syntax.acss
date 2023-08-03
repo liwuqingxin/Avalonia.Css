@@ -7,7 +7,7 @@
 */
 ::res[mode=light][theme=blue][desc=亮色资源] {
 
-    /* SolidColorBrush with key 'key1'. */
+    /* SolidColorBrush with key 'key1'. The other value format that avalonia brush supported are also available. */
     brush(key1): #333;      /* r=03, g=03, b=03 */
     brush(key1): #c3c3c3;   /* r=c3, g=c3, b=c3 */
     brush(key1): #c333;     /* r=03, g=03, b=03, a=0c */
@@ -59,7 +59,10 @@
         var(stBorderBrush);
     ]
     
-    /* The style should be able to have it's own child styles, which are wrapped by two couple of '[[]]'. */
+    /*
+      The style should be able to have it's own child styles, which are wrapped by '[[  ]]'.
+      Note that the '[[ ]]' must be only one and last section for style definition.
+    */
     [[
         /* The first child style for parent style '^Button'. */
         :pointerover{
@@ -83,7 +86,8 @@
                 /*
                   The style start with a '>' is a child logic style, which would be added into the target's Styles.
                   Here the style 'TextBlock.Week' will be added to the Styles of all instances of Grid that named 'PART_MonthView'.
-                  The child logic style is acss feature.
+                  
+                  -IMPORTANT- The child logic style is acss feature that avalonia does not have.
                 */
                 /template/ Grid#PART_MonthView{
                     [[

@@ -14,6 +14,55 @@ internal class AcssParser : IAcssParser
         _builder = builder;
     }
 
+    public ReadOnlySpan<char> RemoveComments(Span<char> span)
+    {
+        var builder = new StringBuilder();
+        var index = 0;
+        for (var i = 0; i < span.Length; i++)
+        {
+            switch (span[i])
+            {
+                case '/':
+                    if (Check(span, i + 1, '*'))
+                    {
+                        if (index != -1)
+                        {
+                            builder.Append(span[index..i]);
+                        }
+                        index = -1;
+                    }
+                    else if (Check(span, i - 1, '*'))
+                    {
+                        index = i + 1;
+                    }
+                    break;
+                case '\r':
+                case '\n':
+                    span[i] = ' ';
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (index < span.Length)
+        {
+            builder.Append(span[index..]);
+        }
+
+        return builder.ToString();
+    }
+
+    private static bool Check(ReadOnlySpan<char> s, int index, char ch)
+    {
+        if (index < 0 || index >= s.Length)
+        {
+            return false;
+        }
+
+        return s[index] == ch;
+    }
+
     public IEnumerable<(string, string)> ParseObjects(ReadOnlySpan<char> span)
     {
         var list = new List<(string, string)>();
@@ -99,7 +148,32 @@ internal class AcssParser : IAcssParser
 
         return list.Select(o => _builder.SectionFactory.Build(this, parent, o.Item1, o.Item2));
     }
+    
+    public void ParseSettersAndChildren(ReadOnlySpan<char> span, out ReadOnlySpan<char> settersSpan, out ReadOnlySpan<char> childrenSpan)
+    {
+        var index1 = span.IndexOf("[[", StringComparison.Ordinal);
+        var index2 = span.LastIndexOf("]]", StringComparison.Ordinal);
 
+        if (index1 != -1 && index2 != -1)
+        {
+            var span1 = span[..(index1 - 1)];
+            var span2 = span[(index2 + 2)..];
+            var builder = new StringBuilder();
+            builder.Append(span1);
+            builder.Append(span2);
+
+            settersSpan = builder.ToString();
+
+            index1 += 2;
+            childrenSpan = span[index1..index2];
+        }
+        else
+        {
+            settersSpan = span;
+            childrenSpan = null;
+        }
+    }
+    
     public IEnumerable<(string, string)> ParsePairs(ReadOnlySpan<char> span)
     {
         var setters = new List<(string, string)>();
@@ -167,79 +241,5 @@ internal class AcssParser : IAcssParser
         }
 
         return setters;
-    }
-
-    public void ParseSettersAndChildren(ReadOnlySpan<char> span, out ReadOnlySpan<char> settersSpan, out ReadOnlySpan<char> childrenSpan)
-    {
-        var index1 = span.IndexOf("[[", StringComparison.Ordinal);
-        var index2 = span.LastIndexOf("]]", StringComparison.Ordinal);
-
-        if (index1 != -1 && index2 != -1)
-        {
-            var span1 = span[..(index1 - 1)];
-            var span2 = span[(index2 + 2)..];
-            var builder = new StringBuilder();
-            builder.Append(span1);
-            builder.Append(span2);
-
-            settersSpan = builder.ToString();
-
-            index1 += 2;
-            childrenSpan = span[index1..index2];
-        }
-        else
-        {
-            settersSpan = span;
-            childrenSpan = null;
-        }
-    }
-
-    public ReadOnlySpan<char> RemoveComments(Span<char> span)
-    {
-        var builder = new StringBuilder();
-        var index = 0;
-        for (var i = 0; i < span.Length; i++)
-        {
-            switch (span[i])
-            {
-                case '/':
-                    if (Check(span, i + 1, '*'))
-                    {
-                        if (index != -1)
-                        {
-                            builder.Append(span[index..i]);
-                        }
-                        index = -1;
-                    }
-                    else if (Check(span, i - 1, '*'))
-                    {
-                        index = i + 1;
-                    }
-                    break;
-                case '\r':
-                case '\n':
-                    span[i] = ' ';
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        if (index < span.Length)
-        {
-            builder.Append(span[index..]);
-        }
-
-        return builder.ToString();
-    }
-
-    private static bool Check(ReadOnlySpan<char> s, int index, char ch)
-    {
-        if (index < 0 || index >= s.Length)
-        {
-            return false;
-        }
-
-        return s[index] == ch;
     }
 }

@@ -7,12 +7,12 @@ using Avalonia.Media.Immutable;
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Brush))]
-internal class BrushResource : CssResourceBaseAndFac<BrushResource>
+internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
 {
     private double  _opacity;
     private string? _key;
 
-    protected override object? Accept(IAcssBuilder cssBuilder, string valueString)
+    protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
     {
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)
@@ -28,7 +28,7 @@ internal class BrushResource : CssResourceBaseAndFac<BrushResource>
             _opacity = o;
         }
 
-        if (cssBuilder.Interpreter.IsVar(colorString, out var key))
+        if (acssBuilder.Interpreter.IsVar(colorString, out var key))
         {
             _key = key;
 

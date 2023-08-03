@@ -3,10 +3,10 @@
 namespace Nlnet.Avalonia.Css;
 
 [ResourceType(nameof(Transition<object>))]
-internal class TransitionResource : CssResourceBaseAndFac<TransitionResource>
+internal class TransitionResource : AcssResourceBaseAndFac<TransitionResource>
 {
-    protected override object? Accept(IAcssBuilder cssBuilder, string valueString)
+    protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
     {
-        return cssBuilder.Interpreter.ParseTransition(valueString);
+        return acssBuilder.Interpreter.ParseTransition(valueString);
     }
 }
