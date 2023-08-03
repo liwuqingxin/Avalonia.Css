@@ -1,5 +1,4 @@
-﻿
-^Button {
+﻿^Button {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border);
@@ -23,16 +22,14 @@
     ]
 
     [[
-        :not(:disabled):not(:is-part) /template/ ContentPresenter#PART_ContentPresenter{
-            BoxShadow: var(button-shadow);
-        }
         :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        :pressed:not(:is-part){
+        :pressed{
             /* RenderTransform:scale(0.97,0.97); */
             Opacity:0.6;
+            BorderBrush:var(control-border);
         }
         :disabled{
             Opacity:0.4;
@@ -42,12 +39,11 @@
             Background: var(Accent);
             Foreground: #fff;
             [[
-                /* 非主题样式的嵌套子样式，前面需带上类型名（11.0版本问题） */
-                Button:pointerover{
+                :pointerover{
                     Background: var(Accent09);
                     Foreground: #fff;
                 }
-                Button:pressed:not(:is-part){
+                :pressed:not(:is-part){
                     Opacity:0.8;
                 }
             ]]
