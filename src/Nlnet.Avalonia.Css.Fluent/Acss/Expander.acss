@@ -19,7 +19,7 @@
         /* Use animation to set visibility */
         :expanded /template/ Border#ExpanderContent{
             [[
-                :animation{
+                ::animation{
                     FillMode:Forward;
                     IterationCount:1;
                     Duration:'0:0:0.1';
@@ -33,7 +33,7 @@
         }
         :not(:expanded) /template/ Border#ExpanderContent{
             [[
-                :animation{
+                ::animation{
                     FillMode:Forward;
                     IterationCount:1;
                     Duration:'0:0:0.2';

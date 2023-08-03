@@ -13,7 +13,7 @@
             Padding:0;
             RenderTransformOrigin:0%,0%;
             [[
-                :animation{
+                ::animation{
                     FillMode:Forward;
                     IterationCount:1;
                     Duration:'0:0:.3';

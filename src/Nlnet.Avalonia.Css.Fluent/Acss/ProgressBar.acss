@@ -28,7 +28,7 @@
 
                 :indeterminate /template/ Border#IndeterminateProgressBarIndicator{
                     [[
-                        :animation{
+                        ::animation{
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
@@ -47,7 +47,7 @@
                 }
                 :indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
                     [[
-                        :animation{
+                        ::animation{
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
@@ -88,7 +88,7 @@
 
                 :indeterminate /template/ Border#IndeterminateProgressBarIndicator{
                     [[
-                        :animation{
+                        ::animation{
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
@@ -107,7 +107,7 @@
                 }
                 :indeterminate /template/ Border#IndeterminateProgressBarIndicator2{
                     [[
-                        :animation{
+                        ::animation{
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[

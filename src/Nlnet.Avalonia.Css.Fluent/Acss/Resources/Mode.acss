@@ -1,4 +1,4 @@
-﻿:res[mode=light][desc=亮色资源] {
+﻿::res[mode=light][desc=亮色资源] {
 
 	/* Share */
 	brush(fore): #333;
@@ -53,7 +53,7 @@
 	BoxShadow(popup-shadow): 0 0 20 2 #2666;
 }
 
-:res[mode=dark][desc=暗色资源] {
+::res[mode=dark][desc=暗色资源] {
 
 	/* Share */
 	brush(fore): #eee;

@@ -12,7 +12,7 @@
         }
          /template/ AnimatingContainer#PART_SelectedContentHost:changed {
             [[
-                :animation[desc=Tab control toggle animation]{
+                ::animation[desc=Tab control toggle animation]{
                     IterationCount:1;
                     Duration:'0:0:.2';
                     Delay:0:0:.15;
