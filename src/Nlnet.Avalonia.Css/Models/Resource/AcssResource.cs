@@ -20,7 +20,7 @@ namespace Nlnet.Avalonia.Css
 
         protected abstract object? Accept(IAcssBuilder acssBuilder, string valueString);
         
-        public virtual object? GetDeferredValue(IServiceProvider? provider)
+        public virtual object? GetDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
         {
             return null;
         }

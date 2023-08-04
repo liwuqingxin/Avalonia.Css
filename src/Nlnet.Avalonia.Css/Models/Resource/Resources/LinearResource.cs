@@ -1,8 +1,7 @@
 using System;
-using Avalonia;
-using Avalonia.Controls;
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Media;
-using Avalonia.Media.Immutable;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -10,61 +9,63 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(LinearGradientBrush))]
 internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
 {
-    private double  _opacity;
-    private string? _key;
+    private LinearGradientBrush? _brush;
+    private Queue<string>? _keys;
 
     protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
     {
-        var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (values.Length == 0)
+        valueString = valueString.Trim();
+        if (valueString.StartsWith("("))
         {
-            this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
-            return null;
+            _brush = acssBuilder.Interpreter.ParseLinear(valueString, out var shouldDefer, out var list);
+            IsDeferred = shouldDefer;
+            if (list != null)
+            {
+                _keys = new Queue<string>(list);
+            }
+            return _brush;
         }
-
-        var colorString = values[0];
-        _opacity = 1d;
-        if (values.Length >= 2 && double.TryParse(values[1], out var o))
+        else if (valueString.StartsWith("{"))
         {
-            _opacity = o;
-        }
-
-        if (acssBuilder.Interpreter.IsVar(colorString, out var key))
-        {
-            _key = key;
-
-            IsDeferred = true;
-
-            return null;
+            _brush = acssBuilder.Interpreter.ParseComplexLinear(valueString, out var shouldDefer, out var list);
+            IsDeferred = shouldDefer;
+            if (list != null)
+            {
+                _keys = new Queue<string>(list);
+            }
+            return _brush;
         }
         else
         {
-            var color = DataParser.TryParseColor(colorString);
-            if (color == null)
-            {
-                this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
-                return null;
-            }
-
-            return new ImmutableSolidColorBrush(color.Value, _opacity);
+            return null;
         }
     }
 
-    public override object? GetDeferredValue(IServiceProvider? provider)
+    public override object? GetDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
     {
-        var brush = new SolidColorBrush
+        if (_brush == null || _keys == null)
         {
-            Opacity = _opacity,
-        };
+            return null;
+        }
+        
+        foreach (var stop in _brush.GradientStops.Where(stop => !stop.IsSet(GradientStop.ColorProperty)))
+        {
+            if (_keys.TryDequeue(out var key) == false)
+            {
+                this.WriteError($"Unset gradient stop exist but no deferred keys provided.");
+                break;
+            }
+            
+            if (acssBuilder.ResourceProvidersManager.TryFindResource<Color>(key, out var color))
+            {
+                stop.Color = color;
+            }
+            else
+            {
+                this.WriteError($"Can not find the resource with key '{key}'.");
+            }
+        }
 
-        if (Application.Current != null && Application.Current.TryFindResource(_key!, out var value) && value is Color c)
-        {
-            brush.Color = c;
-        }
-        else
-        {
-            this.WriteError($"Can not find the resource with key '{_key}'.");
-        }
-        return brush;
+        return _brush;
     }
 }

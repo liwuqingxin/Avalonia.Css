@@ -1,6 +1,5 @@
 ﻿using System;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
@@ -49,16 +48,16 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
         }
     }
 
-    public override object? GetDeferredValue(IServiceProvider? provider)
+    public override object? GetDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
     {
         var brush = new SolidColorBrush
         {
             Opacity = _opacity,
         };
-
-        if (Application.Current != null && Application.Current.TryFindResource(_key!, out var value) && value is Color c)
+        
+        if (acssBuilder.ResourceProvidersManager.TryFindResource<Color>(_key!, out var color))
         {
-            brush.Color = c;
+            brush.Color = color;
         }
         else
         {

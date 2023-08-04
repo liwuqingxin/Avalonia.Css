@@ -13,12 +13,12 @@ namespace Nlnet.Avalonia.Css
             var transitionList = valueString[1..^1].Trim().Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)
             {
-                if (interpreter.IsVar(transition, out var key) && Application.Current != null)
+                if (interpreter.IsVar(transition, out var key))
                 {
                     //
                     // NOTE TryFindResource will make it static but dynamic.
                     //
-                    if (builder.ResourceProvidersManager.TryFindResource<ITransition>(key!, Application.Current.ActualThemeVariant, out var resource))
+                    if (builder.ResourceProvidersManager.TryFindResource<ITransition>(key!, out var resource))
                     {
                         transitions.Add(resource!);
                     }

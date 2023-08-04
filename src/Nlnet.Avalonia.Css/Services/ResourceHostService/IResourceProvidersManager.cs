@@ -33,5 +33,15 @@ namespace Nlnet.Avalonia.Css
         /// <param name="result"></param>
         /// <returns></returns>
         public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result);
+
+        /// <summary>
+        /// Try find a resource by key. Registered <see cref="IResourceProvider"/> list will be checked first, Application.Current next.
+        /// Use Application's ThemeVariant.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="result"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool TryFindResource<T>(object key, out T? result);
     }
 }

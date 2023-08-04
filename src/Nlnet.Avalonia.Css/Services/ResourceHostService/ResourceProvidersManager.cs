@@ -70,4 +70,17 @@ internal class ResourceProvidersManager : IResourceProvidersManager
         result = default;
         return false;
     }
+    
+    public bool TryFindResource<T>(object key, out T? result)
+    {
+        if (Application.Current == null)
+        {
+            result = default;
+            return false;
+        }
+
+        var mode = Application.Current.ActualThemeVariant;
+
+        return TryFindResource(key, mode, out result);
+    }
 }

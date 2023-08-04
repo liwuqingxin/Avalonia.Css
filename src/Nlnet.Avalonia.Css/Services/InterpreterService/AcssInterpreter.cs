@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +11,7 @@ using Avalonia.Animation.Easings;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Media;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
@@ -30,7 +32,10 @@ namespace Nlnet.Avalonia.Css
         private readonly Regex _keyFrameRegex = new("^\\s*KeyFrame\\s*\\:\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
         // ' xxx (xxx) '
         private readonly Regex _setterAnimatorRegex = new("\\s*(.*?)\\s*\\(([a-zA-Z0-9_]*)\\)\\s*");
+        // ' (x x x x) [ #cccccc 0.3 0.2; var(AccentColor) 1.2; ] '
+        private readonly Regex _linearRegex = new("\\(\\s*(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\)\\s*\\[\\s*(.*)\\s*\\]");
 
+        
         private readonly IEnumerable<Type> _transitionsTypes;
 
         public AcssInterpreter(IAcssBuilder builder)
@@ -470,6 +475,112 @@ namespace Nlnet.Avalonia.Css
 
                 yield return keyFrame;
             }
+        }
+
+        public LinearGradientBrush? ParseLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys)
+        {
+            shouldDefer = false;
+            keys = null;
+            
+            var parser = _builder.Parser;
+            var interpreter = _builder.Interpreter;
+            
+            var match = _linearRegex.Match(valueString);
+            if (!match.Success)
+            {
+                return null;
+            }
+
+            var d1Str = match.Groups[1].Value;
+            var d2Str = match.Groups[2].Value;
+            var d3Str = match.Groups[3].Value;
+            var d4Str = match.Groups[4].Value;
+            var contentStr = match.Groups[5].Value;
+
+            var linearBrush = new LinearGradientBrush();
+
+            // Initial.
+            try
+            {
+                linearBrush.StartPoint = RelativePoint.Parse($"{d1Str},{d2Str}");
+                linearBrush.EndPoint = RelativePoint.Parse($"{d3Str},{d4Str}");
+            }
+            catch (Exception e)
+            {
+                this.WriteError(e.ToString());
+                return null;
+            }
+            
+            // Setters.
+            var stopList = contentStr.Trim().Split(';', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var stopString in stopList)
+            {
+                var variables = stopString.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                if (variables.Length is < 2 or > 3)
+                {
+                    this.WriteError($"Invalid gradient stop value '{stopString}'. Skip it.");
+                    continue;
+                }
+
+                // Check var.
+                var isDyn = _builder.Interpreter.IsVar(variables[0], out var key);
+                if (isDyn)
+                {
+                    keys ??= new List<(string,double)>();
+                    ((List<(string,double)>)keys).Add((key, 1)!);
+                }
+
+                // Offset.
+                var opacityString = (string?)null;
+                var offsetString = variables[1];
+                if (variables.Length == 3)
+                {
+                    opacityString = variables[1];
+                    offsetString = variables[2];
+                }
+
+                if (double.TryParse(offsetString, out var offset) == false)
+                {
+                    this.WriteError($"Invalid gradient offset value '{offsetString}'. Skip it.");
+                    continue;
+                }
+
+                var stop = new GradientStop
+                {
+                    Offset = offset,
+                };
+                
+                // Opacity
+                var existOpacity = opacityString != null && double.TryParse(opacityString, out var opacity);
+                
+                // Color
+                var color = DataParser.TryParseColor(variables[0]);
+                if (color == null)
+                {
+                    this.WriteError($"Invalid gradient stop color value '{variables[0]}'. Skip it.");
+                    continue;
+                }
+                
+                // 继续
+                if ()
+                {
+                    var c = color.Value;
+                    color = new Color((byte)(c.A * opacity), c.R, c.G, c.B);
+                }
+
+                stop.Color = color.Value;
+                
+                linearBrush.GradientStops.Add(stop);
+            }
+            
+            return linearBrush;
+        }
+
+        public LinearGradientBrush? ParseComplexLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys)
+        {
+            shouldDefer = false;
+            keys = null;
+            return null;
         }
     }
 }

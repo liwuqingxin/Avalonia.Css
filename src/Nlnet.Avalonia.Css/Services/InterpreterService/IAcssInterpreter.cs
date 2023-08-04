@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Data;
+using Avalonia.Media;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
@@ -26,4 +27,8 @@ internal interface IAcssInterpreter
     public ITransition? ParseTransition(string valueString);
 
     public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString);
+
+    public LinearGradientBrush? ParseLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys);
+
+    public LinearGradientBrush? ParseComplexLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys);
 }
