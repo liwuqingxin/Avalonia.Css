@@ -18,11 +18,11 @@
                     Delay:0:0:.15;
                     FillMode:Forward;
                     KeyFrames:[
-                        KeyFrame(0% 0,1,1,1):[
+                        KeyFrame:(0% 0,1,1,1)[
                             TranslateTransform.Y: 100;
                             Opacity:1;
                         ]
-                        KeyFrame(100% 0,1,1,1):[
+                        KeyFrame:(100% 0,1,1,1)[
                             TranslateTransform.Y: 0;
                             Opacity:1;
                         ]

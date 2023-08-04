@@ -18,7 +18,7 @@ Window#RootWindow{
                     FillMode:Forward;
                     Delay:'0:0:2.4';
                     KeyFrames:[
-                        KeyFrame(100% 0,0.6,0.6,1):[
+                        KeyFrame:(100% 0,0.6,0.6,1)[
                             Opacity:0;
                             IsVisible:False;
                         ]
@@ -38,18 +38,18 @@ Window#RootWindow{
                     FillMode:Forward;
                     Delay:'0:0:0.6';
                     KeyFrames:[
-                        KeyFrame(0% 0,0.6,0.6,1):[
+                        KeyFrame:(0% 0,0.6,0.6,1)[
                             Opacity:0;
                             TranslateTransform.Y:120;
                         ]
-                        KeyFrame(50% 0,0.6,0.6,1):[
+                        KeyFrame:(50% 0,0.6,0.6,1)[
                             Opacity:1;
                             TranslateTransform.Y:-40;
                         ]
-                        KeyFrame(70% 0,0.6,0.6,1):[
+                        KeyFrame:(70% 0,0.6,0.6,1)[
                             TranslateTransform.Y:-40;
                         ]
-                        KeyFrame(100% 0.6,0,1,1):[
+                        KeyFrame:(100% 0.6,0,1,1)[
                             TranslateTransform.Y:-400;
                         ]
                     ]
@@ -73,53 +73,53 @@ Window#RootWindow{
                     Delay:'0:0:0';
                     KeyFrames:[
                         /* Opacity */
-                        KeyFrame(0% 0,0.2,0.8,1):[
+                        KeyFrame:(0% 0,0.2,0.8,1)[
                             Opacity:0;
                             ScaleTransform.ScaleX:0.4;
                             ScaleTransform.ScaleY:0.4;
                         ]
-                        KeyFrame(100% 0,0.2,0.8,1):[
+                        KeyFrame:(100% 0,0.2,0.8,1)[
                             Opacity:1;
                             ScaleTransform.ScaleX:1;
                             ScaleTransform.ScaleY:1;
                         ]
         
                         /* Y */
-                        KeyFrame(0%):[
+                        KeyFrame:(0%)[
                             TranslateTransform.Y:-280;
                             RotateTransform.Angle:-10;
                         ]
-                        KeyFrame(25% 0.3,0,0.7,1):[
+                        KeyFrame:(25% 0.3,0,0.7,1)[
                             TranslateTransform.Y:-80;
                             RotateTransform.Angle:40;
                         ]
-                        KeyFrame(50% 0.3,0,0.7,1):[
+                        KeyFrame:(50% 0.3,0,0.7,1)[
                             TranslateTransform.Y:-20;
                             RotateTransform.Angle:10;
                         ]
-                        KeyFrame(75% 0.3,0,0.7,1):[
+                        KeyFrame:(75% 0.3,0,0.7,1)[
                             TranslateTransform.Y:60;
                             RotateTransform.Angle:30;
                         ]
-                        KeyFrame(100% 0.3,0,0.7,1):[
+                        KeyFrame:(100% 0.3,0,0.7,1)[
                             TranslateTransform.Y:80;
                             RotateTransform.Angle:0;
                         ]
         
                         /* X */
-                        KeyFrame(0%):[
+                        KeyFrame:(0%)[
                             TranslateTransform.X:150;
                         ]
-                        KeyFrame(25% 0.5,0,0.7,0.9):[
+                        KeyFrame:(25% 0.5,0,0.7,0.9)[
                             TranslateTransform.X:-180;
                         ]
-                        KeyFrame(50% 0.3,0,0.7,1):[
+                        KeyFrame:(50% 0.3,0,0.7,1)[
                             TranslateTransform.X:120;
                         ]
-                        KeyFrame(75% 0.3,0,0.7,1):[
+                        KeyFrame:(75% 0.3,0,0.7,1)[
                             TranslateTransform.X:-150;
                         ]
-                        KeyFrame(100% 0.3,0,0.7,1):[
+                        KeyFrame:(100% 0.3,0,0.7,1)[
                             TranslateTransform.X:0;
                         ]
                     ]
@@ -213,12 +213,12 @@ TabControl#MainTabControl > TabItem Icon, TabControl#MainTabControl > TabItem Im
                     FillMode:Forward;
                     Delay:'0:0:0';
                     KeyFrames:[
-                        KeyFrame(0% 0,0.2,0.8,1):[
+                        KeyFrame:(0% 0,0.2,0.8,1)[
                             Opacity:0;
                             TranslateTransform.Y:16;
                             /* TranslateTransform.Y(RhythmicTransformAnimator):16; */
                         ]
-                        KeyFrame(100% 0,0.2,0.8,1):[
+                        KeyFrame:(100% 0,0.2,0.8,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                         ]

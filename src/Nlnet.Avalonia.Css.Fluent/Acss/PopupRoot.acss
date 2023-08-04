@@ -18,12 +18,12 @@
                     IterationCount:1;
                     Duration:'0:0:.3';
                     KeyFrames:[
-                        KeyFrame(0% 0,1,0.5,1):[
+                        KeyFrame:(0% 0,1,0.5,1)[
                             Opacity:0;
                             TranslateTransform.Y:-40;
                             /* ScaleTransform.ScaleY:0.7; */
                         ]
-                        KeyFrame(100% 0,1,0.5,1):[
+                        KeyFrame:(100% 0,1,0.5,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                             /* ScaleTransform.ScaleY:1; */

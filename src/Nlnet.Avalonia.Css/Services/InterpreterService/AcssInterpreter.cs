@@ -27,7 +27,7 @@ namespace Nlnet.Avalonia.Css
         // ' xxx(xxx) '
         private readonly Regex _transitionRegex = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
         // ' KeyFrame (xxx) : '
-        private readonly Regex _keyFrameRegex = new("^\\s*KeyFrame\\s*\\((.*?)\\)\\s*\\:\\s*$", RegexOptions.IgnoreCase);
+        private readonly Regex _keyFrameRegex = new("^\\s*KeyFrame\\s*\\:\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
         // ' xxx (xxx) '
         private readonly Regex _setterAnimatorRegex = new("\\s*(.*?)\\s*\\(([a-zA-Z0-9_]*)\\)\\s*");
 
@@ -379,7 +379,7 @@ namespace Nlnet.Avalonia.Css
             valueString = valueString[1..^1].Trim();
             var parser      = _builder.Parser;
             var interpreter = _builder.Interpreter;
-            var objects     = parser.ParseObjects(valueString);
+            var objects     = parser.ParseCollectionObjects(valueString);
 
             foreach (var (selector, propertySettingsString) in objects)
             {

@@ -88,7 +88,7 @@ internal class AcssParser : IAcssParser
         return -1;
     }
 
-    public IEnumerable<(string, string)> ParseObjects(ReadOnlySpan<char> span)
+    public IEnumerable<(string, string)> ParseCollectionObjects(ReadOnlySpan<char> span)
     {
         var list = new List<(string, string)>();
 

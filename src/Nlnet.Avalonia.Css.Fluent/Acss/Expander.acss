@@ -24,7 +24,7 @@
                     IterationCount:1;
                     Duration:'0:0:0.1';
                     KeyFrames:[
-                        KeyFrame(100%):[
+                        KeyFrame:(100%)[
                             IsVisible:True;
                         ]
                     ]
@@ -38,7 +38,7 @@
                     IterationCount:1;
                     Duration:'0:0:0.2';
                     KeyFrames:[
-                        KeyFrame(100%):[
+                        KeyFrame:(100%)[
                             IsVisible:False;
                         ]
                     ]

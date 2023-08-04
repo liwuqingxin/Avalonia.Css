@@ -141,7 +141,7 @@
                     Duration:'0:0:.3';
                     KeyFrames:[
                         // First KeyFrame with 'Cue=0%', 'KeySpline=0,1,0.5,1'.
-                        KeyFrame(0% 0,1,0.5,1):[
+                        KeyFrame:(0% 0,1,0.5,1)[
                             Opacity:0;
                             TranslateTransform.Y:-40;
                             ScaleTransform.ScaleY:0.7;
@@ -153,7 +153,7 @@
                             TranslateTransform.X: $ProgressBar#2.TemplateSettings.ContainerAnimationStartPosition;
                         ]
                         // The second one with 'KeyTime=0%', 'KeySpline=0,1,0.5,1'.
-                        KeyFrame(0:0:1 0,1,0.5,1):[
+                        KeyFrame:(0:0:1 0,1,0.5,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                             ScaleTransform.ScaleY:1;

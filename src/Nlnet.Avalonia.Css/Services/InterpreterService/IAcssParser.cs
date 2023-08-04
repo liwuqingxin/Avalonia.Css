@@ -17,7 +17,7 @@ internal interface IAcssParser
     /// </summary>
     /// <param name="span"></param>
     /// <returns></returns>
-    public IEnumerable<(string, string)> ParseObjects(ReadOnlySpan<char> span);
+    public IEnumerable<(string, string)> ParseCollectionObjects(ReadOnlySpan<char> span);
 
     /// <summary>
     /// Try parsing sections like 'selector { content... }'. It is the same structure as section objects.

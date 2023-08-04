@@ -32,13 +32,13 @@
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
-                                KeyFrame(0% 0.4,0,0.6,1):[
+                                KeyFrame:(0% 0.4,0,0.6,1)[
                                     TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationStartPosition;
                                 ]
-                                KeyFrame(75% 0.4,0,0.6,1):[
+                                KeyFrame:(75% 0.4,0,0.6,1)[
                                     TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
-                                KeyFrame(100% 0.4,0,0.6,1):[
+                                KeyFrame:(100% 0.4,0,0.6,1)[
                                     TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
                             ]
@@ -51,13 +51,13 @@
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
-                                KeyFrame(0% 0.4,0,0.6,1):[
+                                KeyFrame:(0% 0.4,0,0.6,1)[
                                     TranslateTransform.X: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
-                                KeyFrame(37.5% 0.4,0,0.6,1):[
+                                KeyFrame:(37.5% 0.4,0,0.6,1)[
                                     TranslateTransform.X: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
-                                KeyFrame(100% 0.4,0,0.6,1):[
+                                KeyFrame:(100% 0.4,0,0.6,1)[
                                     TranslateTransform.X: $ProgressBar.TemplateSettings.Container2AnimationEndPosition;
                                 ]
                             ]
@@ -92,13 +92,13 @@
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
-                                KeyFrame(0% 0.4,0,0.6,1):[
+                                KeyFrame:(0% 0.4,0,0.6,1)[
                                     TranslateTransform.Y: $ProgressBar.TemplateSettings.ContainerAnimationStartPosition;
                                 ]
-                                KeyFrame(75% 0.4,0,0.6,1):[
+                                KeyFrame:(75% 0.4,0,0.6,1)[
                                     TranslateTransform.Y: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
-                                KeyFrame(100% 0.4,0,0.6,1):[
+                                KeyFrame:(100% 0.4,0,0.6,1)[
                                     TranslateTransform.Y: $ProgressBar.TemplateSettings.ContainerAnimationEndPosition;
                                 ]
                             ]
@@ -111,13 +111,13 @@
                             IterationCount:Infinite;
                             Duration:'0:0:2';
                             KeyFrames:[
-                                KeyFrame(0% 0.4,0,0.6,1):[
+                                KeyFrame:(0% 0.4,0,0.6,1)[
                                     TranslateTransform.Y: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
-                                KeyFrame(37.5% 0.4,0,0.6,1):[
+                                KeyFrame:(37.5% 0.4,0,0.6,1)[
                                     TranslateTransform.Y: $ProgressBar.TemplateSettings.Container2AnimationStartPosition;
                                 ]
-                                KeyFrame(100% 0.4,0,0.6,1):[
+                                KeyFrame:(100% 0.4,0,0.6,1)[
                                     TranslateTransform.Y: $ProgressBar.TemplateSettings.Container2AnimationEndPosition;
                                 ]
                             ]
