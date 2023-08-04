@@ -21,12 +21,12 @@ namespace Nlnet.Avalonia.Css
         /// </summary>
         /// <param name="acssBuilder"></param>
         /// <param name="owner"></param>
-        /// <param name="filePath"></param>
+        /// <param name="standardFilePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static AcssFile Load(IAcssBuilder acssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile Load(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(acssBuilder, owner, filePath, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.Load(owner, false);
             return styleFile;
         }
@@ -36,34 +36,34 @@ namespace Nlnet.Avalonia.Css
         /// </summary>
         /// <param name="acssBuilder"></param>
         /// <param name="owner"></param>
-        /// <param name="file"></param>
+        /// <param name="standardFilePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        public static AcssFile BeginLoad(IAcssBuilder acssBuilder, Styles owner, string file, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile BeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(acssBuilder, owner, file, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.BeginLoad(owner, false);
             return styleFile;
         }
 
-        private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged)
+        private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
                 throw new InvalidOperationException($"{nameof(AcssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
             }
 
-            if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == filePath) is { } exist)
+            if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == standardFilePath) is { } exist)
             {
                 return exist;
             }
 
-            if (File.Exists(filePath) == false)
+            if (File.Exists(standardFilePath) == false)
             {
-                throw new FileNotFoundException($"Can not find the acss file '{filePath}'.");
+                throw new FileNotFoundException($"Can not find the acss file '{standardFilePath}'.");
             }
 
-            return new AcssFile(acssBuilder, owner, filePath, autoLoadWhenFileChanged);
+            return new AcssFile(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
         }
 
         #endregion
@@ -76,13 +76,13 @@ namespace Nlnet.Avalonia.Css
         private          CompositeDisposable?    _disposable;
         private          IEnumerable<IAcssStyle>? _acssStyles;
 
-        private AcssFile(IAcssBuilder acssBuilder, Styles owner, string filePath, bool autoLoadWhenFileChanged)
+        private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
-            _acssBuilder      = acssBuilder;
+            _acssBuilder     = acssBuilder;
             _owner           = owner;
-            StandardFilePath = Path.GetFullPath(filePath);
+            StandardFilePath = standardFilePath;
 
-            var dir = Path.GetDirectoryName(filePath);
+            var dir = Path.GetDirectoryName(standardFilePath);
             if (autoLoadWhenFileChanged && dir != null)
             {
                 // TODO 改为文件监控，而不是文件夹监控
@@ -90,7 +90,7 @@ namespace Nlnet.Avalonia.Css
                 _watcher                     =  new FileSystemWatcher(dir);
                 _watcher.EnableRaisingEvents =  true;
                 _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
-                _watcher.Filter              =  $"{Path.GetFileName(filePath)}";
+                _watcher.Filter              =  $"{Path.GetFileName(standardFilePath)}";
                 _watcher.Changed             += OnFileChanged;
             }
         }
@@ -151,8 +151,8 @@ namespace Nlnet.Avalonia.Css
             {
                 var parser = _acssBuilder.Parser;
                 var acssContent = File.ReadAllText(StandardFilePath);
-                var acss = parser.RemoveCommentsAndLineBreaks(acssContent.ToCharArray());
-                var sections = parser.ParseSections(null, acss).ToList();
+                var acssSpan = parser.RemoveCommentsAndLineBreaks(acssContent.ToCharArray());
+                var sections = parser.ParseSections(null, acssSpan).ToList();
                 var acssStyles = sections.OfType<IAcssStyle>().Where(s => !s.IsThemeChild);
                 var acssThemeChildStyles = sections.OfType<IAcssStyle>().Where(s => s.IsThemeChild).ToList();
                 var acssDictionaryList = sections.OfType<IAcssResourceDictionary>();

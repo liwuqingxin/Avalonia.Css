@@ -7,7 +7,7 @@ using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css.Behaviors;
 
-[Behavior("combobox.popup.align", typeof(ComboBox))]
+[Behavior("combobox.popup.align", typeof(Acss))]
 public class ComboBoxPopupAlignBehavior : AcssBehavior<ComboBoxPopupAlignBehavior>
 {
     private double _horizontalOffset;
@@ -78,9 +78,9 @@ public class ComboBoxPopupAlignBehavior : AcssBehavior<ComboBoxPopupAlignBehavio
             return;
         }
 
-        var popup     = (Popup)sender!;
+        var popup = (Popup)sender!;
         var popupRoot = popup.Child!;
-        var index     = comboBox.SelectedIndex;
+        var index = comboBox.SelectedIndex;
         if (index == -1 && comboBox.ItemCount > 0)
         {
             index = 0;

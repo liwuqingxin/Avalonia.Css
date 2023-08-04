@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Text;
 using Avalonia.Styling;
-using DynamicData;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -27,7 +25,7 @@ internal interface IAcssStyle : IAcssSection, IDisposable
 
     public Selector? GetSelector();
 
-    public Type? GetParentTargetType();
+    public Type? GetTargetType();
 
     public ChildStyle ToAvaloniaStyle();
 
@@ -97,25 +95,19 @@ internal class AcssStyle : AcssSection, IAcssStyle
         }
     }
 
-    Type? IAcssStyle.GetParentTargetType()
+    Type? IAcssStyle.GetTargetType()
     {
         if (ThemeTargetType != null)
         {
             return ThemeTargetType;
         }
 
-        if (Parent is not IAcssStyle acssStyle)
+        if (_selector?.GetTargetType() is { } targetType)
         {
-            return null;
+            return targetType;
         }
 
-        var parentSelectorTargetType = acssStyle.GetSelector()?.GetTargetType();
-        if (parentSelectorTargetType != null)
-        {
-            return parentSelectorTargetType;
-        }
-
-        return acssStyle.GetParentTargetType();
+        return Parent is not IAcssStyle parentAcssStyle ? null : parentAcssStyle.GetTargetType();
     }
 
     private Selector? CreateSelector()
@@ -166,10 +158,10 @@ internal class AcssStyle : AcssSection, IAcssStyle
         DiagnosisHelper.WriteLine($"---- Parsing style '{this}'.");
 
         var style = NewStyle();
-        var targetType = style.Selector?.GetTargetType() ?? ((IAcssStyle)this).GetParentTargetType();
+        var targetType = ((IAcssStyle)this).GetTargetType();
         if (targetType == null)
         {
-            this.WriteError($"The target type is null. Empty avalonia style is created.");
+            this.WriteError($"The target type is null as raw selector string is '{Selector}'. Empty avalonia style is created.");
             return style;
         }
 
@@ -179,16 +171,17 @@ internal class AcssStyle : AcssSection, IAcssStyle
             foreach (var acssResourceList in Resources)
             {
                 var dic = acssResourceList.ToAvaloniaResourceDictionary(_builder);
-                if (dic != null)
+                if (dic == null)
                 {
-                    if (acssResourceList.IsModeResource())
-                    {
-                        style.Resources.ThemeDictionaries.Add(acssResourceList.GetThemeVariant(), dic);
-                    }
-                    else
-                    {
-                        style.Resources.MergedDictionaries.Add(dic);
-                    }
+                    continue;
+                }
+                if (acssResourceList.IsModeResource())
+                {
+                    style.Resources.ThemeDictionaries.Add(acssResourceList.GetThemeVariant(), dic);
+                }
+                else
+                {
+                    style.Resources.MergedDictionaries.Add(dic);
                 }
             }
         }

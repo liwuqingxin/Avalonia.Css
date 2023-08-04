@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,33 +15,56 @@ namespace Nlnet.Avalonia.Css.CompileGenerator
     {
         private class SyntaxReceiver : ISyntaxReceiver
         {
-            public List<ClassDeclarationSyntax> CandidateClasses { get; } = new List<ClassDeclarationSyntax>();
+            private static readonly Regex Regex = new Regex("typeof\\((.*)\\)");
+
+            public Dictionary<string, List<ClassDeclarationSyntax>> CandidateClasses { get; } = new Dictionary<string, List<ClassDeclarationSyntax>>();
             
             public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
             {
-                if (!(syntaxNode is ClassDeclarationSyntax classDeclarationSyntax) ||
-                    classDeclarationSyntax.AttributeLists.Count <= 0)
+                if (!(syntaxNode is ClassDeclarationSyntax classDeclarationSyntax) || classDeclarationSyntax.AttributeLists.Count <= 0)
                 {
                     return;
                 }
 
                 var isBehavior = false;
+                var ownerType  = "";
+
                 foreach (var attributeListSyntax in classDeclarationSyntax.AttributeLists)
                 {
-                    if (attributeListSyntax.Attributes.Select(attribute => attribute.Name.ToFullString()).Any(name => name == "Behavior"))
+                    var attr = attributeListSyntax
+                               .Attributes
+                               .FirstOrDefault(a => a.Name.ToFullString() == "Behavior");
+
+                    ownerType = attr?.ArgumentList?.Arguments[1].Expression.ToFullString();
+                    if (ownerType == null)
                     {
-                        isBehavior = true;
+                        continue;
+                    }
+                    var match = Regex.Match(ownerType);
+                    if (match.Success == false)
+                    {
+                        continue;
                     }
 
-                    if (isBehavior)
-                    {
-                        break;
-                    }
+                    ownerType  = match.Groups[1].Value;
+                    isBehavior = true;
+
+                    break;
                 }
 
-                if (isBehavior)
+                if (isBehavior == false || string.IsNullOrEmpty(ownerType))
                 {
-                    CandidateClasses.Add(classDeclarationSyntax);
+                    return;
+                }
+
+                if (CandidateClasses.TryGetValue(ownerType, out var list))
+                {
+                    list.Add(classDeclarationSyntax);
+                }
+                else
+                {
+                    list = new List<ClassDeclarationSyntax> { classDeclarationSyntax };
+                    CandidateClasses[ownerType] = list;
                 }
             }
         }
@@ -66,27 +89,32 @@ namespace Nlnet.Avalonia.Css.CompileGenerator
             }
 
             var builder = new StringBuilder();
-            foreach (var @class in receiver.CandidateClasses)
+            foreach (var pair in receiver.CandidateClasses)
             {
-                var name = @class.Identifier.ValueText;
+                foreach (var name in pair.Value.Select(syntax => syntax.Identifier.ValueText))
+                {
+                    builder.AppendLine($"{name}Property.Changed.Subscribe(AcssBehaviorHelper.OnInstanceChanged);");
 
-                builder.AppendLine($"{name}Property.Changed.Subscribe(OnInstanceChanged);");
-                
-                context.AddSource($"{name}.g.cs", SourceText.From(GeneratePropertySource(name), Encoding.UTF8));
+                    var source = GeneratePropertySource(null, pair.Key, name);
+                    context.AddSource($"{name}.g.cs", SourceText.From(source, Encoding.UTF8));
+                }
+
+                var ctorSource = GenerateSCtorSource(null, pair.Key, builder.ToString());
+                context.AddSource($"{pair.Key}.ctor.g.cs", SourceText.From(ctorSource, Encoding.UTF8));
             }
-
-            context.AddSource($"Acss.SCtor.g.cs", SourceText.From(GenerateSCtorSource(builder.ToString()), Encoding.UTF8));
         }
 
-        private static string GeneratePropertySource(string propertyName)
+        private static string GeneratePropertySource(string importNamespace, string className, string propertyName)
         {
             const string template = @"
 using System;
 using Avalonia;
+using Nlnet.Avalonia.Css;
+$Namespace$
 
 namespace Nlnet.Avalonia.Css.Behaviors;
 
-public partial class Acss
+public partial class $ClassName$
 {
     public static AcssBehavior Get$PropertyName$(Visual host)
     {
@@ -97,29 +125,37 @@ public partial class Acss
         host.SetValue($PropertyName$Property, value);
     }
     public static readonly AttachedProperty<AcssBehavior> $PropertyName$Property = AvaloniaProperty
-        .RegisterAttached<Acss, Visual, AcssBehavior>(""$PropertyName$"");
+        .RegisterAttached<$ClassName$, Visual, AcssBehavior>(""$PropertyName$"");
 }";
 
-            return template.Replace("$PropertyName$", propertyName);
+            return template
+                   .Replace("$Namespace$", importNamespace)
+                   .Replace("$ClassName$", className)
+                   .Replace("$PropertyName$", propertyName);
         }
 
-        private static string GenerateSCtorSource(string initialization)
+        private static string GenerateSCtorSource(string importNamespace, string className, string initialization)
         {
             const string template = @"
 using System;
 using Avalonia;
+using Nlnet.Avalonia.Css;
+$Namespace$
 
 namespace Nlnet.Avalonia.Css.Behaviors;
 
-public partial class Acss
+public partial class $ClassName$
 {
-    static Acss()
+    static $ClassName$()
     {
         $Initialization$
     }
 }";
-
-            return template.Replace("$Initialization$", initialization);
+            
+            return template
+                   .Replace("$Namespace$", importNamespace)
+                   .Replace("$ClassName$", className)
+                   .Replace("$Initialization$", initialization);
         }
     }
 }

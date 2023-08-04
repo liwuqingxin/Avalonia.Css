@@ -3,11 +3,18 @@ using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Css;
 
+/// <summary>
+/// For type resolving.
+/// </summary>
 public interface ITypeResolverManager : IResolverManager<ITypeResolver>
 {
 
 }
 
+/// <summary>
+/// The default implementation for <see cref="ITypeResolverManager"/>.
+/// By default, the resolver for 'Avalonia.Controls', 'Avalonia.Base' are loaded.
+/// </summary>
 internal class TypeResolverManager : ResolverManager<ITypeResolver>, ITypeResolverManager
 {
     public TypeResolverManager()

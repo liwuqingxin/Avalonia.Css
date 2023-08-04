@@ -39,6 +39,10 @@ public class AcssBuilder : IAcssBuilder
         return _default!;
     }
 
+    #endregion
+
+    
+    
     public AcssBuilder()
     {
         _parser          = new AcssParser(this);
@@ -46,8 +50,6 @@ public class AcssBuilder : IAcssBuilder
         _sectionFactory  = new AcssSectionFactory(this);
         _resourceFactory = new AcssResourceFactory(this);
     }
-
-    #endregion
 
 
 

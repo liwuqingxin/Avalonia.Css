@@ -42,7 +42,7 @@ public class Resolver : IResolver
 {
     protected Dictionary<string, Type> Types;
 
-    public Resolver()
+    protected Resolver()
     {
         Types = new Dictionary<string, Type>();
     }
@@ -83,7 +83,7 @@ public class Resolver : IResolver
 /// <typeparam name="TTypeSink"></typeparam>
 public class Resolver<TTypeSink> : Resolver
 {
-    public Resolver()
+    protected Resolver()
     {
         var typeSink = typeof(TTypeSink);
         var assembly = typeSink.Assembly;

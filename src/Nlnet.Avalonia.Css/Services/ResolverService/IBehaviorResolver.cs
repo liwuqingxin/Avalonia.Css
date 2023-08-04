@@ -6,11 +6,18 @@ using Avalonia;
 
 namespace Nlnet.Avalonia.Css;
 
+/// <summary>
+/// Interface that can provide the service of resolving acss behavior from string.
+/// </summary>
 public interface IBehaviorResolver : IResolver
 {
     
 }
 
+/// <summary>
+/// A generic implementation for <see cref="IBehaviorResolver"/> that can provide acss behavior resolving service for assembly who contains the class of <see cref="TTypeSink"/>.
+/// </summary>
+/// <typeparam name="TTypeSink"></typeparam>
 public class GenericBehaviorResolver<TTypeSink> : Resolver, IBehaviorResolver
 {
     public GenericBehaviorResolver()

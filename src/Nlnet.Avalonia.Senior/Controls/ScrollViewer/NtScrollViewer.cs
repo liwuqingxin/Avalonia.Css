@@ -22,7 +22,7 @@ namespace Nlnet.Avalonia.Senior.Controls
             set { SetValue(SmoothScrollingStepProperty, value); }
         }
         public static readonly StyledProperty<double> SmoothScrollingStepProperty = AvaloniaProperty
-            .Register<NtScrollViewer, double>(nameof(SmoothScrollingStep), 400d);
+            .Register<NtScrollViewer, double>(nameof(SmoothScrollingStep), 200d);
 
         public bool UseCustomScrollAnimation
         {

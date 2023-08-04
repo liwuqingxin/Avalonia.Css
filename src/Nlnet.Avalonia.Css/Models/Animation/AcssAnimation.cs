@@ -2,9 +2,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Avalonia.Animation;
-using Avalonia.Controls.Primitives;
-using Avalonia.Media;
-using DynamicData;
 
 namespace Nlnet.Avalonia.Css
 {
@@ -41,16 +38,11 @@ namespace Nlnet.Avalonia.Css
                 this.WriteError($"The parent of {nameof(AcssAnimation)} must be {nameof(AcssStyle)}. Skip it.");
                 return;
             }
-            if (style.GetSelector() is not { } selector)
-            {
-                this.WriteError($"The style is invalid as Selector of it is null. Skip it.");
-                return;
-            }
-
-            var selectorTargetType = selector.GetTargetType() ?? style.GetParentTargetType();
+            
+            var selectorTargetType = style.GetTargetType();
             if (selectorTargetType == null)
             {
-                this.WriteError($"The target type of the style is null. Skip it.");
+                this.WriteError($"The target type of the style is null. Skip it [{Description}].");
                 return;
             }
 
@@ -88,6 +80,11 @@ namespace Nlnet.Avalonia.Css
         public IAnimation? ToAvaloniaAnimation()
         {
             return _animation;
+        }
+
+        public override string ToString()
+        {
+            return $"{typeof(AcssAnimation)} [{Description}]";
         }
     }
 }

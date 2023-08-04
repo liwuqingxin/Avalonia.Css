@@ -37,21 +37,21 @@ public interface IResolverManager<in T> where T : IResolver
 /// <typeparam name="T"></typeparam>
 internal class ResolverManager<T> : IResolverManager<T> where T : IResolver
 {
-    protected readonly List<T> Resolvers = new();
+    private readonly List<T> _resolvers = new();
 
     public void LoadResolver(T resolver)
     {
-        Resolvers.Add(resolver);
+        _resolvers.Add(resolver);
     }
 
     public void UnloadResolver(T resolver)
     {
-        Resolvers.Remove(resolver);
+        _resolvers.Remove(resolver);
     }
 
     public bool TryGetType(string name, out Type? type)
     {
-        foreach (var resolver in Resolvers)
+        foreach (var resolver in _resolvers)
         {
             if (resolver.TryGetType(name, out type))
             {

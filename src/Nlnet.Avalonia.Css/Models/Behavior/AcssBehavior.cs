@@ -3,9 +3,12 @@ using Avalonia;
 
 namespace Nlnet.Avalonia.Css;
 
+/// <summary>
+/// Acss behavior base class that provides the abstraction of attaching and detaching.
+/// </summary>
 public abstract class AcssBehavior
 {
-    public AvaloniaObject? AssociatedObject { get; private set; }
+    protected AvaloniaObject? AssociatedObject { get; private set; }
 
     internal Type? TargetType { get; set; }
 
@@ -35,6 +38,10 @@ public abstract class AcssBehavior
     }
 }
 
+/// <summary>
+/// A generic derived class from <see cref="AcssBehavior{T}"/>, which provides the <see cref="Get"/> method additionally.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class AcssBehavior<T> : AcssBehavior where T : AcssBehavior<T>, new()
 {
     protected internal override T Get()

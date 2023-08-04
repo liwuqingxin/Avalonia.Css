@@ -45,11 +45,11 @@ namespace Nlnet.Avalonia.Css.App
                 // Use avalonia css stuff.
                 .UseAcssDefaultBuilder()
                 // Type resolver for Nlnet.Avalonia.Svg
-                .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<Icon>())
+                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Icon>())
                 // Type resolver for Nlnet.Avalonia.SampleAssistant
-                .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<Case>())
+                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Case>())
                 // Type resolver for Nlnet.Avalonia.Css.App
-                .WithTypeResolverForDefaultBuilder(new GenericTypeResolver<App>())
+                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<App>())
 
                 // Use avalonia behavior.
                 .UseAcssBehaviorForDefaultBuilder();

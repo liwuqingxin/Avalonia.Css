@@ -14,7 +14,7 @@ public static class AcssExtension
     public static AppBuilder UseAcssDefaultBuilder(this AppBuilder builder)
     {
         AcssBuilder.UseDefaultBuilder();
-        builder.WriteLine($"==== Avalonia css default builder used...");
+        builder.WriteLine($"======== Avalonia css default builder used...");
         return builder;
     }
 
@@ -24,7 +24,7 @@ public static class AcssExtension
     /// <param name="builder"></param>
     /// <param name="typeResolver"></param>
     /// <returns></returns>
-    public static AppBuilder WithTypeResolverForDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
+    public static AppBuilder WithTypeResolverForAcssDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
     {
         AcssBuilder.Default.TypeResolver.LoadResolver(typeResolver);
         return builder;

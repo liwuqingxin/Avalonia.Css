@@ -4,8 +4,9 @@ using Avalonia.Interactivity;
 
 namespace Nlnet.Avalonia.Css
 {
-    public static class LoadedStateMixin
+    public static class LoadedMixin
     {
+        // ReSharper disable once InconsistentNaming
         private const string Pseudo_IsLoaded = ":is-loaded";
 
         /// <summary>
@@ -13,18 +14,18 @@ namespace Nlnet.Avalonia.Css
         /// </summary>
         /// <param name="control">The animation setter.</param>
         /// <param name="use">The property animator value.</param>
-        public static void SetUseLoadedState(Control control, bool use)
+        public static void SetAttach(Control control, bool use)
         {
             if (use == false)
             {
-                control.Loaded   -= ControlOnLoaded;
+                control.Loaded -= ControlOnLoaded;
                 control.Unloaded -= ControlOnUnloaded;
                 return;
             }
 
-            control.Loaded   -= ControlOnLoaded;
+            control.Loaded -= ControlOnLoaded;
             control.Unloaded -= ControlOnUnloaded;
-            control.Loaded   += ControlOnLoaded;
+            control.Loaded += ControlOnLoaded;
             control.Unloaded += ControlOnUnloaded;
         }
 

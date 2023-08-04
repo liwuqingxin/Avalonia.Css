@@ -42,7 +42,7 @@
                                     <nlnet:GalleryItem />
                                 </Design.DataContext>
                                 <nlnet:Icon x:Name="TabItemIcon"
-                                            nlnet:LoadedStateMixin.UseLoadedState="True"
+                                            nlnet:LoadedMixin.Attach="True"
                                             IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
                                 <!--<Image x:Name="TabItemIcon"
                                    nlnet:LoadedStateMixin.UseLoadedState="True"
@@ -57,7 +57,8 @@
                         <Grid RowDefinitions="Auto,*">
                             <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
                                 <Border x:Name="PageIconBorder">
-                                    <nlnet:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                                    <nlnet:Icon x:Name="PageIcon"
+                                                IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
                                     <!--<Image x:Name="PageIcon"
                                        RenderOptions.BitmapInterpolationMode="HighQuality"
                                        Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />-->
@@ -68,7 +69,8 @@
                                            Text="{Binding Path=Title}" />
                             </Grid>
                             <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
-                                <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
+                                <ContentControl Content="{Binding}"
+                                                IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
                                     <ContentControl.ContentTemplate>
                                         <nlnet:GalleryItemLocator />
                                     </ContentControl.ContentTemplate>
@@ -89,13 +91,13 @@
         <Border x:Name="WelcomeHost">
             <Panel>
                 <nlnet:Icon x:Name="WelcomeLogo"
-                            nlnet:LoadedStateMixin.UseLoadedState="True"
+                            nlnet:LoadedMixin.Attach="True"
                             IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
                             RenderOptions.EdgeMode="Unspecified" />
-                
+
                 <nlnet:Icon x:Name="LogoImage"
-                            nlnet:LoadedStateMixin.UseLoadedState="True"
+                            nlnet:LoadedMixin.Attach="True"
                             IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
                             RenderOptions.EdgeMode="Unspecified" />

@@ -12,8 +12,8 @@ internal class AcssSectionFactory : IAcssSectionFactory
 {
     private readonly IAcssBuilder _builder;
 
-    private readonly Regex _regexResource          = new("::res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
-    private readonly Regex _regexAnimation         = new("::animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
+    private readonly Regex _regexResource          = new("^\\s*::res\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
+    private readonly Regex _regexAnimation         = new("^\\s*::animation\\s*(\\[.*\\])?", RegexOptions.IgnoreCase);
     private readonly Regex _regexThemeChildStyle   = new("^\\s*\\^\\s*(.*)", RegexOptions.IgnoreCase);
     private readonly Regex _regexLogicalChildStyle = new("^\\s*>\\s*(.*)", RegexOptions.IgnoreCase);
 

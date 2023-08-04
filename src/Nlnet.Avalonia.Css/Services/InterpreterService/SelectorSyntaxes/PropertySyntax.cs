@@ -10,7 +10,7 @@ internal class PropertySyntax : ISyntax
 
     public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
     {
-        var previousTargetType = previous?.GetTargetType() ?? acssStyle.GetParentTargetType();
+        var previousTargetType = previous?.GetTargetType() ?? acssStyle.GetTargetType();
         if (previousTargetType == null)
         {
             this.WriteError($"Previous selector's TargetType and parent target type is null. '[{Property}={Value}]' skipped.");

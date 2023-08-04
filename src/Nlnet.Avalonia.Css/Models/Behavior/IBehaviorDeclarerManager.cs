@@ -5,11 +5,17 @@ using Avalonia;
 
 namespace Nlnet.Avalonia.Css;
 
+/// <summary>
+/// Define a collection of acss behaviors.
+/// </summary>
 public interface IBehaviorDeclarer
 {
 
 }
 
+/// <summary>
+/// Management for all registered <see cref="IBehaviorDeclarer"/>.
+/// </summary>
 public interface IBehaviorDeclarerManager
 {
     public void RegisterDeclarer<T>(string? key) where T : IBehaviorDeclarer;
