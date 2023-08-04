@@ -11,11 +11,16 @@ internal class InternalValueParsingTypeAdapter : ValueParsingTypeAdapter
 {
     public InternalValueParsingTypeAdapter()
     {
+        // Brush.
         AddAdaptType(typeof(IBrush), typeof(Brush));
         AddAdaptType(typeof(ISolidColorBrush), typeof(Brush));
         AddAdaptType(typeof(SolidColorBrush), typeof(Brush));
+        
+        // Transform.
         AddAdaptType(typeof(ITransform), typeof(TransformOperations));
         AddAdaptType(typeof(Transform), typeof(TransformOperations));
+        
+        // Internal Parsers.
         AddAdaptType(typeof(Transitions), typeof(TransitionsParser));
     }
 }

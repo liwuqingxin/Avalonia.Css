@@ -1,5 +1,5 @@
 ﻿/* 
-  This is a comment, which is the only comment format for acss files.
+  This is a comment. We support block comments like this, and in addition, we also support line comments "//".
 
   Resources with a description for light mode and blue theme. 
   Note that the mode, theme and desc are optional.
@@ -7,22 +7,46 @@
 */
 ::res[mode=light][theme=blue][desc=亮色资源] {
 
-    /* SolidColorBrush with key 'key1'. The other value format that avalonia brush supported are also available. */
+    // SolidColorBrush with key 'key1'. The other value format that avalonia brush supported are also available.
     brush(key1): #333;      /* r=03, g=03, b=03 */
     brush(key1): #c3c3c3;   /* r=c3, g=c3, b=c3 */
     brush(key1): #c333;     /* r=03, g=03, b=03, a=0c */
     brush(key1): #3333;     /* r=03, g=03, b=03, a=03 */
     
-    /* SolidColorBrush with opacity being 0.8. */
+    // SolidColorBrush with opacity being 0.8.
     brush(key2): #666666 0.8;
     
-    /* SolidColorBrush provided by dynamic color resource 'AccentColor'. */
+    // SolidColorBrush provided by dynamic color resource 'AccentColor'.
     brush(key3): var(AccentColor);
     
-    /* SolidColorBrush with opacity being 0.9. */
+    // SolidColorBrush with opacity being 0.9.
     brush(key4): var(AccentColor) 0.9;
     
-    /* BoxShadow with 'OffsetX=1', 'OffsetY=2', 'Blur=3', 'Spread=4', 'Color=#6666'. */
+    // Simple linear gradient brush.
+    linear(fluent-border): (1 1 1 1)[
+        #cccccc 0.3 0.2; 
+        #c0c0c0 0.8;
+        var(AccentColor) 1.2;
+    ]
+    
+    // Complex linear gradient brush.
+    linear(fluent-border):{
+        StartPoint:0,1;
+        EndPoint:1,1;
+        SpreadMethod:Repeat;
+        Opacity:0.9;
+        Transform: translate(10px,20px);
+        TransformOrigin:0.5,0.5;
+        Transitions:[
+            var(stOpacity);
+        ]
+        GradientStops:[
+            GradientStop(Aqua 0.5 0);
+            GradientStop(Aqua 1);
+        ]
+    }
+    
+    // BoxShadow with 'OffsetX=1', 'OffsetY=2', 'Blur=3', 'Spread=4', 'Color=#6666'.
     BoxShadow(button-shadow): 1 2 3 4 #6666;
     
     /* 
@@ -39,7 +63,7 @@
 */
 ^Button {
     
-    /* A setter for Foreground property. The value here is provided by a dynamic resource with key of 'fore'. */
+    // A setter for Foreground property. The value here is provided by a dynamic resource with key of 'fore'.
     Foreground: var(fore);
     
     /*
@@ -48,6 +72,14 @@
     */
     Padding: 8,4,8,5;
     
+    /*
+      -IMPORTANT-
+      A setter for TextDecorations. 
+      The value started with a '@' represents a static instance, which is a field or property, kept by class TextDecorations here.
+      Note that nested instances are not supported now.
+    */
+    TextDecorations:@TextDecorations.Strikethrough;
+    
     /* 
       A setter for Transitions property. Note that the Transitions is a collection. We use '[]' for that.
       There are 3 Transition instances being added to the Transitions collection here.
@@ -55,6 +87,8 @@
     */
     Transitions:[
         TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing);
+        
+        // -IMPORTANT- Note that 'var' here created a static reference to the resource. It is not a dynamic resource.
         var(stRenderTransform);
         var(stBorderBrush);
     ]
@@ -64,16 +98,16 @@
       Note that the '[[ ]]' must be only one and last section for style definition.
     */
     [[
-        /* The first child style for parent style '^Button'. */
+        // The first child style for parent style '^Button'.
         :pointerover{
             Foreground: var(fore-hover);
             Background: var(control-back-hover);
         }
-        /* The second one. */
+        // The second one.
         :pressed{
             Opacity:0.6;
             BorderBrush:var(control-border);
-            /* You can nest it again and again. */
+            // You can nest it again and again.
             [[
                 :pointerover{
                     Background: var(Accent09);
@@ -99,20 +133,26 @@
                     ]]
                 }
                 
-                /* '::animation' means an animation definition. It is almost like a style definition. */
+                // '::animation' means an animation definition. It is almost like a style definition.
                 ::animation{
-                    /* The property setters for animation class */
+                    // The property setters for animation class.
                     FillMode:Forward;
                     IterationCount:1;
                     Duration:'0:0:.3';
                     KeyFrames:[
-                        /* First KeyFrame with 'Cue=0%', 'KeySpline=0,1,0.5,1'. */
+                        // First KeyFrame with 'Cue=0%', 'KeySpline=0,1,0.5,1'.
                         KeyFrame(0% 0,1,0.5,1):[
                             Opacity:0;
                             TranslateTransform.Y:-40;
                             ScaleTransform.ScaleY:0.7;
+                            
+                            // Value that relative binding to '$parent[ProgressBar].TemplateSettings.ContainerAnimationStartPosition'.
+                            TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationStartPosition;
+                            
+                            // Value that relative binding to '$parent[ProgressBar;2].TemplateSettings.ContainerAnimationStartPosition'.
+                            TranslateTransform.X: $ProgressBar#2.TemplateSettings.ContainerAnimationStartPosition;
                         ]
-                        /* The second one with 'KeyTime=0%', 'KeySpline=0,1,0.5,1'. */
+                        // The second one with 'KeyTime=0%', 'KeySpline=0,1,0.5,1'.
                         KeyFrame(0:0:1 0,1,0.5,1):[
                             Opacity:1;
                             TranslateTransform.Y:0;

@@ -49,24 +49,13 @@ namespace Nlnet.Avalonia.Css
             _animation = new Animation();
 
             var interpreter = _builder.Interpreter;
-            var type        = typeof(Animation);
             var setters     = parser.ParsePairs(content).ToList();
-            foreach (var setter in setters.Where(s => s.Item1 != nameof(Animation.Children)))
-            {
-                var property = type.GetProperty(setter.Item1);
-                if (property == null)
-                {
-                    this.WriteError($"Can not get the property '{setter.Item1}' from type of {nameof(Animation)}. Skip it.");
-                    continue;
-                }
-
-                var value = interpreter.ParseValue(property.PropertyType, setter.Item2);
-                property.SetValue(_animation, value);
-            }
+            
+            _animation.ApplySetters(interpreter, setters, nameof(Animation.Children));
 
             var childrenSetter = setters.FirstOrDefault(s => s.Item1 is nameof(Animation.Children) or nameof(KeyFrames));
             var keyFrames      = interpreter.ParseKeyFrames(selectorTargetType, childrenSetter.Item2)?.ToList();
-            if (keyFrames == null)
+            if (keyFrames == null || keyFrames.Count == 0)
             {
                 this.WriteWarning($"No key frames detected in animation '{Description}'.");
                 _animation = null;

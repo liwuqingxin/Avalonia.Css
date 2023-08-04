@@ -6,11 +6,11 @@ namespace Nlnet.Avalonia.Css
 {
     internal class TransitionsParser
     {
-        public static Transitions? Parse(IAcssBuilder builder, string transitionsString)
+        public static Transitions? Parse(IAcssBuilder builder, string valueString)
         {
             var interpreter    = builder.Interpreter;
             var transitions    = new Transitions();
-            var transitionList = transitionsString.Trim('[', ']', ' ').Split(';', StringSplitOptions.RemoveEmptyEntries);
+            var transitionList = valueString[1..^1].Trim().Split(';', StringSplitOptions.RemoveEmptyEntries);
             foreach (var transition in transitionList)
             {
                 if (interpreter.IsVar(transition, out var key) && Application.Current != null)

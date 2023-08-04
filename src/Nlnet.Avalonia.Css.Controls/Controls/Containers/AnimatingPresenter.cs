@@ -35,7 +35,7 @@ namespace Nlnet.Avalonia.Css.Controls
                 {
                     container.PseudoClasses.Set(Pseudo_Changed, false);
                     container.PseudoClasses.Set(Pseudo_Changed, true);
-                }, DispatcherPriority.ApplicationIdle);
+                }, DispatcherPriority.SystemIdle);
             });
         }
     }

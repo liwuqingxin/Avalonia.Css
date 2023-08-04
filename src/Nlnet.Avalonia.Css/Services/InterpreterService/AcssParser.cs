@@ -263,7 +263,7 @@ internal class AcssParser : IAcssParser
 
         if (index < span.Length && string.IsNullOrEmpty(name) == false)
         {
-            value = span[index..].ToString().Trim(';', ' ');
+            value = span[index..].ToString().Trim(';', ' ', '\t');
             setters.Add(new ValueTuple<string, string>(name, value));
         }
 

@@ -122,7 +122,7 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
 
-            // Resource.
+            // Var resource.
             if (IsVar(rawValue, out var key))
             {
                 var extension = new DynamicResourceExtension(key!);
@@ -202,6 +202,8 @@ namespace Nlnet.Avalonia.Css
             {
                 declaredType = parseType;
             }
+            
+            // TODO Cache type metadata.
 
             // Parser.
             var parserMethod = declaredType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(string) });
@@ -211,7 +213,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             // Internal parser.
-            var internalParserMethod = declaredType!.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(IAcssBuilder), typeof(string) });
+            var internalParserMethod = declaredType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(IAcssBuilder), typeof(string) });
             if (internalParserMethod != null)
             {
                 return internalParserMethod.Invoke(declaredType, new object?[] { _builder, rawValue });
@@ -343,11 +345,11 @@ namespace Nlnet.Avalonia.Css
             }
             if (values.Length > 1)
             {
-                duration = DataParser.ParseTimeSpan(values[1]);
+                duration = DataParser.TryParseTimeSpan(values[1]);
             }
             if (values.Length > 2)
             {
-                delay = DataParser.ParseTimeSpan(values[2]);
+                delay = DataParser.TryParseTimeSpan(values[2]);
             }
             if (values.Length > 3)
             {
@@ -374,7 +376,7 @@ namespace Nlnet.Avalonia.Css
 
         public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString)
         {
-            valueString = valueString[1..^1].Trim(' ');
+            valueString = valueString[1..^1].Trim();
             var parser      = _builder.Parser;
             var interpreter = _builder.Interpreter;
             var objects     = parser.ParseObjects(valueString);
@@ -401,7 +403,7 @@ namespace Nlnet.Avalonia.Css
                         }
                         else
                         {
-                            keyFrame.KeyTime = TimeSpan.Parse(splits[0]);
+                            keyFrame.KeyTime = DataParser.TryParseTimeSpan(splits[0]);
                         }
                     }
                     catch

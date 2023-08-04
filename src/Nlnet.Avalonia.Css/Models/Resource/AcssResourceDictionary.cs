@@ -116,16 +116,14 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 
     private IEnumerable<AcssResource> TryGetResources(string resources)
     {
-        resources = resources.ReplaceLineEndings(" ");
-        var resourceList = resources.Split(";", StringSplitOptions.RemoveEmptyEntries);
-        foreach (var resource in resourceList)
+        var list = _builder.Parser.ParsePairs(resources);
+        foreach (var pair in list)
         {
-            var r = resource.Trim().TrimEnd(';');
-            if (string.IsNullOrWhiteSpace(r))
+            if (string.IsNullOrWhiteSpace(pair.Item1) || string.IsNullOrWhiteSpace(pair.Item2))
             {
                 continue;
             }
-            if (_builder.ResourceFactory.TryGetResourceInstance(resource, out var acssResource))
+            if (_builder.ResourceFactory.TryGetResourceInstance(pair.Item1, pair.Item2, out var acssResource))
             {
                 yield return acssResource!;
             }

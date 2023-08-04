@@ -7,7 +7,7 @@ namespace Nlnet.Avalonia.Css
 {
     internal static class DataParser
     {
-        public static TimeSpan ParseTimeSpan(string value)
+        public static TimeSpan TryParseTimeSpan(string value)
         {
             if (TimeSpan.TryParse(value, out var duration))
             {

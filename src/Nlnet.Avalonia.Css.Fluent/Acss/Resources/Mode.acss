@@ -15,26 +15,6 @@
 	brush(control-back-hover): #f3f3f3;
 	brush(control-back-pressed): #F5F5F7;
 	brush(control-border): #2222;
-	
-	
-	/* Fluent Border */
-	linear(fluent-border):{
-	    StartPoint:0,1;
-	    EndPoint:1,1;
-	    SpreadMethod:Repeat;
-	    Opacity:0.9;
-	    Transform: translate(10px,20px);
-	    TransformOrigin:0.5,0.5;
-	    Transitions:[
-	        var(stOpacity);
-	    ]
-	    GradientStops:[
-	        GradientStop(Aqua 0);
-	        GradientStop(Aqua 1);
-	    ]
-	} 
-	linear(fluent-border):0,0 0,1 [#cccccc 0.3 0.2] [#c0c0c0 0.8] [var(AccentColor) 1.2];
-	linear(fluent-border): [#cccccc 0.3 0.2] [#c0c0c0 0.8] [var(AccentColor) 1.2];
 
 
 	/* Item */
