@@ -1,7 +1,7 @@
 ﻿^ComboBox {
     Foreground: var(fore);
     Background: var(control-back);
-    BorderBrush:var(control-border);
+    BorderBrush:var(control-border-fluent);
     CornerRadius: 4;
     BorderThickness: 1;
     Padding: 8,4,8,5;
@@ -18,7 +18,6 @@
     /* PlaceholderForeground:Red; */
     Transitions:[
         var(stRenderTransform);
-        var(stBorderBrush);
         var(stBackground);
         var(stOpacity);
     ]
@@ -28,7 +27,8 @@
             Background:var(control-back-hover);
         }
         :pressed{
-            Opacity:0.6;
+            BorderBrush:var(control-border-pressed-fluent);
+            Foreground:var(fore-pressed);
         }
          /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
@@ -39,10 +39,10 @@
             Placement:BottomEdgeAlignedLeft;
         }
          /template/ Popup#PART_Popup PopupRoot{
-            Background:var(comboboxitem-back);
+            Background:var(combobox-item-back);
         }
          /template/ Border#PopupBorder{
-            Background:var(comboboxitem-back);
+            Background:var(combobox-item-back);
             CornerRadius:4;
             Padding:4;
         }

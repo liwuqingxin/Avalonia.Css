@@ -49,5 +49,10 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
         }
+
+        public static Color ApplyOpacity(this Color c, double opacity)
+        {
+            return new Color((byte)(c.A * opacity), c.R, c.G, c.B);
+        }
     }
 }

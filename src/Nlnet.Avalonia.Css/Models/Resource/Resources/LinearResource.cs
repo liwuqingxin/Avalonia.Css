@@ -10,7 +10,7 @@ namespace Nlnet.Avalonia.Css;
 internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
 {
     private LinearGradientBrush? _brush;
-    private Queue<string>? _keys;
+    private Queue<(string,double)>?     _keys;
 
     protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
     {
@@ -21,9 +21,9 @@ internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
             IsDeferred = shouldDefer;
             if (list != null)
             {
-                _keys = new Queue<string>(list);
+                _keys = new Queue<(string, double)>(list);
             }
-            return _brush;
+            return _brush?.ToImmutable();
         }
         else if (valueString.StartsWith("{"))
         {
@@ -31,9 +31,9 @@ internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
             IsDeferred = shouldDefer;
             if (list != null)
             {
-                _keys = new Queue<string>(list);
+                _keys = new Queue<(string, double)>(list);
             }
-            return _brush;
+            return _brush?.ToImmutable();
         }
         else
         {
@@ -56,16 +56,16 @@ internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
                 break;
             }
             
-            if (acssBuilder.ResourceProvidersManager.TryFindResource<Color>(key, out var color))
+            if (acssBuilder.ResourceProvidersManager.TryFindResource<Color>(key.Item1, out var color))
             {
-                stop.Color = color;
+                stop.Color = color.ApplyOpacity(key.Item2);
             }
             else
             {
-                this.WriteError($"Can not find the resource with key '{key}'.");
+                this.WriteError($"Can not find the resource with key '{key.Item2}'.");
             }
         }
 
-        return _brush;
+        return _brush.ToImmutable();
     }
 }

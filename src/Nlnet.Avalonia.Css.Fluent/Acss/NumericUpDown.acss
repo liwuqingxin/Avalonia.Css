@@ -2,7 +2,8 @@
 ^NumericUpDown {
     Foreground: var(fore);
     Background: var(control-back);
-    BorderBrush:var(control-border);
+    BorderBrush:var(control-border-fluent);
+    CaretBrush: var(fore);
     CornerRadius: 4;
     BorderThickness: 1;
     Padding: 8,5;
@@ -32,6 +33,7 @@
             VerticalAlignment:Stretch;
             BorderThickness:0;
             CornerRadius:4,0,0,4;
+            CaretBrush: var(fore);
         }
     ]]
 }

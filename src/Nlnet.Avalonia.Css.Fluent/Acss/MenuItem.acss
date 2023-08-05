@@ -16,10 +16,10 @@
 
     [[
         :pointerover{
-            Background:var(comboboxitem-back-hover);
+            Background:var(combobox-item-back-hover);
         }
         :pressed /template/ Border#PART_LayoutRoot:pointerover{
-            Background: var(comboboxitem-back-selected);
+            Background: var(combobox-item-back-selected);
         }
 
          /template/ Viewbox#PART_IconPresenter{
@@ -62,7 +62,7 @@
             HorizontalOffset:-12;
         }
          /template/ Popup#PART_Popup PopupRoot{
-            Background:var(comboboxitem-back);
+            Background:var(combobox-item-back);
         }
          /template/ ScrollViewer#PART_PopupScrollViewer {
             HorizontalScrollBarVisibility:Disabled;

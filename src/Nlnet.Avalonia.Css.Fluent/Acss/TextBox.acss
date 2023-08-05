@@ -2,7 +2,8 @@
 ^TextBox {
     Foreground: var(fore);
     Background: var(control-back);
-    BorderBrush:var(control-border);
+    BorderBrush:var(control-border-input-fluent);
+    CaretBrush: var(fore);
     CornerRadius: 4;
     BorderThickness: 1;
     Padding: 8,4,8,5;
@@ -39,21 +40,19 @@
         }
          /template/ Border#PART_Indicator {
             Background:var(Accent);
-            Height: 1;
+            Height: 10;
             Margin: 8,0,8,-1;
             Opacity: 0;
             CornerRadius:1;
             VerticalAlignment:Bottom;
-            RenderTransform: scale(0,1);
-            Transitions:[
-                TransformOperationsTransition(TemplatedControl.RenderTransform 0.14 0 CircularEaseInOut);
-                var(gstOpacity);
-            ]
+            RenderTransform: scale(1,0);
+            RenderTransformOrigin: 50%,100%;
         }
         :focus-within /template/ Border#PART_Indicator {
             Opacity: 1;
-            RenderTransform:scale(1,1);
-            Margin: 2,0,2,-1;
+            RenderTransform:scale(1,0.2);
+            CornerRadius:0,0,20,20;
+            Margin: 0,0,0,-1;
         }
         :disabled{
             Opacity:0.4;

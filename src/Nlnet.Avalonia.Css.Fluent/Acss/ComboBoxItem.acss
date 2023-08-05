@@ -1,6 +1,6 @@
 ﻿
 ^ComboBoxItem {
-    Background: var(comboboxitem-back);
+    Background: var(combobox-item-back);
     Foreground: var(fore);
     CornerRadius: 4;
     Padding: 8,4,8,5;
@@ -19,10 +19,10 @@
 
     [[
         :pointerover,:selected{
-            Background: var(comboboxitem-back-hover);
+            Background: var(combobox-item-back-hover);
         }
         :pressed{
-            Background: var(comboboxitem-back-selected);
+            Background: var(combobox-item-back-selected);
         }
          /template/ Border#PART_Indicator {
             Background:var(Accent);

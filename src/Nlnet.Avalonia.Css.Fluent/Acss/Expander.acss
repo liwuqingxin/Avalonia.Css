@@ -16,6 +16,9 @@
     IsTabStop:false;
 
     [[
+        :pressed{
+            BorderBrush: var(control-border-pressed-fluent);
+        }
         /* Use animation to set visibility */
         :expanded /template/ Border#ExpanderContent{
             [[
@@ -105,6 +108,7 @@ Expander{
         /template/ ToggleButton:is-part Border#ToggleButtonBackground{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
+            BorderBrush:var(control-border);
             Transitions:[
                 var(gstBackground);
                 var(gstCornerRadius)
@@ -112,9 +116,10 @@ Expander{
         }
         /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
             Background: var(control-back-hover);
+            BorderBrush:var(control-border-fluent);
         }
-        /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
-            BoxShadow: var(button-shadow);
+        /template/ ToggleButton:pressed Border#ToggleButtonBackground{
+            BorderBrush:var(control-border-pressed-fluent);
         }
 
 

@@ -2,7 +2,7 @@
 ^ButtonSpinner {
     Foreground: var(fore);
     Background: var(control-back);
-    BorderBrush:var(control-border);
+    BorderBrush:var(control-border-fluent);
     BorderThickness: 1;
     CornerRadius: 4;
     Padding: 8,4,8,5;
@@ -16,7 +16,6 @@
     ClipToBounds:False;
     Transitions:[
         var(stRenderTransform);
-        var(stBorderBrush);
         var(stBackground);
         var(stOpacity);
     ]

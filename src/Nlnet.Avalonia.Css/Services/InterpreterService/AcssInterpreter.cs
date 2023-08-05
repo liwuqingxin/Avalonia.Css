@@ -481,10 +481,7 @@ namespace Nlnet.Avalonia.Css
         {
             shouldDefer = false;
             keys = null;
-            
-            var parser = _builder.Parser;
-            var interpreter = _builder.Interpreter;
-            
+
             var match = _linearRegex.Match(valueString);
             if (!match.Success)
             {
@@ -524,12 +521,7 @@ namespace Nlnet.Avalonia.Css
 
                 // Check var.
                 var isDyn = _builder.Interpreter.IsVar(variables[0], out var key);
-                if (isDyn)
-                {
-                    keys ??= new List<(string,double)>();
-                    ((List<(string,double)>)keys).Add((key, 1)!);
-                }
-
+                
                 // Offset.
                 var opacityString = (string?)null;
                 var offsetString = variables[1];
@@ -551,25 +543,36 @@ namespace Nlnet.Avalonia.Css
                 };
                 
                 // Opacity
-                var existOpacity = opacityString != null && double.TryParse(opacityString, out var opacity);
-                
-                // Color
-                var color = DataParser.TryParseColor(variables[0]);
-                if (color == null)
+                var existOpacity = double.TryParse(opacityString, out var opacity);
+
+                if (isDyn == false)
                 {
-                    this.WriteError($"Invalid gradient stop color value '{variables[0]}'. Skip it.");
-                    continue;
+                    // Color
+                    var color = DataParser.TryParseColor(variables[0]);
+                    if (color == null)
+                    {
+                        this.WriteError($"Invalid gradient stop color value '{variables[0]}'. Skip it.");
+                        continue;
+                    }
+                    
+                    if (existOpacity)
+                    {
+                        color = color.Value.ApplyOpacity(opacity);
+                    }
+
+                    stop.Color = color.Value;
                 }
-                
-                // 继续
-                if ()
+                else
                 {
-                    var c = color.Value;
-                    color = new Color((byte)(c.A * opacity), c.R, c.G, c.B);
+                    shouldDefer = true;
+                    if (existOpacity == false)
+                    {
+                        opacity = 1;
+                    }
+                    keys ??= new List<(string, double)>();
+                    ((List<(string, double)>)keys).Add((key, opacity)!);
                 }
 
-                stop.Color = color.Value;
-                
                 linearBrush.GradientStops.Add(stop);
             }
             
