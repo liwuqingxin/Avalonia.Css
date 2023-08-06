@@ -2,6 +2,7 @@
 using Avalonia.Media;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -29,6 +30,12 @@ public interface IResolverManager<in T> where T : IResolver
     /// <param name="type"></param>
     /// <returns></returns>
     public bool TryGetType(string name, out Type? type);
+
+    /// <summary>
+    /// Get all types.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<Type> GetAllTypes();
 }
 
 /// <summary>
@@ -63,5 +70,10 @@ internal class ResolverManager<T> : IResolverManager<T> where T : IResolver
 
         type = null;
         return false;
+    }
+
+    public IEnumerable<Type> GetAllTypes()
+    {
+        return _resolvers.SelectMany(r => r.GetAllTypes());
     }
 }

@@ -41,4 +41,10 @@ public interface IAcssBuilder
     /// </summary>
     /// <returns></returns>
     public IAcssLoader BuildLoader();
+
+    /// <summary>
+    /// Build a rider settings file to support acss language according to this builder instance.
+    /// Now we do not provide language support in rider. Use this instead now.
+    /// </summary>
+    public void BuildRiderSettingsForAcss();
 }

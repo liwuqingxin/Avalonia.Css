@@ -33,6 +33,12 @@ public interface IResolver
     /// <param name="type"></param>
     /// <returns>True if succeeds to get the type.</returns>
     public bool TryGetType(string name, out Type? type);
+
+    /// <summary>
+    /// Get all types.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<Type> GetAllTypes();
 }
 
 /// <summary>
@@ -74,6 +80,11 @@ public class Resolver : IResolver
     public bool TryGetType(string name, out Type? type)
     {
         return Types.TryGetValue(name, out type);
+    }
+
+    public IEnumerable<Type> GetAllTypes()
+    {
+        return Types.Values;
     }
 }
 

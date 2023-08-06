@@ -35,6 +35,9 @@ namespace Nlnet.Avalonia.Css.App
             // Load this. In this, CssFluentTheme will be loaded.
             AvaloniaXamlLoader.Load(this);
 
+            // Build the rider settings file.
+            AcssBuilder.Default.BuildRiderSettingsForAcss();
+
             if (Application.Current != null)
             {
                 // Load application acss files.

@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Styling;
 
@@ -123,6 +127,34 @@ public class AcssBuilder : IAcssBuilder
         }
         
         return _loader;
+    }
+
+    public void BuildRiderSettingsForAcss()
+    {
+        var typeResolver = ((IAcssBuilder)this).TypeResolver;
+        var types = typeResolver
+            .GetAllTypes()
+            .Distinct();
+
+        var typeNames = types
+            .Select(t => t.Name)
+            .ToList();
+
+        var builder = new StringBuilder();
+        var classKeywords = builder.AppendJoin(';', types);
+
+
+        var fieldsBuilder = new StringBuilder();
+        foreach (var t in types)
+        {
+            var fields = t.GetFields(BindingFlags.Static | BindingFlags.Public)
+                .Where(f => f.FieldType.IsAssignableTo(typeof(AvaloniaProperty)))
+                .Select(f => f.Name[..^8]);
+
+            fieldsBuilder.AppendJoin(';', fields);
+        }
+        
+        var propertyKeywords = fieldsBuilder.ToString();
     }
 
     #endregion
