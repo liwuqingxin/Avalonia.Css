@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 .idea/
 lib/Avalonia.DevTools.dll
+dump/

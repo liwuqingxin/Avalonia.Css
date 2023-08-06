@@ -12,6 +12,7 @@ namespace Nlnet.Avalonia.Css
     {
         internal static void ReapplyStyling(IResourceHost? resourceHost)
         {
+            // TODO Memory leak here.
             switch (resourceHost)
             {
                 case Application application:
@@ -26,7 +27,7 @@ namespace Nlnet.Avalonia.Css
                             }
                             break;
                         }
-                        case ISingleViewApplicationLifetime { MainView: { } } singleView:
+                        case ISingleViewApplicationLifetime { MainView: not null } singleView:
                             ForceApplyStyling(singleView.MainView, true, true, true);
                             break;
                     }
