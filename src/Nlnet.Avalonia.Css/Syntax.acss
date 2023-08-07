@@ -4,6 +4,10 @@
   Resources with a description for light mode and blue theme. 
   Note that the mode, theme and desc are optional.
   This will be interpreted to an Avalonia ResourceDictionary. 
+  
+  -IMPORTANT-
+  Resources must be loaded before using them. 
+  For example, the resources used by a style acss file must be loaded ahead of that acss file.
 */
 ::res[mode=light][theme=blue][desc=亮色资源] {
 
@@ -49,11 +53,17 @@
     // BoxShadow with 'OffsetX=1', 'OffsetY=2', 'Blur=3', 'Spread=4', 'Color=#6666'.
     BoxShadow(button-shadow): 1 2 3 4 #6666;
     
+    // Double resource.
+    double(transition-duration): 0.15;
+    
     /* 
       TransformOperationsTransition for property 'LayoutTransformControl.LayoutTransform' with 'Duration=0.075', 'Delay=0.1', 'Easing=LinearEasing'. 
       DoubleTransition and other transitions are also available.
     */
     transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing);
+    
+    // use var(key) for the duration property. Delay and Easing properties also support that.
+    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration) 0.1 LinearEasing);
 }
 
 /* 

@@ -53,6 +53,8 @@ public class highlightingNode
         "desc",
         
         "color",
+        "double",
+        "int",
         "brush",
         "linear",
         "transition",
