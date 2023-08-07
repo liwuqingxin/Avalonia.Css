@@ -25,12 +25,18 @@ namespace Nlnet.Avalonia.Css
                 }
                 else
                 {
-                    // TODO var not handled here.
-                    var t = interpreter.ParseTransition(transition, out _, out _, out _, out _);
-                    if (t != null)
+                    var t = interpreter.ParseTransition(transition, out var shouldDefer, out var keyDuration, out var keyDelay, out var keyEasing);
+                    if (t == null)
                     {
-                        transitions.Add(t);
+                        continue;
                     }
+                    if (shouldDefer)
+                    {
+                        t.ApplyVarForDuration(builder, keyDuration);
+                        t.ApplyVarForDelay(builder, keyDelay);
+                        t.ApplyVarForEasing(builder, keyEasing);
+                    }
+                    transitions.Add(t);
                 }
             }
 

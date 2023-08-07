@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Reflection;
+﻿using System;
 using Avalonia.Animation;
 
 namespace Nlnet.Avalonia.Css;
@@ -26,41 +24,11 @@ internal class TransitionResource : AcssResourceBaseAndFac<TransitionResource>
         {
             return _transition;
         }
-        
-        if (_keyDuration != null && acssBuilder.ResourceProvidersManager.TryFindResource(_keyDuration, out var resource1))
-        {
-            var durationProp = _transition.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public);
-            switch (resource1)
-            {
-                case double d:
-                    durationProp?.SetValue(_transition, TimeSpan.FromSeconds(d));
-                    break;
-                case TimeSpan t:
-                    durationProp?.SetValue(_transition, t);
-                    break;
-            }
-        }
-        
-        if(_keyDelay != null && acssBuilder.ResourceProvidersManager.TryFindResource(_keyDelay, out var resource2))
-        {
-            var delayProp    = _transition.GetType().GetProperty("Delay",    BindingFlags.Instance | BindingFlags.Public);
-            switch (resource2)
-            {
-                case double d:
-                    delayProp?.SetValue(_transition, TimeSpan.FromSeconds(d));
-                    break;
-                case TimeSpan t:
-                    delayProp?.SetValue(_transition, t);
-                    break;
-            }
-        }
 
-        if (_keyEasing != null && acssBuilder.ResourceProvidersManager.TryFindResource(_keyEasing, out var resource3))
-        {
-            var easingProp = _transition.GetType().GetProperty("Easing",   BindingFlags.Instance | BindingFlags.Public);
-            easingProp?.SetValue(_transition, resource3);
-        }
-        
+        _transition.ApplyVarForDuration(acssBuilder, _keyDuration);
+        _transition.ApplyVarForDelay(acssBuilder, _keyDelay);
+        _transition.ApplyVarForEasing(acssBuilder, _keyEasing);
+
         return _transition;
     }
 }
