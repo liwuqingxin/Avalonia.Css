@@ -36,7 +36,7 @@ namespace Nlnet.Avalonia.Css.App
             AvaloniaXamlLoader.Load(this);
 
             // Build the rider settings file.
-            AcssBuilder.Default.BuildRiderSettingsForAcss();
+            AcssBuilder.Default.TryBuildRiderSettingsForAcss(out _, out _, null);
 
             if (Application.Current != null)
             {

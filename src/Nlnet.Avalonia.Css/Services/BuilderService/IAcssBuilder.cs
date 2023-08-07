@@ -1,3 +1,5 @@
+using System;
+
 namespace Nlnet.Avalonia.Css;
 
 /// <summary>
@@ -43,8 +45,15 @@ public interface IAcssBuilder
     public IAcssLoader BuildLoader();
 
     /// <summary>
-    /// Build a rider settings file to support acss language according to this builder instance.
-    /// Now we do not provide language support in rider. Use this instead now.
+    /// Build a rider settings file to support acss language according to this builder instance. <br/><br/>
+    /// Now we do not provide language supporting plugin in rider. Use this simple rider setting instead now. <br/><br/>
+    /// This function will try to create a setting file in rider's folder which is like
+    /// "C:\Users\72975\AppData\Roaming\JetBrains\Rider2023.1\filetypes\Acss.xml". <br/><br/>
+    /// If failed, you could handle it with the <see cref="output"/>, <see cref="setting"/> and <see cref="exceptionHandler"/>.
     /// </summary>
-    public void BuildRiderSettingsForAcss();
+    /// <param name="output">The out put file path if succeed.</param>
+    /// <param name="setting">The setting file xml content.</param>
+    /// <param name="exceptionHandler">Exception handler that could be null.</param>
+    /// <returns></returns>
+    public bool TryBuildRiderSettingsForAcss(out string? output, out string? setting, Action<Exception>? exceptionHandler = null);
 }
