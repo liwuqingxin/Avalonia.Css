@@ -43,5 +43,14 @@ namespace Nlnet.Avalonia.Css
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public bool TryFindResource<T>(object key, out T? result);
+
+        /// <summary>
+        /// Try find a resource by key. Registered <see cref="IResourceProvider"/> list will be checked first, Application.Current next.
+        /// Use Application's ThemeVariant.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public bool TryFindResource(object key, out object? result);
     }
 }

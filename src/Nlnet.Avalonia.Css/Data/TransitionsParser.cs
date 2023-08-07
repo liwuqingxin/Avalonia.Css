@@ -25,7 +25,8 @@ namespace Nlnet.Avalonia.Css
                 }
                 else
                 {
-                    var t = interpreter.ParseTransition(transition);
+                    // TODO var not handled here.
+                    var t = interpreter.ParseTransition(transition, out _, out _, out _, out _);
                     if (t != null)
                     {
                         transitions.Add(t);

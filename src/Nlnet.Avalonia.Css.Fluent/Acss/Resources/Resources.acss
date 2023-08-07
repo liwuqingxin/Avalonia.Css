@@ -14,24 +14,26 @@
 	brush(Error): #EB3D3D;
 	brush(Warning): #F0A000;
 	brush(Info): #2DD7FD;
+	
+	double(transition-duration): 0.125;
 
-	transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.125);
-	transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform 0.125);
-	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush 1.125);
-	transition(stBackground): BrushTransition(TemplatedControl.Background 0.125);
-	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity 0.125);
-	transition(stHeight): DoubleTransition(TemplatedControl.Height 0.125);
-	transition(stWidth): DoubleTransition(TemplatedControl.Width 0.125);
-	transition(stMaxHeight): DoubleTransition(TemplatedControl.MaxHeight 0.125);
-	transition(stMaxWidth): DoubleTransition(TemplatedControl.MaxWidth 0.125);
-	transition(stMinHeight): DoubleTransition(TemplatedControl.MinHeight 0.125);
-	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth 0.125);
-	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness 0.125);
-	transition(stMargin): ThicknessTransition(TemplatedControl.Margin 0.125);
-	transition(stFill): BrushTransition(Shape.Fill 0.125);
-	transition(stStroke): BrushTransition(Shape.Stroke 0.125);
-	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow 0.125);
-	transition(stBorderBorderBrush): BrushTransition(Border.BorderBrush 0.125);
-	transition(stBorderBorderThickness): ThicknessTransition(Border.BorderThickness 0.125);
-	transition(stCornerRadius): CornerRadiusTransition(Border.CornerRadius 0.125);
+	transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration));
+	transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform var(transition-duration));
+	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush var(transition-duration));
+	transition(stBackground): BrushTransition(TemplatedControl.Background var(transition-duration));
+	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity var(transition-duration));
+	transition(stHeight): DoubleTransition(TemplatedControl.Height var(transition-duration));
+	transition(stWidth): DoubleTransition(TemplatedControl.Width var(transition-duration));
+	transition(stMaxHeight): DoubleTransition(TemplatedControl.MaxHeight var(transition-duration));
+	transition(stMaxWidth): DoubleTransition(TemplatedControl.MaxWidth var(transition-duration));
+	transition(stMinHeight): DoubleTransition(TemplatedControl.MinHeight var(transition-duration));
+	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth var(transition-duration));
+	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness var(transition-duration));
+	transition(stMargin): ThicknessTransition(TemplatedControl.Margin var(transition-duration));
+	transition(stFill): BrushTransition(Shape.Fill var(transition-duration));
+	transition(stStroke): BrushTransition(Shape.Stroke var(transition-duration));
+	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow var(transition-duration));
+	transition(stBorderBorderBrush): BrushTransition(Border.BorderBrush var(transition-duration));
+	transition(stBorderBorderThickness): ThicknessTransition(Border.BorderThickness var(transition-duration));
+	transition(stCornerRadius): CornerRadiusTransition(Border.CornerRadius var(transition-duration));
 }

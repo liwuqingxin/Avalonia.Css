@@ -24,7 +24,7 @@ internal interface IAcssInterpreter
 
     public bool IsBinding(string? valueString, out Binding? binding);
 
-    public ITransition? ParseTransition(string valueString);
+    public ITransition? ParseTransition(string valueString, out bool shouldDefer, out string? keyDuration, out string? keyDelay, out string? keyEasing);
 
     public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString);
 

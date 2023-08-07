@@ -294,8 +294,13 @@ namespace Nlnet.Avalonia.Css
             return false;
         }
 
-        public ITransition? ParseTransition(string valueString)
+        public ITransition? ParseTransition(string valueString, out bool shouldDefer, out string? keyDuration, out string? keyDelay, out string? keyEasing)
         {
+            shouldDefer = false;
+            keyDuration = null;
+            keyDelay = null;
+            keyEasing = null;
+            
             var match = _transitionRegex.Match(valueString);
             if (match.Success == false)
             {
@@ -320,8 +325,8 @@ namespace Nlnet.Avalonia.Css
 
             var targetType = typeof(TemplatedControl);
             var property = string.Empty;
-            var duration = new TimeSpan(0, 0, 0, 0);
-            var delay = new TimeSpan(0, 0, 0, 0);
+            TimeSpan? duration = null;
+            TimeSpan? delay = null;
             var easing = (Easing?)new LinearEasing();
 
             var values = valuesString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -350,15 +355,36 @@ namespace Nlnet.Avalonia.Css
             }
             if (values.Length > 1)
             {
-                duration = DataParser.TryParseTimeSpan(values[1]);
+                if (IsVar(values[1], out keyDuration) && keyDuration != null)
+                {
+                    shouldDefer = true;
+                }
+                else
+                {
+                    duration = DataParser.TryParseTimeSpan(values[1]);
+                }
             }
             if (values.Length > 2)
             {
-                delay = DataParser.TryParseTimeSpan(values[2]);
+                if (IsVar(values[2], out keyDelay) && keyDelay != null)
+                {
+                    shouldDefer = true;
+                }
+                else
+                {
+                    delay = DataParser.TryParseTimeSpan(values[2]);
+                }
             }
             if (values.Length > 3)
             {
-                easing = DataParser.TryParseEasing(values[3]);
+                if (IsVar(values[3], out keyEasing) && keyEasing != null)
+                {
+                    shouldDefer = true;
+                }
+                else
+                {
+                    easing = DataParser.TryParseEasing(values[3]);
+                }
             }
 
             var avaloniaProperty = _builder.Interpreter.ParseAvaloniaProperty(targetType!, property);
@@ -367,13 +393,23 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
             
+            // TODO Cache property info and method info.
             var propertyProp = instance.GetType().GetProperty("Property", BindingFlags.Instance | BindingFlags.Public);
-            var durationProp = instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public);
-            var delayProp    = instance.GetType().GetProperty("Delay",    BindingFlags.Instance | BindingFlags.Public);
-            var easingProp   = instance.GetType().GetProperty("Easing",   BindingFlags.Instance | BindingFlags.Public);
             propertyProp?.SetValue(instance, avaloniaProperty);
-            durationProp?.SetValue(instance, duration);
-            delayProp?.SetValue(instance, delay);
+
+            if (duration != null)
+            {
+                var durationProp = instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public);
+                durationProp?.SetValue(instance, duration.Value);
+            }
+
+            if (delay != null)
+            {
+                var delayProp = instance.GetType().GetProperty("Delay",    BindingFlags.Instance | BindingFlags.Public);
+                delayProp?.SetValue(instance, delay.Value);
+            }
+
+            var easingProp = instance.GetType().GetProperty("Easing",   BindingFlags.Instance | BindingFlags.Public);
             easingProp?.SetValue(instance, easing);
 
             return instance;
