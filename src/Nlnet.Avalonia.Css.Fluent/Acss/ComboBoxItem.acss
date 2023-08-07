@@ -34,8 +34,8 @@
             Margin:1;
             CornerRadius:2;
             Transitions:[
-                var(gstRenderTransform);
-                var(gstOpacity);
+                var(stRenderTransform);
+                var(stOpacity);
             ]
         }
         :pointerover /template/ Border#PART_Indicator {

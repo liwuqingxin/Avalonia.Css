@@ -57,7 +57,7 @@
             UseLayoutRounding:False;
             RenderTransform:none;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
         :pressed /template/ PathIcon#DropDownGlyph{

@@ -26,8 +26,8 @@
             Margin:1;
             RenderTransform: scale(0,0);
             Transitions:[
-                var(gstRenderTransform);
-                var(gstOpacity);
+                var(stRenderTransform);
+                var(stOpacity);
             ]
         }
         :selected /template/ Border#PART_SelectedPipe{
@@ -79,7 +79,7 @@
             RenderTransform:none;
             RenderTransformOrigin:50%,50%;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
         :pointerover /template/ ContentControl#PART_IconContent{

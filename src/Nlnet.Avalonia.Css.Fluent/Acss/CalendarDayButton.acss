@@ -27,12 +27,12 @@
             RenderTransform:none;
             BorderThickness:0;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
         /template/ Border#Border{
             Transitions:[
-                var(gstBorderBorderThickness);
+                var(stBorderBorderThickness);
             ]
         }
         

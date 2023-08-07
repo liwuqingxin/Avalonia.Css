@@ -11,11 +11,11 @@
     VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
-        var(gstRenderTransform);
-        var(gstBorderBrush);
-        var(gstBackground);
-        var(gstOpacity);
-        var(gstBorderThickness);
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+        var(stBorderThickness);
     ]
 
     [[
@@ -29,7 +29,7 @@
             Stroke:var(control-border);
             StrokeThickness: 1;
             Transitions:[
-                var(gstFill);
+                var(stFill);
             ] 
         }
         :pointerover /template/ Ellipse#PART_Border{
@@ -43,7 +43,7 @@
             VerticalAlignment: Center;
             Transitions:[
                 DoubleTransition(Ellipse.StrokeThickness 0.125);
-                var(gstFill);
+                var(stFill);
             ]           
         }
         :checked /template/ Ellipse#PART_CheckGlyph{

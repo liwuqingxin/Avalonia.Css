@@ -70,7 +70,7 @@
             Opacity:0;
             Transitions:[
                 TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.3 0 SineEaseOut);
-                var(gstOpacity);
+                var(stOpacity);
             ]
         }
         :left /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
@@ -110,8 +110,8 @@ Expander{
             VerticalAlignment:Stretch;
             BorderBrush:var(control-border);
             Transitions:[
-                var(gstBackground);
-                var(gstCornerRadius)
+                var(stBackground);
+                var(stCornerRadius)
             ]
         }
         /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
@@ -131,7 +131,7 @@ Expander{
             Stretch:Uniform;
             Margin:8,0;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
         :up /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{

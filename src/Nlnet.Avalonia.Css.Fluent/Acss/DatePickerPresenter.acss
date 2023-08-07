@@ -22,7 +22,7 @@
             Width:12;
             RenderTransform:none;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
          /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
@@ -34,7 +34,7 @@
             Width:12;
             RenderTransform:none;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
          /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
@@ -58,7 +58,7 @@
                     Padding:8,0;
                     RenderTransform:none;
                     Transitions:[
-                        var(gstRenderTransform);
+                        var(stRenderTransform);
                     ]
                 }
                 >ListBoxItem:pressed{

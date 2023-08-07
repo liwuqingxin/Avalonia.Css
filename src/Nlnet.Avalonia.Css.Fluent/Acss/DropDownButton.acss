@@ -27,7 +27,7 @@
             RenderTransform:none;
             Data:M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z;
             Transitions:[
-                var(gstRenderTransform);
+                var(stRenderTransform);
             ]
         }
         :pressed /template/ PathIcon#DropDownGlyph{
