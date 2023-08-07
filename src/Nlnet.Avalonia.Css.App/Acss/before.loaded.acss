@@ -295,6 +295,12 @@ Expander#SourceCodeExpander /template/ Border:is-part#ExpanderContent{
 ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
     HorizontalAlignment:Left;
 }
+ToggleButton#ExpanderHeader /template/ Border#ToggleButtonBackground:is-part{
+    Transitions:[
+        var(stBorderBrush);
+        var(stBackground);
+    ]
+}
 
 
 /* Pages from here... */

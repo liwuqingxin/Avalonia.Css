@@ -15,7 +15,6 @@
     MinWidth:150;
     Transitions:[
         var(stBorderBrush);
-        var(stBackground);
     ]
 
     [[
