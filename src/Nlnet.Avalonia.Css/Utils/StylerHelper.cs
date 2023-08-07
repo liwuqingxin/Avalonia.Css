@@ -1,18 +1,21 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
-using Avalonia.Threading;
+using Avalonia.Styling;
 using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css
 {
     internal static class StylerHelper
     {
-        internal static void ReapplyStyling(IResourceHost? resourceHost)
+        // TODO Memory leak here.
+        // See https://github.com/AvaloniaUI/Avalonia/issues/12455
+        // and https://github.com/AvaloniaUI/Avalonia/issues/12457
+        public static void ReapplyStyling(this IResourceHost? resourceHost)
         {
-            // TODO Memory leak here.
             switch (resourceHost)
             {
                 case Application application:
@@ -41,7 +44,7 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        internal static void ReapplyStyling(StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
+        public static void ReapplyStyling(this StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
         {
             ForceApplyStyling(styledElement, parentControlTheme, controlTheme, styling);
         }
@@ -72,17 +75,97 @@ namespace Nlnet.Avalonia.Css
                 ForceApplyStyling(child, parentControlTheme, controlTheme, styling);
             }
 
-            if (styledElement is Popup { Child: StyledElement element1 })
+            switch (styledElement)
             {
-                ForceApplyStyling(element1, parentControlTheme, controlTheme, styling);
+                case Popup { Child: StyledElement element1 }:
+                    ForceApplyStyling(element1, parentControlTheme, controlTheme, styling);
+                    break;
+                case ContextMenu contextMenu:
+                {
+                    foreach (var element2 in contextMenu.Items.OfType<StyledElement>())
+                    {
+                        ForceApplyStyling(element2, parentControlTheme, controlTheme, styling);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        public static void DetachStylesRecursively(this IResourceHost? resourceHost, IReadOnlyList<Style> styles)
+        {
+            var list = new List<Style>();
+            StylerHelper.FlattenStyles(list, styles);
+            
+            switch (resourceHost)
+            {
+                case Application application:
+                {
+                    switch (application.ApplicationLifetime)
+                    {
+                        case ClassicDesktopStyleApplicationLifetime lifetime:
+                        {
+                            foreach (var window in lifetime.Windows)
+                            {
+                                ForceDetachStyles(window, list);
+                            }
+                            break;
+                        }
+                        case ISingleViewApplicationLifetime { MainView: not null } singleView:
+                            ForceDetachStyles(singleView.MainView, list);
+                            break;
+                    }
+                    break;
+                }
+                case StyledElement element:
+                {
+                    ForceDetachStyles(element, list);
+                    break;
+                }
+            }
+        }
+        
+        private static void ForceDetachStyles(StyledElement styledElement, IReadOnlyList<Style> styles)
+        {
+            styledElement.DetachStyles(styles);
+
+            if (styledElement is not Visual visual)
+            {
+                return;
             }
 
-            if (styledElement is ContextMenu contextMenu)
+            foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
             {
-                foreach (var element2 in contextMenu.Items.OfType<StyledElement>())
+                ForceDetachStyles(child, styles);
+            }
+
+            switch (styledElement)
+            {
+                case Popup { Child: StyledElement element1 }:
+                    ForceDetachStyles(element1, styles);
+                    break;
+                case ContextMenu contextMenu:
                 {
-                    ForceApplyStyling(element2, parentControlTheme, controlTheme, styling);
+                    foreach (var element2 in contextMenu.Items.OfType<StyledElement>())
+                    {
+                        ForceDetachStyles(element2, styles);
+                    }
+
+                    break;
                 }
+            }
+        }
+
+        private static void FlattenStyles(List<Style> styles, IReadOnlyList<Style>? appliedStyles)
+        {
+            if (appliedStyles == null)
+            {
+                return;
+            }
+            styles.AddRange(appliedStyles);
+            foreach (var style in appliedStyles)
+            {
+                FlattenStyles(styles, style.Children.OfType<Style>().ToList());
             }
         }
     }

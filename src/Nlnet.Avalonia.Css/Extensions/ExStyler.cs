@@ -58,7 +58,7 @@ namespace Nlnet.Avalonia.Css
                         }));   
                     }
 
-                    StylerHelper.ReapplyStyling(element, false, true, true);
+                    element.ReapplyStyling(false, true, true);
                 }
             });
         }

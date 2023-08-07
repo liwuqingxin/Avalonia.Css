@@ -128,25 +128,6 @@ namespace Nlnet.Avalonia.Css
             _disposable = null;
             _disposable ??= new CompositeDisposable();
 
-            _disposable.Add(Disposable.Create(() =>
-            {
-                styles.Remove(this);
-
-                this.Clear();
-                this.Resources.Clear();
-                this.Resources.ThemeDictionaries.Clear();
-                this.Resources.MergedDictionaries.Clear();
-
-                if (_acssStyles != null)
-                {
-                    foreach (var acssStyle in _acssStyles)
-                    {
-                        acssStyle.Dispose();
-                    }
-                }
-                _acssStyles = null;
-            }));
-
             try
             {
                 var parser = _acssBuilder.Parser;
@@ -159,6 +140,7 @@ namespace Nlnet.Avalonia.Css
 
                 _acssStyles = sections.OfType<IAcssStyle>();
 
+                // Normal styles.
                 foreach (var acssStyle in acssStyles)
                 {
                     var style = acssStyle.ToAvaloniaStyle();
@@ -168,47 +150,54 @@ namespace Nlnet.Avalonia.Css
                     }
                 }
 
+                // Theme child styles.
                 foreach (var acssThemeChildStyle in acssThemeChildStyles)
                 {
                     var style = acssThemeChildStyle.ToAvaloniaStyle();
-                    if (acssThemeChildStyle.ThemeTargetType != null)
+                    if (acssThemeChildStyle.ThemeTargetType == null)
                     {
-                        // TODO 检查 ThemeVariant;
-                        if (styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
-                        {
-                            //
-                            // TODO Do not consider the older of old and new styles now.
-                            //
-                            theme.Add(style);
+                        continue;
+                    }
+                    
+                    // TODO 检查 ThemeVariant;
+                    if (styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                    {
+                        //
+                        // TODO Do not consider the older of old and new styles now.
+                        //
+                        theme.Add(style);
 
-                            _disposable.Add(Disposable.Create(() =>
-                            {
-                                theme.Children.Remove(style);
-                            }));
-                        }
-                        else
+                        _disposable.Add(Disposable.Create(() =>
                         {
+                            _owner.Owner.DetachStylesRecursively(new List<Style>(){style});
+                            theme.Children.Remove(style);
+                        }));
+                    }
+                    else
+                    {
 
-                        }
                     }
                 }
 
+                // Resources
                 foreach (var dictionary in acssDictionaryList)
                 {
                     var dic = dictionary.ToAvaloniaResourceDictionary(_acssBuilder);
-                    if (dic != null)
+                    if (dic == null)
                     {
-                        if (dictionary.IsModeResource())
-                        {
-                            this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
-                        }
-                        else
-                        {
-                            this.Resources.MergedDictionaries.Add(dic);
-                        }
+                        continue;
+                    }
+                    if (dictionary.IsModeResource())
+                    {
+                        this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
+                    }
+                    else
+                    {
+                        this.Resources.MergedDictionaries.Add(dic);
                     }
                 }
 
+                // Put this acss file to it's owner styles.
                 if (index == -1)
                 {
                     styles.Add(this);
@@ -217,10 +206,30 @@ namespace Nlnet.Avalonia.Css
                 {
                     styles.Insert(index, this);
                 }
+                
+                _disposable.Add(Disposable.Create(() =>
+                {
+                    _owner.Owner.DetachStylesRecursively(this.OfType<Style>().ToList());
+                    styles.Remove(this);
+
+                    this.Clear();
+                    this.Resources.Clear();
+                    this.Resources.ThemeDictionaries.Clear();
+                    this.Resources.MergedDictionaries.Clear();
+
+                    if (_acssStyles != null)
+                    {
+                        foreach (var acssStyle in _acssStyles)
+                        {
+                            acssStyle.Dispose();
+                        }
+                    }
+                    _acssStyles = null;
+                }));
 
                 if (reapplyStyle)
                 {
-                    StylerHelper.ReapplyStyling(_owner.Owner);
+                    _owner.Owner.ReapplyStyling();
                 }
             }
             catch (Exception e)
@@ -262,7 +271,7 @@ namespace Nlnet.Avalonia.Css
 
             if (reapplyStyle)
             {
-                StylerHelper.ReapplyStyling(_owner.Owner);
+                _owner.Owner.ReapplyStyling();
             }
 
             _acssBuilder.TryRemoveAcssFile(this);
