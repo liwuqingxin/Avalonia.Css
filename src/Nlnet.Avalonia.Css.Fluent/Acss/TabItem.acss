@@ -12,7 +12,6 @@
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
-        /* var(stBackground); */
         var(stOpacity);
     ]
 

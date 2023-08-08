@@ -53,6 +53,7 @@
                     StrokeThickness: 1;
                     Transitions:[
                         var(stFill);
+                        var(stStroke);
                     ] 
                 }
                 >Thumb /template/ Ellipse#PART_CheckGlyph{

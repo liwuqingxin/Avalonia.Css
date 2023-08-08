@@ -30,6 +30,7 @@
             StrokeThickness: 1;
             Transitions:[
                 var(stFill);
+                var(stStroke);
             ] 
         }
         :pointerover /template/ Ellipse#PART_Border{

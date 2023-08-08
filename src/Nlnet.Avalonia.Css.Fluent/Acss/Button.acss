@@ -17,6 +17,7 @@
         /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
         var(stRenderTransform);
         var(stBackground);
+        var(stBorderBrush);
         var(stOpacity);
     ]
 

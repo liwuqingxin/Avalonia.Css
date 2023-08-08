@@ -14,7 +14,8 @@
     VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
-        BrushTransition(ToggleSwitch.Background 0.3 0 CircularEaseInOut);
+        var(stBackground);
+        var(stBorderBrush);
     ]
     KnobTransitions:[
         DoubleTransition(Canvas.Left 0.3 0 CubicEaseOut);

@@ -3,6 +3,9 @@
     Foreground: var(Accent);
     Background: var(progressbar-back);
     CornerRadius: 4;
+    Transitions:[   
+        var(stBackground);
+    ]
     [[
          /template/ TextBlock#PART_ProgressText{
             Foreground: var(fore);
@@ -14,7 +17,7 @@
                     Height:1;
                     Background: var(slider-back);
                 }
-                 /template/ Panel#IndeterminateRoot, :horizontal /template/ Panel#DeterminateRoot{
+                 /template/ Panel#IndeterminateRoot, /template/ Panel#DeterminateRoot{
                     Height:3;
                 }
                  /template/ Border#PART_Indicator{
@@ -73,7 +76,7 @@
                     Width: 1;
                     Background: var(slider-back);
                 }
-                 /template/ Panel#IndeterminateRoot, :vertical /template/ Panel#DeterminateRoot{
+                 /template/ Panel#IndeterminateRoot, /template/ Panel#DeterminateRoot{
                     Width: 3;
                 }
                  /template/ Border#PART_Indicator{
