@@ -177,8 +177,10 @@ public class AcssBuilder : IAcssBuilder
             var fileTypePath = $"{riderPath}/filetypes";
             output = $"{fileTypePath}/Acss.xml";
             Directory.CreateDirectory(fileTypePath);
-        
+
+#if DEBUG
             File.WriteAllText(output, setting);
+#endif
             
             return true;
         }
