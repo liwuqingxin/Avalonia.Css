@@ -55,6 +55,7 @@
     
     // Double resource.
     double(transition-duration): 0.15;
+    double(transition-delay): 0.15;
     
     /* 
       TransformOperationsTransition for property 'LayoutTransformControl.LayoutTransform' with 'Duration=0.075', 'Delay=0.1', 'Easing=LinearEasing'. 
@@ -63,8 +64,17 @@
     transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing);
     
     // use var(key) for the duration property. Delay and Easing properties also support that.
-    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration) 0.1 LinearEasing);
+    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration) var(transition-delay) LinearEasing);
 }
+
+
+Window{
+    // Acss feature: support a set of behaviors by default. This set of behaviors belongs to '.acss'.
+    // You can create your own behaviors and name it by yourself. For example, if you create a behaviors set
+    // named 'xbeh', with a behavior 'window.xxx.xxx, than you can use it like '.xbeh:window.xxx.xxx'.
+    .acss:window.esc.close;
+}
+
 
 /* 
   Style with selector='Button'. Note that the selector syntax is same as it in Avalonia, except the '^'.

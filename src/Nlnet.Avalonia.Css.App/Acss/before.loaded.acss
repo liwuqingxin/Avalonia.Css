@@ -4,6 +4,7 @@ Window#RootWindow{
     Height:800;
     Topmost:True;
     WindowStartupLocation:CenterScreen;
+    .acss:window.esc.close;
     [[
         Window > Panel > Border#WelcomeHost{
             /* We use direct color here to avoid rendering delay. */

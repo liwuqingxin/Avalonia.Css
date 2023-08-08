@@ -62,6 +62,8 @@ public class highlightingNode
         "::animation",
         "::res",
         
+        ".acss",
+        
         "/template/",
         
         ":not",
