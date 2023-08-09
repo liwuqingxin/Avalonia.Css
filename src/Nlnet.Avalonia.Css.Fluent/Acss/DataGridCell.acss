@@ -1,0 +1,28 @@
+﻿^DataGridCell {
+    MinHeight: 32;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    BorderThickness: 0;
+    BorderBrush: Red;
+    Padding: 0,0;
+    Background: Transparent;
+    Focusable: false;
+    [[
+        /template/ Rectangle#PART_RightGridLine{
+            Width: 1;
+        }
+    ]]
+}
+
+DataGridCell TextBox#CellTextBox{
+    Margin: 1;
+    MinHeight: 0;
+    HorizontalAlignment: Stretch;
+    [[
+        :focus{
+            Background: var(control-back-pressed);
+        }
+    ]]
+}

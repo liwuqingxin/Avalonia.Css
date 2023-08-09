@@ -72,6 +72,7 @@ public class highlightingNode
         ":pressed",
         ":selected",
         ":checked",
+        ":focus",
         ":focus-within",
         ":disabled",
         ":blackout",

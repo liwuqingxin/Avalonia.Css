@@ -1,4 +1,5 @@
-﻿using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Nlnet.Avalonia.Css.Controls;
 using Nlnet.Avalonia.Senior.Controls;
@@ -31,6 +32,9 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             // Nlnet.Avalonia.Css.Controls
             AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingPresenter>());
+            
+            // Avalonia.Controls.DataGrid
+            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<DataGrid>());
 
             // Nlnet.Avalonia.Senior
             AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());

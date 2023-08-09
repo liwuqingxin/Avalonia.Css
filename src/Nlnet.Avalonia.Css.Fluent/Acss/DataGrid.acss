@@ -1,0 +1,35 @@
+﻿^DataGrid {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush: var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    Opacity: 1;
+    Padding: 0;
+    ClipToBounds: True;
+    RenderTransform: none;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+    MinWidth:200;
+    SelectionMode: Extended;
+    HeadersVisibility: All;
+    GridLinesVisibility: All;
+    HorizontalGridLinesBrush: var(control-border);
+    VerticalGridLinesBrush: var(control-border);
+    VerticalScrollBarVisibility: Auto;
+    HorizontalScrollBarVisibility: Auto;
+    RowBackground: Transparent;
+    CanUserReorderColumns: True;
+    CanUserResizeColumns: True;
+    CanUserSortColumns: True;
+    CanRedo: True;
+    CanUndo: True;
+    CanCopy: True;
+    CanCut: True;
+    CanPaste: True;
+    CanHorizontallyScroll: True;
+    Transitions:[
+        var(stBorderBrush);
+        var(stBackground);
+    ]   
+}

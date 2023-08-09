@@ -1,0 +1,24 @@
+﻿^DataGridColumnHeader {
+    MinHeight: 32;
+    Padding: 12,0,0,0;
+    Foreground: var(fore);
+    Background: var(control-back);
+    VerticalContentAlignment: Center;
+    HorizontalContentAlignment: Stretch;
+    Focusable: False;
+    [[
+        /template/ Rectangle#VerticalSeparator{
+            Width: 1;
+            Fill: var(control-border);
+        }
+        :pointerover{
+            Background: var(control-back-hover);
+        }
+        :pressed{
+            Background: var(control-back-pressed);
+        }
+        :dragIndicator{
+            Opacity: 0.5;
+        }
+    ]]
+}

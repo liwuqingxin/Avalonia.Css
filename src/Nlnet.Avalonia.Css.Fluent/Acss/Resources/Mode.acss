@@ -14,7 +14,7 @@
 	/* Control */
 	brush(control-back): #fefefe;
 	brush(control-back-hover): #f5f5f5;
-	brush(control-back-pressed): #F5F5F7;
+	brush(control-back-pressed): #f7f7f7;
 	brush(control-border): #ececec;
 	brush(control-border-pressed): #ececec;
 	linear(control-border-fluent): (0% 0% 0% 100%)[
