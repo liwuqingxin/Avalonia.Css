@@ -36,6 +36,10 @@
             Width:10;
             VerticalAlignment: Center;
         }
+        /template/ ContentPresenter#PART_ContentPresenter:empty{
+            Margin: 0;
+            Padding: 0;
+        }
         :indeterminate,:checked{
             Background:var(Accent);
             BorderBrush:var(Accent03);

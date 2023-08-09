@@ -19,7 +19,10 @@
 DataGridCell TextBox#CellTextBox{
     Margin: 1;
     MinHeight: 0;
+    Padding: 10,0;
+    VerticalContentAlignment: Center;
     HorizontalAlignment: Stretch;
+    Transitions: null;
     [[
         :focus{
             Background: var(control-back-pressed);

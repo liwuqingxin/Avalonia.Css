@@ -1,65 +1,14 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:collections="clr-namespace:Avalonia.Collections;assembly=Avalonia.Controls.DataGrid">
-
-    <!-- <x:Double x:Key="ListAccentLowOpacity">0.6</x:Double> -->
-    <!-- <x:Double x:Key="ListAccentMediumOpacity">0.8</x:Double> -->
-    <!--  -->
-    <!-- <StreamGeometry x:Key="DataGridSortIconDescendingPath">M1875 1011l-787 787v-1798h-128v1798l-787 -787l-90 90l941 941l941 -941z</StreamGeometry> -->
-    <!-- <StreamGeometry x:Key="DataGridSortIconAscendingPath">M1965 947l-941 -941l-941 941l90 90l787 -787v1798h128v-1798l787 787z</StreamGeometry> -->
-    <!-- <StreamGeometry x:Key="DataGridRowGroupHeaderIconClosedPath">M515 93l930 931l-930 931l90 90l1022 -1021l-1022 -1021z</StreamGeometry> -->
-    <!-- <StreamGeometry x:Key="DataGridRowGroupHeaderIconOpenedPath">M109 486 19 576 1024 1581 2029 576 1939 486 1024 1401z</StreamGeometry> -->
-    <!--  -->
-    <!-- <SolidColorBrush x:Key="DataGridColumnHeaderForegroundBrush" Color="{DynamicResource SystemBaseMediumColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundBrush" Color="{DynamicResource SystemAltHighColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridColumnHeaderHoveredBackgroundBrush" Color="{DynamicResource SystemListLowColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridColumnHeaderPressedBackgroundBrush" Color="{DynamicResource SystemListMediumColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridColumnHeaderDraggedBackgroundBrush" Color="{DynamicResource SystemChromeMediumLowColor}" /> -->
-    <!--  -->
-    <!-- <SolidColorBrush x:Key="DataGridRowGroupHeaderBackgroundBrush" Color="{DynamicResource SystemChromeMediumColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowGroupHeaderPressedBackgroundBrush" Color="{DynamicResource SystemListMediumColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowGroupHeaderForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowGroupHeaderHoveredBackgroundBrush" Color="{DynamicResource SystemListLowColor}" /> -->
-    <!--  -->
-    <!-- <StaticResource x:Key="DataGridRowBackgroundBrush" ResourceKey="SystemControlTransparentBrush" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowSelectedBackgroundBrush" Color="{DynamicResource SystemAccentColor}" /> -->
-    <!-- <StaticResource x:Key="DataGridRowSelectedBackgroundOpacity" ResourceKey="ListAccentLowOpacity" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowSelectedHoveredBackgroundBrush" Color="{DynamicResource SystemAccentColor}" /> -->
-    <!-- <StaticResource x:Key="DataGridRowSelectedHoveredBackgroundOpacity" ResourceKey="ListAccentMediumOpacity" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowSelectedUnfocusedBackgroundBrush" Color="{DynamicResource SystemAccentColor}" /> -->
-    <!-- <StaticResource x:Key="DataGridRowSelectedUnfocusedBackgroundOpacity" ResourceKey="ListAccentLowOpacity" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowSelectedHoveredUnfocusedBackgroundBrush" Color="{DynamicResource SystemAccentColor}" /> -->
-    <!-- <StaticResource x:Key="DataGridRowSelectedHoveredUnfocusedBackgroundOpacity" ResourceKey="ListAccentMediumOpacity" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowHoveredBackgroundColor" Color="{DynamicResource SystemListLowColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridRowInvalidBrush" Color="{DynamicResource SystemErrorTextColor}" /> -->
-    <!--  -->
-    <!-- <StaticResource x:Key="DataGridCellBackgroundBrush" ResourceKey="SystemControlTransparentBrush" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridCellFocusVisualPrimaryBrush" Color="{DynamicResource SystemBaseHighColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridCellFocusVisualSecondaryBrush" Color="{DynamicResource SystemAltMediumColor}" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridCellInvalidBrush" Color="{DynamicResource SystemErrorTextColor}" /> -->
-    <!--  -->
-    <!-- <SolidColorBrush x:Key="DataGridGridLinesBrush" -->
-    <!-- Opacity="0.4" -->
-    <!-- Color="{DynamicResource SystemBaseMediumLowColor}" /> -->
-    <!-- <StaticResource x:Key="DataGridCurrencyVisualPrimaryBrush" ResourceKey="SystemControlTransparentBrush" /> -->
-    <!-- <SolidColorBrush x:Key="DataGridDetailsPresenterBackgroundBrush" Color="{DynamicResource SystemChromeMediumLowColor}" /> -->
-    <!-- <StaticResource x:Key="DataGridFillerColumnGridLinesBrush" ResourceKey="SystemControlTransparentBrush" /> -->
+                    xmlns:collections="clr-namespace:Avalonia.Collections;assembly=Avalonia.Controls.DataGrid"
+                    xmlns:nlnet="https://www.nlnet.com/avalonia">
 
     <ControlTheme x:Key="DataGridCellTextBlockTheme" TargetType="TextBlock">
         <Setter Property="Margin" Value="12,0,12,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </ControlTheme>
-
-    <ControlTheme x:Key="DataGridCellTextBoxTheme"
-                  BasedOn="{StaticResource {x:Type TextBox}}"
-                  TargetType="TextBox">
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="Background" Value="Transparent" />
-        <Style Selector="^ /template/ DataValidationErrors">
-            <Setter Property="Theme" Value="{StaticResource TooltipDataValidationErrors}" />
-        </Style>
-    </ControlTheme>
-
+    
+    
     <!-- DataGridCell -->
     <ControlTheme x:Key="{x:Type DataGridCell}" TargetType="DataGridCell">
         <Setter Property="Template">
@@ -131,8 +80,7 @@
 
                             <ContentPresenter x:Name="Presenter"
                                               Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              FontSize="{TemplateBinding FontSize}" />
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
 
                             <Path Name="SortIcon"
                                   Grid.Column="1"
@@ -158,28 +106,6 @@
         <Style Selector="^:focus-visible /template/ Grid#FocusVisual">
             <Setter Property="IsVisible" Value="True" />
         </Style>
-
-        <!-- <Style Selector="^:pointerover /template/ Grid#PART_ColumnHeaderRoot"> -->
-        <!--     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderHoveredBackgroundBrush}" /> -->
-        <!-- </Style> -->
-        <!--  -->
-        <!-- <Style Selector="^:pressed /template/ Grid#PART_ColumnHeaderRoot"> -->
-        <!--     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderPressedBackgroundBrush}" /> -->
-        <!-- </Style> -->
-        <!--  -->
-        <!-- <Style Selector="^:dragIndicator"> -->
-        <!--     <Setter Property="Opacity" Value="0.5" /> -->
-        <!-- </Style> -->
-
-        <!-- <Style Selector="^:sortascending /template/ Path#SortIcon"> -->
-        <!--     <Setter Property="IsVisible" Value="True" /> -->
-        <!--     <Setter Property="Data" Value="{StaticResource DataGridSortIconAscendingPath}" /> -->
-        <!-- </Style> -->
-        <!--  -->
-        <!-- <Style Selector="^:sortdescending /template/ Path#SortIcon"> -->
-        <!--     <Setter Property="IsVisible" Value="True" /> -->
-        <!--     <Setter Property="Data" Value="{StaticResource DataGridSortIconDescendingPath}" /> -->
-        <!-- </Style> -->
     </ControlTheme>
 
     <!-- DataGridTopLeftColumnHeader -->
@@ -205,9 +131,6 @@
 
     <!-- DataGridRowHeader -->
     <ControlTheme x:Key="{x:Type DataGridRowHeader}" TargetType="DataGridRowHeader">
-        <!-- <Setter Property="Focusable" Value="False" /> -->
-        <!-- <Setter Property="SeparatorBrush" Value="{DynamicResource DataGridGridLinesBrush}" /> -->
-        <!-- <Setter Property="AreSeparatorsVisible" Value="False" /> -->
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid x:Name="PART_Root"
@@ -285,31 +208,19 @@
     <ControlTheme x:Key="FluentDataGridRowGroupExpanderButtonTheme" TargetType="ToggleButton">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Width="12"
-                        Height="12"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Background="Transparent">
-                    <Path HorizontalAlignment="Right"
-                          VerticalAlignment="Center"
-                          Data="{StaticResource DataGridRowGroupHeaderIconClosedPath}"
-                          Fill="{TemplateBinding Foreground}"
-                          Stretch="Uniform" />
+                <Border x:Name="PART_Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Path x:Name="ExpanderGlyph" />
                 </Border>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^:checked /template/ Path">
-            <Setter Property="Data" Value="{StaticResource DataGridRowGroupHeaderIconOpenedPath}" />
-        </Style>
     </ControlTheme>
 
     <!-- DataGridRowGroupHeader -->
     <ControlTheme x:Key="{x:Type DataGridRowGroupHeader}" TargetType="DataGridRowGroupHeader">
-        <!-- <Setter Property="Focusable" Value="False" /> -->
-        <!-- <Setter Property="Foreground" Value="{DynamicResource DataGridRowGroupHeaderForegroundBrush}" /> -->
-        <!-- <Setter Property="Background" Value="{DynamicResource DataGridRowGroupHeaderBackgroundBrush}" /> -->
-        <!-- <Setter Property="FontSize" Value="15" /> -->
-        <!-- <Setter Property="MinHeight" Value="32" /> -->
         <Setter Property="Template">
             <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
                 <DataGridFrozenGrid Name="PART_Root"
@@ -330,11 +241,15 @@
                                   Foreground="{TemplateBinding Foreground}"
                                   Theme="{StaticResource FluentDataGridRowGroupExpanderButtonTheme}" />
 
-                    <StackPanel Grid.Row="0" Grid.Column="3">
+                    <StackPanel x:Name="PART_ContentsStackPanel"
+                                Grid.Row="0"
+                                Grid.Column="3">
                         <TextBlock Name="PART_PropertyNameElement"
                                    Foreground="{TemplateBinding Foreground}"
                                    IsVisible="{TemplateBinding IsPropertyNameVisible}" />
-                        <TextBlock Foreground="{TemplateBinding Foreground}" Text="{Binding Key}" />
+                        <TextBlock x:DataType="collections:DataGridCollectionViewGroup"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Text="{Binding Key}" />
                         <TextBlock Name="PART_ItemCountElement"
                                    Foreground="{TemplateBinding Foreground}"
                                    IsVisible="{TemplateBinding IsItemCountVisible}" />
@@ -373,11 +288,11 @@
 
     <!-- DataGrid -->
     <ControlTheme x:Key="{x:Type DataGrid}" TargetType="DataGrid">
-        <!-- <Setter Property="DropLocationIndicatorTemplate"> -->
-        <!--     <Template> -->
-        <!--         <Rectangle Width="2" Fill="{DynamicResource DataGridDropLocationIndicatorBackground}" /> -->
-        <!--     </Template> -->
-        <!-- </Setter> -->
+        <Setter Property="DropLocationIndicatorTemplate">
+            <Template>
+                <Rectangle x:Name="DropLocationIndicator" />
+            </Template>
+        </Setter>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border x:Name="DataGridBorder"
@@ -412,15 +327,15 @@
                         <Rectangle Name="PART_BottomRightCorner"
                                    Grid.Row="2"
                                    Grid.Column="2" />
-                        <ScrollBar Name="PART_VerticalScrollbar"
-                                   Grid.Row="1"
-                                   Grid.Column="2" />
+                        <nlnet:FixedScrollBar Name="PART_VerticalScrollbar"
+                                              Grid.Row="1"
+                                              Grid.Column="2" />
 
                         <Grid Grid.Row="2"
                               Grid.Column="1"
                               ColumnDefinitions="Auto,*">
                             <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
-                            <ScrollBar Name="PART_HorizontalScrollbar" Grid.Column="1" />
+                            <nlnet:FixedScrollBar Name="PART_HorizontalScrollbar" Grid.Column="1" />
                         </Grid>
                         <Border x:Name="PART_DisabledVisualElement"
                                 Grid.Row="0"

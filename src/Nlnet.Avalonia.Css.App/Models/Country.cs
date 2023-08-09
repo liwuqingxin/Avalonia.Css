@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Avalonia.Collections;
 
 public class Country : NotifyPropertyChanged
 {
@@ -71,8 +72,6 @@ namespace HS.IMF.BaseControls.Gallery.Test
 {
     public static class CountriesProvider
     {
-        public static IEnumerable<Country> Countries { get; } = GetCountries();
-        
         private static IEnumerable<Country> GetCountries()
         {
             yield return new Country("Afghanistan", "ASIA (EX. NEAR EAST)", 31056997, 647500, 48, 0, 23.06, 163.07, 700, 36, 3.2, 46.6, 20.34);
@@ -304,13 +303,30 @@ namespace HS.IMF.BaseControls.Gallery.Test
         }
 
         private static IReadOnlyList<Country>? _all;
-
+        private static DataGridCollectionView? _groupedAll;
+        
         public static IReadOnlyList<Country> All
         {
             get
             {
                 return _all ??= GetCountries().ToList().AsReadOnly();
             }
+        }
+        
+        public static DataGridCollectionView GroupedAll
+        {
+            get
+            {
+                return _groupedAll ??= GroupAll();
+            }
+        }
+
+        
+        private static DataGridCollectionView GroupAll()
+        {
+            var collectionView = new DataGridCollectionView(All);
+            collectionView.GroupDescriptions.Add(new DataGridPathGroupDescription("Region"));
+            return collectionView;
         }
     }
 }

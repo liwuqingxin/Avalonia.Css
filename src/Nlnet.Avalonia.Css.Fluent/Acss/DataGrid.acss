@@ -22,14 +22,49 @@
     CanUserReorderColumns: True;
     CanUserResizeColumns: True;
     CanUserSortColumns: True;
-    CanRedo: True;
-    CanUndo: True;
-    CanCopy: True;
-    CanCut: True;
-    CanPaste: True;
-    CanHorizontallyScroll: True;
     Transitions:[
         var(stBorderBrush);
         var(stBackground);
-    ]   
+    ]
+}
+
+DataGrid Rectangle#DropLocationIndicator{
+    Width: 1;
+    Fill: var(Accent);
+}
+
+DataGrid[GridLinesVisibility=Horizontal] DataGridRowHeader{
+    AreSeparatorsVisible: True;  
+}
+
+DataGrid[GridLinesVisibility=All] DataGridRowHeader{
+    AreSeparatorsVisible: True;  
+}
+
+DataGrid ToggleButton#PART_ExpanderButton{
+    VerticalAlignment: Center;
+    Height: 24;
+    Width: 24;
+    CornerRadius: 4;
+    Background: Transparent;
+    [[
+        :pointerover{
+            Background: var(control-back-hover);
+        }
+    ]]
+}
+DataGrid ToggleButton#PART_ExpanderButton /template/ Path{
+    HorizontalAlignment: Center;
+    VerticalAlignment: Center;
+    Width: 8;
+    RenderTransform: none;
+    Fill: var(fore);
+    Stretch: Uniform;
+    Data: M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z;
+    Transitions:[
+        var(stRenderTransform);
+    ]
+}
+DataGrid ToggleButton#PART_ExpanderButton:not(:checked) /template/ Path{
+    RenderTransform: rotate(-90deg);
 }

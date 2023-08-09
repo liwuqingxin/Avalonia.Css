@@ -78,6 +78,8 @@ public class highlightingNode
         ":blackout",
         ":expanded",
         ":dropdownopen",
+        ":sortdescending",
+        ":dragIndicator",
         ":horizontal",
         ":vertical",
         ":inactive",

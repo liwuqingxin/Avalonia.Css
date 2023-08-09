@@ -364,6 +364,10 @@ ComboBoxPage ComboBox#C1{
     -acss:window.esc.close; */
 }
 
+DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
+    VerticalAlignment: Top;
+    Transitions: null;
+}
 
 TextBoxPage TextBox{
     HorizontalAlignment:Left;
