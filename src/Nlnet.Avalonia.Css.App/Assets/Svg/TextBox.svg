@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient gradientUnits="objectBoundingBox" x1="0.011500001" y1="0.05540037" x2="0.99372214" y2="0.9162669" id="gradient_1">
-      <stop offset="0%" stop-color="#EA289C" />
-      <stop offset="100%" stop-color="#D6047B" />
+    <linearGradient gradientUnits="objectBoundingBox" x1="0" y1="0.50000006" x2="1" y2="0.50000006" id="gradient_1">
+      <stop offset="0%" stop-color="#50E6FF" />
+      <stop offset="55%" stop-color="#50E6FF" />
+      <stop offset="58%" stop-color="#4FE3FC" />
+      <stop offset="60.100002%" stop-color="#4EDAF4" />
+      <stop offset="62%" stop-color="#4ACAE7" />
+      <stop offset="63.699997%" stop-color="#46B4D3" />
+      <stop offset="64%" stop-color="#45B0D0" />
+      <stop offset="71%" stop-color="#45B0D0" />
+      <stop offset="71.3%" stop-color="#46B4D3" />
+      <stop offset="72.99999%" stop-color="#4ACAE7" />
+      <stop offset="74.9%" stop-color="#4EDAF4" />
+      <stop offset="77%" stop-color="#4FE3FC" />
+      <stop offset="79.99999%" stop-color="#50E6FF" />
+      <stop offset="100%" stop-color="#50E6FF" />
     </linearGradient>
     <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
     <clipPath id="clip_1">
@@ -12,17 +24,8 @@
   </defs>
   <g id="TextBox" clip-path="url(#clip_1)">
     <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="TextBox" fill="none" stroke="none" />
-    <path d="M46 166.4L46 345.6C46 357.976 55.3975 368 67 368L445 368C456.603 368 466 357.976 466 345.6L466 166.4C466 154.024 456.603 144 445 144L67 144C55.3975 144 46 154.024 46 166.4L46 166.4Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
-    <g id="编组-5" transform="translate(103 170)">
-      <g id="编组-4">
-        <path d="M0 0L0 33.2367L22.4348 33.2367L22.4348 138.763L0 138.763L0 172L78.9372 172L78.9372 138.763L55.6715 138.763L55.6715 33.2367L78.9372 33.2367L78.9372 0L0 0L0 0Z" id="矢量图" fill="#000000" fill-opacity="0.05" fill-rule="evenodd" stroke="none" />
-      </g>
-      <g id="编组-3" transform="translate(4.1545897 4.1545897)">
-        <path d="M0 0L0 24.9275L22.4348 24.9275L22.4348 138.763L0 138.763L0 163.691L70.628 163.691L70.628 138.763L47.3623 138.763L47.3623 24.9275L70.628 24.9275L70.628 0L0 0L0 0Z" id="矢量图" fill="#000000" fill-opacity="0.07" fill-rule="evenodd" stroke="none" />
-      </g>
-      <g id="编组-2" transform="translate(8.309179 8.309179)">
-        <path d="M0 0L0 16.6184L22.4348 16.6184L22.4348 138.763L0 138.763L0 155.382L62.3188 155.382L62.3188 138.763L39.0531 138.763L39.0531 16.6184L62.3188 16.6184L62.3188 0L0 0L0 0Z" id="矢量图" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
-      </g>
-    </g>
+    <path d="M42.6667 170.667L42.6667 341.333C42.6667 353.12 52.2133 362.667 64 362.667L448 362.667C459.787 362.667 469.333 353.12 469.333 341.333L469.333 170.667C469.333 158.88 459.787 149.333 448 149.333L64 149.333C52.2133 149.333 42.6667 158.88 42.6667 170.667L42.6667 170.667Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+    <path d="M405.333 469.333L394.667 469.333C347.541 469.333 309.333 431.125 309.333 384L309.333 128C309.333 80.8747 347.541 42.6667 394.667 42.6667L405.333 42.6667C411.221 42.6667 416 47.4453 416 53.3333L416 74.6667C416 80.5547 411.221 85.3333 405.333 85.3333L394.667 85.3333C371.104 85.3333 352 104.437 352 128L352 384C352 407.563 371.104 426.667 394.667 426.667L405.333 426.667C411.221 426.667 416 431.445 416 437.333L416 458.667C416 464.555 411.221 469.333 405.333 469.333L405.333 469.333Z" id="Shape" fill="#057093" stroke="none" />
+    <path d="M256 469.333L266.667 469.333C313.792 469.333 352 431.125 352 384L352 128C352 80.8747 313.792 42.6667 266.667 42.6667L256 42.6667C250.112 42.6667 245.333 47.4453 245.333 53.3333L245.333 74.6667C245.333 80.5547 250.112 85.3333 256 85.3333L266.667 85.3333C290.229 85.3333 309.333 104.437 309.333 128L309.333 384C309.333 407.563 290.229 426.667 266.667 426.667L256 426.667C250.112 426.667 245.333 431.445 245.333 437.333L245.333 458.667C245.333 464.555 250.112 469.333 256 469.333L256 469.333Z" id="Shape" fill="#057093" stroke="none" />
   </g>
 </svg>
