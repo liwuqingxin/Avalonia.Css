@@ -4,6 +4,11 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Button.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Calendar.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/CheckBox.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorPicker.xaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorPreviewer.xaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorSlider.xaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorSpectrum.xaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorView.xaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ComboBox.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/DataGrid.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/DatePicker.axaml" />
