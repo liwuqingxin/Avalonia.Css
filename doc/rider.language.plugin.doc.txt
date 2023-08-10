@@ -1,2 +1,0 @@
-https://plugins.jetbrains.com/docs/intellij/grammar-and-parser.html#generate-a-parser
-https://zhuanlan.zhihu.com/p/57541660

@@ -1,4 +1,0 @@
-1. RhythmicTransformAnimator 不再可用（Internal）；
-2. ExSetter 不再可用（Internal）；
-3. 移除 ReapplyStyling；
-4. ScrollBar的Viewport和Extend等是只读的，需要修改；
