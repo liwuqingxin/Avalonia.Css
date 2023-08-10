@@ -1,4 +1,27 @@
-![acss-brand](src/Nlnet.Avalonia.Css.App/Assets/svg/Logo-text.svg)
+<div align="left">
+  <a href="https://github.com/microsoft/dotnet">
+    <img src="https://img.shields.io/badge/-.NET-red">
+  </a>
+  <a href="https://avaloniaui.net/">
+    <img src="https://img.shields.io/badge/Avalonia-8245A9">
+  </a>
+  <a href="https://dotnet.microsoft.com/zh-cn/languages/csharp">
+    <img src="https://img.shields.io/badge/-C%23-yellow">
+  </a>
+  <a href="http://www.gnu.org/licenses/mit.en.html">
+    <img src="https://img.shields.io/badge/License-MIT-green">
+  </a>
+  <a href="https://www.cnblogs.com/liwuqingxin/">
+    <img src="https://img.shields.io/badge/Blog-NLNet-orange">
+  </a>
+  <a href="https://github.com/liwuqingxin">
+    <img src="https://img.shields.io/badge/Github-Liwuqingxin-blue?logo=GitHub">
+  </a>
+</div>
+
+
+
+![acss-brand](img/brand.svg)
 
 Avalonia.Css is not a library that fully adheres to the standard CSS (Cascading Style Sheets). The primary purpose is to **separate the structural and visual definitions** of Avalonia UI and empower the Avalonia framework with the ability to **dynamically modify visual styles quickly**. 
 
@@ -23,6 +46,105 @@ Hence, the idea of Acss was born. Picture this: By adopting the Acss pattern, we
 <img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
 
 ## Showcase
+
+🌰 Fluent theme for Avalonia controls powered by Acss. 
+
+![acss](img/fluent.gif)
+
+
+
+🌰 Ability of hot reloading.
+
+![acss](img/acss.gif)
+
+
+
+🌰 Here is a button definition of structure and visual style.
+
+```xaml
+<!-- 
+	Button Structure in xaml. 
+-->
+<ControlTheme x:Key="{x:Type Button}" TargetType="Button">
+    <Setter Property="Button.Template">
+        <ControlTemplate TargetType="Button">
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Background="{TemplateBinding Background}"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              CornerRadius="{TemplateBinding CornerRadius}" />
+        </ControlTemplate>
+    </Setter>
+</ControlTheme>
+```
+
+```css
+// 
+// Button Visual Style in acss.
+//
+^Button {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-fluent);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    MinHeight:28;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBackground);
+        var(stBorderBrush);
+        var(stOpacity);
+    ]
+
+    [[
+        :pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        :pressed{
+            /* RenderTransform:scale(0.97,0.97); */
+            //Opacity:0.6;
+            Foreground:var(fore-pressed);
+            BorderBrush:var(control-border-pressed-fluent);
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    
+        // Primary class and Accent style.
+        .primary, .Primary, [(ButtonStyles.Style)=Accent] {
+            Background: var(Accent);
+            Foreground: #fff;
+            BorderBrush: var(control-border-accent-fluent);
+            [[
+                :pointerover{
+                    Background: var(Accent09);
+                    Foreground: #fff;
+                }
+                :pressed{
+                    Opacity:0.8;
+                    BorderBrush: var(control-border-accent-fluent-pressed);
+                }
+            ]]
+        }
+    ]]
+}
+```
+
+
 
 <img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
 
@@ -102,10 +224,10 @@ private static AppBuilder BuildAvaloniaApp()
 ```csharp
 private class void Initialize()
 {
-	...
+    ...
 	
-	// [Optional] Set the current theme.
-	AcssBuilder.Default.Configuration.Theme = "blue";
+    // [Optional] Set the current theme.
+    AcssBuilder.Default.Configuration.Theme = "blue";
     
     // [Optional] 
     // Build the rider settings file. We do not provide Rider plugin to support
@@ -122,7 +244,7 @@ private class void Initialize()
 }
 ```
 
-- More about using of Acss, see the code of Nlnet.Avalonia.Css.App and Nlnet.Avalonia.Css.Fluent.
+>  More about using of Acss, see the code of [Nlnet.Avalonia.Css.App](src/Nlnet.Avalonia.Css.App) and [Nlnet.Avalonia.Css.Fluent](src/Nlnet.Avalonia.Css.Fluent).
 
 <img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
 
