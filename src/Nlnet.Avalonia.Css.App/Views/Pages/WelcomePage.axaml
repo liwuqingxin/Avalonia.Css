@@ -2,26 +2,36 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:fluent="https://www.nlnet.com/avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
 
     <StackPanel>
-        <TextBlock x:Name="PageDescription" TextWrapping="Wrap">
-            <Run Text="Avalonia.Css 不是一个完全支持 CSS（层叠样式表）的库，它的主要目的在于赋予 Avalonia 框架 " />
-            <Run FontWeight="Bold"
-                 Foreground="{DynamicResource Accent}"
-                 Text="快捷、动态修改外观样式" />
-            <Run Text=" 的能力，同时，这也让 Avalonia 可以支持样式热重载。" />
+        <nlnet:Icon x:Name="WelcomeLogo"
+                    Width="200"
+                    Height="180"
+                    HorizontalAlignment="Left"
+                    IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
+                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                    RenderOptions.EdgeMode="Unspecified" />
+        <TextBlock x:Name="PageDescription"
+                   Foreground="{DynamicResource fore}"
+                   TextWrapping="Wrap">
+            <Run Foreground="{DynamicResource fore}" Text="Avalonia.Css is not a library that fully adheres to the standard CSS (Cascading Style Sheets). The primary purpose is to " />
+            <Run Foreground="{DynamicResource Accent}" Text="separate the structural and visual definitions of Avalonia UI and empower the Avalonia framework with the ability to dynamically modify visual styles quickly" />
+            <Run Foreground="{DynamicResource fore}" Text="." />
             <LineBreak />
             <LineBreak />
-            <Run Text="目前支持：" />
+            <Run Foreground="{DynamicResource fore}" Text="😄 Yes, it follows a pattern similar to Html+CSS." />
+            <LineBreak />
+            <LineBreak />
+            <Run Foreground="{DynamicResource fore}" Text="Supported up to now：" />
             <Run FontWeight="Bold"
                  Foreground="{DynamicResource Accent}"
-                 Text="资源定义、Theme子样式、普通样式、逻辑子样式、动画等系统" />
-            <Run Text="。" />
+                 Text="Resource, Theme Style, Normal Style, Acss Logical Style, Animation, Behavior System" />
+            <Run Foreground="{DynamicResource fore}" Text="." />
         </TextBlock>
 
         <Grid x:Name="InfoGrid"
@@ -30,13 +40,16 @@
               ShowGridLines="False">
             <TextBlock Grid.Row="0"
                        Grid.Column="0"
-                       Text="版本" />
+                       Text="Version" />
             <TextBlock Grid.Row="1"
                        Grid.Column="0"
-                       Text="Avalonia 版本" />
+                       Text="Avalonia Version" />
             <TextBlock Grid.Row="2"
                        Grid.Column="0"
-                       Text="仓库" />
+                       Text="Repo" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Text="E-mail" />
 
             <TextBlock Grid.Row="0"
                        Grid.Column="2"
@@ -48,6 +61,9 @@
                     Grid.Column="2"
                     Click="BtnOpenRepo_OnClick"
                     Content="https://github.com/liwuqingxin/Avalonia.Css" />
+            <Button Grid.Row="3"
+                    Grid.Column="2"
+                    Content="https://yangqi1990917@163.com" />
         </Grid>
     </StackPanel>
 
