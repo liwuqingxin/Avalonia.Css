@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.DevTools;
 using Avalonia.Interactivity;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 
 namespace Nlnet.Avalonia.Css.App.Views
@@ -40,10 +41,13 @@ namespace Nlnet.Avalonia.Css.App.Views
             }
 
             // TODO 这里为何不能直接使用MainTabControl
-            _mainTab.GetVisualDescendants()
-                .OfType<ScrollViewer>()
-                .FirstOrDefault(s => s.Name == "MainContentScrollViewer")
-                ?.ScrollToHome();
+            Dispatcher.UIThread.Post(() =>
+            {
+                _mainTab.GetVisualDescendants()
+                    .OfType<ScrollViewer>()
+                    .FirstOrDefault(s => s.Name == "MainContentScrollViewer")
+                    ?.ScrollToHome();
+            });
         }
     }
 }

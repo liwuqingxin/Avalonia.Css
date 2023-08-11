@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Library</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
@@ -11,28 +11,30 @@
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<!--编译时禁止自动生成netcoreapp文件夹-->
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<ApplicationIcon>Assets\brand.ico</ApplicationIcon>
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
+		<RootNamespace>Nlnet.Avalonia</RootNamespace>
 	</PropertyGroup>
 	
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
-		<EmbeddedResource Include="Views\Pages\**" />
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\WindowsVisitor.cs" Link="Utils\WindowsVisitor.cs" />
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\PlatformService.cs" Link="Utils\PlatformService.cs" />
 	</ItemGroup>
 	
 	<ItemGroup>
+		<!--This helps with theme dll-s trimming. If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa. https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
 		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
 		<TrimmableAssembly Include="Avalonia.Themes.Default" />
 	</ItemGroup>
 
 	<ItemGroup>
-
 		<!--For Avalonia.DevTools-->
 		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.0.1" />
 
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0" />
@@ -40,28 +42,9 @@
 		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'">
-		  <Version>11.0.0</Version>
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0">
 		</PackageReference>
 		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Nlnet.Avalonia.Behaviors\Nlnet.Avalonia.Behaviors.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Behaviors\Nlnet.Avalonia.Css.Behaviors.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.SampleAssistant\Nlnet.Avalonia.SampleAssistant.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="Avalonia.DevTools">
-	    <HintPath>..\..\lib\Avalonia.DevTools.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Nlnet.Avalonia.Svg">
-	    <HintPath>..\..\lib\Nlnet.Avalonia.Svg.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 </Project>
