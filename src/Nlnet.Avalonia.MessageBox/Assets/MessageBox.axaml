@@ -123,7 +123,6 @@
                 <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.No}" />
             </Style>
         </Style>
-
         <Style Selector="^[Buttons=YesNoCancel]">
             <Style Selector="^ /template/ Button#PART_BtnYes">
                 <Setter Property="IsVisible" Value="True" />
@@ -138,14 +137,12 @@
                 <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Cancel}" />
             </Style>
         </Style>
-
         <Style Selector="^[Buttons=OK]">
             <Style Selector="^ /template/ Button#PART_BtnYes">
                 <Setter Property="IsVisible" Value="True" />
                 <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Ok}" />
             </Style>
         </Style>
-
         <Style Selector="^[Buttons=OKCancel]">
             <Style Selector="^ /template/ Button#PART_BtnYes">
                 <Setter Property="IsVisible" Value="True" />

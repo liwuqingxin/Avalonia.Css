@@ -1,0 +1,108 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Nlnet.Avalonia.Controls">
+
+    <!-- MessageBox -->
+    <ControlTheme x:Key="{x:Type controls:MessageBox}" TargetType="controls:MessageBox">
+        <Setter Property="Window.Template">
+            <ControlTemplate TargetType="controls:MessageBox">
+                <Panel x:Name="PART_TemplateRoot" Background="{TemplateBinding Background}">
+                    <Grid x:Name="PART_LayoutRoot"
+                          ColumnDefinitions="Auto,*"
+                          RowDefinitions="Auto,*,Auto">
+                        <Image x:Name="PART_Icon"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               RenderOptions.BitmapInterpolationMode="HighQuality" />
+                        <SelectableTextBlock x:Name="TxbTitle"
+                                             Grid.Row="0"
+                                             Grid.Column="1"
+                                             Text="{TemplateBinding Title}" />
+                        <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Grid.Row="1"
+                                      Grid.Column="1">
+                            <SelectableTextBlock x:Name="TbxMessage" Text="{TemplateBinding Message}" />
+                        </ScrollViewer>
+                        <StackPanel x:Name="PART_ButtonsPanel"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2">
+                            <Button x:Name="PART_BtnCancel" IsVisible="False" />
+                            <Button x:Name="PART_BtnNo" IsVisible="False" />
+                            <Button x:Name="PART_BtnYes"
+                                    IsDefault="True"
+                                    IsVisible="False" />
+                        </StackPanel>
+                    </Grid>
+                    <Button x:Name="PART_BtnClose">
+                        <PathIcon x:Name="PART_PathClose" />
+                    </Button>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+
+        <!-- Buttons -->
+        <Style Selector="^[Buttons=YesNo]">
+            <Style Selector="^ /template/ Button#PART_BtnYes">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Yes}" />
+            </Style>
+            <Style Selector="^ /template/ Button#PART_BtnNo">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.No}" />
+            </Style>
+        </Style>
+        <Style Selector="^[Buttons=YesNoCancel]">
+            <Style Selector="^ /template/ Button#PART_BtnYes">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Yes}" />
+            </Style>
+            <Style Selector="^ /template/ Button#PART_BtnNo">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.No}" />
+            </Style>
+            <Style Selector="^ /template/ Button#PART_BtnCancel">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Cancel}" />
+            </Style>
+        </Style>
+        <Style Selector="^[Buttons=OK]">
+            <Style Selector="^ /template/ Button#PART_BtnYes">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Ok}" />
+            </Style>
+        </Style>
+        <Style Selector="^[Buttons=OKCancel]">
+            <Style Selector="^ /template/ Button#PART_BtnYes">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Ok}" />
+            </Style>
+            <Style Selector="^ /template/ Button#PART_BtnCancel">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Content" Value="{x:Static controls:MessageBoxDisplay.Cancel}" />
+            </Style>
+        </Style>
+
+        <!-- Icon -->
+        <Style Selector="^controls|MessageBox[Image=None] /template/ Image#PART_Icon">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^controls|MessageBox[Image=Info] /template/ Image#PART_Icon">
+            <Setter Property="Source" Value="avares://Nlnet.Avalonia.MessageBox/Assets/Png/info.png" />
+        </Style>
+        <Style Selector="^controls|MessageBox[Image=Warning] /template/ Image#PART_Icon">
+            <Setter Property="Source" Value="avares://Nlnet.Avalonia.MessageBox/Assets/Png/warning.png" />
+        </Style>
+        <Style Selector="^controls|MessageBox[Image=Error] /template/ Image#PART_Icon">
+            <Setter Property="Source" Value="avares://Nlnet.Avalonia.MessageBox/Assets/Png/error.png" />
+        </Style>
+        <Style Selector="^controls|MessageBox[Image=Success] /template/ Image#PART_Icon">
+            <Setter Property="Source" Value="avares://Nlnet.Avalonia.MessageBox/Assets/Png/success.png" />
+        </Style>
+        <Style Selector="^controls|MessageBox[Image=Question] /template/ Image#PART_Icon">
+            <Setter Property="Source" Value="avares://Nlnet.Avalonia.MessageBox/Assets/Png/question.png" />
+        </Style>
+
+    </ControlTheme>
+
+</ResourceDictionary>

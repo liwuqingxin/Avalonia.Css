@@ -6,7 +6,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Styles.axaml" />
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Senior/Assets/Styles.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.Senior/Assets/Styles.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox/Assets/MessageBox.Acss.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>

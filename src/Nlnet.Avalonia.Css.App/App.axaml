@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes/Themes.axaml" />
-                <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox/Assets/MessageBox.axaml" />
+                <!-- <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox/Assets/MessageBox.axaml" /> -->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

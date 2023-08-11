@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using Nlnet.Avalonia.Controls;
 using Nlnet.Avalonia.Css.Controls;
 using Nlnet.Avalonia.Senior.Controls;
 
@@ -38,6 +39,9 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             // Nlnet.Avalonia.Senior
             AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());
+            
+            // Nlnet.Avalonia.MessageBox
+            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<MessageBox>());
 
             var loader = AcssBuilder.Default.BuildLoader();
 
@@ -49,6 +53,7 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             loader.LoadFolder(this, "Acss/", debugRelative);
             loader.LoadFolder(this, "Acss/Senior", debugRelative);
+            loader.LoadFolder(this, "Acss/MessageBox", debugRelative);
         }
 
         public void UpdateResource(bool reapplyStyle)

@@ -40,9 +40,10 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj" />
 	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+	  <ProjectReference Include="..\Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj" />
 	  <ProjectReference Include="..\Nlnet.Avalonia.Senior\Nlnet.Avalonia.Senior.csproj" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 	  <None Update="Acss\**">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

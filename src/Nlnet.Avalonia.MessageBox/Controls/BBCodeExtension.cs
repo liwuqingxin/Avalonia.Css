@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Controls;
 
-public static class BBCodeExtension
+internal static class BBCodeExtension
 {
     #region 默认
 
