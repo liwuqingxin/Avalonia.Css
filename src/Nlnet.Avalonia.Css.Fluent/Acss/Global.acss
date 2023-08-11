@@ -1,10 +1,12 @@
 ﻿TextBlock, AccessText {
-    FontFamily: Nunito,微软雅黑,宋体;
+    FontFamily: 微软雅黑,宋体;
+//    FontFamily: Nunito,微软雅黑,宋体;
     FontSize:14;
     TextTrimming: @TextTrimming.CharacterEllipsis;
 }
 TextPresenter {
-    TextBlock.FontFamily: Nunito,微软雅黑,宋体; 
+    TextBlock.FontFamily: 微软雅黑,宋体; 
+//    TextBlock.FontFamily: Nunito,微软雅黑,宋体; 
 }
 
 Window {
