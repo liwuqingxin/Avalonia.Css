@@ -3,10 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Nlnet.Avalonia.Senior.Controls;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : NtWindow
     {
         private readonly TabControl _mainTab;
 

@@ -1,0 +1,295 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:nlnet="https://www.nlnet.com/avalonia"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                    x:ClassModifier="internal">
+
+    <SolidColorBrush x:Key="Window.TitleBar.Fore" Color="#333333" />
+    <SolidColorBrush x:Key="Window.Back" Color="#F3F3F3" />
+    <SolidColorBrush x:Key="Window.Fore" Color="#333333" />
+    <SolidColorBrush x:Key="Window.ResizeThumb.Back.Hover" Color="#cccccc" />
+    <SolidColorBrush x:Key="Window.CaptionButton.Back" Color="#e7e7e7" />
+    <SolidColorBrush x:Key="Window.CaptionButton.Border" Color="#e0e0e0" />
+
+
+
+    <!-- CaptionButton -->
+    <ControlTheme x:Key="CaptionButton" TargetType="Button">
+        <Setter Property="Button.Background" Value="{DynamicResource Window.CaptionButton.Back}" />
+        <Setter Property="Button.BorderBrush" Value="{DynamicResource Window.CaptionButton.Border}" />
+        <Setter Property="Button.Foreground" Value="Black" />
+        <Setter Property="Button.Width" Value="45" />
+        <Setter Property="Button.Height" Value="28"/>
+        <Setter Property="Button.Opacity" Value="0.6"/>
+        <Setter Property="Button.VerticalAlignment" Value="Top" />
+        <Setter Property="Button.IsTabStop" Value="False" />
+        <Setter Property="Button.Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+        <Setter Property="Button.Template">
+            <ControlTemplate>
+                <ContentPresenter Name="PART_ContentPresenter"
+                                  Background="Transparent"
+                                  Content="{TemplateBinding Content}" />
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^:pointerover">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="^:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding Background}" />
+        </Style>
+
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{TemplateBinding BorderBrush}" />
+        </Style>
+    </ControlTheme>
+
+    <!-- NtResizeThumb -->
+    <ControlTheme x:Key="{x:Type nlnet:NtResizeThumb}" TargetType="nlnet:NtResizeThumb">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Opacity" Value="0.1" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="nlnet:NtResizeThumb">
+                <Border Background="{TemplateBinding Background}" />
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource Window.ResizeThumb.Back.Hover}" />
+        </Style>
+    </ControlTheme>
+
+    <!-- NtCaptionButtons -->
+    <ControlTheme x:Key="{x:Type nlnet:NtCaptionButtons}" TargetType="nlnet:NtCaptionButtons">
+        <Setter Property="UseCloseButton" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=nlnet:NtWindow}, Path=UseCloseButton}" />
+        <Setter Property="UseFullScreenButton" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=nlnet:NtWindow}, Path=UseFullScreenButton}" />
+        <Setter Property="UseMaximizeButton" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=nlnet:NtWindow}, Path=UseMaximizeButton}" />
+        <Setter Property="UseMinimizeButton" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=nlnet:NtWindow}, Path=UseMinimizeButton}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel VerticalAlignment="Stretch"
+                            Orientation="Horizontal"
+                            Spacing="0"
+                            TextElement.FontSize="10">
+                    <Button x:Name="PART_FullScreenButton"
+                            IsVisible="False"
+                            Theme="{StaticResource CaptionButton}">
+                        <Viewbox Width="11" Margin="2">
+                            <Path Name="FullScreenButtonPath"
+                                  Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Stretch="UniformToFill" />
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="PART_MinimizeButton"
+                            IsVisible="False"
+                            Theme="{StaticResource CaptionButton}">
+                        <Viewbox Width="11" Margin="2">
+                            <Path Data="M2048 1229v-205h-2048v205h2048z"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Stretch="UniformToFill" />
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="PART_RestoreButton"
+                            IsVisible="False"
+                            Theme="{StaticResource CaptionButton}">
+                        <Viewbox Width="11" Margin="2">
+                            <Viewbox.RenderTransform>
+                                <RotateTransform Angle="-90" />
+                            </Viewbox.RenderTransform>
+                            <Path Name="RestoreButtonPath"
+                                  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Stretch="UniformToFill" />
+                        </Viewbox>
+                    </Button>
+                    <Button x:Name="PART_CloseButton"
+                            Background="#ffe81123"
+                            BorderBrush="#fff1707a"
+                            IsVisible="False"
+                            Theme="{StaticResource CaptionButton}">
+                        <Viewbox Width="11" Margin="2">
+                            <Path Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Stretch="UniformToFill" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^[UseFullScreenButton=True] /template/ Button#PART_FullScreenButton">
+            <Setter Property="Button.IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^[UseMaximizeButton=True] /template/ Button#PART_RestoreButton">
+            <Setter Property="Button.IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^[UseMinimizeButton=True] /template/ Button#PART_MinimizeButton">
+            <Setter Property="Button.IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^[UseCloseButton=True] /template/ Button#PART_CloseButton">
+            <Setter Property="Button.IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:maximized /template/ StackPanel">
+            <Setter Property="Margin" Value="0,6,6,0" />
+        </Style>
+        <Style Selector="^:maximized /template/ Path#RestoreButtonPath">
+            <Setter Property="Data" Value="M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z" />
+        </Style>
+        <Style Selector="^:fullscreen /template/ Path#FullScreenButtonPath">
+            <Setter Property="IsVisible" Value="True" />
+            <Setter Property="Data" Value="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
+        </Style>
+        <Style Selector="^:fullscreen /template/ Button#PART_RestoreButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:fullscreen /template/ Button#PART_MinimizeButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </ControlTheme>
+
+    <!-- NtTitleBar -->
+    <ControlTheme x:Key="{x:Type nlnet:NtTitleBar}" TargetType="nlnet:NtTitleBar">
+        <Setter Property="Foreground" Value="{DynamicResource Window.TitleBar.Fore}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="Template">
+            <ControlTemplate TargetType="nlnet:NtTitleBar">
+                <Panel HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="Stretch">
+                    <Panel x:Name="PART_MouseTracker"
+                           Height="1"
+                           VerticalAlignment="Top" />
+                    <Grid x:Name="PART_Container" ColumnDefinitions="*,Auto">
+                        <Border x:Name="PART_Background"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Background="{TemplateBinding Background}"
+                                IsHitTestVisible="True" />
+                        <ContentPresenter x:Name="PART_TitlePresenter"
+                                          Grid.Column="0"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <nlnet:NtCaptionButtons x:Name="PART_CaptionButtons"
+                                                Grid.Column="1"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Stretch"
+                                                Foreground="{TemplateBinding Foreground}" />
+                    </Grid>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:maximized /template/ ContentPresenter#PART_TitlePresenter">
+            <Setter Property="Margin" Value="6,6,0,0" />
+        </Style>
+    </ControlTheme>
+
+    <!-- ImfWindow -->
+    <ControlTheme x:Key="{x:Type nlnet:NtWindow}" TargetType="nlnet:NtWindow">
+        <Setter Property="Background" Value="{DynamicResource Window.Back}" />
+        <Setter Property="Foreground" Value="{DynamicResource Window.Fore}" />
+        <Setter Property="ExtendClientAreaChromeHints" Value="SystemChrome" />
+        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0.5" />
+        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+        <Setter Property="TransparencyBackgroundFallback" Value="Transparent" />
+        <Setter Property="SystemDecorations">
+            <OnPlatformExtension>
+                <OnPlatformExtension.Default>
+                    <SystemDecorations>None</SystemDecorations>
+                </OnPlatformExtension.Default>
+                <OnPlatformExtension.Linux>
+                    <SystemDecorations>None</SystemDecorations>
+                </OnPlatformExtension.Linux>
+                <OnPlatformExtension.Windows>
+                    <SystemDecorations>Full</SystemDecorations>
+                </OnPlatformExtension.Windows>
+            </OnPlatformExtension>
+        </Setter>
+        <Setter Property="UseCustomResizer">
+            <OnPlatformExtension>
+                <OnPlatformExtension.Default>
+                    <system:Boolean>False</system:Boolean>
+                </OnPlatformExtension.Default>
+                <OnPlatformExtension.Linux>
+                    <system:Boolean>True</system:Boolean>
+                </OnPlatformExtension.Linux>
+                <OnPlatformExtension.Windows>
+                    <system:Boolean>False</system:Boolean>
+                </OnPlatformExtension.Windows>
+            </OnPlatformExtension>
+        </Setter>
+
+        <Setter Property="Window.Template">
+            <ControlTemplate TargetType="nlnet:NtWindow">
+                <Panel>
+                    <Border Name="PART_TransparencyFallback"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            IsHitTestVisible="False" />
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            IsHitTestVisible="False" />
+                    <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+                    <VisualLayerManager>
+                        <VisualLayerManager.ChromeOverlayLayer>
+                            <nlnet:NtTitleBar Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=nlnet:NtWindow}, Path=TitleHeight}"
+                                              VerticalAlignment="Top"
+                                              Background="Transparent"
+                                              Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=nlnet:NtWindow}, Path=TitleContent}" />
+                        </VisualLayerManager.ChromeOverlayLayer>
+                        <Panel>
+                            <Panel Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=TitleHeight, Converter={x:Static nlnet:CalculateContentMarginCvt.Cvt}}">
+                                <ContentPresenter Name="PART_ContentPresenter"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  CornerRadius="{TemplateBinding CornerRadius}" />
+                            </Panel>
+                        </Panel>
+                    </VisualLayerManager>
+                    <Grid x:Name="ResizeThumbs"
+                          ColumnDefinitions="6,*,6"
+                          IsVisible="False"
+                          RowDefinitions="3,*,6"
+                          ShowGridLines="False">
+                        <nlnet:NtResizeThumb Grid.Row="0"
+                                             Grid.Column="0"
+                                             CursorType="TopLeftCorner" />
+                        <nlnet:NtResizeThumb Grid.Row="0"
+                                             Grid.Column="1"
+                                             CursorType="TopSide" />
+                        <nlnet:NtResizeThumb Grid.Row="0"
+                                             Grid.Column="2"
+                                             CursorType="TopRightCorner" />
+                        <nlnet:NtResizeThumb Grid.Row="1"
+                                             Grid.Column="0"
+                                             CursorType="LeftSide" />
+                        <nlnet:NtResizeThumb Grid.Row="1"
+                                             Grid.Column="2"
+                                             CursorType="RightSide" />
+                        <nlnet:NtResizeThumb Grid.Row="2"
+                                             Grid.Column="0"
+                                             CursorType="BottomLeftCorner" />
+                        <nlnet:NtResizeThumb Grid.Row="2"
+                                             Grid.Column="1"
+                                             CursorType="BottomSide" />
+                        <nlnet:NtResizeThumb Grid.Row="2"
+                                             Grid.Column="2"
+                                             CursorType="BottomRightCorner" />
+                    </Grid>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^[UseCustomResizer=True][WindowState=Normal] /template/ Grid#ResizeThumbs">
+            <Setter Property="Grid.IsVisible" Value="True" />
+        </Style>
+    </ControlTheme>
+
+</ResourceDictionary>

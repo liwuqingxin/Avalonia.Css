@@ -14,6 +14,27 @@
     <Design.DataContext>
         <app:MainWindowViewModel />
     </Design.DataContext>
+    1. 修改欢迎页面背景色
+    2. 整理window的代码，该放到acss的放到acss；
+    3. senior的acss主题；
+    4. 整理首页标题栏；
+    <nlnet:NtWindow.TitleContent>
+        <StackPanel Height="80" Orientation="Horizontal">
+            <nlnet:Icon x:Name="TitleLogo"
+                        Width="40"
+                        Height="40"
+                        Margin="24,20,24,0"
+                        HorizontalAlignment="Left"
+                        nlnet:LoadedMixin.Attach="True"
+                        IconStretch="Uniform"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/brand.svg"
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        RenderOptions.EdgeMode="Unspecified" />
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="{DynamicResource fore}"
+                       Text="Powered By Acss" />
+        </StackPanel>
+    </nlnet:NtWindow.TitleContent>
 
     <Panel>
         <Grid RowDefinitions="Auto,*">
@@ -57,8 +78,7 @@
                         <Grid RowDefinitions="Auto,*">
                             <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
                                 <Border x:Name="PageIconBorder">
-                                    <nlnet:Icon x:Name="PageIcon"
-                                                IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                                    <nlnet:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
                                     <!--<Image x:Name="PageIcon"
                                        RenderOptions.BitmapInterpolationMode="HighQuality"
                                        Source="{Binding Path=Icon, Converter={x:Static app:StringToImageSourceCvt.Cvt}}" />-->
@@ -69,8 +89,7 @@
                                            Text="{Binding Path=Title}" />
                             </Grid>
                             <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
-                                <ContentControl Content="{Binding}"
-                                                IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
+                                <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
                                     <ContentControl.ContentTemplate>
                                         <nlnet:GalleryItemLocator />
                                     </ContentControl.ContentTemplate>

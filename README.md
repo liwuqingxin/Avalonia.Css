@@ -18,12 +18,11 @@
     <img src="https://img.shields.io/badge/Github-Liwuqingxin-blue?logo=GitHub">
   </a>
 </div>
-
 <br/><br/><br/>
 
 ![acss-brand](img/brand.svg)
 
-Avalonia.Css is not a library that fully adheres to the standard CSS (Cascading Style Sheets). The primary purpose is to **separate the structural and visual definitions** of Avalonia UI and empower the Avalonia framework with the ability to **dynamically modify visual styles quickly**. 
+Avalonia.Css is not a library that fully adheres to the standard CSS (Cascading Style Sheets). The primary purpose is to **separate the structural and visual definitions** of Avalonia UI and empower the Avalonia with the ability to **dynamically modify visual styles quickly**. 
 
 :smile: Yes, it follows a pattern similar to **Html+CSS**.
 
@@ -31,11 +30,11 @@ Avalonia.Css is not a library that fully adheres to the standard CSS (Cascading 
 
 ## Scenarios
 
-Let's provide some examples to illustrate its use cases.
+Let's provide some examples to illustrate it.
 
-🌰 Imagine we have a standard UI control library, where the functionality of its internal controls depends on the structure within their templates. When we want to modify the visual styles of the entire control library, we usually need to rewrite all ControlTheme. This means we have to mix control structure and visual styles, even rewriting resources. It's a painful process.
+🌰 Imagine we have a standard control library, where the functionality of its internal controls depends on the structure within their templates. If we want to modify the visual styles of the controls, we usually need to rewrite all ControlTheme. This means we have to mix control structure and visual styles, even rewriting resources. It's a painful process.
 
-Hence, the idea of Acss was born. Picture this: By adopting the Acss pattern, we extract the visual styles from the standard theme of the control library, retaining only the skeletal structure, i.e., ControlTemplate. Any new visual library can be based on this standard themed structure, defining its own Acss library to achieve the desired visual styles. Creators of the visual library don't need to painfully copy existing ControlTheme code for modifications, they don't need to worry about whether the control structure is correct. They only need to adjust visual styles based on UI design!
+Then the idea of Acss was born. Picture this: By adopting the Acss pattern, we extract the visual styles from the standard themes of the controls, retaining only the skeletal structure ControlTemplate. Any new visual library can be based on this standard themed structure, defining its own Acss library to achieve the desired visual styles. Creators of the visual library don't need to painfully copy existing ControlTheme code for modifications, they don't need to worry about whether the control structure is correct. They only need to adjust visual styles based on UI design!
 
 > Theme = UI Structure + Visual Styles
 
@@ -47,7 +46,12 @@ Hence, the idea of Acss was born. Picture this: By adopting the Acss pattern, we
 
 ## Showcase
 
-🌰 Fluent theme for Avalonia controls powered by Acss. 
+🌰 We provide fluent theme for Avalonia controls powered by Acss. This visual library depends on:
+
+- **Avalonia.Controls**. 
+- **Nlnet.Avalonia.Css.Controls**. This library provides pure structures for the controls of Avalonia.Controls.
+- **Nlnet.Avalonia.Senior**. This library provides some extended features like **smooth scrolling** and other senior features that Avalonia.Controls can not provide.
+- **Nlnet.Avalonia.MessageBox**. It provides a MessageBox control that can follow WPF standard or Avalonia standard. See [here](doc/MessageBox.md).
 
 ![acss](img/fluent.gif)
 
@@ -152,11 +156,11 @@ Hence, the idea of Acss was born. Picture this: By adopting the Acss pattern, we
 
 ### 🟢 Separation of Concerns
 
-As mentioned earlier, Acss promotes the separation of structural and visual definitions of UI. Building upon the MVVM pattern, it further divides the view into structure and style.
+As mentioned above, Acss promotes the separation of structural and visual definitions of UI. Building upon the MVVM pattern, it further divides the view into structure and style.
 
 ### 🟢 Dynamic Changes
 
-Acss functions as an interpreted language, where all style objects are created at runtime, naturally supporting dynamic changes to styles during runtime. We can easily switch global or local styles or collections of styles for an application.
+As an interpreted language where all style objects are created at runtime, Acss functions naturally supports dynamic changes to styles during runtime. We can easily switch global or local styles or collections of styles for an application.
 
 > :fire: Importantly, it enables **hot reloading** of styles, allowing us to run the program, simultaneously write style code, and see real-time effects and feedback. No need for previews as we can see the results directly.
 
@@ -198,7 +202,7 @@ Since Acss code files may be exposed in external static text files, potential se
 dotnet add package Nlnet.Avalonia.Css --version 11.0.0
 ```
 
-- Use default Acss builder in Avalonia's AppBuilder. Then load all types.
+- Use default Acss builder in Avalonia's AppBuilder. Then load all types. Alternatively, you can create your own Acss builder instead.
 
 ```csharp
 private static AppBuilder BuildAvaloniaApp()
@@ -219,7 +223,7 @@ private static AppBuilder BuildAvaloniaApp()
 }
 ```
 
-- Initialize the builder.
+- Initialize the builder. In this section, you can setup the configuration like theme, create rider settings and load acss files.  
 
 ```csharp
 private class void Initialize()

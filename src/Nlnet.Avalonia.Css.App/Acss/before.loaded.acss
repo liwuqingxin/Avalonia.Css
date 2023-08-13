@@ -1,17 +1,17 @@
 ﻿/* Window */
-Window#RootWindow{
+NtWindow#RootWindow{
     Width:1200;
     Height:800;
     Topmost:True;
     WindowStartupLocation:CenterScreen;
     .acss:window.esc.close;
     [[
-        Window > Panel > Border#WelcomeHost{
+        NtWindow > Panel > Border#WelcomeHost{
             /* We use direct color here to avoid rendering delay. */
             Background: #1A2228;
         }
         /* Animation to hide the welcome elements. */
-        Window > Panel > Border#WelcomeHost{
+        NtWindow > Panel > Border#WelcomeHost{
             [[
                 ::animation[desc=Hide the welcome elements]{
                     IterationCount:1;
@@ -28,7 +28,7 @@ Window#RootWindow{
             ]]
         }
         /* Animation to show logo-text. */
-        Window > Panel > Border > Panel > Icon#WelcomeLogo{
+        NtWindow > Panel > Border > Panel > Icon#WelcomeLogo{
             Opacity:0;
             Width:200;
             Height:200;
@@ -58,10 +58,10 @@ Window#RootWindow{
             ]]
         }
         /* Animation to show logo. */
-        Window Icon#LogoImage{
+        NtWindow Icon#LogoImage{
             Opacity:0;
         }
-        Window Icon#LogoImage:is-loaded{
+        NtWindow Icon#LogoImage:is-loaded{
             Width:200;
             Height:200;
             RenderTransform:none;
@@ -129,19 +129,19 @@ Window#RootWindow{
         }
 
         /* Main layout. */
-        Window > Panel > Grid{
+        NtWindow > Panel > Grid{
             Margin:8,8,0,0;
         }
-        Window > Panel > Grid > StackPanel{
+        NtWindow > Panel > Grid > StackPanel{
             Spacing:8;
             Margin:0,0,0,8;
             HorizontalAlignment:Right;
         }
-        Window > Panel > Grid > StackPanel > CheckBox#CbxIsEnabled{
+        NtWindow > Panel > Grid > StackPanel > CheckBox#CbxIsEnabled{
             IsChecked:True;
             IsThreeState:False;
         }
-        Window Border#PageIconBorder{
+        NtWindow Border#PageIconBorder{
             Background:var(control-back);
             BorderBrush:var(control-border);
             BorderThickness:1;
@@ -152,24 +152,24 @@ Window#RootWindow{
                 var(stBorderBrush);
             ]
         }
-        Window Icon#PageIcon{
+        NtWindow Icon#PageIcon{
             Height:64;
             Width:64;
         }
-        Window Image#PageIcon{
+        NtWindow Image#PageIcon{
             Height:64;
             Width:64;
         }
-        Window TextBlock#PageName{
+        NtWindow TextBlock#PageName{
             FontSize:32;
             VerticalAlignment:Center;
             Margin:16,0;            
         }
-        Window TextBlock#PageDescription{
+        NtWindow TextBlock#PageDescription{
             LineHeight:24;
             Foreground:var(fore);
         }
-        Window TextBlock#PageDescription>Run{
+        NtWindow TextBlock#PageDescription>Run{
             LineHeight:24;
             Foreground:var(fore);
         }
