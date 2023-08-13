@@ -7,8 +7,8 @@
         <Setter Property="Margin" Value="12,0,12,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </ControlTheme>
-    
-    
+
+
     <!-- DataGridCell -->
     <ControlTheme x:Key="{x:Type DataGridCell}" TargetType="DataGridCell">
         <Setter Property="Template">
@@ -327,15 +327,15 @@
                         <Rectangle Name="PART_BottomRightCorner"
                                    Grid.Row="2"
                                    Grid.Column="2" />
-                        <nlnet:FixedScrollBar Name="PART_VerticalScrollbar"
-                                              Grid.Row="1"
-                                              Grid.Column="2" />
+                        <nlnet:DataGridScrollBar Name="PART_VerticalScrollbar"
+                                                 Grid.Row="1"
+                                                 Grid.Column="2" />
 
                         <Grid Grid.Row="2"
                               Grid.Column="1"
                               ColumnDefinitions="Auto,*">
                             <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
-                            <nlnet:FixedScrollBar Name="PART_HorizontalScrollbar" Grid.Column="1" />
+                            <nlnet:DataGridScrollBar Name="PART_HorizontalScrollbar" Grid.Column="1" />
                         </Grid>
                         <Border x:Name="PART_DisabledVisualElement"
                                 Grid.Row="0"

@@ -5,7 +5,7 @@ using Avalonia.Controls.Primitives;
 
 namespace Nlnet.Avalonia.Css.Controls;
 
-public class FixedScrollBar : ScrollBar
+public class DataGridScrollBar : ScrollBar
 {
     protected override Type StyleKeyOverride { get; } = typeof(ScrollBar);
     

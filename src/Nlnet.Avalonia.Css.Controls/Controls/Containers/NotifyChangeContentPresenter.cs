@@ -3,11 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Presenters;
 using Avalonia.Threading;
+// ReSharper disable InconsistentNaming
 
 namespace Nlnet.Avalonia.Css.Controls
 {
     [PseudoClasses(Pseudo_Changing, Pseudo_Changed)]
-    public class AnimatingPresenter : ContentPresenter
+    public class NotifyChangeContentPresenter : ContentPresenter
     {
         private const string Pseudo_Changing = ":changing";
         private const string Pseudo_Changed = ":changed";
@@ -18,11 +19,11 @@ namespace Nlnet.Avalonia.Css.Controls
             set { SetValue(LeavingContentProperty, value); }
         }
         public static readonly StyledProperty<object?> LeavingContentProperty = AvaloniaProperty
-            .Register<AnimatingPresenter, object?>(nameof(LeavingContent));
+            .Register<NotifyChangeContentPresenter, object?>(nameof(LeavingContent));
 
-        static AnimatingPresenter()
+        static NotifyChangeContentPresenter()
         {
-            ContentProperty.Changed.AddClassHandler<AnimatingPresenter>((container, args) =>
+            ContentProperty.Changed.AddClassHandler<NotifyChangeContentPresenter>((container, args) =>
             {
                 container.LeavingContent = args.OldValue;
 

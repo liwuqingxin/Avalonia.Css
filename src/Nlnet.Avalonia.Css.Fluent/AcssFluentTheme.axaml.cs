@@ -32,7 +32,7 @@ namespace Nlnet.Avalonia.Css.Fluent
             AcssBuilder.Default.ResourceProvidersManager.RegisterResourceProvider(this);
 
             // Nlnet.Avalonia.Css.Controls
-            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<AnimatingPresenter>());
+            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NotifyChangeContentPresenter>());
             
             // Avalonia.Controls.DataGrid
             AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<DataGrid>());
