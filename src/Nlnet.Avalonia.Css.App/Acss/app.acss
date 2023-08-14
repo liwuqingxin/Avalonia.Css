@@ -2,13 +2,58 @@
 NtWindow#RootWindow{
     Width:1200;
     Height:800;
+    TitleHeight: 80;
     Topmost:True;
     WindowStartupLocation:CenterScreen;
     .acss:window.esc.close;
     [[
+        // Title root.
+        NtWindow Grid#TitleRoot{
+            Height: 80;
+            VerticalAlignment: Top;
+        }
+        // Logo in title.
+        NtWindow Icon#TitleLogo{
+            Height: 60;
+            Width: 60;
+            Margin: 24,0,12,0;
+            HorizontalAlignment: Left;
+            VerticalAlignment: Center;
+            IconStretch: Uniform;
+            RenderOptions.BitmapInterpolationMode: HighQuality;
+        }
+        // Text next to title logo.
+        NtWindow TextBlock#TbkPowerText{
+            VerticalAlignment: Center;
+            Foreground: var(fore);
+            Text: Powered By Acss;
+            FontSize: 18;
+            FontFamily: Britannic Bold;
+            FontWeight: Bold;
+            FontStyle: Italic;
+            Margin: 0,0,40,0;
+        }
+        NtWindow DropDownButton{
+            HorizontalAlignment:Left;
+            VerticalAlignment: Center;
+        }
+        NtWindow DropDownButton>Icon{
+            Width: 24;
+            Height: 24;
+        }
+        // Layout root of settings for app.
+        NtWindow StackPanel#SettingsRoot{
+            Spacing: 8;
+        }
+        NtWindow StackPanel#SettingsRoot>:is(Control){
+            HorizontalAlignment: Stretch;
+        }
+        NtWindow StackPanel#SettingsRoot>:CheckBox{
+            HorizontalContentAlignment: Left;
+        }
+        // Welcome host.
         NtWindow > Panel > Border#WelcomeHost{
-            /* We use direct color here to avoid rendering delay. */
-            Background: #1A2228;
+            Background: var(window-back);
         }
         /* Animation to hide the welcome elements. */
         NtWindow > Panel > Border#WelcomeHost{
@@ -187,6 +232,7 @@ TabControl#MainTabControl /template/ Border#PART_ContentBorder{
     Margin:8,0,0,0;
     Transitions:[
         var(stBackground);
+        var(stBorderBrush);
     ]
 }
 TabControl#MainTabControl NtScrollViewer#MainContentScrollViewer{
@@ -359,9 +405,6 @@ ComboBoxPage ComboBox{
 }
 ComboBoxPage ComboBox#C1{
     .acss:combobox.popup.align;
-    /* .acss:share.dragmove(right 50);
-    .acss:window.esc.close;
-    -acss:window.esc.close; */
 }
 
 DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{

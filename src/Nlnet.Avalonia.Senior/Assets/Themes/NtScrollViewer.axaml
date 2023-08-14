@@ -4,6 +4,8 @@
 
     <!-- NtScrollViewer -->
     <ControlTheme x:Key="{x:Type controls:NtScrollViewer}" TargetType="controls:NtScrollViewer">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="UseCustomScrollAnimation" Value="False"/>
         <Setter Property="controls:NtScrollViewer.Template">
             <ControlTemplate TargetType="controls:NtScrollViewer">
                 <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">

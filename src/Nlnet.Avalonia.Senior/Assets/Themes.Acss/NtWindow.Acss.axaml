@@ -4,63 +4,24 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime"
                     x:ClassModifier="internal">
 
-    <SolidColorBrush x:Key="Window.TitleBar.Fore" Color="#333333" />
-    <SolidColorBrush x:Key="Window.Back" Color="#F3F3F3" />
-    <SolidColorBrush x:Key="Window.Fore" Color="#333333" />
-    <SolidColorBrush x:Key="Window.ResizeThumb.Back.Hover" Color="#cccccc" />
-    <SolidColorBrush x:Key="Window.CaptionButton.Back" Color="#e7e7e7" />
-    <SolidColorBrush x:Key="Window.CaptionButton.Border" Color="#e0e0e0" />
-
-
-
     <!-- CaptionButton -->
     <ControlTheme x:Key="CaptionButton" TargetType="Button">
-        <Setter Property="Button.Background" Value="{DynamicResource Window.CaptionButton.Back}" />
-        <Setter Property="Button.BorderBrush" Value="{DynamicResource Window.CaptionButton.Border}" />
-        <Setter Property="Button.Foreground" Value="Black" />
-        <Setter Property="Button.Width" Value="45" />
-        <Setter Property="Button.Height" Value="28"/>
-        <Setter Property="Button.Opacity" Value="0.6"/>
-        <Setter Property="Button.VerticalAlignment" Value="Top" />
-        <Setter Property="Button.IsTabStop" Value="False" />
-        <Setter Property="Button.Transitions">
-            <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.2"/>
-            </Transitions>
-        </Setter>
         <Setter Property="Button.Template">
             <ControlTemplate>
-                <ContentPresenter Name="PART_ContentPresenter"
-                                  Background="Transparent"
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="{TemplateBinding Background}"
                                   Content="{TemplateBinding Content}" />
             </ControlTemplate>
         </Setter>
-        
-        <Style Selector="^:pointerover">
-            <Setter Property="Opacity" Value="1" />
-        </Style>
-
-        <Style Selector="^:pointerover /template/ ContentPresenter">
-            <Setter Property="Background" Value="{TemplateBinding Background}" />
-        </Style>
-
-        <Style Selector="^:pressed /template/ ContentPresenter">
-            <Setter Property="Background" Value="{TemplateBinding BorderBrush}" />
-        </Style>
     </ControlTheme>
 
     <!-- NtResizeThumb -->
     <ControlTheme x:Key="{x:Type nlnet:NtResizeThumb}" TargetType="nlnet:NtResizeThumb">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Opacity" Value="0.1" />
         <Setter Property="Template">
             <ControlTemplate TargetType="nlnet:NtResizeThumb">
                 <Border Background="{TemplateBinding Background}" />
             </ControlTemplate>
         </Setter>
-        <Style Selector="^:pointerover">
-            <Setter Property="Background" Value="{DynamicResource Window.ResizeThumb.Back.Hover}" />
-        </Style>
     </ControlTheme>
 
     <!-- NtCaptionButtons -->
@@ -73,49 +34,36 @@
             <ControlTemplate>
                 <StackPanel VerticalAlignment="Stretch"
                             Orientation="Horizontal"
-                            Spacing="0"
-                            TextElement.FontSize="10">
+                            Spacing="0">
                     <Button x:Name="PART_FullScreenButton"
                             IsVisible="False"
                             Theme="{StaticResource CaptionButton}">
-                        <Viewbox Width="11" Margin="2">
-                            <Path Name="FullScreenButtonPath"
-                                  Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z"
-                                  Fill="{TemplateBinding Foreground}"
-                                  Stretch="UniformToFill" />
+                        <Viewbox>
+                            <Path x:Name="FullScreenButtonPath" Fill="{TemplateBinding Foreground}" />
                         </Viewbox>
                     </Button>
                     <Button x:Name="PART_MinimizeButton"
                             IsVisible="False"
                             Theme="{StaticResource CaptionButton}">
-                        <Viewbox Width="11" Margin="2">
-                            <Path Data="M2048 1229v-205h-2048v205h2048z"
-                                  Fill="{TemplateBinding Foreground}"
-                                  Stretch="UniformToFill" />
+                        <Viewbox>
+                            <Path x:Name="MinimizeButtonPath" Fill="{TemplateBinding Foreground}" />
                         </Viewbox>
                     </Button>
                     <Button x:Name="PART_RestoreButton"
                             IsVisible="False"
                             Theme="{StaticResource CaptionButton}">
-                        <Viewbox Width="11" Margin="2">
+                        <Viewbox>
                             <Viewbox.RenderTransform>
                                 <RotateTransform Angle="-90" />
                             </Viewbox.RenderTransform>
-                            <Path Name="RestoreButtonPath"
-                                  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"
-                                  Fill="{TemplateBinding Foreground}"
-                                  Stretch="UniformToFill" />
+                            <Path x:Name="RestoreButtonPath" Fill="{TemplateBinding Foreground}" />
                         </Viewbox>
                     </Button>
                     <Button x:Name="PART_CloseButton"
-                            Background="#ffe81123"
-                            BorderBrush="#fff1707a"
                             IsVisible="False"
                             Theme="{StaticResource CaptionButton}">
-                        <Viewbox Width="11" Margin="2">
-                            <Path Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z"
-                                  Fill="{TemplateBinding Foreground}"
-                                  Stretch="UniformToFill" />
+                        <Viewbox>
+                            <Path x:Name="CloseButtonPath" Fill="{TemplateBinding Foreground}" />
                         </Viewbox>
                     </Button>
                 </StackPanel>
@@ -133,15 +81,8 @@
         <Style Selector="^[UseCloseButton=True] /template/ Button#PART_CloseButton">
             <Setter Property="Button.IsVisible" Value="True" />
         </Style>
-        <Style Selector="^:maximized /template/ StackPanel">
-            <Setter Property="Margin" Value="0,6,6,0" />
-        </Style>
-        <Style Selector="^:maximized /template/ Path#RestoreButtonPath">
-            <Setter Property="Data" Value="M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z" />
-        </Style>
         <Style Selector="^:fullscreen /template/ Path#FullScreenButtonPath">
             <Setter Property="IsVisible" Value="True" />
-            <Setter Property="Data" Value="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
         </Style>
         <Style Selector="^:fullscreen /template/ Button#PART_RestoreButton">
             <Setter Property="IsVisible" Value="False" />
@@ -153,11 +94,6 @@
 
     <!-- NtTitleBar -->
     <ControlTheme x:Key="{x:Type nlnet:NtTitleBar}" TargetType="nlnet:NtTitleBar">
-        <Setter Property="Foreground" Value="{DynamicResource Window.TitleBar.Fore}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="ClipToBounds" Value="False"/>
         <Setter Property="Template">
             <ControlTemplate TargetType="nlnet:NtTitleBar">
                 <Panel HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="Stretch">
@@ -183,20 +119,10 @@
                 </Panel>
             </ControlTemplate>
         </Setter>
-
-        <Style Selector="^:maximized /template/ ContentPresenter#PART_TitlePresenter">
-            <Setter Property="Margin" Value="6,6,0,0" />
-        </Style>
     </ControlTheme>
 
-    <!-- ImfWindow -->
+    <!-- NtWindow -->
     <ControlTheme x:Key="{x:Type nlnet:NtWindow}" TargetType="nlnet:NtWindow">
-        <Setter Property="Background" Value="{DynamicResource Window.Back}" />
-        <Setter Property="Foreground" Value="{DynamicResource Window.Fore}" />
-        <Setter Property="ExtendClientAreaChromeHints" Value="SystemChrome" />
-        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0.5" />
-        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
-        <Setter Property="TransparencyBackgroundFallback" Value="Transparent" />
         <Setter Property="SystemDecorations">
             <OnPlatformExtension>
                 <OnPlatformExtension.Default>
@@ -227,10 +153,11 @@
         <Setter Property="Window.Template">
             <ControlTemplate TargetType="nlnet:NtWindow">
                 <Panel>
-                    <Border Name="PART_TransparencyFallback"
+                    <Border x:Name="PART_TransparencyFallback"
                             CornerRadius="{TemplateBinding CornerRadius}"
                             IsHitTestVisible="False" />
-                    <Border Background="{TemplateBinding Background}"
+                    <Border x:Name="PART_Background"
+                            Background="{TemplateBinding Background}"
                             CornerRadius="{TemplateBinding CornerRadius}"
                             IsHitTestVisible="False" />
                     <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />

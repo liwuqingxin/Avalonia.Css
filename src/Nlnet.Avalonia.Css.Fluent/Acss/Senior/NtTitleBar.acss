@@ -1,0 +1,12 @@
+﻿^NtTitleBar{
+    Foreground: var(fore);
+    Background: Transparent;
+    VerticalAlignment: Top;
+    HorizontalAlignment: Stretch;
+    ClipToBounds: False;
+    [[
+        :maximized /template/ ContentPresenter#PART_TitlePresenter{
+            Margin: 6,6,0,0;
+        }
+    ]]
+}

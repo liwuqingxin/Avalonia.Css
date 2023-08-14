@@ -8,8 +8,7 @@ namespace Nlnet.Avalonia.Css.App
 {
     public partial class App : Application
     {
-        public IAcssFile? BeforeLoadedCssFile;
-        public IAcssFile? AfterLoadedCssFile;
+        public IAcssFile? AppCssFile;
 
         public override void Initialize()
         {
@@ -44,15 +43,11 @@ namespace Nlnet.Avalonia.Css.App
                 var loader = AcssBuilder.Default.BuildLoader();
                 const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
 
-                BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Acss/before.loaded.acss", debugRelative);
-                Dispatcher.UIThread.Post(() =>
-                {
-                    AfterLoadedCssFile = loader.Load(Application.Current.Styles, "Acss/after.loaded.acss", debugRelative);
-                });    
+                AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative, true);
             }
         }
 
-        public void LoadBeforeLoadedCssFile()
+        public void LoadAppCssFile()
         {
             if (Application.Current == null)
             {
@@ -61,7 +56,7 @@ namespace Nlnet.Avalonia.Css.App
 
             var loader = AcssBuilder.Default.BuildLoader();
             const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
-            BeforeLoadedCssFile = loader.Load(Application.Current.Styles, "Acss/before.loaded.acss", debugRelative);
+            AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative);
         }
 
         public override void OnFrameworkInitializationCompleted()

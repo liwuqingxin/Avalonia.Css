@@ -91,7 +91,7 @@ namespace Nlnet.Avalonia.Senior.Controls
         {
             base.OnPointerPressed(e);
 
-            if (VisualRoot is Window window)
+            if(e.Source is Visual visual && (Equals(visual, this) || Equals(visual.TemplatedParent, this)) && VisualRoot is Window window)
             {
                 window.BeginMoveDrag(e);
             }

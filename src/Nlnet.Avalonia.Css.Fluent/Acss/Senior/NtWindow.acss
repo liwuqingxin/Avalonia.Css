@@ -5,7 +5,14 @@
     ExtendClientAreaToDecorationsHint: True;
     TransparencyBackgroundFallback: Transparent;
     SystemDecorations: Full;
-    
+
     Background: var(window-back);
     Foreground: var(fore);
+    [[
+        /template/ Border#PART_Background{
+            Transitions:[
+                var(stBackground);
+            ]
+        }
+    ]]
 }
