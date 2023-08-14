@@ -10,7 +10,7 @@
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
 
 		<!--Nuget-->
-		<Title>Avalonia Css, also named Acss</Title>
+		<Title>Avalonia Css</Title>
 		<Description>Used for avalonia styles.</Description>
 		<PackageTags>avalonia acss css style</PackageTags>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -21,6 +21,9 @@
 		<PackageIcon>$(PackageIcon)</PackageIcon>
 		<PackageReadmeFile>$(PackageReadmeFile)</PackageReadmeFile>
 		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
+
+		<PackageOutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</PackageOutputPath>
+		<OutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</OutputPath>
 
 	</PropertyGroup>
 

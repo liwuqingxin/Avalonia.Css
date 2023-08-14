@@ -8,6 +8,9 @@
 		<FileVersion>$(FileVersion)</FileVersion>
 		<ApplicationIcon>Assets\brand.ico</ApplicationIcon>
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
+
+		<OutputPath>$(SolutionDir)..\sample.output\</OutputPath>
+
 	</PropertyGroup>
 
 	<ItemGroup>

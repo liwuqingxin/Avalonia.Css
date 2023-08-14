@@ -351,3 +351,10 @@ MigrationBackup/
 .idea/
 lib/Avalonia.DevTools.dll
 dump/
+
+
+
+
+# nlnet
+sample.output/
+build/nuget.bat
