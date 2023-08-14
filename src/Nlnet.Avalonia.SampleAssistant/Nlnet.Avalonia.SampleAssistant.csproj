@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-		<TrimMode>copyused</TrimMode>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
 
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
 	</PropertyGroup>
@@ -18,13 +18,13 @@
 		<!--For Avalonia.DevTools-->
 		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
 
-		<PackageReference Include="Avalonia" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
-		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
 
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="$(AvaloniaVersion)" />
 	</ItemGroup>
 
 </Project>

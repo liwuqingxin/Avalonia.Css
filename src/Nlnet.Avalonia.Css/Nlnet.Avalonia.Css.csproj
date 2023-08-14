@@ -1,27 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-		<TrimMode>copyused</TrimMode>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
 
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
 
 		<!--Nuget-->
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Avalonia Css</Title>
-		<Version>$(VersionPrefix)</Version>
-		<Authors>nlnet</Authors>
+		<Title>Avalonia Css, also named Acss</Title>
 		<Description>Used for avalonia styles.</Description>
-		<PackageProjectUrl>https://github.com/liwuqingxin/Avalonia.Css</PackageProjectUrl>
-		<Copyright>MIT</Copyright>
-		<PackageIcon>acss.png</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/liwuqingxin/Avalonia.Css</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
 		<PackageTags>avalonia acss css style</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>$(NugetVersion)</Version>
+		<Authors>$(Author)</Authors>
+		<PackageProjectUrl>$(ProjectUrl)</PackageProjectUrl>
+		<Copyright>$(Copyright)</Copyright>
+		<PackageIcon>$(PackageIcon)</PackageIcon>
+		<PackageReadmeFile>$(PackageReadmeFile)</PackageReadmeFile>
+		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
 
 	</PropertyGroup>
 	
@@ -44,13 +43,13 @@
 		<!--For Avalonia.DevTools-->
 		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
 
-		<PackageReference Include="Avalonia" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
-		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
 
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="$(AvaloniaVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

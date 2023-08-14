@@ -3,9 +3,9 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-		<TrimMode>copyused</TrimMode>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
 		<ApplicationIcon>Assets\brand.ico</ApplicationIcon>
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
 	</PropertyGroup>

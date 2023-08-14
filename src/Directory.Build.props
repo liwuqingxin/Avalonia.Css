@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <AvaloniaVersion>11.0.0</AvaloniaVersion>
+    <AcssVersion>1.0.0.0</AcssVersion>
+    <FileVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</FileVersion>
+
+    <NugetVersion>1.0.0-preview1</NugetVersion>
+    <Author>nlnet</Author>
+    <ProjectUrl>https://github.com/liwuqingxin/Avalonia.Css</ProjectUrl>
+    <Copyright>asdf</Copyright>
+    <PackageIcon>acss.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/liwuqingxin/Avalonia.Css</RepositoryUrl>
+    
+  </PropertyGroup>
+</Project>
