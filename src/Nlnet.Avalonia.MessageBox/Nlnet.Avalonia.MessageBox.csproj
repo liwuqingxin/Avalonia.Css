@@ -24,7 +24,7 @@
 		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
 
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>

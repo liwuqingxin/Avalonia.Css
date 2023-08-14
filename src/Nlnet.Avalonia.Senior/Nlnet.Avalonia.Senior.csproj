@@ -23,7 +23,7 @@
 		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
 
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

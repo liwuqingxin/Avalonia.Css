@@ -47,18 +47,18 @@
 		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="$(AvaloniaVersion)" />
 		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="$(AvaloniaVersion)" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj" />
-	  <ProjectReference Include="..\Nlnet.Avalonia.Senior\Nlnet.Avalonia.Senior.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.Senior\Nlnet.Avalonia.Senior.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Acss\**">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="Acss\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>
