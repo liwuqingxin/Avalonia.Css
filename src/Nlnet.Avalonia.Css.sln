@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Test", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Fluent", "Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj", "{E629FF46-4B1A-43B3-A102-E3D048DA1429}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Behaviors", "Nlnet.Avalonia.Behaviors\Nlnet.Avalonia.Behaviors.csproj", "{B8840FCC-8622-477A-902C-4D69F953AA73}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.SampleAssistant", "Nlnet.Avalonia.SampleAssistant\Nlnet.Avalonia.SampleAssistant.csproj", "{618E2CA9-5381-475B-A790-875F8ED0DA04}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Controls", "Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj", "{A28C1165-9626-404E-9401-54C12726FB49}"
@@ -27,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.CompileG
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{80348AD6-C952-4230-89CA-0D42F7E619BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nlnet.Avalonia.MessageBox", "Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj", "{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.MessageBox", "Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj", "{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,12 +58,6 @@ Global
 		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
 		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E629FF46-4B1A-43B3-A102-E3D048DA1429}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8840FCC-8622-477A-902C-4D69F953AA73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8840FCC-8622-477A-902C-4D69F953AA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8840FCC-8622-477A-902C-4D69F953AA73}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
-		{B8840FCC-8622-477A-902C-4D69F953AA73}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
-		{B8840FCC-8622-477A-902C-4D69F953AA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8840FCC-8622-477A-902C-4D69F953AA73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{618E2CA9-5381-475B-A790-875F8ED0DA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{618E2CA9-5381-475B-A790-875F8ED0DA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{618E2CA9-5381-475B-A790-875F8ED0DA04}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU

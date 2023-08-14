@@ -18,7 +18,6 @@
 		<!--For Avalonia.DevTools-->
 		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
 
-		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.0.1" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0" />
 		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.0.0" />
 		<PackageReference Include="Avalonia" Version="11.0.0" />

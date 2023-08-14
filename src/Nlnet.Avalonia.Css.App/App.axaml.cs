@@ -41,7 +41,7 @@ namespace Nlnet.Avalonia.Css.App
             {
                 // Load application acss files.
                 var loader = AcssBuilder.Default.BuildLoader();
-                const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
+                const string debugRelative = "../../../../Nlnet.Avalonia.Css.App/";
 
                 AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative, true);
             }
@@ -55,7 +55,7 @@ namespace Nlnet.Avalonia.Css.App
             }
 
             var loader = AcssBuilder.Default.BuildLoader();
-            const string debugRelative = "../../../Nlnet.Avalonia.Css.App/";
+            const string debugRelative = "../../../../Nlnet.Avalonia.Css.App/";
             AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative);
         }
 

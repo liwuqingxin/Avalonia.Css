@@ -45,7 +45,7 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             var loader = AcssBuilder.Default.BuildLoader();
 
-            const string debugRelative = "../../../Nlnet.Avalonia.Css.Fluent/";
+            const string debugRelative = "../../../../Nlnet.Avalonia.Css.Fluent/";
 
             _modeFile     = loader.Load(this, "Acss/Resources/Mode.acss",      debugRelative);
             _themeFile    = loader.Load(this, "Acss/Resources/Theme.acss",     debugRelative);
