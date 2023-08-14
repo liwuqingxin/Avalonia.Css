@@ -49,7 +49,7 @@
                         RenderOptions.EdgeMode="Unspecified" />
             <TextBlock x:Name="TbkPowerText"
                        Grid.Column="1"
-                       Text="Fluent UI Powered By Acss" />
+                       Text="Fluent UI Powered By Avalonia &amp; Acss" />
 
             <DropDownButton x:Name="SettingButton" Grid.Column="2" Flyout="{DynamicResource SettingMenus}">
                 <nlnet:Icon nlnet:LoadedMixin.Attach="True" IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />

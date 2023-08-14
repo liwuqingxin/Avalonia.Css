@@ -75,7 +75,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, filePath);
         return ((IAcssLoader)this).Load(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).Load(owner, filePath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).Load(owner, filePath, autoReloadWhenFileChanged);
 #endif
     }
 
@@ -85,7 +85,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, filePath);
         return ((IAcssLoader)this).BeginLoad(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).BeginLoad(owner, filePath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).BeginLoad(owner, filePath, autoReloadWhenFileChanged);
 #endif
     }
 
@@ -95,7 +95,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, folderPath);
         return ((IAcssLoader)this).LoadFolder(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).LoadFolder(owner, folderPath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).LoadFolder(owner, folderPath, autoReloadWhenFileChanged);
 #endif
     }
 
@@ -105,7 +105,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, folderPath);
         return ((IAcssLoader)this).BeginLoadFolder(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).BeginLoadFolder(owner, folderPath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).BeginLoadFolder(owner, folderPath, autoReloadWhenFileChanged);
 #endif
     }
 

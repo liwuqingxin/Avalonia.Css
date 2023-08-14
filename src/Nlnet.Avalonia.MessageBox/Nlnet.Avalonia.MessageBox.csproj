@@ -7,10 +7,6 @@
 		<TrimMode>copyused</TrimMode>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 
-		<!--禁用输出ref文件夹内单独的dll-->
-		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-		<!--编译时禁止自动生成netcoreapp文件夹-->
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
 		<RootNamespace>Nlnet.Avalonia</RootNamespace>
 	</PropertyGroup>
@@ -24,27 +20,18 @@
 		<Compile Include="..\Nlnet.Avalonia.Css\Utils\WindowsVisitor.cs" Link="Utils\WindowsVisitor.cs" />
 		<Compile Include="..\Nlnet.Avalonia.Css\Utils\PlatformService.cs" Link="Utils\PlatformService.cs" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<!--This helps with theme dll-s trimming. If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa. https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
-		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
-		<TrimmableAssembly Include="Avalonia.Themes.Default" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<!--For Avalonia.DevTools-->
 		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.0.1" />
 
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.0.1" />
 		<PackageReference Include="Avalonia" Version="11.0.0" />
 		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
+
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0">
-		</PackageReference>
-		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="11.0.0" />
 	</ItemGroup>
 
 </Project>
