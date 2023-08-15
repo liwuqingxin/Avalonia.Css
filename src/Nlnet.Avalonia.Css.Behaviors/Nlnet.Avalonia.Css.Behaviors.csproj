@@ -43,16 +43,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--For Avalonia.DevTools-->
-		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
-
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
 		<PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
-
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="$(AvaloniaVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>
