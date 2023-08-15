@@ -181,7 +181,7 @@ namespace Nlnet.Avalonia.Css
                     }
                     else
                     {
-
+                        this.WriteError($"Can not find the ControlTheme for '{acssThemeChildStyle.ThemeTargetType}'. Skip it.");
                     }
                 }
 
