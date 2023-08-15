@@ -10,7 +10,7 @@
 		<NugetVersion>1.0.0-alpha.5</NugetVersion>
 		<Author>nlnet</Author>
 		<ProjectUrl>https://github.com/liwuqingxin/Avalonia.Css</ProjectUrl>
-		<Copyright>asdf</Copyright>
+		<Copyright>Copyright ©2023 L, Nlnet, All Rights Reserved.</Copyright>
 		<PackageIcon>acss.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/liwuqingxin/Avalonia.Css</RepositoryUrl>

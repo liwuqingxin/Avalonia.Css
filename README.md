@@ -30,39 +30,41 @@ Avalonia.Css does not follow the standard CSS (Cascading Style Sheets). It is de
 
 Let's provide some examples to illustrate it.
 
-🌰 Imagine we have a standard control library, where the functionality of its internal controls depends on the structure within their templates. If we want to modify the visual styles of the controls, we usually need to rewrite all ControlTheme. This means we have to mix control structure and visual styles, even rewriting resources. It's a painful process.
+🌰 Imagine we have a standard control library, where the functionality of its internal controls depends on the structure within their templates. If we want to modify the visual styles of the controls, we usually need to rewrite all ControlTheme. This means we have to rewrite control structure and visual styles, even resources. It's a painful process.
 
-Then the idea of Acss was born. Picture this: By adopting the Acss pattern, we extract the visual styles from the standard themes of the controls, retaining only the skeletal structure, ControlTemplate. Any new visual library can be based on this standard themed structure, defining its own Acss library to achieve the desired visual styles. Creators of the visual library don't need to painfully copy existing ControlTheme code for modifications. They don't need to worry about whether the control structure is correct. They only need to adjust visual styles based on UI design!
+Then the idea of Acss was born :birthday:.
+
+Picture this: By adopting the Acss pattern, we extract the visual styles from the standard themes of the controls, retaining only the skeletal structure, ControlTemplate. Any new visual library can be based on this standard themed structure, defining its own Acss library to achieve the desired visual styles. Creators of the visual library don't need to painfully copy existing ControlTheme code for modifications. They don't need to worry about whether the control structure is correct. They only thing they should concern is adjusting visual styles based on UI design!
 
 > Theme = UI Structure + Visual Styles
 
 🌰 Another case is when we create a new page, the traditional workflow usually involves layout, content population, writing business logic, style adjustments, and fine-tuning based on UI design. This is typically a developer's work, requiring continuous attention until the page is finished. Now, with the Acss pattern, the approach would involve functional personnel populating page content, writing business logic, and then handing it over to those who focus on visuals to harmonize the visual styles.
 
-> Focusing separately on macro functions or visual details will make our work smoother and more comprehensive!
+> Focusing separately on macro functions or visual details will make our work smoother, gentler and more comprehensive!
 
 ## Showcase
 
-🌰 We provide fluent theme for Avalonia controls powered by Acss. More about the libraries we provided, see [Avalonia.Css.Fluent.md](doc/Nlnet.Avalonia.Css.Fluent.md).
+🌰 We provide fluent theme for Avalonia controls powered by Acss. More about the libraries we provided, see [Avalonia.Css.Fluent.md](doc/Nlnet.Avalonia.Css.Fluent/README.md).
 
-![acss](img/fluent.gif)
+<video src="D:\Source\Gitee\Avalonia.Css\img\nlnet.css.fluent.mp4"></video>
 
 
 
-🌰 Ability of hot reloading.
+🌰 The Acss provides the ability of hot reloading. We can modify source code and view the result immediately.
 
 ![acss](img/acss.gif)
 
-## Libraries
+## Packages
 
-- **Nlnet.Avalonia.Css**. This is the core for Acss. See [here](doc/Nlnet.Avalonia.Css.md).
+- **Nlnet.Avalonia.Css**. This is the core for Acss. See [here](doc/Nlnet.Avalonia.Css/README.md) for details.
 
-- **Nlnet.Avalonia.Css.Controls**. This library provides pure structures for the controls of Avalonia.Controls. See [here](doc/Nlnet.Avalonia.Css.Controls.md).
+- **Nlnet.Avalonia.Css.Controls**. This library provides pure structures for the controls of Avalonia.Controls. See [here](doc/Nlnet.Avalonia.Css.Controls/README.md) for details.
 
-- **Nlnet.Avalonia.Css.Fluent**. This library provides Fluent UI for Avalonia.Controls ,Nlnet.Avalonia.Senior and Nlnet.Avalonia.MessageBox. See [here](doc/Nlnet.Avalonia.Css.Fluent.md).
+- **Nlnet.Avalonia.Css.Fluent**. This library provides Fluent UI for Avalonia.Controls ,Nlnet.Avalonia.Senior and Nlnet.Avalonia.MessageBox. See [here](doc/Nlnet.Avalonia.Css.Fluent/README.md) for details.
 
-- **Nlnet.Avalonia.Css.Behaviors**. This library provides extended behaviors for Acss. See [here](doc/Nlnet.Avalonia.Css.Behaviors.md).
-- **Nlnet.Avalonia.Senior**. This library provides some extended features like **smooth scrolling** and other senior features that Avalonia.Controls can not provide. See [here](doc/Nlnet.Avalonia.Senior.md).
-- **Nlnet.Avalonia.MessageBox**. It provides a MessageBox control that can follow WPF standard or Avalonia standard. See [here](doc/Nlnet.Avalonia.MessageBox.md).
+- **Nlnet.Avalonia.Css.Behaviors**. This library provides extended behaviors for Acss. See [here](doc/Nlnet.Avalonia.Css.Behaviors/README.md) for details.
+- **Nlnet.Avalonia.Senior**. This library provides some extended features like **smooth scrolling** and other senior features that Avalonia.Controls can not provide. See [here](doc/Nlnet.Avalonia.Senior/README.md) for details.
+- **Nlnet.Avalonia.MessageBox**. This provides a MessageBox control that can follow WPF standard or Avalonia standard. See [here](doc/Nlnet.Avalonia.MessageBox/README.md) for details.
 
 ## Features
 
@@ -106,13 +108,13 @@ Since Acss code files may be exposed in external static text files, potential se
 
 # Usage
 
-Please see the section of [Libraries](##Libraries).
+Please see the section of [Packages](##Packages) for details.
 
 ## Contribution
 
-We hope more interested partners will join us in enhancing and expanding Acss, making it more vibrant and capable.
+We hope more interested partners could join us in enhancing and expanding Acss, making it more vibrant and capable.
 
-If you're interested in getting involved, have ideas, suggestions, or feedback, please send an email to yangqi1990917@163.com. In the email, you could tell us about:
+If you're interested in getting involved or have any ideas, suggestions, or feedback, please send an email to yangqi1990917@163.com. In the email, you could tell us about:
 
 - About you.
 - What can we do for you?
