@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
@@ -9,6 +10,8 @@ namespace Nlnet.Avalonia.Css.App
 {
     internal class IndependentCase : Case
     {
+        protected override Type StyleKeyOverride { get; } = typeof(Case);
+
         public bool IsLocalDark
         {
             get { return GetValue(IsLocalDarkProperty); }

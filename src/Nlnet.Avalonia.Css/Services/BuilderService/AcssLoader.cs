@@ -23,7 +23,13 @@ internal class AcssLoader : IAcssLoader
             return file;
         }
 
-        file = AcssFile.Load(AcssBuilder, owner, filePath, autoReloadWhenFileChanged);
+        if (File.Exists(filePath) == false)
+        {
+            this.WriteError($"Can not find acss file {filePath}. Skip it.");
+            return null;
+        }
+
+        file = AcssFile.TryLoad(AcssBuilder, owner, filePath, autoReloadWhenFileChanged);
         AcssBuilder.TryAddAcssFile(file);
         return file;
     }
@@ -36,7 +42,13 @@ internal class AcssLoader : IAcssLoader
             return file;
         }
 
-        file = AcssFile.BeginLoad(AcssBuilder, owner, filePath, autoReloadWhenFileChanged);
+        if (File.Exists(filePath) == false)
+        {
+            this.WriteError($"Can not find acss file {filePath}. Skip it.");
+            return null;
+        }
+
+        file = AcssFile.TryBeginLoad(AcssBuilder, owner, filePath, autoReloadWhenFileChanged);
         AcssBuilder.TryAddAcssFile(file);
         return file;
     }
@@ -45,7 +57,8 @@ internal class AcssLoader : IAcssLoader
     {
         if (Directory.Exists(folderPath) == false)
         {
-            throw new FileNotFoundException($"Can not find the folder '{folderPath}'.");
+            this.WriteError($"Can not find the folder '{folderPath}'. Skip it.");
+            return Enumerable.Empty<IAcssFile>();
         }
 
         var files = new DirectoryInfo(folderPath)
@@ -59,7 +72,8 @@ internal class AcssLoader : IAcssLoader
     {
         if (Directory.Exists(folderPath) == false)
         {
-            throw new FileNotFoundException($"Can not find the folder '{folderPath}'.");
+            this.WriteError($"Can not find the folder '{folderPath}'. Skip it.");
+            return Enumerable.Empty<IAcssFile>();
         }
 
         var files = new DirectoryInfo(folderPath)
@@ -75,7 +89,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, filePath);
         return ((IAcssLoader)this).Load(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).Load(owner, filePath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).Load(owner, filePath, autoReloadWhenFileChanged);
 #endif
     }
 
@@ -85,7 +99,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, filePath);
         return ((IAcssLoader)this).BeginLoad(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).BeginLoad(owner, filePath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).BeginLoad(owner, filePath, autoReloadWhenFileChanged);
 #endif
     }
 
@@ -95,7 +109,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, folderPath);
         return ((IAcssLoader)this).LoadFolder(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).LoadFolder(owner, folderPath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).LoadFolder(owner, folderPath, autoReloadWhenFileChanged);
 #endif
     }
 
@@ -105,7 +119,7 @@ internal class AcssLoader : IAcssLoader
         var path = Path.Combine(debugRelative, folderPath);
         return ((IAcssLoader)this).BeginLoadFolder(owner, path, autoReloadWhenFileChanged);
 #else
-        return ((ICssLoader)this).BeginLoadFolder(owner, folderPath, autoReloadWhenFileChanged);
+        return ((IAcssLoader)this).BeginLoadFolder(owner, folderPath, autoReloadWhenFileChanged);
 #endif
     }
 

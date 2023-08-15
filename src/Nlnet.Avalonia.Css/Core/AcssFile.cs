@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
@@ -24,7 +25,7 @@ namespace Nlnet.Avalonia.Css
         /// <param name="standardFilePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        internal static AcssFile Load(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile TryLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.Load(owner, false);
@@ -39,7 +40,7 @@ namespace Nlnet.Avalonia.Css
         /// <param name="standardFilePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        internal static AcssFile BeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile TryBeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
             var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.BeginLoad(owner, false);
@@ -160,7 +161,12 @@ namespace Nlnet.Avalonia.Css
                     }
                     
                     // TODO 检查 ThemeVariant;
-                    if (styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                    var suc = styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject);
+                    if (suc == false && Application.Current != null)
+                    {
+                        suc = Application.Current.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out themeResourceObject);
+                    }
+                    if (themeResourceObject is ControlTheme theme)
                     {
                         //
                         // TODO Do not consider the older of old and new styles now.

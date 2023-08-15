@@ -22,11 +22,9 @@
 
 ![acss-brand](img/brand.svg)
 
-Avalonia.Css is not a library that fully adheres to the standard CSS (Cascading Style Sheets). The primary purpose is to **separate the structural and visual definitions** of Avalonia UI and empower the Avalonia with the ability to **dynamically modify visual styles quickly**. 
+Avalonia.Css does not follow the standard CSS (Cascading Style Sheets). It is designed to **separate the structural and visual definitions** of Avalonia UI and empower the Avalonia with the ability to **dynamically modify visual styles quickly**. 
 
 :smile: Yes, it follows a pattern similar to **Html+CSS**.
-
-<img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
 
 ## Scenarios
 
@@ -34,24 +32,17 @@ Let's provide some examples to illustrate it.
 
 🌰 Imagine we have a standard control library, where the functionality of its internal controls depends on the structure within their templates. If we want to modify the visual styles of the controls, we usually need to rewrite all ControlTheme. This means we have to mix control structure and visual styles, even rewriting resources. It's a painful process.
 
-Then the idea of Acss was born. Picture this: By adopting the Acss pattern, we extract the visual styles from the standard themes of the controls, retaining only the skeletal structure ControlTemplate. Any new visual library can be based on this standard themed structure, defining its own Acss library to achieve the desired visual styles. Creators of the visual library don't need to painfully copy existing ControlTheme code for modifications, they don't need to worry about whether the control structure is correct. They only need to adjust visual styles based on UI design!
+Then the idea of Acss was born. Picture this: By adopting the Acss pattern, we extract the visual styles from the standard themes of the controls, retaining only the skeletal structure, ControlTemplate. Any new visual library can be based on this standard themed structure, defining its own Acss library to achieve the desired visual styles. Creators of the visual library don't need to painfully copy existing ControlTheme code for modifications. They don't need to worry about whether the control structure is correct. They only need to adjust visual styles based on UI design!
 
 > Theme = UI Structure + Visual Styles
 
-🌰 Another example: When we create a new page, the traditional workflow usually involves layout, content population, business logic writing, style adjustments, and fine-tuning based on UI design. This is typically a developer's task, requiring continuous attention until the page is completed. Now, with the Acss pattern, the approach would involve functional personnel populating page content, writing business logic, and then handing it over to those who focus on visuals to harmonize the visual styles.
+🌰 Another case is when we create a new page, the traditional workflow usually involves layout, content population, writing business logic, style adjustments, and fine-tuning based on UI design. This is typically a developer's work, requiring continuous attention until the page is finished. Now, with the Acss pattern, the approach would involve functional personnel populating page content, writing business logic, and then handing it over to those who focus on visuals to harmonize the visual styles.
 
 > Focusing separately on macro functions or visual details will make our work smoother and more comprehensive!
 
-<img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
-
 ## Showcase
 
-🌰 We provide fluent theme for Avalonia controls powered by Acss. This visual library depends on:
-
-- **Avalonia.Controls**. 
-- **Nlnet.Avalonia.Css.Controls**. This library provides pure structures for the controls of Avalonia.Controls.
-- **Nlnet.Avalonia.Senior**. This library provides some extended features like **smooth scrolling** and other senior features that Avalonia.Controls can not provide.
-- **Nlnet.Avalonia.MessageBox**. It provides a MessageBox control that can follow WPF standard or Avalonia standard. See [here](doc/MessageBox.md).
+🌰 We provide fluent theme for Avalonia controls powered by Acss. More about the libraries we provided, see [Avalonia.Css.Fluent.md](doc/Nlnet.Avalonia.Css.Fluent.md).
 
 ![acss](img/fluent.gif)
 
@@ -61,96 +52,17 @@ Then the idea of Acss was born. Picture this: By adopting the Acss pattern, we e
 
 ![acss](img/acss.gif)
 
+## Libraries
 
+- **Nlnet.Avalonia.Css**. This is the core for Acss. See [here](doc/Nlnet.Avalonia.Css.md).
 
-🌰 Here is a button definition of structure and visual style.
+- **Nlnet.Avalonia.Css.Controls**. This library provides pure structures for the controls of Avalonia.Controls. See [here](doc/Nlnet.Avalonia.Css.Controls.md).
 
-```xaml
-<!-- 
-	Button Structure in xaml. 
--->
-<ControlTheme x:Key="{x:Type Button}" TargetType="Button">
-    <Setter Property="Button.Template">
-        <ControlTemplate TargetType="Button">
-            <ContentPresenter x:Name="PART_ContentPresenter"
-                              Padding="{TemplateBinding Padding}"
-                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                              Background="{TemplateBinding Background}"
-                              BorderBrush="{TemplateBinding BorderBrush}"
-                              BorderThickness="{TemplateBinding BorderThickness}"
-                              Content="{TemplateBinding Content}"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              CornerRadius="{TemplateBinding CornerRadius}" />
-        </ControlTemplate>
-    </Setter>
-</ControlTheme>
-```
+- **Nlnet.Avalonia.Css.Fluent**. This library provides Fluent UI for Avalonia.Controls ,Nlnet.Avalonia.Senior and Nlnet.Avalonia.MessageBox. See [here](doc/Nlnet.Avalonia.Css.Fluent.md).
 
-```css
-// 
-// Button Visual Style in acss.
-//
-^Button {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
-    Opacity: 1;
-    MinHeight:28;
-    RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Center;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
-    ClipToBounds:False;
-    Transitions:[
-        var(stRenderTransform);
-        var(stBackground);
-        var(stBorderBrush);
-        var(stOpacity);
-    ]
-
-    [[
-        :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(control-back-hover);
-        }
-        :pressed{
-            /* RenderTransform:scale(0.97,0.97); */
-            //Opacity:0.6;
-            Foreground:var(fore-pressed);
-            BorderBrush:var(control-border-pressed-fluent);
-        }
-        :disabled{
-            Opacity:0.4;
-        }
-    
-        // Primary class and Accent style.
-        .primary, .Primary, [(ButtonStyles.Style)=Accent] {
-            Background: var(Accent);
-            Foreground: #fff;
-            BorderBrush: var(control-border-accent-fluent);
-            [[
-                :pointerover{
-                    Background: var(Accent09);
-                    Foreground: #fff;
-                }
-                :pressed{
-                    Opacity:0.8;
-                    BorderBrush: var(control-border-accent-fluent-pressed);
-                }
-            ]]
-        }
-    ]]
-}
-```
-
-
-
-<img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
+- **Nlnet.Avalonia.Css.Behaviors**. This library provides extended behaviors for Acss. See [here](doc/Nlnet.Avalonia.Css.Behaviors.md).
+- **Nlnet.Avalonia.Senior**. This library provides some extended features like **smooth scrolling** and other senior features that Avalonia.Controls can not provide. See [here](doc/Nlnet.Avalonia.Senior.md).
+- **Nlnet.Avalonia.MessageBox**. It provides a MessageBox control that can follow WPF standard or Avalonia standard. See [here](doc/Nlnet.Avalonia.MessageBox.md).
 
 ## Features
 
@@ -190,67 +102,11 @@ We will provide an Acss-related style debugger, showcasing the entire process fr
 
 ### 🟢 Security Concerns
 
-Since Acss code files may be exposed in external static text files, potential security issues may arise. Please refer to the [Plans | Security](### Security) section for more details. If this issue is crucial to you, carefully decide whether to use Acss based on our instructions and your specific situation.
-
-<img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
+Since Acss code files may be exposed in external static text files, potential security issues may arise. Please refer to the [Plans | Security](doc/Plans.md### Security) section for more details. If this issue is crucial to you, carefully decide whether to use Acss based on our instructions and your specific situation.
 
 # Usage
 
-- Installation.
-
-```bash
-dotnet add package Nlnet.Avalonia.Css --version 11.0.0
-```
-
-- Use default Acss builder in Avalonia's AppBuilder. Then load all types. Alternatively, you can create your own Acss builder instead.
-
-```csharp
-private static AppBuilder BuildAvaloniaApp()
-{
-    return AppBuilder.Configure<App>()
-        .UsePlatformDetect()
-        ...
-        
-        // Use default avalonia css builder.
-        .UseAcssDefaultBuilder()
-        
-        // Type resolver for 'Your.Lib'. The GenericTypeResolver<T> will load all types 
-        // those belong to the assembly who contains the T class.
-        .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Icon>())
-        
-        // [Optional] Use avalonia behavior.
-        .UseAcssBehaviorForDefaultBuilder();
-}
-```
-
-- Initialize the builder. In this section, you can setup the configuration like theme, create rider settings and load acss files.  
-
-```csharp
-private class void Initialize()
-{
-    ...
-	
-    // [Optional] Set the current theme.
-    AcssBuilder.Default.Configuration.Theme = "blue";
-    
-    // [Optional] 
-    // Build the rider settings file. We do not provide Rider plugin to support
-    // Acss language till now. 
-    // Use this for a temporaty replacement.
-    AcssBuilder.Default.TryBuildRiderSettingsForAcss(out _, out _, null);
-    
-    // Load acss files. You can keep the cssFile for more operations.
-    var loader = AcssBuilder.Default.BuildLoader();
-	var cssFile = loader.Load(Application.Current.Styles, "Acss/app.acss");
-    
-    // Or load acss files from a folder.
-    loader.LoadFolder(this, "Acss/");
-}
-```
-
->  More about using of Acss, see the code of [Nlnet.Avalonia.Css.App](src/Nlnet.Avalonia.Css.App) and [Nlnet.Avalonia.Css.Fluent](src/Nlnet.Avalonia.Css.Fluent).
-
-<img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
+Please see the section of [Libraries](##Libraries).
 
 ## Contribution
 
@@ -262,8 +118,6 @@ If you're interested in getting involved, have ideas, suggestions, or feedback, 
 - What can we do for you?
 - How would you like to get involved in this project?
 - Something else you would like to say.
-
-<img src="src/Nlnet.Avalonia.Css.App/Assets/brand.svg" height="60"/>
 
 ## Plans
 

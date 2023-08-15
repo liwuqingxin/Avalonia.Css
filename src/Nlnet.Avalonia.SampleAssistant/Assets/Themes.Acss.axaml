@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes.Acss/Case.Acss.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes.Acss/CodeEditor.Acss.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes.Acss/GalleryItemControl.Acss.axaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

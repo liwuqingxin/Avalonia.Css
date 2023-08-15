@@ -45,15 +45,15 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             var loader = AcssBuilder.Default.BuildLoader();
 
-            const string debugRelative = "../../../Nlnet.Avalonia.Css.Fluent/";
+            const string debugRelative = "../../src/Nlnet.Avalonia.Css.Fluent/";
 
-            _modeFile     = loader.Load(this, "Acss/Resources/Mode.acss",      debugRelative);
-            _themeFile    = loader.Load(this, "Acss/Resources/Theme.acss",     debugRelative);
-            _resourceFile = loader.Load(this, "Acss/Resources/Resources.acss", debugRelative);
+            _modeFile     = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Mode.acss",      debugRelative);
+            _themeFile    = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss",     debugRelative);
+            _resourceFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Resources.acss", debugRelative);
 
-            loader.LoadFolder(this, "Acss/", debugRelative);
-            loader.LoadFolder(this, "Acss/Senior", debugRelative);
-            loader.LoadFolder(this, "Acss/MessageBox", debugRelative);
+            loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/", debugRelative);    
+            loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/Senior", debugRelative);
+            loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/MessageBox", debugRelative);
         }
 
         public void UpdateResource(bool reapplyStyle)
