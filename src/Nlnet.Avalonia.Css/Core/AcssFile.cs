@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
@@ -160,7 +161,12 @@ namespace Nlnet.Avalonia.Css
                     }
                     
                     // TODO 检查 ThemeVariant;
-                    if (styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject) && themeResourceObject is ControlTheme theme)
+                    var suc = styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject);
+                    if (suc == false && Application.Current != null)
+                    {
+                        suc = Application.Current.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out themeResourceObject);
+                    }
+                    if (themeResourceObject is ControlTheme theme)
                     {
                         //
                         // TODO Do not consider the older of old and new styles now.
