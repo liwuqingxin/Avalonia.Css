@@ -358,3 +358,4 @@ dump/
 # nlnet
 sample.output/
 build/nuget.bat
+build/nuget - local.bat

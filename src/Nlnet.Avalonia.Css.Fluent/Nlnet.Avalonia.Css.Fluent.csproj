@@ -59,9 +59,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="Acss\Nlnet.Avalonia.Css.Fluent\**">
+		<Content Include="Acss\**">
+			<IncludeInPackage>true</IncludeInPackage>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+			<CopyToOutput>true</CopyToOutput>
+			<PackagePath>contents\Acss\</PackagePath>
+		</Content>
+
+		<!-- https://world.optimizely.com/forum/developer-forum/cms-12/thread-container/2022/4/copy-files-from-the-nuget-package-to-the-destination-project-when-installing-the-nuget-package/ -->
+		<!--
+			The target file, that should move the files, should be located in 'build\{target framework}\' folder 
+			and have the same name as the package ID. This seems to be correct, except that you don't have the 
+			target framework in the path now.
+		-->
+		<Content Include="CopyTask.targets">
+			<IncludeInPackage>true</IncludeInPackage>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutput>true</CopyToOutput>
+			<PackagePath>build\$(TargetFramework)\$(AssemblyName).targets</PackagePath>
+			<Pack>true</Pack>
+		</Content>
 	</ItemGroup>
 
 </Project>

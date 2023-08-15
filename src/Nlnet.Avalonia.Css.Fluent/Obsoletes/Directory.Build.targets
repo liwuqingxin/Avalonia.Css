@@ -1,0 +1,20 @@
+<Project>
+
+	<!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
+	<Target Name="CustomAfterBuildTarget" AfterTargets="Build">
+		<Message Text="------ Copy Acss of Nlnet.Avalonia.Css.Fluent ------" Importance="high" />
+
+		<ItemGroup>
+			<AcssSourceFiles Include="D:\Source\Avalonia.Css\src\Nlnet.Avalonia.Css.Fluent\Acss\**\*.acss"/>
+		</ItemGroup>
+		<Copy
+			SourceFiles="@(AcssSourceFiles)"
+			DestinationFolder="$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\Acss\%(RecursiveDir)"
+		/>
+		<Copy
+			SourceFiles="@(AcssSourceFiles)"
+			DestinationFolder="$(SolutionDir)..\sample.output\$(TargetFramework)\Acss\%(RecursiveDir)"
+		/>
+	</Target>
+
+</Project>

@@ -7,7 +7,7 @@
 		<AcssVersion>1.0.0.0</AcssVersion>
 		<FileVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</FileVersion>
 
-		<NugetVersion>1.0.0-alpha.1</NugetVersion>
+		<NugetVersion>1.0.0-alpha.5</NugetVersion>
 		<Author>nlnet</Author>
 		<ProjectUrl>https://github.com/liwuqingxin/Avalonia.Css</ProjectUrl>
 		<Copyright>asdf</Copyright>
