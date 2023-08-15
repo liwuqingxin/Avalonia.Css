@@ -59,7 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="Acss\**">
+		<None Update="Acss\Nlnet.Avalonia.Css.Fluent\**">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

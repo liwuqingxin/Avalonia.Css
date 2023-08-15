@@ -47,6 +47,7 @@ namespace Nlnet.Avalonia.Css.App
                 loader.Load(Application.Current.Styles, "Acss/CodeEditor.acss", debugRelative, true);
                 
                 AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative, true);
+                loader.Load(Application.Current.Styles, "Acss/pages.acss", debugRelative, true);
             }
         }
 
