@@ -3,8 +3,6 @@
                     xmlns:control="https://www.nlnet.com/avalonia">
 
     <ControlTheme x:Key="{x:Type control:Case}" TargetType="control:Case">
-        <Setter Property="control:Case.IsTabStop" Value="False" />
-        <Setter Property="control:Case.Padding" Value="12" />
         <Setter Property="control:Case.Template">
             <ControlTemplate TargetType="control:Case">
                 <Grid RowDefinitions="Auto,*">
@@ -13,9 +11,6 @@
                     <TextBlock x:Name="Header"
                                Grid.Row="0"
                                Grid.Column="0"
-                               Margin="0,0,0,8"
-                               VerticalAlignment="Center"
-                               FontWeight="Bold"
                                Text="{TemplateBinding Header}" />
 
                     <ThemeVariantScope Grid.Row="1" RequestedThemeVariant="{TemplateBinding ThemeVariant}">
@@ -26,12 +21,7 @@
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
                                     Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    MinHeight="100"
-                                    Background="#F3F3F3"
-                                    BorderBrush="#e3e3e3"
-                                    BorderThickness="1,1,1,0"
-                                    CornerRadius="6,6,0,0" />
+                                    Grid.ColumnSpan="2" />
 
                             <!-- Description -->
                             <TextBlock x:Name="Instruction"
@@ -58,21 +48,11 @@
                             <Expander x:Name="SourceCodeExpander"
                                       Grid.Row="2"
                                       Grid.Column="0"
-                                      Grid.ColumnSpan="2"
-                                      HorizontalAlignment="Stretch"
-                                      HorizontalContentAlignment="Stretch"
-                                      CornerRadius="0,0,6,6">
+                                      Grid.ColumnSpan="2">
                                 <Expander.Header>
-                                    <TextBlock x:Name="SourceCodeTitle"
-                                               Margin="8"
-                                               HorizontalAlignment="Left"
-                                               Text="Source Code" />
+                                    <TextBlock x:Name="SourceCodeTitle" />
                                 </Expander.Header>
-                                <control:CodeEditor x:Name="CodeEditor"
-                                                    VerticalContentAlignment="Center"
-                                                    BorderThickness="0"
-                                                    IsReadOnly="True"
-                                                    Text="{TemplateBinding Xaml}" />
+                                <control:CodeEditor x:Name="CodeEditor" Text="{TemplateBinding Xaml}" />
                             </Expander>
                         </Grid>
                     </ThemeVariantScope>
@@ -89,7 +69,6 @@
         <Style Selector="^ /template/ TextBlock#Instruction:empty">
             <Setter Property="TextBlock.IsVisible" Value="False" />
         </Style>
-
     </ControlTheme>
 
 </ResourceDictionary>

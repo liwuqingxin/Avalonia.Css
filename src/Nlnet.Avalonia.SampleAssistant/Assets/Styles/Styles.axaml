@@ -1,6 +1,0 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <StyleInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Styles/CaseStyle.axaml" />
-    <StyleInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Styles/CodeEditorStyle.axaml" />
-
-</Styles>

@@ -284,45 +284,6 @@ TabControl#MainTabControl > TabItem Icon, TabControl#MainTabControl > TabItem Im
 }
 
 
-/* CodeEditor */
-CodeEditor{
-    SelectionBrush:var(Accent02);
-    CaretBrush:Black;
-    Padding:6;
-    BorderThickness:0;
-}
-/* Case */
-Case{
-    [[
-        Case /template/ TextBlock#Header{
-            Margin:0,8,0,16;
-        }
-        Case /template/ Border#ContentBack{
-            Background:var(window-back);
-            BorderBrush:var(control-border);
-            MinHeight:80;
-            Transitions:[
-                var(stBackground);
-                var(stBorderBrush);
-            ]
-        }
-        Case /template/ TextBlock#Instruction{
-            Margin:12,12,12,4;
-            Foreground:var(fore);
-        }
-        Case /template/ ContentPresenter#PART_SettingsPresenter{
-            Padding:20;
-            Margin:1,1,1,0;
-            CornerRadius:0,6,0,0;
-            BorderThickness:1,0,0,0;
-            BorderBrush:var(control-border);
-            Background:var(control-back);
-        }
-        Case /template/ TextBlock:is-part#SourceCodeTitle{
-            HorizontalAlignment:Left;
-        }
-    ]]
-}
 /* StackPanel followed Case */
 Case > StackPanel{
     Spacing:8;
@@ -332,21 +293,6 @@ Case > StackPanel{
 :is(UserControl) > StackPanel{
     Spacing:24;
     Margin:0,0,0,12;
-}
-
-
-/* Source Code Background */
-Expander#SourceCodeExpander /template/ Border:is-part#ExpanderContent{
-    Background:var(window-back);
-}
-ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
-    HorizontalAlignment:Left;
-}
-ToggleButton#ExpanderHeader /template/ Border#ToggleButtonBackground:is-part{
-    Transitions:[
-        var(stBorderBrush);
-        var(stBackground);
-    ]
 }
 
 

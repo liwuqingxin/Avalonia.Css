@@ -3,20 +3,7 @@
                     xmlns:controlSample="clr-namespace:Nlnet.Avalonia.SampleAssistant">
 
     <ControlTheme x:Key="{x:Type controlSample:CodeEditor}" TargetType="controlSample:CodeEditor">
-        <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="False" />
-        <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="AcceptsReturn" Value="True" />
-        <Setter Property="AcceptsTab" Value="True" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CaretBrush" Value="Black" />
-        <Setter Property="FontSize" Value="10" />
-        <Setter Property="Padding" Value="6" />
-        <Setter Property="Cursor" Value="Ibeam" />
-        <Setter Property="LineHeight" Value="14" />
-        <Setter Property="SelectionBrush" Value="#26ffaa1e" />
-        <Setter Property="FontWeight" Value="Light" />
-        <Setter Property="FontFamily" Value="Segoe UI,Consolas,新宋体,Simsun,Monospace,Seogo UI,微软雅黑" />
-        <Setter Property="Template">
+        <Setter Property="controlSample:CodeEditor.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controlSample:CodeEditor">
                     <Border Background="{TemplateBinding Background}"

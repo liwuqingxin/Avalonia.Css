@@ -1,0 +1,65 @@
+﻿/* Case */
+^Case{
+    IsTabStop: False;
+    Padding: 12;
+    [[
+        /template/ TextBlock#Header{
+            Margin:0,8,0,16;
+            VerticalAlignment: Center;
+            FontWeight: Bold;
+        }
+        /template/ Border#ContentBack{
+            Background:var(window-back);
+            BorderBrush:var(control-border);
+            MinHeight:80;
+            BorderThickness: 1,1,1,0;
+            CornerRadius: 6,6,0,0;
+            Transitions:[
+                var(stBackground);
+                var(stBorderBrush);
+            ]
+        }
+        /template/ TextBlock#Instruction{
+            Margin:12,12,12,4;
+            Foreground:var(fore);
+        }
+        /template/ ContentPresenter#PART_SettingsPresenter{
+            Padding:20;
+            Margin:1,1,1,0;
+            CornerRadius:0,6,0,0;
+            BorderThickness:1,0,0,0;
+            BorderBrush:var(control-border);
+            Background:var(control-back);
+        }
+        /template/ Expander#SourceCodeExpander{
+            HorizontalAlignment: Stretch;
+            HorizontalContentAlignment: Stretch;
+            CornerRadius: 0,0,6,6;
+        }
+        /template/ TextBlock:is-part#SourceCodeTitle{
+            HorizontalAlignment:Left;
+            Margin: 8;
+            Text: Source Code;
+        }
+        /template/ CodeEditor#CodeEditor{
+            VerticalContentAlignment: Center;
+            BorderThickness: 0;
+            IsReadOnly: True;
+        }
+    ]]
+}
+
+
+/* Source Code Background */
+Expander#SourceCodeExpander /template/ Border:is-part#ExpanderContent{
+    Background:var(window-back);
+}
+ToggleButton#ExpanderHeader /template/ ContentPresenter#PART_ContentPresenter{
+    HorizontalAlignment:Left;
+}
+ToggleButton#ExpanderHeader /template/ Border#ToggleButtonBackground:is-part{
+    Transitions:[
+        var(stBorderBrush);
+        var(stBackground);
+    ]
+}
