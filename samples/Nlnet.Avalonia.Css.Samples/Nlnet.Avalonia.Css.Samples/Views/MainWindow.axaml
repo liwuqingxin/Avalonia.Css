@@ -1,12 +1,29 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Nlnet.Avalonia.Css.Samples.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:Nlnet.Avalonia.Css.Samples.Views"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Nlnet.Avalonia.Css.Samples.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Nlnet.Avalonia.Css.Samples">
-        <views:MainView />
-</Window>
+<nlnet:NtWindow x:Class="Nlnet.Avalonia.Css.Samples.Views.MainWindow"
+                xmlns="https://github.com/avaloniaui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:nlnet="https://www.nlnet.com/avalonia"
+                xmlns:views="clr-namespace:Nlnet.Avalonia.Css.Samples.Views"
+                xmlns:vm="using:Nlnet.Avalonia.Css.Samples.ViewModels"
+                Title="Nlnet.Avalonia.Css.Samples"
+                d:DesignHeight="450"
+                d:DesignWidth="800"
+                Icon="/Assets/avalonia-logo.ico"
+                TitleHeight="80"
+                mc:Ignorable="d">
+    <nlnet:NtWindow.TitleContent>
+        <StackPanel Margin="12"
+                    Orientation="Horizontal"
+                    Spacing="24">
+            <Image Width="60"
+                   Height="60"
+                   VerticalAlignment="Center"
+                   RenderOptions.BitmapInterpolationMode="HighQuality"
+                   Source="/Assets/avalonia-logo.ico"
+                   Stretch="Uniform" />
+            <TextBlock VerticalAlignment="Center" Text="Use Acss Fluent Theme" />
+        </StackPanel>
+    </nlnet:NtWindow.TitleContent>
+    <views:MainView />
+</nlnet:NtWindow>

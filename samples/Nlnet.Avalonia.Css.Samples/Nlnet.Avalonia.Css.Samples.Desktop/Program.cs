@@ -20,5 +20,7 @@ class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace()
-            .UseReactiveUI();
+            .UseReactiveUI()
+            .UseAcssDefaultBuilder()
+            .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<App>());
 }
