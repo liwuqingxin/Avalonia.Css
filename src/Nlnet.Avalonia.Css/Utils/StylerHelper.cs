@@ -55,7 +55,8 @@ namespace Nlnet.Avalonia.Css
             {
                 styledElement.OnTemplatedParentControlThemeChanged();
             }
-            if (controlTheme)
+            // [ava-11.0.0] If the window use custom chrome, reapplying control theme will result in a mess.
+            if (controlTheme && styledElement is not Window)
             {
                 styledElement.OnControlThemeChanged();
             }
