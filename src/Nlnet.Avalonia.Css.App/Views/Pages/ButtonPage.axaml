@@ -1,0 +1,167 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.ButtonPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fluent="https://www.nlnet.com/avalonia"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <MenuFlyout x:Key="SharedMenuFlyout" Placement="Bottom">
+            <MenuItem Header="Flyout Menu Item 1">
+                <MenuItem.Icon>
+                    <Image Source="/Assets/brand.ico" />
+                </MenuItem.Icon>
+                <MenuItem Header="StaysOpenOnClick" StaysOpenOnClick="True" />
+                <Separator />
+                <MenuItem Header="Disabled" IsEnabled="False" />
+                <MenuItem Header="SubItem 2" />
+                <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                <MenuItem Header="SubItem 4">
+                    <MenuItem.Icon>
+                        <Image Source="/Assets/orange.png" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="SubItem 1" />
+                    <Separator />
+                    <MenuItem Header="Disabled" IsEnabled="False" />
+                    <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                    <MenuItem Header="SubItem 4">
+                        <MenuItem.Icon>
+                            <Image Source="/Assets/orange.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="SubItem 1" />
+                        <MenuItem Header="Disabled" IsEnabled="False" />
+                        <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                        <Separator />
+                        <MenuItem Header="SubItem 4">
+                            <MenuItem.Icon>
+                                <Image Source="/Assets/orange.png" />
+                            </MenuItem.Icon>
+                            <MenuItem Header="SubItem 1" />
+                            <MenuItem Header="SubItem 2" />
+                            <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Item 2" InputGesture="Ctrl+A" />
+            <MenuItem Header="Item 3">
+                <MenuItem.Icon>
+                    <Image Source="/Assets/orange.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuFlyout>
+
+        <ContextMenu x:Key="SharedMenu">
+            <MenuItem Header="Context Menu Item 1">
+                <MenuItem.Icon>
+                    <Image Source="/Assets/brand.ico" />
+                </MenuItem.Icon>
+                <MenuItem Header="StaysOpenOnClick" StaysOpenOnClick="True" />
+                <Separator />
+                <MenuItem Header="Disabled" IsEnabled="False" />
+                <MenuItem Header="SubItem 2" />
+                <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                <MenuItem Header="SubItem 4">
+                    <MenuItem.Icon>
+                        <Image Source="/Assets/orange.png" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="SubItem 1" />
+                    <Separator />
+                    <MenuItem Header="Disabled" IsEnabled="False" />
+                    <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                    <MenuItem Header="SubItem 4">
+                        <MenuItem.Icon>
+                            <Image Source="/Assets/orange.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="SubItem 1" />
+                        <MenuItem Header="Disabled" IsEnabled="False" />
+                        <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                        <Separator />
+                        <MenuItem Header="SubItem 4">
+                            <MenuItem.Icon>
+                                <Image Source="/Assets/orange.png" />
+                            </MenuItem.Icon>
+                            <MenuItem Header="SubItem 1" />
+                            <MenuItem Header="SubItem 2" />
+                            <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Item 2" InputGesture="Ctrl+A" />
+            <MenuItem Header="Item 3">
+                <MenuItem.Icon>
+                    <Image Source="/Assets/orange.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
+
+
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="The Button control provides a Click event to respond to user input from a touch, mouse, keyboard, stylus, or other input device. You can put different kinds of content in a button, such as text or an image, or you can restyle a button to give it a new look."
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
+            <Button Classes="primary" Content="Primary Button" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
+            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Normal button.">
+            <Button Content="Cancel" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Button with a image as content.">
+            <Button Width="44" Height="44">
+                <Image Source="/Assets/orange.png" />
+            </Button>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Button with ContextMenu and Flyout.">
+            <Button Content="Click to show Flyout or right click to show ContextMenu."
+                    ContextMenu="{StaticResource SharedMenu}"
+                    Flyout="{StaticResource SharedMenuFlyout}" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="DropDownButton with Flyout.">
+            <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Repeat button.">
+            <RepeatButton x:Name="RepeatButton"
+                          Click="RepeatButton_OnClick"
+                          Content="Click And Hold : 0" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Toggle button.">
+            <StackPanel>
+                <ToggleButton Content="Toggle" />
+                <ToggleButton Content="Toggle Button" IsChecked="True" />
+            </StackPanel>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Button spinner.">
+            <StackPanel>
+                <ButtonSpinner AllowSpin="True"
+                               ButtonSpinnerLocation="Right"
+                               Content="120"
+                               ShowButtonSpinner="True" />
+                <ButtonSpinner AllowSpin="True"
+                               ButtonSpinnerLocation="Right"
+                               ShowButtonSpinner="True" />
+                <ButtonSpinner AllowSpin="False"
+                               ButtonSpinnerLocation="Left"
+                               ShowButtonSpinner="True" />
+            </StackPanel>
+        </app:IndependentCase>
+
+    </StackPanel>
+
+</UserControl>

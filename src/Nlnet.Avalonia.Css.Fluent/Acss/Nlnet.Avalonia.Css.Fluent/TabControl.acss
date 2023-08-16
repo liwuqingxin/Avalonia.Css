@@ -1,0 +1,34 @@
+﻿^TabControl {
+    Foreground: var(fore);
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+    [[
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:4;
+        }
+         /template/ AnimatingContainer#PART_SelectedContentHost:changed {
+            [[
+                ::animation[desc=Tab control toggle animation]{
+                    IterationCount:1;
+                    Duration:'0:0:.2';
+                    Delay:0:0:.15;
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0% 0,1,1,1)[
+                            TranslateTransform.Y: 100;
+                            Opacity:1;
+                        ]
+                        KeyFrame:(100% 0,1,1,1)[
+                            TranslateTransform.Y: 0;
+                            Opacity:1;
+                        ]
+                    ]
+                }
+            ]]
+        }
+    ]]
+}

@@ -1,0 +1,124 @@
+﻿
+^TimePickerPresenter {
+    [[
+         /template/ DateTimePickerPanel {
+            ItemHeight:30;
+        }
+
+
+        /* RepeatButton */
+         /template/ RepeatButton:is-part {
+            Height:30;
+            HorizontalAlignment:Stretch;
+            BorderThickness:0;
+            CornerRadius:0;
+        }
+         /template/ RepeatButton[VerticalAlignment=Top] > Path {
+            Data:M0,9 L10,0 20,9 19,10 10,2 1,10 z;
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Stretch;
+            Stretch:Uniform;
+            Fill:var(fore);
+            Width:12;
+            RenderTransform:none;
+            Transitions:[
+                var(stRenderTransform);
+            ]
+        }
+         /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
+            Data:M0,1 L10,10 20,1 19,0 10,8 1,0 z;
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Stretch;
+            Stretch:Uniform;
+            Fill:var(fore);
+            Width:12;
+            RenderTransform:none;
+            Transitions:[
+                var(stRenderTransform);
+            ]
+        }
+         /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
+            RenderTransform:translate(0, -5px);
+        }
+         /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
+            RenderTransform:translate(0, 5px);
+        }
+         /template/ Panel:pointerover RepeatButton:is-part#PART_HourUpButton {
+            CornerRadius:6,0,0,0;
+        }
+         /template/ Panel:pointerover RepeatButton:is-part#PART_MinuteUpButton {
+            CornerRadius:0,6,0,0;
+        }
+         /template/ Panel:pointerover RepeatButton:is-part#PART_PeriodUpButton {
+            CornerRadius:0,6,0,0;
+        }
+        
+
+        /* ListBoxItem */
+        /template/ DateTimePickerPanel{
+            [[
+                >ListBoxItem{
+                    Padding:8,0;
+                    RenderTransform:none;
+                    Transitions:[
+                        var(stRenderTransform);
+                    ]
+                }
+                >ListBoxItem:pressed{
+                    RenderTransform:scale(0.97,0.97);
+                }
+                >ListBoxItem TextBlock{
+                    HorizontalAlignment:Center;
+                }
+            ]]
+        }
+
+
+        /* 分割线 */
+         /template/ Rectangle#HighlightRect {
+            VerticalAlignment:Center;
+            Fill:var(Accent);
+            Height:30;
+            Opacity:0;
+        }
+         /template/ Rectangle#PART_FirstSpacer {
+            Width:1;
+            HorizontalAlignment:Center;
+            Fill:var(control-border);
+        }
+         /template/ Rectangle#PART_SecondSpacer {
+            Width:1;
+            HorizontalAlignment:Center;
+            Fill:var(control-border);
+        }
+
+
+        /* 底栏 */
+         /template/ Path#PART_AcceptButtonPath {
+            Data:M0.5,8.5 5,13.5 15.5,3;
+            StrokeLineCap:Round;
+            StrokeThickness:0.75;
+            Stroke:var(fore);
+        }
+         /template/ Path#PART_DismissButtonPath {
+            Data:M2,2 14,14 M2,14 14 2;
+            StrokeLineCap:Round;
+            StrokeThickness:0.75;
+            Stroke:var(fore);
+        }
+         /template/ Button#PART_AcceptButton {
+            Margin:4,4,2,4;
+            CornerRadius:4;
+            HorizontalAlignment:Stretch;
+        }
+         /template/ Button#PART_DismissButton {
+            Margin:2,4,4,4;
+            CornerRadius:4;
+            HorizontalAlignment:Stretch;
+        }
+         /template/ Rectangle#TimePickerFlyoutPresenterSpacer {
+            Height:1;
+            Fill:var(control-border);
+        }
+    ]]
+}

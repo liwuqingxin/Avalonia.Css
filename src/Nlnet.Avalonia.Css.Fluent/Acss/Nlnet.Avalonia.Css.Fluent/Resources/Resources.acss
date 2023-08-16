@@ -1,0 +1,39 @@
+﻿::res[desc=通用资源]{
+	brush(Accent): var(AccentColor);
+	brush(Accent01): var(AccentColor) 0.1;
+	brush(Accent02): var(AccentColor) 0.2;
+	brush(Accent03): var(AccentColor) 0.3;
+	brush(Accent04): var(AccentColor) 0.4;
+	brush(Accent05): var(AccentColor) 0.5;
+	brush(Accent06): var(AccentColor) 0.6;
+	brush(Accent07): var(AccentColor) 0.7;
+	brush(Accent08): var(AccentColor) 0.8;
+	brush(Accent09): var(AccentColor) 0.9;
+
+	brush(Success): #25B86E;
+	brush(Error): #EB3D3D;
+	brush(Warning): #F0A000;
+	brush(Info): #2DD7FD;
+	
+	double(transition-duration): 0.125;
+
+	transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration));
+	transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform var(transition-duration));
+	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush var(transition-duration));
+	transition(stBackground): BrushTransition(TemplatedControl.Background var(transition-duration));
+	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity var(transition-duration));
+	transition(stHeight): DoubleTransition(TemplatedControl.Height var(transition-duration));
+	transition(stWidth): DoubleTransition(TemplatedControl.Width var(transition-duration));
+	transition(stMaxHeight): DoubleTransition(TemplatedControl.MaxHeight var(transition-duration));
+	transition(stMaxWidth): DoubleTransition(TemplatedControl.MaxWidth var(transition-duration));
+	transition(stMinHeight): DoubleTransition(TemplatedControl.MinHeight var(transition-duration));
+	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth var(transition-duration));
+	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness var(transition-duration));
+	transition(stMargin): ThicknessTransition(TemplatedControl.Margin var(transition-duration));
+	transition(stFill): BrushTransition(Shape.Fill var(transition-duration));
+	transition(stStroke): BrushTransition(Shape.Stroke var(transition-duration));
+	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow var(transition-duration));
+	transition(stBorderBorderBrush): BrushTransition(Border.BorderBrush var(transition-duration));
+	transition(stBorderBorderThickness): ThicknessTransition(Border.BorderThickness var(transition-duration));
+	transition(stCornerRadius): CornerRadiusTransition(Border.CornerRadius var(transition-duration));
+}

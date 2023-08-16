@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="https://www.nlnet.com/avalonia">
+
+    <!-- NtScrollViewer -->
+    <ControlTheme x:Key="{x:Type controls:NtScrollViewer}" TargetType="controls:NtScrollViewer">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="UseCustomScrollAnimation" Value="False"/>
+        <Setter Property="controls:NtScrollViewer.Template">
+            <ControlTemplate TargetType="controls:NtScrollViewer">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+                    <controls:NtScrollContentPresenter Name="PART_ContentPresenter"
+                                                       Grid.Row="0"
+                                                       Grid.RowSpan="2"
+                                                       Grid.Column="0"
+                                                       Grid.ColumnSpan="2"
+                                                       Padding="{TemplateBinding Padding}"
+                                                       Background="{TemplateBinding Background}"
+                                                       Content="{TemplateBinding Content}"
+                                                       IsScrollChainingEnabled="{TemplateBinding IsScrollChainingEnabled}" />
+                    <ScrollBar Name="PART_HorizontalScrollBar"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               AllowAutoHide="{TemplateBinding AllowAutoHide}"
+                               Focusable="False"
+                               LargeChange="{Binding LargeChange.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               Orientation="Horizontal"
+                               SmallChange="{Binding SmallChange.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               Visibility="{TemplateBinding HorizontalScrollBarVisibility}" />
+                    <ScrollBar Name="PART_VerticalScrollBar"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               AllowAutoHide="{TemplateBinding AllowAutoHide}"
+                               Focusable="False"
+                               LargeChange="{Binding LargeChange.Height, RelativeSource={RelativeSource TemplatedParent}}"
+                               Orientation="Vertical"
+                               SmallChange="{Binding SmallChange.Height, RelativeSource={RelativeSource TemplatedParent}}"
+                               Visibility="{TemplateBinding VerticalScrollBarVisibility}" />
+                    <Panel x:Name="PART_ScrollBarsSeparator"
+                           Grid.Row="1"
+                           Grid.Column="1" />
+
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^[UseSmoothScrolling=True][UseCustomScrollAnimation=False] /template/ controls|NtScrollContentPresenter#PART_ContentPresenter">
+            <Setter Property="controls:NtScrollContentPresenter.Transitions">
+                <Transitions>
+                    <VectorTransition Property="AnimatableOffset" Duration="0:0:0.4">
+                        <VectorTransition.Easing>
+                            <QuadraticEaseOut />
+                        </VectorTransition.Easing>
+                    </VectorTransition>
+                </Transitions>
+            </Setter>
+        </Style>
+    </ControlTheme>
+
+</ResourceDictionary>

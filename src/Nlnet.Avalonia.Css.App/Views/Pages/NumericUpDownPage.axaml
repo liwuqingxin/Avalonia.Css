@@ -1,0 +1,25 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.NumericUpDownPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="Use NumberBox to allow users to enter algebraic equations and numeric input in your app."
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="NumericUpDown.">
+            <NumericUpDown />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="NumericUpDown with watermark.">
+            <NumericUpDown Watermark="请输入..." />
+		</app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

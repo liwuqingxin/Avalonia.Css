@@ -1,0 +1,39 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.CheckBoxPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="CheckBox controls let the user select a combination of binary options.In contrast,RadioButton controls allow the user to select from mutually exclusive options. The indeterminate state is used to indicate that an option is set for some,but not all,child options.Don't allow users to set an indeterminate state directly to indicate a third option."
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="Normal CheckBox.">
+            <CheckBox Content="普通勾选框" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Three-state CheckBox.">
+            <CheckBox Content="三态勾选框" IsThreeState="True" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="A group of RadioButtons.">
+            <StackPanel>
+                <RadioButton Content="选项一" GroupName="A" />
+                <RadioButton Content="选项二" GroupName="A" />
+                <RadioButton Content="选项三"
+                             GroupName="A"
+                             IsEnabled="False" />
+            </StackPanel>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="ToggleSwitch.">
+            <ToggleSwitch Content="开关" />
+        </app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

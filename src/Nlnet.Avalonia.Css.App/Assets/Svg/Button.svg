@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.2750588" y1="0.062352937" x2="0.7395882" y2="0.96617645" id="gradient_1">
+      <stop offset="0%" stop-color="#0D61A9" />
+      <stop offset="100%" stop-color="#16528C" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.27507687" y1="0.062307686" x2="0.7396153" y2="0.966154" id="gradient_2">
+      <stop offset="0%" stop-color="#199AE0" />
+      <stop offset="100%" stop-color="#0782D8" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.27511108" y1="0.062333316" x2="0.7395556" y2="0.9662223" id="gradient_3">
+      <stop offset="0%" stop-color="#75DAFF" />
+      <stop offset="100%" stop-color="#1EA2E4" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="-0.46777344" y1="0.49325562" x2="-0.07299805" y2="0.50946045" id="gradient_4">
+      <stop offset="0%" stop-color="#FFC430" />
+      <stop offset="57%" stop-color="#F8BD29" />
+      <stop offset="100%" stop-color="#F0B421" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.09049994" y1="0.46064824" x2="1.2074546" y2="1.1503245" id="gradient_5">
+      <stop offset="0%" stop-color="#FFC430" />
+      <stop offset="41%" stop-color="#FEC130" />
+      <stop offset="72%" stop-color="#FCB730" />
+      <stop offset="99.8%" stop-color="#F7A72F" />
+      <stop offset="100%" stop-color="#F7A72F" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.34942532" y1="0.49683356" x2="-0.3206892" y2="0.33816648" id="gradient_6">
+      <stop offset="28.2%" stop-color="#FFC430" />
+      <stop offset="40.099995%" stop-color="#F8BD2D" />
+      <stop offset="57.4%" stop-color="#E5AA23" />
+      <stop offset="78%" stop-color="#C58A14" />
+      <stop offset="100%" stop-color="#9C6000" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.4701779" y1="0.56012344" x2="1.1473465" y2="0.06934738" id="gradient_7">
+      <stop offset="28.2%" stop-color="#FFC430" />
+      <stop offset="40.099995%" stop-color="#F8BD2D" />
+      <stop offset="57.4%" stop-color="#E5AA23" />
+      <stop offset="78%" stop-color="#C58A14" />
+      <stop offset="100%" stop-color="#9C6000" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Button" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="Button" fill="none" stroke="none" />
+    <path d="M288 90.6667C288 140.736 247.403 181.333 197.333 181.333C147.264 181.333 106.667 140.736 106.667 90.6667C106.667 40.5973 147.264 0 197.333 0C247.403 0 288 40.5973 288 90.6667L288 90.6667Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+    <path d="M266.667 90.6667C266.667 128.96 235.627 160 197.333 160C159.04 160 128 128.96 128 90.6667C128 52.3733 159.04 21.3333 197.333 21.3333C235.627 21.3333 266.667 52.3733 266.667 90.6667L266.667 90.6667Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+    <path d="M245.333 90.6667C245.333 117.173 223.84 138.667 197.333 138.667C170.827 138.667 149.333 117.173 149.333 90.6667C149.333 64.16 170.827 42.6667 197.333 42.6667C223.84 42.6667 245.333 64.16 245.333 90.6667L245.333 90.6667Z" id="Shape" fill="url(#gradient_3)" stroke="none" />
+    <path d="M67.84 333.6C67.8507 333.525 67.8827 333.472 67.8933 333.397L67.872 333.387L67.84 333.6L67.84 333.6Z" id="Shape" fill="url(#gradient_4)" stroke="none" />
+    <path d="M359.872 222.955L224 202.667L224 92.192C224 78.24 213.963 65.536 200.085 64.1387C184.117 62.5387 170.667 75.0293 170.667 90.6667C170.667 93.1947 170.667 436.992 170.667 436.992C186.251 450.859 206.368 458.667 227.349 458.667L341.333 458.667C376.683 458.667 405.333 430.016 405.333 394.667L405.333 275.701C405.333 249.291 386.005 226.859 359.872 222.955L359.872 222.955Z" id="Shape" fill="url(#gradient_5)" stroke="none" />
+    <path d="M224 202.667L224 266.667L251.84 206.827L224 202.667Z" id="Polygon" fill="url(#gradient_6)" fill-rule="evenodd" stroke="none" />
+    <path d="M181.333 90.6667C181.333 81.8301 188.497 74.6667 197.333 74.6667C206.17 74.6667 213.333 81.8301 213.333 90.6667C213.333 99.5032 206.17 106.667 197.333 106.667C188.497 106.667 181.333 99.5032 181.333 90.6667Z" id="Circle" fill="#FFF0C9" fill-rule="evenodd" stroke="none" />
+    <path d="M64.2454 256C45.8987 256 37.6 267.392 37.6 282.581L166.507 433.291C167.83 434.614 169.27 435.809 170.656 437.046L170.656 280.192C146.411 321.579 128.64 284.533 110.176 288.832C110.187 288.832 102.507 256 64.2454 256L64.2454 256Z" id="Group" fill="url(#gradient_7)" stroke="none" />
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.8483479" y1="0.8483479" x2="0.14700001" y2="0.14700001" id="gradient_1">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="24.2%" stop-color="#F2F2F2" />
+      <stop offset="100%" stop-color="#CCCCCC" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.032142997" y1="0.032142997" x2="0.85285723" y2="0.85285723" id="gradient_2">
+      <stop offset="0%" stop-color="#0D61A9" />
+      <stop offset="36.3%" stop-color="#0E5FA4" />
+      <stop offset="78%" stop-color="#135796" />
+      <stop offset="100%" stop-color="#16528C" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.03315001" y1="0.012466535" x2="0.85205" y2="0.87213266" id="gradient_3">
+      <stop offset="0%" stop-color="#889097" />
+      <stop offset="33.1%" stop-color="#848C94" />
+      <stop offset="66.9%" stop-color="#78828B" />
+      <stop offset="100%" stop-color="#64717C" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="WindowSettings" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="WindowSettings" fill="none" stroke="none" />
+    <path d="M133.333 256C133.333 188.253 188.253 133.333 256 133.333C323.747 133.333 378.667 188.253 378.667 256C378.667 323.747 323.747 378.667 256 378.667C188.253 378.667 133.333 323.747 133.333 256Z" id="Circle" fill="url(#gradient_1)" fill-rule="evenodd" stroke="none" />
+    <path d="M181.333 256C181.333 214.763 214.763 181.333 256 181.333C297.237 181.333 330.667 214.763 330.667 256C330.667 297.237 297.237 330.667 256 330.667C214.763 330.667 181.333 297.237 181.333 256Z" id="Circle" fill="url(#gradient_2)" fill-rule="evenodd" stroke="none" />
+    <path d="M463.008 205.259C437.525 204.949 412.853 191.669 399.189 168C386.037 145.216 386.304 118.411 397.461 96.608C374.795 76.48 347.947 60.992 318.208 51.936C304.821 72.064 281.973 85.3333 256 85.3333C230.027 85.3333 207.179 72.064 193.803 51.936C164.064 60.992 137.216 76.48 114.549 96.608C125.707 118.411 125.973 145.216 112.821 168C99.1573 191.669 74.4853 204.949 49.0027 205.259C45.0133 221.547 42.6667 238.485 42.6667 256C42.6667 269.696 44.0853 283.04 46.5493 296.021C72.8853 295.477 98.72 308.907 112.821 333.333C127.413 358.613 125.483 388.843 110.475 411.68C132.683 432.448 159.253 448.544 188.768 458.347C200.821 433.323 226.357 416 256 416C285.643 416 311.179 433.323 323.232 458.357C352.747 448.555 379.317 432.459 401.525 411.691C386.517 388.853 384.587 358.624 399.179 333.344C413.28 308.917 439.104 295.488 465.451 296.032C467.915 283.04 469.333 269.696 469.333 256C469.333 238.485 466.987 221.547 463.008 205.259L463.008 205.259ZM256 368C194.144 368 144 317.856 144 256C144 194.144 194.144 144 256 144C317.856 144 368 194.144 368 256C368 317.856 317.856 368 256 368L256 368Z" id="Shape" fill="url(#gradient_3)" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>

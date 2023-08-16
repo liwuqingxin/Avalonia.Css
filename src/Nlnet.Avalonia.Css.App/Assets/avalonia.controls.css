@@ -1,0 +1,120 @@
+/* ReSharper disable CssNotResolved */
+
+
+Button[FontSize=32]{
+    Foreground:red;
+}
+
+
+/*OK*/
+TextBox.Search{
+    /*OK*/Grid.Row:0;
+    /*OK*/Grid.Column:1;
+    ToolTip.Tip:ADF;
+    /*OK*/CornerRadius:10;
+    /*OK*/Background:#700;
+    /*OK*/BorderThickness:10,10,10,10;
+    /*OK*/BorderBrush:Orange;
+    /*OK*/Margin:10;
+    /*OK*/MinWidth:100;
+    /*OK*/MaxWidth:200;
+    /*OK*/Height:60;
+    /*OK*/FontFamily:宋体;
+    /*OK*/Foreground:#fff;
+    /*OK*/Opacity:0.5;
+    /*OK*/FontSize:20;
+    /*OK*/FontSize:16;
+    /*OK*/Text:这是注入的文本;
+    /*OK*/HorizontalAlignment:left;
+    /*OK*/VerticalContentAlignment:bottom;
+    /*OK*/SelectionBrush:Red;
+    /*OK*/Watermark:注入水印，这是一个文本，注入水印，这是一个文本;
+}
+
+/*OK*/
+Grid>TextBox.Search{
+    /*OK*/Text:这里是Grid>TextBox.Search注入文本;
+    /*OK*/Grid.ColumnSpan:2;
+    /*OK*/MaxWidth:400;
+}
+
+/*OK*/
+TextBox.Search:focus-within,TextBox.Search:pointerover{
+    Foreground:#000;
+}
+
+TextBox.Search:focus-within /template/ Border#PART_BorderElement{
+    Background:Blue;
+    Margin:20;
+}
+
+/*OK*/
+CheckBox#Check{
+    /*OK*/Background:#cfc;
+    /*OK*/Padding:20,0;
+    /*OK*/Height:50;
+    /*OK*/VerticalContentAlignment:bottom;
+    /*OK*/BorderThickness:2;
+    /*OK*/BorderBrush:Black;
+}
+
+CheckBox#Check /template/ Grid#RootGrid{
+    Background:var(Accent);
+}
+
+/*OK*/
+TextBox.Input{
+    CornerRadius:16;
+    Background:Yellow;
+    Margin:8;
+    Width:100;
+    
+    HorizontalAlignment:Left;
+}
+
+/*OK*/
+Button {
+    /*OK*/FontSize: 32;
+}
+
+/*OK*/
+:is(Button) {
+    /*OK*/FontWeight:100;
+}
+
+Button:pointerover /template/ ContentPresenter#PART_ContentPresenter
+{
+    FontSize:36;
+}
+
+/*OK*/
+Button:pointerover{
+    /*OK*/CornerRadius:64;
+    Background:Red;
+}
+
+/*OK*/
+TextBlock{
+	/*OK*/FontSize: 100;
+    /*OK*/Background: Orange;
+    /*OK*/FontWeight: Bold;
+    /*OK*/Margin:20;
+}
+
+/*OK*/
+Border{
+	/*OK*/BorderThickness:10;
+    /*OK*/CornerRadius:6;
+    /*OK*/BorderBrush:var(Accent);
+    /*OK*/Background:#ccc;
+}
+
+/*OK*/
+Border:pointerover{
+	/*OK*/Background:#444;
+    /*OK*/BorderBrush:#25ff96;
+    /*OK*/CornerRadius:20;
+}
+
+
+/* ReSharper restore CssNotResolved */

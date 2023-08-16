@@ -1,0 +1,47 @@
+﻿
+^ToggleButton {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-fluent);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBackground);
+        var(stBorderBrush);
+        var(stOpacity);
+    ]
+
+    [[
+        :pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        :pressed{
+            Foreground:var(fore-pressed);
+            BorderBrush:var(control-border-pressed-fluent);
+        }
+        :checked{
+            Foreground: var(fore-selected-hover);
+            Background: var(Accent);
+            BorderBrush: var(control-border-accent-fluent);
+        }
+        :checked:pressed{
+            BorderBrush: var(control-border-pressed-accent-fluent);
+        }
+        :checked:pointerover{
+            Background: var(Accent09);
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

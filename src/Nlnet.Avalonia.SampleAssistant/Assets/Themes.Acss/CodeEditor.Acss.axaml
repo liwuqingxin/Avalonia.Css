@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controlSample="clr-namespace:Nlnet.Avalonia.SampleAssistant">
+
+    <ControlTheme x:Key="{x:Type controlSample:CodeEditor}" TargetType="controlSample:CodeEditor">
+        <Setter Property="controlSample:CodeEditor.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controlSample:CodeEditor">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer IsScrollChainingEnabled="{TemplateBinding ScrollViewer.IsScrollChainingEnabled}">
+                            <!-- controlSample:CodePresenter 与样式重载冲突报错 -->
+                            <TextPresenter x:Name="PART_TextPresenter"
+                                           Margin="{TemplateBinding Padding}"
+                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                           CaretBrush="{TemplateBinding CaretBrush}"
+                                           CaretIndex="{TemplateBinding CaretIndex}"
+                                           Cursor="{TemplateBinding Cursor}"
+                                           LetterSpacing="{TemplateBinding LetterSpacing}"
+                                           LineHeight="{TemplateBinding LineHeight}"
+                                           SelectionBrush="{TemplateBinding SelectionBrush}"
+                                           SelectionEnd="{TemplateBinding SelectionEnd}"
+                                           SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                           SelectionStart="{TemplateBinding SelectionStart}"
+                                           Text="{TemplateBinding Text,
+                                                                  Mode=TwoWay}"
+                                           TextAlignment="{TemplateBinding TextAlignment}"
+                                           TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                           TextElement.FontSize="{TemplateBinding FontSize}"
+                                           TextElement.FontWeight="{TemplateBinding FontWeight}"
+                                           TextWrapping="{TemplateBinding TextWrapping}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

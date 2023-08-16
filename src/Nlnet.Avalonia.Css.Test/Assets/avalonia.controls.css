@@ -1,0 +1,28 @@
+/* TextBlock */
+TextBlock[Margin=12] {
+	FontSize: 12;
+}
+
+:is(Button) {
+    FontSize: 12;
+}
+
+imf|ImfButton:no-content, imf|ImfToggleButton:pointerover {
+    FontSize: 12;
+}
+
+:no-icon {
+    FontSize: 12;
+}
+
+:pressed /template/ Border#PART_Border {
+                        FontSize: 12;
+}
+
+:pointerover /template/ Border#PART_Border {
+                            FontSize: 12;
+                        }
+
+imf|ImfButton[ButtonStyle=ButtonSecondary], imf|ImfToggleButton[ButtonStyle=ButtonSecondary] {
+    FontSize: 12;
+}

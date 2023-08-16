@@ -1,0 +1,42 @@
+﻿^DataGridColumnHeader {
+    MinHeight: 32;
+    Padding: 12,0,0,0;
+    Foreground: var(fore);
+    Background: var(control-back);
+    VerticalContentAlignment: Center;
+    HorizontalContentAlignment: Stretch;
+    Focusable: False;
+    [[
+        /template/ Rectangle#VerticalSeparator{
+            Width: 1;
+            Fill: var(control-border);
+        }
+        :pointerover{
+            Background: var(control-back-hover);
+        }
+        :pressed{
+            Background: var(control-back-pressed);
+        }
+        :dragIndicator{
+            Opacity: 0.5;
+        }
+        :sortascending /template/ Path#SortIcon{
+            IsVisible: True;
+            Height: 12;
+            Width: 12;
+            Margin: 4,0;
+            Stretch: UniformToFill;
+            Data: M1965 947l-941 -941l-941 941l90 90l787 -787v1798h128v-1798l787 787z;
+            Fill: var(Accent);
+        }
+        :sortdescending /template/ Path#SortIcon{
+            IsVisible: True;
+            Height: 12;
+            Width: 12;
+            Margin: 4,0;
+            Stretch: UniformToFill;
+            Data: M1875 1011l-787 787v-1798h-128v1798l-787 -787l-90 90l941 941l941 -941z;
+            Fill: var(Accent);
+        }
+    ]]
+}

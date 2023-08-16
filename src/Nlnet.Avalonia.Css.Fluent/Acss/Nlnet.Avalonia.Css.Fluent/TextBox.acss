@@ -1,0 +1,61 @@
+﻿
+^TextBox {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-input-fluent);
+    CaretBrush: var(fore);
+    CornerRadius: 4;
+    BorderThickness: 1;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Center;
+    VerticalAlignment: Center;
+    MinWidth:40;
+    ClipToBounds:True;
+    SelectionBrush:var(Accent06);
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
+
+    [[
+        :pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+         /template/ TextBlock#PART_Watermark {
+            IsVisible:False;
+            Foreground:var(watermark);
+        }
+        :empty /template/ TextBlock#PART_Watermark {
+            IsVisible:True;
+        }
+         /template/ TextPresenter#PART_TextPresenter {
+            ClipToBounds:True;
+        }
+         /template/ Border#PART_Indicator {
+            Background:var(Accent);
+            Height: 10;
+            Margin: 8,0,8,-1;
+            Opacity: 0;
+            CornerRadius:1;
+            VerticalAlignment:Bottom;
+            RenderTransform: scale(1,0);
+            RenderTransformOrigin: 50%,100%;
+        }
+        :focus-within /template/ Border#PART_Indicator {
+            Opacity: 1;
+            RenderTransform:scale(1,0.2);
+            CornerRadius:0,0,20,20;
+            Margin: 0,0,0,-1;
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

@@ -1,0 +1,67 @@
+﻿
+^CheckBox {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    CornerRadius: 4;
+    BorderThickness: 1;
+    Padding: 8,4;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+        var(stBorderThickness);
+    ]
+
+    [[
+        :pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+         /template/ Border#PART_Box{
+            Width:20;
+            Height:20;
+        }
+         /template/ Path#PART_CheckGlyph{
+            Fill:#fff;
+            Margin:1;
+            Width:10;
+            VerticalAlignment: Center;
+        }
+        /template/ ContentPresenter#PART_ContentPresenter:empty{
+            Margin: 0;
+            Padding: 0;
+        }
+        :indeterminate,:checked{
+            Background:var(Accent);
+            BorderBrush:var(Accent03);
+            BorderThickness:4;
+        }
+        :indeterminate /template/ Path#PART_CheckGlyph{
+            Data:M 3.5 22.5 A 1.50015 1.50015 0 1 0 3.5 25.5 L 44.5 25.5 A 1.50015 1.50015 0 1 0 44.5 22.5 L 3.5 22.5 z;
+        }
+        :checked /template/ Path#PART_CheckGlyph{
+            Data:M 43.470703 8.9863281 A 1.50015 1.50015 0 0 0 42.439453 9.4394531 L 16.5 35.378906 L 5.5605469 24.439453 A 1.50015 1.50015 0 1 0 3.4394531 26.560547 L 15.439453 38.560547 A 1.50015 1.50015 0 0 0 17.560547 38.560547 L 44.560547 11.560547 A 1.50015 1.50015 0 0 0 43.470703 8.9863281 z;
+        }
+         /template/ Border#PART_CheckGlyphContainer{
+            Width:0; 
+            Transitions:[
+                DoubleTransition(Border.Width 0.3)
+            ]            
+        }
+        :checked /template/ Border#PART_CheckGlyphContainer, :indeterminate /template/ Border#PART_CheckGlyphContainer{
+            Width:12;
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

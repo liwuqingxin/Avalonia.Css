@@ -1,0 +1,15 @@
+<Styles x:Class="Nlnet.Avalonia.Css.Fluent.AcssFluentTheme"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Themes.Acss.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.Senior/Assets/Themes.Acss.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox/Assets/Themes.Acss.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+</Styles>

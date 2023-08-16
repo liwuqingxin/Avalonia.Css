@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.5" y1="0.0033666492" x2="0.5" y2="1.0010667" id="gradient_1">
+      <stop offset="0%" stop-color="#21AD64" />
+      <stop offset="100%" stop-color="#088242" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="1.3232231E-05" y1="0.5" x2="0.9999869" y2="0.5" id="gradient_2">
+      <stop offset="82.4%" stop-color="#135D36" />
+      <stop offset="93.09999%" stop-color="#125933" />
+      <stop offset="100%" stop-color="#11522F" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.5" y1="1.3210375E-05" x2="0.49999997" y2="0.9999869" id="gradient_3">
+      <stop offset="82.4%" stop-color="#135D36" />
+      <stop offset="93.09999%" stop-color="#125933" />
+      <stop offset="100%" stop-color="#11522F" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="DataGrid" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="DataGrid" fill="none" stroke="none" />
+    <path d="M424 64C437.257 64 448 74.7434 448 88L448 424C448 437.257 437.257 448 424 448L88 448C74.7434 448 64 437.257 64 424L64 88C64 74.7434 74.7434 64 88 64L424 64Z" id="Vector" fill="url(#gradient_1)" fill-rule="evenodd" stroke="none" />
+    <g id="Group-2" transform="translate(63.99997 149)">
+      <path d="M130 0L130 299L126 299L126 0L130 0Z" id="Path-1" fill="url(#gradient_2)" fill-rule="evenodd" stroke="none" />
+      <path d="M258 0L258 299L254 299L254 0L258 0Z" id="Path-2" fill="url(#gradient_2)" fill-rule="evenodd" stroke="none" />
+      <path d="M384 141L0 141L0 137L384 137L384 141Z" id="Path-3" fill="url(#gradient_3)" fill-rule="evenodd" stroke="none" />
+    </g>
+    <path d="M424 64C437.257 64 448 71.3055 448 80.32L448 149L64 149L64 77.6C64 70.0879 72.9528 64 84 64L424 64Z" id="Vector" fill="url(#gradient_2)" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>

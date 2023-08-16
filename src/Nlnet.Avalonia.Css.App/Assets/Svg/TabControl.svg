@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.01166667" y1="0.07600021" x2="0.9777222" y2="0.960001" id="gradient_1">
+      <stop offset="0%" stop-color="#0077D2" />
+      <stop offset="100%" stop-color="#0B59A2" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.011500001" y1="0.05540037" x2="0.99372214" y2="0.9162669" id="gradient_2">
+      <stop offset="0%" stop-color="#28AFEA" />
+      <stop offset="100%" stop-color="#047ED6" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="TabControl" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="TabControl" fill="none" stroke="none" />
+    <g id="Group" transform="translate(46 88)">
+      <path d="M358.69 73.5C351.152 73.5 344.201 69.4576 340.463 62.916L310.559 10.5735C306.81 4.04254 299.849 0 292.31 0L168 0L168 73.5L358.69 73.5L358.69 73.5Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+      <path d="M214.453 62.916L184.548 10.5735C180.81 4.04252 173.849 0 166.31 0L21.0001 0C9.39754 0 0 9.39754 0 21L0 315.001C0 326.551 9.45 336 21.0001 336L399.001 336C410.551 336 420 326.551 420 315.001L420 94.5002C420 82.8977 410.603 73.5001 399.001 73.5001L232.691 73.5001C225.152 73.5001 218.19 69.4576 214.453 62.916L214.453 62.916Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+﻿^NtResizeThumb{
+    Background: Transparent;
+    Opacity: 0.1;
+    [[
+        :pointerover{
+            Background: var(control-back-hover);
+        }
+    ]]
+}

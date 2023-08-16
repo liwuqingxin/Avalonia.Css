@@ -1,0 +1,117 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- CalendarButton -->
+    <ControlTheme x:Key="{x:Type CalendarButton}" TargetType="CalendarButton">
+        <Setter Property="CalendarButton.Template">
+            <ControlTemplate TargetType="CalendarButton">
+                <Panel>
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                        <ContentPresenter Name="Content"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          FontSize="{TemplateBinding FontSize}" />
+                    </Border>
+                    <Border x:Name="Border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+    <!-- CalendarDayButton -->
+    <ControlTheme x:Key="{x:Type CalendarDayButton}" TargetType="CalendarDayButton">
+        <Setter Property="CalendarDayButton.Template">
+            <ControlTemplate TargetType="CalendarDayButton">
+                <Panel>
+                    <Border Name="Root"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+                    <ContentControl Name="Content"
+                                    Margin="{TemplateBinding Padding}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    FontSize="{TemplateBinding FontSize}" />
+                    <Border x:Name="Border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+    <!-- CalendarItem -->
+    <ControlTheme x:Key="{x:Type CalendarItem}" TargetType="CalendarItem">
+        <Setter Property="CalendarItem.DayTitleTemplate">
+            <Template x:DataType="x:String">
+                <TextBlock Classes="Week" Text="{Binding}" />
+            </Template>
+        </Setter>
+        <Setter Property="CalendarItem.Template">
+            <ControlTemplate TargetType="CalendarItem">
+                <Border x:Name="PART_Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid x:Name="PART_LayoutRoot" RowDefinitions="Auto,*">
+                        <Grid x:Name="PART_HeaderLayout" ColumnDefinitions="*,Auto,Auto">
+                            <Button Name="PART_HeaderButton" />
+                            <Button Name="PART_PreviousButton" Grid.Column="1">
+                                <Path x:Name="PART_PreviousButtonPath" />
+                            </Button>
+                            <Button Name="PART_NextButton" Grid.Column="2">
+                                <Path Name="PART_NextButtonPath" />
+                            </Button>
+                        </Grid>
+                        <!-- Border below is used only for MonthView but it can't be moved inside of Grid because CalendarItem expects it to be empty and it will cause side-effects -->
+                        <Border Name="BackgroundLayer"
+                                Grid.Row="1"
+                                IsVisible="{Binding #PART_MonthView.IsVisible}" />
+                        <Grid Name="PART_MonthView"
+                              Grid.Row="1"
+                              ColumnDefinitions="*,*,*,*,*,*,*"
+                              IsVisible="False"
+                              RowDefinitions="Auto,*,*,*,*,*,*" />
+                        <Grid Name="PART_YearView"
+                              Grid.Row="1"
+                              ColumnDefinitions="*,*,*,*"
+                              IsVisible="False"
+                              RowDefinitions="*,*,*" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+    <!-- Calendar -->
+    <ControlTheme x:Key="{x:Type Calendar}" TargetType="Calendar">
+        <Setter Property="Calendar.Template">
+            <ControlTemplate TargetType="Calendar">
+                <StackPanel Name="PART_Root"
+                            HorizontalAlignment="Center"
+                            ClipToBounds="True">
+                    <CalendarItem Name="PART_CalendarItem"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  HeaderBackground="{TemplateBinding HeaderBackground}" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

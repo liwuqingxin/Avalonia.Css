@@ -1,0 +1,12 @@
+<Application x:Class="Nlnet.Avalonia.Css.Samples.App"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+        <FluentTheme />
+        <nlnet:AcssFluentTheme />
+    </Application.Styles>
+</Application>

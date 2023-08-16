@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.75052965" y1="0.06447828" x2="0.3121598" y2="1.2537792" id="gradient_1">
+      <stop offset="0%" stop-color="#32BDEF" />
+      <stop offset="100%" stop-color="#1EA2E4" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.70895314" y1="-0.24942875" x2="0.24865386" y2="1.0666428" id="gradient_2">
+      <stop offset="0%" stop-color="#D160F6" />
+      <stop offset="100%" stop-color="#C545ED" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.89052975" y1="0.10964705" x2="-0.010648608" y2="1.0107058" id="gradient_3">
+      <stop offset="0%" stop-color="#FED100" />
+      <stop offset="100%" stop-color="#E36001" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.75070333" y1="0.24931997" x2="-0.1728977" y2="1.1728346" id="gradient_4">
+      <stop offset="0%" stop-color="#FED100" />
+      <stop offset="100%" stop-color="#E36001" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="ColorPicker" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="ColorPicker" fill="none" stroke="none" />
+    <path d="M265.749 330.667L354.208 242.208L269.792 157.792L101.803 325.771C100.256 327.317 98.8587 328.992 97.4507 330.667L265.749 330.667L265.749 330.667Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+    <path d="M107.573 320L101.803 325.771C93.6533 333.941 87.4133 344.032 83.776 354.955L75.456 379.904C72.3307 389.291 66.9867 397.941 60 404.928L45.792 419.125C43.7867 421.12 42.6667 423.829 42.6667 426.667C42.6667 429.504 43.7867 432.213 45.792 434.208L77.792 466.208C79.872 468.288 82.6027 469.333 85.3333 469.333C88.064 469.333 90.7947 468.288 92.8747 466.208L107.083 452.011C114.08 445.024 122.731 439.669 132.107 436.544L157.045 428.235C167.989 424.587 178.08 418.347 186.229 410.197L276.416 320L107.573 320L107.573 320Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+    <path d="M288.021 128.021C288.021 128.021 352.267 63.7973 353.451 62.5813C366.304 49.728 383.349 42.6667 401.483 42.6667C419.627 42.6667 436.661 49.728 449.483 62.5493C475.947 89.0133 475.947 132.075 449.483 158.549C448.192 159.808 384 224 384 224L288.021 128.021L288.021 128.021Z" id="Shape" fill="url(#gradient_3)" stroke="none" />
+    <path d="M240.971 171.691L340.352 271.072C348.704 279.424 362.229 279.424 370.581 271.072L399.072 242.581C407.413 234.229 407.413 220.704 399.072 212.352L299.691 112.971C291.339 104.619 277.813 104.619 269.461 112.971L240.971 141.461C232.629 149.813 232.629 163.339 240.971 171.691L240.971 171.691Z" id="Shape" fill="url(#gradient_4)" stroke="none" />
+  </g>
+</svg>

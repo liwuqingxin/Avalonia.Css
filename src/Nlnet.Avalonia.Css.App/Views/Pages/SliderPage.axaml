@@ -1,0 +1,64 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.SliderPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sampleAssistant="https://www.nlnet.com/avalonia"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="The Expander has a header and can expand to show a body with more content.Use an Expander when some content is only relevant some of the time(for example to read more information or access additional options for an item)."
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="Slider whose range is from 0 to 100.">
+            <Slider Width="200"
+                    Maximum="100"
+                    Minimum="0" />
+        </app:IndependentCase>
+
+
+        <app:IndependentCase Header="Slider with IsSnapToTickEnabled='True'.">
+            <Slider Width="200"
+                    IsSnapToTickEnabled="True"
+                    Maximum="100"
+                    Minimum="0"
+                    TickFrequency="20"
+                    TickPlacement="BottomRight" />
+        </app:IndependentCase>
+
+
+        <app:IndependentCase Header="Vertical slider.">
+            <Slider Height="120"
+                    IsSnapToTickEnabled="False"
+                    Maximum="100"
+                    Minimum="0"
+                    Orientation="Vertical"
+                    TickFrequency="20"
+                    TickPlacement="Outside" />
+        </app:IndependentCase>
+
+
+        <app:IndependentCase Header="Thick slider.">
+            <Slider Width="200"
+                    Classes="Thick"
+                    Maximum="100"
+                    Minimum="0" />
+        </app:IndependentCase>
+
+
+        <app:IndependentCase Header="Thick vertical slider.">
+            <Slider Height="120"
+                    Classes="Thick"
+                    IsSnapToTickEnabled="False"
+                    Maximum="100"
+                    Minimum="0"
+                    Orientation="Vertical"
+                    TickFrequency="20"
+                    TickPlacement="BottomRight" />
+        </app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

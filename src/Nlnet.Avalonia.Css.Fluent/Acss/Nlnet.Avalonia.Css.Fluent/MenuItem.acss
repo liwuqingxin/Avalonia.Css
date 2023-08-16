@@ -1,0 +1,112 @@
+﻿
+^MenuItem {
+    Foreground: var(fore);
+    Background: Transparent;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    CornerRadius: 3;
+    RenderTransform: none;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Center;
+    Height:28;
+    ClipToBounds:False;
+    Transitions:[
+        var(stBackground);
+    ]
+
+    [[
+        :pointerover{
+            Background:var(combobox-item-back-hover);
+        }
+        :pressed /template/ Border#PART_LayoutRoot:pointerover{
+            Background: var(combobox-item-back-selected);
+        }
+
+         /template/ Viewbox#PART_IconPresenter{
+            Margin:0,0,8,0;
+            HorizontalAlignment:Center;
+            VerticalAlignment:Center;
+            StretchDirection:DownOnly;
+        }
+         /template/ ContentPresenter#PART_HeaderPresenter{
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Center;
+        }
+         /template/ TextBlock#PART_InputGestureText{
+            HorizontalAlignment:Right;
+            VerticalAlignment:Center;
+            Margin:28,0,0,0;
+            FontWeight:Light;
+            Foreground:var(watermark);
+        }
+         /template/ Path#PART_ChevronPath{
+            Width:9;
+            Height:9;
+            HorizontalAlignment:Right;
+            VerticalAlignment:Center;
+            Stretch:Uniform;
+            Data:M 1,0 10,10 l -9,10 -1,-1 L 8,10 -0,1 Z;
+            Fill:var(fore);
+            UseLayoutRounding:False;
+            RenderTransform:none;
+        }
+        :pointerover /template/ Path#PART_ChevronPath{
+            Fill:var(fore-hover);
+        }
+        :open /template/ Path#PART_ChevronPath{
+            Fill:var(fore-hover);
+        }
+         /template/ Popup#PART_Popup {
+            PlacementMode:Right;
+            IsLightDismissEnabled:false;
+            HorizontalOffset:-12;
+        }
+         /template/ Popup#PART_Popup PopupRoot{
+            Background:var(combobox-item-back);
+        }
+         /template/ ScrollViewer#PART_PopupScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:2;
+        }
+
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}
+
+MenuItem{
+    [[
+        MenuItem Separator{
+            Margin:0,4;
+            Height:1;
+            Background:var(watermark);
+            Opacity:0.2;
+        }
+    ]]
+}
+
+^MenuFlyoutPresenter {
+    /* VerticalOffset:-10; */
+    [[
+         /template/ ScrollViewer#PART_ScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+    ]]
+}
+
+^ContextMenu {
+    HorizontalOffset:-10;
+    VerticalOffset:-10;
+    [[
+         /template/ ScrollViewer#PART_ScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+    ]]
+    
+}

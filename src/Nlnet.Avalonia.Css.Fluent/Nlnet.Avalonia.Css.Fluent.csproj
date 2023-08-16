@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
+
+		<Configurations>Debug;Release;LinuxDebug</Configurations>
+
+		<!--Nuget-->
+		<Title>Avalonia Fluent Themes powered by Acss.</Title>
+		<Description>Provide fluent themes for Avalonia.Controls, Nlnet.Avalonia.Senior, Nlnet.Avalonia.MessageBox.</Description>
+		<PackageTags>avalonia acss css style control fluent messagebox senior</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>$(NugetVersion)</Version>
+		<Authors>$(Author)</Authors>
+		<PackageProjectUrl>$(ProjectUrl)</PackageProjectUrl>
+		<Copyright>$(Copyright)</Copyright>
+		<PackageIcon>$(PackageIcon)</PackageIcon>
+		<PackageReadmeFile>$(PackageReadmeFile)</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
+
+		<PackageOutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</PackageOutputPath>
+		<OutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</OutputPath>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\img\acss.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\doc\$(AssemblyName)\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Nlnet.Avalonia.Css.Controls\Nlnet.Avalonia.Css.Controls.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.Senior\Nlnet.Avalonia.Senior.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Acss\**">
+			<IncludeInPackage>true</IncludeInPackage>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutput>true</CopyToOutput>
+			<PackagePath>contents\Acss\</PackagePath>
+		</Content>
+
+		<!-- https://world.optimizely.com/forum/developer-forum/cms-12/thread-container/2022/4/copy-files-from-the-nuget-package-to-the-destination-project-when-installing-the-nuget-package/ -->
+		<!--
+			The target file, that should move the files, should be located in 'build\{target framework}\' folder 
+			and have the same name as the package ID. This seems to be correct, except that you don't have the 
+			target framework in the path now.
+		-->
+		<Content Include="CopyTask.targets">
+			<IncludeInPackage>true</IncludeInPackage>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutput>true</CopyToOutput>
+			<PackagePath>build\$(TargetFramework)\$(AssemblyName).targets</PackagePath>
+			<Pack>true</Pack>
+		</Content>
+	</ItemGroup>
+
+</Project>

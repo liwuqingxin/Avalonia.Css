@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
+
+		<Configurations>Debug;Release;LinuxDebug</Configurations>
+		<RootNamespace>Nlnet.Avalonia</RootNamespace>
+
+		<!--Nuget-->
+		<Title>Avalonia MessageBox</Title>
+		<Description>MessageBox is used to display modal information. It can represent messages of different types with different icons. It supports displaying exceptions, and even highlighting exception information using BBCode. Additionally, we have implemented support for both asynchronous and synchronous invocation. You can either use async/await scheduling according to the Avalonia standard, or directly block and wait for the return of the Show function following the WPF standard.</Description>
+		<PackageTags>avalonia acss css style control fluent messagebox senior</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>$(NugetVersion)</Version>
+		<Authors>$(Author)</Authors>
+		<PackageProjectUrl>$(ProjectUrl)</PackageProjectUrl>
+		<Copyright>$(Copyright)</Copyright>
+		<PackageIcon>$(PackageIcon)</PackageIcon>
+		<PackageReadmeFile>$(PackageReadmeFile)</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
+
+		<PackageOutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</PackageOutputPath>
+		<OutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</OutputPath>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\img\acss.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\doc\$(AssemblyName)\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\WindowsVisitor.cs" Link="Utils\WindowsVisitor.cs" />
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\PlatformService.cs" Link="Utils\PlatformService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+	</ItemGroup>
+
+</Project>

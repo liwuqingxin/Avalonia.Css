@@ -1,0 +1,184 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- DatePicker -->
+    <ControlTheme x:Key="{x:Type DatePicker}" TargetType="DatePicker">
+        <Setter Property="DatePicker.Template">
+            <ControlTemplate TargetType="DatePicker">
+                <DataValidationErrors>
+                    <Panel x:Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+                        <Button x:Name="PART_FlyoutButton"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Foreground="{TemplateBinding Foreground}"
+                                IsEnabled="{TemplateBinding IsEnabled}"
+                                TemplatedControl.IsTemplateFocusTarget="True">
+                            <Grid x:Name="PART_ButtonContentGrid" ColumnDefinitions="78*,Auto,132*,Auto,78*">
+                                <TextBlock x:Name="PART_DayTextBlock" Grid.Column="0" />
+                                <Rectangle x:Name="PART_FirstSpacer" Grid.Column="1" />
+                                <TextBlock x:Name="PART_MonthTextBlock" Grid.Column="2" />
+                                <Rectangle x:Name="PART_SecondSpacer" Grid.Column="3" />
+                                <TextBlock x:Name="PART_YearTextBlock" Grid.Column="4" />
+                            </Grid>
+                        </Button>
+                        <Popup x:Name="PART_Popup" PlacementTarget="{TemplateBinding}">
+                            <!-- TODO Style支持Setter值绑定 -->
+                            <DatePickerPresenter x:Name="PART_PickerPresenter" Width="{Binding $parent[DatePicker].Bounds.Width}" />
+                        </Popup>
+                    </Panel>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <!-- DatePickerPresenter -->
+    <ControlTheme x:Key="{x:Type DatePickerPresenter}" TargetType="DatePickerPresenter">
+        <Setter Property="DatePickerPresenter.Template">
+            <ControlTemplate TargetType="DatePickerPresenter">
+                <Border Name="Background"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid Name="ContentRoot" RowDefinitions="*,Auto">
+                        <Grid Name="PART_PickerContainer">
+                            <!-- Column Definitions set in code, ignore here -->
+
+                            <Panel x:Name="PART_MonthHost">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_MonthSelector"
+                                                         PanelType="Month"
+                                                         ShouldLoop="True" />
+                                </ScrollViewer>
+                                <RepeatButton x:Name="PART_MonthUpButton"
+                                              VerticalAlignment="Top"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_MonthUpButtonPath" />
+                                </RepeatButton>
+                                <RepeatButton x:Name="PART_MonthDownButton"
+                                              VerticalAlignment="Bottom"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_MonthDownButtonPath" />
+                                </RepeatButton>
+                            </Panel>
+                            <Panel x:Name="PART_DayHost">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_DaySelector"
+                                                         PanelType="Day"
+                                                         ShouldLoop="True" />
+                                </ScrollViewer>
+                                <RepeatButton x:Name="PART_DayUpButton"
+                                              VerticalAlignment="Top"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_DayUpButtonPath" />
+                                </RepeatButton>
+                                <RepeatButton Name="PART_DayDownButton"
+                                              VerticalAlignment="Bottom"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_DayDownButtonPath" />
+                                </RepeatButton>
+                            </Panel>
+                            <Panel x:Name="PART_YearHost">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                    <DateTimePickerPanel Name="PART_YearSelector"
+                                                         PanelType="Year"
+                                                         ShouldLoop="False" />
+                                </ScrollViewer>
+                                <RepeatButton x:Name="PART_YearUpButton"
+                                              VerticalAlignment="Top"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_YearUpButtonPath" />
+                                </RepeatButton>
+                                <RepeatButton x:Name="PART_YearDownButton"
+                                              VerticalAlignment="Bottom"
+                                              IsVisible="False">
+                                    <Path x:Name="PART_YearDownButtonPath" />
+                                </RepeatButton>
+                            </Panel>
+
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Rectangle Name="HighlightRect"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="5"
+                                       IsHitTestVisible="False"
+                                       ZIndex="-1" />
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Rectangle Name="PART_FirstSpacer" Grid.Column="1" />
+                            <!-- ReSharper disable once Xaml.IndexOutOfGridDefinition -->
+                            <Rectangle Name="PART_SecondSpacer" Grid.Column="3" />
+                        </Grid>
+
+                        <Grid Name="AcceptDismissGrid"
+                              Grid.Row="1"
+                              ColumnDefinitions="*,*">
+                            <Rectangle x:Name="DatePickerFlyoutPresenterSpacer"
+                                       Grid.ColumnSpan="2"
+                                       VerticalAlignment="Top" />
+                            <Button Name="PART_AcceptButton" Grid.Column="0">
+                                <Path x:Name="PART_AcceptButtonPath" />
+                            </Button>
+                            <Button Name="PART_DismissButton" Grid.Column="1">
+                                <Path x:Name="PART_DismissButtonPath" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ Panel">
+            <Style Selector="^:pointerover RepeatButton">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+        </Style>
+    </ControlTheme>
+
+    <!-- CalendarDatePicker -->
+    <ControlTheme x:Key="{x:Type CalendarDatePicker}" TargetType="CalendarDatePicker">
+        <Setter Property="CalendarDatePicker.Template">
+            <ControlTemplate TargetType="CalendarDatePicker">
+                <DataValidationErrors>
+                    <Panel x:Name="LayoutRoot">
+                        <Border x:Name="Background"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBox Name="PART_TextBox"
+                                     Grid.Column="0"
+                                     Margin="{TemplateBinding BorderThickness}"
+                                     Padding="{TemplateBinding Padding}"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     UseFloatingWatermark="{TemplateBinding UseFloatingWatermark}"
+                                     Watermark="{TemplateBinding Watermark}" />
+                            <Button Name="PART_Button"
+                                    Grid.Column="1"
+                                    Focusable="False">
+                                <Path x:Name="PART_ButtonPath" IsHitTestVisible="False" />
+                            </Button>
+                            <Popup Name="PART_Popup"
+                                   Grid.Column="0"
+                                   PlacementTarget="{TemplateBinding}">
+                                <Calendar Name="PART_Calendar"
+                                          DisplayDate="{TemplateBinding DisplayDate}"
+                                          DisplayDateEnd="{TemplateBinding DisplayDateEnd}"
+                                          DisplayDateStart="{TemplateBinding DisplayDateStart}"
+                                          FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
+                                          IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
+                                          SelectedDate="{TemplateBinding SelectedDate,
+                                                                         Mode=TwoWay}" />
+                            </Popup>
+                        </Grid>
+                    </Panel>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

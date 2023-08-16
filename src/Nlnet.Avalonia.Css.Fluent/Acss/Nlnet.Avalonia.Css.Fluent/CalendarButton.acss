@@ -1,0 +1,44 @@
+﻿
+^CalendarButton {
+    ClickMode:Release;
+    Foreground: var(fore);
+    Background: Transparent;
+    CornerRadius:200;
+    Height:60;
+    Width:60;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Stretch;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Stretch;
+    ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
+    [[
+        :pointerover{
+            Background:var(control-back-hover);
+        }
+        :pressed{
+            Background:var(control-back-pressed);
+        }
+        :selected{
+            Background:var(Accent);
+            Foreground:var(fore-selected-hover);
+        }
+        :inactive{
+            Foreground:var(watermark);
+        }
+        :blackout{
+            Foreground:var(watermark);
+            Opacity:0.6;
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

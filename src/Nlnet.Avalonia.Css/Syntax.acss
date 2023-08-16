@@ -1,0 +1,186 @@
+﻿/* 
+  This is a comment. We support block comments like this, and in addition, we also support line comments "//".
+
+  Resources with a description for light mode and blue theme. 
+  Note that the mode, theme and desc are optional.
+  This will be interpreted to an Avalonia ResourceDictionary. 
+  
+  -IMPORTANT-
+  Resources must be loaded before using them. 
+  For example, the resources used by a style acss file must be loaded ahead of that acss file.
+*/
+::res[mode=light][theme=blue][desc=亮色资源] {
+
+    // SolidColorBrush with key 'key1'. The other value format that avalonia brush supported are also available.
+    brush(key1): #333;      /* r=03, g=03, b=03 */
+    brush(key1): #c3c3c3;   /* r=c3, g=c3, b=c3 */
+    brush(key1): #c333;     /* r=03, g=03, b=03, a=0c */
+    brush(key1): #3333;     /* r=03, g=03, b=03, a=03 */
+    
+    // SolidColorBrush with opacity being 0.8.
+    brush(key2): #666666 0.8;
+    
+    // SolidColorBrush provided by dynamic color resource 'AccentColor'.
+    brush(key3): var(AccentColor);
+    
+    // SolidColorBrush with opacity being 0.9.
+    brush(key4): var(AccentColor) 0.9;
+    
+    // Simple linear gradient brush.
+    linear(fluent-border): (1 1 1 1)[
+        #cccccc 0.3 0.2; 
+        #c0c0c0 0.8;
+        var(AccentColor) 1.2;
+    ]
+    
+    // Complex linear gradient brush.
+    linear(fluent-border):{
+        StartPoint:0,1;
+        EndPoint:1,1;
+        SpreadMethod:Repeat;
+        Opacity:0.9;
+        Transform: translate(10px,20px);
+        TransformOrigin:0.5,0.5;
+        Transitions:[
+            var(stOpacity);
+        ]
+        GradientStops:[
+            GradientStop(Aqua 0.5 0);
+            GradientStop(Aqua 1);
+        ]
+    }
+    
+    // BoxShadow with 'OffsetX=1', 'OffsetY=2', 'Blur=3', 'Spread=4', 'Color=#6666'.
+    BoxShadow(button-shadow): 1 2 3 4 #6666;
+    
+    // Double resource.
+    double(transition-duration): 0.15;
+    double(transition-delay): 0.15;
+    
+    /* 
+      TransformOperationsTransition for property 'LayoutTransformControl.LayoutTransform' with 'Duration=0.075', 'Delay=0.1', 'Easing=LinearEasing'. 
+      DoubleTransition and other transitions are also available.
+    */
+    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing);
+    
+    // use var(key) for the duration property. Delay and Easing properties also support that.
+    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration) var(transition-delay) LinearEasing);
+}
+
+
+Window{
+    // Acss feature: support a set of behaviors by default. This set of behaviors belongs to '.acss'.
+    // You can create your own behaviors and name it by yourself. For example, if you create a behaviors set
+    // named 'xbeh', with a behavior 'window.xxx.xxx, than you can use it like '.xbeh:window.xxx.xxx'.
+    .acss:window.esc.close;
+}
+
+
+/* 
+  Style with selector='Button'. Note that the selector syntax is same as it in Avalonia, except the '^'.
+  The '^' here means the style will be added into the ControlTheme for Button.
+  If without the '^', the style would be added into this acss file, which will be added into the owner styles object.
+*/
+^Button {
+    
+    // A setter for Foreground property. The value here is provided by a dynamic resource with key of 'fore'.
+    Foreground: var(fore);
+    
+    /*
+      A setter for Padding property. The value is '8,4,8,5'.
+      The syntax for property value is almost similar to it in Avalonia.
+    */
+    Padding: 8,4,8,5;
+    
+    /*
+      -IMPORTANT-
+      A setter for TextDecorations. 
+      The value started with a '@' represents a static instance, which is a field or property, kept by class TextDecorations here.
+      Note that nested instances are not supported now.
+    */
+    TextDecorations:@TextDecorations.Strikethrough;
+    
+    /* 
+      A setter for Transitions property. Note that the Transitions is a collection. We use '[]' for that.
+      There are 3 Transition instances being added to the Transitions collection here.
+      They are local instance, dynamic resource and dynamic resource.      
+    */
+    Transitions:[
+        TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing);
+        
+        // -IMPORTANT- Note that 'var' here created a static reference to the resource. It is not a dynamic resource.
+        var(stRenderTransform);
+        var(stBorderBrush);
+    ]
+    
+    /*
+      The style should be able to have it's own child styles, which are wrapped by '[[  ]]'.
+      Note that the '[[ ]]' must be only one and last section for style definition.
+    */
+    [[
+        // The first child style for parent style '^Button'.
+        :pointerover{
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        // The second one.
+        :pressed{
+            Opacity:0.6;
+            BorderBrush:var(control-border);
+            // You can nest it again and again.
+            [[
+                :pointerover{
+                    Background: var(Accent09);
+                    Foreground: #fff;
+                }
+                :pressed:not(:is-part){
+                    Opacity:0.8;
+                }
+                
+                /*
+                  The style start with a '>' is a child logic style, which would be added into the target's Styles.
+                  Here the style 'TextBlock.Week' will be added to the Styles of all instances of Grid that named 'PART_MonthView'.
+                  
+                  -IMPORTANT- The child logic style is acss feature that avalonia does not have.
+                */
+                /template/ Grid#PART_MonthView{
+                    [[
+                        >TextBlock.Week{
+                            VerticalAlignment:Center;
+                            HorizontalAlignment:Center;
+                            Margin:0,12;
+                        }
+                    ]]
+                }
+                
+                // '::animation' means an animation definition. It is almost like a style definition.
+                ::animation{
+                    // The property setters for animation class.
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:.3';
+                    KeyFrames:[
+                        // First KeyFrame with 'Cue=0%', 'KeySpline=0,1,0.5,1'.
+                        KeyFrame:(0% 0,1,0.5,1)[
+                            Opacity:0;
+                            TranslateTransform.Y:-40;
+                            ScaleTransform.ScaleY:0.7;
+                            
+                            // Value that relative binding to '$parent[ProgressBar].TemplateSettings.ContainerAnimationStartPosition'.
+                            TranslateTransform.X: $ProgressBar.TemplateSettings.ContainerAnimationStartPosition;
+                            
+                            // Value that relative binding to '$parent[ProgressBar;2].TemplateSettings.ContainerAnimationStartPosition'.
+                            TranslateTransform.X: $ProgressBar#2.TemplateSettings.ContainerAnimationStartPosition;
+                        ]
+                        // The second one with 'KeyTime=0%', 'KeySpline=0,1,0.5,1'.
+                        KeyFrame:(0:0:1 0,1,0.5,1)[
+                            Opacity:1;
+                            TranslateTransform.Y:0;
+                            ScaleTransform.ScaleY:1;
+                        ]
+                    ]
+                }
+            ]]
+        }
+    ]]
+}

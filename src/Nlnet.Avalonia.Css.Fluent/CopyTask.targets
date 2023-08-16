@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+
+	<!-- The '*.targets' will be placed in '\build\$(TargetFramework)\' folder. -->
+	<!-- The 'Acss\**' will be contained in '\contents\' folder. -->
+
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)\..\..\contents\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

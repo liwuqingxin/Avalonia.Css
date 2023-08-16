@@ -1,0 +1,60 @@
+﻿
+^DatePicker {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-fluent);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalAlignment: Left;
+    VerticalAlignment: Stretch;
+    /* HorizontalContentAlignment: Center;
+    VerticalContentAlignment: Center; */
+    ClipToBounds:False;
+    MinWidth:200;
+    Transitions:[
+        var(stBorderBrush);
+    ]
+
+    [[
+         /template/ Button#PART_FlyoutButton{
+            HorizontalContentAlignment:Stretch;
+            HorizontalAlignment:Stretch;
+        }
+        :hasnodate /template/ Button#PART_FlyoutButton TextBlock{
+            Foreground:var(watermark);
+        }
+         /template/ Popup#PART_Popup{
+            WindowManagerAddShadowHint:false;
+            PlacementMode:Bottom;
+            IsLightDismissEnabled:True;
+            HorizontalOffset:-1;
+        }
+         /template/ DatePickerPresenter#PART_PickerPresenter{
+            MaxHeight:300;
+        }
+         /template/ TextBlock#PART_DayTextBlock{
+            Text:Day;
+            HorizontalAlignment:Center;
+        }
+         /template/ TextBlock#PART_MonthTextBlock{
+            Text:Month;
+            HorizontalAlignment:Center;
+        }
+         /template/ TextBlock#PART_YearTextBlock{
+            Text:Year;
+            HorizontalAlignment:Center;
+        }
+         /template/ Rectangle#PART_FirstSpacer{
+            Width:1;
+            Fill:var(watermark);
+            Margin:8,2;
+        }
+         /template/ Rectangle#PART_SecondSpacer{
+            Width:1;
+            Fill:var(watermark);
+            Margin:8,2;
+        }
+    ]]
+}

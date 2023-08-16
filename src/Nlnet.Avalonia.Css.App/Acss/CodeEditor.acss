@@ -1,0 +1,19 @@
+﻿/* CodeEditor */
+^CodeEditor{
+    ScrollViewer.IsScrollChainingEnabled: False;
+    VerticalContentAlignment: Stretch;
+    AcceptsReturn: True;
+    AcceptsTab: True;
+    BorderThickness: 1;
+    CaretBrush: var(fore);
+    FontSize: 12;
+    Padding: 6;
+    Cursor: Ibeam;
+    LineHeight: 16;
+    SelectionBrush: var(Accent02);
+    FontWeight: Light;
+    FontFamily: Segoe UI,Consolas,新宋体,Simsun,Monospace,Seogo UI,微软雅黑;
+
+    // For Fluent.
+    BorderThickness:0;
+}

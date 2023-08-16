@@ -1,0 +1,27 @@
+﻿^DataGridRowGroupHeader {
+    MinHeight: 40;
+    Foreground: var(watermark);
+    Background: var(window-back);
+    VerticalContentAlignment: Center;
+    HorizontalContentAlignment: Stretch;
+    IsPropertyNameVisible: True;
+    IsItemCountVisible: True;
+    Focusable: False;
+    [[
+        /template/ ToggleButton#PART_ExpanderButton{
+            Margin: 12,0;
+        }
+        /template/ StackPanel#PART_ContentsStackPanel{
+            Orientation: Horizontal;
+            Spacing: 12;
+        }
+        /template/ StackPanel>TextBlock:is-part{
+            VerticalAlignment: Center;
+            FontSize: 12;
+        }
+        /template/ Rectangle#PART_BottomGridLine{
+            Height: 1;
+            Fill: var(control-border);
+        }
+    ]]
+}

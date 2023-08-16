@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
+        <Setter Property="ToggleSwitch.Template">
+            <ControlTemplate TargetType="ToggleSwitch">
+                <Grid Background="{x:Static Brushes.Transparent}" ColumnDefinitions="Auto,*">
+                    <Border x:Name="SwitchKnobBounds"
+                            Grid.Column="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Opacity="1"
+                            TemplatedControl.IsTemplateFocusTarget="True" />
+                    <Canvas x:Name="PART_SwitchKnob"
+                            Grid.Column="0"
+                            HorizontalAlignment="Left">
+                        <Grid x:Name="PART_MovingKnobs">
+                            <Ellipse x:Name="SwitchKnob" />
+                        </Grid>
+                    </Canvas>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      Margin="{TemplateBinding Padding}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      RecognizesAccessKey="True" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

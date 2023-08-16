@@ -1,0 +1,37 @@
+﻿
+^NumericUpDown {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-fluent);
+    CaretBrush: var(fore);
+    CornerRadius: 4;
+    BorderThickness: 1;
+    Padding: 8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Left;
+    VerticalAlignment: Center;
+    MinWidth:100;
+    ClipToBounds:True;
+    Transitions:[
+        var(stRenderTransform);
+        var(stOpacity);
+    ]
+
+    [[
+         /template/ ButtonSpinner#PART_Spinner:is-part{
+            Padding:0;
+            HorizontalContentAlignment:Stretch;
+            VerticalContentAlignment:Stretch;
+        }
+         /template/ TextBox#PART_TextBox:is-part{
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Stretch;
+            BorderThickness:0;
+            CornerRadius:4,0,0,4;
+            CaretBrush: var(fore);
+        }
+    ]]
+}

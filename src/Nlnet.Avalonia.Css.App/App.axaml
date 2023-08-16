@@ -1,0 +1,25 @@
+<Application x:Class="Nlnet.Avalonia.Css.App.App"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fluent="https://www.nlnet.com/avalonia"
+             RequestedThemeVariant="{x:Static ThemeVariant.Light}">
+
+    <Application.Styles>
+        <!-- TODO Try to remove the FluentTheme. -->
+        <FluentTheme />
+        
+        <fluent:AcssFluentTheme />
+
+        <!-- TODO Try to remove the ColorPicker resource. -->
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://Nlnet.Avalonia.SampleAssistant/Assets/Themes.Acss.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

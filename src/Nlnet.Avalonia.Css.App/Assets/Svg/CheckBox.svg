@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.88002694" y1="0.88005567" x2="0.110495195" y2="0.110498905" id="gradient_1">
+      <stop offset="10.8%" stop-color="#0D7044" />
+      <stop offset="43.299995%" stop-color="#11945A" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.9259946" y1="0.07400894" x2="0.07399243" y2="0.926023" id="gradient_2">
+      <stop offset="0%" stop-color="#2AC782" />
+      <stop offset="100%" stop-color="#21B876" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="CheckBox" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="CheckBox" fill="none" stroke="none" />
+    <path d="M177.056 441.813L16.8533 281.611C8.59733 273.355 8.59733 259.979 16.8533 251.723L59.7227 208.853C67.9787 200.597 81.3547 200.597 89.6107 208.853L249.813 369.056C258.069 377.312 258.069 390.688 249.813 398.944L206.944 441.813C198.688 450.059 185.312 450.059 177.056 441.813L177.056 441.813Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+    <path d="M134.187 369.056L422.389 80.8533C430.645 72.5973 444.021 72.5973 452.277 80.8533L495.147 123.723C503.403 131.979 503.403 145.355 495.147 153.611L206.944 441.813C198.688 450.069 185.312 450.069 177.056 441.813L134.187 398.944C125.941 390.688 125.941 377.312 134.187 369.056L134.187 369.056Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+  </g>
+</svg>

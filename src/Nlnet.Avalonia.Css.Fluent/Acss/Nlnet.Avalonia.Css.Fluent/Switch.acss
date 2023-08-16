@@ -1,0 +1,71 @@
+﻿
+^ToggleSwitch {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 16;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Left;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        var(stBackground);
+        var(stBorderBrush);
+    ]
+    KnobTransitions:[
+        DoubleTransition(Canvas.Left 0.3 0 CubicEaseOut);
+    ]
+
+    [[
+         /template/ Border#SwitchKnobBounds{
+            Width:28;
+            Height:16;
+        }
+         /template/ Canvas#PART_SwitchKnob{
+            Width:12;
+            Height:16;
+        }
+         /template/ Grid#PART_MovingKnobs{
+            Width:16;
+            Height:16;
+        }
+         /template/ Ellipse#SwitchKnob{
+            Width:12;
+            Height:12;
+            Fill:var(fore);
+            Transitions:[
+                TransformOperationsTransition(TemplatedControl.RenderTransform 0.14);
+                DoubleTransition(Ellipse.Width 0.14 0 CircularEaseInOut);
+                BrushTransition(Ellipse.Fill 0.1);
+            ]
+        }
+        :pressed:not(:checked) /template/ Ellipse#SwitchKnob{
+            RenderTransform:translate(2px,0) scale(1.3,1);
+        }
+        :pressed:checked /template/ Ellipse#SwitchKnob{
+            RenderTransform:translate(-2px,0) scale(1.3,1);
+        }
+        :checked /template/ Ellipse#SwitchKnob{
+            Fill:var(fore-selected-hover);
+        }
+        :checked {
+            Background:var(Accent);
+        }
+        :pointerover:not(:checked){
+            Foreground: var(fore-hover);
+            Background: var(control-back-hover);
+        }
+        :pointerover:checked{
+            Foreground: var(fore-hover);
+            Background: var(Accent09);
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

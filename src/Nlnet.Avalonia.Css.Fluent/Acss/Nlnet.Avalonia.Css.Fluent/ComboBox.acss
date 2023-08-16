@@ -1,0 +1,74 @@
+﻿^ComboBox {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-fluent);
+    CornerRadius: 4;
+    BorderThickness: 1;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Center;
+    VerticalAlignment: Center;
+    MinWidth:40;
+    MaxDropDownHeight:600;
+    ScrollViewer.HorizontalScrollBarVisibility:Disabled;
+    ScrollViewer.VerticalScrollBarVisibility:Auto;
+    /* PlaceholderForeground:Red; */
+    Transitions:[
+        var(stRenderTransform);
+        var(stBackground);
+        var(stBorderBrush);
+        var(stOpacity);
+    ]
+
+    [[
+        :pointerover{
+            Background:var(control-back-hover);
+        }
+        :pressed{
+            BorderBrush:var(control-border-pressed-fluent);
+            Foreground:var(fore-pressed);
+        }
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:4;
+        }
+         /template/ Popup#PART_Popup{
+            VerticalOffset: -7;
+            HorizontalOffset: -11;
+            Placement:BottomEdgeAlignedLeft;
+        }
+         /template/ Popup#PART_Popup PopupRoot{
+            Background:var(combobox-item-back);
+        }
+         /template/ Border#PopupBorder{
+            Background:var(combobox-item-back);
+            CornerRadius:4;
+            Padding:4;
+        }
+         /template/ PathIcon#DropDownGlyph{
+            Width:9;
+            Height:9;
+            Margin:0,0,10,0;
+            HorizontalAlignment:Right;
+            VerticalAlignment:center;
+            Data:M1939 486L2029 576L1024 1581L19 576L109 486L1024 1401L1939 486Z;
+            Foreground:var(fore);
+            UseLayoutRounding:False;
+            RenderTransform:none;
+            Transitions:[
+                var(stRenderTransform);
+            ]
+        }
+        :pressed /template/ PathIcon#DropDownGlyph{
+            RenderTransform: translate(0, 3px);
+        }
+        :dropdownopen /template/ PathIcon#DropDownGlyph{
+            RenderTransform: scale(1,-1);
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

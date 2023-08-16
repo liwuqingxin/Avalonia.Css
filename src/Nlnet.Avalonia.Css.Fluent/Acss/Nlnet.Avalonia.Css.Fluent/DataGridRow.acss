@@ -1,0 +1,29 @@
+﻿^DataGridRow {
+    // 'MinHeight = DATAGRIDROW_defaultMinHeight;' in DataGridRow's ctor.
+    // So this will not take effect.
+    MinHeight: 28;
+    Focusable: False;
+    [[
+        /template/ Rectangle#PART_BottomGridLine{
+            Height: 1;
+        }
+        :selected /template/ Rectangle#BackgroundRectangle{
+            Fill: var(item-back-selected);
+            Opacity: 0.6;
+        }
+        :pointerover /template/ Rectangle#BackgroundRectangle{
+            Fill: var(item-back-hover);
+            Opacity: 1;
+        }
+        :invalid{
+            [[
+                /template/ Rectangle#InvalidVisualElement{
+                    Opacity: 0.4;    
+                }
+                /template/ Rectangle#BackgroundRectangle{
+                    Opacity: 0;    
+                }
+            ]]
+        }
+    ]]
+}

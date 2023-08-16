@@ -1,0 +1,77 @@
+﻿^MessageBox {
+    // Chrome
+    ExtendClientAreaChromeHints: SystemChrome;
+    ExtendClientAreaTitleBarHeightHint: 0.5;
+    ExtendClientAreaToDecorationsHint: True;
+    TransparencyBackgroundFallback: Transparent;
+    SystemDecorations: Full;
+    
+    Background: var(window-back);
+    Foreground: var(fore);
+    MinWidth: 480;
+    MinHeight: 180;
+    MaxWidth: 960;
+    MaxHeight: 800;
+    CanResize: True;
+    SizeToContent: WidthAndHeight;
+    Title: Message;
+    [[
+        /template/ Grid#PART_LayoutRoot{
+            Margin: 32;
+        }
+        /template/ Image#PART_Icon{
+            Width: 36;
+            Height: 36;
+            Margin: 0,0,12,0;
+            VerticalAlignment: Top;
+            IsHitTestVisible: False;
+            UseLayoutRounding: True;
+        }
+        /template/ SelectableTextBlock#TxbTitle{
+            VerticalAlignment: Center;
+            FontSize: 14;
+            FontWeight: Medium;
+            LineHeight: 22;
+            Opacity: 0.85;
+            TextTrimming: @TextTrimming.CharacterEllipsis;
+            TextWrapping: NoWrap;
+        }
+        /template/ ScrollViewer#PART_ScrollViewer{
+            HorizontalScrollBarVisibility: Auto;
+            VerticalScrollBarVisibility: Auto;
+            Margin: 0,8,0,0;
+        }
+        /template/ SelectableTextBlock#TbxMessage{
+            HorizontalAlignment: Left;
+            VerticalAlignment: Top;
+            FontSize: 12;
+            FontWeight: Regular;
+            LineHeight: 20;
+            Opacity: 0.85;
+            TextWrapping: Wrap;
+        }
+        /template/ StackPanel#PART_ButtonsPanel{
+            Margin: 0,22,0,0;
+            HorizontalAlignment: Right;
+            Orientation: Horizontal;
+            Spacing: 8;
+        }
+        /template/ Button#PART_BtnCancel, /template/ Button#PART_BtnNo, /template/ Button#PART_BtnYes {
+            MinWidth: 64;
+        }
+        /template/ Button#PART_BtnClose{
+            BorderThickness: 0;
+            Height: NaN;
+            Margin: 8;
+            Padding: 8;
+            HorizontalAlignment: Right;
+            VerticalAlignment: Top;
+            Background: var(window-back);
+        }
+        /template/ PathIcon#PART_PathClose{
+            Width: 16;
+            Height: 16;
+            Data: M122.004 132.063C123.604 133.717 126.242 133.762 127.896 132.162C129.55 130.563 129.595 127.925 127.996 126.271L70.3786 66.6668L127.996 7.06281C129.595 5.40812 129.551 2.77023 127.896 1.17101C126.242 -0.428596 123.604 -0.383675 122.004 1.27062L64.5833 60.6716L7.16241 1.27072C5.56319 -0.383774 2.9253 -0.428501 1.27081 1.17091C-0.383682 2.77013 -0.42841 5.40802 1.17101 7.06251L58.7882 66.6666L1.17101 126.271C-0.428596 127.925 -0.383675 130.563 1.27062 132.162C2.92531 133.762 5.5632 133.717 7.16242 132.063L64.5835 72.6617L122.004 132.063L122.004 132.063Z;
+        }
+    ]]
+}

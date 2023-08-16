@@ -1,0 +1,51 @@
+﻿
+^ComboBoxItem {
+    Background: var(combobox-item-back);
+    Foreground: var(fore);
+    CornerRadius: 4;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+    ]
+
+    [[
+        :pointerover,:selected{
+            Background: var(combobox-item-back-hover);
+        }
+        :pressed{
+            Background: var(combobox-item-back-selected);
+        }
+         /template/ Border#PART_Indicator {
+            Background:var(Accent);
+            HorizontalAlignment:Left;
+            RenderTransform: scale(1,1);
+            Height:12;
+            Width:3;
+            Opacity:1;
+            Margin:1;
+            CornerRadius:2;
+            Transitions:[
+                var(stRenderTransform);
+                var(stOpacity);
+            ]
+        }
+        :pointerover /template/ Border#PART_Indicator {
+            RenderTransform: scale(1,1.4);
+        }
+        :pressed /template/ Border#PART_Indicator {
+            RenderTransform: scale(1,1);
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

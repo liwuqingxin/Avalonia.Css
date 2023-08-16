@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
+
+		<Configurations>Debug;Release;LinuxDebug</Configurations>
+
+		<!--Nuget-->
+		<Title>Avalonia Senior controls</Title>
+		<Description>This library provides a set of senior avalonia controls.</Description>
+		<PackageTags>avalonia acss css style control fluent senior</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>$(NugetVersion)</Version>
+		<Authors>$(Author)</Authors>
+		<PackageProjectUrl>$(ProjectUrl)</PackageProjectUrl>
+		<Copyright>$(Copyright)</Copyright>
+		<PackageIcon>$(PackageIcon)</PackageIcon>
+		<PackageReadmeFile>$(PackageReadmeFile)</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
+
+		<PackageOutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</PackageOutputPath>
+		<OutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</OutputPath>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\img\acss.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\doc\$(AssemblyName)\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Nlnet.Avalonia.Css\Utils\DiagnosisHelper.cs" Link="Utils\DiagnosisHelper.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
+	</ItemGroup>
+
+</Project>

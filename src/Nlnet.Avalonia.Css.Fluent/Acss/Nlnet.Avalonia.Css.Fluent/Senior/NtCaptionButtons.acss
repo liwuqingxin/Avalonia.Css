@@ -1,0 +1,57 @@
+﻿^NtCaptionButtons{
+    [[
+        :maximized /template/ StackPanel{
+            Margin: 0,6,6,0;
+        }
+        /template/ Button:is-part{
+            Background: var(window-back);
+            Foreground: var(fore);
+            Width: 45;
+            Height: 28;
+            Opacity: 0.6;
+            VerticalAlignment: Top;
+            IsTabStop: False;
+            Transitions:[
+                var(stBackground);
+            ]
+        }
+        /template/ Button:is-part:pointerover{
+            Opacity: 1;
+            Background: var(control-back-hover);
+        }
+        /template/ Button#PART_CloseButton:is-part:pointerover{
+            Opacity: 1;
+            Background: #ffe81123;
+            Foreground: #fff1707a;
+        }
+        /template/ Button:is-part:pressed{
+            Background: var(control-back-pressed);
+        }
+        /template/ Viewbox{
+            Width: 10;
+            Margin: 2;
+        }
+        /template/ Path#FullScreenButtonPath{
+            Data: M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z;
+            Stretch: UniformToFill;
+        }
+        /template/ Path#MinimizeButtonPath{
+            Data: M2048 1229v-205h-2048v205h2048z;
+            Stretch: UniformToFill;
+        }
+        /template/ Path#RestoreButtonPath{
+            Data: M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z;
+            Stretch: UniformToFill;
+        }
+        /template/ Path#CloseButtonPath{
+            Data: M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z;
+            Stretch: UniformToFill;
+        }
+        :maximized /template/ Path#RestoreButtonPath{
+            Data: M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z;
+        }
+        :fullscreen /template/ Path#FullScreenButtonPath{
+            Data: M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z;
+        }
+    ]]
+}

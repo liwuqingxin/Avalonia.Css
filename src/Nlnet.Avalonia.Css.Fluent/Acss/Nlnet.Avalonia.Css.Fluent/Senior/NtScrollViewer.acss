@@ -1,0 +1,12 @@
+﻿
+^NtScrollViewer {
+    Background: Transparent;
+    UseCustomScrollAnimation:True;
+    [[
+        [UseSmoothScrolling=True] /template/ controls|NtScrollContentPresenter#PART_ContentPresenter{
+            Transitions:[
+                VectorTransition(NtScrollContentPresenter.AnimatableOffset 0.4 0 QuadraticEaseOut);
+            ]
+        }
+    ]]
+}

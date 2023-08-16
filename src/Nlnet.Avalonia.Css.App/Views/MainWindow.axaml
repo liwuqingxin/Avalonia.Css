@@ -1,0 +1,129 @@
+<nlnet:NtWindow x:Name="RootWindow"
+                x:Class="Nlnet.Avalonia.Css.App.Views.MainWindow"
+                xmlns="https://github.com/avaloniaui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:nlnet="https://www.nlnet.com/avalonia"
+                Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
+                Icon="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
+                mc:Ignorable="d">
+
+    <Design.DataContext>
+        <app:MainWindowViewModel />
+    </Design.DataContext>
+    
+    <nlnet:NtWindow.Resources>
+        <ResourceDictionary>
+            <Flyout x:Key="SettingMenus">
+                <StackPanel x:Name="SettingsRoot">
+                    <CheckBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              Command="{Binding Path=ToggleBeforeLoadedAcssFile}"
+                              Content="Toggle 'app.acss'" />
+                    <CheckBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              Content="Toggle Local Theme"
+                              IsChecked="{Binding Path=IsLocalDark, Mode=TwoWay}" />
+                    <CheckBox x:Name="CbxIsEnabled"
+                              nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              Content="Toggle Content Enabled" />
+                    <CheckBox x:Name="CbxIsTopMost"
+                              nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              Content="Toggle Top Most"
+                              IsChecked="{Binding $parent[Window].Topmost}" />
+                    <ComboBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              ItemsSource="{Binding Path=Themes}"
+                              SelectedItem="{Binding Path=Theme}" />
+                    <ComboBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              ItemsSource="{Binding Path=Modes}"
+                              SelectedItem="{Binding Path=Mode}" />
+                </StackPanel>
+            </Flyout>
+        </ResourceDictionary>
+    </nlnet:NtWindow.Resources>
+
+    <nlnet:NtWindow.TitleContent>
+        <Grid x:Name="TitleRoot" ColumnDefinitions="Auto,Auto,*">
+            <nlnet:Icon x:Name="TitleLogo"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/brand.svg"
+                        RenderOptions.EdgeMode="Unspecified" />
+            <TextBlock x:Name="TbkPowerText"
+                       Grid.Column="1"
+                       Text="Fluent UI Powered By Avalonia &amp; Acss" />
+
+            <DropDownButton x:Name="SettingButton" Grid.Column="2" Flyout="{DynamicResource SettingMenus}">
+                <nlnet:Icon nlnet:LoadedMixin.Attach="True" IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+            </DropDownButton>
+        </Grid>
+    </nlnet:NtWindow.TitleContent>
+
+    <Panel>
+        <Grid RowDefinitions="Auto,*">
+            <TabControl x:Name="MainTabControl"
+                        Grid.Row="1"
+                        ItemsSource="{Binding Path=GalleryItems}"
+                        SelectedIndex="-1"
+                        SelectionChanged="MainTabControl_OnSelectionChanged"
+                        TabStripPlacement="Left">
+                <TabControl.Styles>
+                    <Style Selector="TabItem">
+                        <Setter Property="nlnet:TabItemExtension.IconContent">
+                            <Template>
+                                <Design.DataContext>
+                                    <nlnet:GalleryItem />
+                                </Design.DataContext>
+                                <nlnet:Icon x:Name="TabItemIcon"
+                                            nlnet:LoadedMixin.Attach="True"
+                                            IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                            </Template>
+                        </Setter>
+                    </Style>
+                </TabControl.Styles>
+                <TabControl.ContentTemplate>
+                    <DataTemplate DataType="nlnet:GalleryItem">
+                        <Grid RowDefinitions="Auto,*">
+                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+                                <Border x:Name="PageIconBorder">
+                                    <nlnet:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                                </Border>
+                                <TextBlock x:Name="PageName"
+                                           Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding Path=Title}" />
+                            </Grid>
+                            <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
+                                <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
+                                    <ContentControl.ContentTemplate>
+                                        <nlnet:GalleryItemLocator />
+                                    </ContentControl.ContentTemplate>
+                                </ContentControl>
+                            </nlnet:NtScrollViewer>
+                        </Grid>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+                <TabControl.ItemTemplate>
+                    <DataTemplate DataType="nlnet:GalleryItem">
+                        <TextBlock Text="{Binding Path=Title}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
+        </Grid>
+
+        <Border x:Name="WelcomeHost">
+            <Panel>
+                <nlnet:Icon x:Name="WelcomeLogo"
+                            nlnet:LoadedMixin.Attach="True"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            RenderOptions.EdgeMode="Unspecified" />
+
+                <nlnet:Icon x:Name="LogoImage"
+                            nlnet:LoadedMixin.Attach="True"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            RenderOptions.EdgeMode="Unspecified" />
+            </Panel>
+        </Border>
+
+    </Panel>
+</nlnet:NtWindow>

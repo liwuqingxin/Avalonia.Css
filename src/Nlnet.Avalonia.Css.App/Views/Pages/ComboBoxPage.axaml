@@ -1,0 +1,52 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.ComboBoxPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="Use a ComboBox when you need to conserve on-screen space and when users select only one option at a time.A ComboBox shows only the currently selected item."
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="ComboBox.">
+            <ComboBox ItemsSource="{app:Enum HorizontalAlignment}">
+                <!--<Interaction.Behaviors>
+                    <behaviors:AnimateResizingBehavior />
+                </Interaction.Behaviors>-->
+            </ComboBox>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="ComboBox with SelectedIndex set.">
+            <ComboBox ItemsSource="{app:Enum HorizontalAlignment}" SelectedIndex="0" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="ComboBox with ComboBoxItem added to it.">
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem>[1] Green</ComboBoxItem>
+                <ComboBoxItem>[2] Orange</ComboBoxItem>
+                <ComboBoxItem>[3] Black</ComboBoxItem>
+                <ComboBoxItem>[4] Blue</ComboBoxItem>
+                <ComboBoxItem>[5] Pink Pink Pink Pink Pink Pink Pink Pink</ComboBoxItem>
+            </ComboBox>
+        </app:IndependentCase>
+
+        <!--<app:IndependentCase Header="ComboBox with ComboBoxAlignPopupToSelectionBehavior.">
+            <ComboBox ItemsSource="{app:Enum SizeToContent}" SelectedIndex="0">
+                <Interaction.Behaviors>
+                    <nlnet:ComboBoxAlignPopupToSelectionBehavior />
+                </Interaction.Behaviors>
+            </ComboBox>
+        </app:IndependentCase>-->
+
+        <app:IndependentCase Header="ComboBox set 'acss:combobox.popup.align'.">
+            <ComboBox x:Name="C1"
+                      ItemsSource="{app:Enum SizeToContent}"
+                      SelectedIndex="0" />
+        </app:IndependentCase>
+    </StackPanel>
+</UserControl>

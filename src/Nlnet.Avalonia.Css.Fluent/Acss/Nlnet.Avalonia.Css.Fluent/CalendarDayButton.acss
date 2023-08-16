@@ -1,0 +1,78 @@
+﻿
+^CalendarDayButton {
+    ClickMode:Release;
+    Foreground: var(fore);
+    Background: Transparent;
+    CornerRadius:200;
+    MinWidth:30;
+    MinHeight:30;
+    Opacity:1;
+    Margin:0; 
+    Width:40; 
+    Height:40;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        /* var(stBackground); */
+        var(stOpacity);
+    ]
+    [[
+        /template/ Border#Root{
+            RenderTransform:none;
+            BorderThickness:0;
+            Transitions:[
+                var(stRenderTransform);
+            ]
+        }
+        /template/ Border#Border{
+            Transitions:[
+                var(stBorderBorderThickness);
+            ]
+        }
+        
+        :pointerover:not(:blackout){
+            Background:var(control-back-hover);
+        }
+        :pressed:not(:blackout){
+            Background:var(control-back-pressed);
+        }
+        :selected{
+            BorderBrush:var(Accent);
+            BorderThickness:1;
+        }
+        :inactive{
+            Foreground:var(watermark);
+        }
+        :blackout{
+            Foreground:var(watermark);
+        }
+        :blackout /template/ ContentControl#Content>TextBlock{
+            TextDecorations:@TextDecorations.Strikethrough;
+            Cursor:No;
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+        :today{
+            Background:var(Accent);
+            Foreground:var(fore-selected-hover);
+            [[
+                :pointerover{
+                    Background:var(Accent08);
+                }
+                :pressed{
+                    Background:var(Accent07);
+                }
+                :selected /template/ Border#Root{
+                    RenderTransform:scale(0.8,0.8);
+                }
+            ]]
+        }
+    ]]
+}

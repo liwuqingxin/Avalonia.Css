@@ -1,0 +1,10 @@
+﻿^DataGridRowHeader {
+    Focusable: False;
+    SeparatorBrush: red;  
+    [[
+        /template/ Rectangle#HorizontalSeparator{
+            Height: 1;
+            Fill: var(control-border);
+        }
+    ]]
+}

@@ -1,0 +1,192 @@
+﻿
+^Expander {
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 6;
+    Padding: 8,4,8,5;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Stretch;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Stretch;
+    ClipToBounds:False;
+    IsTabStop:false;
+
+    [[
+        :pressed{
+            BorderBrush: var(control-border-pressed-fluent);
+        }
+        /* Use animation to set visibility */
+        :expanded /template/ Border#ExpanderContent{
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.1';
+                    KeyFrames:[
+                        KeyFrame:(100%)[
+                            IsVisible:True;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :not(:expanded) /template/ Border#ExpanderContent{
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.2';
+                    KeyFrames:[
+                        KeyFrame:(100%)[
+                            IsVisible:False;
+                        ]
+                    ]
+                }
+            ]]
+        }
+
+        /* Content Border */
+        :up /template/ Border#ExpanderContent{
+            BorderThickness:1,1,1,0;
+        }
+        :down /template/ Border#ExpanderContent{
+            BorderThickness:1,0,1,1;
+        }
+        :left /template/ Border#ExpanderContent{
+            BorderThickness:1,1,0,1;
+        }
+        :right /template/ Border#ExpanderContent{
+            BorderThickness:0,1,1,1;
+        }
+
+        /* Transforms */
+         /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(1,0);
+            RenderTransformOrigin:0%,0%;
+            Opacity:0;
+            Transitions:[
+                TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.3 0 SineEaseOut);
+                var(stOpacity);
+            ]
+        }
+        :left /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(0,1);
+        }
+        :right /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(0,1);
+        }
+        :expanded /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            LayoutTransform:scale(1,1);
+            Opacity:1;
+        }
+
+        /template/ ContentPresenter#PART_ContentPresenter{
+            Opacity:0;
+            Transitions:[
+                DoubleTransition(TemplatedControl.Opacity 0.125 0.2);
+            ]
+        }
+        :expanded /template/ ContentPresenter#PART_ContentPresenter{
+            Opacity:1;
+        }
+
+        :left{
+            HorizontalAlignment:Left;
+        }
+        :right{
+            HorizontalAlignment:Right;
+        }
+    ]]
+}
+
+Expander{
+    [[
+        /template/ ToggleButton:is-part Border#ToggleButtonBackground{
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Stretch;
+            BorderBrush:var(control-border);
+            Transitions:[
+                var(stBackground);
+                var(stCornerRadius)
+            ]
+        }
+        /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
+            Background: var(control-back-hover);
+            BorderBrush:var(control-border-fluent);
+        }
+        /template/ ToggleButton:pressed Border#ToggleButtonBackground{
+            BorderBrush:var(control-border-pressed-fluent);
+        }
+
+
+        /* Expand Collapse Chevron */
+        /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+            VerticalAlignment:Center;
+            Stroke:var(fore);
+            StrokeThickness:1;
+            Stretch:Uniform;
+            Margin:8,0;
+            Transitions:[
+                var(stRenderTransform);
+            ]
+        }
+        :up /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 0 7 L 7 0 L 14 7;
+            Width:9;
+        }
+        :down /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 0 0 L 7 7 L 14 0;
+            Width:9;
+        }
+        :left /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 7 0 L 0 7 L 7 14;
+            Height:9;
+        }
+        :right /template/ ToggleButton:is-part#ExpanderHeader Path#ExpandCollapseChevron{
+            Data:M 0 0 L 7 7 L 0 14;
+            Height:9;
+        }
+
+        /* pressed */
+        :up /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(0, -3px);
+        }
+        :down /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(0, 3px);
+        }
+        :left /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(-3px, 0);
+        }
+        :right /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
+            RenderTransform: translate(3px, 0);
+        }
+
+        /* expand */
+        :up /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(1,-1);
+        }
+        :down /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(1,-1);
+        }
+        :left /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(-1,1);
+        }
+        :right /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
+            RenderTransform: scale(-1,1);
+        }
+
+
+        
+        /* Change layout when direction is left. */
+        :left /template/ ToggleButton#ExpanderHeader ContentPresenter#PART_ContentPresenter:is-part{
+            Grid.Column:1;
+        }
+        :left /template/ ToggleButton#ExpanderHeader Border#ExpandCollapseChevronBorder:is-part{
+            Grid.Column:0;
+        }
+    ]]
+}

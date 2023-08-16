@@ -1,0 +1,75 @@
+﻿
+^RadioButton {
+    Background:Transparent;
+    Foreground: var(fore);
+    Padding: 8,4;
+    Opacity: 1;
+    RenderTransform: none;
+    HorizontalContentAlignment: Center;
+    HorizontalAlignment: Center;
+    VerticalContentAlignment: Center;
+    VerticalAlignment: Center;
+    ClipToBounds:False;
+    Transitions:[
+        var(stRenderTransform);
+        var(stBorderBrush);
+        var(stBackground);
+        var(stOpacity);
+        var(stBorderThickness);
+    ]
+
+    [[
+        :pointerover{
+            Foreground: var(fore-hover);
+        }
+         /template/ Ellipse#PART_Border{
+            Width:20;
+            Height:20;
+            Fill: var(control-back);
+            Stroke:var(control-border);
+            StrokeThickness: 1;
+            Transitions:[
+                var(stFill);
+                var(stStroke);
+            ] 
+        }
+        :pointerover /template/ Ellipse#PART_Border{
+            Fill: var(control-back-hover);
+        }
+         /template/ Ellipse#PART_CheckGlyph{
+            Width:0;
+            Height:0;
+            StrokeThickness:10;
+            Fill:var(control-back);
+            VerticalAlignment: Center;
+            Transitions:[
+                DoubleTransition(Ellipse.StrokeThickness 0.125);
+                var(stFill);
+            ]           
+        }
+        :checked /template/ Ellipse#PART_CheckGlyph{
+            Fill:var(control-back);
+            Width:20;
+            Height:20;
+            Stroke:var(Accent);
+            StrokeThickness:5;
+        }
+        :checked:pointerover /template/ Ellipse#PART_CheckGlyph{
+            StrokeThickness:4;
+        }
+        :pressed:not(:checked) /template/ Ellipse#PART_CheckGlyph{
+            Fill:var(control-back);
+            Width:18;
+            Height:18;
+            StrokeThickness:3;
+            Stroke:var(control-back-pressed);
+        }
+        :checked:pressed /template/ Ellipse#PART_CheckGlyph{
+            StrokeThickness:5;
+            Stroke:var(Accent08);
+        }
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

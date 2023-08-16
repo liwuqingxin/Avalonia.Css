@@ -1,0 +1,71 @@
+﻿
+^CalendarItem {
+    CornerRadius: 6;
+    Transitions:[
+        var(stBackground);
+        var(stBorderBrush);
+    ]    
+    [[
+         /template/ Grid#PART_LayoutRoot{
+            MinWidth:312;
+            HorizontalAlignment:Stretch;
+            VerticalAlignment:Stretch;
+        }
+         /template/ Border#BackgroundLayer{
+             BorderBrush:var(control-border);
+             BorderThickness:0,1,0,0;
+             Transitions:[
+                 var(stBorderBrush);
+             ]    
+        }
+         /template/ Grid#PART_MonthView{
+            MinHeight:290;
+            Margin:8;
+        }
+         /template/ Grid#PART_MonthView{
+            [[
+                /* These two styles with same selector are just instruction for child logical style. */
+                >TextBlock.Week{
+                    VerticalAlignment:Center;
+                    HorizontalAlignment:Center;
+                    Margin:0,12;
+                }
+                >TextBlock.Week{
+                    FontSize:12;
+                }
+            ]]
+        }
+         /template/ Grid#PART_YearView{
+            MinHeight:290;
+        }
+         /template/ Button{
+            BorderThickness:0;
+            Margin:6,10;
+            CornerRadius:4;
+            HorizontalAlignment:Stretch;
+        }
+         /template/ Button#PART_HeaderButton:is-part{
+            HorizontalContentAlignment:Left;
+            FontWeight:Bold;
+            FontSize:14;
+        }
+         /template/ Path#PART_PreviousButtonPath{
+            Data:M 0,9 L 9,0 L 18,9;
+            Stroke:var(fore);
+            VerticalAlignment:Center;
+            HorizontalAlignment:Center;
+            StrokeThickness:1;
+            Width:9;
+            Stretch:Uniform;
+        }
+         /template/ Path#PART_NextButtonPath{
+            Data:M 0,0 L 9,9 L 18,0;
+            Stroke:var(fore);
+            VerticalAlignment:Center;
+            HorizontalAlignment:Center;
+            StrokeThickness:1;
+            Width:9;
+            Stretch:Uniform;
+        }
+    ]]
+}

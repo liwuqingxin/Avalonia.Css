@@ -1,0 +1,22 @@
+﻿TextBlock, AccessText {
+    FontFamily: 微软雅黑,宋体;
+//    FontFamily: Nunito,微软雅黑,宋体;
+    FontSize:14;
+    TextTrimming: @TextTrimming.CharacterEllipsis;
+}
+TextPresenter {
+    TextBlock.FontFamily: 微软雅黑,宋体; 
+//    TextBlock.FontFamily: Nunito,微软雅黑,宋体; 
+}
+
+Window {
+    Background: var(window-back);
+    Transitions:[
+        BrushTransition(Background 0.8);
+    ]
+    [[
+        [IsActive=True] {
+            Background: var(window-back-active);
+        }
+    ]]
+}
