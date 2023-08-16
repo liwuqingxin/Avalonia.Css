@@ -20,6 +20,17 @@
         <app:IndependentCase Header="TextBox with watermark.">
             <TextBox Watermark="Enter here..." />
         </app:IndependentCase>
-
+        
+        <app:IndependentCase Header="AutoCompleteBox.">
+            <app:IndependentCase.Settings>
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=#AutoCompleteBox1.Text}" />
+                    <TextBlock Text="{Binding Path=#AutoCompleteBox1.SearchText}" />
+                    <TextBlock Text="{Binding Path=#AutoCompleteBox1.SelectedItem}" />
+                </StackPanel>
+            </app:IndependentCase.Settings>
+            <AutoCompleteBox Watermark="Search here..." x:Name="AutoCompleteBox1" ItemsSource="{app:Enum Key}" />
+        </app:IndependentCase>
+        
     </StackPanel>
 </UserControl>

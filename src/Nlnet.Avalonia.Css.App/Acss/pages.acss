@@ -59,7 +59,7 @@ DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
     Transitions: null;
 }
 
-TextBoxPage TextBox{
+TextBoxPage TextBox, TextBoxPage AutoCompleteBox{
     HorizontalAlignment:Left;
     MinWidth:150;
 }
