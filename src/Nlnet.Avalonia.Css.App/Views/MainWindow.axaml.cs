@@ -19,7 +19,7 @@ namespace Nlnet.Avalonia.Css.App.Views
 
             _mainTab = this.FindControl<TabControl>("MainTabControl")!;
 
-            //global::Avalonia.DevTools.AvaloniaDevTools.UseDevTools(this);
+            global::Avalonia.DevTools.AvaloniaDevTools.UseDevTools(this);
         }
 
         protected override void OnLoaded(RoutedEventArgs e)
