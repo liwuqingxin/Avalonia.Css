@@ -19,6 +19,16 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             var buttons = (Buttons)CbxButtons.SelectionBoxItem!;
             var image = (Images)CbxImage.SelectionBoxItem!;
             var result = MessageBox.Show("Hello, this is Nlnet MessageBox :)", "Welcome", buttons, image);
+            
+            TbxSelectedButton.Text = result.ToString();
+        }
+
+        private async void BtnShowMessageBoxAsync_OnClick(object? sender, RoutedEventArgs e)
+        {
+            var buttons = (Buttons)CbxButtons.SelectionBoxItem!;
+            var image   = (Images)CbxImage.SelectionBoxItem!;
+            var result  = await MessageBox.ShowAsync("Hello, this is Nlnet MessageBox :)", "Welcome", buttons, image);
+            
             TbxSelectedButton.Text = result.ToString();
         }
     }

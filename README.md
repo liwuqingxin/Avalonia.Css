@@ -46,6 +46,8 @@ Picture this: By adopting the Acss pattern, we extract the visual styles from th
 
 🌰 We provide fluent theme for Avalonia controls powered by Acss. More about the libraries we provided, see [Avalonia.Css.Fluent.md](doc/Nlnet.Avalonia.Css.Fluent/README.md).
 
+![fluent ui](./img/fluent ui.png)
+
 https://github.com/liwuqingxin/Avalonia.Css/assets/20198528/a76ae75d-ef87-44ce-a377-de80f2e1ce98
 
 🌰 The Acss provides the ability of hot reloading. We can modify source code and view the result immediately.
@@ -104,7 +106,7 @@ We will provide an Acss-related style debugger, showcasing the entire process fr
 
 Since Acss code files may be exposed in external static text files, potential security issues may arise. Please refer to the [Plans | Security](doc/Plans.md### Security) section for more details. If this issue is crucial to you, carefully decide whether to use Acss based on our instructions and your specific situation.
 
-# Usage
+## Usage
 
 Please see the section of [Packages](##Packages) for details.
 
@@ -112,7 +114,7 @@ Please see the section of [Packages](##Packages) for details.
 
 We hope more interested partners could join us in enhancing and expanding Acss, making it more vibrant and capable.
 
-If you're interested in getting involved or have any ideas, suggestions, or feedback, please send an email to yangqi1990917@163.com. In the email, you could tell us about:
+If you're interested in getting involved or have any ideas, suggestions, or feedback, please send an email to yangqi1990917@163.com to tell us about:
 
 - About you.
 - What can we do for you?

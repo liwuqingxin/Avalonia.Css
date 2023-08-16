@@ -9,7 +9,7 @@ This library provides pure ControlTheme for all controls in Avalonia.Controls. T
 - Installation.
 
 ```bash
-dotnet add package Nlnet.Avalonia.Css.Controls --version 1.0.0.0-alpha.5
+dotnet add package Nlnet.Avalonia.Css.Controls --version 1.0.0.0
 ```
 
 Reference the Nlnet.Avalonia.Css.Controls in ResourceDictionary.
