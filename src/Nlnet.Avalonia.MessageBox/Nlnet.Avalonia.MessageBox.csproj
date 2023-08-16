@@ -42,7 +42,7 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\..\README.md">
+		<None Include="..\..\doc\$(AssemblyName)\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
