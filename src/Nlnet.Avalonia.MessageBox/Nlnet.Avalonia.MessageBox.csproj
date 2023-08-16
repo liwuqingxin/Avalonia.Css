@@ -21,6 +21,7 @@
 		<Copyright>$(Copyright)</Copyright>
 		<PackageIcon>$(PackageIcon)</PackageIcon>
 		<PackageReadmeFile>$(PackageReadmeFile)</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
 
 		<PackageOutputPath>$(SolutionDir)..\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName)\</PackageOutputPath>
@@ -34,6 +35,10 @@
 
 	<ItemGroup>
 		<None Include="..\..\img\acss.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
