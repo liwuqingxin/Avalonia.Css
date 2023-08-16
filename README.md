@@ -46,7 +46,7 @@ Picture this: By adopting the Acss pattern, we extract the visual styles from th
 
 🌰 We provide fluent theme for Avalonia controls powered by Acss. More about the libraries we provided, see [Avalonia.Css.Fluent.md](doc/Nlnet.Avalonia.Css.Fluent/README.md).
 
-![fluent ui](./img/fluent ui.png)
+![fluent ui](./img/fluent-ui.png)
 
 https://github.com/liwuqingxin/Avalonia.Css/assets/20198528/a76ae75d-ef87-44ce-a377-de80f2e1ce98
 
