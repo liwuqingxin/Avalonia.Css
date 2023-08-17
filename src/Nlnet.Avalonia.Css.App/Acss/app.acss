@@ -72,7 +72,7 @@ NtWindow#RootWindow{
                 }
             ]]
         }
-        /* Animation to show logo-text. */
+        /* Animation to show logo. */
         NtWindow > Panel > Border > Panel > Icon#WelcomeLogo{
             Opacity:0;
             Width:200;

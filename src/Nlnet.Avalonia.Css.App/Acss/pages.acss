@@ -59,6 +59,32 @@ DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
     Transitions: null;
 }
 
+ResourcesPage{
+    [[
+        ResourcesPage Border#Border1, ResourcesPage Border#Border2{
+            Margin: 20;
+            Width: 150;
+            Height: 150;
+            BorderThickness: 1;
+            CornerRadius: 6;
+            Background: var(control-back);
+            BorderBrush: var(control-border);
+            BoxShadow: var(popup-shadow);
+            [[
+                :pointerover{
+                    BoxShadow: 0 10 40 0 #4666;
+                }
+            ]]
+        }
+        ResourcesPage Border#Border2{
+            BoxShadow: 0 10 20 0 #2666;
+            Transitions:[
+                BoxShadowsTransition(Border.BoxShadow 0.2);
+            ]
+        }
+    ]]
+}
+
 TextBoxPage TextBox, TextBoxPage AutoCompleteBox{
     HorizontalAlignment:Left;
     MinWidth:150;

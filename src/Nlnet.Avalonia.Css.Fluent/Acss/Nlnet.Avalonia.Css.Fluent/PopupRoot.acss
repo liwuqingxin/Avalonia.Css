@@ -6,7 +6,7 @@
             BoxShadow: var(popup-shadow);
             CornerRadius: 6;
             BorderThickness: 1;
-            Margin: 10,10,10,10;
+            Margin: 10,10,10,20;
             BorderBrush:var(control-border);
             ClipToBounds:False;
             Opacity:0;

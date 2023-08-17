@@ -44,7 +44,7 @@
         }
          /template/ Border#PopupBorder{
             Background:var(combobox-item-back);
-            CornerRadius:4;
+            CornerRadius:12;
             Padding:4;
         }
          /template/ PathIcon#DropDownGlyph{

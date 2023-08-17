@@ -15,7 +15,7 @@
 	brush(control-back): #fefefe;
 	brush(control-back-hover): #f5f5f5;
 	brush(control-back-pressed): #f7f7f7;
-	brush(control-border): #ececec;
+	brush(control-border): #dddddd;
 	brush(control-border-pressed): #ececec;
 	linear(control-border-fluent): (0% 0% 0% 100%)[
         #ececec 0.8;
@@ -37,6 +37,7 @@
         #ececec 0.92;
         #222222 0.5 1;
     ]
+    
 
 	/* Item */
 	brush(item-back): #F9FAFA;
@@ -70,8 +71,7 @@
 
 
 	/* Shadow */
-	BoxShadow(button-shadow): 0 0.6 0 0 #6666;
-	BoxShadow(popup-shadow): 0 0 20 2 #2666;
+	BoxShadow(popup-shadow): 0 10 20 0 #2666;
 }
 
 ::res[mode=dark][desc=暗色资源] {
@@ -132,6 +132,5 @@
 
 
 	/* Shadow */
-	BoxShadow(button-shadow): 0 0.6 0 0 #3000;
 	BoxShadow(popup-shadow): 0 0 20 2 #3000;
 }
