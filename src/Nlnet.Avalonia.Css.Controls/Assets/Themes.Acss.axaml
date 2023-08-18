@@ -4,6 +4,7 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/AdornerLayer.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Button.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Calendar.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Carousel.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/CheckBox.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorPicker.xaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorPreviewer.xaml" />

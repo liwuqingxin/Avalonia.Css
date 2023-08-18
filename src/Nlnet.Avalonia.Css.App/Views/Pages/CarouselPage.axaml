@@ -1,0 +1,41 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.CarouselPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="A slideshow component used to cycle through slideshows of elements, images, or text such as a carousel."
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="Carousel">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Click="ButtonLeft_OnClick">
+                    <nlnet:Icon x:Name="IconLeft" />
+                </Button>
+                <Carousel x:Name="Carousel" Grid.Column="1">
+                    <Carousel.PageTransition>
+                        <PageSlide Duration="0:0:0.3" >
+                            <PageSlide.SlideInEasing>
+                                <QuinticEaseOut></QuinticEaseOut>
+                            </PageSlide.SlideInEasing>
+                        </PageSlide>
+                    </Carousel.PageTransition>
+                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg" />
+                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/brand.svg" />
+                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Resources.svg" />
+                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                </Carousel>
+                <Button Grid.Column="2" Click="ButtonRight_OnClick">
+                    <nlnet:Icon x:Name="IconRight" />
+                </Button>
+            </Grid>
+        </app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

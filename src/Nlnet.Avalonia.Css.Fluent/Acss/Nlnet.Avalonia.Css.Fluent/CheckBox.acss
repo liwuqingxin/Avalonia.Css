@@ -8,7 +8,7 @@
     Padding: 8,4;
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Center;
+    HorizontalContentAlignment: Left;
     HorizontalAlignment: Center;
     VerticalContentAlignment: Center;
     VerticalAlignment: Center;
