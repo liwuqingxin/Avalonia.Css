@@ -14,15 +14,20 @@
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="Carousel">
+            <app:IndependentCase.Settings>
+                <StackPanel>
+                    <TextBlock Text="{Binding #Carousel.SelectedIndex, Mode=OneWay, StringFormat=Selected Index : {0}}" />
+                </StackPanel>
+            </app:IndependentCase.Settings>
             <Grid ColumnDefinitions="Auto,*,Auto">
                 <Button Grid.Column="0" Click="ButtonLeft_OnClick">
                     <nlnet:Icon x:Name="IconLeft" />
                 </Button>
                 <Carousel x:Name="Carousel" Grid.Column="1">
                     <Carousel.PageTransition>
-                        <PageSlide Duration="0:0:0.3" >
+                        <PageSlide Duration="0:0:0.3" Orientation="Horizontal" >
                             <PageSlide.SlideInEasing>
-                                <QuinticEaseOut></QuinticEaseOut>
+                                <QuinticEaseOut />
                             </PageSlide.SlideInEasing>
                         </PageSlide>
                     </Carousel.PageTransition>

@@ -12,9 +12,13 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorSpectrum.xaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ColorView.xaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ComboBox.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ContentControl.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/DataGrid.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/DataValidationErrors.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/DatePicker.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/EmbeddableControlRoot.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Expander.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/GridSplitter.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Menu.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/NumericUpDown.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/PopupRoot.axaml" />

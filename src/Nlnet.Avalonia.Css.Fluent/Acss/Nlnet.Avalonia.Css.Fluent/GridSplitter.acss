@@ -1,0 +1,34 @@
+﻿^GridSplitter {
+    Focusable: True;
+    MinWidth: 6;
+    MinHeight: 6;
+    Background: var(control-back);
+    Opacity: 0.5;
+    Transitions:[
+        var(stBackground);
+        var(stBorderBrush);
+    ]
+    [[
+        /template/ Border#PART_Border{
+            Width: 2;
+            Transitions:[
+                var(stWidth);
+            ]
+        }
+        /template/ PathIcon#Icon{
+            Data: M-2988 -2219L-2981.75 -2219L-2981.75 -2019L-2988 -2019L-2988 -2219ZM-2963 -2219L-2956.75 -2219L-2956.75 -2019L-2963 -2019L-2963 -2219ZM-2938 -2219L-2931.75 -2219L-2931.75 -2019L-2938 -2019L-2938 -2219Z;
+            Foreground: var(Watermark);
+            Opacity: 0.8;
+            Width: 0;
+            Transitions:[
+                var(stWidth);
+            ]
+        }
+        :pointerover /template/ PathIcon#Icon{
+            Width: 6;
+        }
+        :pointerover /template/ Border#PART_Border{
+            Width: 6;
+        }
+    ]]
+}

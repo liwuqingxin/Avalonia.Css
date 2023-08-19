@@ -12,4 +12,8 @@
     VerticalContentAlignment: Stretch;
     VerticalAlignment: Stretch;
     ClipToBounds:False;
+    Transitions:[
+        var(stBackground);
+        var(stBorderBrush);
+    ]
 }
