@@ -28,6 +28,7 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Menu.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/NumericUpDown.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/OverlayPopupHost.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/PathIcon.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/PopupRoot.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ProgressBar.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/RadioButton.axaml" />
