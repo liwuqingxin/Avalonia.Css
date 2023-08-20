@@ -28,6 +28,7 @@
 	transition(stMaxWidth): DoubleTransition(TemplatedControl.MaxWidth var(transition-duration));
 	transition(stMinHeight): DoubleTransition(TemplatedControl.MinHeight var(transition-duration));
 	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth var(transition-duration));
+	transition(stFontSize): DoubleTransition(TemplatedControl.FontSize var(transition-duration));
 	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness var(transition-duration));
 	transition(stMargin): ThicknessTransition(TemplatedControl.Margin var(transition-duration));
 	transition(stFill): BrushTransition(Shape.Fill var(transition-duration));

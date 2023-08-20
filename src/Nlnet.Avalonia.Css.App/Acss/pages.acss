@@ -94,6 +94,43 @@ DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
 }
 
 
+//RecyclePanelPage
+RecyclePanelPage TextBlock#PageDescription{
+    Text: Recycle to show a list with animation.
+}
+RecyclePanelPage Border#HighlightBorder{
+    Height: 28;
+    Background: var(Accent01);
+}
+RecyclePanelPage Border#OuterBorderOfRecyclePanel{
+    BorderBrush: var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 6;
+}
+RecyclePanelPage RecyclePanel>ListBoxItem{
+    VerticalContentAlignment: Center;
+    HorizontalContentAlignment: Center;
+    Padding: 0;
+    Transitions:[
+        var(stForeground);
+    ]
+    [[
+        /template/ ContentPresenter>TextBlock{
+            Transitions:[
+                var(stFontSize);
+            ]
+        }
+        :selected{
+            FontWeight: Bold;
+            Foreground: var(Accent);
+        }
+        :selected /template/ ContentPresenter>TextBlock{
+            FontSize: 16;
+        }
+    ]]
+}
+
+
 //ResourcesPage
 ResourcesPage{
     [[
