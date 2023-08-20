@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+
+    <!-- TODO Provides Acss style -->
+    <!-- OverlayPopupHost -->
+    <ControlTheme x:Key="{x:Type OverlayPopupHost}" TargetType="OverlayPopupHost">
+        <!-- <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" /> -->
+        <!-- <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" /> -->
+        <!-- <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" /> -->
+        <!-- <Setter Property="FontWeight" Value="400" /> -->
+        <!-- <Setter Property="FontStyle" Value="Normal" /> -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <LayoutTransformControl LayoutTransform="{TemplateBinding Transform}">
+                    <VisualLayerManager IsPopup="True">
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                          Padding="{TemplateBinding Padding}"
+                                          Background="{TemplateBinding Background}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </VisualLayerManager>
+                </LayoutTransformControl>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

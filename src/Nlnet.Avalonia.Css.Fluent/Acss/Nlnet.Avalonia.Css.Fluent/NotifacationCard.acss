@@ -16,6 +16,9 @@
             BorderThickness: 1;
             Margin: 12,12,12,0;
             BorderBrush: var(control-border);
+            Transitions:[
+                var(stBoxShadow);
+            ]
         }
         /template/ Border#PART_HeaderBar{
             Width: 2;
