@@ -17,5 +17,16 @@
             </ControlTemplate>
         </Setter>
     </ControlTheme>
+    
+    TODO 
+    SplitView
+    TabStrip
+    TabStripItem
+    ToolTip
+    TransitioningContentControl
+    TreeView
+    TreeViewItem
+    UserControl
+    WindowNotificationManager
 
 </ResourceDictionary>
