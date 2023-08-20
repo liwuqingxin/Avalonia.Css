@@ -41,10 +41,11 @@
 
 	/* Item */
 	brush(item-back): #F9FAFA;
-	brush(item-back-hover): #11444444;
-	brush(item-back-selected): #11444444;
-	brush(item-back-selected-pointerover): #0a444444;
-	brush(item-back-pressed): #11444444;
+	brush(item-back-hover): #F2F2F3;
+	brush(item-back-selected): #F2F2F3;
+	brush(item-back-selected-pointerover): #EAEAEE;
+	brush(item-back-pressed): #F2F2F3;
+	brush(item-back-selected-pressed): #F2F2F3;
 
 
 	/* ComboBoxItem */
@@ -58,7 +59,7 @@
 
 
 	/* ProgressBar */
-	brush(progressbar-back): #11444444;
+	brush(progressbar-back): #F2F2F3;
 
 
 	/* Calendar */
@@ -106,6 +107,7 @@
 	brush(item-back-selected): #3E3E3E;
 	brush(item-back-selected-pointerover): #3B3B3B;
 	brush(item-back-pressed): #2f2f2f;
+	brush(item-back-selected-pressed): #3E3E3E;
 
 
 	/* ComboBoxItem */

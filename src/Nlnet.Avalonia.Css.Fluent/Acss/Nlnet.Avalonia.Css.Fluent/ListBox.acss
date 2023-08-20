@@ -1,0 +1,16 @@
+﻿^ListBox{
+    Foreground: var(fore);
+    Background: var(item-back);
+    BorderThickness: 1;
+    BorderBrush: var(control-border);
+    CornerRadius: 6;
+    ScrollViewer.HorizontalScrollBarVisibility: Disabled;
+    ScrollViewer.VerticalScrollBarVisibility: Auto;
+    ScrollViewer.IsScrollChainingEnabled: True;
+    ScrollViewer.IsScrollInertiaEnabled: True;
+    [[
+        /template/ ItemsPresenter> VirtualizingStackPanel{
+            Margin: 4,2;
+        }
+    ]]
+}

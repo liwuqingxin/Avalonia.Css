@@ -207,11 +207,9 @@ namespace Nlnet.Avalonia.Senior.Controls
         private static int GetIndexForItems(int virtualIndex, int itemCount)
         {
             virtualIndex %= itemCount;
-            if (virtualIndex < 0)
-            {
-                virtualIndex += itemCount;
-            }
-
+            virtualIndex += itemCount;
+            virtualIndex %= itemCount;
+            
             return virtualIndex;
         }
 
