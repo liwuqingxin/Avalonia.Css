@@ -41,10 +41,10 @@
 
 	/* Item */
 	brush(item-back): #F9FAFA;
-	brush(item-back-hover): #F2F2F3;
-	brush(item-back-selected): #F2F2F3;
+	brush(item-back-hover): #E8E8E8;
+	brush(item-back-selected): #E8E8E8;
 	brush(item-back-selected-pointerover): #EAEAEE;
-	brush(item-back-pressed): #F2F2F3;
+	brush(item-back-pressed): #E8E8E8;
 	brush(item-back-selected-pressed): #F2F2F3;
 
 
@@ -59,7 +59,7 @@
 
 
 	/* ProgressBar */
-	brush(progressbar-back): #F2F2F3;
+	brush(progressbar-back): #E8E8E8;
 
 
 	/* Calendar */
