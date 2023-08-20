@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Nlnet.Avalonia.SampleAssistant;
 using System.ComponentModel;
+using Avalonia.Dialogs;
 using Avalonia.Interactivity;
 using Nlnet.Avalonia.Controls;
 
@@ -30,6 +31,17 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             var result  = await MessageBox.ShowAsync("Hello, this is Nlnet MessageBox :)", "Welcome", buttons, image);
             
             TbxSelectedButton.Text = result.ToString();
+        }
+
+        private void BtnShowFilePicker_OnClick(object? sender, RoutedEventArgs e)
+        {
+            var chooser = new ManagedFileChooser();
+            var window = new Window
+            {
+                Content = chooser,
+            };
+
+            window.Show();
         }
     }
 }

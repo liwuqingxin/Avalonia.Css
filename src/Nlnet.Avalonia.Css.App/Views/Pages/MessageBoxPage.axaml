@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:dialogs="clr-namespace:Avalonia.Dialogs;assembly=Avalonia.Dialogs"
+             xmlns:internal="clr-namespace:Avalonia.Dialogs.Internal;assembly=Avalonia.Dialogs"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -30,7 +32,10 @@
                     </StackPanel>
                 </StackPanel>
             </app:IndependentCase.Settings>
-            <Button Click="BtnShowMessageBox_OnClick" Content="Show a message box." />
+            <StackPanel>
+                <Button Click="BtnShowMessageBox_OnClick" Content="Show a message box." />
+                <Button Click="BtnShowFilePicker_OnClick" Content="Show a file picker." />
+            </StackPanel>
         </app:IndependentCase>
 
     </StackPanel>
