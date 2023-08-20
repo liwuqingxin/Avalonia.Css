@@ -1,0 +1,8 @@
+﻿^Separator{
+    Focusable: False;
+    Margin: 0,4;
+    Height: 1;
+    Background: var(watermark);
+    Opacity: 0.2;
+    HorizontalAlignment: Stretch;
+}
