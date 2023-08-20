@@ -32,6 +32,7 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/PopupRoot.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ProgressBar.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/RadioButton.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/RefreshContainer.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ScrollBar.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Slider.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Switch.axaml" />
