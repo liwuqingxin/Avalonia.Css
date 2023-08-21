@@ -12,12 +12,37 @@
         <TextBlock x:Name="PageDescription" TextWrapping="Wrap" />
 
         <app:IndependentCase Header="Normal MessageBox.">
-            <SplitView x:Name="SplitView1" IsPaneOpen="True">
-                <!-- CompactPaneLength="100" -->
-                <!-- DisplayMode="Inline" -->
-                <!-- OpenPaneLength="200" -->
-                <!-- PaneBackground="Red" -->
-                <!-- PanePlacement="Left" -->
+            <app:IndependentCase.Settings>
+                <StackPanel>
+                    <Slider x:Name="SliderCompactPaneLength"
+                            Maximum="500"
+                            Minimum="0"
+                            Value="50" />
+                    <Slider x:Name="SliderOpenPaneLength"
+                            Maximum="500"
+                            Minimum="0"
+                            Value="200" />
+                    <CheckBox x:Name="CbxIsOpen"
+                              Content="Is Open"
+                              IsChecked="True" />
+                    <CheckBox x:Name="CbxLightDismiss"
+                              Content="Light Dismiss"
+                              IsChecked="True" />
+                    <ComboBox x:Name="CbxDisplayMode"
+                              ItemsSource="{app:Enum SplitViewDisplayMode}"
+                              SelectedItem="{x:Static SplitViewDisplayMode.Inline}" />
+                    <ComboBox x:Name="CbxPlacement"
+                              ItemsSource="{app:Enum SplitViewPanePlacement}"
+                              SelectedItem="{x:Static SplitViewPanePlacement.Left}" />
+                </StackPanel>
+            </app:IndependentCase.Settings>
+            <SplitView x:Name="SplitView1"
+                       CompactPaneLength="{Binding #SliderCompactPaneLength.Value}"
+                       DisplayMode="{Binding #CbxDisplayMode.SelectedItem}"
+                       IsPaneOpen="{Binding #CbxIsOpen.IsChecked, Mode=TwoWay}"
+                       OpenPaneLength="{Binding #SliderOpenPaneLength.Value}"
+                       PanePlacement="{Binding #CbxPlacement.SelectedItem}"
+                       UseLightDismissOverlayMode="{Binding #CbxLightDismiss.IsChecked}">
                 <SplitView.Pane>
                     <ListBox>
                         <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />

@@ -21,6 +21,7 @@
 	transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform var(transition-duration));
 	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush var(transition-duration));
 	transition(stBackground): BrushTransition(TemplatedControl.Background var(transition-duration));
+	transition(stPaneBackground): BrushTransition(SplitView.Background var(transition-duration));
 	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity var(transition-duration));
 	transition(stHeight): DoubleTransition(TemplatedControl.Height var(transition-duration));
 	transition(stWidth): DoubleTransition(TemplatedControl.Width var(transition-duration));
