@@ -1,4 +1,4 @@
-﻿//WelcomePage
+﻿// WelcomePage
 WelcomePage Grid#InfoGrid > TextBlock{
     Margin:0,8;
     FontSize:12;
@@ -36,19 +36,19 @@ WelcomePage Grid#InfoGrid > Button{
 }
 
 
-//ButtonPage
+// ButtonPage
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
     HorizontalAlignment:Left;
 }
 
 
-//CalendarPage
+// CalendarPage
 CalendarPage Calendar, CalendarPage CalendarDatePicker, CalendarPage TimePicker{
     HorizontalAlignment:Left;
 }
 
 
-//CarouselPage
+// CarouselPage
 CarouselPage Case[Header=Carousel] Button{
     Height: NaN;
     Margin: 6,0;
@@ -71,13 +71,13 @@ CarouselPage Case[Header=Carousel] Icon#IconRight{
 }
 
 
-//CheckBoxPage
+// CheckBoxPage
 CheckBoxPage CheckBox, CheckBoxPage RadioButton{
     HorizontalAlignment:Left;
 }
 
 
-//ComboBoxPage
+// ComboBoxPage
 ComboBoxPage ComboBox{
     HorizontalAlignment:Left;
     MinWidth:150;
@@ -87,14 +87,14 @@ ComboBoxPage ComboBox#C1{
 }
 
 
-//DataGridPage
+// DataGridPage
 DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
     VerticalAlignment: Top;
     Transitions: null;
 }
 
 
-//RecyclePanelPage
+// RecyclePanelPage
 RecyclePanelPage TextBlock#PageDescription{
     Text: Recycle to show a list with animation.
 }
@@ -131,7 +131,7 @@ RecyclePanelPage RecyclePanel>ListBoxItem{
 }
 
 
-//ResourcesPage
+// ResourcesPage
 ResourcesPage{
     [[
         ResourcesPage Border#Border1, ResourcesPage Border#Border2{
@@ -159,7 +159,11 @@ ResourcesPage{
 }
 
 
-//TextBoxPage
+// SplitView
+
+
+
+// TextBoxPage
 TextBoxPage TextBox, TextBoxPage AutoCompleteBox{
     HorizontalAlignment:Left;
     MinWidth:150;
