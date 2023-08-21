@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:nlnet="https://www.nlnet.com/avalonia">
+
+    <ControlTheme x:Key="{x:Type TabStripItem}" TargetType="TabStripItem">
+        <!-- <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" /> -->
+        <!-- <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" /> -->
+        <!-- <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselected}" /> -->
+        <!-- <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" /> -->
+        <!-- <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" /> -->
+        <!-- <Setter Property="Margin" Value="0" /> -->
+        <!-- <Setter Property="MinHeight" Value="{DynamicResource TabStripItemMinHeight}" /> -->
+        <!-- <Setter Property="VerticalContentAlignment" Value="Center" /> -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_LayoutRoot"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Panel>
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          FontFamily="{TemplateBinding FontFamily}"
+                                          FontSize="{TemplateBinding FontSize}"
+                                          FontWeight="{TemplateBinding FontWeight}" />
+                        <Border Name="PART_SelectedPipe" IsVisible="False" />
+                        <!-- Height="{DynamicResource TabStripItemPipeThickness}" -->
+                        <!-- Margin="0,0,0,2" -->
+                        <!-- VerticalAlignment="Bottom" -->
+                        <!-- Background="{DynamicResource TabItemHeaderSelectedPipeFill}" -->
+                        <!-- CornerRadius="{DynamicResource ControlCornerRadius}" -->
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:selected /template/ Border#PART_SelectedPipe">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    </ControlTheme>
+
+
+    <!-- TabStrip -->
+    <ControlTheme x:Key="{x:Type TabStrip}" TargetType="TabStrip">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^[(nlnet|TabStripItemsPanelStyles.Style)=StackPanel]">
+            <Setter Property="ItemsPanel">
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="^[(nlnet|TabStripItemsPanelStyles.Style)=WrapPanel]">
+            <Setter Property="ItemsPanel">
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </Setter>
+        </Style>
+    </ControlTheme>
+
+</ResourceDictionary>
