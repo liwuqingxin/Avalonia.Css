@@ -1,1 +1,8 @@
-﻿
+﻿^TabStrip{
+    HorizontalAlignment: Left;
+    [[
+         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+            Spacing:4;
+        }
+    ]]
+}

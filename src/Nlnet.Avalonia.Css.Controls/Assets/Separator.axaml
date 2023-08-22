@@ -18,9 +18,6 @@
         </Setter>
     </ControlTheme>
     
-    TabStrip 和 TabControl重新应用样式会丢失状态；
-    TabStrip无法重新应用样式
-    
     <!-- TODO  -->
     <!-- SplitView -->
     <!-- TabStrip -->

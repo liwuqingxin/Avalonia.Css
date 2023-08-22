@@ -3,14 +3,6 @@
                     xmlns:nlnet="https://www.nlnet.com/avalonia">
 
     <ControlTheme x:Key="{x:Type TabStripItem}" TargetType="TabStripItem">
-        <!-- <Setter Property="FontSize" Value="{DynamicResource TabItemHeaderFontSize}" /> -->
-        <!-- <Setter Property="FontWeight" Value="{DynamicResource TabItemHeaderThemeFontWeight}" /> -->
-        <!-- <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundUnselected}" /> -->
-        <!-- <Setter Property="Foreground" Value="{DynamicResource TabItemHeaderForegroundUnselected}" /> -->
-        <!-- <Setter Property="Padding" Value="{DynamicResource TabItemHeaderMargin}" /> -->
-        <!-- <Setter Property="Margin" Value="0" /> -->
-        <!-- <Setter Property="MinHeight" Value="{DynamicResource TabStripItemMinHeight}" /> -->
-        <!-- <Setter Property="VerticalContentAlignment" Value="Center" /> -->
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="PART_LayoutRoot"
@@ -28,12 +20,7 @@
                                           FontFamily="{TemplateBinding FontFamily}"
                                           FontSize="{TemplateBinding FontSize}"
                                           FontWeight="{TemplateBinding FontWeight}" />
-                        <Border Name="PART_SelectedPipe" IsVisible="False" />
-                        <!-- Height="{DynamicResource TabStripItemPipeThickness}" -->
-                        <!-- Margin="0,0,0,2" -->
-                        <!-- VerticalAlignment="Bottom" -->
-                        <!-- Background="{DynamicResource TabItemHeaderSelectedPipeFill}" -->
-                        <!-- CornerRadius="{DynamicResource ControlCornerRadius}" -->
+                        <Border x:Name="PART_SelectedPipe" />
                     </Panel>
                 </Border>
             </ControlTemplate>
