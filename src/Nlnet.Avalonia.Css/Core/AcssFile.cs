@@ -134,7 +134,7 @@ namespace Nlnet.Avalonia.Css
                 var acssContent = File.ReadAllText(StandardFilePath);
                 var acssSpan = parser.RemoveCommentsAndLineBreaks(acssContent.ToCharArray());
                 var sections = parser.ParseSections(null, acssSpan).ToList();
-                var acssStyles = sections.OfType<IAcssStyle>().Where(s => !s.IsThemeChild);
+                var acssStyles = sections.OfType<IAcssStyle>().Where(s => !s.IsThemeChild).ToList();
                 var acssThemeChildStyles = sections.OfType<IAcssStyle>().Where(s => s.IsThemeChild).ToList();
                 var acssDictionaryList = sections.OfType<IAcssResourceDictionary>();
 
@@ -234,7 +234,13 @@ namespace Nlnet.Avalonia.Css
 
                 if (reapplyStyle)
                 {
-                    _owner.Owner.ReapplyStyling();
+                    // TODO 资源更新是否需要重新应用？如何应用？
+
+                    var normalTypes = acssStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
+                    _owner.Owner.ReapplyStyling(normalTypes!);
+
+                    var themeTypes = acssThemeChildStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
+                    _owner.Owner.ReapplyStyling(themeTypes!);
                 }
             }
             catch (Exception e)
@@ -270,14 +276,9 @@ namespace Nlnet.Avalonia.Css
             this.BeginLoad(_owner, reapplyStyle);
         }
 
-        public void Unload(bool reapplyStyle)
+        public void Unload()
         {
             this.Dispose();
-
-            if (reapplyStyle)
-            {
-                _owner.Owner.ReapplyStyling();
-            }
 
             _acssBuilder.TryRemoveAcssFile(this);
         }

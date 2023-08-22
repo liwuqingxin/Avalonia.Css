@@ -21,5 +21,5 @@ public interface IAcssFile : IStyle
     /// <summary>
     /// Unload this file.
     /// </summary>
-    public void Unload(bool reapplyStyle);
+    public void Unload();
 }

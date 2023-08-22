@@ -138,7 +138,7 @@ namespace Nlnet.Avalonia.Css.App
 
             if (_isBeforeLoadedAcssFileLoaded)
             {
-                app.AppCssFile?.Unload(true);
+                app.AppCssFile?.Unload();
             }
             else
             {

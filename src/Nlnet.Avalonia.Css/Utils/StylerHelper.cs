@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -14,84 +15,109 @@ namespace Nlnet.Avalonia.Css
         // TODO Memory leak here.
         // See https://github.com/AvaloniaUI/Avalonia/issues/12455
         // and https://github.com/AvaloniaUI/Avalonia/issues/12457
-        public static void ReapplyStyling(this IResourceHost? resourceHost)
+        public static void ReapplyStyling(this IResourceHost? resourceHost, IReadOnlyCollection<Type>? targetTypes)
         {
             switch (resourceHost)
             {
                 case Application application:
                 {
-                    switch (application.ApplicationLifetime)
-                    {
-                        case ClassicDesktopStyleApplicationLifetime lifetime:
-                        {
-                            foreach (var window in lifetime.Windows)
-                            {
-                                ForceApplyStyling(window, true, true, true);
-                            }
-                            break;
-                        }
-                        case ISingleViewApplicationLifetime { MainView: not null } singleView:
-                            ForceApplyStyling(singleView.MainView, true, true, true);
-                            break;
-                    }
+                    ReapplyStyling(application, targetTypes);
                     break;
                 }
                 case StyledElement element:
                 {
-                    ForceApplyStyling(element, true, true, true);
+                    ReapplyStyling(element, true, true, true, targetTypes);
                     break;
                 }
             }
         }
 
-        public static void ReapplyStyling(this StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
+        public static void ReapplyStyling(this Application? app, IReadOnlyCollection<Type>? targetTypes)
         {
-            ForceApplyStyling(styledElement, parentControlTheme, controlTheme, styling);
-        }
-
-        private static void ForceApplyStyling(StyledElement styledElement, bool parentControlTheme, bool controlTheme, bool styling)
-        {
-            if (parentControlTheme)
-            {
-                styledElement.OnTemplatedParentControlThemeChanged();
-            }
-            // [ava-11.0.0] If the window use custom chrome, reapplying control theme will result in a mess.
-            if (controlTheme && styledElement is not Window)
-            {
-                styledElement.OnControlThemeChanged();
-            }
-            if (styling)
-            {
-                styledElement.InvalidStyles();
-            }
-            styledElement.ApplyStyling();
-
-            if (styledElement is not Visual visual)
+            if (app == null)
             {
                 return;
             }
 
-            foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
+            switch (app.ApplicationLifetime)
             {
-                ForceApplyStyling(child, parentControlTheme, controlTheme, styling);
+                case ClassicDesktopStyleApplicationLifetime lifetime:
+                {
+                    foreach (var window in lifetime.Windows)
+                    {
+                        ForceApplyStyling(window, true, true, true, targetTypes);
+                    }
+                    break;
+                }
+                case ISingleViewApplicationLifetime { MainView: not null } singleView:
+                    ForceApplyStyling(singleView.MainView, true, true, true, targetTypes);
+                    break;
+            }
+        }
+
+        public static void ReapplyStyling(
+            this StyledElement styledElement,
+            bool parentControlTheme, 
+            bool controlTheme, 
+            bool styling, 
+            IReadOnlyCollection<Type>? targetTypes)
+        {
+            ForceApplyStyling(styledElement, parentControlTheme, controlTheme, styling, targetTypes);
+        }
+
+        private static void ForceApplyStyling(
+            StyledElement styledElement, 
+            bool parentControlTheme, 
+            bool controlTheme, 
+            bool styling,
+            IReadOnlyCollection<Type>? targetTypes)
+        {
+            if (targetTypes == null || targetTypes.Contains(styledElement.GetType()))
+            {
+                if (parentControlTheme)
+                {
+                    styledElement.OnTemplatedParentControlThemeChanged();
+                }
+                // [ava-11.0.0] If the window use custom chrome, reapplying control theme will result in a mess.
+                if (controlTheme && styledElement is not Window)
+                {
+                    styledElement.OnControlThemeChanged();
+                }
+                if (styling)
+                {
+                    styledElement.InvalidStyles();
+                }
+                styledElement.ApplyStyling();
             }
 
+            // For children.
+            if (styledElement is Visual visual)
+            {
+                foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
+                {
+                    ForceApplyStyling(child, parentControlTheme, controlTheme, styling, targetTypes);
+                }
+            }
+
+            // For detached elements.
             switch (styledElement)
             {
                 case Popup { Child: StyledElement element1 }:
-                    ForceApplyStyling(element1, parentControlTheme, controlTheme, styling);
+                    ForceApplyStyling(element1, parentControlTheme, controlTheme, styling, targetTypes);
                     break;
                 case ContextMenu contextMenu:
                 {
                     foreach (var element2 in contextMenu.Items.OfType<StyledElement>())
                     {
-                        ForceApplyStyling(element2, parentControlTheme, controlTheme, styling);
+                        ForceApplyStyling(element2, parentControlTheme, controlTheme, styling, targetTypes);
                     }
 
                     break;
                 }
             }
         }
+
+
 
         public static void DetachStylesRecursively(this IResourceHost? resourceHost, IReadOnlyList<Style> styles)
         {
