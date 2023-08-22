@@ -44,6 +44,7 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/TabStrip.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/TextBox.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/TimePicker.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ToolTip.axaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
