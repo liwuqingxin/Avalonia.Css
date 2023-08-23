@@ -5,11 +5,7 @@
              RequestedThemeVariant="{x:Static ThemeVariant.Light}">
 
     <Application.Styles>
-        <!-- TODO Try to remove the FluentTheme. -->
-        <FluentTheme />
-        
         <fluent:AcssFluentTheme />
-
         <!-- TODO Try to remove the ColorPicker resource. -->
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
     </Application.Styles>
