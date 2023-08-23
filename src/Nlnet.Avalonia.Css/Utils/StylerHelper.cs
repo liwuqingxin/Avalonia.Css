@@ -15,6 +15,12 @@ namespace Nlnet.Avalonia.Css
         // TODO Memory leak here.
         // See https://github.com/AvaloniaUI/Avalonia/issues/12455
         // and https://github.com/AvaloniaUI/Avalonia/issues/12457
+        /// <summary>
+        /// Reapply the theme or style for the <see cref="resourceHost"/> and it's descendents.
+        /// </summary>
+        /// <param name="resourceHost">The target that will be reapplied the theme or style.</param>
+        /// <param name="isTheme">If reapply the theme. If not, the style will be reapplied.</param>
+        /// <param name="targetTypes">The types of elements that should be reapplied theme or style.</param>
         public static void ReapplyStyling(this IResourceHost? resourceHost, bool isTheme, IReadOnlyCollection<Type>? targetTypes)
         {
             switch (resourceHost)
@@ -26,7 +32,7 @@ namespace Nlnet.Avalonia.Css
                 }
                 case StyledElement element:
                 {
-                    ReapplyStyling(element, isTheme, true, true, true, targetTypes);
+                    ReapplyStyling(element, isTheme, targetTypes);
                     break;
                 }
             }
@@ -45,43 +51,34 @@ namespace Nlnet.Avalonia.Css
                 {
                     foreach (var window in lifetime.Windows)
                     {
-                        ForceApplyStyling(window, isTheme, true, true, true, targetTypes);
+                        ForceApplyStyling(window, isTheme, targetTypes);
                     }
                     break;
                 }
                 case ISingleViewApplicationLifetime { MainView: not null } singleView:
-                    ForceApplyStyling(singleView.MainView, isTheme, true, true, true, targetTypes);
+                    ForceApplyStyling(singleView.MainView, isTheme, targetTypes);
                     break;
             }
         }
 
-        public static void ReapplyStyling(
-            this StyledElement styledElement,
-            bool isTheme,
-            bool parentControlTheme, 
-            bool controlTheme, 
-            bool styling, 
-            IReadOnlyCollection<Type>? targetTypes)
+        public static void ReapplyStyling(this StyledElement styledElement, bool isTheme, IReadOnlyCollection<Type>? targetTypes)
         {
-            ForceApplyStyling(styledElement, isTheme, parentControlTheme, controlTheme, styling, targetTypes);
+            ForceApplyStyling(styledElement, isTheme, targetTypes);
         }
 
         private static void ForceApplyStyling(
             StyledElement styledElement, 
             bool isTheme,
-            bool parentControlTheme, 
-            bool controlTheme, 
-            bool styling,
             IReadOnlyCollection<Type>? targetTypes)
         {
             if (isTheme)
             {
-                if (parentControlTheme && (targetTypes == null || targetTypes.Contains(styledElement.TemplatedParent?.GetType())))
+                if (targetTypes == null || targetTypes.Contains(styledElement.TemplatedParent?.GetType()))
                 {
                     styledElement.OnTemplatedParentControlThemeChanged();
                 }
                 
-                if (controlTheme && (targetTypes == null || targetTypes.Contains(styledElement.GetType())))
+                if (targetTypes == null || targetTypes.Contains(styledElement.GetType()))
                 {
                     // [ava-11.0.0] If the window use custom chrome, reapplying control theme will result in a mess.
                     if (styledElement is not Window)
@@ -92,10 +89,7 @@ namespace Nlnet.Avalonia.Css
             }
             else
             {
-                if (styling)
-                {
-                    styledElement.InvalidStyles();
-                }
+                styledElement.InvalidStyles();
             }
            
             styledElement.ApplyStyling();
@@ -106,7 +100,7 @@ namespace Nlnet.Avalonia.Css
             {
                 foreach (var child in visual.GetVisualChildren().OfType<StyledElement>())
                 {
-                    ForceApplyStyling(child, isTheme, parentControlTheme, controlTheme, styling, targetTypes);
+                    ForceApplyStyling(child, isTheme, targetTypes);
                 }
             }
 
@@ -114,13 +108,13 @@ namespace Nlnet.Avalonia.Css
             switch (styledElement)
             {
                 case Popup { Child: StyledElement element1 }:
-                    ForceApplyStyling(element1, isTheme, parentControlTheme, controlTheme, styling, targetTypes);
+                    ForceApplyStyling(element1, isTheme, targetTypes);
                     break;
                 case ContextMenu contextMenu:
                 {
                     foreach (var element2 in contextMenu.Items.OfType<StyledElement>())
                     {
-                        ForceApplyStyling(element2, isTheme, parentControlTheme, controlTheme, styling, targetTypes);
+                        ForceApplyStyling(element2, isTheme, targetTypes);
                     }
 
                     break;

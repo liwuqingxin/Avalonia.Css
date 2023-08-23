@@ -58,7 +58,7 @@ namespace Nlnet.Avalonia.Css
                     }
 
                     var targetTypes = acssStyleList.Select(s => s.GetTargetType()).ToList();
-                    element.ReapplyStyling(false, false, false, true, targetTypes!);
+                    element.ReapplyStyling(false, targetTypes!);
                 }
             });
         }
