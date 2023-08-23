@@ -71,9 +71,9 @@ namespace Nlnet.Avalonia.Css
 
 
         private readonly IAcssBuilder             _acssBuilder;
-        private readonly Styles                  _owner;
-        private readonly FileSystemWatcher?      _watcher;
-        private          CompositeDisposable?    _disposable;
+        private readonly Styles                   _owner;
+        private readonly FileSystemWatcher?       _watcher;
+        private          CompositeDisposable?     _disposable;
         private          IEnumerable<IAcssStyle>? _acssStyles;
 
         private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
@@ -237,10 +237,10 @@ namespace Nlnet.Avalonia.Css
                     // TODO 资源更新是否需要重新应用？如何应用？
 
                     var normalTypes = acssStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
-                    _owner.Owner.ReapplyStyling(normalTypes!);
+                    _owner.Owner.ReapplyStyling(false, normalTypes!);
 
                     var themeTypes = acssThemeChildStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
-                    _owner.Owner.ReapplyStyling(themeTypes!);
+                    _owner.Owner.ReapplyStyling(true, themeTypes!);
                 }
             }
             catch (Exception e)
