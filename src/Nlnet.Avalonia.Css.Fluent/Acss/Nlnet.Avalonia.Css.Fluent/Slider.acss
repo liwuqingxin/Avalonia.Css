@@ -81,7 +81,7 @@
 
         /* ValueTip */
         :horizontal /template/ Popup#ValueTipPopup{
-            VerticalOffset:-10;
+            VerticalOffset:0;
             PlacementMode:TopEdgeAlignedLeft;
         }
         :vertical /template/ Popup#ValueTipPopup{

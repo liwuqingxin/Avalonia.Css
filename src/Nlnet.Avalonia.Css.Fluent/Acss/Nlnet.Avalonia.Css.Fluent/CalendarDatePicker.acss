@@ -44,7 +44,7 @@
         }
         /template/ Popup#PART_Popup{
             IsLightDismissEnabled:true;
-            VerticalOffset: -7;
+            VerticalOffset: 3;
             HorizontalOffset: -10.5;
             Placement:BottomEdgeAlignedLeft;
         }

@@ -35,7 +35,7 @@
             Spacing:4;
         }
          /template/ Popup#PART_Popup{
-            VerticalOffset: -7;
+            VerticalOffset: 3;
             HorizontalOffset: -11;
             Placement:BottomEdgeAlignedLeft;
         }

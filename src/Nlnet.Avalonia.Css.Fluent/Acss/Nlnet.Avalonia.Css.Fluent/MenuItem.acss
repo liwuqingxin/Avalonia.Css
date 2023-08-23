@@ -57,7 +57,7 @@
             Fill:var(fore-hover);
         }
          /template/ Popup#PART_Popup {
-            PlacementMode:Right;
+            Placement: RightEdgeAlignedTop;
             IsLightDismissEnabled:false;
             HorizontalOffset:-12;
         }
