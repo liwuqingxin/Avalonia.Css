@@ -3,10 +3,9 @@
     Background:var(item-back);
     [[
          /template/ Border#PopupBorder{
-            BoxShadow: var(popup-shadow);
             CornerRadius: 6;
             BorderThickness: 1;
-            Margin: 10,10,10,20;
+            Margin: 10,0,10,30;
             BorderBrush:var(control-border);
             ClipToBounds:False;
             Opacity:0;
@@ -16,17 +15,28 @@
                 ::animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:.3';
+                    Duration:'0:0:.4';
                     KeyFrames:[
                         KeyFrame:(0% 0,1,0.5,1)[
                             Opacity:0;
-                            TranslateTransform.Y:-40;
-                            /* ScaleTransform.ScaleY:0.7; */
+                            TranslateTransform.Y:-320;
+                            BoxShadow: 0 0 0 0 #4666;
                         ]
-                        KeyFrame:(100% 0,1,0.5,1)[
+                        KeyFrame:(80% 0,1,0.5,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
-                            /* ScaleTransform.ScaleY:1; */
+                            // TODO 动画属性支持资源，即使是静态资源也好
+                            BoxShadow: 0 0 0 0 #4666;
+                        ]
+                        KeyFrame:(90%)[
+                            Opacity:1;
+                            TranslateTransform.Y:0;
+                            BoxShadow: 0 0 0 0 #4666;
+                        ]
+                        KeyFrame:(100%)[
+                            Opacity:1;
+                            TranslateTransform.Y:0;
+                            BoxShadow: 0 10 16 0 #4666;
                         ]
                     ]
                 }
