@@ -1,0 +1,60 @@
+﻿^TreeViewItem {
+    Padding: 12,0;
+    Background: var(item-back);
+    Foreground: var(fore);
+    BorderBrush: var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 6;
+    MinHeight: 32;
+    VerticalAlignment: Center;
+    HorizontalAlignment: Stretch;
+    Transitions:[
+        var(stOpacity);
+        var(stBackground);
+    ]
+    [[
+        /template/ Border#PART_LayoutRoot{
+            Margin: 1,2;
+        }
+        /template/ Border#PART_LayoutRoot:pointerover{
+            Background: var(item-back-hover);
+        }
+        :pressed /template/ Border#PART_LayoutRoot:pointerover{
+            Background: var(item-back-pressed);
+        }        
+        :selected /template/ Border#PART_LayoutRoot{
+            Background: var(item-back-selected);
+        }
+        /template/ ToggleButton#PART_ExpandCollapseChevron{
+            Margin: 12,0,0,0;
+            VerticalAlignment: Stretch;
+            HorizontalAlignment: Stretch;
+            Width: 24;
+            Height: 24;
+            BorderThickness: 0;
+            Background: Transparent;
+        }
+        /template/ ToggleButton#PART_ExpandCollapseChevron:checked{
+           Background: Transparent;
+        }
+        /template/ ToggleButton#PART_ExpandCollapseChevron:checked:pointerover{
+           Background: Transparent;
+        }
+        /template/ PathIcon#Icon{
+            Data: M 1,0 10,10 l -9,10 -1,-1 L 8,10 -0,1 Z;
+            Foreground: var(fore);
+            Height: 10;
+            Width: 10;
+            VerticalAlignment: Center;
+            HorizontalAlignment: Center;
+            VerticalContentAlignment: Center;
+            HorizontalContentAlignment: Center;
+            Transitions:[
+                var(stRenderTransform);
+            ]
+        }
+        [IsExpanded=True] /template/ PathIcon#Icon{
+            RenderTransform: rotate(90deg) translate(0,1px);
+        }
+    ]]
+}

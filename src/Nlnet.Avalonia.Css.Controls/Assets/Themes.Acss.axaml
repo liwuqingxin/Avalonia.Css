@@ -46,6 +46,7 @@
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/TimePicker.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/ToolTip.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/TransitioningContentControl.axaml" />
+        <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/TreeView.axaml" />
         <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/WindowNotificationManager.axaml" />
     </ResourceDictionary.MergedDictionaries>
 
