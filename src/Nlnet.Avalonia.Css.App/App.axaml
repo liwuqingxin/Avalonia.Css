@@ -5,9 +5,6 @@
              RequestedThemeVariant="{x:Static ThemeVariant.Light}">
 
     <Application.Styles>
-        <!-- AutoCompleteBox有问题 -->
-        <FluentTheme/>
-        
         <fluent:AcssFluentTheme />
         <!-- TODO Try to remove the ColorPicker resource. -->
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
