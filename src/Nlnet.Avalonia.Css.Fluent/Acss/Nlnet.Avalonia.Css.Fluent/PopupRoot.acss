@@ -20,23 +20,23 @@
                         KeyFrame:(0% 0,1,0.5,1)[
                             Opacity:0;
                             TranslateTransform.Y:-320;
-                            BoxShadow: 0 0 0 0 #4666;
+                            BoxShadow: var(popup-none);
                         ]
                         KeyFrame:(80% 0,1,0.5,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                             // TODO 动画属性支持资源，即使是静态资源也好
-                            BoxShadow: 0 0 0 0 #4666;
+                            BoxShadow: var(popup-none);
                         ]
                         KeyFrame:(90%)[
                             Opacity:1;
                             TranslateTransform.Y:0;
-                            BoxShadow: 0 0 0 0 #4666;
+                            BoxShadow: var(popup-none);
                         ]
                         KeyFrame:(100%)[
                             Opacity:1;
                             TranslateTransform.Y:0;
-                            BoxShadow: 0 10 16 0 #4666;
+                            BoxShadow: var(popup-shadow);
                         ]
                     ]
                 }

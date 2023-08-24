@@ -18,7 +18,7 @@ internal static class ObjectParser
                 continue;
             }
 
-            var value = interpreter.ParseValue(property.PropertyType, setter.Item2);
+            var value = interpreter.ParseClrValue(property.PropertyType, setter.Item2);
             if (property.CanWrite)
             {
                 property.SetValue(targetObject, value);

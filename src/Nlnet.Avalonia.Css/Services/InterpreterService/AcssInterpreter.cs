@@ -113,27 +113,23 @@ namespace Nlnet.Avalonia.Css
             return _builder.Interpreter.ParseAvaloniaProperty(declarerType!, behaviorType!.Name);
         }
 
-        public object? ParseValue(Type declaredType, string? rawValue)
+        public object? ParseClrValue(Type declaredType, string? rawValue)
         {
+            rawValue = rawValue?.Trim('\'');
+            
+            // Null.
+            if (rawValue is null or "null" or "NULL")
+            {
+                this.WriteLine($"Raw value is null.");
+                return null;
+            }
+
+            // Nullable<T>.
             if (declaredType.IsGenericType && declaredType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 declaredType = Nullable.GetUnderlyingType(declaredType) ?? declaredType;
             }
-
-            rawValue = rawValue?.Trim('\'');
-            if (rawValue is null or "null" or "NULL")
-            {
-                declaredType.WriteLine($"Raw value is null.");
-                return null;
-            }
-
-            // Var resource.
-            if (IsVar(rawValue, out var key))
-            {
-                var extension = new DynamicResourceExtension(key!);
-                return extension;
-            }
-
+            
             // Enum.
             if (declaredType.IsAssignableTo(typeof(Enum)))
             {
@@ -158,6 +154,7 @@ namespace Nlnet.Avalonia.Css
             var match = _staticInstanceRegex.Match(rawValue);
             if (match.Success)
             {
+                // TODO 支持多级静态实例
                 var className = match.Groups[1].Value;
                 var instanceName = match.Groups[2].Value;
                 if (_builder.TypeResolver.TryGetType(className, out var classType) && classType != null)
@@ -232,7 +229,36 @@ namespace Nlnet.Avalonia.Css
         {
             var declareType = avaloniaProperty.PropertyType;
 
-            return ParseValue(declareType, rawValue);
+            return ParseClrValue(declareType, rawValue);
+        }
+        
+        public object? ParseDynamicValue(AvaloniaProperty avaloniaProperty, string? rawValue)
+        {
+            var declareType = avaloniaProperty.PropertyType;
+            rawValue = rawValue?.Trim('\'');
+
+            // Var resource.
+            if (IsVar(rawValue, out var key))
+            {
+                var extension = new DynamicResourceExtension(key!);
+                return extension;
+            }
+            
+            return ParseClrValue(declareType, rawValue);
+        }
+
+        public object? ParseStaticValue(AvaloniaProperty avaloniaProperty, string? rawValue)
+        {
+            var declareType = avaloniaProperty.PropertyType;
+            rawValue = rawValue?.Trim('\'');
+            
+            // Var resource.
+            if (IsVar(rawValue, out var key) && _builder.ResourceProvidersManager.TryFindResource(key!, out var result))
+            {
+                return result;
+            }
+            
+            return ParseClrValue(declareType, rawValue);
         }
 
         public bool IsVar(string? valueString, out string? varKey)
@@ -483,7 +509,7 @@ namespace Nlnet.Avalonia.Css
                     {
                         continue;
                     }
-                    var value = interpreter.ParseValue(property, pair.Item2);
+                    var value = interpreter.ParseStaticValue(property, pair.Item2);
                     var setter = new Setter()
                     {
                         Property = property,
