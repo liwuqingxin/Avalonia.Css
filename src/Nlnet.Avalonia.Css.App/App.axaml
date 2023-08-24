@@ -4,6 +4,9 @@
              xmlns:fluent="https://www.nlnet.com/avalonia"
              RequestedThemeVariant="{x:Static ThemeVariant.Light}">
 
+    <!-- TODO  -->
+    Menu、ToolTip、主界面设置（Flyout）无法应用PopupStyles。
+    
     <Application.Styles>
         <fluent:AcssFluentTheme />
         <!-- TODO Try to remove the ColorPicker resource. -->

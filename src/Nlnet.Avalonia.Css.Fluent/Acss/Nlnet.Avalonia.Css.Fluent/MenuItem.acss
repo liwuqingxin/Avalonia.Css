@@ -60,6 +60,7 @@
             Placement: RightEdgeAlignedTop;
             IsLightDismissEnabled:false;
             HorizontalOffset:-12;
+            PopupStyles.Style: Slide;
         }
          /template/ Popup#PART_Popup PopupRoot{
             Background:var(combobox-item-back);

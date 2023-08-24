@@ -47,6 +47,7 @@
             VerticalOffset: 3;
             HorizontalOffset: -10.5;
             Placement:BottomEdgeAlignedLeft;
+            PopupStyles.Style: Slide;
         }
         /template/ Calendar#PART_Calendar{
             BorderThickness:0;

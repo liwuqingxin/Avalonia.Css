@@ -2,15 +2,17 @@
 ^PopupRoot {
     Background:var(item-back);
     [[
-         /template/ Border#PopupBorder{
+        /template/ Border#PopupBorder{
             CornerRadius: 6;
             BorderThickness: 1;
             Margin: 10,0,10,30;
             BorderBrush:var(control-border);
             ClipToBounds:False;
-            Opacity:0;
             Padding:0;
             RenderTransformOrigin:0%,0%;
+        }
+        [(PopupStyles.Style)=Slide] /template/ Border#PopupBorder{\
+            Opacity:0;
             [[
                 ::animation{
                     FillMode:Forward;
@@ -19,16 +21,10 @@
                     KeyFrames:[
                         KeyFrame:(0% 0,1,0.5,1)[
                             Opacity:0;
-                            TranslateTransform.Y:-320;
+                            TranslateTransform.Y:-220;
                             BoxShadow: var(popup-none);
                         ]
                         KeyFrame:(80% 0,1,0.5,1)[
-                            Opacity:1;
-                            TranslateTransform.Y:0;
-                            // TODO 动画属性支持资源，即使是静态资源也好
-                            BoxShadow: var(popup-none);
-                        ]
-                        KeyFrame:(90%)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                             BoxShadow: var(popup-none);
@@ -37,6 +33,30 @@
                             Opacity:1;
                             TranslateTransform.Y:0;
                             BoxShadow: var(popup-shadow);
+                        ]
+                    ]
+                }
+            ]]
+        }
+        [(PopupStyles.Style)=Fade] /template/ Border#PopupBorder{
+            Opacity:0;
+            BoxShadow: var(popup-shadow);
+            RenderTransformOrigin: 50%,50%;
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:.15';
+                    KeyFrames:[
+                        KeyFrame:(0% 0,1,0.5,1)[
+                            Opacity:0;
+                            ScaleTransform.ScaleX:0.96;
+                            ScaleTransform.ScaleY:0.96;
+                        ]
+                        KeyFrame:(100%)[
+                            Opacity:1;
+                            ScaleTransform.ScaleX:1;
+                            ScaleTransform.ScaleY:1;
                         ]
                     ]
                 }

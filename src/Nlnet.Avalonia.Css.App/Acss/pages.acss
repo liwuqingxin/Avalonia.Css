@@ -84,6 +84,12 @@ ComboBoxPage ComboBox{
 }
 ComboBoxPage ComboBox#C1{
     .acss:combobox.popup.align;
+    [[
+        // Use fade animation to make it better.
+        /template/ Popup#PART_Popup:is-part{
+            PopupStyles.Style: Fade;
+        }
+    ]]
 }
 
 

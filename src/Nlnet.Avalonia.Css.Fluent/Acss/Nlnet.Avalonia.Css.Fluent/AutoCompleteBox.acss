@@ -20,6 +20,7 @@
             VerticalOffset: 3;
             HorizontalOffset: -11;
             Placement:BottomEdgeAlignedLeft;
+            PopupStyles.Style: Slide;
         }
         /template/ Popup#PART_Popup PopupRoot{
             Background:var(combobox-item-back);

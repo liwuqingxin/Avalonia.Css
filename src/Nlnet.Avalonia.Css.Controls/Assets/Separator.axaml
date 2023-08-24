@@ -17,9 +17,5 @@
             </ControlTemplate>
         </Setter>
     </ControlTheme>
-    
-    <!-- TODO  -->
-    <!-- TreeView -->
-    <!-- TreeViewItem -->
 
 </ResourceDictionary>

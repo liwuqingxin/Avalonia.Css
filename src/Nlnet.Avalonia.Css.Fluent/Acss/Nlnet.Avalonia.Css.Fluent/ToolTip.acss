@@ -14,6 +14,7 @@
             VerticalOffset: -70;
             HorizontalOffset: -11;
             Placement:BottomEdgeAlignedLeft;
+            PopupStyles.Style: Fade;
         }
     ]]
 }

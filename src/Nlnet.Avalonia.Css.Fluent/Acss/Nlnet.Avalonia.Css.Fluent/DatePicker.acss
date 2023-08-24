@@ -30,6 +30,7 @@
             PlacementMode:Bottom;
             IsLightDismissEnabled:True;
             HorizontalOffset:-1;
+            PopupStyles.Style: Fade;
         }
          /template/ DatePickerPresenter#PART_PickerPresenter{
             MaxHeight:300;
