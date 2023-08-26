@@ -5,6 +5,8 @@ using Avalonia.Logging;
 using Nlnet.Avalonia.Css.Behaviors;
 using Nlnet.Avalonia.SampleAssistant;
 using Nlnet.Avalonia.Svg.Controls;
+using Nlnet.Sharp.Avalonia;
+using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
 {

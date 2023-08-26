@@ -17,8 +17,8 @@
             <StackPanel Height="300"
                         Orientation="Horizontal"
                         Spacing="12">
-                <ListBox ItemsSource="{app:Enum VerticalAlignment}" />
-                <ListBox ItemsSource="{app:Enum Key}" />
+                <ListBox ItemsSource="{nlnet:Enum VerticalAlignment}" />
+                <ListBox ItemsSource="{nlnet:Enum Key}" />
             </StackPanel>
         </app:IndependentCase>
 

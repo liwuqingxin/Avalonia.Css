@@ -29,10 +29,10 @@
                               Content="Light Dismiss"
                               IsChecked="True" />
                     <ComboBox x:Name="CbxDisplayMode"
-                              ItemsSource="{app:Enum SplitViewDisplayMode}"
+                              ItemsSource="{nlnet:Enum SplitViewDisplayMode}"
                               SelectedItem="{x:Static SplitViewDisplayMode.Inline}" />
                     <ComboBox x:Name="CbxPlacement"
-                              ItemsSource="{app:Enum SplitViewPanePlacement}"
+                              ItemsSource="{nlnet:Enum SplitViewPanePlacement}"
                               SelectedItem="{x:Static SplitViewPanePlacement.Left}" />
                 </StackPanel>
             </app:IndependentCase.Settings>

@@ -20,15 +20,15 @@
                 <StackPanel MinWidth="160" Spacing="6">
                     <ComboBox x:Name="CbxImage"
                               HorizontalAlignment="Stretch"
-                              ItemsSource="{app:Enum nlnet:Images}"
+                              ItemsSource="{nlnet:Enum nlnet:Images}"
                               SelectedIndex="1" />
                     <ComboBox x:Name="CbxButtons"
                               HorizontalAlignment="Stretch"
-                              ItemsSource="{app:Enum nlnet:Buttons}"
+                              ItemsSource="{nlnet:Enum nlnet:Buttons}"
                               SelectedIndex="0" />
                     <ComboBox x:Name="CbxNotificationType"
                               HorizontalAlignment="Stretch"
-                              ItemsSource="{app:Enum NotificationType}"
+                              ItemsSource="{nlnet:Enum NotificationType}"
                               SelectedIndex="0" />
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="You selected" />

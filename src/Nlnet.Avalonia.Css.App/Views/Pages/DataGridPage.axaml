@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:global="clr-namespace:"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
              xmlns:test="clr-namespace:HS.IMF.BaseControls.Gallery.Test"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -85,15 +86,15 @@
                 <StackPanel HorizontalAlignment="Left" Spacing="4">
                     <ComboBox x:Name="GridLinesVisibility"
                               HorizontalAlignment="Left"
-                              ItemsSource="{app:Enum DataGridGridLinesVisibility}"
+                              ItemsSource="{nlnet:Enum DataGridGridLinesVisibility}"
                               SelectedIndex="3" />
                     <ComboBox x:Name="HeadersVisibility"
                               HorizontalAlignment="Left"
-                              ItemsSource="{app:Enum DataGridHeadersVisibility}"
+                              ItemsSource="{nlnet:Enum DataGridHeadersVisibility}"
                               SelectedIndex="3" />
                     <ComboBox x:Name="SelectionMode"
                               HorizontalAlignment="Left"
-                              ItemsSource="{app:Enum SelectionMode}"
+                              ItemsSource="{nlnet:Enum SelectionMode}"
                               SelectedIndex="1" />
                     <CheckBox x:Name="CanUserReorderColumns"
                               HorizontalAlignment="Left"

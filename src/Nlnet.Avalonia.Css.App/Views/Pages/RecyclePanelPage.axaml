@@ -2,8 +2,8 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:avalonia="https://nlnet.com"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:devTools="clr-namespace:Avalonia.DevTools;assembly=Avalonia.DevTools"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:nlnet="https://www.nlnet.com/avalonia"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
@@ -22,7 +22,7 @@
                               IsChecked="True" />
                     <ComboBox x:Name="ComboBox"
                               HorizontalAlignment="Stretch"
-                              ItemsSource="{devTools:Enum system:DayOfWeek}" />
+                              ItemsSource="{nlnet:Enum system:DayOfWeek}" />
                 </StackPanel>
             </app:IndependentCase.Settings>
             <app:IndependentCase.Styles>
@@ -52,13 +52,14 @@
             </app:IndependentCase.Styles>
 
             <Border Height="500">
-                <Border Width="200"
-                        Height="200" x:Name="OuterBorderOfRecyclePanel"
+                <Border x:Name="OuterBorderOfRecyclePanel"
+                        Width="200"
+                        Height="200"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         ClipToBounds="{Binding #CbxClipToBounds.IsChecked}">
                     <Panel>
-                        <nlnet:RecyclePanel ItemsSource="{devTools:Enum system:DayOfWeek}" SelectedItem="{Binding #ComboBox.SelectedItem}" />
+                        <nlnet:RecyclePanel ItemsSource="{nlnet:Enum system:DayOfWeek}" SelectedItem="{Binding #ComboBox.SelectedItem}" />
                         <Border x:Name="HighlightBorder" IsHitTestVisible="False" />
                     </Panel>
                 </Border>

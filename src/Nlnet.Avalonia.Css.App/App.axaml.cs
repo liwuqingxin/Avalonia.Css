@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -14,7 +15,6 @@ namespace Nlnet.Avalonia.Css.App
         {
             // Referenced libraries.
             AppLoader.Load("Nlnet.Avalonia.Svg.dll");
-            AppLoader.Load("Avalonia.DevTools.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             AcssBuilder.UseDefaultBuilder();
