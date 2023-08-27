@@ -29,10 +29,9 @@
         }
         /template/ SelectableTextBlock#TxbTitle{
             VerticalAlignment: Center;
-            FontSize: 14;
-            FontWeight: Medium;
+            FontSize: 16;
+            FontWeight: Bold;
             LineHeight: 22;
-            Opacity: 0.85;
             TextTrimming: @TextTrimming.CharacterEllipsis;
             TextWrapping: NoWrap;
         }
@@ -44,10 +43,9 @@
         /template/ SelectableTextBlock#TbxMessage{
             HorizontalAlignment: Left;
             VerticalAlignment: Top;
-            FontSize: 12;
+            FontSize: 14;
             FontWeight: Regular;
             LineHeight: 20;
-            Opacity: 0.85;
             TextWrapping: Wrap;
         }
         /template/ StackPanel#PART_ButtonsPanel{

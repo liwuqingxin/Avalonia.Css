@@ -3,7 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Nlnet.Avalonia.DevTools;
 using Nlnet.Avalonia.Senior.Controls;
+using SelectionChangedEventArgs = Avalonia.Controls.SelectionChangedEventArgs;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
@@ -19,7 +21,7 @@ namespace Nlnet.Avalonia.Css.App.Views
 
             _mainTab = this.FindControl<TabControl>("MainTabControl")!;
 
-            //global::Avalonia.DevTools.AvaloniaDevTools.UseDevTools(this);
+            AvaloniaDevTools.UseDevTools(this);
         }
 
         protected override void OnLoaded(RoutedEventArgs e)

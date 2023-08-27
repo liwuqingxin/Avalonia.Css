@@ -1,0 +1,10 @@
+﻿^ContextMenu {
+    HorizontalOffset:-10;
+    VerticalOffset:-10;
+    [[
+         /template/ ScrollViewer#PART_ScrollViewer {
+            HorizontalScrollBarVisibility:Disabled;
+            Margin:4;
+        }
+    ]]
+}

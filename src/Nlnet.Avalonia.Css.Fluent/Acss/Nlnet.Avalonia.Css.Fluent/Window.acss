@@ -1,0 +1,7 @@
+﻿^Window {
+    Background: var(window-back);
+    TransparencyBackgroundFallback: Transparent;
+    Foreground: var(fore);
+    TopLevel.SystemBarColor: var(control-back);
+    ScrollViewer.IsScrollChainingEnabled: True;
+}

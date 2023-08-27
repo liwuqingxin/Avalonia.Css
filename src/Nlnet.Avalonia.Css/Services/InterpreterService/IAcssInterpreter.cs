@@ -16,9 +16,13 @@ internal interface IAcssInterpreter
 
     public AvaloniaProperty? ParseAcssBehaviorProperty(Type avaloniaObjectType, string property, string? rawValue, out AcssBehavior? value);
 
-    public object? ParseValue(Type declaredType, string? rawValue);
-
+    public object? ParseClrValue(Type declaredType, string? rawValue);
+    
     public object? ParseValue(AvaloniaProperty avaloniaProperty, string? rawValue);
+
+    public object? ParseDynamicValue(AvaloniaProperty avaloniaProperty, string? rawValue);
+    
+    public object? ParseStaticValue(AvaloniaProperty avaloniaProperty, string? rawValue);
 
     public bool IsVar(string? valueString, out string? varKey);
 

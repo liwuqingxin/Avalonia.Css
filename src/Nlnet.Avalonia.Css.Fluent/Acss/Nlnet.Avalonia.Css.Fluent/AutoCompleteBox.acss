@@ -1,0 +1,41 @@
+﻿^AutoCompleteBox{
+    VerticalAlignment: Top;
+    HorizontalAlignment: Left;
+    MinWidth: 150;
+    Foreground: var(fore);
+    Background: var(control-back);
+    BorderBrush:var(control-border-input-fluent);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    Padding: 8,4,8,5;
+    MaxDropDownHeight: 400;
+    [[
+        /template/ TextBox#PART_TextBox{
+            HorizontalAlignment: Stretch;
+            VerticalAlignment: Stretch;
+        }
+        /template/ Popup#PART_Popup{
+            IsLightDismissEnabled: True;
+            WindowManagerAddShadowHint: False;
+            VerticalOffset: 3;
+            HorizontalOffset: -11;
+            Placement:BottomEdgeAlignedLeft;
+            PopupStyles.Style: Slide;
+        }
+        /template/ Popup#PART_Popup PopupRoot{
+            Background:var(combobox-item-back);
+        }
+        /template/ Border#PART_SuggestionsContainer{
+            Padding: 4;
+            Background: Transparent;
+            BorderThickness: 0;
+            BorderBrush: Transparent;
+            CornerRadius: 4;
+        }
+        /template/ ListBox#PART_SelectingItemsControl{
+            Background: Transparent;
+            BorderThickness: 0;
+            HorizontalAlignment: Stretch;
+        }
+    ]]
+}

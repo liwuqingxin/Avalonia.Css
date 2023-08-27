@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{64CD8901
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B071EDD-C60F-4986-9FD9-406B89A32E97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,7 +107,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C6C78455-2E84-4595-B2FF-7ABD2692F6EE} = {B71ACD30-93EC-474B-9CE1-B441CECBEF16}
-		{71CDC9AB-A93C-4B11-A95E-C05C200934FF} = {B71ACD30-93EC-474B-9CE1-B441CECBEF16}
+		{71CDC9AB-A93C-4B11-A95E-C05C200934FF} = {3B071EDD-C60F-4986-9FD9-406B89A32E97}
 		{618E2CA9-5381-475B-A790-875F8ED0DA04} = {B71ACD30-93EC-474B-9CE1-B441CECBEF16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

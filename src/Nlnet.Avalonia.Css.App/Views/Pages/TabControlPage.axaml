@@ -1,10 +1,10 @@
 <UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.TabControlPage"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="https://www.nlnet.com/avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -15,11 +15,52 @@
                    TextWrapping="Wrap" />
 
         <StackPanel.Styles>
-            <Style Selector="TabItem>Image">
+            <Style Selector="TabItem&gt;Image">
                 <Setter Property="Width" Value="96" />
                 <Setter Property="Height" Value="96" />
             </Style>
         </StackPanel.Styles>
+
+        <app:IndependentCase>
+            <TabStrip>
+                <TabStripItem Content="First Image">
+                    <fluent:TabItemExtension.IconContent>
+                        <Image Width="24"
+                               Height="24"
+                               Margin="12,0,0,0"
+                               Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
+                               Stretch="Uniform" />
+                    </fluent:TabItemExtension.IconContent>
+                </TabStripItem>
+                <TabStripItem Content="Second Image">
+                    <fluent:TabItemExtension.IconContent>
+                        <Image Width="24"
+                               Height="24"
+                               Margin="12,0,0,0"
+                               Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
+                               Stretch="Uniform" />
+                    </fluent:TabItemExtension.IconContent>
+                </TabStripItem>
+                <TabStripItem Content="第三张图片">
+                    <fluent:TabItemExtension.IconContent>
+                        <Image Width="24"
+                               Height="24"
+                               Margin="12,0,0,0"
+                               Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
+                               Stretch="Uniform" />
+                    </fluent:TabItemExtension.IconContent>
+                </TabStripItem>
+                <TabStripItem Content="第四张图片">
+                    <fluent:TabItemExtension.IconContent>
+                        <Image Width="24"
+                               Height="24"
+                               Margin="12,0,0,0"
+                               Source="avares://Nlnet.Avalonia.Css.App/Assets/orange.png"
+                               Stretch="Uniform" />
+                    </fluent:TabItemExtension.IconContent>
+                </TabStripItem>
+            </TabStrip>
+        </app:IndependentCase>
 
         <app:IndependentCase Header="TabControl with TabStripPlacement='Left'.">
             <TabControl TabStripPlacement="Left">

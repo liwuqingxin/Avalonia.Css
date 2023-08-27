@@ -1,0 +1,60 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.SplitViewPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription" TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="Normal MessageBox.">
+            <app:IndependentCase.Settings>
+                <StackPanel>
+                    <Slider x:Name="SliderCompactPaneLength"
+                            Maximum="500"
+                            Minimum="0"
+                            Value="50" />
+                    <Slider x:Name="SliderOpenPaneLength"
+                            Maximum="500"
+                            Minimum="0"
+                            Value="200" />
+                    <CheckBox x:Name="CbxIsOpen"
+                              Content="Is Open"
+                              IsChecked="True" />
+                    <CheckBox x:Name="CbxLightDismiss"
+                              Content="Light Dismiss"
+                              IsChecked="True" />
+                    <ComboBox x:Name="CbxDisplayMode"
+                              ItemsSource="{nlnet:Enum SplitViewDisplayMode}"
+                              SelectedItem="{x:Static SplitViewDisplayMode.Inline}" />
+                    <ComboBox x:Name="CbxPlacement"
+                              ItemsSource="{nlnet:Enum SplitViewPanePlacement}"
+                              SelectedItem="{x:Static SplitViewPanePlacement.Left}" />
+                </StackPanel>
+            </app:IndependentCase.Settings>
+            <SplitView x:Name="SplitView1"
+                       CompactPaneLength="{Binding #SliderCompactPaneLength.Value}"
+                       DisplayMode="{Binding #CbxDisplayMode.SelectedItem}"
+                       IsPaneOpen="{Binding #CbxIsOpen.IsChecked, Mode=TwoWay}"
+                       OpenPaneLength="{Binding #SliderOpenPaneLength.Value}"
+                       PanePlacement="{Binding #CbxPlacement.SelectedItem}"
+                       UseLightDismissOverlayMode="{Binding #CbxLightDismiss.IsChecked}">
+                <SplitView.Pane>
+                    <ListBox>
+                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                    </ListBox>
+                </SplitView.Pane>
+                <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/CheckBox.svg" />
+            </SplitView>
+        </app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

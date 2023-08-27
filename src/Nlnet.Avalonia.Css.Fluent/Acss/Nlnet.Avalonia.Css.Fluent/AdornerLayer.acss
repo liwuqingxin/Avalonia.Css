@@ -1,0 +1,7 @@
+﻿AdornerLayer Border#FocusAdornerOuterBorder{
+    BorderThickness: 2;
+    BorderBrush: var(fore);
+    Background: var(Accent03);
+    Opacity: 0.9;
+    CornerRadius: 4;
+}

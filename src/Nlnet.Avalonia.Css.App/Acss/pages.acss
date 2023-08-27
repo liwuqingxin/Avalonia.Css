@@ -1,4 +1,5 @@
-﻿WelcomePage Grid#InfoGrid > TextBlock{
+﻿// WelcomePage
+WelcomePage Grid#InfoGrid > TextBlock{
     Margin:0,8;
     FontSize:12;
     [[
@@ -34,32 +35,142 @@ WelcomePage Grid#InfoGrid > Button{
     ]]
 }
 
+
+// ButtonPage
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
     HorizontalAlignment:Left;
 }
 
+
+// CalendarPage
 CalendarPage Calendar, CalendarPage CalendarDatePicker, CalendarPage TimePicker{
     HorizontalAlignment:Left;
 }
 
+
+// CarouselPage
+CarouselPage Case[Header=Carousel] Button{
+    Height: NaN;
+    Margin: 6,0;
+    Width: 40;
+    VerticalAlignment: Stretch;
+}
+CarouselPage Case[Header=Carousel] Carousel>Icon{
+    Width: 256;
+    Height: 256;
+}
+CarouselPage Case[Header=Carousel] Icon#IconLeft{
+    IconSize: 9;
+    IconBrush: var(watermark);
+    IconData: M54.3953 104.307C54.2889 104.101 54.1159 103.928 54.0227 103.715C52.1931 99.9095 52.7919 95.2523 56.032 92.1918L129.476 22.7265C133.481 18.9409 139.795 19.1206 143.587 23.1191C147.373 27.1243 147.2 33.4381 143.195 37.2304L77.2954 99.5702L142.935 162.835C146.9 166.66 147.02 172.974 143.195 176.946C141.239 178.982 138.624 180 136.009 180C133.514 180 131.019 179.068 129.083 177.205L56.3048 107.062C56.1651 106.922 56.1118 106.729 55.9721 106.583C55.8657 106.483 55.7526 106.41 55.6461 106.303C55.0806 105.711 54.7812 104.986 54.3953 104.307L54.3953 104.307Z;
+}
+CarouselPage Case[Header=Carousel] Icon#IconRight{
+    IconSize: 9;
+    IconBrush: var(watermark);
+    IconData: M144.921 104.307C145.027 104.101 145.2 103.928 145.294 103.715C147.123 99.9095 146.524 95.2523 143.284 92.1918L69.8404 22.7265C65.8352 18.9409 59.5214 19.1206 55.7291 23.1191C51.9435 27.1243 52.1165 33.4381 56.1217 37.2304L122.021 99.5702L56.3811 162.835C52.4159 166.66 52.2961 172.974 56.1217 176.946C58.0777 178.982 60.6924 180 63.307 180C65.802 180 68.2969 179.068 70.233 177.205L143.012 107.062C143.151 106.922 143.204 106.729 143.344 106.583C143.451 106.483 143.564 106.41 143.67 106.303C144.236 105.711 144.535 104.986 144.921 104.307L144.921 104.307Z;
+}
+
+
+// CheckBoxPage
 CheckBoxPage CheckBox, CheckBoxPage RadioButton{
     HorizontalAlignment:Left;
 }
 
+
+// ComboBoxPage
 ComboBoxPage ComboBox{
     HorizontalAlignment:Left;
     MinWidth:150;
 }
 ComboBoxPage ComboBox#C1{
     .acss:combobox.popup.align;
+    [[
+        // Use fade animation to make it better.
+        /template/ Popup#PART_Popup:is-part{
+            PopupStyles.Style: Fade;
+        }
+    ]]
 }
 
+
+// DataGridPage
 DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
     VerticalAlignment: Top;
     Transitions: null;
 }
 
-TextBoxPage TextBox{
+
+// RecyclePanelPage
+RecyclePanelPage TextBlock#PageDescription{
+    Text: Recycle to show a list with animation.
+}
+RecyclePanelPage Border#HighlightBorder{
+    Height: 28;
+    Background: var(Accent01);
+}
+RecyclePanelPage Border#OuterBorderOfRecyclePanel{
+    BorderBrush: var(control-border);
+    BorderThickness: 1;
+    CornerRadius: 6;
+}
+RecyclePanelPage RecyclePanel>ListBoxItem{
+    VerticalContentAlignment: Center;
+    HorizontalContentAlignment: Center;
+    Padding: 0;
+    Transitions:[
+        var(stForeground);
+    ]
+    [[
+        /template/ ContentPresenter>TextBlock{
+            Transitions:[
+                var(stFontSize);
+            ]
+        }
+        :selected{
+            FontWeight: Bold;
+            Foreground: var(Accent);
+        }
+        :selected /template/ ContentPresenter>TextBlock{
+            FontSize: 16;
+        }
+    ]]
+}
+
+
+// ResourcesPage
+ResourcesPage{
+    [[
+        ResourcesPage Border#Border1, ResourcesPage Border#Border2{
+            Margin: 20;
+            Width: 150;
+            Height: 150;
+            BorderThickness: 1;
+            CornerRadius: 6;
+            Background: var(control-back);
+            BorderBrush: var(control-border);
+            BoxShadow: var(popup-shadow);
+            [[
+                :pointerover{
+                    BoxShadow: 0 10 40 0 #4666;
+                }
+            ]]
+        }
+        ResourcesPage Border#Border2{
+            BoxShadow: 0 10 20 0 #2666;
+            Transitions:[
+                BoxShadowsTransition(Border.BoxShadow 0.2);
+            ]
+        }
+    ]]
+}
+
+
+// SplitView
+
+
+
+// TextBoxPage
+TextBoxPage TextBox, TextBoxPage AutoCompleteBox{
     HorizontalAlignment:Left;
     MinWidth:150;
 }

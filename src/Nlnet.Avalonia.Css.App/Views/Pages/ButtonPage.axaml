@@ -107,11 +107,11 @@
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
-            <Button Classes="primary" Content="Primary Button" />
+            <Button Classes="primary" Content="Primary Button" ToolTip.Tip="This is button with classes='Primary'."/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
-            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" />
+            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" ToolTip.Tip="This is button with fluent:ButtonStyles.Style='Accent'."/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Normal button.">

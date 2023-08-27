@@ -92,6 +92,16 @@ public class highlightingNode
         ":today",
         ":hasnodate",
         ":hasnotime",
+        ":overlay",
+        ":compactoverlay",
+        ":compactinline",
+        ":inline",
+        ":lightdismiss",
+        ":closed",
+        ":information",
+        ":success",
+        ":warning",
+        ":error",
     };
 
     private readonly string[] key2 = new[]

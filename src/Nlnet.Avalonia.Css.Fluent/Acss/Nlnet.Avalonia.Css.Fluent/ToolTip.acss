@@ -1,0 +1,20 @@
+﻿^ToolTip {
+    Foreground: var(fore);
+    Background: var(control-back-hover);
+    Padding: 12;
+    Opacity: 1;
+    RenderTransform: none;
+    CornerRadius: 6;
+    ClipToBounds: True;
+    Transitions:[
+        var(stOpacity);
+    ]
+    [[
+         /template/ Popup#PART_Popup{
+            VerticalOffset: -70;
+            HorizontalOffset: -11;
+            Placement:BottomEdgeAlignedLeft;
+            PopupStyles.Style: Fade;
+        }
+    ]]
+}

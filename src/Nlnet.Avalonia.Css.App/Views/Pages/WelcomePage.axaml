@@ -13,7 +13,7 @@
                     Width="200"
                     Height="180"
                     HorizontalAlignment="Left"
-                    IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
+                    IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg"
                     RenderOptions.BitmapInterpolationMode="HighQuality"
                     RenderOptions.EdgeMode="Unspecified" />
         <TextBlock x:Name="PageDescription"

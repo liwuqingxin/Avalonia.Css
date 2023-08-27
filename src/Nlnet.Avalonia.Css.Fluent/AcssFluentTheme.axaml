@@ -5,11 +5,13 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Themes.Acss.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Themes.Acss.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.Senior/Assets/Themes.Acss.axaml" />
                 <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox/Assets/Themes.Acss.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>
+
+    <StyleInclude Source="avares://Nlnet.Avalonia.Css.Controls/Assets/Styles.Acss.axaml" />
 
 </Styles>

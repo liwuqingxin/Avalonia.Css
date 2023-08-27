@@ -31,23 +31,24 @@
             BorderBrush:var(control-border-pressed-fluent);
             Foreground:var(fore-pressed);
         }
-         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+        /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
-         /template/ Popup#PART_Popup{
-            VerticalOffset: -7;
+        /template/ Popup#PART_Popup{
+            VerticalOffset: 3;
             HorizontalOffset: -11;
             Placement:BottomEdgeAlignedLeft;
+            PopupStyles.Style: Slide;
         }
-         /template/ Popup#PART_Popup PopupRoot{
+        /template/ Popup#PART_Popup PopupRoot{
             Background:var(combobox-item-back);
         }
-         /template/ Border#PopupBorder{
+        /template/ Border#PopupBorder{
             Background:var(combobox-item-back);
-            CornerRadius:4;
+            CornerRadius:12;
             Padding:4;
         }
-         /template/ PathIcon#DropDownGlyph{
+        /template/ PathIcon#DropDownGlyph{
             Width:9;
             Height:9;
             Margin:0,0,10,0;

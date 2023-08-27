@@ -1,0 +1,70 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.RecyclePanelPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:avalonia="https://nlnet.com"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription" TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="Recycle Panel">
+            <app:IndependentCase.Settings>
+                <StackPanel Spacing="12">
+                    <CheckBox x:Name="CbxClipToBounds"
+                              HorizontalAlignment="Left"
+                              Content="Clip To Bounds"
+                              IsChecked="True" />
+                    <ComboBox x:Name="ComboBox"
+                              HorizontalAlignment="Stretch"
+                              ItemsSource="{nlnet:Enum system:DayOfWeek}" />
+                </StackPanel>
+            </app:IndependentCase.Settings>
+            <app:IndependentCase.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Template">
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid ColumnDefinitions="Auto,8,Auto">
+                                    <TextBlock Grid.Column="0"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               FontSize="12"
+                                               FontWeight="Normal"
+                                               Foreground="LightGray"
+                                               Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(nlnet:RecyclePanel.ItemIndex), StringFormat=ItemIndex: {0}}" />
+                                    <ContentPresenter Grid.Column="2"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Content="{TemplateBinding Content}" />
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter>
+                </Style>
+            </app:IndependentCase.Styles>
+
+            <Border Height="500">
+                <Border x:Name="OuterBorderOfRecyclePanel"
+                        Width="200"
+                        Height="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ClipToBounds="{Binding #CbxClipToBounds.IsChecked}">
+                    <Panel>
+                        <nlnet:RecyclePanel ItemsSource="{nlnet:Enum system:DayOfWeek}" SelectedItem="{Binding #ComboBox.SelectedItem}" />
+                        <Border x:Name="HighlightBorder" IsHitTestVisible="False" />
+                    </Panel>
+                </Border>
+            </Border>
+        </app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

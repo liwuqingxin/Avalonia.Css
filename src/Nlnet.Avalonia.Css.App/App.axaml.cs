@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -14,7 +15,6 @@ namespace Nlnet.Avalonia.Css.App
         {
             // Referenced libraries.
             AppLoader.Load("Nlnet.Avalonia.Svg.dll");
-            AppLoader.Load("Avalonia.DevTools.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             AcssBuilder.UseDefaultBuilder();
@@ -43,11 +43,11 @@ namespace Nlnet.Avalonia.Css.App
                 var loader = AcssBuilder.Default.BuildLoader();
                 const string debugRelative = "../../src/Nlnet.Avalonia.Css.App/";
 
-                loader.Load(Application.Current.Styles, "Acss/Case.acss", debugRelative, true);
-                loader.Load(Application.Current.Styles, "Acss/CodeEditor.acss", debugRelative, true);
+                loader.Load(Application.Current.Styles, "Acss/Case.acss", $"{debugRelative}Acss/", true);
+                loader.Load(Application.Current.Styles, "Acss/CodeEditor.acss", $"{debugRelative}Acss/", true);
                 
-                AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative, true);
-                loader.Load(Application.Current.Styles, "Acss/pages.acss", debugRelative, true);
+                AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", $"{debugRelative}Acss/", true);
+                loader.Load(Application.Current.Styles, "Acss/pages.acss", $"{debugRelative}Acss/", true);
             }
         }
 

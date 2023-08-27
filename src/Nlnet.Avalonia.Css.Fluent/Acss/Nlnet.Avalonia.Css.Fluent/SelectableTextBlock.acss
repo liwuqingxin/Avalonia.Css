@@ -1,0 +1,3 @@
+﻿^SelectableTextBlock{
+    SelectionBrush: var(Accent06);
+}

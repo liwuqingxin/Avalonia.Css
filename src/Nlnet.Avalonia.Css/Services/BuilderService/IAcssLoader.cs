@@ -14,78 +14,48 @@ public interface IAcssLoader
     public IAcssBuilder AcssBuilder { get; }
 
     /// <summary>
-    /// Load a avalonia acss style from an acss file synchronously.
+    /// Load an avalonia acss style from an acss file. If the <see cref="optionalSyncPath"/> is specified, the file will
+    /// be synchronized to that path when the origin file changed.
     /// </summary>
     /// <param name="owner"></param>
     /// <param name="filePath"></param>
+    /// <param name="optionalSyncPath"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public IAcssFile? Load(Styles owner, string filePath, bool autoReloadWhenFileChanged = true);
-    
+    public IAcssFile? Load(Styles owner, string filePath, string? optionalSyncPath = null, bool autoReloadWhenFileChanged = true);
+
     /// <summary>
-    /// Load a avalonia acss style from an acss file asynchronously.
+    /// Begin loading an avalonia acss style from an acss file. If the <see cref="optionalSyncPath"/> is specified, the
+    /// file will be synchronized to that path when the origin file changed.
     /// </summary>
     /// <param name="owner"></param>
     /// <param name="filePath"></param>
+    /// <param name="optionalSyncPath"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public IAcssFile? BeginLoad(Styles owner, string filePath, bool autoReloadWhenFileChanged = true);
+    public IAcssFile? BeginLoad(Styles owner, string filePath, string? optionalSyncPath= null, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
     /// Load avalonia acss styles from an folder synchronously. Note that this does not load recursively.
+    /// If the <see cref="optionalSyncPath"/> is specified, the file will be synchronized to that path when the origin
+    /// file changed.
     /// </summary>
     /// <param name="owner"></param>
     /// <param name="folderPath"></param>
+    /// <param name="optionalSyncPath"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public IEnumerable<IAcssFile> LoadFolder(Styles owner, string folderPath, bool autoReloadWhenFileChanged = true);
+    public IEnumerable<IAcssFile> LoadFolder(Styles owner, string folderPath, string? optionalSyncPath= null, bool autoReloadWhenFileChanged = true);
 
     /// <summary>
-    /// Load avalonia acss styles from an folder synchronously. Note that this does not load recursively.
+    /// Begin loading avalonia acss styles from an folder synchronously. Note that this does not load recursively.
+    /// If the <see cref="optionalSyncPath"/> is specified, the file will be synchronized to that path when the origin
+    /// file changed.
     /// </summary>
     /// <param name="owner"></param>
     /// <param name="folderPath"></param>
+    /// <param name="optionalSyncPath"></param>
     /// <param name="autoReloadWhenFileChanged"></param>
     /// <returns></returns>
-    public IEnumerable<IAcssFile> BeginLoadFolder(Styles owner, string folderPath, bool autoReloadWhenFileChanged = true);
-
-    /// <summary>
-    /// Load a avalonia acss style from an acss file with relative path of debug synchronously.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <param name="filePath"></param>
-    /// <param name="debugRelative"></param>
-    /// <param name="autoReloadWhenFileChanged"></param>
-    /// <returns></returns>
-    public IAcssFile? Load(Styles owner, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
-
-    /// <summary>
-    /// Load a avalonia acss style from an acss file with relative path of debug asynchronously.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <param name="filePath"></param>
-    /// <param name="debugRelative"></param>
-    /// <param name="autoReloadWhenFileChanged"></param>
-    /// <returns></returns>
-    public IAcssFile? BeginLoad(Styles owner, string filePath, string debugRelative, bool autoReloadWhenFileChanged = true);
-
-    /// <summary>
-    /// Load avalonia acss styles from an folder synchronously. Note that this does not load recursively.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <param name="folderPath"></param>
-    /// <param name="debugRelative"></param>
-    /// <param name="autoReloadWhenFileChanged"></param>
-    /// <returns></returns>
-    public IEnumerable<IAcssFile> LoadFolder(Styles owner, string folderPath, string debugRelative, bool autoReloadWhenFileChanged = true);
-
-    /// <summary>
-    /// Load avalonia acss styles from an folder synchronously. Note that this does not load recursively.
-    /// </summary>
-    /// <param name="owner"></param>
-    /// <param name="folderPath"></param>
-    /// <param name="debugRelative"></param>
-    /// <param name="autoReloadWhenFileChanged"></param>
-    /// <returns></returns>
-    public IEnumerable<IAcssFile> BeginLoadFolder(Styles owner, string folderPath, string debugRelative, bool autoReloadWhenFileChanged = true);
+    public IEnumerable<IAcssFile> BeginLoadFolder(Styles owner, string folderPath, string? optionalSyncPath= null, bool autoReloadWhenFileChanged = true);
 }

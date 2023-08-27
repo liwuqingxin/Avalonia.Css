@@ -1,7 +1,7 @@
 ﻿TextBlock, AccessText {
     FontFamily: 微软雅黑,宋体;
 //    FontFamily: Nunito,微软雅黑,宋体;
-    FontSize:14;
+//    FontSize:14;
     TextTrimming: @TextTrimming.CharacterEllipsis;
 }
 TextPresenter {

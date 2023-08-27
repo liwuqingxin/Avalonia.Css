@@ -30,6 +30,7 @@
             PlacementMode:Bottom;
             IsLightDismissEnabled:True;
             HorizontalOffset:-1;
+            PopupStyles.Style: Fade;
         }
          /template/ TimePickerPresenter#PART_PickerPresenter{
             MaxHeight:300;

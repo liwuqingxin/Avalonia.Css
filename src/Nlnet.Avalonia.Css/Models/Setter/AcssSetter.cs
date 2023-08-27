@@ -59,7 +59,7 @@ internal class AcssSetter : IAcssSetter
         }
         else
         {
-            value = interpreter.ParseValue(property, RawValue?.Trim());
+            value = interpreter.ParseDynamicValue(property, RawValue?.Trim());
             if (value == null)
             {
                 if (property.PropertyType.IsValueType)

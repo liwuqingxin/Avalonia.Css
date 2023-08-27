@@ -1,0 +1,125 @@
+﻿^NotificationCard{
+    Foreground: var(fore);
+    Background: var(item-back);
+    CornerRadius: 6;
+    UseLayoutRounding: True;
+    Width: 350;
+    FontSize: 14;
+    ClipToBounds: False;
+    RenderTransformOrigin: 50%,75%;
+    [[
+        /template/ LayoutTransformControl#PART_LayoutTransformControl{
+            ClipToBounds: False;
+        }
+        /template/ Border#PART_LayoutRoot{
+            BoxShadow: var(popup-shadow);
+            BorderThickness: 1;
+            Margin: 12,12,12,0;
+            BorderBrush: var(control-border);
+            Transitions:[
+                var(stBoxShadow);
+            ]
+        }
+        /template/ Border#PART_HeaderBar{
+            Width: 2;
+            Height: 24;
+            Margin: 4,0,0,0;
+            Opacity: 0.3;
+            Background: var(Accent);
+            DockPanel.Dock: Left;
+            Transitions:[
+                var(stOpacity);
+            ]
+        }
+        :pointerover /template/ Border#PART_HeaderBar{
+            Opacity: 1;
+        }
+                
+        :information /template/ Border#PART_HeaderBar{
+            Background: var(Accent);
+        }
+        :success /template/ Border#PART_HeaderBar{
+            Background: var(Success);
+        }
+        :warning /template/ Border#PART_HeaderBar{
+            Background: var(Warning);
+        }
+        :error /template/ Border#PART_HeaderBar{
+            Background: var(Error);
+        }   
+        
+        ::animation[desc=enter animation]{
+            Duration:0:0:0.45;
+            FillMode:Forward;
+            Children:[
+                KeyFrame:(0% 0,1,-0.2,1)[
+                    Opacity: 0;
+                    TranslateTransform.X: 550;
+                    TranslateTransform.Y: 50;
+                    ScaleTransform.ScaleX: 0.85;
+                    ScaleTransform.ScaleY: 0.85;
+                ]
+                KeyFrame:(100% 0,1,-0.2,1)[
+                    Opacity: 1;
+                    TranslateTransform.X: 0;
+                    TranslateTransform.Y: 0;
+                    ScaleTransform.ScaleX: 1;
+                    ScaleTransform.ScaleY: 1;
+                ]
+            ]
+        }
+        [IsClosing=True] /template/ Border#PART_LayoutRoot{
+            BoxShadow: none;
+        }
+        [IsClosing=True] /template/ LayoutTransformControl#PART_LayoutTransformControl{
+            RenderTransformOrigin: 50%,0%;
+            [[
+                ::animation[desc=exit animation]{
+                    Duration:0:0:0.75;
+                    FillMode:Forward;
+                    Easing: QuadraticEaseOut;
+                    Children:[
+                        KeyFrame:(0%)[
+                            Opacity: 1;
+                            TranslateTransform.X: 0;
+                            ScaleTransform.ScaleX: 1;
+                            ScaleTransform.ScaleY: 1;
+                        ]
+                        KeyFrame:(20%)[
+                            Opacity: 1;
+                            TranslateTransform.X: 0;
+                            ScaleTransform.ScaleX: 0.94;
+                            ScaleTransform.ScaleY: 0.94;
+                        ]
+                        KeyFrame:(50%)[
+                            Opacity: 1;
+                            TranslateTransform.X: 0;
+                            ScaleTransform.ScaleX: 0.94;
+                            ScaleTransform.ScaleY: 0.94;
+                        ]
+                        KeyFrame:(100%)[
+                            Opacity: 0;
+                            TranslateTransform.X: 400;
+                            ScaleTransform.ScaleX: 0;
+                            ScaleTransform.ScaleY: 0;
+                        ]
+                    ]
+                }            
+            ]]
+        }
+        [IsClosing=True]{
+            [[
+                ::animation[desc=close animation]{
+                    Duration:0:0:1.25;
+                    FillMode:Forward;
+                    Easing: QuadraticEaseOut;
+                    Children:[
+                        KeyFrame:(100%)[
+                            IsClosed: True;
+                        ]
+                    ]
+                }
+            ]]
+        }     
+    ]]
+}

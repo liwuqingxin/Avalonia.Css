@@ -57,9 +57,10 @@
             Fill:var(fore-hover);
         }
          /template/ Popup#PART_Popup {
-            PlacementMode:Right;
+            Placement: RightEdgeAlignedTop;
             IsLightDismissEnabled:false;
             HorizontalOffset:-12;
+            PopupStyles.Style: Slide;
         }
          /template/ Popup#PART_Popup PopupRoot{
             Background:var(combobox-item-back);
@@ -87,26 +88,4 @@ MenuItem{
             Opacity:0.2;
         }
     ]]
-}
-
-^MenuFlyoutPresenter {
-    /* VerticalOffset:-10; */
-    [[
-         /template/ ScrollViewer#PART_ScrollViewer {
-            HorizontalScrollBarVisibility:Disabled;
-            Margin:4;
-        }
-    ]]
-}
-
-^ContextMenu {
-    HorizontalOffset:-10;
-    VerticalOffset:-10;
-    [[
-         /template/ ScrollViewer#PART_ScrollViewer {
-            HorizontalScrollBarVisibility:Disabled;
-            Margin:4;
-        }
-    ]]
-    
 }

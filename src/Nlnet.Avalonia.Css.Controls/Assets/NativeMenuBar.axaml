@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:nlnet="https://www.nlnet.com/avalonia"
+                    x:ClassModifier="internal">
+
+    <nlnet:BitmapToImageConverter x:Key="IBitmapToImageConverter" />
+
+    <!-- TODO Provides Acss style -->
+    <!-- NativeMenuBar -->
+    <ControlTheme x:Key="{x:Type NativeMenuBar}" TargetType="NativeMenuBar">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Menu IsVisible="{Binding !$parent[TopLevel].(NativeMenu.IsNativeMenuExported)}" ItemsSource="{Binding $parent[TopLevel].(NativeMenu.Menu).Items}">
+                    <Menu.Styles>
+                        <Style x:DataType="NativeMenuItem" Selector="MenuItem">
+                            <Setter Property="Header" Value="{Binding Header}" />
+                            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+                            <Setter Property="InputGesture" Value="{Binding Gesture}" />
+                            <Setter Property="ItemsSource" Value="{Binding Menu.Items}" />
+                            <Setter Property="Command" Value="{Binding Command}" />
+                            <Setter Property="CommandParameter" Value="{Binding CommandParameter}" />
+                            <Setter Property="(NativeMenuBar.EnableMenuItemClickForwarding)" Value="True" />
+
+                            <!-- NativeMenuItem is IBitmap and MenuItem is Image -->
+                            <Setter Property="Icon" Value="{Binding Icon, Converter={StaticResource IBitmapToImageConverter}}" />
+                        </Style>
+                    </Menu.Styles>
+                </Menu>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

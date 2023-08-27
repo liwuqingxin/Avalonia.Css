@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+
+    <ControlTheme x:Key="{x:Type AutoCompleteBox}" TargetType="AutoCompleteBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid x:Name="PART_LayoutRoot">
+                    <TextBox x:Name="PART_TextBox"
+                             Padding="{TemplateBinding Padding}"
+                             Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             CornerRadius="{TemplateBinding CornerRadius}"
+                             DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                             FontFamily="{TemplateBinding FontFamily}"
+                             FontSize="{TemplateBinding FontSize}"
+                             FontWeight="{TemplateBinding FontWeight}"
+                             Foreground="{TemplateBinding Foreground}"
+                             Watermark="{TemplateBinding Watermark}" />
+                    <Popup x:Name="PART_Popup"
+                           MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                           PlacementTarget="{TemplateBinding}">
+                        <Border x:Name="PART_SuggestionsContainer" MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ListBox x:Name="PART_SelectingItemsControl" ItemTemplate="{TemplateBinding ItemTemplate}" />
+                        </Border>
+                    </Popup>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

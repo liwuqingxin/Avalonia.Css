@@ -113,7 +113,7 @@
             <Panel>
                 <nlnet:Icon x:Name="WelcomeLogo"
                             nlnet:LoadedMixin.Attach="True"
-                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo-text.svg"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
                             RenderOptions.EdgeMode="Unspecified" />
 
