@@ -6,9 +6,12 @@
         xmlns:nlnet="https://www.nlnet.com/avalonia"
         xmlns:views="clr-namespace:Samples.Views"
         Title="Nlnet.Avalonia.Css.Samples"
+        Width="600"
+        Height="400"
         d:DesignHeight="450"
         d:DesignWidth="800"
         Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
 
     <views:MainView />

@@ -5,15 +5,20 @@
 
     <Application.Resources>
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox.Samples/Assets/MessageBox.axaml" />
+                <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox/Assets/Themes.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
+
+            <!-- Test MessageBox Theme at Local -->
+
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://Nlnet.Avalonia.MessageBox.Samples/Assets/MessageBox.axaml" />
+            </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceInclude x:Key="Dark" Source="avares://Nlnet.Avalonia.MessageBox.Samples/Assets/MessageBox.Dark.axaml"/>
                 <ResourceInclude x:Key="Light" Source="avares://Nlnet.Avalonia.MessageBox.Samples/Assets/MessageBox.Light.axaml"/>
-            </ResourceDictionary.ThemeDictionaries>
+            </ResourceDictionary.ThemeDictionaries>-->
 
         </ResourceDictionary>
     </Application.Resources>
