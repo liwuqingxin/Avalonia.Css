@@ -1,0 +1,25 @@
+<UserControl x:Class="Samples.Views.MainView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Spacing="10">
+            <ComboBox x:Name="CbxImages"
+                      ItemsSource="{nlnet:Enum nlnet:Images}"
+                      SelectedIndex="0" />
+            <ComboBox x:Name="CbxButtons"
+                      ItemsSource="{nlnet:Enum nlnet:Buttons}"
+                      SelectedIndex="0" />
+            <TextBox x:Name="TbxTitle" Text="Nlnet MessageBox" />
+            <TextBox x:Name="TbxMessage" Text="This is MessageBox powered by Acss." />
+            <Button Click="Button_OnClick" Content="Show a message box " />
+            <Button Click="ButtonChangeTheme_OnClick" Content="Change Theme" />
+        </StackPanel>
+    </Grid>
+</UserControl>
