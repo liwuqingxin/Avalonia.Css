@@ -126,17 +126,20 @@
 
         <app:IndependentCase Header="Button with ContextMenu and Flyout.">
             <Button Content="Click to show Flyout or right click to show ContextMenu."
+                    ToolTip.Tip="Click to show Flyout or right click to show ContextMenu."
                     ContextMenu="{StaticResource SharedMenu}"
                     Flyout="{StaticResource SharedMenuFlyout}" />
         </app:IndependentCase>
 
         <app:IndependentCase Header="DropDownButton with Flyout.">
-            <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}" />
+            <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}"
+                            ToolTip.Tip="Drop Down"/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Repeat button.">
             <RepeatButton x:Name="RepeatButton"
                           Click="RepeatButton_OnClick"
+                          ToolTip.Tip="Click And Hold"
                           Content="Click And Hold : 0" />
         </app:IndependentCase>
 

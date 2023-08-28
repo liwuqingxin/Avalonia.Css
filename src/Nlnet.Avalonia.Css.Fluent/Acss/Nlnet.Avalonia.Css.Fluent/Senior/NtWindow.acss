@@ -5,7 +5,8 @@
     ExtendClientAreaToDecorationsHint: True;
     TransparencyBackgroundFallback: Transparent;
     SystemDecorations: Full;
-
+    PopupStyles.Style: Fade;
+    
     Background: var(window-back);
     Foreground: var(fore);
     [[

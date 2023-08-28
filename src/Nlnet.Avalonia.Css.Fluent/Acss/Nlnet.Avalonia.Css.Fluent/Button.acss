@@ -1,5 +1,8 @@
-﻿^Button {
+﻿Button>Popup{
     PopupStyles.Style: Slide;
+}
+
+^Button {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border-fluent);

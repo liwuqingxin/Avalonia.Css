@@ -4,4 +4,5 @@
     Foreground: var(fore);
     TopLevel.SystemBarColor: var(control-back);
     ScrollViewer.IsScrollChainingEnabled: True;
+    PopupStyles.Style: Fade;
 }

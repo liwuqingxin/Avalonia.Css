@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:fluent="https://www.nlnet.com/avalonia"
              RequestedThemeVariant="{x:Static ThemeVariant.Light}">
-
-    <!-- TODO -->
-    <!-- Menu、ToolTip、主界面设置（Flyout）无法应用PopupStyles。 -->
-
+    
     <Application.Styles>
         <FluentTheme />
 

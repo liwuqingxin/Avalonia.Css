@@ -1,6 +1,8 @@
-﻿
-^DropDownButton {
+﻿DropDownButton>Popup{
     PopupStyles.Style: Slide;
+}
+
+^DropDownButton {
     Foreground: var(fore);
     Background: var(control-back);
     BorderBrush:var(control-border-fluent);

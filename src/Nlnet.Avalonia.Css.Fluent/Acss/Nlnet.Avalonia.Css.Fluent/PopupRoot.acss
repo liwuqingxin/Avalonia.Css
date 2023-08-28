@@ -49,13 +49,15 @@
                     KeyFrames:[
                         KeyFrame:(0%)[
                             Opacity:0;
-                            ScaleTransform.ScaleX:0.96;
-                            ScaleTransform.ScaleY:0.96;
+                            ScaleTransform.ScaleX:0.9;
+                            ScaleTransform.ScaleY:0.9;
+                            TranslateTransform.Y:10;
                         ]
                         KeyFrame:(100% 0,1,1,1)[
                             Opacity:1;
                             ScaleTransform.ScaleX:1;
                             ScaleTransform.ScaleY:1;
+                            TranslateTransform.Y:0;
                         ]
                     ]
                 }
