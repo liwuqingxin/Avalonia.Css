@@ -4,7 +4,7 @@ using Avalonia.Styling;
 namespace Nlnet.Avalonia.Css.Test
 {
     [TestClass]
-    public class CssParserTests
+    public class AcssParserTests
     {
         [TestMethod]
         public void RemoveCommentsTest()

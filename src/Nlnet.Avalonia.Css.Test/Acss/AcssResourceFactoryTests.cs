@@ -1,10 +1,10 @@
 namespace Nlnet.Avalonia.Css.Test
 {
     [TestClass]
-    public class ModelTests
+    public class AcssResourceFactoryTests
     {
         [TestMethod]
-        public void ResourceTest()
+        public void ParseResourceTest()
         {
             IAcssBuilder builder = new AcssBuilder();
             builder.ResourceFactory.TryGetResourceInstance("brush(info)", " Blue 0.4", out var resource);

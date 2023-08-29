@@ -4,7 +4,7 @@ using Avalonia.Styling;
 namespace Nlnet.Avalonia.Css.Test
 {
     [TestClass]
-    public class InterpreterHelperTests
+    public class AcssInterpreterTests
     {
         [TestMethod]
         public void ParseSettersTest()

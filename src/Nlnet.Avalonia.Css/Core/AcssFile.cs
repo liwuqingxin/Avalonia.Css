@@ -22,12 +22,11 @@ namespace Nlnet.Avalonia.Css
         /// <param name="acssBuilder"></param>
         /// <param name="owner"></param>
         /// <param name="standardFilePath"></param>
-        /// <param name="optionalSyncPath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        internal static AcssFile TryLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile TryLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, optionalSyncPath, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.Load(owner, false);
             return styleFile;
         }
@@ -38,17 +37,16 @@ namespace Nlnet.Avalonia.Css
         /// <param name="acssBuilder"></param>
         /// <param name="owner"></param>
         /// <param name="standardFilePath"></param>
-        /// <param name="optionalSyncPath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
-        internal static AcssFile TryBeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile TryBeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
-            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, optionalSyncPath, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.BeginLoad(owner, false);
             return styleFile;
         }
 
-        private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged)
+        private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
@@ -65,7 +63,7 @@ namespace Nlnet.Avalonia.Css
                 throw new FileNotFoundException($"Can not find the acss file '{standardFilePath}'.");
             }
 
-            return new AcssFile(acssBuilder, owner, standardFilePath, optionalSyncPath, autoLoadWhenFileChanged);
+            return new AcssFile(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
         }
 
         #endregion
@@ -78,12 +76,11 @@ namespace Nlnet.Avalonia.Css
         private          CompositeDisposable?     _disposable;
         private          IEnumerable<IAcssStyle>? _acssStyles;
 
-        private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged)
+        private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
             _acssBuilder     = acssBuilder;
             _owner           = owner;
             StandardFilePath = standardFilePath;
-            OptionalSyncPath = optionalSyncPath;
 
             var dir = Path.GetDirectoryName(standardFilePath);
             if (autoLoadWhenFileChanged && dir != null)
@@ -116,26 +113,6 @@ namespace Nlnet.Avalonia.Css
                 //
                 Task.Delay(20).ContinueWith(t =>
                 {
-                    if (string.IsNullOrEmpty(OptionalSyncPath) == false)
-                    {
-                        try
-                        {
-                            var filename = Path.GetFileName(StandardFilePath);
-                            var syncFilePath = Path.Combine(OptionalSyncPath, filename);
-                            var standardPath = syncFilePath.GetStandardPath();
-                            if (standardPath == StandardFilePath)
-                            {
-                                this.WriteWarning("The optional sync path is same as the acss file path. Skip it.");
-                                return;
-                            }
-                            File.Copy(StandardFilePath, syncFilePath, true);
-                        }
-                        catch (Exception exception)
-                        {
-                            this.WriteError(exception.ToString());
-                        }
-                    }
-                
                     BeginLoad(_owner, true);
                 });
                 
@@ -293,8 +270,6 @@ namespace Nlnet.Avalonia.Css
         #region IAcssFile
 
         public string StandardFilePath { get; }
-        
-        public string? OptionalSyncPath { get; }
 
         public void Reload(bool reapplyStyle)
         {
