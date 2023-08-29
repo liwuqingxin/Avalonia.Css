@@ -35,7 +35,7 @@
             Spacing:4;
         }
         /template/ Popup#PART_Popup{
-            VerticalOffset: 3;
+            VerticalOffset: 0;
             HorizontalOffset: -11;
             Placement:BottomEdgeAlignedLeft;
             PopupStyles.Style: Slide;

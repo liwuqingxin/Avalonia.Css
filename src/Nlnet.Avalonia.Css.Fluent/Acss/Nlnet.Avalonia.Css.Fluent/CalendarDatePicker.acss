@@ -44,7 +44,7 @@
         }
         /template/ Popup#PART_Popup{
             IsLightDismissEnabled:true;
-            VerticalOffset: 3;
+            VerticalOffset: 0;
             HorizontalOffset: -10.5;
             Placement:BottomEdgeAlignedLeft;
             PopupStyles.Style: Slide;

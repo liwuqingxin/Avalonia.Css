@@ -59,10 +59,14 @@
             [[
                 >ListBoxItem{
                     Padding:8,0;
+                    Margin: 4,0;
                     RenderTransform:none;
                     Transitions:[
                         var(stRenderTransform);
                     ]
+                }
+                >ListBoxItem /template/ ContentPresenter#PART_ContentPresenter{
+                    Margin: 0,2;
                 }
                 >ListBoxItem:pressed{
                     RenderTransform:scale(0.97,0.97);
