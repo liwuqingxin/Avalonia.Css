@@ -26,7 +26,6 @@
             Background:var(combobox-item-back);
         }
         /template/ Border#PART_SuggestionsContainer{
-            Padding: 4;
             Background: Transparent;
             BorderThickness: 0;
             BorderBrush: Transparent;
