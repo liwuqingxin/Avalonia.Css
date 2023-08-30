@@ -4,6 +4,7 @@
              xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -24,20 +25,28 @@
         </app:IndependentCase>
 
         <app:IndependentCase Header="Motion.">
+            <app:IndependentCase.Settings>
+                <Slider x:Name="SliderPercent"
+                        Width="200"
+                        Maximum="100"
+                        Minimum="0" />
+            </app:IndependentCase.Settings>
             <StackPanel HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="50">
                 <Panel>
-                    <Border x:Name="Border3" Classes="Border">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
-                        </StackPanel>
-                    </Border>
+                    <nlnet:ExpandingDecorator x:Name="ExpandingDecorator" Percent="{Binding #SliderPercent.Value}">
+                        <Border x:Name="Border3" Classes="Border">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="This is text" TextWrapping="Wrap" />
+                                <TextBlock Text="This is text" TextWrapping="Wrap" />
+                                <TextBlock Text="This is text" TextWrapping="Wrap" />
+                                <TextBlock Text="This is text" TextWrapping="Wrap" />
+                                <TextBlock Text="This is text" TextWrapping="Wrap" />
+                                <TextBlock Text="This is text" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                    </nlnet:ExpandingDecorator>
                 </Panel>
             </StackPanel>
         </app:IndependentCase>

@@ -162,6 +162,11 @@ ResourcesPage{
             ]
         }
         
+        ResourcesPage ExpandingDecorator#ExpandingDecorator{
+            Transitions:[
+                DoubleTransition(ExpandingDecorator.Percent 0.4);
+            ]
+        }
         ResourcesPage Border#Border3{
             
         }
