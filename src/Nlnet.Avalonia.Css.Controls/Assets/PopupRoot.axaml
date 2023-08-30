@@ -6,14 +6,14 @@
     <ControlTheme x:Key="{x:Type PopupRoot}" TargetType="PopupRoot">
         <Setter Property="PopupRoot.Template">
             <ControlTemplate TargetType="PopupRoot">
-                <VisualLayerManager IsPopup="True">
+                <nlnet:ClickableVisualLayerManager IsPopup="True">
                     <nlnet:RollingBorder x:Name="PopupBorder" Background="{TemplateBinding Background}">
                         <ContentPresenter Name="PART_ContentPresenter"
                                           Padding="{TemplateBinding Padding}"
                                           Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}" />
                     </nlnet:RollingBorder>
-                </VisualLayerManager>
+                </nlnet:ClickableVisualLayerManager>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
