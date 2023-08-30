@@ -38,7 +38,7 @@
             VerticalOffset: 0;
             HorizontalOffset: -11;
             Placement:BottomEdgeAlignedLeft;
-            PopupStyles.Style: Slide;
+            PopupStyles.Style: Roll;
         }
         /template/ Popup#PART_Popup PopupRoot{
             Background:var(combobox-item-back);

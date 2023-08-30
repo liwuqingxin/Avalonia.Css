@@ -1,7 +1,7 @@
 ﻿^PopupRoot {
     Background:var(item-back);
     [[
-        /template/ Border#PopupBorder{
+        /template/ RollingBorder#PopupBorder{
             CornerRadius: 6;
             BorderThickness: 1;
             Margin: 10,3,10,30;
@@ -10,7 +10,32 @@
             Padding:0;
             RenderTransformOrigin:0%,0%;
         }
-        [(PopupStyles.Style)=Slide] /template/ Border#PopupBorder{
+        [(PopupStyles.Style)=Roll] /template/ RollingBorder#PopupBorder{
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:.4';
+                    KeyFrames:[
+                        KeyFrame:(0% 0,1,0.5,1)[
+                            Percent: 50;                            
+                            BoxShadow: var(popup-none);
+                        ]
+                        KeyFrame:(40%)[
+                            BoxShadow: var(popup-none);
+                        ]
+                        KeyFrame:(90% 0,0.3,1,1)[
+                            Percent: 100;
+                        ]
+                        KeyFrame:(100%)[
+                            Percent: 100;
+                            BoxShadow: var(popup-shadow);
+                        ]
+                    ]
+                }
+            ]] 
+        }
+        [(PopupStyles.Style)=Slide] /template/ RollingBorder#PopupBorder{
             Opacity:0;
             [[
                 ::animation{
@@ -23,7 +48,7 @@
                             TranslateTransform.Y:-220;
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(60% 0,1,0.5,1)[
+                        KeyFrame:(40% 0,1,0.5,1)[
                             BoxShadow: var(popup-none);
                         ]
                         KeyFrame:(80% 0,1,0.5,1)[
@@ -39,7 +64,7 @@
                 }
             ]] 
         }
-        [(PopupStyles.Style)=Fade] /template/ Border#PopupBorder{
+        [(PopupStyles.Style)=Fade] /template/ RollingBorder#PopupBorder{
             Opacity:0;
             BoxShadow: var(popup-shadow);
             RenderTransformOrigin: 50%,50%;

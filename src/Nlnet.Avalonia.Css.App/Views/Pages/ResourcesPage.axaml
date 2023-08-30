@@ -35,7 +35,7 @@
                         Orientation="Horizontal"
                         Spacing="50">
                 <Panel>
-                    <nlnet:ExpandingDecorator x:Name="ExpandingDecorator" Percent="{Binding #SliderPercent.Value}">
+                    <nlnet:RollingBorder x:Name="RollingBorder" Percent="{Binding #SliderPercent.Value}">
                         <Border x:Name="Border3" Classes="Border">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Text="This is text" TextWrapping="Wrap" />
@@ -46,7 +46,7 @@
                                 <TextBlock Text="This is text" TextWrapping="Wrap" />
                             </StackPanel>
                         </Border>
-                    </nlnet:ExpandingDecorator>
+                    </nlnet:RollingBorder>
                 </Panel>
             </StackPanel>
         </app:IndependentCase>
