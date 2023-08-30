@@ -23,10 +23,12 @@
                             TranslateTransform.Y:-220;
                             BoxShadow: var(popup-none);
                         ]
+                        KeyFrame:(60% 0,1,0.5,1)[
+                            BoxShadow: var(popup-none);
+                        ]
                         KeyFrame:(80% 0,1,0.5,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
-                            BoxShadow: var(popup-none);
                         ]
                         KeyFrame:(100%)[
                             Opacity:1;
@@ -35,7 +37,7 @@
                         ]
                     ]
                 }
-            ]]
+            ]] 
         }
         [(PopupStyles.Style)=Fade] /template/ Border#PopupBorder{
             Opacity:0;
@@ -51,7 +53,7 @@
                             Opacity:0;
                             ScaleTransform.ScaleX:0.9;
                             ScaleTransform.ScaleY:0.9;
-                            TranslateTransform.Y:10;
+                            TranslateTransform.Y:-4;
                         ]
                         KeyFrame:(100% 0,1,1,1)[
                             Opacity:1;

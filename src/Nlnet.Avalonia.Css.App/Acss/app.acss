@@ -7,6 +7,16 @@ NtWindow#RootWindow{
     WindowStartupLocation:CenterScreen;
     .acss:window.esc.close;
     [[
+        // Setting Button
+        NtWindow DropDownButton#SettingButton{
+            BorderThickness: 1;
+            BorderBrush: var(window-back);
+            Background: var(window-back);
+        }
+        NtWindow DropDownButton#SettingButton:pointerover{
+            BorderBrush: var(control-border);
+        }
+    
         // Title root.
         NtWindow Grid#TitleRoot{
             Height: 80;

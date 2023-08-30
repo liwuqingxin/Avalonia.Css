@@ -16,10 +16,29 @@
             <StackPanel HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="50">
-                <Border x:Name="Border1" />
+                <Border x:Name="Border1" Classes="Border" />
                 <Border Background="White">
-                    <Border x:Name="Border2" />
+                    <Border x:Name="Border2" Classes="Border" />
                 </Border>
+            </StackPanel>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Motion.">
+            <StackPanel HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="50">
+                <Panel>
+                    <Border x:Name="Border3" Classes="Border">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="This is text" TextWrapping="Wrap"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Panel>
             </StackPanel>
         </app:IndependentCase>
 

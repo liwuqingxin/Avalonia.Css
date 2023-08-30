@@ -72,8 +72,8 @@
 
 
 	/* Shadow */
-	BoxShadow(popup-none): 0 0 0 0 #2666;
-	BoxShadow(popup-shadow): 0 10 20 0 #2666;
+	BoxShadow(popup-none): 0 0 0 0 #3666;
+	BoxShadow(popup-shadow): 0 10 20 0 #3666;
 }
 
 ::res[mode=dark][desc=暗色资源] {

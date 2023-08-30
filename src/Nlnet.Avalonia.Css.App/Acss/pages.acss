@@ -140,12 +140,12 @@ RecyclePanelPage RecyclePanel>ListBoxItem{
 // ResourcesPage
 ResourcesPage{
     [[
-        ResourcesPage Border#Border1, ResourcesPage Border#Border2{
+        ResourcesPage Border.Border{
             Margin: 20;
             Width: 150;
             Height: 150;
             BorderThickness: 1;
-            CornerRadius: 6;
+            CornerRadius: 12;
             Background: var(control-back);
             BorderBrush: var(control-border);
             BoxShadow: var(popup-shadow);
@@ -160,6 +160,10 @@ ResourcesPage{
             Transitions:[
                 BoxShadowsTransition(Border.BoxShadow 0.2);
             ]
+        }
+        
+        ResourcesPage Border#Border3{
+            
         }
     ]]
 }

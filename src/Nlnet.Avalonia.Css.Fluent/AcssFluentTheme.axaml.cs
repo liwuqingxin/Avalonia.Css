@@ -47,9 +47,9 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             const string debugRelative = "../../src/Nlnet.Avalonia.Css.Fluent/";
 
-            _modeFile     = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Mode.acss",      $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources");
-            _themeFile    = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss",     $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources");
-            _resourceFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Resources.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources");
+            _modeFile     = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Mode.acss",      $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Mode.acss");
+            _themeFile    = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss",     $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss");
+            _resourceFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Resources.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Resources.acss");
 
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/");    
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/Senior", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Senior");
