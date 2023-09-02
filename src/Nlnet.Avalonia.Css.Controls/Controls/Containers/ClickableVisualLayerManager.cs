@@ -16,21 +16,24 @@ public class ClickableVisualLayerManager : VisualLayerManager
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
-
-        var popupRoot = this.FindAncestorOfType<PopupRoot>();
+        
+        var popupRoot = this.TemplatedParent as PopupRoot;
         if (popupRoot?.Parent is not Popup popup)
         {
+            e.Handled = true;
             return;
         }
 
         if (this.Child is not Visual visual)
         {
+            e.Handled = true;
             return;
         }
 
-        var point = e.GetPosition(visual);
-        if (visual.Bounds.Contains(point))
+        var point = e.GetPosition(this);
+        if (this.Bounds.Contains(point))
         {
+            e.Handled = true;
             return;
         }
         
