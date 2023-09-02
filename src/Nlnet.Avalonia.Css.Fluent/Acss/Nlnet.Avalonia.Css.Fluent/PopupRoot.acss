@@ -21,10 +21,10 @@
                             Percent: 50;                            
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(40%)[
+                        KeyFrame:(60%)[
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(90% 0,0.3,1,1)[
+                        KeyFrame:(60% 0,0.3,1,1)[
                             Percent: 100;
                         ]
                         KeyFrame:(100%)[
@@ -48,10 +48,10 @@
                             TranslateTransform.Y:-220;
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(40% 0,1,0.5,1)[
+                        KeyFrame:(50% 0,1,0.5,1)[
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(80% 0,1,0.5,1)[
+                        KeyFrame:(50% 0,1,0.5,1)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                         ]
