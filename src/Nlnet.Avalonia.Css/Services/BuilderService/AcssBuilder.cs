@@ -53,10 +53,10 @@ public class AcssBuilder : IAcssBuilder
     
     public AcssBuilder()
     {
-        _parser          = new AcssParser(this);
         _interpreter     = new AcssInterpreter(this);
         _sectionFactory  = new AcssSectionFactory(this);
         _resourceFactory = new AcssResourceFactory(this);
+        _parser          = new AcssParser(this._sectionFactory);
     }
 
 
@@ -65,10 +65,10 @@ public class AcssBuilder : IAcssBuilder
 
     private IAcssBuilder Internal => (IAcssBuilder)this;
 
-    private readonly IAcssParser _parser;
     private readonly IAcssInterpreter _interpreter;
     private readonly IAcssSectionFactory _sectionFactory;
     private readonly IAcssResourceFactory _resourceFactory;
+    private readonly IAcssParser _parser;
 
 
 

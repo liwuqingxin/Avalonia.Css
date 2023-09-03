@@ -544,7 +544,7 @@ namespace Nlnet.Avalonia.Css
             shouldDefer = false;
             keys = null;
 
-            var match = _linearRegex.Match(valueString);
+            var match = _linearRegex.Match(valueString.Replace('\r', ' ').Replace('\n', ' '));
             if (!match.Success)
             {
                 return null;

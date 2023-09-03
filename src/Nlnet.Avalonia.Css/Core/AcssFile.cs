@@ -75,6 +75,7 @@ namespace Nlnet.Avalonia.Css
         private readonly FileSystemWatcher?       _watcher;
         private          CompositeDisposable?     _disposable;
         private          IEnumerable<IAcssStyle>? _acssStyles;
+        private AcssTokens? _tokens;
 
         private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
@@ -130,15 +131,14 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var parser = _acssBuilder.Parser;
-                var acssContent = File.ReadAllText(StandardFilePath);
-                var acssSpan = parser.RemoveCommentsAndLineBreaks(acssContent.ToCharArray());
-                var sections = parser.ParseSections(null, acssSpan).ToList();
-                var acssStyles = sections.OfType<IAcssStyle>().Where(s => !s.IsThemeChild).ToList();
-                var acssThemeChildStyles = sections.OfType<IAcssStyle>().Where(s => s.IsThemeChild).ToList();
-                var acssDictionaryList = sections.OfType<IAcssResourceDictionary>();
+                var acssSource = File.ReadAllText(StandardFilePath);
+                _tokens = AcssTokens.Get(_acssBuilder, acssSource);
 
-                _acssStyles = sections.OfType<IAcssStyle>();
+                var acssStyles = _tokens.GetNormalStyles().ToList();
+                var acssThemeChildStyles = _tokens.GetThemeStyles().ToList();
+                var acssDictionaryList = _tokens.GetResourceDictionaries().ToList();
+
+                _acssStyles = _tokens.GetStyles();
 
                 // Normal styles.
                 foreach (var acssStyle in acssStyles)

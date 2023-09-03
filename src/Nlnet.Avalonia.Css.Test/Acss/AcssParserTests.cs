@@ -1,31 +1,50 @@
 using System.Diagnostics;
-using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css.Test
 {
     [TestClass]
     public class AcssParserTests
     {
-        [TestMethod]
-        public void RemoveCommentsTest()
+        private class AcssSectionFactoryForTest : IAcssSectionFactory
+        {
+            public IAcssSection Build(IAcssParser parser, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
+            {
+                return null!;
+            }
+        }
+
+        private static IAcssParser GetParserForTest()
+        {
+            var parser = new AcssParser(new AcssSectionFactoryForTest());
+            return parser;
+        }
+        
+        private static IAcssParser GetParser()
         {
             IAcssBuilder builder = new AcssBuilder();
-            var         parser  = builder.Parser;
+            var parser = builder.Parser;
+            return parser;
+        }
+        
+        [TestMethod]
+        public void TestRemoveComments()
+        {
+            var parser = GetParserForTest();
 
-            var s1 = parser.RemoveCommentsAndLineBreaks("/**/abc".ToCharArray());
-            var s2 = parser.RemoveCommentsAndLineBreaks("a/*abc*/bc".ToCharArray());
-            var s3 = parser.RemoveCommentsAndLineBreaks("abc/*abc*/".ToCharArray());
-            var s4 = parser.RemoveCommentsAndLineBreaks("abc//*abc*/".ToCharArray());
-            var s5 = parser.RemoveCommentsAndLineBreaks("abc/*a/bc*/".ToCharArray());
-            var s6 = parser.RemoveCommentsAndLineBreaks("abc/*a/*bc*/".ToCharArray());
-            var s7 = parser.RemoveCommentsAndLineBreaks("abc/*a*/bc*/-".ToCharArray());
-            var s8 = parser.RemoveCommentsAndLineBreaks("abc/*abc**//-".ToCharArray());
-            var s9 = parser.RemoveCommentsAndLineBreaks("ab/*c//asdf*/asd".ToCharArray());
-            var s10 = parser.RemoveCommentsAndLineBreaks("a//bc\rdef".ToCharArray());
-            var s11 = parser.RemoveCommentsAndLineBreaks("abc//d\nef".ToCharArray());
-            var s12 = parser.RemoveCommentsAndLineBreaks("ab//c\r\ndef".ToCharArray());
-
-
+            var s1 = parser.RemoveComments("/**/abc".ToCharArray());
+            var s2 = parser.RemoveComments("a/*abc*/bc".ToCharArray());
+            var s3 = parser.RemoveComments("abc/*abc*/".ToCharArray());
+            var s4 = parser.RemoveComments("abc//*abc*/".ToCharArray());
+            var s5 = parser.RemoveComments("abc/*a/bc*/".ToCharArray());
+            var s6 = parser.RemoveComments("abc/*a/*bc*/".ToCharArray());
+            var s7 = parser.RemoveComments("abc/*a*/bc*/-".ToCharArray());
+            var s8 = parser.RemoveComments("abc/*abc**//-".ToCharArray());
+            var s9 = parser.RemoveComments("ab/*c//asdf*/asd".ToCharArray());
+            var s10 = parser.RemoveComments("a//bc\rdef".ToCharArray());
+            var s11 = parser.RemoveComments("abc//d\nef".ToCharArray());
+            var s12 = parser.RemoveComments("ab//c\r\ndef".ToCharArray());
+            var s13 = parser.RemoveComments("ab//c\r\n//d\rdef\nghi\r\njk\n\rlmn".ToCharArray());
+            
             Assert.AreEqual(s1.ToString(), "abc");
             Assert.AreEqual(s2.ToString(), "abc");
             Assert.AreEqual(s3.ToString(), "abc");
@@ -35,44 +54,89 @@ namespace Nlnet.Avalonia.Css.Test
             Assert.AreEqual(s7.ToString(), "abc-");
             Assert.AreEqual(s8.ToString(), "abc/-");
             Assert.AreEqual(s9.ToString(), "abasd");
-            Assert.AreEqual(s10.ToString(), "adef");
-            Assert.AreEqual(s11.ToString(), "abcef");
-            Assert.AreEqual(s12.ToString(), "ab def");
+            Assert.AreEqual(s10.ToString(), "a\rdef");
+            Assert.AreEqual(s11.ToString(), "abc\nef");
+            Assert.AreEqual(s12.ToString(), "ab\r\ndef");
+            Assert.AreEqual(s13.ToString(), "ab\r\n\rdef\nghi\r\njk\n\rlmn");
         }
 
         [TestMethod]
-        public void EfficientCssParserTest()
+        public void TestParseImportsAndRelies()
         {
-            IAcssBuilder builder  = new AcssBuilder();
+            // TODO 9.3
+        }
+        
+        [TestMethod]
+        public void TestParseCollectionObjects()
+        {
+            var parser = GetParserForTest();
 
-            var parser   = builder.Parser;
-            var cssFile  = File.ReadAllText("./Assets/nlnet.blog.css");
-            var sections = parser.ParseSections(null, cssFile);
-            var styles   = sections.OfType<IAcssStyle>();
-
-            foreach (var acssStyle in styles)
-            {
-                Trace.WriteLine(acssStyle.ToString());
-            }
+            var s1 = parser.ParseCollectionObjects("children1[ Background: Red;  Foreground: Green; \r\n]\r\nchildren2[ \r\nBackground: Red;  Foreground: Green; ]").ToList();
+            var s2 = parser.ParseCollectionObjects(" children1 \r\n[\r\n Background: Red;  Foreground: Green; ]children2 [ Background: Red;  Foreground: Green; ]").ToList();
+            
+            // foreach (var tuple in s1)
+            // {
+            //     Trace.WriteLine($"'{tuple.Item1}', '{tuple.Item2}'");
+            // }
+            
+            Assert.AreEqual(s1.Count, 2);
+            Assert.AreEqual(s1[0].Item1, "children1");
+            Assert.AreEqual(s1[0].Item2, "Background: Red;  Foreground: Green;");
+            Assert.AreEqual(s1[1].Item1, "children2");
+            Assert.AreEqual(s1[1].Item2, "Background: Red;  Foreground: Green;");
+            
+            Assert.AreEqual(s2.Count, 2);
+            Assert.AreEqual(s2[0].Item1, "children1");
+            Assert.AreEqual(s2[0].Item2, "Background: Red;  Foreground: Green;");
+            Assert.AreEqual(s2[1].Item1, "children2");
+            Assert.AreEqual(s2[1].Item2, "Background: Red;  Foreground: Green;");
         }
 
         [TestMethod]
-        public void TypeProviderTest()
+        public void TestParseSections()
         {
-            IAcssBuilder builder  = new AcssBuilder();
+            // TODO 9.3
+        }
 
-            var acssFile  = File.ReadAllText("./Assets/avalonia.controls.css");
-            var parser   = builder.Parser;
-            var css      = parser.RemoveCommentsAndLineBreaks(new Span<char>(acssFile.ToCharArray()));
-            var sections = parser.ParseSections(null, css);
-            var styles   = sections.OfType<IAcssStyle>();
+        [TestMethod]
+        public void TestParseSettersAndChildren()
+        {
+            var parser = GetParserForTest();
 
-            foreach (var acssStyle in styles)
-            {
-                var style    = acssStyle.ToAvaloniaStyle();
-                var selector = style!.Selector;
-                Trace.WriteLine(selector != null ? selector.ToString() : "<selector is null.>");
-            }
+            parser.ParseSettersAndChildren("background: red;children :\r\n[\r\nvar(stBack); var(stFore); \r\nvar(stBorder)\r\n]\r\n[[\r\n selector{background:red;fore:green} \r\n]] foreground: yellow", out var s1, out var s2);
+            
+            Assert.AreEqual(s1.ToString(), "background: red;children :\r\n[\r\nvar(stBack); var(stFore); \r\nvar(stBorder)\r\n]\r\n");
+            Assert.AreEqual(s2.ToString(), "\r\n selector{background:red;fore:green} \r\n");
+        }
+
+        [TestMethod]
+        public void TestParsePairs()
+        {
+            var parser = GetParserForTest();
+
+            var s1 = parser.ParsePairs("Backgroud:red").ToList();
+            var s2 = parser.ParsePairs("Backgroud:red;  \r\nforeground \r\n :  \r\ngreen; margin \r\n:12,2,2,1 \r\n").ToList();
+            var s3 = parser.ParsePairs("Backgroud:red; fore:green;children :\r\n[\r\nvar(stBack); var(stFore); \r\nvar(stBorder)\r\n]").ToList();
+            
+            Assert.AreEqual(s1.Count, 1);
+            Assert.AreEqual(s1[0].Item1, "Backgroud");
+            Assert.AreEqual(s1[0].Item2, "red");
+            
+            Assert.AreEqual(s2.Count, 3);
+            Assert.AreEqual(s2[0].Item1, "Backgroud");
+            Assert.AreEqual(s2[0].Item2, "red");
+            Assert.AreEqual(s2[1].Item1, "foreground");
+            Assert.AreEqual(s2[1].Item2, "green");
+            Assert.AreEqual(s2[2].Item1, "margin");
+            Assert.AreEqual(s2[2].Item2, "12,2,2,1");
+            
+            Assert.AreEqual(s3.Count, 3);
+            Assert.AreEqual(s3[0].Item1, "Backgroud");
+            Assert.AreEqual(s3[0].Item2, "red");
+            Assert.AreEqual(s3[1].Item1, "fore");
+            Assert.AreEqual(s3[1].Item2, "green");
+            Assert.AreEqual(s3[2].Item1, "children");
+            Assert.AreEqual(s3[2].Item2, "[\r\nvar(stBack); var(stFore); \r\nvar(stBorder)\r\n]");
         }
     }
 }

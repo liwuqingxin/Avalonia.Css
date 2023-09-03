@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Nlnet.Avalonia.Css;
 
 internal class AcssParser : IAcssParser
 {
-    private readonly IAcssBuilder _builder;
+    private readonly IAcssSectionFactory _sectionFactory;
 
-    public AcssParser(IAcssBuilder builder)
+    public AcssParser(IAcssSectionFactory sectionFactory)
     {
-        _builder = builder;
+        _sectionFactory = sectionFactory;
     }
 
-    public ReadOnlySpan<char> RemoveCommentsAndLineBreaks(Span<char> span)
+    public ReadOnlySpan<char> RemoveComments(Span<char> span)
     {
         var builder = new StringBuilder();
         var index = 0;
@@ -50,7 +51,7 @@ internal class AcssParser : IAcssParser
                     break;
                 case '\r':
                 case '\n':
-                    span[i] = ' ';
+                    // span[i] = ' ';
                     break;
                 default:
                     break;
@@ -65,6 +66,7 @@ internal class AcssParser : IAcssParser
         return builder.ToString();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool Check(ReadOnlySpan<char> s, int index, char ch)
     {
         if (index < 0 || index >= s.Length)
@@ -74,20 +76,88 @@ internal class AcssParser : IAcssParser
 
         return s[index] == ch;
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool Check(ReadOnlySpan<char> s, int index, string slice)
+    {
+        if (index < 0 || index + slice.Length - 1 >= s.Length)
+        {
+            return false;
+        }
 
-    private static int SkipTill(Span<char> span, int cur, params char[] chars)
+        return s.Slice(index, slice.Length) == slice;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int SkipTill(ReadOnlySpan<char> span, int cur, params char[] chars)
     {
         for (var i = cur; i < span.Length; i++)
         {
             if (chars.Contains(span[i]))
             {
-                return i + 1;
+                return i;
             }
         }
 
         return -1;
     }
 
+    public void ParseImportsAndRelies(
+        ReadOnlySpan<char> span,
+        out IEnumerable<string> imports,
+        out IEnumerable<string> relies,
+        out ReadOnlySpan<char> contentSpan)
+    {
+        var index = 0;
+
+        var importList = new List<string>();
+        var relyList = new List<string>();
+
+        imports = importList;
+        relies = relyList;
+
+        for (var i = 0; i < span.Length; i++)
+        {
+            switch (span[i])
+            {
+                case 'i':
+                    if (Check(span, i, "import "))
+                    {
+                        var iTo = SkipTill(span, i, ';', '\r', '\n');
+                        if (iTo == -1)
+                        {
+                            contentSpan = ReadOnlySpan<char>.Empty;
+                            return;
+                        }
+
+                        var importValue = span.Slice(index, iTo - index);
+                        importList.Add(importValue.ToString());
+
+                        index = iTo;
+                        i = index - 1;
+                    }
+                    break;
+                case '\r':
+                case '\n':
+                case '\t':
+                case ' ':
+                    index++;
+                    break;
+                default:
+                    contentSpan = span[index..];
+                    return;
+            }
+        }
+
+        if (index < span.Length)
+        {
+            contentSpan = span[index..];
+        }
+
+        contentSpan = ReadOnlySpan<char>.Empty;
+    }
+
+    // TODO 是否能够和 ParseSections 合并语法？
     public IEnumerable<(string, string)> ParseCollectionObjects(ReadOnlySpan<char> span)
     {
         var list = new List<(string, string)>();
@@ -118,7 +188,7 @@ internal class AcssParser : IAcssParser
                         isInStyleContent = false;
                         var content = span[index..i];
                         index = i + 1;
-                        list.Add(new ValueTuple<string, string>(selector, content.ToString()));
+                        list.Add(new ValueTuple<string, string>(selector.Trim(), content.ToString().Trim()));
                     }
                     else
                     {
@@ -133,8 +203,8 @@ internal class AcssParser : IAcssParser
 
     public IEnumerable<IAcssSection> ParseSections(IAcssSection? parent, ReadOnlySpan<char> span)
     {
-        var list = new List<(string, string)>();
-
+        var list = new List<IAcssSection>();
+        
         var index = 0;
         var selector = string.Empty;
         var leftBraceCount = 0;
@@ -161,7 +231,7 @@ internal class AcssParser : IAcssParser
                         isInStyleContent = false;
                         var content = span[index..i];
                         index = i + 1;
-                        list.Add(new ValueTuple<string, string>(selector, content.ToString()));
+                        list.Add( _sectionFactory.Build(this, parent, selector, content));
                     }
                     else
                     {
@@ -171,7 +241,7 @@ internal class AcssParser : IAcssParser
             }
         }
 
-        return list.Select(o => _builder.SectionFactory.Build(this, parent, o.Item1, o.Item2));
+        return list;
     }
     
     public void ParseSettersAndChildren(ReadOnlySpan<char> span, out ReadOnlySpan<char> settersSpan, out ReadOnlySpan<char> childrenSpan)
@@ -181,13 +251,14 @@ internal class AcssParser : IAcssParser
 
         if (index1 != -1 && index2 != -1)
         {
-            var span1 = span[..(index1 - 1)];
-            var span2 = span[(index2 + 2)..];
-            var builder = new StringBuilder();
-            builder.Append(span1);
-            builder.Append(span2);
+            var span1 = span[..index1];
+            
+            // var span2 = span[(index2 + 2)..];
+            // var builder = new StringBuilder();
+            // builder.Append(span1);
+            // builder.Append(span2);
 
-            settersSpan = builder.ToString();
+            settersSpan = span1;
 
             index1 += 2;
             childrenSpan = span[index1..index2];
@@ -233,7 +304,7 @@ internal class AcssParser : IAcssParser
                     }
                     value = span[index..i].ToString().Trim();
                     index = i + 1;
-                    setters.Add(new ValueTuple<string, string>(name, value));
+                    setters.Add(new ValueTuple<string, string>(name.Trim(), value.Trim()));
                     name        = string.Empty;
                     afterColons = false;
                     break;
@@ -251,7 +322,7 @@ internal class AcssParser : IAcssParser
 
                     value = span.Slice(index, i - index + 1).ToString().Trim();
                     index = i + 1;
-                    setters.Add(new ValueTuple<string, string>(name, value));
+                    setters.Add(new ValueTuple<string, string>(name.Trim(), value.Trim()));
                     name        = string.Empty;
                     afterColons = false;
                     break;
@@ -264,7 +335,7 @@ internal class AcssParser : IAcssParser
         if (index < span.Length && string.IsNullOrEmpty(name) == false)
         {
             value = span[index..].ToString().Trim(';', ' ', '\t');
-            setters.Add(new ValueTuple<string, string>(name, value));
+            setters.Add(new ValueTuple<string, string>(name.Trim(), value.Trim()));
         }
 
         return setters;

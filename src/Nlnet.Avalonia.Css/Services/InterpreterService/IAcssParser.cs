@@ -10,17 +10,30 @@ internal interface IAcssParser
     /// </summary>
     /// <param name="span"></param>
     /// <returns></returns>
-    public ReadOnlySpan<char> RemoveCommentsAndLineBreaks(Span<char> span);
+    public ReadOnlySpan<char> RemoveComments(Span<char> span);
+
+    /// <summary>
+    /// Try parsing imports and relies like 'import ./button.acss;import ./checkbox.acss;rely ./button.acss; ...'.
+    /// </summary>
+    /// <param name="span"></param>
+    /// <param name="imports"></param>
+    /// <param name="relies"></param>
+    /// <param name="contentSpan"></param>
+    public void ParseImportsAndRelies(
+        ReadOnlySpan<char> span,
+        out IEnumerable<string> imports,
+        out IEnumerable<string> relies,
+        out ReadOnlySpan<char> contentSpan);
     
     /// <summary>
-    /// Try parsing section objects like 'definition { setters...}'.
+    /// Try parsing objects like 'definition1 [ setters... ] definition2[setters...]'.
     /// </summary>
     /// <param name="span"></param>
     /// <returns></returns>
     public IEnumerable<(string, string)> ParseCollectionObjects(ReadOnlySpan<char> span);
 
     /// <summary>
-    /// Try parsing sections like 'selector { content... }'. It is the same structure as section objects.
+    /// Try parsing sections like 'selector1 { content... }selector2{ content... }'. It is the same structure as section objects.
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="span"></param>
@@ -37,7 +50,7 @@ internal interface IAcssParser
     public void ParseSettersAndChildren(ReadOnlySpan<char> span, out ReadOnlySpan<char> settersSpan, out ReadOnlySpan<char> childrenSpan);
 
     /// <summary>
-    /// Try parsing pairs like 'key:value; key2:value2...'. Note that string can be wrapped by a '.
+    /// Try parsing pairs like 'key:value; key2:value2;...'. Note that string can be wrapped by a '.
     /// </summary>
     /// <param name="span"></param>
     /// <returns></returns>
