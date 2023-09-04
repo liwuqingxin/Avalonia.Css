@@ -85,7 +85,7 @@ internal class AcssParser : IAcssParser
             return false;
         }
 
-        return s.Slice(index, slice.Length) == slice;
+        return s.Slice(index, slice.Length).ToString() == slice;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -121,27 +121,24 @@ internal class AcssParser : IAcssParser
             switch (span[i])
             {
                 case 'i':
-                    if (Check(span, i, "import "))
+                    if (ParseKeywordLine("import ", span, importList, ref i, ref index))
                     {
-                        var iTo = SkipTill(span, i, ';', '\r', '\n');
-                        if (iTo == -1)
-                        {
-                            contentSpan = ReadOnlySpan<char>.Empty;
-                            return;
-                        }
-
-                        var importValue = span.Slice(index, iTo - index);
-                        importList.Add(importValue.ToString());
-
-                        index = iTo;
-                        i = index - 1;
+                        contentSpan = ReadOnlySpan<char>.Empty;
+                        return;
+                    }
+                    break;
+                case 'r':
+                    if (ParseKeywordLine("rely ", span, relyList, ref i, ref index))
+                    {
+                        contentSpan = ReadOnlySpan<char>.Empty;
+                        return;
                     }
                     break;
                 case '\r':
                 case '\n':
                 case '\t':
                 case ' ':
-                    index++;
+                    index = i + 1;
                     break;
                 default:
                     contentSpan = span[index..];
@@ -155,6 +152,36 @@ internal class AcssParser : IAcssParser
         }
 
         contentSpan = ReadOnlySpan<char>.Empty;
+    }
+
+    private bool ParseKeywordLine(
+        string keyword,
+        ReadOnlySpan<char> span, 
+        ICollection<string> list,
+        ref int i,
+        ref int index)
+    {
+        if (!Check(span, i, keyword))
+        {
+            // continue.
+            return false;
+        }
+        
+        index = i + keyword.Length;
+        var stopAt = SkipTill(span, i, ';', '\r', '\n');
+        if (stopAt == -1)
+        {
+            // break.
+            return true;
+        }
+
+        var value = span.Slice(index, stopAt - index);
+        list.Add(value.ToString());
+
+        i = index = stopAt;
+
+        // continue.
+        return false;
     }
 
     // TODO 是否能够和 ParseSections 合并语法？
