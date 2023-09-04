@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -13,17 +16,17 @@ internal class AcssTokens
         {
             return Empty;
         }
-        else
-        {
-            var tokens =  new AcssTokens(acssBuilder, source);
-            tokens.DoParsing();
-            return tokens;
-        }
+
+        var tokens =  new AcssTokens(acssBuilder, source);
+        tokens.DoParsing();
+        return tokens;
     }
 
     private readonly IAcssBuilder _acssBuilder;
     private readonly string _source;
     private List<IAcssSection>? _sections;
+    private List<string>? _imports;
+    private List<string>? _relies;
 
     private AcssTokens()
     {
@@ -42,7 +45,72 @@ internal class AcssTokens
         var parser = _acssBuilder.Parser;
         var acssSpan = parser.RemoveComments(_source.ToCharArray());
         
-        _sections = parser.ParseSections(null, acssSpan).ToList();
+        parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
+        
+        _imports = imports.ToList();
+        _relies = relies.ToList();
+        _sections = parser.ParseSections(null, contentSpan).ToList();
+    }
+
+    private void HandleImports()
+    {
+        var parser = _acssBuilder.Parser;
+        var acssSpan = parser.RemoveComments(_source.ToCharArray());
+        
+        parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
+        
+        _imports = imports.ToList();
+        _relies = relies.ToList();
+        _sections = parser.ParseSections(null, contentSpan).ToList();
+
+        if (_imports.Count > 0)
+        {
+            var builder = new StringBuilder();
+            foreach (var import in _imports)
+            {
+                var standardPath = import.GetStandardPath();
+                if (File.Exists(standardPath) == false)
+                {
+                    continue;
+                }
+                
+                var source = File.ReadAllText(standardPath);
+                
+            }
+        }
+    }
+
+    private void AppendImport(string import)
+    {
+        var standardPath = import.GetStandardPath();
+        if (File.Exists(standardPath) == false)
+        {
+            return;
+        }
+        
+        var source = File.ReadAllText(standardPath);
+        var token = AcssTokens.Get(_acssBuilder, source);
+        
+    }
+
+    public List<string>? GetImports()
+    {
+        return _imports;
+    }
+
+    public IEnumerable<IAcssFile?>? GetRelies(Styles ownerStyles)
+    {
+        return _relies?.Select(r =>
+        {
+            var standardFile = r.GetStandardPath();
+            if (_acssBuilder.TryGetAcssFile(standardFile, out var file))
+            {
+                return file;
+            }
+
+            file = _acssBuilder.BuildLoader().Load(ownerStyles, standardFile);
+            return file;
+        });
     }
 
     public IEnumerable<IAcssStyle> GetStyles()

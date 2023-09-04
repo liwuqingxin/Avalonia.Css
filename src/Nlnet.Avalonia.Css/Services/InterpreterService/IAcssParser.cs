@@ -13,15 +13,17 @@ internal interface IAcssParser
     public ReadOnlySpan<char> RemoveComments(Span<char> span);
 
     /// <summary>
-    /// Try parsing imports and relies like 'import ./button.acss;import ./checkbox.acss;rely ./button.acss; ...'.
+    /// Try parsing imports bases and relies like 'import ./button.acss;base ./checkbox.acss;rely ./button.acss; ...'.
     /// </summary>
     /// <param name="span"></param>
     /// <param name="imports"></param>
+    /// <param name="bases"></param>
     /// <param name="relies"></param>
     /// <param name="contentSpan"></param>
-    public void ParseImportsAndRelies(
+    public void ParseImportsBasesAndRelies(
         ReadOnlySpan<char> span,
         out IEnumerable<string> imports,
+        out IEnumerable<string> bases,
         out IEnumerable<string> relies,
         out ReadOnlySpan<char> contentSpan);
     

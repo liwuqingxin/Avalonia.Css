@@ -102,18 +102,21 @@ internal class AcssParser : IAcssParser
         return -1;
     }
 
-    public void ParseImportsAndRelies(
+    public void ParseImportsBasesAndRelies(
         ReadOnlySpan<char> span,
         out IEnumerable<string> imports,
+        out IEnumerable<string> bases,
         out IEnumerable<string> relies,
         out ReadOnlySpan<char> contentSpan)
     {
         var index = 0;
 
         var importList = new List<string>();
+        var baseList = new List<string>();
         var relyList = new List<string>();
 
         imports = importList;
+        bases = baseList;
         relies = relyList;
 
         for (var i = 0; i < span.Length; i++)
@@ -122,6 +125,13 @@ internal class AcssParser : IAcssParser
             {
                 case 'i':
                     if (ParseKeywordLine("import ", span, importList, ref i, ref index))
+                    {
+                        contentSpan = ReadOnlySpan<char>.Empty;
+                        return;
+                    }
+                    break;
+                case 'b':
+                    if (ParseKeywordLine("base ", span, baseList, ref i, ref index))
                     {
                         contentSpan = ReadOnlySpan<char>.Empty;
                         return;

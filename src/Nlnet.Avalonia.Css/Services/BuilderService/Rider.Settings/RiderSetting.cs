@@ -47,6 +47,9 @@ public class highlightingNode
     private readonly string[] key1 = new[]
     {
         "var",
+        "import ",
+        "base ",
+        "rely ",
         
         "mode",
         "theme",

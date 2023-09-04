@@ -65,7 +65,7 @@ namespace Nlnet.Avalonia.Css.Test
         {
             var parser = GetParserForTest();
 
-            parser.ParseImportsAndRelies("import ./button/btn.acss;\r\nimport ./button.acss;\r\nrely ./button/btn.acss;\r\nrely ./button/btn.acss\r\ncontent", out var imports, out var relies, out var contentSpan);
+            parser.ParseImportsBasesAndRelies("import ./button/btn.acss;\r\nimport ./button.acss;\r\nrely ./button/btn.acss;\r\nrely ./button/btn.acss\r\ncontent", out var imports, out var bases, out var relies, out var contentSpan);
             var importsList = imports.ToList();
             var reliesList = relies.ToList();
             Assert.AreEqual(importsList.Count, 2);
@@ -77,13 +77,13 @@ namespace Nlnet.Avalonia.Css.Test
             Assert.AreEqual(contentSpan.ToString(), "content");
             
             
-            parser.ParseImportsAndRelies("import ./button/btn.acss;\r\nimport  s\r\nimport      s", out var imports2, out var relies2, out var contentSpan2);
+            parser.ParseImportsBasesAndRelies("import ./button/btn.acss;\r\nimport  s\r\nimport      s", out var imports2, out var bases2, out var relies2, out var contentSpan2);
             var importsList2 = imports2.ToList();
             var reliesList2 = relies2.ToList();
             Assert.AreEqual(importsList2.Count, 2);
             
             
-            parser.ParseImportsAndRelies("rely ./button/btn.acss;\r\nrely  s\r\nrely      s", out var imports3, out var relies3, out var contentSpan3);
+            parser.ParseImportsBasesAndRelies("rely ./button/btn.acss;\r\nrely  s\r\nrely      s", out var imports3, out var bases3, out var relies3, out var contentSpan3);
             var importsList3 = imports3.ToList();
             var reliesList3 = relies3.ToList();
             Assert.AreEqual(reliesList3.Count, 2);

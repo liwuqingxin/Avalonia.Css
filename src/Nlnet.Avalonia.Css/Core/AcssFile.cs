@@ -76,6 +76,8 @@ namespace Nlnet.Avalonia.Css
         private          CompositeDisposable?     _disposable;
         private          IEnumerable<IAcssStyle>? _acssStyles;
         private AcssTokens? _tokens;
+        private List<string>? _imports;
+        private List<IAcssFile>? _relies;
 
         private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
@@ -138,6 +140,8 @@ namespace Nlnet.Avalonia.Css
                 var acssThemeChildStyles = _tokens.GetThemeStyles().ToList();
                 var acssDictionaryList = _tokens.GetResourceDictionaries().ToList();
 
+                _imports = _tokens.GetImports();
+                _relies = _tokens.GetRelies(_owner)?.OfType<IAcssFile>().ToList();
                 _acssStyles = _tokens.GetStyles();
 
                 // Normal styles.
