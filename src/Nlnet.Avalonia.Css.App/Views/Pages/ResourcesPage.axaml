@@ -51,5 +51,364 @@
             </StackPanel>
         </app:IndependentCase>
 
+        <app:IndependentCase Header="Icon Animation">
+            <app:IndependentCase.Settings>
+                <Button Content="https://www.douyin.com/video/7269771109397056768" Click="Button_OnClick"/>
+            </app:IndependentCase.Settings>
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button>
+                    <Button.Theme>
+                        <ControlTheme TargetType="Button">
+                            <Setter Property="Template">
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="60"
+                                            Height="60"
+                                            Background="White"
+                                            CornerRadius="12">
+                                        <Panel>
+                                            <Border x:Name="BdT"
+                                                    Height="3"
+                                                    Margin="12"
+                                                    HorizontalAlignment="Stretch"
+                                                    Background="Red"
+                                                    CornerRadius="4"
+                                                    RenderTransformOrigin="0%,50%" />
+                                            <Border x:Name="BdC"
+                                                    Height="3"
+                                                    Margin="12"
+                                                    HorizontalAlignment="Stretch"
+                                                    Background="Red"
+                                                    CornerRadius="4"
+                                                    RenderTransform="none"
+                                                    RenderTransformOrigin="0%,50%" />
+                                            <Border x:Name="BdB"
+                                                    Height="3"
+                                                    Margin="12"
+                                                    HorizontalAlignment="Stretch"
+                                                    Background="Red"
+                                                    CornerRadius="4"
+                                                    RenderTransformOrigin="0%,50%" />
+                                        </Panel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter>
+
+                            <!-- 中线 -->
+                            <Style Selector="^:pointerover /template/ Border#BdC">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="20%">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="^:not(:pointerover) /template/ Border#BdC">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="50%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+
+                            <!-- 顶部线 -->
+                            <Style Selector="^:pointerover /template/ Border#BdT">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
+                                            <Setter Property="TranslateTransform.Y" Value="-12" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="50%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="135" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="^:not(:pointerover) /template/ Border#BdT">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="135" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="50%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
+                                            <Setter Property="TranslateTransform.Y" Value="-12" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+
+                            <!-- 底部线 -->
+                            <Style Selector="^:pointerover /template/ Border#BdB">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.6" />
+                                            <Setter Property="TranslateTransform.Y" Value="12" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="50%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="-135" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="^:not(:pointerover) /template/ Border#BdB">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="-135" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="50%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.6" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.6" />
+                                            <Setter Property="TranslateTransform.Y" Value="12" />
+
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+
+                        </ControlTheme>
+                    </Button.Theme>
+                </Button>
+
+
+
+                <Button>
+                    <Button.Theme>
+                        <ControlTheme TargetType="Button">
+                            <Setter Property="Template">
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="60"
+                                            Height="60"
+                                            Background="White"
+                                            CornerRadius="12">
+                                        <Panel>
+                                            <Border x:Name="BdT"
+                                                    Height="4"
+                                                    Margin="12"
+                                                    HorizontalAlignment="Stretch"
+                                                    Background="Green"
+                                                    CornerRadius="4"
+                                                    RenderTransformOrigin="0%,50%" />
+                                            <Border x:Name="BdC"
+                                                    Height="4"
+                                                    Margin="12"
+                                                    HorizontalAlignment="Stretch"
+                                                    Background="Orange"
+                                                    CornerRadius="4"
+                                                    RenderTransform="none"
+                                                    RenderTransformOrigin="0%,50%" />
+                                            <Border x:Name="BdB"
+                                                    Height="4"
+                                                    Margin="12"
+                                                    HorizontalAlignment="Stretch"
+                                                    Background="Red"
+                                                    CornerRadius="4"
+                                                    RenderTransformOrigin="0%,50%" />
+                                        </Panel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter>
+
+                            <!-- 中线 -->
+                            <Style Selector="^:pointerover /template/ Border#BdC">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="20%">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="^:not(:pointerover) /template/ Border#BdC">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="50%">
+                                            <Setter Property="Opacity" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="1" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+
+                            <!-- 顶部线 -->
+                            <Style Selector="^:pointerover /template/ Border#BdT">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
+                                            <Setter Property="TranslateTransform.Y" Value="-12" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+                                            <Setter Property="RotateTransform.Angle" Value="135" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%" KeySpline="0,1,1,1">
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="^:not(:pointerover) /template/ Border#BdT">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+                                            <Setter Property="RotateTransform.Angle" Value="135" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.8" />
+                                            <Setter Property="TranslateTransform.Y" Value="-12" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+
+                            <!-- 底部线 -->
+                            <Style Selector="^:pointerover /template/ Border#BdB">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.6" />
+                                            <Setter Property="TranslateTransform.Y" Value="12" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+                                            <Setter Property="RotateTransform.Angle" Value="-135" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%" KeySpline="0,1,1,1">
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                            <Style Selector="^:not(:pointerover) /template/ Border#BdB">
+                                <Style.Animations>
+                                    <Animation FillMode="Forward" Duration="0:0:0.4">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                                            <Setter Property="TranslateTransform.Y" Value="0" />
+                                            <Setter Property="RotateTransform.Angle" Value="-135" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="ScaleTransform.ScaleX" Value="0.6" />
+                                            <Setter Property="TranslateTransform.Y" Value="12" />
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="RenderTransformOrigin" Value="0%,50%" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+
+                        </ControlTheme>
+                    </Button.Theme>
+                </Button>
+            </StackPanel>
+        </app:IndependentCase>
+
     </StackPanel>
 </UserControl>
