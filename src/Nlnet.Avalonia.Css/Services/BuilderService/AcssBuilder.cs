@@ -6,11 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -74,6 +73,8 @@ public class AcssBuilder : IAcssBuilder
 
     private IAcssLoader? _loader;
     private readonly ConcurrentDictionary<string, IAcssFile> _files = new();
+    private readonly ConcurrentDictionary<string, AcssTokens> _tokens = new();
+    private readonly ConcurrentDictionary<string, FileSystemWatcher> _monitors = new();
 
     IAcssParser IAcssBuilder.Parser => _parser;
 
@@ -118,6 +119,58 @@ public class AcssBuilder : IAcssBuilder
         }
 
         file = null;
+        return false;
+    }
+
+    bool IAcssBuilder.TryAddAcssTokens(string standardFilePath, AcssTokens tokens)
+    {
+        if (_tokens.TryGetValue(standardFilePath, out _))
+        {
+            return false;
+        }
+
+        var dir = Path.GetDirectoryName(standardFilePath);
+        if (dir == null)
+        {
+            throw new InvalidOperationException($"Can not get the directory from path '{standardFilePath}'.");
+        }
+
+        if (_monitors.TryGetValue(dir, out var watcher) == false)
+        {
+            watcher = MonitorDirectory(dir);
+            _monitors.TryAdd(dir, watcher);
+        }
+
+        watcher.Filters.Add(Path.GetFileName(standardFilePath));
+
+        _tokens.TryAdd(standardFilePath, tokens);
+        return true;
+    }
+
+    bool IAcssBuilder.TryRemoveAcssTokens(string standardFilePath, AcssTokens tokens)
+    {
+        var dir = Path.GetDirectoryName(standardFilePath);
+        if (dir != null && _monitors.TryGetValue(dir, out var watcher))
+        {
+            watcher.Filters.Remove(Path.GetFileName(standardFilePath));
+            if (watcher.Filters.Count == 0)
+            {
+                watcher.Dispose();
+                _monitors.TryRemove(dir, out _);
+            }
+        }
+        return _tokens.TryRemove(standardFilePath, out _);
+    }
+
+    bool IAcssBuilder.TryGetAcssTokens(string standardFilePath, out AcssTokens? tokens)
+    {
+        if (_tokens.TryGetValue(standardFilePath, out var t))
+        {
+            tokens = t;
+            return true;
+        }
+
+        tokens = null;
         return false;
     }
 
@@ -190,6 +243,52 @@ public class AcssBuilder : IAcssBuilder
             output = null;
             exceptionHandler?.Invoke(e);
             return false;
+        }
+    }
+
+    #endregion
+
+
+
+    #region Private Methods
+
+    private FileSystemWatcher MonitorDirectory(string dir)
+    {
+        var watcher = new FileSystemWatcher(dir)
+        {
+            EnableRaisingEvents = true,
+            NotifyFilter = NotifyFilters.LastWrite,
+        };
+
+        watcher.Changed += OnFileChanged;
+
+        return watcher;
+    }
+
+    private DateTime _lastRead = DateTime.MinValue;
+
+    private void OnFileChanged(object sender, FileSystemEventArgs e)
+    {
+        if (e.ChangeType != WatcherChangeTypes.Changed)
+        {
+            return;
+        }
+
+        var lastWriteTime = File.GetLastWriteTime(e.FullPath);
+        if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
+        {
+            //
+            // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
+            //
+            Task.Delay(20).ContinueWith(t =>
+            {
+                if (_tokens.TryGetValue(e.FullPath.GetStandardPath(), out var tokens))
+                {
+                    tokens.OnFileChanged();
+                }
+            });
+
+            _lastRead = lastWriteTime;
         }
     }
 

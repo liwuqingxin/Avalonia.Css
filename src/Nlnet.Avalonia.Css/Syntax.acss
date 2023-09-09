@@ -184,3 +184,44 @@ Window{
         }
     ]]
 }
+
+// Base style definition for basing on. 
+::base[input]{
+    Foreground: var(ctrl-fore);
+    Background: var(ctrl-back);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    BorderBrush: var(ctrl-border);
+    [[
+        :pointerover{
+            Background: var(ctrl-back-hover);
+            Foreground: var(ctrl-fore-hover);
+        }
+        :focus{
+            Background: var(ctrl-back-focus);
+            Foreground: var(ctrl-fore-focus);
+        }
+    ]]
+}
+
+::base[with-transition]{
+    Transitions:[
+        var(stBackground);
+    ]
+}
+
+TextBox @extend input, with-transition{
+    Background: red;
+}
+
+ComboBox @extend input, with-transition{
+    Background: green;
+}
+
+DatePicker @extend input, with-transition{
+    Foreground: blue;
+}
+
+SearchBox @extend input{
+    Opacity: 0.8
+}

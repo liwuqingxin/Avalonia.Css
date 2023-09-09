@@ -31,6 +31,12 @@ public interface IAcssBuilder
 
     internal bool TryGetAcssFile(string standardFilePath, out IAcssFile? file);
 
+    internal bool TryAddAcssTokens(string standardFilePath, AcssTokens tokens);
+
+    internal bool TryRemoveAcssTokens(string standardFilePath, AcssTokens tokens);
+
+    internal bool TryGetAcssTokens(string standardFilePath, out AcssTokens? tokens);
+
 
 
     /// <summary>

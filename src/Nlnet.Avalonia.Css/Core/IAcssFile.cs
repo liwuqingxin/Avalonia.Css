@@ -3,7 +3,7 @@ using Avalonia.Styling;
 namespace Nlnet.Avalonia.Css;
 
 /// <summary>
-/// Represents a acss file instance, which is also a <see cref="IStyle"/> object.
+/// Represents an acss file instance, which is also a <see cref="IStyle"/> object.
 /// </summary>
 public interface IAcssFile : IStyle
 {
