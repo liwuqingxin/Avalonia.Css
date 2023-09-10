@@ -1,4 +1,4 @@
-﻿rely ./Theme.acss;
+﻿//rely ./Theme.acss;
 
 ::res[mode=light][desc=亮色资源] {
     

@@ -50,6 +50,11 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
 
     public override object? GetDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
     {
+        // https://github.com/AvaloniaUI/Avalonia/issues/4616
+        // https://github.com/AvaloniaUI/Avalonia/discussions/12847
+
+        动态资源
+
         var brush = new SolidColorBrush
         {
             Opacity = _opacity,

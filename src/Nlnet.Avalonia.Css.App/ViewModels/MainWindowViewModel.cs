@@ -118,10 +118,7 @@ namespace Nlnet.Avalonia.Css.App
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
                 
-                // TODO 关联性更新，使用import；
                 cssTheme?.UpdateTheme(false);
-                cssTheme?.UpdateResource(false);
-                cssTheme?.UpdateMode(false);
             }
             else if (propertyName is nameof(Mode))
             {
