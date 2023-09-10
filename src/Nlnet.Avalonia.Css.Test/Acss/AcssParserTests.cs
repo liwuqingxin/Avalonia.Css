@@ -21,7 +21,7 @@ namespace Nlnet.Avalonia.Css.Test
         
         private static IAcssParser GetParser()
         {
-            IAcssBuilder builder = new AcssBuilder();
+            var builder = AcssBuilder.Default;
             var parser = builder.Parser;
             return parser;
         }

@@ -23,35 +23,22 @@ namespace Nlnet.Avalonia.Css
         /// <param name="standardFilePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
+        /// <exception cref="InvalidOperationException">UI thread required.</exception>
         internal static AcssFile TryLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
+            if (Dispatcher.UIThread.CheckAccess() == false)
+            {
+                throw new InvalidOperationException($"{nameof(TryLoad)}() must be called in ui thread.");
+            }
+
             var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.Load(owner, false);
-            return styleFile;
-        }
 
-        /// <summary>
-        /// Load a avalonia css style from an acss file asynchronously.
-        /// </summary>
-        /// <param name="acssBuilder"></param>
-        /// <param name="owner"></param>
-        /// <param name="standardFilePath"></param>
-        /// <param name="autoLoadWhenFileChanged"></param>
-        /// <returns></returns>
-        internal static AcssFile TryBeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
-        {
-            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
-            styleFile.BeginLoad(owner, false);
             return styleFile;
         }
 
         private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
-            if (Dispatcher.UIThread.CheckAccess() == false)
-            {
-                throw new InvalidOperationException($"{nameof(AcssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
-            }
-
             if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == standardFilePath) is { } exist)
             {
                 return exist;
@@ -200,17 +187,13 @@ namespace Nlnet.Avalonia.Css
             catch (Exception e)
             {
                 this.WriteError(e.ToString());
+                Dispatcher.UIThread.Post(() => throw e);
             }
         }
 
         private void TokensOnFileChanged(object? sender, EventArgs e)
         {
-            BeginLoad(_owner, true);
-        }
-
-        private void BeginLoad(Styles styles, bool reapplyStyle)
-        {
-            Dispatcher.UIThread.Post(() => Load(styles, reapplyStyle));
+            Dispatcher.UIThread.Invoke(() => Load(_owner, true));
         }
 
         public void Dispose()
@@ -231,7 +214,7 @@ namespace Nlnet.Avalonia.Css
 
         public void Reload(bool reapplyStyle)
         {
-            this.BeginLoad(_owner, reapplyStyle);
+            _tokens?.OnFileChanged();
         }
 
         public void Unload()

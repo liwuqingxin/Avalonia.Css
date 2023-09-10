@@ -1,4 +1,6 @@
-﻿::res[desc=通用资源]{
+﻿rely ./Theme.acss;
+
+::res[desc=通用资源]{
 	brush(Accent): var(AccentColor);
 	brush(Accent01): var(AccentColor) 0.1;
 	brush(Accent02): var(AccentColor) 0.2;

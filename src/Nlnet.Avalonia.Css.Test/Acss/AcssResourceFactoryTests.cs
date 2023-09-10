@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void ParseResourceTest()
         {
-            IAcssBuilder builder = new AcssBuilder();
+            var builder = AcssBuilder.Default;
             builder.ResourceFactory.TryGetResourceInstance("brush(info)", " Blue 0.4", out var resource);
             Assert.IsNotNull(resource?.Value);
 

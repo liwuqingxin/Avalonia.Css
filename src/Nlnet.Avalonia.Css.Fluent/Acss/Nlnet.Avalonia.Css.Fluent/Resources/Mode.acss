@@ -1,4 +1,6 @@
-﻿::res[mode=light][desc=亮色资源] {
+﻿rely ./Theme.acss;
+
+::res[mode=light][desc=亮色资源] {
     
 	/* Share */
 	brush(fore): #333;

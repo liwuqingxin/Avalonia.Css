@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Avalonia;
@@ -50,7 +49,7 @@ public class AcssBuilder : IAcssBuilder
 
     
     
-    public AcssBuilder()
+    private AcssBuilder()
     {
         _interpreter     = new AcssInterpreter(this);
         _sectionFactory  = new AcssSectionFactory(this);
@@ -265,8 +264,6 @@ public class AcssBuilder : IAcssBuilder
         return watcher;
     }
 
-    private DateTime _lastRead = DateTime.MinValue;
-
     private void OnFileChanged(object sender, FileSystemEventArgs e)
     {
         if (e.ChangeType != WatcherChangeTypes.Changed)
@@ -274,21 +271,9 @@ public class AcssBuilder : IAcssBuilder
             return;
         }
 
-        var lastWriteTime = File.GetLastWriteTime(e.FullPath);
-        if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
+        if (_tokens.TryGetValue(e.FullPath.GetStandardPath(), out var tokens))
         {
-            //
-            // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
-            //
-            Task.Delay(20).ContinueWith(t =>
-            {
-                if (_tokens.TryGetValue(e.FullPath.GetStandardPath(), out var tokens))
-                {
-                    tokens.OnFileChanged();
-                }
-            });
-
-            _lastRead = lastWriteTime;
+            tokens.OnFileChanged();
         }
     }
 

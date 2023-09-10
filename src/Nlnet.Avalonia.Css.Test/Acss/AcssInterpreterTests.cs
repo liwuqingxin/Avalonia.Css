@@ -11,7 +11,7 @@ namespace Nlnet.Avalonia.Css.Test
         {
             List<AcssSetter>? dic = null;
 
-            IAcssBuilder builder = new AcssBuilder();
+            var builder = AcssBuilder.Default;
 
             var parser = builder.Parser;
 

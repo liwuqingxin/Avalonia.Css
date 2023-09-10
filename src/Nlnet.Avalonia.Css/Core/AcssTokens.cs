@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using Avalonia.Threading;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -54,12 +56,21 @@ internal class AcssTokens : IDisposable
 
     public string? StandardPath { get; set; }
 
+    /// <summary>
+    /// Fires if the file changed.
+    /// </summary>
     public event EventHandler? FileChanged;
+
+    /// <summary>
+    /// Fires if the file changed. This is invoked after the <see cref="FileChanged"/>.
+    /// </summary>
+    public event EventHandler? FileChanged2;
 
     internal void OnFileChanged()
     {
-        this.Reload();
+        this.ReloadFromFile();
         FileChanged?.Invoke(this, EventArgs.Empty);
+        FileChanged2?.Invoke(this, EventArgs.Empty);
     }
 
     
@@ -78,17 +89,37 @@ internal class AcssTokens : IDisposable
 
     private void DoParsing()
     {
+        Clear();
+
         if (StandardPath == null || File.Exists(StandardPath) == false)
         {
-            Clear();
             return;
         }
 
-        var acssSource = File.ReadAllText(StandardPath);
+        string acssSource;
+        lock (this)
+        {
+            try
+            {
+                acssSource = File.ReadAllText(StandardPath);
+            }
+            catch (Exception e)
+            {
+                Thread.Sleep(20);
+                try
+                {
+                    acssSource = File.ReadAllText(StandardPath);
+                }
+                catch (Exception exception)
+                {
+                    this.WriteError(exception.ToString());
+                    return;
+                }
+            }
+        }
 
         if (string.IsNullOrEmpty(acssSource))
         {
-            Clear();
             return;
         }
 
@@ -97,47 +128,76 @@ internal class AcssTokens : IDisposable
         
         parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
 
-        _imports = imports.Select(s => Get(_acssBuilder, s)).ToList();
-        _relies = relies.Select(s => Get(_acssBuilder, s)).ToList();
-        _bases = bases.Select(s => Get(_acssBuilder, s)).ToList();
+        _imports = imports.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
+        _relies = relies.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
+        _bases = bases.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
         _sections = parser.ParseSections(null, contentSpan).ToList();
 
-        // TODO imports and bases
         _disposable = new CompositeDisposable();
+        _imports.ForEach(r =>
+        {
+            r.FileChanged2 -= OnDependencyChanged;
+            r.FileChanged2 += OnDependencyChanged;
+        });
         _relies.ForEach(r =>
         {
-            r.FileChanged -= OnDependencyChanged;
-            r.FileChanged += OnDependencyChanged;
+            r.FileChanged2 -= OnDependencyChanged;
+            r.FileChanged2 += OnDependencyChanged;
+        });
+        _bases.ForEach(r =>
+        {
+            r.FileChanged2 -= OnDependencyChanged;
+            r.FileChanged2 += OnDependencyChanged;
         });
         _disposable.Add(Disposable.Create(() =>
         {
-            _relies.ForEach(r =>
+            _imports?.ForEach(r =>
             {
-                r.FileChanged -= OnDependencyChanged;
+                r.FileChanged2 -= OnDependencyChanged;
+            });
+            _relies?.ForEach(r =>
+            {
+                r.FileChanged2 -= OnDependencyChanged;
+            });
+            _bases?.ForEach(r =>
+            {
+                r.FileChanged2 -= OnDependencyChanged;
             });
         }));
+    }
+
+    private string GetPathAlignToThis(string path)
+    {
+        if (File.Exists(path))
+        {
+            return path;
+        }
+
+        var dir = Path.GetDirectoryName(StandardPath);
+        return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
     }
 
     private void OnDependencyChanged(object? sender, EventArgs e)
     {
         FileChanged?.Invoke(sender, e);
+        FileChanged2?.Invoke(sender, e);
     }
 
     private void Clear()
     {
+        _disposable?.Dispose();
+        _disposable = null;
         _imports = null;
         _relies = null;
         _bases = null;
         _sections = null;
-        _disposable?.Dispose();
-        _disposable = null;
     }
 
 
 
     #region Public Methods
 
-    public void Reload()
+    public void ReloadFromFile()
     {
         DoParsing();
     }
