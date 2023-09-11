@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 
@@ -8,9 +9,6 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(Brush))]
 internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
 {
-    private double  _opacity;
-    private string? _key;
-
     protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
     {
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -19,55 +17,40 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
             this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
             return null;
         }
-
+        
         var colorString = values[0];
-        _opacity = 1d;
+        var opacity = 1d;
         if (values.Length >= 2 && double.TryParse(values[1], out var o))
         {
-            _opacity = o;
+            opacity = o;
         }
 
         if (acssBuilder.Interpreter.IsVar(colorString, out var key))
         {
-            _key = key;
+            // https://github.com/AvaloniaUI/Avalonia/issues/4616
+            // https://github.com/AvaloniaUI/Avalonia/discussions/12847
+            // https://github.com/AvaloniaUI/Avalonia/issues/12854
 
-            IsDeferred = true;
+            if (Application.Current == null)
+            {
+                throw new InvalidOperationException($"Can not create dynamic resource because Application.Current is null.");
+            }
+            var brush = new SolidColorBrush()
+            {
+                Opacity = opacity,
+                [!SolidColorBrush.ColorProperty] = Application.Current.GetResourceObservable(key!).ToBinding(),
+            };
 
+            return brush;
+        }
+
+        var color = DataParser.TryParseColor(colorString);
+        if (color == null)
+        {
+            this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
             return null;
         }
-        else
-        {
-            var color = DataParser.TryParseColor(colorString);
-            if (color == null)
-            {
-                this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
-                return null;
-            }
 
-            return new ImmutableSolidColorBrush(color.Value, _opacity);
-        }
-    }
-
-    public override object? GetDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
-    {
-        // https://github.com/AvaloniaUI/Avalonia/issues/4616
-        // https://github.com/AvaloniaUI/Avalonia/discussions/12847
-
-        动态资源
-
-        var brush = new SolidColorBrush
-        {
-            Opacity = _opacity,
-        };
-        
-        if (acssBuilder.ResourceProvidersManager.TryFindResource<Color>(_key!, out var color))
-        {
-            brush.Color = color;
-        }
-        else
-        {
-            this.WriteError($"Can not find the resource with key '{_key}'.");
-        }
-        return brush;
+        return new ImmutableSolidColorBrush(color.Value, opacity);
     }
 }
