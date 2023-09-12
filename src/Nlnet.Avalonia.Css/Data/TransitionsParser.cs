@@ -27,6 +27,7 @@ namespace Nlnet.Avalonia.Css
                     {
                         if (o is ITransition t)
                         {
+                            重复添加的问题
                             transitions.Add(t);
                         }
                     }));
