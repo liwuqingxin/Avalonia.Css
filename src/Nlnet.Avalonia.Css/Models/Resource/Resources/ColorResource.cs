@@ -16,7 +16,11 @@ internal class ColorResource : AcssResourceBaseAndFac<ColorResource>
         }
 
         var colorString = values[0];
-        var color       = DataParser.TryParseColor(colorString);
+        var color       = colorString.TryParseColor();
+        if (color != null && values.Length > 1 && double.TryParse(values[1], out var o))
+        {
+            color = color.Value.ApplyOpacity(o);
+        }
 
         return color;
     }

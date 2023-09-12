@@ -11,7 +11,7 @@
 }
 
 ::res[theme=green] {
-	color(AccentColor): #00B42A;
+	color(AccentColor): green;
 }
 
 ::res[theme=gold] {

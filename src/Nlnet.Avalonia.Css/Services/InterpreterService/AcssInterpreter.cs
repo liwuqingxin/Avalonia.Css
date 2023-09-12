@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
+using Avalonia.Reactive;
 using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
@@ -36,14 +38,27 @@ namespace Nlnet.Avalonia.Css
         private readonly Regex _linearRegex = new("\\(\\s*(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\)\\s*\\[\\s*(.*)\\s*\\]");
 
         
-        private readonly IEnumerable<Type> _transitionsTypes;
+        private readonly Dictionary<string, Type> _transitionsTypes;
 
         public AcssInterpreter(IAcssBuilder builder)
         {
-            _builder = builder;
-            _transitionsTypes = typeof(Transition<>).Assembly
-                .GetTypes()
-                .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
+            _builder          = builder;
+            _transitionsTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+            var types = typeof(Transition<>)
+                        .Assembly
+                        .GetTypes()
+                        .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
+
+            foreach (var t in types)
+            {
+                _transitionsTypes.Add(t.Name, t);
+                _transitionsTypes.Add(t.Name[..^10], t);
+            }
+
+            _transitionsTypes.Add("corner", typeof(CornerRadiusTransition));
+            _transitionsTypes.Add("int", typeof(IntegerTransition));
+            _transitionsTypes.Add("thick", typeof(ThicknessTransition));
+            _transitionsTypes.Add("shadow", typeof(ThicknessTransition));
         }
 
         public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, IEnumerable<ISyntax> syntaxList)
@@ -320,13 +335,8 @@ namespace Nlnet.Avalonia.Css
             return false;
         }
 
-        public ITransition? ParseTransition(string valueString, out bool shouldDefer, out string? keyDuration, out string? keyDelay, out string? keyEasing)
+        public ITransition? ParseTransition(string valueString, IResourceHost host)
         {
-            shouldDefer = false;
-            keyDuration = null;
-            keyDelay = null;
-            keyEasing = null;
-            
             var match = _transitionRegex.Match(valueString);
             if (match.Success == false)
             {
@@ -334,37 +344,32 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
 
+            // Type name.
             var typeName = match.Groups[1].Value;
-            var valuesString = match.Groups[2].Value;
-            var type = _transitionsTypes.FirstOrDefault(t => t.Name.Equals(typeName, StringComparison.CurrentCultureIgnoreCase));
-            if (type == null)
+            if(_transitionsTypes.TryGetValue(typeName, out var type) == false)
             {
                 this.WriteError($"Can not recognize the transition type '{typeName}'. Skip it.");
                 return null;
             }
-
             if (Activator.CreateInstance(type) is not ITransition instance)
             {
                 this.WriteError($"The type '{typeName}' is not an implementation of '{nameof(ITransition)}'. Skip it.");
                 return null;
             }
 
-            var targetType = typeof(TemplatedControl);
-            var property = string.Empty;
-            TimeSpan? duration = null;
-            TimeSpan? delay = null;
-            var easing = (Easing?)new LinearEasing();
-
-            var values = valuesString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            // Value : [target type] [property] [duration] [delay] [easing].
+            var targetType   = typeof(TemplatedControl);
+            var property     = string.Empty;
+            var valuesString = match.Groups[2].Value;
+            var values       = valuesString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (values.Length > 0)
             {
                 var propertyString = values[0];
                 var dotIndex = propertyString.IndexOf('.');
                 if (dotIndex >= 0)
                 {
-                    var manager       = _builder.TypeResolver;
                     var ownerTypeName = propertyString[..dotIndex];
-                    if (manager.TryGetType(ownerTypeName, out var t))
+                    if (_builder.TypeResolver.TryGetType(ownerTypeName, out var t))
                     {
                         targetType = t;
                     }
@@ -381,62 +386,93 @@ namespace Nlnet.Avalonia.Css
             }
             if (values.Length > 1)
             {
-                if (IsVar(values[1], out keyDuration) && keyDuration != null)
+                if (IsVar(values[1], out var keyDuration) && keyDuration != null)
                 {
-                    shouldDefer = true;
+                    host.GetResourceObservable(keyDuration).Subscribe(new AnonymousObserver<object?>(o =>
+                    {
+                        switch (o)
+                        {
+                            case double d:
+                                instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public)
+                                        ?.SetValue(instance, TimeSpan.FromSeconds(d));
+                                break;
+                            case TimeSpan t:
+                                instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public)
+                                        ?.SetValue(instance, t);
+                                break;
+                        }
+                    }));
                 }
                 else
                 {
-                    duration = DataParser.TryParseTimeSpan(values[1]);
+                    var duration = values[1].TryParseTimeSpan();
+                    if (duration != null)
+                    {
+                        instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public)
+                                ?.SetValue(instance, duration);
+                    }
                 }
             }
             if (values.Length > 2)
             {
-                if (IsVar(values[2], out keyDelay) && keyDelay != null)
+                if (IsVar(values[2], out var keyDelay) && keyDelay != null)
                 {
-                    shouldDefer = true;
+                    host.GetResourceObservable(keyDelay).Subscribe(new AnonymousObserver<object?>(o =>
+                    {
+                        switch (o)
+                        {
+                            case double d:
+                                instance.GetType().GetProperty("Delay", BindingFlags.Instance | BindingFlags.Public)
+                                        ?.SetValue(instance, TimeSpan.FromSeconds(d));
+                                break;
+                            case TimeSpan t:
+                                instance.GetType().GetProperty("Delay", BindingFlags.Instance | BindingFlags.Public)
+                                        ?.SetValue(instance, t);
+                                break;
+                        }
+                    }));
                 }
                 else
                 {
-                    delay = DataParser.TryParseTimeSpan(values[2]);
+                    var delay = values[2].TryParseTimeSpan();
+                    if (delay != null)
+                    {
+                        instance.GetType().GetProperty("Delay", BindingFlags.Instance | BindingFlags.Public)
+                                ?.SetValue(instance, delay);
+                    }
                 }
             }
             if (values.Length > 3)
             {
-                if (IsVar(values[3], out keyEasing) && keyEasing != null)
+                if (IsVar(values[3], out var keyEasing) && keyEasing != null)
                 {
-                    shouldDefer = true;
+                    host.GetResourceObservable(keyEasing).Subscribe(new AnonymousObserver<object?>(o =>
+                    {
+                        instance.GetType().GetProperty("Easing", BindingFlags.Instance | BindingFlags.Public)
+                                ?.SetValue(instance, o);
+                    }));
                 }
                 else
                 {
-                    easing = DataParser.TryParseEasing(values[3]);
+                    var easing = values[3].TryParseEasing();
+                    if (easing != null)
+                    {
+                        instance.GetType().GetProperty("Easing", BindingFlags.Instance | BindingFlags.Public)
+                                ?.SetValue(instance, easing);
+                    }
                 }
             }
 
             var avaloniaProperty = _builder.Interpreter.ParseAvaloniaProperty(targetType!, property);
             if (avaloniaProperty == null)
             {
+                this.WriteError($"Can not recognize the property '{property}' from type '{targetType}'. Skip it.");
                 return null;
             }
             
             // TODO Cache property info and method info.
             var propertyProp = instance.GetType().GetProperty("Property", BindingFlags.Instance | BindingFlags.Public);
             propertyProp?.SetValue(instance, avaloniaProperty);
-
-            if (duration != null)
-            {
-                var durationProp = instance.GetType().GetProperty("Duration", BindingFlags.Instance | BindingFlags.Public);
-                durationProp?.SetValue(instance, duration.Value);
-            }
-
-            if (delay != null)
-            {
-                var delayProp = instance.GetType().GetProperty("Delay",    BindingFlags.Instance | BindingFlags.Public);
-                delayProp?.SetValue(instance, delay.Value);
-            }
-
-            var easingProp = instance.GetType().GetProperty("Easing",   BindingFlags.Instance | BindingFlags.Public);
-            easingProp?.SetValue(instance, easing);
 
             return instance;
         }
@@ -470,7 +506,7 @@ namespace Nlnet.Avalonia.Css
                         }
                         else
                         {
-                            keyFrame.KeyTime = DataParser.TryParseTimeSpan(splits[0]);
+                            keyFrame.KeyTime = splits[0].TryParseTimeSpan() ?? TimeSpan.Zero;
                         }
                     }
                     catch
@@ -539,14 +575,12 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
-        public LinearGradientBrush? ParseLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys)
+        public LinearGradientBrush? ParseLinear(string valueString, IResourceHost host)
         {
-            shouldDefer = false;
-            keys = null;
-
-            var match = _linearRegex.Match(valueString.Replace('\r', ' ').Replace('\n', ' '));
+            var match = _linearRegex.Match(valueString.ReplaceLineEndings(string.Empty));
             if (!match.Success)
             {
+                this.WriteError($"Can not parse liner brush from string '{valueString}'. Skip it.");
                 return null;
             }
 
@@ -566,7 +600,7 @@ namespace Nlnet.Avalonia.Css
             }
             catch (Exception e)
             {
-                this.WriteError(e.ToString());
+                this.WriteError($"Can not parse liner brush from string '{valueString}' because of {e}.");
                 return null;
             }
             
@@ -592,25 +626,24 @@ namespace Nlnet.Avalonia.Css
                     opacityString = variables[1];
                     offsetString = variables[2];
                 }
-
                 if (double.TryParse(offsetString, out var offset) == false)
                 {
                     this.WriteError($"Invalid gradient offset value '{offsetString}'. Skip it.");
                     continue;
                 }
+                
+                // Opacity
+                var existOpacity = double.TryParse(opacityString, out var opacity);
 
                 var stop = new GradientStop
                 {
                     Offset = offset,
                 };
-                
-                // Opacity
-                var existOpacity = double.TryParse(opacityString, out var opacity);
 
                 if (isDyn == false)
                 {
                     // Color
-                    var color = DataParser.TryParseColor(variables[0]);
+                    var color = variables[0].TryParseColor();
                     if (color == null)
                     {
                         this.WriteError($"Invalid gradient stop color value '{variables[0]}'. Skip it.");
@@ -626,13 +659,19 @@ namespace Nlnet.Avalonia.Css
                 }
                 else
                 {
-                    shouldDefer = true;
-                    if (existOpacity == false)
+                    host.GetResourceObservable(key!).Subscribe(new AnonymousObserver<object?>(o =>
                     {
-                        opacity = 1;
-                    }
-                    keys ??= new List<(string, double)>();
-                    ((List<(string, double)>)keys).Add((key, opacity)!);
+                        if (o is not Color c)
+                        {
+                            return;
+                        }
+                        if (existOpacity)
+                        {
+                            c = c.ApplyOpacity(opacity);
+                        }
+
+                        stop.Color = c;
+                    }));
                 }
 
                 linearBrush.GradientStops.Add(stop);
@@ -641,10 +680,8 @@ namespace Nlnet.Avalonia.Css
             return linearBrush;
         }
 
-        public LinearGradientBrush? ParseComplexLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys)
+        public LinearGradientBrush? ParseComplexLinear(string valueString, IResourceHost host)
         {
-            shouldDefer = false;
-            keys = null;
             return null;
         }
     }

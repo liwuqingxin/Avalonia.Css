@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Animation;
+using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -28,11 +29,11 @@ internal interface IAcssInterpreter
 
     public bool IsBinding(string? valueString, out Binding? binding);
 
-    public ITransition? ParseTransition(string valueString, out bool shouldDefer, out string? keyDuration, out string? keyDelay, out string? keyEasing);
+    public ITransition? ParseTransition(string valueString, IResourceHost host);
 
     public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString);
 
-    public LinearGradientBrush? ParseLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys);
+    public LinearGradientBrush? ParseLinear(string valueString, IResourceHost host);
 
-    public LinearGradientBrush? ParseComplexLinear(string valueString, out bool shouldDefer, out IEnumerable<(string,double)>? keys);
+    public LinearGradientBrush? ParseComplexLinear(string valueString, IResourceHost host);
 }

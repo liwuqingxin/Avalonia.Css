@@ -7,6 +7,7 @@ namespace Nlnet.Avalonia.Css;
 
 internal static class ObjectParser
 {
+    // TODO ¼ì²é
     public static void ApplySetters(this object targetObject, Type type, IAcssInterpreter interpreter, IEnumerable<(string, string)> setters, params string[] excepts)
     {
         foreach (var setter in setters.Where(s => excepts.Contains(s.Item1) == false))
