@@ -83,11 +83,11 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
             }
             if (resource.IsDeferred)
             {
-                dic.AddDeferred(resource.Key, provider => resource.GetDeferredValue(_builder, provider));
+                dic.AddDeferred(resource.Key, provider => resource.BuildDeferredValue(_builder, provider));
             }
             else
             {
-                dic.TryAdd(resource.Key, resource.Value);
+                dic.TryAdd(resource.Key, resource.BuildValue(_builder));
             }
         }
 

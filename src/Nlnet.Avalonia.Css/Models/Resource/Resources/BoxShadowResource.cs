@@ -8,7 +8,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType("shadow")]
 internal class BoxShadowsResource : AcssResourceBaseAndFac<BoxShadowsResource>
 {
-    protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
+    protected override object? BuildValue(IAcssBuilder acssBuilder, string valueString)
     {
         return valueString.TryParseBoxShadow();
     }

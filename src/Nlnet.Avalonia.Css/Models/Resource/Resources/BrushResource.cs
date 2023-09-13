@@ -9,7 +9,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(Brush))]
 internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
 {
-    protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
+    protected override object? BuildValue(IAcssBuilder acssBuilder, string valueString)
     {
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)

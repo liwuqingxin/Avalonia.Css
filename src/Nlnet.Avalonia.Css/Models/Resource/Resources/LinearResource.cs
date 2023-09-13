@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(LinearGradientBrush))]
 internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
 {
-    protected override object? Accept(IAcssBuilder acssBuilder, string valueString)
+    protected override object? BuildValue(IAcssBuilder acssBuilder, string valueString)
     {
         valueString = valueString.Trim();
         var app = Checks.CheckApplication();

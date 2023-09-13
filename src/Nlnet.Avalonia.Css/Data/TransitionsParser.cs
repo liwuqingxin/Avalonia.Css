@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Reactive;
@@ -7,6 +9,9 @@ namespace Nlnet.Avalonia.Css
 {
     internal class TransitionsParser
     {
+        // TODO Request public the ITransition.Property.
+        private static readonly PropertyInfo? PropertyProp = typeof(ITransition).GetProperty("Property", BindingFlags.Instance | BindingFlags.Public);
+
         /// <summary>
         /// For setter value parser.
         /// </summary>
@@ -25,11 +30,16 @@ namespace Nlnet.Avalonia.Css
                 {
                     app.GetResourceObservable(key!).Subscribe(new AnonymousObserver<object?>(o =>
                     {
-                        if (o is ITransition t)
+                        if (o is not ITransition t || PropertyProp == null)
                         {
-                            重复添加的问题
-                            transitions.Add(t);
+                            return;
                         }
+                        var exist = transitions.FirstOrDefault(t1 => PropertyProp.GetValue(t1) == PropertyProp.GetValue(t));
+                        if (exist != null)
+                        {
+                            transitions.Remove(exist);
+                        }
+                        transitions.Add(t);
                     }));
                 }
                 else
