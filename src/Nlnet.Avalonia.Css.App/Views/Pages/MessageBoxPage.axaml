@@ -40,6 +40,7 @@
                 <Button Click="BtnShowMessageBox_OnClick" Content="Show a message box." />
                 <Button Click="BtnShowFilePicker_OnClick" Content="Show a file picker." />
                 <Button Click="BtnShowNotification_OnClick" Content="Show a notification." />
+                <Button Click="BtnShowDialog_OnClick" Content="Show a dialog." />
             </StackPanel>
         </app:IndependentCase>
 
