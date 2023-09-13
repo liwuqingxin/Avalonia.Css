@@ -3,6 +3,7 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
+    这里改为动态设定，而不是使用写死的配置
     /// <summary>
     /// Default implementation for <see cref="IAcssConfiguration"/>.
     /// </summary>

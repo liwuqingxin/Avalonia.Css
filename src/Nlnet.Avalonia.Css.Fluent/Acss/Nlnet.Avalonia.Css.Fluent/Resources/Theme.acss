@@ -1,39 +1,140 @@
-﻿::res[theme=blue] {
-	color(AccentColor): #0068B5;
+﻿::res[mode=light][desc=亮色资源] {
+    
+	/* Share */
+	brush(fore): #333;
+	brush(fore-hover): #111;
+	brush(fore-pressed): #888;
+	brush(fore-selected-hover): #fff;
+	brush(fore-anti): #fff;
+	brush(window-back): #F3F3F3;
+	brush(window-back-active): #F0F3F9;
+	brush(watermark): #aaa;
+	
+
+	/* Control */
+	brush(control-back): #fefefe;
+	brush(control-back-hover): #f5f5f5;
+	brush(control-back-pressed): #f7f7f7;
+	brush(control-border): #dddddd;
+	brush(control-border-pressed): #ececec;
+	linear(control-border-fluent): (0% 0% 0% 100%)[
+        #ececec 0.8;
+        #D2D3D4 1;
+    ]
+	linear(control-border-pressed-fluent): (0% 0% 0% 100%)[
+        #ececec 0.8;
+        #E6E8EA 1;
+    ]
+	linear(control-border-accent-fluent): (0% 0% 0% 100%)[
+        var(AccentColor) 0.8;
+        Black 0.5 1;
+    ]
+	linear(control-border-pressed-accent-fluent): (0% 0% 0% 100%)[
+        var(AccentColor) 0;
+        var(AccentColor) 1;
+    ]
+    linear(control-border-input-fluent): (0% 0% 0% 100%)[
+        #ececec 0.92;
+        #222222 0.5 1;
+    ]
+    
+
+	/* Item */
+	brush(item-back): #F9FAFA;
+	brush(item-back-hover): #E8E8E8;
+	brush(item-back-selected): #E8E8E8;
+	brush(item-back-selected-pointerover): #EAEAEE;
+	brush(item-back-pressed): #E8E8E8;
+	brush(item-back-selected-pressed): #F2F2F3;
+
+
+	/* ComboBoxItem */
+	brush(combobox-item-back): #F9FAFA;
+	brush(combobox-item-back-hover): #F2F2F3;
+	brush(combobox-item-back-selected): #F5F5F7;
+
+
+	/* Slider */
+	brush(slider-back): #868686;
+
+
+	/* ProgressBar */
+	brush(progressbar-back): #E8E8E8;
+
+
+	/* Calendar */
+	brush(calendar-back): #ffffff;
+
+
+	/* ScrollBar */
+	brush(ScrollBar-back): #868686;
+	brush(ScrollBar-thumb): #74787E;
+
+
+	/* Shadow */
+	BoxShadow(popup-none): 0 0 0 0 #3666;
+	BoxShadow(popup-shadow): 0 10 20 0 #3666;
 }
 
-::res[theme=red] {
-	color(AccentColor): #F53F3F;
-}
+::res[mode=dark][desc=暗色资源] {
 
-::res[theme=orange] {
-	color(AccentColor): #F77234;
-}
+	/* Share */
+	brush(fore): #eee;
+	brush(fore-hover): #fff;
+	brush(fore-pressed): #ccc;
+	brush(fore-selected-hover): #fff;
+	brush(fore-anti): #333;
+	brush(window-back): #202020;
+	brush(window-back-active): #1A2228;
+	brush(watermark): #666;
 
-::res[theme=green] {
-	color(AccentColor): green;
-}
 
-::res[theme=gold] {
-	color(AccentColor): #F7BA1E;
-}
+	/* Control */
+	brush(control-back): #353535;
+	brush(control-back-hover): #383838;
+	brush(control-back-pressed): #414141;
+	brush(control-border): #424240;
+	brush(control-border-pressed): #424240;
+	brush(control-border-fluent): #424240;
+	brush(control-border-pressed-fluent): #424240;
+    brush(control-border-accent-fluent): #424240;
+	brush(control-border-pressed-accent-fluent): #424240;
+	brush(control-border-input-fluent): #424240;
 
-::res[theme=lime] {
-	color(AccentColor): #9FDB1D;
-}
 
-::res[theme=cyan] {
-	color(AccentColor): #14C9C9;
-}
+	/* Item */
+	brush(item-back): #333333;
+	brush(item-back-hover): #3A3A3A;
+	brush(item-back-selected): #3E3E3E;
+	brush(item-back-selected-pointerover): #3B3B3B;
+	brush(item-back-pressed): #2f2f2f;
+	brush(item-back-selected-pressed): #3E3E3E;
 
-::res[theme=purple] {
-	color(AccentColor): #722ED1;
-}
 
-::res[theme=pink-purple] {
-	color(AccentColor): #D91AD9;
-}
+	/* ComboBoxItem */
+	brush(combobox-item-back): #333333;
+	brush(combobox-item-back-hover): #3A3A3A;
+	brush(combobox-item-back-selected): #3E3E3E;
 
-::res[theme=magenta] {
-	color(AccentColor): #F5319D;
+
+	/* Slider */
+	brush(slider-back): #868686;
+
+
+	/* ProgressBar */
+	brush(progressbar-back): #353535;
+
+
+	/* Calendar */
+	brush(calendar-back): #ffffff;
+
+
+	/* ScrollBar */
+	brush(ScrollBar-back): #868686;
+	brush(ScrollBar-thumb): #74787E;
+
+
+	/* Shadow */
+	BoxShadow(popup-none): 0 0 0 0 #3000;
+	BoxShadow(popup-shadow): 0 0 20 2 #3000;
 }
