@@ -32,7 +32,7 @@ internal interface IAcssStyle : IAcssSection, IDisposable
     
     bool MatchKey(string one);
     
-    void ReloadBases();
+    void ForceMergeBase();
 }
 
 internal class AcssStyle : AcssSection, IAcssStyle
@@ -42,8 +42,8 @@ internal class AcssStyle : AcssSection, IAcssStyle
     private string? _selectorString;
     private Selector? _selector;
     private CompositeDisposable? _compositeDisposable;
-    private List<IAcssSetter>? _localSetters;
-    private List<IAcssSection>? _localChildren;
+    private readonly List<IAcssSetter> _localSetters = new();
+    private readonly List<IAcssSection> _localChildren = new();
     private IList<string>? _bases;
 
     public bool IsThemeChild { get; init; }
@@ -68,47 +68,29 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
+        // Selector
         var interpreter = _builder.Interpreter;
         _selectorString = interpreter.ParseSelectorAndBases(Header, out _bases);
         _selector = CreateSelector(_selectorString);
         
-        var setters = new List<IAcssSetter>();
-        var children = new List<IAcssSection>();
-        _localSetters = new List<IAcssSetter>();
-        _localChildren = new List<IAcssSection>();
-        
-        if (_bases != null)
-        {
-            ApplyBases(_bases, setters, children);
-        }
-        
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
         var pairs = parser.ParsePairs(settersSpan);
 
+        // Setters
         foreach (var pair in pairs)
         {
             var setter = new AcssSetter(pair.Item1, pair.Item2);
             if (pair.Item1.StartsWith(BehaviorConstraints.AddToken) || pair.Item1.StartsWith(BehaviorConstraints.RemoveToken))
             {
-                setters.Add(setter);
                 _localSetters.Add(setter);
                 continue;
             }
-
-            ReplaceOrAddSetter(setters, setter);
+            
             ReplaceOrAddSetter(_localSetters, setter);
         }
         
-        Setters = setters;
-        _localChildren = parser.ParseSections(_tokens, this, childrenSpan).ToList();
-        children.AddRange(_localChildren);
-        if (children.Count > 0)
-        {
-            Children   = children;
-            Styles     = children.OfType<IAcssStyle>();
-            Resources  = children.OfType<IAcssResourceDictionary>();
-            Animations = children.OfType<IAcssAnimation>();
-        }
+        // Children
+        _localChildren.AddRange(parser.ParseSections(_tokens, this, childrenSpan));
     }
 
     private void ReplaceOrAddSetter(List<IAcssSetter> list, IAcssSetter setter)
@@ -138,7 +120,10 @@ internal class AcssStyle : AcssSection, IAcssStyle
             
             if (style.Setters != null)
             {
-                setters.AddRange(style.Setters);
+                foreach (var acssSetter in style.Setters)
+                {
+                    ReplaceOrAddSetter(setters, acssSetter);
+                }
             }
 
             if (style.Children != null)
@@ -308,7 +293,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
         return this._selectorString == one;
     }
 
-    public void ReloadBases()
+    public void ForceMergeBase()
     {
         var setters = new List<IAcssSetter>();
         var children = new List<IAcssSection>();
@@ -318,25 +303,28 @@ internal class AcssStyle : AcssSection, IAcssStyle
             ApplyBases(_bases, setters, children);
         }
 
-        if(_localSetters != null)
+        if(_localSetters.Count > 0)
         {
             foreach (var setter in _localSetters)
             {
                 ReplaceOrAddSetter(setters, setter);
             }
         }
-        
-        Setters = setters;
-
-        if (_localChildren != null)
+        if (_localChildren.Count > 0)
         {
             children.AddRange(_localChildren);
         }
         
+        Setters    = setters;
         Children   = children;
         Styles     = children.OfType<IAcssStyle>();
         Resources  = children.OfType<IAcssResourceDictionary>();
         Animations = children.OfType<IAcssAnimation>();
+
+        foreach (var acssStyle in Styles)
+        {
+            acssStyle.ForceMergeBase();
+        }
     }
 
     private ChildStyle NewStyle()

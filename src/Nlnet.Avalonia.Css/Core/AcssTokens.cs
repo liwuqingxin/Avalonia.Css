@@ -131,6 +131,11 @@ internal class AcssTokens : IDisposable
         _relies = relies.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
         _bases = bases.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
+        
+        foreach (var acssStyle in GetStyles())
+        {
+            acssStyle.ForceMergeBase();
+        }
 
         PrepareRelies();
     }
@@ -197,7 +202,7 @@ internal class AcssTokens : IDisposable
     {
         foreach (var acssStyle in GetStyles())
         {
-            acssStyle.ReloadBases();
+            acssStyle.ForceMergeBase();
         }
         
         FileChanged?.Invoke(sender, e);
@@ -253,8 +258,12 @@ internal class AcssTokens : IDisposable
         {
             return null;
         }
-
-        IAcssStyle? style = null;
+        
+        var s0 = GetStyles().FirstOrDefault(s => s.MatchKey(key));
+        if (s0 != null)
+        {
+            return s0;
+        }
 
         foreach (var tokens in _bases)
         {
@@ -264,8 +273,8 @@ internal class AcssTokens : IDisposable
                 return s;
             }
         }
-        
-        return style;
+
+        return null;
     }
 
     public void Dispose()
