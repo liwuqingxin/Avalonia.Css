@@ -700,7 +700,7 @@ namespace Nlnet.Avalonia.Css
 
         public string ParseSelectorAndBases(string header, out IList<string>? bases)
         {
-            var match = _basesRegex.Match(header);
+            var match = _basesRegex.Match(header.ReplaceLineEndings(string.Empty));
             if (match.Success)
             {
                 var selector = match.Groups[1].Value;

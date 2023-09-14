@@ -35,14 +35,14 @@ internal class AcssSectionFactory : IAcssSectionFactory
         }
         else if (_regexThemeChildStyle.Match(selector) is { Success: true } match1)
         {
-            section = new AcssStyle(_builder, tokens, match1.Groups[1].Value)
+            section = new AcssStyle(_builder, tokens, selector.Trim()[1..])
             {
                 IsThemeChild = true,
             };
         }
         else if (_regexLogicalChildStyle.Match(selector) is { Success: true } match2)
         {
-            section = new AcssStyle(_builder, tokens, match2.Groups[1].Value)
+            section = new AcssStyle(_builder, tokens, selector.Trim()[1..])
             {
                 IsLogicalChild = true,
             };
