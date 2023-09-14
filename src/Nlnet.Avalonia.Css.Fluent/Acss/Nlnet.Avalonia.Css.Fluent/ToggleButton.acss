@@ -1,8 +1,8 @@
 ﻿
 ^ToggleButton {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
+    Background: var(ctrl-back);
+    BorderBrush:var(fluent-ctrl-border);
     BorderThickness: 1;
     CornerRadius: 4;
     Padding: 8,4,8,5;
@@ -23,19 +23,19 @@
     [[
         :pointerover{
             Foreground: var(fore-hover);
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
         :pressed{
             Foreground:var(fore-pressed);
-            BorderBrush:var(control-border-pressed-fluent);
+            BorderBrush:var(fluent-ctrl-border-pressed);
         }
         :checked{
             Foreground: var(fore-selected-hover);
             Background: var(Accent);
-            BorderBrush: var(control-border-accent-fluent);
+            BorderBrush: var(fluent-accent-ctrl-border);
         }
         :checked:pressed{
-            BorderBrush: var(control-border-pressed-accent-fluent);
+            BorderBrush: var(fluent-accent-ctrl-border-pressed);
         }
         :checked:pointerover{
             Background: var(Accent09);

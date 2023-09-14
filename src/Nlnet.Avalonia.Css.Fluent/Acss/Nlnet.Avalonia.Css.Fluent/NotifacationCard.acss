@@ -15,7 +15,7 @@
             BoxShadow: var(popup-shadow);
             BorderThickness: 1;
             Margin: 12,12,12,0;
-            BorderBrush: var(control-border);
+            BorderBrush: var(ctrl-border);
             Transitions:[
                 var(stBoxShadow);
             ]

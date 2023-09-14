@@ -1,7 +1,7 @@
 ﻿^Slider {
     OpenPaneLength: 250;
     CompactPaneLength: 48;
-    PaneBackground: var(control-back);
+    PaneBackground: var(ctrl-back);
     Transitions:[
         var(stBackground);
         var(stPaneBackground);

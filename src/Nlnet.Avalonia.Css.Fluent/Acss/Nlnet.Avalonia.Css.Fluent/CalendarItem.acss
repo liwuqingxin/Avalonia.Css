@@ -12,7 +12,7 @@
             VerticalAlignment:Stretch;
         }
          /template/ Border#BackgroundLayer{
-             BorderBrush:var(control-border);
+             BorderBrush:var(ctrl-border);
              BorderThickness:0,1,0,0;
              Transitions:[
                  var(stBorderBrush);

@@ -1,8 +1,8 @@
 ﻿
 ^CalendarDatePicker {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
+    Background: var(ctrl-back);
+    BorderBrush:var(fluent-ctrl-border);
     CornerRadius: 4;
     BorderThickness: 1;
     Padding: 8,4,8,5;

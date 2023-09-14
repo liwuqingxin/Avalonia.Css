@@ -7,7 +7,7 @@ namespace Nlnet.Avalonia.Css.Test
     {
         private class AcssSectionFactoryForTest : IAcssSectionFactory
         {
-            public IAcssSection Build(IAcssParser parser, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
+            public IAcssSection Build(IAcssParser parser, AcssTokens tokens, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
             {
                 return null!;
             }

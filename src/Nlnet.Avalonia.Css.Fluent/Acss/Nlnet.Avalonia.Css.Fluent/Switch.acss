@@ -1,8 +1,8 @@
 ﻿
 ^ToggleSwitch {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border);
+    Background: var(ctrl-back);
+    BorderBrush:var(ctrl-border);
     BorderThickness: 1;
     CornerRadius: 16;
     Padding: 8,4,8,5;
@@ -58,7 +58,7 @@
         }
         :pointerover:not(:checked){
             Foreground: var(fore-hover);
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
         :pointerover:checked{
             Foreground: var(fore-hover);

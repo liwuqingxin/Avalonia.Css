@@ -1,8 +1,8 @@
 ﻿
 ^NumericUpDown {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
+    Background: var(ctrl-back);
+    BorderBrush:var(fluent-ctrl-border);
     CaretBrush: var(fore);
     CornerRadius: 4;
     BorderThickness: 1;

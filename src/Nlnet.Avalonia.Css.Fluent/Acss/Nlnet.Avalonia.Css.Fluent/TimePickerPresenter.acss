@@ -88,12 +88,12 @@
          /template/ Rectangle#PART_FirstSpacer {
             Width:1;
             HorizontalAlignment:Center;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
          /template/ Rectangle#PART_SecondSpacer {
             Width:1;
             HorizontalAlignment:Center;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
 
 
@@ -122,7 +122,7 @@
         }
          /template/ Rectangle#TimePickerFlyoutPresenterSpacer {
             Height:1;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
     ]]
 }

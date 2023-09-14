@@ -5,7 +5,7 @@
             CornerRadius: 6;
             BorderThickness: 1;
             Margin: 10,3,10,30;
-            BorderBrush:var(control-border);
+            BorderBrush:var(ctrl-border);
             ClipToBounds:False;
             Padding:0;
             RenderTransformOrigin:0%,0%;

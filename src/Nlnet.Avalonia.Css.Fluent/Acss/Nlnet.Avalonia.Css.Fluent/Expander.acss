@@ -1,8 +1,8 @@
 ﻿
 ^Expander {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border);
+    Background: var(ctrl-back);
+    BorderBrush:var(ctrl-border);
     BorderThickness: 1;
     CornerRadius: 6;
     Padding: 8,4,8,5;
@@ -17,7 +17,7 @@
 
     [[
         :pressed{
-            BorderBrush: var(control-border-pressed-fluent);
+            BorderBrush: var(fluent-ctrl-border-pressed);
         }
         /* Use animation to set visibility */
         :expanded /template/ Border#ExpanderContent{
@@ -108,18 +108,18 @@ Expander{
         /template/ ToggleButton:is-part Border#ToggleButtonBackground{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
-            BorderBrush:var(control-border);
+            BorderBrush:var(ctrl-border);
             Transitions:[
                 var(stBackground);
                 var(stCornerRadius)
             ]
         }
         /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
-            Background: var(control-back-hover);
-            BorderBrush:var(control-border-fluent);
+            Background: var(ctrl-back-hover);
+            BorderBrush:var(fluent-ctrl-border);
         }
         /template/ ToggleButton:pressed Border#ToggleButtonBackground{
-            BorderBrush:var(control-border-pressed-fluent);
+            BorderBrush:var(fluent-ctrl-border-pressed);
         }
 
 

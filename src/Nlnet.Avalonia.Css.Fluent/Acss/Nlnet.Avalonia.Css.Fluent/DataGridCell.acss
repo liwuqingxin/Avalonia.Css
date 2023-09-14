@@ -25,7 +25,7 @@ DataGridCell TextBox#CellTextBox{
     Transitions: null;
     [[
         :focus{
-            Background: var(control-back-pressed);
+            Background: var(ctrl-back-pressed);
         }
     ]]
 }

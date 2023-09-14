@@ -1,8 +1,8 @@
 ﻿
 ^ButtonSpinner {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
+    Background: var(ctrl-back);
+    BorderBrush:var(fluent-ctrl-border);
     BorderThickness: 1;
     CornerRadius: 4;
     Padding: 8,4,8,5;

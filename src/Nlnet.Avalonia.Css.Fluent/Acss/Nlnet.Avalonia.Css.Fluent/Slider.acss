@@ -1,7 +1,7 @@
 ﻿^Slider {
     Foreground: var(Accent);
     Background: var(slider-back);
-    BorderBrush: var(control-border);
+    BorderBrush: var(ctrl-border);
     VerticalAlignment:Top;
     HorizontalAlignment:Stretch;
     CornerRadius: 4;
@@ -48,8 +48,8 @@
             ClipToBounds:False;
             [[
                 >Thumb /template/ Ellipse#PART_Border{
-                    Fill: var(control-back);
-                    Stroke:var(control-border);
+                    Fill: var(ctrl-back);
+                    Stroke:var(ctrl-border);
                     StrokeThickness: 1;
                     Transitions:[
                         var(stFill);
@@ -102,7 +102,7 @@
 Slider{
     [[
         Slider:pointerover Thumb /template/ Ellipse#PART_Border{
-            Fill: var(control-back-hover);
+            Fill: var(ctrl-back-hover);
         }
 
         Slider:horizontal RepeatButton /template/ Border#TrackBackground {

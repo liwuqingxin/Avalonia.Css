@@ -17,7 +17,7 @@
         }
         /template/ Button:is-part:pointerover{
             Opacity: 1;
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
         /template/ Button#PART_CloseButton:is-part:pointerover{
             Opacity: 1;
@@ -25,7 +25,7 @@
             Foreground: #fff1707a;
         }
         /template/ Button:is-part:pressed{
-            Background: var(control-back-pressed);
+            Background: var(ctrl-back-pressed);
         }
         /template/ Viewbox{
             Width: 10;

@@ -4,21 +4,11 @@ Button>Popup{
     PopupStyles.Style: Slide;
 }
 
-^Button @extend(
-    .control, 
-    .border-fluent, 
-    .align, 
-    .padding, 
-    .corner, 
-    .disabled)
-{
+^Button @extend(.fluent-visual){
+    MinHeight: 28;
     Opacity: 1;
-    MinHeight:28;
-    RenderTransform: none;
-    ClipToBounds:False;
+    ClipToBounds: False;
     Transitions:[
-        /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
-        var(stRenderTransform);
         var(stBackground);
         var(stBorderBrush);
         var(stOpacity);
@@ -26,20 +16,18 @@ Button>Popup{
 
     [[
         :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(control-back-hover);
+            Transitions:[
+                var(stRenderTransform);
+                var(stBackground);
+                var(stOpacity);
+            ]
         }
-        :pressed{
-            /* RenderTransform:scale(0.97,0.97); */
-            //Opacity:0.6;
-            Foreground:var(fore-pressed);
-            BorderBrush:var(control-border-pressed-fluent);
-        }
+
         // 主题分类
         .primary, .Primary, [(ButtonStyles.Style)=Accent] {
             Background: var(Accent);
             Foreground: #fff;
-            BorderBrush: var(control-border-accent-fluent);
+            BorderBrush: var(fluent-accent-ctrl-border);
             [[
                 :pointerover{
                     Background: var(Accent09);
@@ -47,7 +35,7 @@ Button>Popup{
                 }
                 :pressed{
                     Opacity:0.8;
-                    BorderBrush: var(control-border-accent-fluent-pressed);
+                    BorderBrush: var(fluent-accent-ctrl-border-pressed);
                 }
             ]]
         }

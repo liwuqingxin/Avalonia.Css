@@ -21,10 +21,10 @@
     ]
     [[
         :pointerover{
-            Background:var(control-back-hover);
+            Background:var(ctrl-back-hover);
         }
         :pressed{
-            Background:var(control-back-pressed);
+            Background:var(ctrl-back-pressed);
         }
         :selected{
             Background:var(Accent);

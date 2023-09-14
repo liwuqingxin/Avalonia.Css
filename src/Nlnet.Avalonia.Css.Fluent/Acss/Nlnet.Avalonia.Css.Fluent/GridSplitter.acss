@@ -2,7 +2,7 @@
     Focusable: True;
     MinWidth: 6;
     MinHeight: 6;
-    Background: var(control-back);
+    Background: var(ctrl-back);
     Opacity: 0.5;
     Transitions:[
         var(stBackground);

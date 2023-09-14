@@ -1,8 +1,8 @@
 ﻿
 ^TextBox {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-input-fluent);
+    Background: var(ctrl-back);
+    BorderBrush:var(fluent-input-ctrl-border);
     CaretBrush: var(fore);
     CornerRadius: 4;
     BorderThickness: 1;
@@ -26,7 +26,7 @@
     [[
         :pointerover{
             Foreground: var(fore-hover);
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
          /template/ TextBlock#PART_Watermark {
             IsVisible:False;

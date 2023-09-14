@@ -2,7 +2,7 @@
     Padding: 12,0;
     Background: var(item-back);
     Foreground: var(fore);
-    BorderBrush: var(control-border);
+    BorderBrush: var(ctrl-border);
     BorderThickness: 1;
     CornerRadius: 6;
     MinHeight: 32;

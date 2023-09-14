@@ -1,8 +1,8 @@
 ﻿
 ^Calendar {
     Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border);
+    Background: var(ctrl-back);
+    BorderBrush:var(ctrl-border);
     BorderThickness: 1;
     CornerRadius: 6;
     [[
