@@ -135,41 +135,6 @@ internal class AcssTokens : IDisposable
         PrepareRelies();
     }
 
-    private void PrepareRelies()
-    {
-        _disposable = new CompositeDisposable();
-        _imports?.ForEach(r =>
-        {
-            r.FileChanged2 -= OnDependencyChanged;
-            r.FileChanged2 += OnDependencyChanged;
-        });
-        _relies?.ForEach(r =>
-        {
-            r.FileChanged2 -= OnDependencyChanged;
-            r.FileChanged2 += OnDependencyChanged;
-        });
-        _bases?.ForEach(r =>
-        {
-            r.FileChanged2 -= OnDependencyChanged;
-            r.FileChanged2 += OnDependencyChanged;
-        });
-        _disposable.Add(Disposable.Create(() =>
-        {
-            _imports?.ForEach(r =>
-            {
-                r.FileChanged2 -= OnDependencyChanged;
-            });
-            _relies?.ForEach(r =>
-            {
-                r.FileChanged2 -= OnDependencyChanged;
-            });
-            _bases?.ForEach(r =>
-            {
-                r.FileChanged2 -= OnDependencyChanged;
-            });
-        }));
-    }
-
     private string GetPathAlignToThis(string path)
     {
         if (File.Exists(path))
@@ -180,9 +145,61 @@ internal class AcssTokens : IDisposable
         var dir = Path.GetDirectoryName(StandardPath);
         return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
     }
-
-    private void OnDependencyChanged(object? sender, EventArgs e)
+    
+    private void PrepareRelies()
     {
+        _disposable = new CompositeDisposable();
+        _imports?.ForEach(r =>
+        {
+            r.FileChanged2 -= OnImportChanged;
+            r.FileChanged2 += OnImportChanged;
+        });
+        _relies?.ForEach(r =>
+        {
+            r.FileChanged2 -= OnRelyChanged;
+            r.FileChanged2 += OnRelyChanged;
+        });
+        _bases?.ForEach(r =>
+        {
+            r.FileChanged2 -= OnBaseChanged;
+            r.FileChanged2 += OnBaseChanged;
+        });
+        _disposable.Add(Disposable.Create(() =>
+        {
+            _imports?.ForEach(r =>
+            {
+                r.FileChanged2 -= OnImportChanged;
+            });
+            _relies?.ForEach(r =>
+            {
+                r.FileChanged2 -= OnRelyChanged;
+            });
+            _bases?.ForEach(r =>
+            {
+                r.FileChanged2 -= OnBaseChanged;
+            });
+        }));
+    }
+
+    private void OnImportChanged(object? sender, EventArgs e)
+    {
+        FileChanged?.Invoke(sender, e);
+        FileChanged2?.Invoke(sender, e);
+    }
+    
+    private void OnRelyChanged(object? sender, EventArgs e)
+    {
+        FileChanged?.Invoke(sender, e);
+        FileChanged2?.Invoke(sender, e);
+    }
+    
+    private void OnBaseChanged(object? sender, EventArgs e)
+    {
+        foreach (var acssStyle in GetStyles())
+        {
+            acssStyle.ReloadBases();
+        }
+        
         FileChanged?.Invoke(sender, e);
         FileChanged2?.Invoke(sender, e);
     }
@@ -196,15 +213,15 @@ internal class AcssTokens : IDisposable
         _bases = null;
         _sections = null;
     }
+    
+    private void ReloadFromFile()
+    {
+        DoParsing();
+    }
 
 
 
     #region Public Methods
-
-    public void ReloadFromFile()
-    {
-        DoParsing();
-    }
 
     public IEnumerable<IAcssStyle> GetStyles()
     {

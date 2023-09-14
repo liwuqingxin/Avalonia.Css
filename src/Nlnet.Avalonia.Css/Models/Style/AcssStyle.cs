@@ -31,6 +31,8 @@ internal interface IAcssStyle : IAcssSection, IDisposable
     void AddDisposable(IDisposable disposable);
     
     bool MatchKey(string one);
+    
+    void ReloadBases();
 }
 
 internal class AcssStyle : AcssSection, IAcssStyle
@@ -40,12 +42,15 @@ internal class AcssStyle : AcssSection, IAcssStyle
     private string? _selectorString;
     private Selector? _selector;
     private CompositeDisposable? _compositeDisposable;
+    private List<IAcssSetter>? _localSetters;
+    private List<IAcssSection>? _localChildren;
+    private IList<string>? _bases;
 
-    public bool IsThemeChild { get; set; }
+    public bool IsThemeChild { get; init; }
 
-    public bool IsLogicalChild { get; set; }
+    public bool IsLogicalChild { get; init; }
 
-    public Type? ThemeTargetType { get; set; }
+    public Type? ThemeTargetType { get; private set; }
 
     public IEnumerable<IAcssSetter>? Setters { get; set; }
 
@@ -64,15 +69,17 @@ internal class AcssStyle : AcssSection, IAcssStyle
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
         var interpreter = _builder.Interpreter;
-        _selectorString = interpreter.ParseSelectorAndBases(Header, out var bases);
+        _selectorString = interpreter.ParseSelectorAndBases(Header, out _bases);
         _selector = CreateSelector(_selectorString);
         
         var setters = new List<IAcssSetter>();
         var children = new List<IAcssSection>();
+        _localSetters = new List<IAcssSetter>();
+        _localChildren = new List<IAcssSection>();
         
-        if (bases != null)
+        if (_bases != null)
         {
-            ApplyBases(bases, setters, children);
+            ApplyBases(_bases, setters, children);
         }
         
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
@@ -80,32 +87,42 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
         foreach (var pair in pairs)
         {
+            var setter = new AcssSetter(pair.Item1, pair.Item2);
             if (pair.Item1.StartsWith(BehaviorConstraints.AddToken) || pair.Item1.StartsWith(BehaviorConstraints.RemoveToken))
             {
-                setters.Add(new AcssSetter(pair.Item1, pair.Item2));
+                setters.Add(setter);
+                _localSetters.Add(setter);
                 continue;
             }
-            var index = setters.FindIndex(s => s.Property == pair.Item1);
-            if (index != -1)
-            {
-                setters.RemoveAt(index);
-                setters.Insert(index, new AcssSetter(pair.Item1, pair.Item2));
-                this.WriteError($"Duplicated setter for property '{pair.Item1}' is detected. Use the later one that value is '{pair.Item2}'.");
-            }
-            else
-            {
-                setters.Add(new AcssSetter(pair.Item1, pair.Item2));
-            }
+
+            ReplaceOrAddSetter(setters, setter);
+            ReplaceOrAddSetter(_localSetters, setter);
         }
         
         Setters = setters;
-        children.AddRange(parser.ParseSections(_tokens, this, childrenSpan));
+        _localChildren = parser.ParseSections(_tokens, this, childrenSpan).ToList();
+        children.AddRange(_localChildren);
         if (children.Count > 0)
         {
             Children   = children;
             Styles     = children.OfType<IAcssStyle>();
             Resources  = children.OfType<IAcssResourceDictionary>();
             Animations = children.OfType<IAcssAnimation>();
+        }
+    }
+
+    private void ReplaceOrAddSetter(List<IAcssSetter> list, IAcssSetter setter)
+    {
+        var index = list.FindIndex(s => s.Property == setter.Property);
+        if (index != -1)
+        {
+            list.RemoveAt(index);
+            list.Insert(index, setter);
+            this.WriteError($"Duplicated setter for property '{setter.Property}' is detected. Use the later one that value is '{setter.RawValue}'.");
+        }
+        else
+        {
+            list.Add(setter);
         }
     }
 
@@ -149,8 +166,6 @@ internal class AcssStyle : AcssSection, IAcssStyle
     private Selector? CreateSelector(string selectorString)
     {
         var isChild = (Parent != null && IsLogicalChild == false) || IsThemeChild;
-
-        // Selector
         var selector   = isChild ? Selectors.Nesting(null) : null;
         var syntaxList = SelectorGrammar.Parse(selectorString).ToList();
         var selectors  = new List<Selector>();
@@ -291,6 +306,37 @@ internal class AcssStyle : AcssSection, IAcssStyle
     public bool MatchKey(string one)
     {
         return this._selectorString == one;
+    }
+
+    public void ReloadBases()
+    {
+        var setters = new List<IAcssSetter>();
+        var children = new List<IAcssSection>();
+
+        if (_bases != null)
+        {
+            ApplyBases(_bases, setters, children);
+        }
+
+        if(_localSetters != null)
+        {
+            foreach (var setter in _localSetters)
+            {
+                ReplaceOrAddSetter(setters, setter);
+            }
+        }
+        
+        Setters = setters;
+
+        if (_localChildren != null)
+        {
+            children.AddRange(_localChildren);
+        }
+        
+        Children   = children;
+        Styles     = children.OfType<IAcssStyle>();
+        Resources  = children.OfType<IAcssResourceDictionary>();
+        Animations = children.OfType<IAcssAnimation>();
     }
 
     private ChildStyle NewStyle()
