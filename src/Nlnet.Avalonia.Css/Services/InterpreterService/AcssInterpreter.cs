@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Animation;
-using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -496,6 +494,7 @@ namespace Nlnet.Avalonia.Css
                 var keyFrame = new KeyFrame();
                 var initString = match.Groups[1].Value;
                 var splits = initString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                // Cue or KeyTime.
                 if (splits.Length > 0)
                 {
                     try
@@ -514,6 +513,7 @@ namespace Nlnet.Avalonia.Css
                         this.WriteError($"Can not parse Cue or KeyTime from string '{splits[0]}' in '{selector}'. Use default value.");
                     }
                 }
+                // KeySpine
                 if (splits.Length > 1 && string.IsNullOrEmpty(splits[1]) == false)
                 {
                     try
@@ -539,35 +539,47 @@ namespace Nlnet.Avalonia.Css
                         animatorTypeName = matchAnimator.Groups[2].Value;
                     }
 
+                    var setter = new Setter();
+
+                    // Property
                     var property = interpreter.ParseAvaloniaProperty(selectorTargetType, propertyName);
                     if (property == null)
                     {
                         continue;
                     }
-                    var value = interpreter.ParseStaticValue(property, pair.Item2);
-                    var setter = new Setter()
-                    {
-                        Property = property,
-                        Value = value
-                    };
+                    setter.Property = property;
 
-                    if (animatorTypeName != null)
+                    // Value
+                    if (IsVar(pair.Item2, out var key))
                     {
-                        if (_builder.TypeResolver.TryGetType(animatorTypeName, out var animatorType))
+                        // Dynamic.
+                        var app = Checks.CheckApplication();
+                        app.GetResourceObservable(key!).Subscribe(new AnonymousObserver<object?>(o =>
                         {
-                            var animator = Activator.CreateInstance(animatorType!);
-                            if (animator is ICustomAnimator customAnimator)
-                            {
-                                Animation.SetAnimator(setter, customAnimator);
-                            }
-                            else
-                            {
-                                this.WriteError($"The type '{animatorType}' is not a {nameof(ICustomAnimator)}. It can not be an animator for an animation.");
-                            }
-                        }
+                            setter.Value = o;
+                            keyFrame.Setters.Remove(setter);
+                            keyFrame.Setters.Add(setter);
+                        }));
+                    }
+                    else
+                    {
+                        // Static.
+                        setter.Value = interpreter.ParseValue(property, pair.Item2);
+                        keyFrame.Setters.Add(setter);
                     }
 
-                    keyFrame.Setters.Add(setter);
+                    if (animatorTypeName != null && _builder.TypeResolver.TryGetType(animatorTypeName, out var animatorType))
+                    {
+                        var animator = Activator.CreateInstance(animatorType!);
+                        if (animator is ICustomAnimator customAnimator)
+                        {
+                            Animation.SetAnimator(setter, customAnimator);
+                        }
+                        else
+                        {
+                            this.WriteError($"The type '{animatorType}' is not a {nameof(ICustomAnimator)}. It can not be an animator for an animation.");
+                        }
+                    }
                 }
 
                 yield return keyFrame;

@@ -187,6 +187,8 @@ namespace Nlnet.Avalonia.Css
             catch (Exception e)
             {
                 this.WriteError(e.ToString());
+                
+                // TODO DELETE WHEN RLS.
                 Dispatcher.UIThread.Post(() => throw e);
             }
         }
