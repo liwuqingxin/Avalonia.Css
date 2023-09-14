@@ -1,0 +1,37 @@
+﻿.control{
+    Foreground: var(fore);
+    Background: var(control-back);
+}
+
+.corner{
+    CornerRadius: 4;
+}
+
+.padding{
+    Padding: 8,4,8,5;
+}
+
+.align{
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Center;
+}
+
+.border-fluent{
+    BorderBrush:var(control-border-fluent);
+    BorderThickness: 1;
+}
+
+.border{
+    BorderBrush:var(control-border);
+    BorderThickness: 1;
+}
+
+.disabled{
+    [[
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+}

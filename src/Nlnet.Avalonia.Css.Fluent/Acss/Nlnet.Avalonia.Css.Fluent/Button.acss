@@ -1,21 +1,20 @@
-﻿Button>Popup{
+﻿base ./Bases/Bases.acss;
+
+Button>Popup{
     PopupStyles.Style: Slide;
 }
 
-^Button {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
+^Button @extend(
+    .control, 
+    .border-fluent, 
+    .align, 
+    .padding, 
+    .corner, 
+    .disabled)
+{
     Opacity: 1;
     MinHeight:28;
     RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Center;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
         /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
@@ -35,9 +34,6 @@
             //Opacity:0.6;
             Foreground:var(fore-pressed);
             BorderBrush:var(control-border-pressed-fluent);
-        }
-        :disabled{
-            Opacity:0.4;
         }
         // 主题分类
         .primary, .Primary, [(ButtonStyles.Style)=Accent] {
