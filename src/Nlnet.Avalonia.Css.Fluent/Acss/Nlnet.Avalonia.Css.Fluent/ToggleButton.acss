@@ -1,20 +1,9 @@
-﻿
-^ToggleButton {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^ToggleButton @extend(.fluent-visual){
     Opacity: 1;
-    RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Center;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
     ClipToBounds:False;
     Transitions:[
-        var(stRenderTransform);
         var(stBackground);
         var(stBorderBrush);
         var(stOpacity);
@@ -22,13 +11,13 @@
 
     [[
         :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(ctrl-back-hover);
+            Transitions:[
+                var(stRenderTransform);
+                var(stBackground);
+                var(stOpacity);
+            ]
         }
-        :pressed{
-            Foreground:var(fore-pressed);
-            BorderBrush:var(fluent-ctrl-border-pressed);
-        }
+        
         :checked{
             Foreground: var(fore-selected-hover);
             Background: var(Accent);
@@ -39,9 +28,6 @@
         }
         :checked:pointerover{
             Background: var(Accent09);
-        }
-        :disabled{
-            Opacity:0.4;
         }
     ]]
 }

@@ -5,7 +5,6 @@ Button>Popup{
 }
 
 ^Button @extend(.fluent-visual){
-    MinHeight: 28;
     Opacity: 1;
     ClipToBounds: False;
     Transitions:[
