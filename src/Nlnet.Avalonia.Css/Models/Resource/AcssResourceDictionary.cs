@@ -40,9 +40,9 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
-        var matchAccent = RegexAccent.Match(Selector);
-        var matchTheme  = RegexTheme.Match(Selector);
-        var matchDesc   = RegexDescription.Match(Selector);
+        var matchAccent = RegexAccent.Match(Header);
+        var matchTheme  = RegexTheme.Match(Header);
+        var matchDesc   = RegexDescription.Match(Header);
         if (matchAccent.Success)
         {
             Accent = matchAccent.Groups[1].Value;

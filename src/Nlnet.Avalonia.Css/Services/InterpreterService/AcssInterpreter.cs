@@ -22,11 +22,11 @@ namespace Nlnet.Avalonia.Css
 
         // ' var (xxx) '
         private readonly Regex _varRegex = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
-        // ' $(xxx).xxx ' or '$(xxx)#10.xxx '
+        // ' $xxx.xxx ' or '$xxx#10.xxx '
         private readonly Regex _bindingRegex = new("^\\s*\\$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
         // ' @xxx.xxx '
         private readonly Regex _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
-        // ' xxx(xxx) '
+        // ' xxx (xxx) '
         private readonly Regex _transitionRegex = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
         // ' KeyFrame (xxx) : '
         private readonly Regex _keyFrameRegex = new("^\\s*KeyFrame\\s*\\:\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
@@ -34,6 +34,8 @@ namespace Nlnet.Avalonia.Css
         private readonly Regex _setterAnimatorRegex = new("\\s*(.*?)\\s*\\(([a-zA-Z0-9_]*)\\)\\s*");
         // ' (x x x x) [ #cccccc 0.3 0.2; var(AccentColor) 1.2; ] '
         private readonly Regex _linearRegex = new("\\(\\s*(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\)\\s*\\[\\s*(.*)\\s*\\]");
+        // ' selector @extend ( content )', where content : 'base1, base2...'
+        private readonly Regex _basesRegex = new("(.*?)\\s*@extend\\s*\\(\\s*(.*?)\\s*\\)");
 
         
         private readonly Dictionary<string, Type> _transitionsTypes;
@@ -694,6 +696,21 @@ namespace Nlnet.Avalonia.Css
         public LinearGradientBrush? ParseComplexLinear(string valueString, IResourceHost host)
         {
             return null;
+        }
+
+        public string ParseSelectorAndBases(string header, out IList<string>? bases)
+        {
+            var match = _basesRegex.Match(header);
+            if (match.Success)
+            {
+                var selector = match.Groups[1].Value;
+                var content = match.Groups[2].Value;
+                bases = content.Split(new char[] { ',', ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                return selector;
+            }
+
+            bases = null;
+            return header;
         }
     }
 }

@@ -29,11 +29,15 @@ internal interface IAcssStyle : IAcssSection, IDisposable
     public ChildStyle ToAvaloniaStyle();
 
     void AddDisposable(IDisposable disposable);
+    
+    bool MatchKey(string one);
 }
 
 internal class AcssStyle : AcssSection, IAcssStyle
 {
     private readonly IAcssBuilder _builder;
+    private readonly AcssTokens _tokens;
+    private string? _selectorString;
     private Selector? _selector;
     private CompositeDisposable? _compositeDisposable;
 
@@ -51,46 +55,79 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
     public IEnumerable<IAcssAnimation>? Animations { get; set; }
 
-    public AcssStyle(IAcssBuilder builder, string selector) : base(builder, selector)
+    public AcssStyle(IAcssBuilder builder, AcssTokens tokens, string selector) : base(builder, selector)
     {
         _builder = builder;
+        _tokens = tokens;
     }
 
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
-        _selector = CreateSelector();
-
+        var interpreter = _builder.Interpreter;
+        _selectorString = interpreter.ParseSelectorAndBases(Header, out var bases);
+        _selector = CreateSelector(_selectorString);
+        
+        var setters = new List<IAcssSetter>();
+        var children = new List<IAcssSection>();
+        
+        if (bases != null)
+        {
+            ApplyBases(bases, setters, children);
+        }
+        
         parser.ParseSettersAndChildren(content, out var settersSpan, out var childrenSpan);
-
         var pairs = parser.ParsePairs(settersSpan);
-        var acssSetters = new List<IAcssSetter>();
+
         foreach (var pair in pairs)
         {
             if (pair.Item1.StartsWith(BehaviorConstraints.AddToken) || pair.Item1.StartsWith(BehaviorConstraints.RemoveToken))
             {
-                acssSetters.Add(new AcssSetter(pair.Item1, pair.Item2));
+                setters.Add(new AcssSetter(pair.Item1, pair.Item2));
                 continue;
             }
-            var index = acssSetters.FindIndex(s => s.Property == pair.Item1);
+            var index = setters.FindIndex(s => s.Property == pair.Item1);
             if (index != -1)
             {
-                acssSetters.RemoveAt(index);
-                acssSetters.Insert(index, new AcssSetter(pair.Item1, pair.Item2));
+                setters.RemoveAt(index);
+                setters.Insert(index, new AcssSetter(pair.Item1, pair.Item2));
                 this.WriteError($"Duplicated setter for property '{pair.Item1}' is detected. Use the later one that value is '{pair.Item2}'.");
             }
             else
             {
-                acssSetters.Add(new AcssSetter(pair.Item1, pair.Item2));
+                setters.Add(new AcssSetter(pair.Item1, pair.Item2));
             }
         }
-        Setters = acssSetters;
-        var list = parser.ParseSections(this, childrenSpan).ToList();
-        if (list.Count > 0)
+        
+        Setters = setters;
+        children.AddRange(parser.ParseSections(_tokens, this, childrenSpan));
+        if (children.Count > 0)
         {
-            Children   = list;
-            Styles     = list.OfType<IAcssStyle>();
-            Resources  = list.OfType<IAcssResourceDictionary>();
-            Animations = list.OfType<IAcssAnimation>();
+            Children   = children;
+            Styles     = children.OfType<IAcssStyle>();
+            Resources  = children.OfType<IAcssResourceDictionary>();
+            Animations = children.OfType<IAcssAnimation>();
+        }
+    }
+
+    private void ApplyBases(IEnumerable<string> bases, List<IAcssSetter> setters, List<IAcssSection> children)
+    {
+        foreach (var one in bases)
+        {
+            var style = _tokens.TryGetBaseStyle(one);
+            if (style == null)
+            {
+                continue;
+            }
+            
+            if (style.Setters != null)
+            {
+                setters.AddRange(style.Setters);
+            }
+
+            if (style.Children != null)
+            {
+                children.AddRange(style.Children);
+            }
         }
     }
 
@@ -109,13 +146,13 @@ internal class AcssStyle : AcssSection, IAcssStyle
         return Parent is not IAcssStyle parentAcssStyle ? null : parentAcssStyle.GetTargetType();
     }
 
-    private Selector? CreateSelector()
+    private Selector? CreateSelector(string selectorString)
     {
         var isChild = (Parent != null && IsLogicalChild == false) || IsThemeChild;
 
         // Selector
         var selector   = isChild ? Selectors.Nesting(null) : null;
-        var syntaxList = SelectorGrammar.Parse(Selector).ToList();
+        var syntaxList = SelectorGrammar.Parse(selectorString).ToList();
         var selectors  = new List<Selector>();
 
         if(IsThemeChild)
@@ -160,7 +197,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
         var targetType = ((IAcssStyle)this).GetTargetType();
         if (targetType == null)
         {
-            this.WriteError($"The target type is null as raw selector string is '{Selector}'. Empty avalonia style is created.");
+            this.WriteError($"The target type is null as raw header string is '{Header}'. Empty avalonia style is created.");
             return style;
         }
 
@@ -251,6 +288,11 @@ internal class AcssStyle : AcssSection, IAcssStyle
         }
     }
 
+    public bool MatchKey(string one)
+    {
+        return this._selectorString == one;
+    }
+
     private ChildStyle NewStyle()
     {
         return IsLogicalChild
@@ -276,13 +318,13 @@ internal class AcssStyle : AcssSection, IAcssStyle
             styleKind = $" - ";
         }
 
-        return $"{styleKind}{Selector}";
+        return $"{styleKind}{Header}";
     }
 
     public string ToDetailString()
     {
         var builder = new StringBuilder();
-        builder.AppendLine($"'{Selector}'");
+        builder.AppendLine($"'{Header}'");
         if (Setters != null)
         {
             foreach (var acssSetter in Setters)

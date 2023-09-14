@@ -37,10 +37,11 @@ internal interface IAcssParser
     /// <summary>
     /// Try parsing sections like 'selector1 { content... }selector2{ content... }'. It is the same structure as section objects.
     /// </summary>
+    /// <param name="tokens"></param>
     /// <param name="parent"></param>
     /// <param name="span"></param>
     /// <returns></returns>
-    public IEnumerable<IAcssSection> ParseSections(IAcssSection? parent, ReadOnlySpan<char> span);
+    public IEnumerable<IAcssSection> ParseSections(AcssTokens tokens, IAcssSection? parent, ReadOnlySpan<char> span);
 
     /// <summary>
     /// Try parsing setters and children like 'key:value;... [[ children... ]]'.

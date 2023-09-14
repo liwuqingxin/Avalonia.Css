@@ -51,6 +51,8 @@ public class highlightingNode
         "base ",
         "rely ",
         
+        "@extend",
+        
         "accent",
         "theme",
         "desc",

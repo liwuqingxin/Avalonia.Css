@@ -28,7 +28,7 @@ namespace Nlnet.Avalonia.Css
 
         public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
         {
-            var matchDesc = RegexDescription.Match(Selector);
+            var matchDesc = RegexDescription.Match(Header);
             if (matchDesc.Success)
             {
                 Description = matchDesc.Groups[1].Value;

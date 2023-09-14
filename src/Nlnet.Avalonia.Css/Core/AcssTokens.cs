@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Avalonia.Threading;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -131,20 +130,25 @@ internal class AcssTokens : IDisposable
         _imports = imports.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
         _relies = relies.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
         _bases = bases.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
-        _sections = parser.ParseSections(null, contentSpan).ToList();
+        _sections = parser.ParseSections(this, null, contentSpan).ToList();
 
+        PrepareRelies();
+    }
+
+    private void PrepareRelies()
+    {
         _disposable = new CompositeDisposable();
-        _imports.ForEach(r =>
+        _imports?.ForEach(r =>
         {
             r.FileChanged2 -= OnDependencyChanged;
             r.FileChanged2 += OnDependencyChanged;
         });
-        _relies.ForEach(r =>
+        _relies?.ForEach(r =>
         {
             r.FileChanged2 -= OnDependencyChanged;
             r.FileChanged2 += OnDependencyChanged;
         });
-        _bases.ForEach(r =>
+        _bases?.ForEach(r =>
         {
             r.FileChanged2 -= OnDependencyChanged;
             r.FileChanged2 += OnDependencyChanged;
@@ -224,6 +228,27 @@ internal class AcssTokens : IDisposable
     {
         return _sections?.OfType<IAcssResourceDictionary>()
                ?? Enumerable.Empty<IAcssResourceDictionary>();
+    }
+
+    public IAcssStyle? TryGetBaseStyle(string key)
+    {
+        if (_bases == null)
+        {
+            return null;
+        }
+
+        IAcssStyle? style = null;
+
+        foreach (var tokens in _bases)
+        {
+            var s = tokens.GetStyles().FirstOrDefault(s => s.MatchKey(key));
+            if (s != null)
+            {
+                return s;
+            }
+        }
+        
+        return style;
     }
 
     public void Dispose()

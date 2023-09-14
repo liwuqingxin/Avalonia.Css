@@ -238,7 +238,7 @@ internal class AcssParser : IAcssParser
         return list;
     }
 
-    public IEnumerable<IAcssSection> ParseSections(IAcssSection? parent, ReadOnlySpan<char> span)
+    public IEnumerable<IAcssSection> ParseSections(AcssTokens tokens, IAcssSection? parent, ReadOnlySpan<char> span)
     {
         var list = new List<IAcssSection>();
         
@@ -268,7 +268,7 @@ internal class AcssParser : IAcssParser
                         isInStyleContent = false;
                         var content = span[index..i];
                         index = i + 1;
-                        list.Add( _sectionFactory.Build(this, parent, selector, content));
+                        list.Add( _sectionFactory.Build(this, tokens, parent, selector, content));
                     }
                     else
                     {

@@ -36,4 +36,6 @@ internal interface IAcssInterpreter
     public LinearGradientBrush? ParseLinear(string valueString, IResourceHost host);
 
     public LinearGradientBrush? ParseComplexLinear(string valueString, IResourceHost host);
+
+    public string ParseSelectorAndBases(string header, out IList<string>? bases);
 }
