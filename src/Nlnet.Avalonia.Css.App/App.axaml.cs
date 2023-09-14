@@ -19,7 +19,7 @@ namespace Nlnet.Avalonia.Css.App
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             AcssBuilder.UseDefaultBuilder();
 
-            // Set the current mode and theme.
+            // Set the current theme.
             AcssBuilder.Default.Configuration.Theme = "green";
 
             // Type resolver for Nlnet.Avalonia.Css.App

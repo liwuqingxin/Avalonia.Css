@@ -51,7 +51,7 @@ public class highlightingNode
         "base ",
         "rely ",
         
-        "mode",
+        "accent",
         "theme",
         "desc",
         

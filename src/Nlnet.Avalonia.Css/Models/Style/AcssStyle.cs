@@ -174,7 +174,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
                 {
                     continue;
                 }
-                if (acssResourceList.IsModeResource())
+                if (acssResourceList.IsThemeResource())
                 {
                     style.Resources.ThemeDictionaries.Add(acssResourceList.GetThemeVariant(), dic);
                 }

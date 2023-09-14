@@ -52,7 +52,9 @@ namespace Nlnet.Avalonia.Css.Fluent
             _accentFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Accent.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Accent.acss");
             _themeFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss");
             _transitions = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Transitions.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Transitions.acss");
-
+            
+            loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Shadows.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Shadows.acss");
+            
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/");    
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/Senior", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Senior");
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/MessageBox", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/MessageBox");

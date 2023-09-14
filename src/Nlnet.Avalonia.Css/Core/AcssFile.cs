@@ -137,7 +137,7 @@ namespace Nlnet.Avalonia.Css
                     {
                         continue;
                     }
-                    if (dictionary.IsModeResource())
+                    if (dictionary.IsThemeResource())
                     {
                         this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
                     }

@@ -9,7 +9,7 @@
   Resources must be loaded before using them. 
   For example, the resources used by a style acss file must be loaded ahead of that acss file.
 */
-::res[mode=light][theme=blue][desc=亮色资源] {
+::res[theme=light][accent=blue][desc=亮色资源] {
 
     // SolidColorBrush with key 'key1'. The other value format that avalonia brush supported are also available.
     brush(key1): #333;      /* r=03, g=03, b=03 */
