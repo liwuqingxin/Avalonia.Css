@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
@@ -99,6 +99,18 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
+        public static KeySpline? TryParseKeySpline(this string value)
+        {
+            try
+            {
+                return KeySpline.Parse(value, CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                typeof(SimpleDataParser).WriteError($"Can not parse KeySpline from string '{value}'.");
+                return null;
+            }
+        }
 
 
         public static Color ApplyOpacity(this Color c, double opacity)

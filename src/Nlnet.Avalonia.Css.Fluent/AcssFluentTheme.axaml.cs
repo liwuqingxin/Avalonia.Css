@@ -10,10 +10,7 @@ namespace Nlnet.Avalonia.Css.Fluent
     public partial class AcssFluentTheme : Styles
     {
         private IAcssFile? _accentColorFile;
-        private IAcssFile? _accentFile;
-        private IAcssFile? _themeFile;
-        private IAcssFile? _transitions;
-        
+
         static AcssFluentTheme()
         {
             TemplatedControlExtension.Init();
@@ -49,30 +46,11 @@ namespace Nlnet.Avalonia.Css.Fluent
             const string debugRelative = "../../src/Nlnet.Avalonia.Css.Fluent/";
 
             _accentColorFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss");
-            _accentFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Accent.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Accent.acss");
-            _themeFile = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Theme.acss");
-            _transitions = loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Transitions.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Transitions.acss");
             
-            loader.Load(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources/Shadows.acss", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/Shadows.acss");
-            
+            loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/Resources", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources");
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/");    
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/Senior", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Senior");
             loader.LoadFolder(this, "Acss/Nlnet.Avalonia.Css.Fluent/MessageBox", $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/MessageBox");
-        }
-
-        public void UpdateAccent(bool reapplyStyle)
-        {
-            _accentFile?.Reload(reapplyStyle);
-        }
-
-        public void UpdateTransitions(bool reapplyStyle)
-        {
-            _transitions?.Reload(reapplyStyle);
-        }
-
-        public void UpdateTheme(bool reapplyStyle)
-        {
-            _themeFile?.Reload(reapplyStyle);
         }
 
         public void UpdateThemeColor(bool reapplyStyle)

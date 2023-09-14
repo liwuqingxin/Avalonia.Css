@@ -518,12 +518,11 @@ namespace Nlnet.Avalonia.Css
                 {
                     try
                     {
-                        var keySpline = KeySpline.Parse(splits[1], CultureInfo.InvariantCulture);
-                        keyFrame.KeySpline = keySpline;
+                        keyFrame.KeySpline = splits[1].TryParseKeySpline();
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        this.WriteError($"Can not parse KeySpline from string '{splits[1]}' in '{selector}'.");
+                        this.WriteError($"Invalid key spline '{splits[0]}'. Skip it.");
                     }
                 }
 
