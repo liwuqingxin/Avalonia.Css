@@ -302,6 +302,11 @@ internal class AcssStyle : AcssSection, IAcssStyle
         {
             ApplyBases(_bases, setters, children);
         }
+        
+        foreach (var acssStyle in children.OfType<IAcssStyle>())
+        {
+            acssStyle.Parent = this;
+        }
 
         if(_localSetters.Count > 0)
         {
