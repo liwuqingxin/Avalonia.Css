@@ -7,7 +7,7 @@ namespace Nlnet.Avalonia.Css
     {
         public IAcssBuilder AcssBuilder { get; }
 
-        public string Selector { get; set; }
+        public string Header { get; set; }
 
         public IAcssSection? Parent { get; set; }
 
@@ -20,7 +20,7 @@ namespace Nlnet.Avalonia.Css
     {
         public IAcssBuilder AcssBuilder { get; }
 
-        public string Selector { get; set; }
+        public string Header { get; set; }
 
         public IAcssSection? Parent { get; set; }
 
@@ -28,10 +28,10 @@ namespace Nlnet.Avalonia.Css
 
         public abstract void InitialSection(IAcssParser parser, ReadOnlySpan<char> content);
 
-        protected AcssSection(IAcssBuilder acssBuilder, string selector)
+        protected AcssSection(IAcssBuilder acssBuilder, string header)
         {
             AcssBuilder = acssBuilder;
-            Selector    = selector.Trim();
+            Header = header.Trim();
         }
     }
 }

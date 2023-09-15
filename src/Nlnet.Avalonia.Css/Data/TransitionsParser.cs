@@ -1,40 +1,53 @@
 ﻿using System;
-using Avalonia;
+using System.Linq;
+using System.Reflection;
 using Avalonia.Animation;
+using Avalonia.Controls;
+using Avalonia.Reactive;
 
 namespace Nlnet.Avalonia.Css
 {
     internal class TransitionsParser
     {
+        // TODO Request public the ITransition.Property.
+        private static readonly PropertyInfo? PropertyProp = typeof(ITransition).GetProperty("Property", BindingFlags.Instance | BindingFlags.Public);
+
+        /// <summary>
+        /// For setter value parser.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="valueString"></param>
+        /// <returns></returns>
         public static Transitions? Parse(IAcssBuilder builder, string valueString)
         {
             var interpreter    = builder.Interpreter;
             var transitions    = new Transitions();
             var transitionList = valueString[1..^1].Trim().Split(';', StringSplitOptions.RemoveEmptyEntries);
+            var app            = Checks.CheckApplication();
             foreach (var transition in transitionList)
             {
                 if (interpreter.IsVar(transition, out var key))
                 {
-                    //
-                    // NOTE TryFindResource will make it static but dynamic.
-                    //
-                    if (builder.ResourceProvidersManager.TryFindResource<ITransition>(key!, out var resource))
+                    app.GetResourceObservable(key!).Subscribe(new AnonymousObserver<object?>(o =>
                     {
-                        transitions.Add(resource!);
-                    }
+                        if (o is not ITransition t || PropertyProp == null)
+                        {
+                            return;
+                        }
+                        var exist = transitions.FirstOrDefault(t1 => PropertyProp.GetValue(t1) == PropertyProp.GetValue(t));
+                        if (exist != null)
+                        {
+                            transitions.Remove(exist);
+                        }
+                        transitions.Add(t);
+                    }));
                 }
                 else
                 {
-                    var t = interpreter.ParseTransition(transition, out var shouldDefer, out var keyDuration, out var keyDelay, out var keyEasing);
+                    var t = interpreter.ParseTransition(transition, app);
                     if (t == null)
                     {
                         continue;
-                    }
-                    if (shouldDefer)
-                    {
-                        t.ApplyVarForDuration(builder, keyDuration);
-                        t.ApplyVarForDelay(builder, keyDelay);
-                        t.ApplyVarForEasing(builder, keyEasing);
                     }
                     transitions.Add(t);
                 }

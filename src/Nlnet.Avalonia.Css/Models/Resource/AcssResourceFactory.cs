@@ -19,7 +19,7 @@ internal class AcssResourceFactory : IAcssResourceFactory
 
     private static readonly Dictionary<string, IResourceFactory> Factories = new(StringComparer.OrdinalIgnoreCase);
 
-    private static readonly Regex Regex = new Regex("^\\s*(.*)\\s*\\((.*)\\)", RegexOptions.IgnoreCase);
+    private static readonly Regex Regex = new("^\\s*(.*)\\s*\\((.*)\\)", RegexOptions.IgnoreCase);
 
     static AcssResourceFactory()
     {
@@ -67,7 +67,7 @@ internal class AcssResourceFactory : IAcssResourceFactory
         if (Factories.TryGetValue(type, out var factory))
         {
             resource = factory.Create();
-            resource.AcceptCore(_builder, key, value);
+            resource.Accept(key, value);
             return true;
         }
 

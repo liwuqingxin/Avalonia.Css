@@ -52,14 +52,14 @@
             Duration:0:0:0.45;
             FillMode:Forward;
             Children:[
-                KeyFrame:(0% 0,1,-0.2,1)[
+                KeyFrame:(0% 0,1,0,1)[
                     Opacity: 0;
                     TranslateTransform.X: 550;
                     TranslateTransform.Y: 50;
                     ScaleTransform.ScaleX: 0.85;
                     ScaleTransform.ScaleY: 0.85;
                 ]
-                KeyFrame:(100% 0,1,-0.2,1)[
+                KeyFrame:(100% 0,1,0,1)[
                     Opacity: 1;
                     TranslateTransform.X: 0;
                     TranslateTransform.Y: 0;

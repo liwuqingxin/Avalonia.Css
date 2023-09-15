@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -24,35 +23,22 @@ namespace Nlnet.Avalonia.Css
         /// <param name="standardFilePath"></param>
         /// <param name="autoLoadWhenFileChanged"></param>
         /// <returns></returns>
+        /// <exception cref="InvalidOperationException">UI thread required.</exception>
         internal static AcssFile TryLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
         {
+            if (Dispatcher.UIThread.CheckAccess() == false)
+            {
+                throw new InvalidOperationException($"{nameof(TryLoad)}() must be called in ui thread.");
+            }
+
             var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
             styleFile.Load(owner, false);
-            return styleFile;
-        }
 
-        /// <summary>
-        /// Load a avalonia css style from an acss file asynchronously.
-        /// </summary>
-        /// <param name="acssBuilder"></param>
-        /// <param name="owner"></param>
-        /// <param name="standardFilePath"></param>
-        /// <param name="autoLoadWhenFileChanged"></param>
-        /// <returns></returns>
-        internal static AcssFile TryBeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
-        {
-            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, autoLoadWhenFileChanged);
-            styleFile.BeginLoad(owner, false);
             return styleFile;
         }
 
         private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
         {
-            if (Dispatcher.UIThread.CheckAccess() == false)
-            {
-                throw new InvalidOperationException($"{nameof(AcssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
-            }
-
             if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == standardFilePath) is { } exist)
             {
                 return exist;
@@ -70,11 +56,9 @@ namespace Nlnet.Avalonia.Css
 
 
 
-        private readonly IAcssBuilder             _acssBuilder;
-        private readonly Styles                   _owner;
-        private readonly FileSystemWatcher?       _watcher;
-        private          CompositeDisposable?     _disposable;
-        private          IEnumerable<IAcssStyle>? _acssStyles;
+        private readonly IAcssBuilder _acssBuilder;
+        private readonly Styles _owner;
+        private CompositeDisposable? _disposable;
         private AcssTokens? _tokens;
 
         private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
@@ -82,43 +66,6 @@ namespace Nlnet.Avalonia.Css
             _acssBuilder     = acssBuilder;
             _owner           = owner;
             StandardFilePath = standardFilePath;
-
-            var dir = Path.GetDirectoryName(standardFilePath);
-            if (autoLoadWhenFileChanged && dir != null)
-            {
-                // TODO 改为文件监控，而不是文件夹监控
-                // TODO 统一处理监控，支持文件夹统一监控，而不用多实例监控
-                _watcher                     =  new FileSystemWatcher(dir);
-                _watcher.EnableRaisingEvents =  true;
-                _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
-                _watcher.Filter              =  $"{Path.GetFileName(standardFilePath)}";
-                _watcher.Changed             += OnFileChanged;
-            }
-        }
-
-
-        private DateTime _lastRead = DateTime.MinValue;
-
-        private void OnFileChanged(object sender, FileSystemEventArgs e)
-        {
-            if (e.ChangeType != WatcherChangeTypes.Changed)
-            {
-                return;
-            }
-
-            var lastWriteTime = File.GetLastWriteTime(StandardFilePath);
-            if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
-            {
-                //
-                // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
-                //
-                Task.Delay(20).ContinueWith(t =>
-                {
-                    BeginLoad(_owner, true);
-                });
-                
-                _lastRead = lastWriteTime;
-            }
         }
 
         private void Load(Styles styles, bool reapplyStyle)
@@ -131,17 +78,16 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                var acssSource = File.ReadAllText(StandardFilePath);
-                _tokens = AcssTokens.Get(_acssBuilder, acssSource);
+                _tokens = AcssTokens.Get(_acssBuilder, StandardFilePath);
+                _tokens.FileChanged -= TokensOnFileChanged;
+                _tokens.FileChanged += TokensOnFileChanged;
 
-                var acssStyles = _tokens.GetNormalStyles().ToList();
+                var acssNormalStyles = _tokens.GetNormalStyles().ToList();
                 var acssThemeChildStyles = _tokens.GetThemeStyles().ToList();
                 var acssDictionaryList = _tokens.GetResourceDictionaries().ToList();
 
-                _acssStyles = _tokens.GetStyles();
-
                 // Normal styles.
-                foreach (var acssStyle in acssStyles)
+                foreach (var acssStyle in acssNormalStyles)
                 {
                     var style = acssStyle.ToAvaloniaStyle();
                     if (style.Selector != null)
@@ -159,7 +105,6 @@ namespace Nlnet.Avalonia.Css
                         continue;
                     }
                     
-                    // TODO 检查 ThemeVariant;
                     var suc = styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject);
                     if (suc == false && Application.Current != null)
                     {
@@ -192,7 +137,7 @@ namespace Nlnet.Avalonia.Css
                     {
                         continue;
                     }
-                    if (dictionary.IsModeResource())
+                    if (dictionary.IsThemeResource())
                     {
                         this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
                     }
@@ -214,6 +159,8 @@ namespace Nlnet.Avalonia.Css
                 
                 _disposable.Add(Disposable.Create(() =>
                 {
+                    _tokens.FileChanged -= TokensOnFileChanged;
+
                     _owner.Owner.DetachStylesRecursively(this.OfType<Style>().ToList());
                     styles.Remove(this);
 
@@ -222,21 +169,15 @@ namespace Nlnet.Avalonia.Css
                     this.Resources.ThemeDictionaries.Clear();
                     this.Resources.MergedDictionaries.Clear();
 
-                    if (_acssStyles != null)
+                    foreach (var acssStyle in _tokens.GetStyles())
                     {
-                        foreach (var acssStyle in _acssStyles)
-                        {
-                            acssStyle.Dispose();
-                        }
+                        acssStyle.Dispose();
                     }
-                    _acssStyles = null;
                 }));
 
                 if (reapplyStyle)
                 {
-                    // TODO 资源更新是否需要重新应用？如何应用？
-
-                    var normalTypes = acssStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
+                    var normalTypes = acssNormalStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
                     _owner.Owner.ReapplyStyling(false, normalTypes!);
 
                     var themeTypes = acssThemeChildStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
@@ -246,18 +187,20 @@ namespace Nlnet.Avalonia.Css
             catch (Exception e)
             {
                 this.WriteError(e.ToString());
+                
+                // TODO DELETE WHEN RLS.
+                Dispatcher.UIThread.Post(() => throw e);
             }
         }
 
-        private void BeginLoad(Styles styles, bool reapplyStyle)
+        private void TokensOnFileChanged(object? sender, EventArgs e)
         {
-            Dispatcher.UIThread.Post(() => Load(styles, reapplyStyle));
+            Dispatcher.UIThread.Invoke(() => Load(_owner, true));
         }
 
         public void Dispose()
         {
             _disposable?.Dispose();
-            _watcher?.Dispose();
         }
 
         public override string ToString()
@@ -273,7 +216,7 @@ namespace Nlnet.Avalonia.Css
 
         public void Reload(bool reapplyStyle)
         {
-            this.BeginLoad(_owner, reapplyStyle);
+            _tokens?.OnFileChanged();
         }
 
         public void Unload()

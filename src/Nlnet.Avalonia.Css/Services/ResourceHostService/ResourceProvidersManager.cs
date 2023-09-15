@@ -36,7 +36,7 @@ internal class ResourceProvidersManager : IResourceProvidersManager
         }
     }
 
-    public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result)
+    public bool TryFindResource<T>(object key, ThemeVariant theme, out T? result)
     {
         List<WeakReference<IResourceProvider>>? list = null;
         lock (this)
@@ -48,7 +48,7 @@ internal class ResourceProvidersManager : IResourceProvidersManager
         {
             if (reference.TryGetTarget(out var target))
             {
-                if (target.TryGetResource(key, mode, out var res) && res is T t)
+                if (target.TryGetResource(key, theme, out var res) && res is T t)
                 {
                     result = t;
                     return true;
@@ -79,9 +79,9 @@ internal class ResourceProvidersManager : IResourceProvidersManager
             return false;
         }
 
-        var mode = Application.Current.ActualThemeVariant;
+        var theme = Application.Current.ActualThemeVariant;
 
-        return TryFindResource(key, mode, out result);
+        return TryFindResource(key, theme, out result);
     }
     
     public bool TryFindResource(object key, out object? result)
@@ -92,8 +92,8 @@ internal class ResourceProvidersManager : IResourceProvidersManager
             return false;
         }
 
-        var mode = Application.Current.ActualThemeVariant;
+        var theme = Application.Current.ActualThemeVariant;
 
-        return TryFindResource(key, mode, out result);
+        return TryFindResource(key, theme, out result);
     }
 }

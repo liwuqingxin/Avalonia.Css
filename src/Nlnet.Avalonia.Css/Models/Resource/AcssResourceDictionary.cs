@@ -12,7 +12,7 @@ internal interface IAcssResourceDictionary : IAcssSection
 {
     public ResourceDictionary? ToAvaloniaResourceDictionary(IAcssBuilder acssBuilder);
 
-    public bool IsModeResource();
+    public bool IsThemeResource();
 
     public ThemeVariant GetThemeVariant();
 }
@@ -21,13 +21,13 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 {
     private readonly IAcssBuilder _builder;
 
+    private static readonly Regex RegexAccent      = new("\\[accent=(.*?)\\]", RegexOptions.IgnoreCase);
     private static readonly Regex RegexTheme       = new("\\[theme=(.*?)\\]", RegexOptions.IgnoreCase);
-    private static readonly Regex RegexMode        = new("\\[mode=(.*?)\\]", RegexOptions.IgnoreCase);
     private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
 
-    public string? Theme { get; set; }
+    public string? Accent { get; set; }
     
-    public string? Mode { get; set; }
+    public string? Theme { get; set; }
 
     public string? Description { get; set; }
 
@@ -40,16 +40,16 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
-        var matchTheme = RegexTheme.Match(Selector);
-        var matchMode  = RegexMode.Match(Selector);
-        var matchDesc  = RegexDescription.Match(Selector);
+        var matchAccent = RegexAccent.Match(Header);
+        var matchTheme  = RegexTheme.Match(Header);
+        var matchDesc   = RegexDescription.Match(Header);
+        if (matchAccent.Success)
+        {
+            Accent = matchAccent.Groups[1].Value;
+        }
         if (matchTheme.Success)
         {
             Theme = matchTheme.Groups[1].Value;
-        }
-        if (matchMode.Success)
-        {
-            Mode = matchMode.Groups[1].Value;
         }
         if (matchDesc.Success)
         {
@@ -67,9 +67,9 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
             return null;
         }
 
-        if (Theme != null && !string.Equals(Theme, acssBuilder.Configuration.Theme, StringComparison.CurrentCultureIgnoreCase))
+        if (Accent != null && !string.Equals(Accent, acssBuilder.Configuration.Theme, StringComparison.CurrentCultureIgnoreCase))
         {
-            this.WriteWarning($"Current theme is '{acssBuilder.Configuration.Theme}'. This theme is '{Theme}'. Skip this.");
+            this.WriteWarning($"Current theme is '{acssBuilder.Configuration.Theme}'. This theme is '{Accent}'. Skip this.");
             return null;
         }
 
@@ -83,11 +83,11 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
             }
             if (resource.IsDeferred)
             {
-                dic.AddDeferred(resource.Key, provider => resource.GetDeferredValue(_builder, provider));
+                dic.AddDeferred(resource.Key, provider => resource.BuildDeferredValue(_builder, provider));
             }
             else
             {
-                dic.TryAdd(resource.Key, resource.Value);
+                dic.TryAdd(resource.Key, resource.BuildValue(_builder));
             }
         }
 
@@ -96,7 +96,7 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 
     public ThemeVariant GetThemeVariant()
     {
-        switch (Mode)
+        switch (Theme)
         {
             case "Dark":
             case "dark":
@@ -109,9 +109,9 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
         }
     }
 
-    public bool IsModeResource()
+    public bool IsThemeResource()
     {
-        return string.IsNullOrEmpty(Mode) == false;
+        return string.IsNullOrEmpty(Theme) == false;
     }
 
     private IEnumerable<AcssResource> TryGetResources(string resources)
@@ -137,13 +137,13 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
         {
             builder.Append($"[{Description}]");
         }
-        if (string.IsNullOrEmpty(Mode) == false)
-        {
-            builder.Append($"[Mode:{Mode}]");
-        }
         if (string.IsNullOrEmpty(Theme) == false)
         {
             builder.Append($"[Theme:{Theme}]");
+        }
+        if (string.IsNullOrEmpty(Accent) == false)
+        {
+            builder.Append($"[Accent:{Accent}]");
         }
         return builder.ToString();
     }

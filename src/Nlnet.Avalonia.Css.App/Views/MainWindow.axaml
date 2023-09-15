@@ -32,11 +32,11 @@
                               Content="Toggle Top Most"
                               IsChecked="{Binding $parent[Window].Topmost}" />
                     <ComboBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
-                              ItemsSource="{Binding Path=Themes}"
-                              SelectedItem="{Binding Path=Theme}" />
+                              ItemsSource="{Binding Path=Accents}"
+                              SelectedItem="{Binding Path=Accent}" />
                     <ComboBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               ItemsSource="{Binding Path=Modes}"
-                              SelectedItem="{Binding Path=Mode}" />
+                              SelectedItem="{Binding Path=Theme}" />
                 </StackPanel>
             </Flyout>
         </ResourceDictionary>

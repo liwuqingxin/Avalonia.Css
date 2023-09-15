@@ -4,23 +4,43 @@ namespace Nlnet.Avalonia.Css
 {
     internal abstract class AcssResource
     {
+        private object? _value;
+
         public string? Key { get; set; }
 
-        public object? Value { get; set; }
+        public string? ValueString { get; set; }
 
         public bool IsValid => Key != null;
 
         public bool IsDeferred { get; set; } = false;
 
-        public void AcceptCore(IAcssBuilder cssBuilder, string key, string valueString)
+        public void Accept(string key, string valueString)
         {
-            Key   = key;
-            Value = Accept(cssBuilder, valueString);
+            Key         = key;
+            ValueString = valueString;
         }
 
-        protected abstract object? Accept(IAcssBuilder acssBuilder, string valueString);
-        
-        public virtual object? GetDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
+        public object? BuildValue(IAcssBuilder acssBuilder)
+        {
+            if (_value != null)
+            {
+                return _value;
+            }
+            return ValueString == null ? null : _value = BuildValue(acssBuilder, ValueString);
+        }
+
+        protected abstract object? BuildValue(IAcssBuilder acssBuilder, string valueString);
+
+        public object? BuildDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
+        {
+            if (_value != null)
+            {
+                return _value;
+            }
+            return ValueString == null ? null : _value = BuildDeferredValueCore(acssBuilder, provider);
+        }
+
+        protected virtual object? BuildDeferredValueCore(IAcssBuilder acssBuilder, IServiceProvider? provider)
         {
             return null;
         }

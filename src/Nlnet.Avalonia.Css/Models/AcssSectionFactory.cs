@@ -5,7 +5,7 @@ namespace Nlnet.Avalonia.Css;
 
 internal interface IAcssSectionFactory
 {
-    public IAcssSection Build(IAcssParser parser, IAcssSection? parent, string selector, ReadOnlySpan<char> content);
+    public IAcssSection Build(IAcssParser parser, AcssTokens tokens, IAcssSection? parent, string selector, ReadOnlySpan<char> content);
 }
 
 internal class AcssSectionFactory : IAcssSectionFactory
@@ -22,7 +22,7 @@ internal class AcssSectionFactory : IAcssSectionFactory
         _builder = builder;
     }
 
-    public IAcssSection Build(IAcssParser parser, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
+    public IAcssSection Build(IAcssParser parser, AcssTokens tokens, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
     {
         IAcssSection section;
         if (_regexResource.IsMatch(selector))
@@ -35,21 +35,21 @@ internal class AcssSectionFactory : IAcssSectionFactory
         }
         else if (_regexThemeChildStyle.Match(selector) is { Success: true } match1)
         {
-            section = new AcssStyle(_builder, match1.Groups[1].Value)
+            section = new AcssStyle(_builder, tokens, selector.Trim()[1..])
             {
                 IsThemeChild = true,
             };
         }
         else if (_regexLogicalChildStyle.Match(selector) is { Success: true } match2)
         {
-            section = new AcssStyle(_builder, match2.Groups[1].Value)
+            section = new AcssStyle(_builder, tokens, selector.Trim()[1..])
             {
                 IsLogicalChild = true,
             };
         }
         else
         {
-            section = new AcssStyle(_builder, selector);
+            section = new AcssStyle(_builder, tokens, selector);
         }
 
         section.Parent = parent;

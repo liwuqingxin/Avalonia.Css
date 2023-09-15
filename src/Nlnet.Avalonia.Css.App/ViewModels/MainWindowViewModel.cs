@@ -12,29 +12,17 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
-        private ThemeVariant _mode      = ThemeVariant.Light;
-        private string?      _theme     = "green";
+        private ThemeVariant _theme     = ThemeVariant.Light;
+        private string?      _accent    = "green";
         private bool         _isLoading = true;
         private bool         _isLocalDark;
         private bool         _isBeforeLoadedAcssFileLoaded = true;
 
         public  List<ThemeVariant> Modes { get; set; }
 
-        public List<string> Themes { get; set; }
+        public List<string> Accents { get; set; }
 
-        public ThemeVariant Mode
-        {
-            get => _mode;
-            set
-            {
-                if (value == _mode)
-                    return;
-                _mode = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? Theme
+        public ThemeVariant Theme
         {
             get => _theme;
             set
@@ -42,6 +30,18 @@ namespace Nlnet.Avalonia.Css.App
                 if (value == _theme)
                     return;
                 _theme = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? Accent
+        {
+            get => _accent;
+            set
+            {
+                if (value == _accent)
+                    return;
+                _accent = value;
                 OnPropertyChanged();
             }
         }
@@ -80,7 +80,7 @@ namespace Nlnet.Avalonia.Css.App
                 ThemeVariant.Dark,
             };
 
-            Themes = new List<string>()
+            Accents = new List<string>()
             {
                 "blue",
                 "red",
@@ -112,22 +112,19 @@ namespace Nlnet.Avalonia.Css.App
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName is nameof(Theme))
+            if (propertyName is nameof(Accent))
             {
-                AcssBuilder.Default.Configuration.Theme = Theme;
+                AcssBuilder.Default.Configuration.Theme = Accent;
 
                 var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
                 
-                // TODO 关联性更新，使用import；
-                cssTheme?.UpdateTheme(false);
-                cssTheme?.UpdateResource(false);
-                cssTheme?.UpdateMode(false);
+                cssTheme?.UpdateThemeColor(false);
             }
-            else if (propertyName is nameof(Mode))
+            else if (propertyName is nameof(Theme))
             {
                 if (Application.Current != null)
                 {
-                    Application.Current.RequestedThemeVariant = Mode;
+                    Application.Current.RequestedThemeVariant = Theme;
                 }
             }
         }

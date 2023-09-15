@@ -1,0 +1,17 @@
+﻿::res[desc=Accent and Primary Brushes]{
+	brush(Accent): var(AccentColor);
+	brush(Accent01): var(AccentColor) 0.1;
+	brush(Accent02): var(AccentColor) 0.2;
+	brush(Accent03): var(AccentColor) 0.3;
+	brush(Accent04): var(AccentColor) 0.4;
+	brush(Accent05): var(AccentColor) 0.5;
+	brush(Accent06): var(AccentColor) 0.6;
+	brush(Accent07): var(AccentColor) 0.7;
+	brush(Accent08): var(AccentColor) 0.8;
+	brush(Accent09): var(AccentColor) 0.9;
+
+	brush(Success): #25B86E;
+	brush(Error): #EB3D3D;
+	brush(Warning): #F0A000;
+	brush(Info): #2DD7FD;
+}
