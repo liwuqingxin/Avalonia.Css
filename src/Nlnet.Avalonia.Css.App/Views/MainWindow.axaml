@@ -13,7 +13,8 @@
     <Design.DataContext>
         <app:MainWindowViewModel />
     </Design.DataContext>
-    
+
+    <!-- Resources -->
     <nlnet:NtWindow.Resources>
         <ResourceDictionary>
             <Flyout x:Key="SettingMenus">
@@ -26,7 +27,8 @@
                               IsChecked="{Binding Path=IsLocalDark, Mode=TwoWay}" />
                     <CheckBox x:Name="CbxIsEnabled"
                               nlnet:NtWindow.IsHitTestVisibleInChrome="True"
-                              Content="Toggle Content Enabled" />
+                              Content="Toggle Content Enabled"
+                              IsChecked="{Binding Path=IsEnabled}" />
                     <CheckBox x:Name="CbxIsTopMost"
                               nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               Content="Toggle Top Most"
@@ -42,73 +44,77 @@
         </ResourceDictionary>
     </nlnet:NtWindow.Resources>
 
+    <!-- Title -->
     <nlnet:NtWindow.TitleContent>
         <Grid x:Name="TitleRoot" ColumnDefinitions="Auto,Auto,*">
             <nlnet:Icon x:Name="TitleLogo"
                         IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/brand.svg"
                         RenderOptions.EdgeMode="Unspecified" />
-            <TextBlock x:Name="TbkPowerText"
+            <TextBlock x:Name="TitleText"
                        Grid.Column="1"
                        Text="Fluent UI Powered By Avalonia &amp; Acss" />
-
-            <DropDownButton x:Name="SettingButton" Grid.Column="2" Flyout="{DynamicResource SettingMenus}">
+            <DropDownButton x:Name="TitleSettingButton"
+                            Grid.Column="2"
+                            Flyout="{DynamicResource SettingMenus}">
                 <nlnet:Icon nlnet:LoadedMixin.Attach="True" IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
             </DropDownButton>
         </Grid>
     </nlnet:NtWindow.TitleContent>
 
     <Panel>
+        <!-- Content -->
         <Grid RowDefinitions="Auto,*">
-            <TabControl x:Name="MainTabControl"
-                        Grid.Row="1"
-                        ItemsSource="{Binding Path=GalleryItems}"
-                        SelectedIndex="-1"
-                        SelectionChanged="MainTabControl_OnSelectionChanged"
-                        TabStripPlacement="Left">
-                <TabControl.Styles>
-                    <Style Selector="TabItem">
-                        <Setter Property="nlnet:TabItemExtension.IconContent">
-                            <Template>
-                                <Design.DataContext>
-                                    <nlnet:GalleryItem />
-                                </Design.DataContext>
-                                <nlnet:Icon x:Name="TabItemIcon"
+            <SplitView Grid.Row="1"
+                       DisplayMode="Inline"
+                       IsPaneOpen="True"
+                       PanePlacement="Left"
+                       UseLightDismissOverlayMode="True">
+                <SplitView.Pane>
+                    <nlnet:NtScrollViewer x:Name="MainStripScrollViewer">
+                        <TabStrip x:Name="MainTabStrip"
+                                  ItemsSource="{Binding Path=GalleryItems}"
+                                  SelectedItem="{Binding Path=SelectedGalleryItem}"
+                                  SelectionChanged="MainTabStrip_OnSelectionChanged">
+                            <TabStrip.ItemTemplate>
+                                <DataTemplate DataType="nlnet:GalleryItem">
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <nlnet:Icon IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Path=Title}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </TabStrip.ItemTemplate>
+                        </TabStrip>
+                    </nlnet:NtScrollViewer>
+                </SplitView.Pane>
+
+                <Border x:Name="ContentBorder">
+                    <Grid RowDefinitions="Auto,*">
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+                            <Border x:Name="PageIconBorder">
+                                <nlnet:Icon x:Name="PageIcon"
                                             nlnet:LoadedMixin.Attach="True"
-                                            IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
-                            </Template>
-                        </Setter>
-                    </Style>
-                </TabControl.Styles>
-                <TabControl.ContentTemplate>
-                    <DataTemplate DataType="nlnet:GalleryItem">
-                        <Grid RowDefinitions="Auto,*">
-                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
-                                <Border x:Name="PageIconBorder">
-                                    <nlnet:Icon x:Name="PageIcon" IconSvg="{Binding Path=Icon, Converter={x:Static app:StringToUriCvt.Cvt}}" />
-                                </Border>
-                                <TextBlock x:Name="PageName"
-                                           Grid.Row="0"
-                                           Grid.Column="1"
-                                           Text="{Binding Path=Title}" />
-                            </Grid>
-                            <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
-                                <ContentControl Content="{Binding}" IsEnabled="{Binding Path=IsChecked, ElementName=CbxIsEnabled}">
-                                    <ContentControl.ContentTemplate>
-                                        <nlnet:GalleryItemLocator />
-                                    </ContentControl.ContentTemplate>
-                                </ContentControl>
-                            </nlnet:NtScrollViewer>
+                                            IconSvg="{Binding Path=SelectedGalleryItem.Icon, FallbackValue={x:Null}, Converter={x:Static app:StringToUriCvt.Cvt}}" />
+                            </Border>
+                            <TextBlock x:Name="PageName"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding Path=SelectedGalleryItem.Title, FallbackValue={x:Null}}" />
                         </Grid>
-                    </DataTemplate>
-                </TabControl.ContentTemplate>
-                <TabControl.ItemTemplate>
-                    <DataTemplate DataType="nlnet:GalleryItem">
-                        <TextBlock Text="{Binding Path=Title}" />
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-            </TabControl>
+                        <nlnet:NtScrollViewer x:Name="MainContentScrollViewer" Grid.Row="1">
+                            <ContentControl x:Name="ContentHost"
+                                            Content="{Binding Path=SelectedGalleryItem}"
+                                            IsEnabled="{Binding Path=IsEnabled}">
+                                <ContentControl.ContentTemplate>
+                                    <nlnet:GalleryItemLocator />
+                                </ContentControl.ContentTemplate>
+                            </ContentControl>
+                        </nlnet:NtScrollViewer>
+                    </Grid>
+                </Border>
+            </SplitView>
         </Grid>
 
+        <!-- WelcomeHost -->
         <Border x:Name="WelcomeHost">
             <Panel>
                 <nlnet:Icon x:Name="WelcomeLogo"

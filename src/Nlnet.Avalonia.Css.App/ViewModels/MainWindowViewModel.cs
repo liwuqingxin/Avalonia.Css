@@ -16,12 +16,15 @@ namespace Nlnet.Avalonia.Css.App
         private string?      _accent    = "green";
         private bool         _isLoading = true;
         private bool         _isLocalDark;
-        private bool         _isBeforeLoadedAcssFileLoaded = true;
+        private GalleryItem? _selectedGalleryItem;
+        private bool _isEnabled = true;
 
         public  List<ThemeVariant> Modes { get; set; }
 
         public List<string> Accents { get; set; }
 
+        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
+        
         public ThemeVariant Theme
         {
             get => _theme;
@@ -70,7 +73,27 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
-        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
+        public GalleryItem? SelectedGalleryItem
+        {
+            get => _selectedGalleryItem;
+            set
+            {
+                if (Equals(value, _selectedGalleryItem)) return;
+                _selectedGalleryItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (value == _isEnabled) return;
+                _isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainWindowViewModel()
         {
@@ -112,23 +135,35 @@ namespace Nlnet.Avalonia.Css.App
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName is nameof(Accent))
+            switch (propertyName)
             {
-                AcssBuilder.Default.Configuration.Theme = Accent;
-
-                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
-                
-                cssTheme?.UpdateThemeColor(false);
-            }
-            else if (propertyName is nameof(Theme))
-            {
-                if (Application.Current != null)
+                case nameof(Accent):
                 {
-                    Application.Current.RequestedThemeVariant = Theme;
+                    AcssBuilder.Default.Configuration.Theme = Accent;
+
+                    var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
+                
+                    cssTheme?.UpdateThemeColor(false);
+                    break;
+                }
+                case nameof(Theme):
+                {
+                    if (Application.Current != null)
+                    {
+                        Application.Current.RequestedThemeVariant = Theme;
+                    }
+
+                    break;
                 }
             }
         }
 
+
+        
+        #region Toggle Acss
+
+        private bool _isBeforeLoadedAcssFileLoaded = true;
+        
         public void ToggleBeforeLoadedAcssFile()
         {
             if (Application.Current is not App app)
@@ -146,5 +181,7 @@ namespace Nlnet.Avalonia.Css.App
             }
             _isBeforeLoadedAcssFileLoaded = !_isBeforeLoadedAcssFileLoaded;
         }
+
+        #endregion
     }
 }

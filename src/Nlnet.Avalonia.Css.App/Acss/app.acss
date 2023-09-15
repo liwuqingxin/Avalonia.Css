@@ -1,4 +1,4 @@
-﻿/* Window */
+﻿// Window
 NtWindow#RootWindow{
     Width:1200;
     Height:800;
@@ -7,22 +7,12 @@ NtWindow#RootWindow{
     WindowStartupLocation:CenterScreen;
     .acss:window.esc.close;
     [[
-        // Setting Button
-        NtWindow DropDownButton#SettingButton{
-            BorderThickness: 1;
-            BorderBrush: var(window-back);
-            Background: var(window-back);
-        }
-        NtWindow DropDownButton#SettingButton:pointerover{
-            BorderBrush: var(control-border);
-        }
-    
         // Title root.
         NtWindow Grid#TitleRoot{
             Height: 80;
             VerticalAlignment: Top;
         }
-        // Logo in title.
+        // Title logo.
         NtWindow Icon#TitleLogo{
             Height: 60;
             Width: 60;
@@ -32,8 +22,8 @@ NtWindow#RootWindow{
             IconStretch: Uniform;
             RenderOptions.BitmapInterpolationMode: HighQuality;
         }
-        // Text next to title logo.
-        NtWindow TextBlock#TbkPowerText{
+        // Title text.
+        NtWindow TextBlock#TitleText{
             VerticalAlignment: Center;
             Foreground: var(fore);
             Text: Powered By Acss;
@@ -43,14 +33,22 @@ NtWindow#RootWindow{
             FontStyle: Italic;
             Margin: 0,0,40,0;
         }
-        NtWindow DropDownButton{
+        // Title setting Button.
+        NtWindow DropDownButton#TitleSettingButton{
+            BorderThickness: 1;
+            BorderBrush: var(window-back);
+            Background: var(window-back);
             HorizontalAlignment:Left;
             VerticalAlignment: Center;
         }
-        NtWindow DropDownButton>Icon{
+        NtWindow DropDownButton#TitleSettingButton:pointerover{
+            Background: var(ctrl-back);
+        }
+        NtWindow DropDownButton#TitleSettingButton>Icon{
             Width: 24;
             Height: 24;
         }
+        
         // Layout root of settings for app.
         NtWindow StackPanel#SettingsRoot{
             Spacing: 8;
@@ -58,14 +56,12 @@ NtWindow#RootWindow{
         NtWindow StackPanel#SettingsRoot>:is(Control){
             HorizontalAlignment: Stretch;
         }
-        NtWindow StackPanel#SettingsRoot>:CheckBox{
-            HorizontalContentAlignment: Left;
-        }
+        
         // Welcome host.
         NtWindow > Panel > Border#WelcomeHost{
             Background: var(window-back);
         }
-        /* Animation to hide the welcome elements. */
+        // Animation to hide the welcome elements.
         NtWindow > Panel > Border#WelcomeHost{
             [[
                 ::animation[desc=Hide the welcome elements]{
@@ -82,7 +78,7 @@ NtWindow#RootWindow{
                 }
             ]]
         }
-        /* Animation to show logo. */
+        // Animation to show logo.
         NtWindow > Panel > Border > Panel > Icon#WelcomeLogo{
             Opacity:0;
             Width:200;
@@ -112,7 +108,7 @@ NtWindow#RootWindow{
                 }
             ]]
         }
-        /* Animation to show logo. */
+        // Animation to show logo.
         NtWindow Icon#LogoImage{
             Opacity:0;
         }
@@ -183,22 +179,13 @@ NtWindow#RootWindow{
             ]]
         }
 
-        /* Main layout. */
+        // Main layout.
         NtWindow > Panel > Grid{
             Margin:8,8,0,0;
         }
-        NtWindow > Panel > Grid > StackPanel{
-            Spacing:8;
-            Margin:0,0,0,8;
-            HorizontalAlignment:Right;
-        }
-        NtWindow > Panel > Grid > StackPanel > CheckBox#CbxIsEnabled{
-            IsChecked:True;
-            IsThreeState:False;
-        }
         NtWindow Border#PageIconBorder{
-            Background:var(control-back);
-            BorderBrush:var(control-border);
+            Background:var(ctrl-back);
+            BorderBrush:var(ctrl-border);
             BorderThickness:1;
             CornerRadius:6;
             Padding:8;
@@ -208,10 +195,6 @@ NtWindow#RootWindow{
             ]
         }
         NtWindow Icon#PageIcon{
-            Height:64;
-            Width:64;
-        }
-        NtWindow Image#PageIcon{
             Height:64;
             Width:64;
         }
@@ -228,79 +211,77 @@ NtWindow#RootWindow{
             LineHeight:24;
             Foreground:var(fore);
         }
-    ]]
-}
-
-
-/* Content Border of main TabControl */
-TabControl#MainTabControl /template/ Border#PART_ContentBorder{
-    Background: var(control-back);
-    BorderThickness:1,1,0,0;
-    BorderBrush:var(control-border);
-    CornerRadius:8,0,0,0;
-    Padding:24,24,4,0;
-    Margin:8,0,0,0;
-    Transitions:[
-        var(stBackground);
-        var(stBorderBrush);
-    ]
-}
-TabControl#MainTabControl NtScrollViewer#MainContentScrollViewer{
-    Margin:0,20,0,0;
-}
-TabControl#MainTabControl NtScrollViewer#MainContentScrollViewer > ContentControl{
-    Margin:0,0,12,0;
-}
-TabControl#MainTabControl /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel{
-    MinWidth:250;
-}
-
-
-/* TabItem in main TabControl */
-TabItem{
-    ClipToBounds:False;
-}
-TabItem ContentControl{
-    ClipToBounds:False;
-}
-TabControl#MainTabControl > TabItem Icon, TabControl#MainTabControl > TabItem Image{
-    Opacity:1;
-    Width:24;
-    Height:24;
-    Margin:16,0,0,0;
-    [[
-        Image:is-loaded{
-            [[
-                ::animation[desc=Svg icon loading animation]{
-                    IterationCount:1;
-                    Duration:'0:0:0.16';
-                    FillMode:Forward;
-                    Delay:'0:0:0';
-                    KeyFrames:[
-                        KeyFrame:(0% 0,0.2,0.8,1)[
-                            Opacity:0;
-                            TranslateTransform.Y:16;
-                            /* TranslateTransform.Y(RhythmicTransformAnimator):16; */
-                        ]
-                        KeyFrame:(100% 0,0.2,0.8,1)[
-                            Opacity:1;
-                            TranslateTransform.Y:0;
-                        ]
-                    ]
-                }
-            ]]
+        
+        // Content Border.
+        NtWindow Border#ContentBorder{
+            Background: var(ctrl-back);
+            BorderThickness:1,1,0,0;
+            BorderBrush:var(ctrl-border);
+            CornerRadius:8,0,0,0;
+            Padding:24,24,4,0;
+            Margin:8,0,0,0;
+            Transitions:[
+                var(stBackground);
+                var(stBorderBrush);
+            ]
+        }
+        NtWindow NtScrollViewer#MainContentScrollViewer{
+            Margin:0,20,0,0;
+        }
+        NtWindow NtScrollViewer#MainContentScrollViewer > ContentControl{
+            Margin:0,0,12,0;
+        }
+        
+        /* StackPanel followed Case */
+        NtWindow Case > StackPanel{
+            Spacing:8;
+        }
+        
+        /* StackPanel followed UserControl */
+        NtWindow :is(UserControl) > StackPanel{
+            Spacing:24;
+            Margin:0,0,0,12;
+        }
+        
+        /* TabItem in main TabControl */
+        NtWindow TabStripItem{
+            ClipToBounds:False;
+        }
+        
+        NtWindow TabStrip{
+            HorizontalAlignment: Stretch;
+        }
+        NtWindow TabStrip#MainTabStrip > TabStripItem TextBlock{
+            VerticalAlignment: Center;
+        }
+        NtWindow TabStrip#MainTabStrip > TabStripItem Icon{
+            Opacity:1;
+            Width:24;
+            Height:24;
+            Margin:8,0,8,0;
+//            [[
+//                Icon:is-loaded{
+//                    [[
+//                        ::animation[desc=Svg icon loading animation]{
+//                            IterationCount:1;
+//                            Duration:'0:0:0.16';
+//                            FillMode:Forward;
+//                            Delay:'0:0:0';
+//                            KeyFrames:[
+//                                KeyFrame:(0% 0,0.2,0.8,1)[
+//                                    Opacity:0;
+//                                    TranslateTransform.Y:16;
+//                                    /* TranslateTransform.Y(RhythmicTransformAnimator):16; */
+//                                ]
+//                                KeyFrame:(100% 0,0.2,0.8,1)[
+//                                    Opacity:1;
+//                                    TranslateTransform.Y:0;
+//                                ]
+//                            ]
+//                        }
+//                    ]]
+//                }
+//            ]]
         }
     ]]
-}
-
-
-/* StackPanel followed Case */
-Case > StackPanel{
-    Spacing:8;
-}
-
-/* StackPanel followed UserControl */
-:is(UserControl) > StackPanel{
-    Spacing:24;
-    Margin:0,0,0,12;
 }

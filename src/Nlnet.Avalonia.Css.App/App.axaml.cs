@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Styling;
-using Avalonia.Threading;
 using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
@@ -46,8 +44,8 @@ namespace Nlnet.Avalonia.Css.App
                 loader.Load(Application.Current.Styles, "Acss/Case.acss", $"{debugRelative}Acss/Case.acss", true);
                 loader.Load(Application.Current.Styles, "Acss/CodeEditor.acss", $"{debugRelative}Acss/CodeEditor.acss", true);
                 
-                AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", $"{debugRelative}Acss/app.acss", true);
-                loader.Load(Application.Current.Styles, "Acss/pages.acss", $"{debugRelative}Acss/pages.acss", true);
+                AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", $"{debugRelative}Acss/App.acss", true);
+                loader.Load(Application.Current.Styles, "Acss/pages.acss", $"{debugRelative}Acss/Pages.acss", true);
             }
         }
 
