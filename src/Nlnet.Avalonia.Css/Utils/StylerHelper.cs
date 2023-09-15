@@ -72,7 +72,7 @@ namespace Nlnet.Avalonia.Css
             {
                 return false;
             }
-            if (targetTypes == null || targetTypes.Count == 0)
+            if (targetTypes == null)
             {
                 return true;
             }
