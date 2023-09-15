@@ -1,13 +1,7 @@
-﻿^AutoCompleteBox{
-    VerticalAlignment: Top;
-    HorizontalAlignment: Left;
+﻿base ./Bases/Bases.acss;
+
+^AutoCompleteBox @extend(.fluent-box, .disabled){
     MinWidth: 150;
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-input-ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
     MaxDropDownHeight: 400;
     [[
         /template/ TextBox#PART_TextBox{

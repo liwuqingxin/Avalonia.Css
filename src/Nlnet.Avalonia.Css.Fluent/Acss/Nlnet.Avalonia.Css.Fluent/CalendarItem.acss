@@ -1,6 +1,6 @@
-﻿
-^CalendarItem {
-    CornerRadius: 6;
+﻿base ./Bases/Bases.acss;
+
+^CalendarItem @extend(.corner){
     Transitions:[
         var(stBackground);
         var(stBorderBrush);

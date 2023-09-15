@@ -1,13 +1,10 @@
-﻿
-^MenuItem {
+﻿base ./Bases/Bases.acss;
+
+^MenuItem @extend(.padding, .corner, .align){
     Foreground: var(fore);
     Background: Transparent;
-    Padding: 8,4,8,5;
     Opacity: 1;
-    CornerRadius: 3;
     RenderTransform: none;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Center;
     Height:28;
     ClipToBounds:False;
     Transitions:[

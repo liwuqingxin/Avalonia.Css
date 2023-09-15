@@ -1,5 +1,4 @@
-﻿
-^CalendarButton {
+﻿^CalendarButton{
     ClickMode:Release;
     Foreground: var(fore);
     Background: Transparent;
@@ -36,9 +35,6 @@
         :blackout{
             Foreground:var(watermark);
             Opacity:0.6;
-        }
-        :disabled{
-            Opacity:0.4;
         }
     ]]
 }

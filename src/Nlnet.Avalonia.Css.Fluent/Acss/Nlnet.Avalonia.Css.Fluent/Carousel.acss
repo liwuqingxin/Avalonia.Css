@@ -1,16 +1,8 @@
-﻿^Carousel {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^Carousel @extend(.box){
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    HorizontalAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    VerticalAlignment: Stretch;
     ClipToBounds:False;
     Transitions:[
         var(stBackground);

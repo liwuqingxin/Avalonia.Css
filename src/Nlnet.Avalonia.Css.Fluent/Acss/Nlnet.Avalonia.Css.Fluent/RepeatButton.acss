@@ -1,8 +1,8 @@
 ﻿base ./Bases/Bases.acss;
 
-^RepeatButton @extend(.fluent-visual){
+^RepeatButton @extend(.button){
     Opacity: 1;
-    ClipToBounds:False;
+    ClipToBounds: False;
     Transitions:[
         var(stBackground);
         var(stBorderBrush);
@@ -12,7 +12,6 @@
     [[
         :pointerover{
             Transitions:[
-                var(stRenderTransform);
                 var(stBackground);
                 var(stOpacity);
             ]

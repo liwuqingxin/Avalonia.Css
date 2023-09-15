@@ -1,16 +1,9 @@
-﻿
-^DatePicker {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-ctrl-border);
-    BorderThickness: 1;
+﻿base ./Bases/Bases.acss;
+
+^DatePicker @extend(.ctrl, .fluent-border, .algin){
     CornerRadius: 4;
     Opacity: 1;
     RenderTransform: none;
-    HorizontalAlignment: Left;
-    VerticalAlignment: Stretch;
-    /* HorizontalContentAlignment: Center;
-    VerticalContentAlignment: Center; */
     ClipToBounds:False;
     MinWidth:200;
     Transitions:[

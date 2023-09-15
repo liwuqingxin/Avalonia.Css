@@ -1,13 +1,5 @@
-﻿
-^Calendar {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 6;
-    [[
-        :disabled{
-            Opacity:0.4;
-        }
-    ]]
+﻿base ./Bases/Bases.acss;
+
+^Calendar @extend(.ctrl, .border, .corner, .disabled){
+
 }

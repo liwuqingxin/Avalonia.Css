@@ -1,21 +1,10 @@
-﻿
-^CalendarDatePicker {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-ctrl-border);
-    CornerRadius: 4;
-    BorderThickness: 1;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^CalendarDatePicker @extend(.fluent-box, .disabled) {
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Center;
-    ClipToBounds:True;
-    
+    ClipToBounds:True;    
     Transitions:[
-        var(stRenderTransform);
         var(stBorderBrush);
         var(stBackground);
         var(stOpacity);

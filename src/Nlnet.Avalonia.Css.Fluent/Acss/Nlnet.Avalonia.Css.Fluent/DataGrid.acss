@@ -1,15 +1,10 @@
-﻿^DataGrid {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush: var(ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 4;
+﻿base ./Bases/Bases.acss;
+
+^DataGrid @extend(.ctrl, .border, .corner, .align){
     Opacity: 1;
     Padding: 0;
     ClipToBounds: True;
     RenderTransform: none;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Stretch;
     MinWidth:200;
     SelectionMode: Extended;
     HeadersVisibility: All;

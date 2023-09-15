@@ -1,17 +1,8 @@
-﻿
-^Expander {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 6;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^Expander @extend(.box){
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Stretch;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Stretch;
     ClipToBounds:False;
     IsTabStop:false;
 

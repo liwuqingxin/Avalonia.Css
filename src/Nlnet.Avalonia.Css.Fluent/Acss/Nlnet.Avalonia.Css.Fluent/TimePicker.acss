@@ -1,16 +1,8 @@
-﻿
-^TimePicker {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-ctrl-border);
-    BorderThickness: 1;
-    CornerRadius: 4;
+﻿base ./Bases/Bases.acss;
+
+^TimePicker @extend(.ctrl, .fluent-box, .corner, .align){
     Opacity: 1;
     RenderTransform: none;
-    HorizontalAlignment: Left;
-    VerticalAlignment: Stretch;
-    /* HorizontalContentAlignment: Center;
-    VerticalContentAlignment: Center; */
     ClipToBounds:False;
     MinWidth:150;
     Transitions:[

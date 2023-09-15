@@ -14,7 +14,7 @@
     BorderThickness: 1;
 }
 .corner{
-    CornerRadius: 4;
+    CornerRadius:4;
 }
 .padding{
     Padding: 8,4,8,5;
@@ -61,15 +61,9 @@
 //
 // Style packages.
 //
-.fluent-visual @extend(
-     .ctrl, .fluent-border, .corner, .padding, .align,
-     .pointerover, .pressed, .disabled)
-{
-     
-}
-.visual @extend(
-     .ctrl, .border, .corner, .padding, .align,
-     .pointerover, .pressed, .disabled)
-{
-     
-}
+.fluent-box @extend(.ctrl, .fluent-border, .corner, .padding, .align) { }
+.box @extend(.ctrl, .border, .corner, .padding, .align) { }
+.common-state @extend(.pointerover, .pressed, .disabled) { }
+
+// button
+.button @extend(.fluent-box, .common-state) { }

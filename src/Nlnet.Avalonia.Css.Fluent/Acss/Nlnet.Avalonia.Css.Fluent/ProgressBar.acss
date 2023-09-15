@@ -1,8 +1,8 @@
-﻿
-^ProgressBar {
+﻿base ./Bases/Bases.acss;
+
+^ProgressBar @extend(.corner){
     Foreground: var(Accent);
     Background: var(progressbar-back);
-    CornerRadius: 4;
     Transitions:[   
         var(stBackground);
     ]

@@ -4,9 +4,9 @@ DropDownButton>Popup{
     PopupStyles.Style: Slide;
 }
 
-^DropDownButton @extend(.fluent-visual){
+^DropDownButton @extend(.button){
     Opacity: 1;
-    ClipToBounds:False;
+    ClipToBounds: False;
     Transitions:[
         var(stBackground);
         var(stBorderBrush);
@@ -16,7 +16,6 @@ DropDownButton>Popup{
     [[
         :pointerover{
             Transitions:[
-                var(stRenderTransform);
                 var(stBackground);
                 var(stOpacity);
             ]

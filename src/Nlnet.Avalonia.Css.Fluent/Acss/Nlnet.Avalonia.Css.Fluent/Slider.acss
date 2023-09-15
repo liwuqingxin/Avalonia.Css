@@ -4,7 +4,6 @@
     BorderBrush: var(ctrl-border);
     VerticalAlignment:Top;
     HorizontalAlignment:Stretch;
-    CornerRadius: 4;
     Opacity: 1;
     RenderTransform: none;
     ClipToBounds: False;

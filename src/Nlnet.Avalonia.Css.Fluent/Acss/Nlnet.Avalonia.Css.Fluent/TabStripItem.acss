@@ -1,14 +1,11 @@
-﻿^TabStripItem{
+﻿base ./Bases/Bases.acss;
+
+^TabStripItem @extend(.corner, .align){
     Foreground: var(fore);
     Background: Transparent;
     Opacity: 1;
-    CornerRadius: 4;
     RenderTransform: none;
     Height:36;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Center;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Stretch;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

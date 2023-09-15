@@ -4,7 +4,7 @@ Button>Popup{
     PopupStyles.Style: Slide;
 }
 
-^Button @extend(.fluent-visual){
+^Button @extend(.button){
     Opacity: 1;
     ClipToBounds: False;
     Transitions:[
@@ -16,7 +16,6 @@ Button>Popup{
     [[
         :pointerover{
             Transitions:[
-                var(stRenderTransform);
                 var(stBackground);
                 var(stOpacity);
             ]

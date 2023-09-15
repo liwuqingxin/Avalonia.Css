@@ -1,18 +1,9 @@
-﻿
-^NumericUpDown {
-    Foreground: var(fore);
-    Background: var(ctrl-back);
-    BorderBrush:var(fluent-ctrl-border);
+﻿base ./Bases/Bases.acss;
+
+^NumericUpDown @extend(.fluent-box){
     CaretBrush: var(fore);
-    CornerRadius: 4;
-    BorderThickness: 1;
-    Padding: 8,5;
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    HorizontalAlignment: Left;
-    VerticalAlignment: Center;
     MinWidth:100;
     ClipToBounds:True;
     Transitions:[
