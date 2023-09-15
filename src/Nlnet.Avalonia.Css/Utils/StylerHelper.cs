@@ -66,6 +66,20 @@ namespace Nlnet.Avalonia.Css
             ForceApplyStyling(styledElement, isTheme, targetTypes);
         }
 
+        private static bool MatchTypeStyleKey(IReadOnlyCollection<Type>? targetTypes, StyledElement? element)
+        {
+            if (element == null)
+            {
+                return false;
+            }
+            if (targetTypes == null || targetTypes.Count == 0)
+            {
+                return true;
+            }
+
+            return targetTypes.Contains(element.StyleKey);
+        }
+        
         private static void ForceApplyStyling(
             StyledElement styledElement, 
             bool isTheme,
@@ -73,12 +87,12 @@ namespace Nlnet.Avalonia.Css
         {
             if (isTheme)
             {
-                if (targetTypes == null || targetTypes.Contains(styledElement.TemplatedParent?.GetType()))
+                if (MatchTypeStyleKey(targetTypes, styledElement.TemplatedParent as StyledElement))
                 {
                     styledElement.OnTemplatedParentControlThemeChanged();
                 }
                 
-                if (targetTypes == null || targetTypes.Contains(styledElement.GetType()))
+                if (MatchTypeStyleKey(targetTypes, styledElement))
                 {
                     // [ava-11.0.0] If the window use custom chrome, reapplying control theme will result in a mess.
                     if (styledElement is not Window)
