@@ -103,7 +103,10 @@ namespace Nlnet.Avalonia.Css
             }
             else
             {
-                styledElement.InvalidStyles();
+                if (MatchTypeStyleKey(targetTypes, styledElement))
+                {
+                    styledElement.InvalidStyles();
+                }
             }
            
             styledElement.ApplyStyling();
