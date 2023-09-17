@@ -1,4 +1,6 @@
-﻿::res[desc=Accent and Primary Brushes]{
+﻿rely ./AccentColor.acss
+
+::res[desc=Accent and Primary Brushes]{
 	brush(Accent): var(AccentColor);
 	brush(Accent01): var(AccentColor) 0.1;
 	brush(Accent02): var(AccentColor) 0.2;
