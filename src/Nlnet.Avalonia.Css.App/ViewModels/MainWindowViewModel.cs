@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using DynamicData;
 using Nlnet.Avalonia.Css.Fluent;
 using Nlnet.Avalonia.SampleAssistant;
@@ -16,8 +17,9 @@ namespace Nlnet.Avalonia.Css.App
         private string?      _accent    = "green";
         private bool         _isLoading = true;
         private bool         _isLocalDark;
+        private bool         _isEnabled = true;
         private GalleryItem? _selectedGalleryItem;
-        private bool _isEnabled = true;
+        private GalleryItem? _delaySelectedGalleryItem;
 
         public  List<ThemeVariant> Modes { get; set; }
 
@@ -73,6 +75,17 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (value == _isEnabled) return;
+                _isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         public GalleryItem? SelectedGalleryItem
         {
             get => _selectedGalleryItem;
@@ -81,16 +94,24 @@ namespace Nlnet.Avalonia.Css.App
                 if (Equals(value, _selectedGalleryItem)) return;
                 _selectedGalleryItem = value;
                 OnPropertyChanged();
+                
+                DelaySelectedGalleryItem = null;
+                IsLoading = true;
+                Dispatcher.UIThread.Post(() =>
+                {
+                    DelaySelectedGalleryItem = value;
+                    IsLoading = false;
+                }, DispatcherPriority.ApplicationIdle);
             }
         }
 
-        public bool IsEnabled
+        public GalleryItem? DelaySelectedGalleryItem
         {
-            get => _isEnabled;
+            get => _delaySelectedGalleryItem;
             set
             {
-                if (value == _isEnabled) return;
-                _isEnabled = value;
+                if (Equals(value, _delaySelectedGalleryItem)) return;
+                _delaySelectedGalleryItem = value;
                 OnPropertyChanged();
             }
         }
@@ -163,7 +184,7 @@ namespace Nlnet.Avalonia.Css.App
         #region Toggle Acss
 
         private bool _isBeforeLoadedAcssFileLoaded = true;
-        
+
         public void ToggleBeforeLoadedAcssFile()
         {
             if (Application.Current is not App app)

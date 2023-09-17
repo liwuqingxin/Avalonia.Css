@@ -1,21 +1,23 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
-using Avalonia.Controls.Presenters;
 using Avalonia.Threading;
 // ReSharper disable InconsistentNaming
 
 namespace Nlnet.Avalonia.Css.Controls;
 
 [PseudoClasses(Pseudo_Changing, Pseudo_Changed)]
-public class NotifyChangeContentPresenter : ContentPresenter
+public class NotifyChangeContentControl : ContentControl
 {
+    protected override Type StyleKeyOverride { get; } = typeof(ContentControl);
+
     private const string Pseudo_Changing = ":changing";
     private const string Pseudo_Changed = ":changed";
-
-    static NotifyChangeContentPresenter()
+    
+    static NotifyChangeContentControl()
     {
-        ContentProperty.Changed.AddClassHandler<NotifyChangeContentPresenter>((container, args) =>
+        ContentProperty.Changed.AddClassHandler<NotifyChangeContentControl>((container, args) =>
         {
             container.PseudoClasses.Set(Pseudo_Changing, false);
             container.PseudoClasses.Set(Pseudo_Changing, true);

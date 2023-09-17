@@ -18,7 +18,7 @@ WelcomePage Grid#InfoGrid > Button{
     HorizontalAlignment:Left;
     CornerRadius:0;
     BorderThickness:0,0,0,1;
-    BorderBrush:var(control-back);
+    BorderBrush:var(ctrl-back);
     Padding:0;
     Height:18;
     MinHeight:0;
@@ -29,7 +29,7 @@ WelcomePage Grid#InfoGrid > Button{
         }
         :pointerover{
             Foreground: var(Accent08);
-            Background: var(control-back);
+            Background: var(ctrl-back);
             BorderBrush:var(Accent);
         }
     ]]
@@ -109,7 +109,7 @@ RecyclePanelPage Border#HighlightBorder{
     Background: var(Accent01);
 }
 RecyclePanelPage Border#OuterBorderOfRecyclePanel{
-    BorderBrush: var(control-border);
+    BorderBrush: var(ctrl-border);
     BorderThickness: 1;
     CornerRadius: 6;
 }
@@ -146,8 +146,8 @@ ResourcesPage{
             Height: 150;
             BorderThickness: 1;
             CornerRadius: 12;
-            Background: var(control-back);
-            BorderBrush: var(control-border);
+            Background: var(ctrl-back);
+            BorderBrush: var(ctrl-border);
             BoxShadow: var(popup-shadow);
             [[
                 :pointerover{

@@ -3,7 +3,7 @@ NtWindow#RootWindow{
     Width:1200;
     Height:800;
     TitleHeight: 80;
-    Topmost:False;
+    Topmost:True;
     WindowStartupLocation:CenterScreen;
     .acss:window.esc.close;
     [[
@@ -211,6 +211,9 @@ NtWindow#RootWindow{
             LineHeight:24;
             Foreground:var(fore);
         }
+        NtWindow TextBlock#LoadingText[IsVisible=True]{
+            Margin: 0,24,0,0;
+        }
         
         // Content Border.
         NtWindow Border#ContentBorder{
@@ -244,12 +247,11 @@ NtWindow#RootWindow{
         }
         
         /* TabItem in main TabControl */
-        NtWindow TabStripItem{
-            ClipToBounds:False;
-        }
-        
         NtWindow TabStrip{
             HorizontalAlignment: Stretch;
+        }
+        NtWindow TabStrip#MainTabStrip > TabStripItem{
+            ClipToBounds:False;
         }
         NtWindow TabStrip#MainTabStrip > TabStripItem TextBlock{
             VerticalAlignment: Center;
@@ -282,6 +284,28 @@ NtWindow#RootWindow{
 //                    ]]
 //                }
 //            ]]
+        }
+        
+        NtWindow ContentControl#ContentHost:changed {
+            [[
+                ::animation{
+                    IterationCount:1;
+                    Duration:'0:0:.5';
+                    Delay:0:0:.15;
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            TranslateTransform.Y: 100;
+                            Opacity:1;
+                        ]
+                        
+                        KeyFrame:(100% .39,.94,.39,.94)[
+                            TranslateTransform.Y: 0;
+                            Opacity:1;
+                        ]
+                    ]
+                }
+            ]]
         }
     ]]
 }

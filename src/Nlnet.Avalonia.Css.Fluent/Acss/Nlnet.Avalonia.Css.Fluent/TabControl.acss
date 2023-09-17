@@ -7,10 +7,10 @@
     HorizontalAlignment: Stretch;
     VerticalAlignment: Stretch;
     [[
-         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
+        /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
-         /template/ AnimatingContainer#PART_SelectedContentHost:changed {
+        /template/ AnimatingContainer#PART_SelectedContentHost:changed {
             [[
                 ::animation[desc=Tab control toggle animation]{
                     IterationCount:1;
