@@ -59,6 +59,11 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
         Resources.AddRange(TryGetResources(content.ToString()).ToList());
     }
 
+    public override IAcssSection Clone()
+    {
+        throw new NotImplementedException();
+    }
+
     public ResourceDictionary? ToAvaloniaResourceDictionary(IAcssBuilder acssBuilder)
     {
         if (Resources.Count == 0)

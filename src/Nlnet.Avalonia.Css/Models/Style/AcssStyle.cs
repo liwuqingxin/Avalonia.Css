@@ -42,13 +42,13 @@ internal class AcssStyle : AcssSection, IAcssStyle
     private string? _selectorString;
     private Selector? _selector;
     private CompositeDisposable? _compositeDisposable;
-    private readonly List<IAcssSetter> _localSetters = new();
-    private readonly List<IAcssSection> _localChildren = new();
+    private List<IAcssSetter> _localSetters = new();
+    private List<IAcssSection> _localChildren = new();
     private IList<string>? _bases;
 
-    public bool IsThemeChild { get; init; }
+    public bool IsThemeChild { get; set; }
 
-    public bool IsLogicalChild { get; init; }
+    public bool IsLogicalChild { get; set; }
 
     public Type? ThemeTargetType { get; private set; }
 
@@ -60,7 +60,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
     public IEnumerable<IAcssAnimation>? Animations { get; set; }
 
-    public AcssStyle(IAcssBuilder builder, AcssTokens tokens, string selector) : base(builder, selector)
+    public AcssStyle(IAcssBuilder builder, AcssTokens tokens, string header) : base(builder, header)
     {
         _builder = builder;
         _tokens = tokens;
@@ -91,6 +91,28 @@ internal class AcssStyle : AcssSection, IAcssStyle
         
         // Children
         _localChildren.AddRange(parser.ParseSections(_tokens, this, childrenSpan));
+    }
+
+    public override IAcssSection Clone()
+    {
+        var acssStyle = new AcssStyle(_builder, _tokens, Header);
+
+        acssStyle._selectorString = _selectorString;
+        acssStyle._selector = _selector;
+        acssStyle._localSetters = _localSetters;
+        acssStyle._localChildren = _localChildren;
+        acssStyle._bases = _bases;
+        acssStyle.IsThemeChild = IsThemeChild;
+        acssStyle.IsLogicalChild = IsLogicalChild;
+        acssStyle.ThemeTargetType = ThemeTargetType;
+        acssStyle.Children = Children;
+        acssStyle.Parent = Parent;
+        acssStyle.Setters = Setters;
+        acssStyle.Styles = Styles;
+        acssStyle.Resources = Resources;
+        acssStyle.Animations = Animations;
+        
+        return acssStyle;
     }
 
     private void ReplaceOrAddSetter(List<IAcssSetter> list, IAcssSetter setter)
@@ -128,7 +150,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
             if (style.Children != null)
             {
-                children.AddRange(style.Children);
+                children.AddRange(style.Children.Select(c => c.Clone()));
             }
         }
     }
@@ -303,7 +325,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
             ApplyBases(_bases, setters, children);
         }
         
-        foreach (var acssStyle in children.OfType<IAcssStyle>())
+        foreach (var acssStyle in children)
         {
             acssStyle.Parent = this;
         }

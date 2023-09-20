@@ -14,6 +14,8 @@ namespace Nlnet.Avalonia.Css
         public IEnumerable<IAcssSection>? Children { get; set; }
 
         public void InitialSection(IAcssParser parser, ReadOnlySpan<char> content);
+        
+        IAcssSection Clone();
     }
 
     internal abstract class AcssSection : IAcssSection
@@ -27,6 +29,8 @@ namespace Nlnet.Avalonia.Css
         public IEnumerable<IAcssSection>? Children { get; set; }
 
         public abstract void InitialSection(IAcssParser parser, ReadOnlySpan<char> content);
+
+        public abstract IAcssSection Clone();
 
         protected AcssSection(IAcssBuilder acssBuilder, string header)
         {
