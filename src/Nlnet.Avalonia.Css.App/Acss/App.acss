@@ -1,4 +1,4 @@
-﻿base D:/Source/Avalonia.Css/sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+﻿base ../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
 
 // Window
 NtWindow#RootWindow{
@@ -288,26 +288,8 @@ NtWindow#RootWindow{
 //            ]]
         }
         
-        NtWindow ContentControl#ContentHost:changed @extend(.bottom-up) {
-//            [[
-//                ::animation{
-//                    IterationCount:1;
-//                    Duration:'0:0:.5';
-//                    Delay:0:0:.15;
-//                    FillMode:Forward;
-//                    KeyFrames:[
-//                        KeyFrame:(0%)[
-//                            TranslateTransform.Y: 100;
-//                            Opacity:1;
-//                        ]
-//                        
-//                        KeyFrame:(100% .39,.94,.39,.94)[
-//                            TranslateTransform.Y: 0;
-//                            Opacity:1;
-//                        ]
-//                    ]
-//                }
-//            ]]
+        NtWindow ContentControl#ContentHost:changed @extend(.page-trans-bottom-up) {
+
         }
     ]]
 }

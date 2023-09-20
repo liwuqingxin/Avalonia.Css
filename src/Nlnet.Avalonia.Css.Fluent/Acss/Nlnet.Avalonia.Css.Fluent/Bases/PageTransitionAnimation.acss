@@ -1,4 +1,4 @@
-﻿.bottom-up {
+﻿.page-trans-bottom-up {
     [[
         ::animation{
             IterationCount:1;
