@@ -38,7 +38,8 @@ WelcomePage Grid#InfoGrid > Button{
 
 // ButtonPage
 ButtonPage Button:not(:is-part), ButtonPage RepeatButton:not(:is-part), ButtonPage ButtonSpinner:not(:is-part), ButtonPage DropDownButton:not(:is-part), ButtonPage ToggleButton:not(:is-part){
-    HorizontalAlignment:Left;
+    HorizontalAlignment: Left;
+    VerticalAlignment: Center;
 }
 
 

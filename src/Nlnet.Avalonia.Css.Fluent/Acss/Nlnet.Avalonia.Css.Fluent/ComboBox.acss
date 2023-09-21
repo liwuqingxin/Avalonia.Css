@@ -3,6 +3,7 @@
 ^ComboBox @extend(.fluent-box, .common-state){
     Opacity: 1;
     RenderTransform: none;
+    VerticalAlignment: Center;
     MinWidth:40;
     MaxDropDownHeight:600;
     ScrollViewer.HorizontalScrollBarVisibility:Disabled;

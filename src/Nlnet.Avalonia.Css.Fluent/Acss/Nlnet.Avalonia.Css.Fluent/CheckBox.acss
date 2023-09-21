@@ -4,6 +4,7 @@
     Opacity: 1;
     RenderTransform: none;
     ClipToBounds:False;
+    VerticalContentAlignment: Center;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);

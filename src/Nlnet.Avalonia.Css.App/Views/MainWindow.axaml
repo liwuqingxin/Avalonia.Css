@@ -73,8 +73,7 @@
                     <nlnet:NtScrollViewer x:Name="MainStripScrollViewer">
                         <TabStrip x:Name="MainTabStrip"
                                   ItemsSource="{Binding Path=GalleryItems}"
-                                  SelectedItem="{Binding Path=SelectedGalleryItem}"
-                                  SelectionChanged="MainTabStrip_OnSelectionChanged">
+                                  SelectedItem="{Binding Path=SelectedGalleryItem}">
                             <TabStrip.ItemTemplate>
                                 <DataTemplate DataType="nlnet:GalleryItem">
                                     <Grid ColumnDefinitions="Auto, *">

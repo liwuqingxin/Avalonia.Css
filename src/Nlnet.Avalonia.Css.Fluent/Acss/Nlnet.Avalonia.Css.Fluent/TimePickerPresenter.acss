@@ -1,19 +1,19 @@
 ﻿
 ^TimePickerPresenter {
     [[
-         /template/ DateTimePickerPanel {
+        /template/ DateTimePickerPanel {
             ItemHeight:30;
         }
 
 
         /* RepeatButton */
-         /template/ RepeatButton:is-part {
+        /template/ RepeatButton:is-part {
             Height:30;
             HorizontalAlignment:Stretch;
             BorderThickness:0;
             CornerRadius:0;
         }
-         /template/ RepeatButton[VerticalAlignment=Top] > Path {
+        /template/ RepeatButton[VerticalAlignment=Top] > Path {
             Data:M0,9 L10,0 20,9 19,10 10,2 1,10 z;
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
@@ -25,7 +25,7 @@
                 var(stRenderTransform);
             ]
         }
-         /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
+        /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
             Data:M0,1 L10,10 20,1 19,0 10,8 1,0 z;
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
@@ -37,20 +37,23 @@
                 var(stRenderTransform);
             ]
         }
-         /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
+        /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
             RenderTransform:translate(0, -5px);
         }
-         /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
+        /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
             RenderTransform:translate(0, 5px);
         }
-         /template/ Panel:pointerover RepeatButton:is-part#PART_HourUpButton {
-            CornerRadius:6,0,0,0;
+        /template/ RepeatButton {
+            VerticalContentAlignment: Center;
         }
-         /template/ Panel:pointerover RepeatButton:is-part#PART_MinuteUpButton {
-            CornerRadius:0,6,0,0;
+        /template/ Panel:pointerover RepeatButton:is-part#PART_HourUpButton {
+            CornerRadius:8,0,0,0;
         }
-         /template/ Panel:pointerover RepeatButton:is-part#PART_PeriodUpButton {
-            CornerRadius:0,6,0,0;
+        /template/ Panel:pointerover RepeatButton:is-part#PART_MinuteUpButton {
+            CornerRadius:0,8,0,0;
+        }
+        /template/ Panel:pointerover RepeatButton:is-part#PART_PeriodUpButton {
+            CornerRadius:0,8,0,0;
         }
         
 
@@ -113,11 +116,13 @@
          /template/ Button#PART_AcceptButton {
             Margin:4,4,2,4;
             CornerRadius:4;
+            HorizontalContentAlignment : Center;
             HorizontalAlignment:Stretch;
         }
          /template/ Button#PART_DismissButton {
             Margin:2,4,4,4;
             CornerRadius:4;
+            HorizontalContentAlignment : Center;
             HorizontalAlignment:Stretch;
         }
          /template/ Rectangle#TimePickerFlyoutPresenterSpacer {

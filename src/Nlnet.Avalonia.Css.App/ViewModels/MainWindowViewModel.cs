@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using DynamicData;
+using Nlnet.Avalonia.Css.App.Views;
 using Nlnet.Avalonia.Css.Fluent;
 using Nlnet.Avalonia.SampleAssistant;
 
@@ -13,6 +14,7 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
+        private readonly IMainViewService _viewService;
         private ThemeVariant _theme     = ThemeVariant.Light;
         private string?      _accent    = "green";
         private bool         _isLoading = true;
@@ -113,11 +115,13 @@ namespace Nlnet.Avalonia.Css.App
                 if (Equals(value, _delaySelectedGalleryItem)) return;
                 _delaySelectedGalleryItem = value;
                 OnPropertyChanged();
+                _viewService.ScrollToHome();
             }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IMainViewService viewService)
         {
+            _viewService = viewService;
             Modes = new List<ThemeVariant>()
             {
                 ThemeVariant.Light,

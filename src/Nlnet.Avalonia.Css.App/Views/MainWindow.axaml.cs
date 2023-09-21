@@ -7,7 +7,12 @@ using SelectionChangedEventArgs = Avalonia.Controls.SelectionChangedEventArgs;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
-    public partial class MainWindow : NtWindow
+    public interface IMainViewService
+    {
+        public void ScrollToHome();
+    }
+    
+    public partial class MainWindow : NtWindow, IMainViewService
     {
         private readonly NtScrollViewer? _mainContentScrollViewer;
 
@@ -15,7 +20,7 @@ namespace Nlnet.Avalonia.Css.App.Views
         {
             InitializeComponent(true);
 
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(this);
             _mainContentScrollViewer = this.FindControl<NtScrollViewer>("MainContentScrollViewer")!;
 
             this.UseDevTools();
@@ -30,8 +35,8 @@ namespace Nlnet.Avalonia.Css.App.Views
                 vm.IsLoading = false;
             }
         }
-        
-        private void MainTabStrip_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+
+        void IMainViewService.ScrollToHome()
         {
             Dispatcher.UIThread.Post(() =>
             {

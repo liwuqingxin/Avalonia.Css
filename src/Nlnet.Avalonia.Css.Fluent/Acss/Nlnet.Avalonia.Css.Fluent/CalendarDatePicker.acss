@@ -3,6 +3,8 @@
 ^CalendarDatePicker @extend(.fluent-box, .disabled) {
     Opacity: 1;
     RenderTransform: none;
+    VerticalAlignment: Center;
+    HorizontalAlignment: Left;
     ClipToBounds:True;    
     Transitions:[
         var(stBorderBrush);

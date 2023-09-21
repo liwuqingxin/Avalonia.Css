@@ -1,11 +1,12 @@
 ﻿base ./Bases/Bases.acss;
 
-^DatePicker @extend(.ctrl, .fluent-border, .algin){
-    CornerRadius: 4;
+^DatePicker @extend(.fluent-box){
     Opacity: 1;
     RenderTransform: none;
+    VerticalAlignment: Center;
+    HorizontalAlignment: Left;
     ClipToBounds:False;
-    MinWidth:200;
+    MinWidth:220;
     Transitions:[
         var(stBorderBrush);
     ]
@@ -23,7 +24,7 @@
             PlacementMode:Bottom;
             IsLightDismissEnabled:True;
             HorizontalOffset:-1;
-            PopupStyles.Style: Fade;
+            PopupStyles.Style: Roll;
         }
          /template/ DatePickerPresenter#PART_PickerPresenter{
             MaxHeight:300;

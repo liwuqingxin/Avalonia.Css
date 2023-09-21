@@ -8,10 +8,10 @@
             KeyFrames:[
                 KeyFrame:(0%)[
                     TranslateTransform.Y: 100;
-                    Opacity:1;
+                    Opacity:0;
                 ]
                 
-                KeyFrame:(100% .39,.94,.39,.94)[
+                KeyFrame:(100% .4,.95,.4,.95)[
                     TranslateTransform.Y: 0;
                     Opacity:1;
                 ]

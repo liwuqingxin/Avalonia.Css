@@ -10,30 +10,24 @@
         :pressed{
             BorderBrush: var(fluent-ctrl-border-pressed);
         }
-        /* Use animation to set visibility */
-        :expanded /template/ Border#ExpanderContent{
+        
+        /* Use animation for content translation */
+        :expanded /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
             [[
                 ::animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:0.1';
+                    Duration:'0:0:0.4';
                     KeyFrames:[
-                        KeyFrame:(100%)[
-                            IsVisible:True;
+                        KeyFrame:(0%)[
+                            TranslateTransform.Y : -4;
                         ]
-                    ]
-                }
-            ]]
-        }
-        :not(:expanded) /template/ Border#ExpanderContent{
-            [[
-                ::animation{
-                    FillMode:Forward;
-                    IterationCount:1;
-                    Duration:'0:0:0.2';
-                    KeyFrames:[
-                        KeyFrame:(100%)[
-                            IsVisible:False;
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.Y : -4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.Y : 0;
                         ]
                     ]
                 }
@@ -60,7 +54,7 @@
             RenderTransformOrigin:0%,0%;
             Opacity:0;
             Transitions:[
-                TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.3 0 SineEaseOut);
+                TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.24 0 .4,.9,.4,.9);
                 var(stOpacity);
             ]
         }
@@ -71,18 +65,20 @@
             LayoutTransform:scale(0,1);
         }
         :expanded /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
-            LayoutTransform:scale(1,1);
+            LayoutTransform: scale(1,1);
             Opacity:1;
         }
 
         /template/ ContentPresenter#PART_ContentPresenter{
             Opacity:0;
+            IsVisible: false;
             Transitions:[
                 DoubleTransition(TemplatedControl.Opacity 0.125 0.2);
             ]
         }
         :expanded /template/ ContentPresenter#PART_ContentPresenter{
             Opacity:1;
+            IsVisible: true;
         }
 
         :left{
@@ -142,6 +138,7 @@ Expander{
             Height:9;
         }
 
+
         /* pressed */
         :up /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(0, -3px);
@@ -155,6 +152,7 @@ Expander{
         :right /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(3px, 0);
         }
+
 
         /* expand */
         :up /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
@@ -171,7 +169,6 @@ Expander{
         }
 
 
-        
         /* Change layout when direction is left. */
         :left /template/ ToggleButton#ExpanderHeader ContentPresenter#PART_ContentPresenter:is-part{
             Grid.Column:1;
