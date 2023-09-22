@@ -10,7 +10,7 @@
              mc:Ignorable="d">
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="MessageBox is used to display modal information. It can represent messages of different types with different icons. It supports displaying exceptions, and even highlighting exception information using BBCode. Additionally, we have implemented support for both asynchronous and synchronous invocation. You can either use async/await scheduling according to the Avalonia standard, or directly block and wait for the return of the Show function following the WPF standard."
+                   Text="ListBox is a control used to display a list of items from which the user can choose. The control has a number of advanced features like multiple selection, keyboard support, as well as rich customization capabilities."
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="Normal MessageBox.">

@@ -5,6 +5,7 @@
     Background: Transparent;
     Opacity: 1;
     RenderTransform: none;
+    VerticalContentAlignment: Center;
     Height:36;
     Transitions:[
         var(stRenderTransform);

@@ -11,7 +11,7 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="The Expander has a header and can expand to show a body with more content.Use an Expander when some content is only relevant some of the time(for example to read more information or access additional options for an item)."
+                   Text="The Expander has a header and can expand to show a body with more content. Use an Expander when some content is only relevant some of the time(for example to read more information or access additional options for an item)."
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="Expander with down ExpandDirection.">

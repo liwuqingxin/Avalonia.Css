@@ -3,6 +3,7 @@
 ^AutoCompleteBox @extend(.fluent-box, .disabled){
     MinWidth: 150;
     MaxDropDownHeight: 400;
+    VerticalAlignment: Center;
     [[
         /template/ TextBox#PART_TextBox{
             HorizontalAlignment: Stretch;

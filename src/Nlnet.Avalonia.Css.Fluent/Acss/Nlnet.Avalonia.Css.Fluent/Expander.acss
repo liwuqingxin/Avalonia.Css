@@ -12,7 +12,7 @@
         }
         
         /* Use animation for content translation */
-        :expanded /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+        :expanded:down /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
             RenderTransform: translate(0,-10px);
             [[
                 ::animation{
@@ -28,6 +28,69 @@
                         ]
                         KeyFrame:(100% .4,.6,.4,.6)[
                             TranslateTransform.Y : 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :expanded:up /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            TranslateTransform.Y : 4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.Y : 4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.Y : 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :expanded:right /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            TranslateTransform.X : -4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.X : -4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.X : 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :expanded:left /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            TranslateTransform.X : 4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.X : 4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.X : 0;
                         ]
                     ]
                 }

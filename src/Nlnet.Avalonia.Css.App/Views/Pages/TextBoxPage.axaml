@@ -10,7 +10,7 @@
              mc:Ignorable="d">
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="Use a TextBox to let a user enter simple text input in your app.You can add a header and placeholder text to let the user know what the TextBox is for,and you can customize it in other ways."
+                   Text="Use a TextBox to let a user enter simple text input in your app. You can add a header and placeholder text to let the user know what the TextBox is for, and you can customize it in other ways."
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="TextBox.">

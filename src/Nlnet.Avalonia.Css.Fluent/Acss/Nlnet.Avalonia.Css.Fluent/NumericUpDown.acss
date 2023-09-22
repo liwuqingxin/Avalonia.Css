@@ -6,6 +6,8 @@
     RenderTransform: none;
     MinWidth:100;
     ClipToBounds:True;
+    VerticalAlignment: Center;
+    HorizontalAlignment: Left;
     Transitions:[
         var(stRenderTransform);
         var(stOpacity);

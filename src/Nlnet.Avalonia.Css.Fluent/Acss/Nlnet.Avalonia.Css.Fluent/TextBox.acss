@@ -6,6 +6,7 @@
     RenderTransform: none;
     MinWidth:40;
     ClipToBounds:True;
+    VerticalAlignment: Center;
     SelectionBrush:var(Accent06);
     Transitions:[
         var(stRenderTransform);

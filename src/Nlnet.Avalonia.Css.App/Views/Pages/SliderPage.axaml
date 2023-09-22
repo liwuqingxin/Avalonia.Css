@@ -10,7 +10,7 @@
              mc:Ignorable="d">
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="The Expander has a header and can expand to show a body with more content.Use an Expander when some content is only relevant some of the time(for example to read more information or access additional options for an item)."
+                   Text="Use a Slider when you want your users to be able to set defined, contiguous values (such as volume or brightness) or a range of discrete values (such as screen resolution settings)."
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="Slider whose range is from 0 to 100.">

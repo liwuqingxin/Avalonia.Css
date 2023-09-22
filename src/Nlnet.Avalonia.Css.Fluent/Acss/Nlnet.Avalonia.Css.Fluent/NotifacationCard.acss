@@ -25,14 +25,18 @@
             Height: 24;
             Margin: 4,0,0,0;
             Opacity: 0.3;
+            CornerRadius: 4;
+            RenderTransform: none;
             Background: var(Accent);
             DockPanel.Dock: Left;
             Transitions:[
                 var(stOpacity);
+                TransformOperationsTransition(Border.RenderTransform 0.125 0 .6,1.5,.6,1.5);
             ]
         }
         :pointerover /template/ Border#PART_HeaderBar{
             Opacity: 1;
+            RenderTransform: scale(1.6,1.4);
         }
                 
         :information /template/ Border#PART_HeaderBar{

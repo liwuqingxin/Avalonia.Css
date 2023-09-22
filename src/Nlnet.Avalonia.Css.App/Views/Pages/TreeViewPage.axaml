@@ -14,12 +14,12 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="Displays a hierachical tree of data."
+                   Text="Represents a hierarchical list with expanding and collapsing nodes that contain nested items."
                    TextWrapping="Wrap" />
 
-        <app:IndependentCase Header="AutoCompleteBox.">
+        <app:IndependentCase Header="TreeView.">
             <app:IndependentCase.Settings>
-                <StackPanel>
+                <StackPanel Spacing="6">
                     <Button Command="{Binding SelectRandomItem}">Select Random</Button>
                     <ComboBox x:Name="CbxSelectionMode" ItemsSource="{nlnet:Enum SelectionMode}" />
                 </StackPanel>

@@ -11,7 +11,7 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="Use a Slider when you want your users to be able to set defined,contiguous values (such as volume or brightness)or a range of discrete values(such as screen resolution settings)."
+                   Text="Represents a control that indicates the progress of an operation, where the typical visual appearance is a bar that animates a filled area as progress continues."
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="ProgressBar with IsIndeterminate='True'.">

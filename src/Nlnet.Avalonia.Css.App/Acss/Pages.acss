@@ -101,6 +101,12 @@ DataGridPage DataGrid CheckBox#DataGridRowHeaderCheckBox{
 }
 
 
+// MessageBoxPage
+MessageBoxPage Button{
+    HorizontalAlignment: Left;
+}
+
+
 // RecyclePanelPage
 RecyclePanelPage TextBlock#PageDescription{
     Text: Recycle to show a list with animation.

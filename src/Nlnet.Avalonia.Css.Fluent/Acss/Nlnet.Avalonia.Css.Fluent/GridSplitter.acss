@@ -11,9 +11,15 @@
     [[
         /template/ Border#PART_Border{
             Width: 2;
+            Height: NaN;
             Transitions:[
                 var(stWidth);
+                var(stHeight);
             ]
+        }
+        [Width=NaN] /template/ Border#PART_Border{
+            Height: 2;
+            Width: NaN;
         }
         /template/ PathIcon#Icon{
             Data: M-2988 -2219L-2981.75 -2219L-2981.75 -2019L-2988 -2019L-2988 -2219ZM-2963 -2219L-2956.75 -2219L-2956.75 -2019L-2963 -2019L-2963 -2219ZM-2938 -2219L-2931.75 -2219L-2931.75 -2019L-2938 -2019L-2938 -2219Z;
@@ -29,6 +35,14 @@
         }
         :pointerover /template/ Border#PART_Border{
             Width: 6;
+        }
+        
+        [Width=NaN] /template/ PathIcon#Icon{
+            RenderTransform: rotate(90deg);
+        }
+        :pointerover[Width=NaN] /template/ Border#PART_Border{
+            Height: 6;
+            Width: NaN;
         }
     ]]
 }

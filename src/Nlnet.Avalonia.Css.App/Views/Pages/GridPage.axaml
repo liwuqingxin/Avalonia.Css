@@ -10,17 +10,42 @@
              mc:Ignorable="d">
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="MessageBox is used to display modal information. It can represent messages of different types with different icons. It supports displaying exceptions, and even highlighting exception information using BBCode. Additionally, we have implemented support for both asynchronous and synchronous invocation. You can either use async/await scheduling according to the Avalonia standard, or directly block and wait for the return of the Show function following the WPF standard."
+                   Text="A Grid is a very powerful and useful layout. It enables you to arrange children elements in cells defined by rows and columns."
                    TextWrapping="Wrap" />
 
-        <app:IndependentCase Header="Normal MessageBox.">
-            <Grid ColumnDefinitions="*,*">
-                <nlnet:Icon Grid.Column="0" IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/CheckBox.svg" />
-                <nlnet:Icon Grid.Column="1" IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
-                <GridSplitter Grid.Column="0"
+        <app:IndependentCase Height="640" Header="Normal MessageBox.">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                <nlnet:Icon Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalAlignment="Center"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/CheckBox.svg" />
+                <nlnet:Icon Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+
+                <GridSplitter Grid.Row="0"
+                              Grid.RowSpan="2"
+                              Grid.Column="0"
                               Width="8"
                               Margin="0,0,-4,0"
                               HorizontalAlignment="Right" />
+                <GridSplitter Grid.Row="0"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Height="8"
+                              Margin="0,0,0,-4"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Bottom" />
+
+                <nlnet:Icon Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalAlignment="Center"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/CheckBox.svg" />
+                <nlnet:Icon Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
             </Grid>
         </app:IndependentCase>
 
