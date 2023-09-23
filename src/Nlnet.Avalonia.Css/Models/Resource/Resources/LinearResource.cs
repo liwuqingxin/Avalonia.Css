@@ -6,18 +6,20 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(LinearGradientBrush))]
 internal class LinearResource : AcssResourceBaseAndFac<LinearResource>
 {
-    protected override object? BuildValue(IAcssBuilder acssBuilder, string valueString)
+    protected override object? BuildValue(IAcssContext context, string valueString)
     {
+        var interpreter = context.GetService<IAcssInterpreter>();
+
         valueString = valueString.Trim();
         var app = Checks.CheckApplication();
         if (valueString.StartsWith("("))
         {
-            var brush = acssBuilder.Interpreter.ParseLinear(valueString, app);
+            var brush = interpreter.ParseLinear(valueString, app);
             return brush?.ToImmutable();
         }
         else if (valueString.StartsWith("{"))
         {
-            var brush = acssBuilder.Interpreter.ParseComplexLinear(valueString, app);
+            var brush = interpreter.ParseComplexLinear(valueString, app);
             return brush?.ToImmutable();
         }
         else

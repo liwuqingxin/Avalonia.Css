@@ -14,9 +14,12 @@ public static class AcssBehaviorsExtensions
     /// <returns></returns>
     public static AppBuilder UseAcssBehaviorForDefaultBuilder(this AppBuilder builder)
     {
-        AcssBuilder.Default.BehaviorResolverManager.LoadResolver(new GenericBehaviorResolver<Acss>());
-        AcssBuilder.Default.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
-        AcssBuilder.Default.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
+        var resolver = AcssContext.Default.GetService<IBehaviorResolverManager>();
+        var declarer = AcssContext.Default.GetService<IBehaviorDeclarerManager>();
+
+        resolver.LoadResolver(new GenericBehaviorResolver<Acss>());
+        declarer.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
+        declarer.RegisterDeclarer<Acss>(nameof(Acss));
 
         return builder;
     }
@@ -25,13 +28,16 @@ public static class AcssBehaviorsExtensions
     /// Use acss behavior feature.
     /// </summary>
     /// <param name="builder"></param>
-    /// <param name="cssBuilder"></param>
+    /// <param name="context"></param>
     /// <returns></returns>
-    public static AppBuilder UseAcssBehavior(this AppBuilder builder, IAcssBuilder cssBuilder)
+    public static AppBuilder UseAcssBehavior(this AppBuilder builder, IAcssContext context)
     {
-        cssBuilder.BehaviorResolverManager.LoadResolver(new GenericBehaviorResolver<Acss>());
-        cssBuilder.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
-        cssBuilder.BehaviorDeclarerManager.RegisterDeclarer<Acss>(nameof(Acss));
+        var resolver = context.GetService<IBehaviorResolverManager>();
+        var declarer = context.GetService<IBehaviorDeclarerManager>();
+
+        resolver.LoadResolver(new GenericBehaviorResolver<Acss>());
+        declarer.RegisterDeclarer<Acss>(nameof(Acss).ToLower());
+        declarer.RegisterDeclarer<Acss>(nameof(Acss));
 
         return builder;
     }

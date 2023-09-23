@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface IAcssParser
+internal interface IAcssParser : IService
 {
     /// <summary>
     /// Try removing comments like '/* ... */', '//...' and line breaks from span content.

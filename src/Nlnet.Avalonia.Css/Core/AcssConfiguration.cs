@@ -17,5 +17,10 @@ namespace Nlnet.Avalonia.Css
             get;
             set;
         }
+
+        public void Initialize()
+        {
+            
+        }
     }
 }

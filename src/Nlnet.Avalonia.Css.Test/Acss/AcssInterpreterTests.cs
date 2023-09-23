@@ -11,9 +11,8 @@ namespace Nlnet.Avalonia.Css.Test
         {
             List<AcssSetter>? dic = null;
 
-            var builder = AcssBuilder.Default;
-
-            var parser = builder.Parser;
+            var ctx = AcssContext.Default;
+            var parser = ctx.GetService<IAcssParser>();
 
             dic = parser.ParsePairs("back:red")
                 .Select(p => new AcssSetter(p.Item1, p.Item2)).ToList();

@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css;
 /// <summary>
 /// For acss behavior resolving.
 /// </summary>
-public interface IBehaviorResolverManager : IResolverManager<IBehaviorResolver>
+public interface IBehaviorResolverManager : IResolverManager<IBehaviorResolver>, IService
 {
 
 }
@@ -16,5 +16,8 @@ public interface IBehaviorResolverManager : IResolverManager<IBehaviorResolver>
 /// </summary>
 internal class BehaviorResolverManager : ResolverManager<IBehaviorResolver>, IBehaviorResolverManager
 {
-    
+    public void Initialize()
+    {
+        
+    }
 }

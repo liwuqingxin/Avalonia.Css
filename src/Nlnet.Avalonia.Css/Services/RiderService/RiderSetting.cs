@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
+#pragma warning disable IDE1006
 #pragma warning disable CS8618
 
 namespace Nlnet.Avalonia.Css;

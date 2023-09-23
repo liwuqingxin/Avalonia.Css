@@ -20,27 +20,27 @@ namespace Nlnet.Avalonia.Css
             ValueString = valueString;
         }
 
-        public object? BuildValue(IAcssBuilder acssBuilder)
+        public object? BuildValue(IAcssContext context)
         {
             if (_value != null)
             {
                 return _value;
             }
-            return ValueString == null ? null : _value = BuildValue(acssBuilder, ValueString);
+            return ValueString == null ? null : _value = BuildValue(context, ValueString);
         }
 
-        protected abstract object? BuildValue(IAcssBuilder acssBuilder, string valueString);
+        protected abstract object? BuildValue(IAcssContext context, string valueString);
 
-        public object? BuildDeferredValue(IAcssBuilder acssBuilder, IServiceProvider? provider)
+        public object? BuildDeferredValue(IAcssContext context, System.IServiceProvider? provider)
         {
             if (_value != null)
             {
                 return _value;
             }
-            return ValueString == null ? null : _value = BuildDeferredValueCore(acssBuilder, provider);
+            return ValueString == null ? null : _value = BuildDeferredValueCore(context, provider);
         }
 
-        protected virtual object? BuildDeferredValueCore(IAcssBuilder acssBuilder, IServiceProvider? provider)
+        protected virtual object? BuildDeferredValueCore(IAcssContext context, System.IServiceProvider? provider)
         {
             return null;
         }

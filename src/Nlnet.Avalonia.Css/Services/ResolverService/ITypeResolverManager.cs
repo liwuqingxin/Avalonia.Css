@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css;
 /// <summary>
 /// For type resolving.
 /// </summary>
-public interface ITypeResolverManager : IResolverManager<ITypeResolver>
+public interface ITypeResolverManager : IResolverManager<ITypeResolver>, IService
 {
 
 }
@@ -25,5 +25,10 @@ internal class TypeResolverManager : ResolverManager<ITypeResolver>, ITypeResolv
         LoadResolver(new GenericTypeResolver<Transform>());
         // Internal Resolver.
         LoadResolver(new InternalTypeResolver());
+    }
+
+    public void Initialize()
+    {
+        
     }
 }

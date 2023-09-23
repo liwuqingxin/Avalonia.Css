@@ -5,31 +5,17 @@ namespace Nlnet.Avalonia.Css.Test
     [TestClass]
     public class AcssParserTests
     {
-        private class AcssSectionFactoryForTest : IAcssSectionFactory
-        {
-            public IAcssSection Build(IAcssParser parser, AcssTokens tokens, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
-            {
-                return null!;
-            }
-        }
-
-        private static IAcssParser GetParserForTest()
-        {
-            var parser = new AcssParser(new AcssSectionFactoryForTest());
-            return parser;
-        }
-        
         private static IAcssParser GetParser()
         {
-            var builder = AcssBuilder.Default;
-            var parser = builder.Parser;
+            var ctx = AcssContext.Default;
+            var parser = ctx.GetService<IAcssParser>();
             return parser;
         }
         
         [TestMethod]
         public void TestRemoveComments()
         {
-            var parser = GetParserForTest();
+            var parser = GetParser();
 
             var s1 = parser.RemoveComments("/**/abc".ToCharArray());
             var s2 = parser.RemoveComments("a/*abc*/bc".ToCharArray());
@@ -63,7 +49,7 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void TestParseImportsAndRelies()
         {
-            var parser = GetParserForTest();
+            var parser = GetParser();
 
             parser.ParseImportsBasesAndRelies("import ./button/btn.acss;\r\nimport ./button.acss;\r\nrely ./button/btn.acss;\r\nrely ./button/btn.acss\r\ncontent", out var imports, out var bases, out var relies, out var contentSpan);
             var importsList = imports.ToList();
@@ -92,7 +78,7 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void TestParseCollectionObjects()
         {
-            var parser = GetParserForTest();
+            var parser = GetParser();
 
             var s1 = parser.ParseCollectionObjects("children1[ Background: Red;  Foreground: Green; \r\n]\r\nchildren2[ \r\nBackground: Red;  Foreground: Green; ]").ToList();
             var s2 = parser.ParseCollectionObjects(" children1 \r\n[\r\n Background: Red;  Foreground: Green; ]children2 [ Background: Red;  Foreground: Green; ]").ToList();
@@ -124,7 +110,7 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void TestParseSettersAndChildren()
         {
-            var parser = GetParserForTest();
+            var parser = GetParser();
 
             parser.ParseSettersAndChildren("background: red;children :\r\n[\r\nvar(stBack); var(stFore); \r\nvar(stBorder)\r\n]\r\n[[\r\n selector{background:red;fore:green} \r\n]] foreground: yellow", out var s1, out var s2);
             
@@ -135,7 +121,7 @@ namespace Nlnet.Avalonia.Css.Test
         [TestMethod]
         public void TestParsePairs()
         {
-            var parser = GetParserForTest();
+            var parser = GetParser();
 
             var s1 = parser.ParsePairs("Backgroud:red").ToList();
             var s2 = parser.ParsePairs("Backgroud:red;  \r\nforeground \r\n :  \r\ngreen; margin \r\n:12,2,2,1 \r\n").ToList();

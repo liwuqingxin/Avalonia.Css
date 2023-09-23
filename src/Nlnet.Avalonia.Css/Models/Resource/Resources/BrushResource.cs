@@ -9,8 +9,9 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(Brush))]
 internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
 {
-    protected override object? BuildValue(IAcssBuilder acssBuilder, string valueString)
+    protected override object? BuildValue(IAcssContext context, string valueString)
     {
+        var interpreter = context.GetService<IAcssInterpreter>();
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)
         {
@@ -25,7 +26,7 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
             opacity = o;
         }
 
-        if (acssBuilder.Interpreter.IsVar(colorString, out var key))
+        if (interpreter.IsVar(colorString, out var key))
         {
             // https://github.com/AvaloniaUI/Avalonia/issues/4616
             // https://github.com/AvaloniaUI/Avalonia/discussions/12847

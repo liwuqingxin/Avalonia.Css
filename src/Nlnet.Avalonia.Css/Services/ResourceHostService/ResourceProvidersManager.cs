@@ -16,6 +16,11 @@ internal class ResourceProvidersManager : IResourceProvidersManager
         
     }
 
+    public void Initialize()
+    {
+
+    }
+
     void IResourceProvidersManager.RegisterResourceProvider(IResourceProvider provider)
     {
         lock (this)

@@ -14,16 +14,15 @@ namespace Nlnet.Avalonia.Css
     internal class AcssAnimation : AcssSection, IAcssAnimation
     {
         private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
-
-        private readonly IAcssBuilder _builder;
+        
         private List<(string, string)>? _setters;
         private Type? _selectorTargetType;
 
         public string? Description { get; set; }
 
-        public AcssAnimation(IAcssBuilder builder, string header) : base(builder, header)
+        public AcssAnimation(IAcssContext context, string header) : base(context, header)
         {
-            _builder = builder;
+            
         }
 
         public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
@@ -39,7 +38,7 @@ namespace Nlnet.Avalonia.Css
 
         public override IAcssSection Clone()
         {
-            var acssAnimation = new AcssAnimation(_builder, Header)
+            var acssAnimation = new AcssAnimation(Context, Header)
             {
                 _setters = _setters,
                 _selectorTargetType = _selectorTargetType,
@@ -67,7 +66,7 @@ namespace Nlnet.Avalonia.Css
             }
             
             var animation = new Animation();
-            var interpreter = _builder.Interpreter;
+            var interpreter = Context.GetService<IAcssInterpreter>();
 
             animation.ApplySetters(interpreter, _setters!, nameof(Animation.Children));
 

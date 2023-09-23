@@ -12,12 +12,13 @@ internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
+    public Selector? ToSelector(IAcssContext context, IAcssStyle acssStyle, Selector? previous)
     {
-        var manager = builder.TypeResolver;
+        var manager = context.GetService<ITypeResolverManager>();
+        var interpreter = context.GetService<IAcssInterpreter>();
+
         if (manager.TryGetType(TypeName, out var type))
         {
-            var interpreter      = builder.Interpreter;
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {

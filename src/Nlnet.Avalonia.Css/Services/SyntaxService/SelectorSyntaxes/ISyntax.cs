@@ -5,5 +5,5 @@ namespace Nlnet.Avalonia.Css;
 
 internal interface ISyntax
 {
-    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous);
+    public Selector? ToSelector(IAcssContext context, IAcssStyle acssStyle, Selector? previous);
 }

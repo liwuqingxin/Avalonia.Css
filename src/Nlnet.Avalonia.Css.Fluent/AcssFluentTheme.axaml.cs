@@ -24,24 +24,26 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         private void Load()
         {
-            AcssBuilder.UseDefaultBuilder();
+            AcssContext.UseDefaultContext();
+
+            var resProvidersManager = AcssContext.Default.GetService<IResourceProvidersManager>();
+            var typeResolverManager = AcssContext.Default.GetService<ITypeResolverManager>();
+            var loader = AcssContext.Default.GetService<IAcssLoader>();
 
             // This is not added to application's styles till now. Register this to resource manager to enable resource access to this.
-            AcssBuilder.Default.ResourceProvidersManager.RegisterResourceProvider(this);
+            resProvidersManager.RegisterResourceProvider(this);
 
             // Nlnet.Avalonia.Css.Controls
-            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NotifyChangeContentPresenter>());
-            
+            typeResolverManager.LoadResolver(new GenericTypeResolver<NotifyChangeContentPresenter>());
+
             // Avalonia.Controls.DataGrid
-            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<DataGrid>());
+            typeResolverManager.LoadResolver(new GenericTypeResolver<DataGrid>());
 
             // Nlnet.Avalonia.Senior
-            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<NtScrollViewer>());
-            
-            // Nlnet.Avalonia.MessageBox
-            AcssBuilder.Default.TypeResolver.LoadResolver(new GenericTypeResolver<MessageBox>());
+            typeResolverManager.LoadResolver(new GenericTypeResolver<NtScrollViewer>());
 
-            var loader = AcssBuilder.Default.BuildLoader();
+            // Nlnet.Avalonia.MessageBox
+            typeResolverManager.LoadResolver(new GenericTypeResolver<MessageBox>());
 
             const string debugRelative = "../../src/Nlnet.Avalonia.Css.Fluent/";
 

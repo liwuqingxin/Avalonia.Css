@@ -8,11 +8,17 @@ namespace Nlnet.Avalonia.Css;
 
 internal class AcssParser : IAcssParser
 {
-    private readonly IAcssSectionFactory _sectionFactory;
+    private readonly IAcssContext _context;
+    private IAcssSectionFactory _sectionFactory = null!;
 
-    public AcssParser(IAcssSectionFactory sectionFactory)
+    public AcssParser(IAcssContext context)
     {
-        _sectionFactory = sectionFactory;
+        _context = context;
+    }
+
+    public void Initialize()
+    {
+        _sectionFactory = _context.GetService<IAcssSectionFactory>();
     }
 
     public ReadOnlySpan<char> RemoveComments(Span<char> span)

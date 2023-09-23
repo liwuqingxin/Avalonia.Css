@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css;
 /// <summary>
 /// For type resolving.
 /// </summary>
-public interface IValueParsingTypeAdapterManager
+public interface IValueParsingTypeAdapterManager : IService
 {
     /// <summary>
     /// Load a <see cref="IValueParsingTypeAdapter"/>.
@@ -36,6 +36,11 @@ internal class ValueParsingTypeAdapterManager : IValueParsingTypeAdapterManager
         // Internal value parsing type adapter.
         new InternalValueParsingTypeAdapter(),
     };
+
+    public void Initialize()
+    {
+        
+    }
 
     public void LoadValueParsingTypeAdapter(IValueParsingTypeAdapter adapter)
     {

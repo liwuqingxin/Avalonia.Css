@@ -18,8 +18,6 @@ namespace Nlnet.Avalonia.Css
 {
     internal class AcssInterpreter : IAcssInterpreter
     {
-        private readonly IAcssBuilder _builder;
-
         // ' var (xxx) '
         private readonly Regex _varRegex = new("^\\s*var\\s*\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
         // ' $xxx.xxx ' or '$xxx#10.xxx '
@@ -37,17 +35,38 @@ namespace Nlnet.Avalonia.Css
         // ' selector @extend ( content )', where content : 'base1, base2...'
         private readonly Regex _basesRegex = new("(.*?)\\s*@extend\\s*\\(\\s*(.*?)\\s*\\)");
 
-        
-        private readonly Dictionary<string, Type> _transitionsTypes;
 
-        public AcssInterpreter(IAcssBuilder builder)
+        private readonly IAcssContext _context;
+        private IAcssInterpreter _interpreter = null!;
+        private IAcssParser _parser = null!;
+        private ITypeResolverManager _typeResolver = null!;
+        private IValueParsingTypeAdapterManager _valueParsingTypeAdapterManager = null!;
+        private IResourceProvidersManager _resourceProvidersManager = null!;
+        private IBehaviorDeclarerManager _behaviorDeclarerManager = null!;
+        private IBehaviorResolverManager _behaviorResolverManager = null!;
+        private Dictionary<string, Type> _transitionsTypes = null!;
+
+
+        public AcssInterpreter(IAcssContext context)
         {
-            _builder          = builder;
+            _context = context;
+        }
+
+        public void Initialize()
+        {
+            _interpreter = _context.GetService<IAcssInterpreter>();
+            _parser = _context.GetService<IAcssParser>();
+            _typeResolver = _context.GetService<ITypeResolverManager>();
+            _valueParsingTypeAdapterManager = _context.GetService<IValueParsingTypeAdapterManager>();
+            _resourceProvidersManager = _context.GetService<IResourceProvidersManager>();
+            _behaviorDeclarerManager = _context.GetService<IBehaviorDeclarerManager>();
+            _behaviorResolverManager = _context.GetService<IBehaviorResolverManager>();
+
             _transitionsTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
             var types = typeof(Transition<>)
-                        .Assembly
-                        .GetTypes()
-                        .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
+                .Assembly
+                .GetTypes()
+                .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
 
             foreach (var t in types)
             {
@@ -61,9 +80,9 @@ namespace Nlnet.Avalonia.Css
             _transitionsTypes.Add("shadow", typeof(ThicknessTransition));
         }
 
-        public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, IEnumerable<ISyntax> syntaxList)
+        public Selector? ToSelector(IAcssContext context, IAcssStyle acssStyle, IEnumerable<ISyntax> syntaxList)
         {
-            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(builder, acssStyle, current));
+            return syntaxList.Aggregate<ISyntax, Selector?>(null, (current, syntax) => syntax.ToSelector(context, acssStyle, current));
         }
 
         public AvaloniaProperty? ParseAvaloniaProperty(Type avaloniaObjectType, string property)
@@ -84,8 +103,8 @@ namespace Nlnet.Avalonia.Css
 
                 var declaredTypeName = splits[0];
                 property = splits[1];
-                var manager = _builder.TypeResolver;
-                if (manager.TryGetType(declaredTypeName, out var type) == false)
+                
+                if (_typeResolver.TryGetType(declaredTypeName, out var type) == false)
                 {
                     return null;
                 }
@@ -109,13 +128,13 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
             var declarerName = property[1..];
-            if (_builder.BehaviorDeclarerManager.TryGetBehaviorDeclarer(declarerName, out var declarerType) == false)
+            if (_behaviorDeclarerManager.TryGetBehaviorDeclarer(declarerName, out var declarerType) == false)
             {
                 value = null;
                 return null;
             }
 
-            if (_builder.BehaviorResolverManager.TryGetType(rawValue, out var behaviorType) == false)
+            if (_behaviorResolverManager.TryGetType(rawValue, out var behaviorType) == false)
             {
                 value = null;
                 return null;
@@ -125,7 +144,7 @@ namespace Nlnet.Avalonia.Css
                 ? Activator.CreateInstance(behaviorType!) as AcssBehavior
                 : null;
 
-            return _builder.Interpreter.ParseAvaloniaProperty(declarerType!, behaviorType!.Name);
+            return _interpreter.ParseAvaloniaProperty(declarerType!, behaviorType!.Name);
         }
 
         public object? ParseClrValue(Type declaredType, string? rawValue)
@@ -172,7 +191,7 @@ namespace Nlnet.Avalonia.Css
                 // TODO 支持多级静态实例
                 var className = match.Groups[1].Value;
                 var instanceName = match.Groups[2].Value;
-                if (_builder.TypeResolver.TryGetType(className, out var classType) && classType != null)
+                if (_typeResolver.TryGetType(className, out var classType) && classType != null)
                 {
                     try
                     {
@@ -215,7 +234,7 @@ namespace Nlnet.Avalonia.Css
             }
 
             // Adapted parser.
-            if (_builder.ValueParsingTypeAdapter.TryAdaptType(declaredType, out var parseType) && parseType != null)
+            if (_valueParsingTypeAdapterManager.TryAdaptType(declaredType, out var parseType) && parseType != null)
             {
                 declaredType = parseType;
             }
@@ -230,10 +249,10 @@ namespace Nlnet.Avalonia.Css
             }
 
             // Internal parser.
-            var internalParserMethod = declaredType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(IAcssBuilder), typeof(string) });
+            var internalParserMethod = declaredType.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, new Type[] { typeof(IAcssContext), typeof(string) });
             if (internalParserMethod != null)
             {
-                return internalParserMethod.Invoke(declaredType, new object?[] { _builder, rawValue });
+                return internalParserMethod.Invoke(declaredType, new object?[] { _context, rawValue });
             }
 
             declaredType.WriteError($"Can not parse the value '{rawValue}'. Skip it.");
@@ -268,7 +287,7 @@ namespace Nlnet.Avalonia.Css
             rawValue = rawValue?.Trim('\'');
             
             // Var resource.
-            if (IsVar(rawValue, out var key) && _builder.ResourceProvidersManager.TryFindResource(key!, out var result))
+            if (IsVar(rawValue, out var key) && _resourceProvidersManager.TryFindResource(key!, out var result))
             {
                 return result;
             }
@@ -309,7 +328,7 @@ namespace Nlnet.Avalonia.Css
                 var indexString = match.Groups[2].Value;
                 var path = match.Groups[3].Value;
 
-                if (_builder.TypeResolver.TryGetType(className, out var classType) == false)
+                if (_typeResolver.TryGetType(className, out var classType) == false)
                 {
                     return false;
                 }
@@ -369,7 +388,7 @@ namespace Nlnet.Avalonia.Css
                 if (dotIndex >= 0)
                 {
                     var ownerTypeName = propertyString[..dotIndex];
-                    if (_builder.TypeResolver.TryGetType(ownerTypeName, out var t))
+                    if (_typeResolver.TryGetType(ownerTypeName, out var t))
                     {
                         targetType = t;
                     }
@@ -463,7 +482,7 @@ namespace Nlnet.Avalonia.Css
                 }
             }
 
-            var avaloniaProperty = _builder.Interpreter.ParseAvaloniaProperty(targetType!, property);
+            var avaloniaProperty = _interpreter.ParseAvaloniaProperty(targetType!, property);
             if (avaloniaProperty == null)
             {
                 this.WriteError($"Can not recognize the property '{property}' from type '{targetType}'. Skip it.");
@@ -480,9 +499,7 @@ namespace Nlnet.Avalonia.Css
         public IEnumerable<KeyFrame>? ParseKeyFrames(Type selectorTargetType, string valueString)
         {
             valueString = valueString[1..^1].Trim();
-            var parser      = _builder.Parser;
-            var interpreter = _builder.Interpreter;
-            var objects     = parser.ParseCollectionObjects(valueString);
+            var objects = _parser.ParseCollectionObjects(valueString);
 
             foreach (var (selector, propertySettingsString) in objects)
             {
@@ -522,14 +539,14 @@ namespace Nlnet.Avalonia.Css
                     {
                         keyFrame.KeySpline = splits[1].TryParseKeySpline();
                     }
-                    catch (Exception e)
+                    catch
                     {
                         this.WriteError($"Invalid key spline '{splits[0]}'. Skip it.");
                     }
                 }
 
                 // Setters.
-                var pairs = parser.ParsePairs(propertySettingsString);
+                var pairs = _parser.ParsePairs(propertySettingsString);
                 foreach (var pair in pairs)
                 {
                     var propertyName = pair.Item1;
@@ -544,7 +561,7 @@ namespace Nlnet.Avalonia.Css
                     var setter = new Setter();
 
                     // Property
-                    var property = interpreter.ParseAvaloniaProperty(selectorTargetType, propertyName);
+                    var property = _interpreter.ParseAvaloniaProperty(selectorTargetType, propertyName);
                     if (property == null)
                     {
                         continue;
@@ -566,11 +583,11 @@ namespace Nlnet.Avalonia.Css
                     else
                     {
                         // Static.
-                        setter.Value = interpreter.ParseValue(property, pair.Item2);
+                        setter.Value = _interpreter.ParseValue(property, pair.Item2);
                         keyFrame.Setters.Add(setter);
                     }
 
-                    if (animatorTypeName != null && _builder.TypeResolver.TryGetType(animatorTypeName, out var animatorType))
+                    if (animatorTypeName != null && _typeResolver.TryGetType(animatorTypeName, out var animatorType))
                     {
                         var animator = Activator.CreateInstance(animatorType!);
                         if (animator is ICustomAnimator customAnimator)
@@ -629,7 +646,7 @@ namespace Nlnet.Avalonia.Css
                 }
 
                 // Check var.
-                var isDyn = _builder.Interpreter.IsVar(variables[0], out var key);
+                var isDyn = _interpreter.IsVar(variables[0], out var key);
                 
                 // Offset.
                 var opacityString = (string?)null;

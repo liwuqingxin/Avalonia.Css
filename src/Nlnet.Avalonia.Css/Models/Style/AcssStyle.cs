@@ -37,7 +37,7 @@ internal interface IAcssStyle : IAcssSection, IDisposable
 
 internal class AcssStyle : AcssSection, IAcssStyle
 {
-    private readonly IAcssBuilder _builder;
+    private readonly IAcssContext _context;
     private readonly AcssTokens _tokens;
     private string? _selectorString;
     private Selector? _selector;
@@ -60,16 +60,16 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
     public IEnumerable<IAcssAnimation>? Animations { get; set; }
 
-    public AcssStyle(IAcssBuilder builder, AcssTokens tokens, string header) : base(builder, header)
+    public AcssStyle(IAcssContext context, AcssTokens tokens, string header) : base(context, header)
     {
-        _builder = builder;
+        _context = context;
         _tokens = tokens;
     }
 
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
     {
         // Selector
-        var interpreter = _builder.Interpreter;
+        var interpreter = _context.GetService<IAcssInterpreter>();
         _selectorString = interpreter.ParseSelectorAndBases(Header, out _bases);
         _selector = CreateSelector(_selectorString);
         
@@ -95,7 +95,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
     public override IAcssSection Clone()
     {
-        var acssStyle = new AcssStyle(_builder, _tokens, Header);
+        var acssStyle = new AcssStyle(_context, _tokens, Header);
 
         acssStyle._selectorString = _selectorString;
         acssStyle._selector = _selector;
@@ -179,7 +179,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
         if(IsThemeChild)
         {
-            ThemeTargetType = syntaxList.First().ToSelector(_builder, this, null)?.GetTargetType();
+            ThemeTargetType = syntaxList.First().ToSelector(_context, this, null)?.GetTargetType();
             syntaxList = syntaxList.Skip(1).ToList();
         }
 
@@ -195,7 +195,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
             }
             else
             {
-                selector = syntax.ToSelector(_builder, this, selector);
+                selector = syntax.ToSelector(_context, this, selector);
             }
         }
         if (selector != null)
@@ -228,7 +228,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
         {
             foreach (var acssResourceList in Resources)
             {
-                var dic = acssResourceList.ToAvaloniaResourceDictionary(_builder);
+                var dic = acssResourceList.ToAvaloniaResourceDictionary();
                 if (dic == null)
                 {
                     continue;
@@ -247,7 +247,7 @@ internal class AcssStyle : AcssSection, IAcssStyle
         // Setters
         if (Setters != null)
         {
-            foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_builder, targetType)).OfType<Setter>())
+            foreach (var setter in Setters.Select(s => s.ToAvaloniaSetter(_context, targetType)).OfType<Setter>())
             {
                 style.Add(setter);
             }

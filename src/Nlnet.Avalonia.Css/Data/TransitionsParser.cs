@@ -15,12 +15,12 @@ namespace Nlnet.Avalonia.Css
         /// <summary>
         /// For setter value parser.
         /// </summary>
-        /// <param name="builder"></param>
+        /// <param name="context"></param>
         /// <param name="valueString"></param>
         /// <returns></returns>
-        public static Transitions? Parse(IAcssBuilder builder, string valueString)
+        public static Transitions? Parse(IAcssContext context, string valueString)
         {
-            var interpreter    = builder.Interpreter;
+            var interpreter = context.GetService<IAcssInterpreter>();
             var transitions    = new Transitions();
             var transitionList = valueString[1..^1].Trim().Split(';', StringSplitOptions.RemoveEmptyEntries);
             var app            = Checks.CheckApplication();

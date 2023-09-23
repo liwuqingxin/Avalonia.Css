@@ -4,29 +4,30 @@ namespace Nlnet.Avalonia.Css;
 
 public static class AcssExtension
 {
-    #region AcssBuilder & TypeResolver
+    #region AcssContext & TypeResolver
 
     /// <summary>
-    /// Use the default <see cref="IAcssBuilder"/> as avalonia css builder.
+    /// Use the default <see cref="IAcssContext"/> as avalonia css context.
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static AppBuilder UseAcssDefaultBuilder(this AppBuilder builder)
+    public static AppBuilder UseAcssDefaultContext(this AppBuilder builder)
     {
-        AcssBuilder.UseDefaultBuilder();
-        builder.WriteLine($"======== Avalonia css default builder used...");
+        AcssContext.UseDefaultContext();
+        builder.WriteLine($"======== Avalonia css default IAcssContext used...");
         return builder;
     }
 
     /// <summary>
-    /// Add a <see cref="ITypeResolver"/> to the default <see cref="IAcssBuilder"/>.
+    /// Add a <see cref="ITypeResolver"/> to the default <see cref="IAcssContext"/>.
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="typeResolver"></param>
     /// <returns></returns>
     public static AppBuilder WithTypeResolverForAcssDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
     {
-        AcssBuilder.Default.TypeResolver.LoadResolver(typeResolver);
+        var manager = AcssContext.Default.GetService<ITypeResolverManager>();
+        manager.LoadResolver(typeResolver);
         return builder;
     }
 

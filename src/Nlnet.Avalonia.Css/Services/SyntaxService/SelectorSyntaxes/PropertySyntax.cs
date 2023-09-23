@@ -8,7 +8,7 @@ internal class PropertySyntax : ISyntax
 
     public string Value { get; set; } = string.Empty;
 
-    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
+    public Selector? ToSelector(IAcssContext context, IAcssStyle acssStyle, Selector? previous)
     {
         var previousTargetType = previous?.GetTargetType() ?? acssStyle.GetTargetType();
         if (previousTargetType == null)
@@ -17,7 +17,8 @@ internal class PropertySyntax : ISyntax
             return previous;
         }
 
-        var interpreter      = builder.Interpreter;
+        var interpreter = context.GetService<IAcssInterpreter>();
+
         var avaloniaProperty = interpreter.ParseAvaloniaProperty(previousTargetType, Property);
         if (avaloniaProperty == null)
         {

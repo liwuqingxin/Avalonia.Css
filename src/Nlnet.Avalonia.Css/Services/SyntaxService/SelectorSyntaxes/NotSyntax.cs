@@ -8,9 +8,12 @@ internal class NotSyntax : ISyntax
 {
     public IEnumerable<ISyntax> Argument { get; set; } = Enumerable.Empty<ISyntax>();
 
-    public Selector? ToSelector(IAcssBuilder builder, IAcssStyle acssStyle, Selector? previous)
+    public Selector? ToSelector(IAcssContext context, IAcssStyle acssStyle, Selector? previous)
     {
-        var selector = builder.Interpreter.ToSelector(builder, acssStyle, Argument);
+        var manager = context.GetService<ITypeResolverManager>();
+        var interpreter = context.GetService<IAcssInterpreter>();
+
+        var selector = interpreter.ToSelector(context, acssStyle, Argument);
         if (selector == null)
         {
             this.WriteError($"Can not apply ':not' selector for {Argument}");

@@ -10,7 +10,7 @@ namespace Nlnet.Avalonia.Css;
 
 internal interface IAcssResourceDictionary : IAcssSection
 {
-    public ResourceDictionary? ToAvaloniaResourceDictionary(IAcssBuilder acssBuilder);
+    public ResourceDictionary? ToAvaloniaResourceDictionary();
 
     public bool IsThemeResource();
 
@@ -19,7 +19,7 @@ internal interface IAcssResourceDictionary : IAcssSection
 
 internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 {
-    private readonly IAcssBuilder _builder;
+    private readonly IAcssContext _context;
 
     private static readonly Regex RegexAccent      = new("\\[accent=(.*?)\\]", RegexOptions.IgnoreCase);
     private static readonly Regex RegexTheme       = new("\\[theme=(.*?)\\]", RegexOptions.IgnoreCase);
@@ -33,9 +33,9 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 
     public List<AcssResource> Resources { get; set; } = new();
 
-    public AcssResourceDictionary(IAcssBuilder builder, string selector) : base(builder, selector)
+    public AcssResourceDictionary(IAcssContext context, string selector) : base(context, selector)
     {
-        _builder = builder;
+        _context = context;
     }
 
     public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
@@ -64,7 +64,7 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
         throw new NotImplementedException();
     }
 
-    public ResourceDictionary? ToAvaloniaResourceDictionary(IAcssBuilder acssBuilder)
+    public ResourceDictionary? ToAvaloniaResourceDictionary()
     {
         if (Resources.Count == 0)
         {
@@ -72,9 +72,10 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
             return null;
         }
 
-        if (Accent != null && !string.Equals(Accent, acssBuilder.Configuration.Theme, StringComparison.CurrentCultureIgnoreCase))
+        var cfg = _context.GetService<IAcssConfiguration>();
+        if (Accent != null && !string.Equals(Accent, cfg.Theme, StringComparison.CurrentCultureIgnoreCase))
         {
-            this.WriteWarning($"Current theme is '{acssBuilder.Configuration.Theme}'. This theme is '{Accent}'. Skip this.");
+            this.WriteWarning($"Current theme is '{cfg.Theme}'. This theme is '{Accent}'. Skip this.");
             return null;
         }
 
@@ -88,11 +89,11 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
             }
             if (resource.IsDeferred)
             {
-                dic.AddDeferred(resource.Key, provider => resource.BuildDeferredValue(_builder, provider));
+                dic.AddDeferred(resource.Key, provider => resource.BuildDeferredValue(_context, provider));
             }
             else
             {
-                dic.TryAdd(resource.Key, resource.BuildValue(_builder));
+                dic.TryAdd(resource.Key, resource.BuildValue(_context));
             }
         }
 
@@ -121,14 +122,16 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
 
     private IEnumerable<AcssResource> TryGetResources(string resources)
     {
-        var list = _builder.Parser.ParsePairs(resources);
+        var parser = _context.GetService<IAcssParser>();
+        var resFactory = _context.GetService<IAcssResourceFactory>();
+        var list = parser.ParsePairs(resources);
         foreach (var pair in list)
         {
             if (string.IsNullOrWhiteSpace(pair.Item1) || string.IsNullOrWhiteSpace(pair.Item2))
             {
                 continue;
             }
-            if (_builder.ResourceFactory.TryGetResourceInstance(pair.Item1, pair.Item2, out var acssResource))
+            if (resFactory.TryGetResourceInstance(pair.Item1, pair.Item2, out var acssResource))
             {
                 yield return acssResource!;
             }

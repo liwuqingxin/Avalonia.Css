@@ -6,7 +6,7 @@ namespace Nlnet.Avalonia.Css;
 [ResourceType(nameof(Color))]
 internal class ColorResource : AcssResourceBaseAndFac<ColorResource>
 {
-    protected override object? BuildValue(IAcssBuilder acssBuilder, string valueString)
+    protected override object? BuildValue(IAcssContext context, string valueString)
     {
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)

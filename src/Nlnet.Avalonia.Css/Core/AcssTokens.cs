@@ -16,10 +16,10 @@ internal class AcssTokens : IDisposable
     /// <summary>
     /// Get tokens from a path. If it exists in the acss builder, just return it.
     /// </summary>
-    /// <param name="acssBuilder"></param>
+    /// <param name="context"></param>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public static AcssTokens Get(IAcssBuilder acssBuilder, string? filePath)
+    public static AcssTokens Get(IAcssContext context, string? filePath)
     {
         if (filePath == null)
         {
@@ -28,7 +28,7 @@ internal class AcssTokens : IDisposable
 
         var standardPath = filePath.GetStandardPath();
 
-        if (acssBuilder.TryGetAcssTokens(standardPath, out var tokens) && tokens != null)
+        if (context.TryGetAcssTokens(standardPath, out var tokens) && tokens != null)
         {
             return tokens;
         }
@@ -38,16 +38,16 @@ internal class AcssTokens : IDisposable
             return Empty;
         }
 
-        tokens = new AcssTokens(acssBuilder, standardPath);
+        tokens = new AcssTokens(context, standardPath);
         tokens.DoParsing();
 
-        acssBuilder.TryAddAcssTokens(standardPath, tokens);
+        context.TryAddAcssTokens(standardPath, tokens);
 
         return tokens;
     }
 
     private CompositeDisposable? _disposable;
-    private readonly IAcssBuilder _acssBuilder;
+    private readonly IAcssContext _context;
     private List<IAcssSection>? _sections;
     private List<AcssTokens>? _imports;
     private List<AcssTokens>? _relies;
@@ -76,13 +76,13 @@ internal class AcssTokens : IDisposable
 
     private AcssTokens()
     {
-        _acssBuilder = null!;
+        _context = null!;
         StandardPath = null;
     }
     
-    private AcssTokens(IAcssBuilder acssBuilder, string standardPath)
+    private AcssTokens(IAcssContext context, string standardPath)
     {
-        _acssBuilder = acssBuilder;
+        _context = context;
         StandardPath = standardPath;
     }
 
@@ -102,7 +102,7 @@ internal class AcssTokens : IDisposable
             {
                 acssSource = File.ReadAllText(StandardPath);
             }
-            catch (Exception e)
+            catch
             {
                 Thread.Sleep(20);
                 try
@@ -122,14 +122,14 @@ internal class AcssTokens : IDisposable
             return;
         }
 
-        var parser = _acssBuilder.Parser;
+        var parser = _context.GetService<IAcssParser>();
         var acssSpan = parser.RemoveComments(acssSource.ToCharArray());
         
         parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
 
-        _imports = imports.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
-        _relies = relies.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
-        _bases = bases.Select(s => Get(_acssBuilder, GetPathAlignToThis(s))).ToList();
+        _imports = imports.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
+        _relies = relies.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
+        _bases = bases.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
         
         foreach (var acssStyle in GetStyles())

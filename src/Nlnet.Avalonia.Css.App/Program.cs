@@ -45,7 +45,7 @@ namespace Nlnet.Avalonia.Css.App
                 .LogToLocalFile()
 
                 // Use avalonia css stuff.
-                .UseAcssDefaultBuilder()
+                .UseAcssDefaultContext()
                 // Type resolver for Nlnet.Avalonia.Svg
                 .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Icon>())
                 // Type resolver for Nlnet.Avalonia.SampleAssistant
