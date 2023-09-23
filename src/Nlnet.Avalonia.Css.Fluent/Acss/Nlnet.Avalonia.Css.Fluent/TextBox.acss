@@ -1,20 +1,12 @@
-﻿
-^TextBox {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-input-fluent);
+﻿base ./Bases/Bases.acss;
+
+^TextBox @extend(.fluent-box, .pointerover, .disabled){
     CaretBrush: var(fore);
-    CornerRadius: 4;
-    BorderThickness: 1;
-    Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    HorizontalAlignment: Center;
-    VerticalAlignment: Center;
     MinWidth:40;
     ClipToBounds:True;
+    VerticalAlignment: Center;
     SelectionBrush:var(Accent06);
     Transitions:[
         var(stRenderTransform);
@@ -23,11 +15,7 @@
         var(stOpacity);
     ]
 
-    [[
-        :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(control-back-hover);
-        }
+    [[                
          /template/ TextBlock#PART_Watermark {
             IsVisible:False;
             Foreground:var(watermark);
@@ -53,9 +41,6 @@
             RenderTransform:scale(1,0.2);
             CornerRadius:0,0,20,20;
             Margin: 0,0,0,-1;
-        }
-        :disabled{
-            Opacity:0.4;
         }
     ]]
 }

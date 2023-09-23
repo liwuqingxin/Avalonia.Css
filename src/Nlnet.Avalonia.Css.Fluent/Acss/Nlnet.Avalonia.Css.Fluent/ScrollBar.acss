@@ -9,7 +9,7 @@
 
     [[
         :pointerover{
-            Background:var(control-back);
+            Background:var(ctrl-back);
             Opacity:0.8;
         }
         /template/ RepeatButton#PART_PageUpButton, /template/ RepeatButton#PART_PageDownButton{

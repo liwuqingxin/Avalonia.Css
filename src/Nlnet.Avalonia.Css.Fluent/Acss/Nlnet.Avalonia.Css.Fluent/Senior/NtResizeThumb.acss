@@ -3,7 +3,7 @@
     Opacity: 0.1;
     [[
         :pointerover{
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
     ]]
 }

@@ -22,34 +22,34 @@ internal class AcssSectionFactory : IAcssSectionFactory
         _builder = builder;
     }
 
-    public IAcssSection Build(IAcssParser parser, AcssTokens tokens, IAcssSection? parent, string selector, ReadOnlySpan<char> content)
+    public IAcssSection Build(IAcssParser parser, AcssTokens tokens, IAcssSection? parent, string header, ReadOnlySpan<char> content)
     {
         IAcssSection section;
-        if (_regexResource.IsMatch(selector))
+        if (_regexResource.IsMatch(header))
         {
-            section = new AcssResourceDictionary(_builder, selector);
+            section = new AcssResourceDictionary(_builder, header);
         }
-        else if (_regexAnimation.IsMatch(selector))
+        else if (_regexAnimation.IsMatch(header))
         {
-            section = new AcssAnimation(_builder, selector);
+            section = new AcssAnimation(_builder, header);
         }
-        else if (_regexThemeChildStyle.Match(selector) is { Success: true } match1)
+        else if (_regexThemeChildStyle.Match(header) is { Success: true } match1)
         {
-            section = new AcssStyle(_builder, tokens, selector.Trim()[1..])
+            section = new AcssStyle(_builder, tokens, header.Trim()[1..])
             {
                 IsThemeChild = true,
             };
         }
-        else if (_regexLogicalChildStyle.Match(selector) is { Success: true } match2)
+        else if (_regexLogicalChildStyle.Match(header) is { Success: true } match2)
         {
-            section = new AcssStyle(_builder, tokens, selector.Trim()[1..])
+            section = new AcssStyle(_builder, tokens, header.Trim()[1..])
             {
                 IsLogicalChild = true,
             };
         }
         else
         {
-            section = new AcssStyle(_builder, tokens, selector);
+            section = new AcssStyle(_builder, tokens, header);
         }
 
         section.Parent = parent;

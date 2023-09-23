@@ -1,30 +1,27 @@
-﻿DropDownButton>Popup{
+﻿base ./Bases/Bases.acss;
+
+DropDownButton>Popup{
     PopupStyles.Style: Slide;
 }
 
-^DropDownButton {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
+^DropDownButton @extend(.button){
     Opacity: 1;
-    RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Center;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
-    ClipToBounds:False;
+    ClipToBounds: False;
     Transitions:[
-        var(stRenderTransform);
         var(stBackground);
         var(stBorderBrush);
         var(stOpacity);
     ]
 
     [[
-         /template/ PathIcon#DropDownGlyph{
+        :pointerover{
+            Transitions:[
+                var(stBackground);
+                var(stOpacity);
+            ]
+        }
+        
+        /template/ PathIcon#DropDownGlyph{
             Width:9;
             Height:9;
             Margin:0,0,10,0;
@@ -36,17 +33,6 @@
         }
         :pressed /template/ PathIcon#DropDownGlyph{
             RenderTransform: translate(0, 3px);
-        }
-        :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(control-back-hover);
-        }
-        :pressed{
-            Foreground:var(fore-pressed);
-            BorderBrush:var(control-border-pressed-fluent);
-        }
-        :disabled{
-            Opacity:0.4;
         }
     ]]
 }

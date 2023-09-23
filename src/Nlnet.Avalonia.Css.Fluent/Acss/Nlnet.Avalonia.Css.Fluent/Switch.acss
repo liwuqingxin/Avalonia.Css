@@ -1,11 +1,7 @@
-﻿
-^ToggleSwitch {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border);
-    BorderThickness: 1;
+﻿base ./Bases/Bases.acss;
+
+^ToggleSwitch @extend(.ctrl, .border, .padding){
     CornerRadius: 16;
-    Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
     HorizontalContentAlignment: Center;
@@ -58,7 +54,7 @@
         }
         :pointerover:not(:checked){
             Foreground: var(fore-hover);
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
         :pointerover:checked{
             Foreground: var(fore-hover);

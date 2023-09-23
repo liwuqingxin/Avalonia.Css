@@ -21,7 +21,7 @@ namespace Nlnet.Avalonia.Css
 
         public string? Description { get; set; }
 
-        public AcssAnimation(IAcssBuilder builder, string selector) : base(builder, selector)
+        public AcssAnimation(IAcssBuilder builder, string header) : base(builder, header)
         {
             _builder = builder;
         }
@@ -34,24 +34,38 @@ namespace Nlnet.Avalonia.Css
                 Description = matchDesc.Groups[1].Value;
             }
 
+            _setters = parser.ParsePairs(content).ToList();
+        }
+
+        public override IAcssSection Clone()
+        {
+            var acssAnimation = new AcssAnimation(_builder, Header)
+            {
+                _setters = _setters,
+                _selectorTargetType = _selectorTargetType,
+                Description = Description,
+                Parent = Parent,
+                Children = Children,
+            };
+            
+            return acssAnimation;
+        }
+
+        public IAnimation? ToAvaloniaAnimation()
+        {
             if (Parent is not IAcssStyle style)
             {
                 this.WriteError($"The parent of {nameof(AcssAnimation)} must be {nameof(AcssStyle)}. Skip it.");
-                return;
+                return null;
             }
 
             _selectorTargetType = style.GetTargetType();
             if (_selectorTargetType == null)
             {
                 this.WriteError($"The target type of the style is null. Skip it [{Description}].");
-                return;
+                return null;
             }
-
-            _setters = parser.ParsePairs(content).ToList();
-        }
-
-        public IAnimation? ToAvaloniaAnimation()
-        {
+            
             var animation = new Animation();
             var interpreter = _builder.Interpreter;
 

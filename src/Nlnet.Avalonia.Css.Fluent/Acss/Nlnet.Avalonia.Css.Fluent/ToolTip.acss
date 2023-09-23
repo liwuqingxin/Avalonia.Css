@@ -1,6 +1,6 @@
 ﻿^ToolTip {
     Foreground: var(fore);
-    Background: var(control-back-hover);
+    Background: var(ctrl-back-hover);
     Padding: 12;
     Opacity: 1;
     RenderTransform: none;

@@ -1,10 +1,10 @@
-﻿^ListBoxItem{
+﻿base ./Bases/Bases.acss;
+
+^ListBoxItem @extend(.corner, .padding){
     Foreground: var(fore);
     Background: var(item-back);
-    CornerRadius: 4;
     Height: 28;
     Margin: 0,2;
-    Padding: 8,4,8,5;
     VerticalContentAlignment: Center;
     Transitions:[
         var(stBackground);

@@ -1,18 +1,12 @@
-﻿
-^DatePicker {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    BorderThickness: 1;
-    CornerRadius: 4;
+﻿base ./Bases/Bases.acss;
+
+^DatePicker @extend(.fluent-box){
     Opacity: 1;
     RenderTransform: none;
+    VerticalAlignment: Center;
     HorizontalAlignment: Left;
-    VerticalAlignment: Stretch;
-    /* HorizontalContentAlignment: Center;
-    VerticalContentAlignment: Center; */
     ClipToBounds:False;
-    MinWidth:200;
+    MinWidth:220;
     Transitions:[
         var(stBorderBrush);
     ]
@@ -30,7 +24,7 @@
             PlacementMode:Bottom;
             IsLightDismissEnabled:True;
             HorizontalOffset:-1;
-            PopupStyles.Style: Fade;
+            PopupStyles.Style: Roll;
         }
          /template/ DatePickerPresenter#PART_PickerPresenter{
             MaxHeight:300;

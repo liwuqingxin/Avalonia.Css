@@ -1,0 +1,69 @@
+﻿//
+// Shared properties.
+//
+.ctrl{
+    Foreground: var(fore);
+    Background: var(ctrl-back);
+}
+.border{
+    BorderBrush:var(ctrl-border);
+    BorderThickness: 1;
+}
+.fluent-border{
+    BorderBrush:var(fluent-ctrl-border);
+    BorderThickness: 1;
+}
+.corner{
+    CornerRadius:4;
+}
+.padding{
+    Padding: 8,4,8,5;
+}
+.align{
+    HorizontalContentAlignment: Stretch;
+    VerticalContentAlignment: Stretch;
+    HorizontalAlignment: Stretch;
+    VerticalAlignment: Stretch;
+}
+.min-height{
+    MinHeight: 28;
+}
+
+//
+// Shared state styles.
+//
+.pointerover{
+    [[
+        :pointerover{
+            Foreground: var(fore-hover);
+            Background: var(ctrl-back-hover);
+            BorderBrush: var(fluent-ctrl-border-hover);
+        }
+    ]]
+}
+.pressed{
+    [[
+        :pressed{
+            Foreground: var(fore-pressed);
+            Background: var(ctrl-back-pressed);
+            BorderBrush: var(fluent-ctrl-border-pressed);
+        }
+    ]]
+}
+.disabled{
+    [[
+        :disabled{
+            Opacity:0.4;
+        }
+    ]]
+ }
+
+//
+// Style packages.
+//
+.fluent-box @extend(.ctrl, .fluent-border, .corner, .padding, .align) { }
+.box @extend(.ctrl, .border, .corner, .padding, .align) { }
+.common-state @extend(.pointerover, .pressed, .disabled) { }
+
+// button
+.button @extend(.fluent-box, .common-state) { }

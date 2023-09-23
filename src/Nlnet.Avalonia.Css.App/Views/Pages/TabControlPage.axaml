@@ -11,7 +11,7 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="TabView provides the user with a collection of tabs that can be used to display several documents."
+                   Text="TabControl provides the user with a collection of tabs that can be used to display several documents."
                    TextWrapping="Wrap" />
 
         <StackPanel.Styles>
@@ -21,7 +21,7 @@
             </Style>
         </StackPanel.Styles>
 
-        <app:IndependentCase>
+        <app:IndependentCase Header="TabControl">
             <TabStrip>
                 <TabStripItem Content="First Image">
                     <fluent:TabItemExtension.IconContent>

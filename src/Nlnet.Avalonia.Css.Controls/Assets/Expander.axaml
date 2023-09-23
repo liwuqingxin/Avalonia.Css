@@ -58,8 +58,7 @@
                                 VerticalAlignment="Stretch"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                IsVisible="False">
+                                BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter x:Name="PART_ContentPresenter"
                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"

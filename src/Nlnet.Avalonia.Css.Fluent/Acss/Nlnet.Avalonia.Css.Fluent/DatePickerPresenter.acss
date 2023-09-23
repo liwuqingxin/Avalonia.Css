@@ -43,11 +43,14 @@
         /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
             RenderTransform:translate(0, 5px);
         }
+        /template/ RepeatButton {
+            VerticalContentAlignment: Center;
+        }
         /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
-            CornerRadius:0,6,0,0;
+            CornerRadius:0,8,0,0;
         }
         /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
-            CornerRadius:6,0,0,0;
+            CornerRadius:8,0,0,0;
         }
         
 
@@ -84,12 +87,12 @@
         /template/ Rectangle#PART_FirstSpacer {
             Width:1;
             HorizontalAlignment:Center;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
         /template/ Rectangle#PART_SecondSpacer {
             Width:1;
             HorizontalAlignment:Center;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
 
 
@@ -109,16 +112,18 @@
         /template/ Button#PART_AcceptButton {
             Margin:4,4,2,4;
             CornerRadius:4;
+            HorizontalContentAlignment : Center;
             HorizontalAlignment:Stretch;
         }
         /template/ Button#PART_DismissButton {
             Margin:2,4,4,4;
             CornerRadius:4;
+            HorizontalContentAlignment : Center;
             HorizontalAlignment:Stretch;
         }
         /template/ Rectangle#DatePickerFlyoutPresenterSpacer {
             Height:1;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
     ]]
 }

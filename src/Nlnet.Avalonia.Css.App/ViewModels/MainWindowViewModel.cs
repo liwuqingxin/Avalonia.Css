@@ -4,7 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using DynamicData;
+using Nlnet.Avalonia.Css.App.Views;
 using Nlnet.Avalonia.Css.Fluent;
 using Nlnet.Avalonia.SampleAssistant;
 
@@ -12,16 +14,21 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
+        private readonly IMainViewService _viewService;
         private ThemeVariant _theme     = ThemeVariant.Light;
         private string?      _accent    = "green";
         private bool         _isLoading = true;
         private bool         _isLocalDark;
-        private bool         _isBeforeLoadedAcssFileLoaded = true;
+        private bool         _isEnabled = true;
+        private GalleryItem? _selectedGalleryItem;
+        private GalleryItem? _delaySelectedGalleryItem;
 
         public  List<ThemeVariant> Modes { get; set; }
 
         public List<string> Accents { get; set; }
 
+        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
+        
         public ThemeVariant Theme
         {
             get => _theme;
@@ -70,10 +77,51 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
-        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
-
-        public MainWindowViewModel()
+        public bool IsEnabled
         {
+            get => _isEnabled;
+            set
+            {
+                if (value == _isEnabled) return;
+                _isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public GalleryItem? SelectedGalleryItem
+        {
+            get => _selectedGalleryItem;
+            set
+            {
+                if (Equals(value, _selectedGalleryItem)) return;
+                _selectedGalleryItem = value;
+                OnPropertyChanged();
+                
+                DelaySelectedGalleryItem = null;
+                IsLoading = true;
+                Dispatcher.UIThread.Post(() =>
+                {
+                    DelaySelectedGalleryItem = value;
+                    IsLoading = false;
+                }, DispatcherPriority.ApplicationIdle);
+            }
+        }
+
+        public GalleryItem? DelaySelectedGalleryItem
+        {
+            get => _delaySelectedGalleryItem;
+            set
+            {
+                if (Equals(value, _delaySelectedGalleryItem)) return;
+                _delaySelectedGalleryItem = value;
+                OnPropertyChanged();
+                _viewService.ScrollToHome();
+            }
+        }
+
+        public MainWindowViewModel(IMainViewService viewService)
+        {
+            _viewService = viewService;
             Modes = new List<ThemeVariant>()
             {
                 ThemeVariant.Light,
@@ -112,22 +160,34 @@ namespace Nlnet.Avalonia.Css.App
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName is nameof(Accent))
+            switch (propertyName)
             {
-                AcssBuilder.Default.Configuration.Theme = Accent;
-
-                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
-                
-                cssTheme?.UpdateThemeColor(false);
-            }
-            else if (propertyName is nameof(Theme))
-            {
-                if (Application.Current != null)
+                case nameof(Accent):
                 {
-                    Application.Current.RequestedThemeVariant = Theme;
+                    AcssBuilder.Default.Configuration.Theme = Accent;
+
+                    var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
+                
+                    cssTheme?.UpdateThemeColor(false);
+                    break;
+                }
+                case nameof(Theme):
+                {
+                    if (Application.Current != null)
+                    {
+                        Application.Current.RequestedThemeVariant = Theme;
+                    }
+
+                    break;
                 }
             }
         }
+
+
+        
+        #region Toggle Acss
+
+        private bool _isBeforeLoadedAcssFileLoaded = true;
 
         public void ToggleBeforeLoadedAcssFile()
         {
@@ -146,5 +206,7 @@ namespace Nlnet.Avalonia.Css.App
             }
             _isBeforeLoadedAcssFileLoaded = !_isBeforeLoadedAcssFileLoaded;
         }
+
+        #endregion
     }
 }

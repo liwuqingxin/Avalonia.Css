@@ -9,11 +9,13 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
     <StackPanel>
-        <TextBlock x:Name="PageDescription" TextWrapping="Wrap" />
+        <TextBlock x:Name="PageDescription"
+                   Text="Represents a container with two views; one view for the main content and another view that is typically used for navigation commands."
+                   TextWrapping="Wrap" />
 
         <app:IndependentCase Header="Normal MessageBox.">
             <app:IndependentCase.Settings>
-                <StackPanel>
+                <StackPanel Spacing="6">
                     <Slider x:Name="SliderCompactPaneLength"
                             Maximum="500"
                             Minimum="0"

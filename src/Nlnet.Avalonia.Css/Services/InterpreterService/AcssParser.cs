@@ -243,7 +243,7 @@ internal class AcssParser : IAcssParser
         var list = new List<IAcssSection>();
         
         var index = 0;
-        var selector = string.Empty;
+        var header = string.Empty;
         var leftBraceCount = 0;
         var isInStyleContent = false;
         for (var i = 0; i < span.Length; i++)
@@ -254,7 +254,7 @@ internal class AcssParser : IAcssParser
                     if (isInStyleContent == false)
                     {
                         isInStyleContent = true;
-                        selector = span[index..i].ToString();
+                        header = span[index..i].ToString();
                         index = i + 1;
                     }
                     else
@@ -268,7 +268,7 @@ internal class AcssParser : IAcssParser
                         isInStyleContent = false;
                         var content = span[index..i];
                         index = i + 1;
-                        list.Add( _sectionFactory.Build(this, tokens, parent, selector, content));
+                        list.Add( _sectionFactory.Build(this, tokens, parent, header, content));
                     }
                     else
                     {

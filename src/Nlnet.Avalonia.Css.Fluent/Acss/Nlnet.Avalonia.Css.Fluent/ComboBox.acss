@@ -1,15 +1,8 @@
-﻿^ComboBox {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    CornerRadius: 4;
-    BorderThickness: 1;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^ComboBox @extend(.fluent-box, .common-state){
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    HorizontalAlignment: Center;
     VerticalAlignment: Center;
     MinWidth:40;
     MaxDropDownHeight:600;
@@ -24,13 +17,6 @@
     ]
 
     [[
-        :pointerover{
-            Background:var(control-back-hover);
-        }
-        :pressed{
-            BorderBrush:var(control-border-pressed-fluent);
-            Foreground:var(fore-pressed);
-        }
         /template/ ItemsPresenter#PART_ItemsPresenter > StackPanel {
             Spacing:4;
         }
@@ -67,9 +53,6 @@
         }
         :dropdownopen /template/ PathIcon#DropDownGlyph{
             RenderTransform: scale(1,-1);
-        }
-        :disabled{
-            Opacity:0.4;
         }
     ]]
 }
