@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -51,34 +50,34 @@ public interface IAcssContext : IServiceProvider
     /// <summary>
     /// Try to get an acss file from the context.
     /// </summary>
-    /// <param name="standardFilePath"></param>
+    /// <param name="source"></param>
     /// <param name="file"></param>
     /// <returns></returns>
-    internal bool TryGetAcssFile(string standardFilePath, out IAcssFile? file);
+    internal bool TryGetAcssFile(ISource source, out IAcssFile? file);
 
     /// <summary>
     /// Try to add an acss tokens to the context.
     /// </summary>
-    /// <param name="standardFilePath"></param>
+    /// <param name="source"></param>
     /// <param name="tokens"></param>
     /// <returns></returns>
-    internal bool TryAddAcssTokens(string standardFilePath, AcssTokens tokens);
+    internal bool TryAddAcssTokens(ISource source, AcssTokens tokens);
 
     /// <summary>
     /// Try to remove an acss tokens to the context.
     /// </summary>
-    /// <param name="standardFilePath"></param>
+    /// <param name="source"></param>
     /// <param name="tokens"></param>
     /// <returns></returns>
-    internal bool TryRemoveAcssTokens(string standardFilePath, AcssTokens tokens);
+    internal bool TryRemoveAcssTokens(ISource source, AcssTokens tokens);
 
     /// <summary>
     /// Try to get an acss tokens from the context.
     /// </summary>
-    /// <param name="standardFilePath"></param>
+    /// <param name="source"></param>
     /// <param name="tokens"></param>
     /// <returns></returns>
-    internal bool TryGetAcssTokens(string standardFilePath, out AcssTokens? tokens);
+    internal bool TryGetAcssTokens(ISource source, out AcssTokens? tokens);
 }
 
 public class AcssContext : IAcssContext, IService
@@ -127,10 +126,9 @@ public class AcssContext : IAcssContext, IService
 
 
     private readonly List<IService> _services = new();
-    
-    private readonly ConcurrentDictionary<string, IAcssFile> _files = new();
-    private readonly ConcurrentDictionary<string, AcssTokens> _tokens = new();
-    private readonly ConcurrentDictionary<string, FileSystemWatcher> _monitors = new();
+
+    private readonly ConcurrentDictionary<ISource, IAcssFile> _files = new();
+    private readonly ConcurrentDictionary<ISource, AcssTokens> _tokens = new();
 
     internal AcssContext()
     {
@@ -165,23 +163,23 @@ public class AcssContext : IAcssContext, IService
 
     bool IAcssContext.TryAddAcssFile(IAcssFile file)
     {
-        if (_files.TryGetValue(file.StandardFilePath, out _))
+        if (_files.TryGetValue(file.Source, out _))
         {
             return false;
         }
 
-        _files.TryAdd(file.StandardFilePath, file);
+        _files.TryAdd(file.Source, file);
         return true;
     }
 
     bool IAcssContext.TryRemoveAcssFile(IAcssFile file)
     {
-        return _files.TryRemove(file.StandardFilePath, out _);
+        return _files.TryRemove(file.Source, out _);
     }
 
-    bool IAcssContext.TryGetAcssFile(string standardFilePath, out IAcssFile? file)
+    bool IAcssContext.TryGetAcssFile(ISource source, out IAcssFile? file)
     {
-        if (_files.TryGetValue(standardFilePath, out var f))
+        if (_files.TryGetValue(source, out var f))
         {
             file = f;
             return true;
@@ -191,50 +189,25 @@ public class AcssContext : IAcssContext, IService
         return false;
     }
 
-    bool IAcssContext.TryAddAcssTokens(string standardFilePath, AcssTokens tokens)
+    bool IAcssContext.TryAddAcssTokens(ISource source, AcssTokens tokens)
     {
-        if (_tokens.TryGetValue(standardFilePath, out _))
+        if (_tokens.TryGetValue(source, out _))
         {
             return false;
         }
-
-        var dir = Path.GetDirectoryName(standardFilePath);
-        if (dir == null)
-        {
-            throw new InvalidOperationException($"Can not get the directory from path '{standardFilePath}'.");
-        }
-
-        if (_monitors.TryGetValue(dir, out var watcher) == false)
-        {
-            watcher = MonitorDirectory(dir);
-            _monitors.TryAdd(dir, watcher);
-        }
-
-        watcher.Filters.Add(Path.GetFileName(standardFilePath));
-
-        _tokens.TryAdd(standardFilePath, tokens);
+        
+        _tokens.TryAdd(source, tokens);
         return true;
     }
 
-    bool IAcssContext.TryRemoveAcssTokens(string standardFilePath, AcssTokens tokens)
+    bool IAcssContext.TryRemoveAcssTokens(ISource source, AcssTokens tokens)
     {
-        var dir = Path.GetDirectoryName(standardFilePath);
-        if (dir != null && _monitors.TryGetValue(dir, out var watcher))
-        {
-            watcher.Filters.Remove(Path.GetFileName(standardFilePath));
-            if (watcher.Filters.Count == 0)
-            {
-                watcher.Dispose();
-                _monitors.TryRemove(dir, out _);
-            }
-        }
-
-        return _tokens.TryRemove(standardFilePath, out _);
+        return _tokens.TryRemove(source, out _);
     }
 
-    bool IAcssContext.TryGetAcssTokens(string standardFilePath, out AcssTokens? tokens)
+    bool IAcssContext.TryGetAcssTokens(ISource source, out AcssTokens? tokens)
     {
-        if (_tokens.TryGetValue(standardFilePath, out var t))
+        if (_tokens.TryGetValue(source, out var t))
         {
             tokens = t;
             return true;
@@ -271,37 +244,4 @@ public class AcssContext : IAcssContext, IService
     }
 
     #endregion
-
-
-
-    #region Private
-
-    private FileSystemWatcher MonitorDirectory(string dir)
-    {
-        var watcher = new FileSystemWatcher(dir)
-        {
-            EnableRaisingEvents = true,
-            NotifyFilter = NotifyFilters.LastWrite,
-        };
-
-        watcher.Changed += OnFileChanged;
-
-        return watcher;
-    }
-
-    private void OnFileChanged(object sender, FileSystemEventArgs e)
-    {
-        if (e.ChangeType != WatcherChangeTypes.Changed)
-        {
-            return;
-        }
-
-        if (_tokens.TryGetValue(e.FullPath.GetStandardPath(), out var tokens))
-        {
-            tokens.OnFileChanged();
-        }
-    }
-
-    #endregion
-
 }

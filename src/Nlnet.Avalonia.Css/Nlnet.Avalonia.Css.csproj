@@ -51,8 +51,4 @@
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Services\FileService\" />
-	</ItemGroup>
-
 </Project>

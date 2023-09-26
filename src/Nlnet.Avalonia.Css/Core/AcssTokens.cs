@@ -2,46 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 
 namespace Nlnet.Avalonia.Css;
 
 /// <summary>
-/// This keeps the raw tokens for an acss file.
+/// This keeps the raw tokens for an acss source.
 /// </summary>
 internal class AcssTokens : IDisposable
 {
-    private static AcssTokens Empty { get; } = new();
-
     /// <summary>
-    /// Get tokens from a path. If it exists in the acss builder, just return it.
+    /// Get tokens from a source. If it exists in the acss context, just return it.
     /// </summary>
     /// <param name="context"></param>
-    /// <param name="filePath"></param>
+    /// <param name="source"></param>
     /// <returns></returns>
-    public static AcssTokens Get(IAcssContext context, string? filePath)
+    public static AcssTokens? Get(IAcssContext context, ISource source)
     {
-        if (filePath == null)
+        var key = source.GetKeyPath();
+        if (string.IsNullOrWhiteSpace(key))
         {
-            return Empty;
+            return null;
         }
 
-        var standardPath = filePath.GetStandardPath();
-
-        if (context.TryGetAcssTokens(standardPath, out var tokens) && tokens != null)
+        if (context.TryGetAcssTokens(source, out var tokens) && tokens != null)
         {
             return tokens;
         }
 
-        if (File.Exists(standardPath) == false)
-        {
-            return Empty;
-        }
-
-        tokens = new AcssTokens(context, standardPath);
+        tokens = new AcssTokens(context, source);
         tokens.DoParsing();
 
-        context.TryAddAcssTokens(standardPath, tokens);
+        context.TryAddAcssTokens(source, tokens);
 
         return tokens;
     }
@@ -53,7 +44,7 @@ internal class AcssTokens : IDisposable
     private List<AcssTokens>? _relies;
     private List<AcssTokens>? _bases;
 
-    public string? StandardPath { get; set; }
+    public ISource Source { get; set; }
 
     /// <summary>
     /// Fires if the file changed.
@@ -65,6 +56,7 @@ internal class AcssTokens : IDisposable
     /// </summary>
     public event EventHandler? FileChanged2;
 
+    // TODO µ÷ÓÃ
     internal void OnFileChanged()
     {
         this.ReloadFromFile();
@@ -73,63 +65,31 @@ internal class AcssTokens : IDisposable
     }
 
     
-
-    private AcssTokens()
-    {
-        _context = null!;
-        StandardPath = null;
-    }
     
-    private AcssTokens(IAcssContext context, string standardPath)
+    private AcssTokens(IAcssContext context, ISource source)
     {
         _context = context;
-        StandardPath = standardPath;
+        Source   = source;
     }
 
     private void DoParsing()
     {
         Clear();
 
-        if (StandardPath == null || File.Exists(StandardPath) == false)
-        {
-            return;
-        }
-
-        string acssSource;
-        lock (this)
-        {
-            try
-            {
-                acssSource = File.ReadAllText(StandardPath);
-            }
-            catch
-            {
-                Thread.Sleep(20);
-                try
-                {
-                    acssSource = File.ReadAllText(StandardPath);
-                }
-                catch (Exception exception)
-                {
-                    this.WriteError(exception.ToString());
-                    return;
-                }
-            }
-        }
-
-        if (string.IsNullOrEmpty(acssSource))
+        var content = Source.GetSource();
+        if (string.IsNullOrEmpty(content))
         {
             return;
         }
 
         var parser = _context.GetService<IAcssParser>();
-        var acssSpan = parser.RemoveComments(acssSource.ToCharArray());
+        var acssSpan = parser.RemoveComments(content.ToCharArray());
         
         parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
 
-        _imports = imports.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
-        _relies = relies.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
-        _bases = bases.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
+        _imports  = imports.Select(s => Get(_context, Source.CreateFromPath(GetPathAlignToThis(s)))).Where(t => t != null).ToList()!;
+        _relies   = relies.Select(s => Get(_context, Source.CreateFromPath(GetPathAlignToThis(s)))).ToList()!;
+        _bases    = bases.Select(s => Get(_context, Source.CreateFromPath(GetPathAlignToThis(s)))).ToList()!;
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
         
         foreach (var acssStyle in GetStyles())
@@ -147,7 +107,7 @@ internal class AcssTokens : IDisposable
             return path;
         }
 
-        var dir = Path.GetDirectoryName(StandardPath);
+        var dir = Path.GetDirectoryName(Source.GetKeyPath());
         return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
     }
     

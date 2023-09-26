@@ -212,7 +212,7 @@ namespace Nlnet.Avalonia.Css
 
         #region IAcssFile
 
-        public string StandardFilePath { get; }
+        public ISource Source { get; }
 
         public void Reload(bool reapplyStyle)
         {
