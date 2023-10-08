@@ -41,5 +41,10 @@ namespace Nlnet.Avalonia.Css
         /// <param name="path"></param>
         /// <returns></returns>
         ISource CreateFromPath(string path);
+
+        /// <summary>
+        /// The source attached to the context.
+        /// </summary>
+        void Attached(IAcssContext context);
     }
 }

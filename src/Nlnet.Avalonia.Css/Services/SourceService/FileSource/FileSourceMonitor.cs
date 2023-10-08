@@ -4,10 +4,28 @@ using System.IO;
 
 namespace Nlnet.Avalonia.Css;
 
-public class FileSourceMonitor
+public interface IFileSourceMonitor : IService
 {
-    private readonly ConcurrentDictionary<string, ISource>            _sources  = new();
+    public void AddSource(ISource source);
+
+    public void RemoveSource(ISource source);
+}
+
+public class FileSourceMonitor : IFileSourceMonitor
+{
+    private readonly IAcssContext _acssContext;
+    private readonly ConcurrentDictionary<string, ISource> _sources = new();
     private readonly ConcurrentDictionary<ISource, FileSystemWatcher> _monitors = new();
+
+    public FileSourceMonitor(IAcssContext acssContext)
+    {
+        _acssContext = acssContext;
+    }
+
+    void IService.Initialize()
+    {
+        
+    }
 
     public void AddSource(ISource source)
     {

@@ -34,7 +34,17 @@ internal class AcssTokens : IDisposable
 
         context.TryAddAcssTokens(source, tokens);
 
+        // TODO 取消事件绑定
+        source.SourceChanged -= tokens.SourceOnSourceChanged;
+        source.SourceChanged += tokens.SourceOnSourceChanged;
+        source.Attached(context);
+
         return tokens;
+    }
+
+    private void SourceOnSourceChanged(object? sender, EventArgs e)
+    {
+        this.OnFileChanged();
     }
 
     private CompositeDisposable? _disposable;

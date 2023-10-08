@@ -132,20 +132,31 @@ public class AcssContext : IAcssContext, IService
 
     internal AcssContext()
     {
+        // Syntax
         AddService(new AcssInterpreter(this));
         AddService(new AcssParser(this));
 
+        // Resolver
         AddService(new TypeResolverManager());
         AddService(new ValueParsingTypeAdapterManager());
         AddService(new ResourceProvidersManager());
         AddService(new BehaviorDeclarerManager());
         AddService(new BehaviorResolverManager());
 
+        // Factory
         AddService(new AcssResourceFactory(this));
         AddService(new AcssSectionFactory(this));
+
+        // Loader
         AddService(new AcssLoader(this));
 
+        // File Watcher
+        AddService(new FileSourceMonitor(this));
+
+        // Config
         AddService(new AcssConfiguration());
+
+        // Rider
         AddService(new RiderSettingsBuilder(this));
     }
 
