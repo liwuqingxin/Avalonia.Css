@@ -20,36 +20,26 @@ namespace Nlnet.Avalonia.Css
         /// </summary>
         /// <param name="context"></param>
         /// <param name="owner"></param>
-        /// <param name="standardFilePath"></param>
-        /// <param name="autoLoadWhenFileChanged"></param>
+        /// <param name="source"></param>
+        /// <param name="autoLoad"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">UI thread required.</exception>
-        internal static AcssFile TryLoad(IAcssContext context, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile TryLoad(IAcssContext context, Styles owner, ISource source, bool autoLoad = true)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
                 throw new InvalidOperationException($"{nameof(TryLoad)}() must be called in ui thread.");
             }
 
-            var styleFile = CreateStyles(context, owner, standardFilePath, autoLoadWhenFileChanged);
+            var styleFile = CreateStyles(context, owner, source, autoLoad);
             styleFile.Load(owner, false);
 
             return styleFile;
         }
 
-        private static AcssFile CreateStyles(IAcssContext context, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
+        private static AcssFile CreateStyles(IAcssContext context, Styles owner, ISource source, bool autoLoad)
         {
-            if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == standardFilePath) is { } exist)
-            {
-                return exist;
-            }
-
-            if (File.Exists(standardFilePath) == false)
-            {
-                throw new FileNotFoundException($"Can not find the acss file '{standardFilePath}'.");
-            }
-
-            return new AcssFile(context, owner, standardFilePath, autoLoadWhenFileChanged);
+            return new AcssFile(context, owner, source, autoLoad);
         }
 
         #endregion
@@ -61,11 +51,11 @@ namespace Nlnet.Avalonia.Css
         private CompositeDisposable? _disposable;
         private AcssTokens? _tokens;
 
-        private AcssFile(IAcssContext context, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
+        private AcssFile(IAcssContext context, Styles owner, ISource source, bool autoLoad)
         {
             _context = context;
-            _owner = owner;
-            StandardFilePath = standardFilePath;
+            _owner   = owner;
+            Source   = source;
         }
 
         private void Load(Styles styles, bool reapplyStyle)
@@ -78,7 +68,12 @@ namespace Nlnet.Avalonia.Css
 
             try
             {
-                _tokens = AcssTokens.Get(_context, StandardFilePath);
+                _tokens = AcssTokens.Get(_context, Source);
+                if (_tokens == null)
+                {
+                    return;
+                }
+
                 _tokens.FileChanged -= TokensOnFileChanged;
                 _tokens.FileChanged += TokensOnFileChanged;
 
@@ -205,7 +200,7 @@ namespace Nlnet.Avalonia.Css
 
         public override string ToString()
         {
-            return $"{nameof(AcssFile)} {StandardFilePath}";
+            return $"{nameof(AcssFile)} {Source}";
         }
 
 

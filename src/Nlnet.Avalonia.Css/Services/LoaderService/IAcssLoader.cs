@@ -9,25 +9,20 @@ namespace Nlnet.Avalonia.Css;
 public interface IAcssLoader : IService
 {
     /// <summary>
-    /// Load an avalonia acss style from an acss file. If the <see cref="preferredPath"/> is specified, try to load from
-    /// that path firstly. If failed, load from the <see cref="filePath"/>.
+    /// Load an avalonia acss style from an acss source.
     /// </summary>
     /// <param name="owner"></param>
-    /// <param name="filePath"></param>
-    /// <param name="preferredPath"></param>
-    /// <param name="autoReloadWhenFileChanged"></param>
+    /// <param name="source"></param>
+    /// <param name="autoReload"></param>
     /// <returns></returns>
-    public IAcssFile? Load(Styles owner, string filePath, string? preferredPath = null, bool autoReloadWhenFileChanged = true);
+    public IAcssFile? Load(Styles owner, ISource source, bool autoReload = true);
 
     /// <summary>
-    /// Load avalonia acss styles from an folder synchronously. Note that this does not load recursively.
-    /// If the <see cref="preferredPath"/> is specified, try to load from that path firstly. If failed, load from the
-    /// <see cref="folderPath"/>.
+    /// Load avalonia acss styles from an <see cref="ISourceCollection"/> synchronously.
     /// </summary>
     /// <param name="owner"></param>
-    /// <param name="folderPath"></param>
-    /// <param name="preferredPath"></param>
-    /// <param name="autoReloadWhenFileChanged"></param>
+    /// <param name="sourceCollection"></param>
+    /// <param name="autoReload"></param>
     /// <returns></returns>
-    public IEnumerable<IAcssFile> LoadFolder(Styles owner, string folderPath, string? preferredPath= null, bool autoReloadWhenFileChanged = true);
+    public IEnumerable<IAcssFile> LoadCollection(Styles owner, ISourceCollection sourceCollection, bool autoReload = true);
 }

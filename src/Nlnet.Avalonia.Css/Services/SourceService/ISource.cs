@@ -2,49 +2,44 @@
 
 namespace Nlnet.Avalonia.Css
 {
+    /// <summary>
+    /// Define an acss source.
+    /// </summary>
     public interface ISource
     {
+        /// <summary>
+        /// Source changed event.
+        /// </summary>
         public event EventHandler<EventArgs> SourceChanged;
 
+        /// <summary>
+        /// <see cref="SourceChanged"/> event should be fired in this method.
+        /// </summary>
+        public void OnSourceChanged();
+
+        /// <summary>
+        /// Get the key path of the source. It is unique for a source.
+        /// </summary>
+        /// <returns></returns>
         public string GetKeyPath();
 
+        /// <summary>
+        /// Get the source content.
+        /// </summary>
+        /// <returns></returns>
         public string? GetSource();
 
+        /// <summary>
+        /// Check if this source is valid.
+        /// </summary>
+        /// <returns></returns>
+        bool IsValid();
+
+        /// <summary>
+        /// Create a source from a path.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         ISource CreateFromPath(string path);
-
-        public void OnSourceChanged();
-    }
-
-    public abstract class SourceBase : ISource, IEquatable<SourceBase>
-    {
-        public event EventHandler<EventArgs>? SourceChanged;
-
-        public abstract string GetKeyPath();
-
-        public abstract string? GetSource();
-
-        public abstract ISource CreateFromPath(string path);
-
-        void ISource.OnSourceChanged()
-        {
-            SourceChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-
-
-        public override bool Equals(object? obj)
-        {
-            return obj is ISource source && Equals(GetKeyPath(), source.GetKeyPath());
-        }
-
-        bool IEquatable<SourceBase>.Equals(SourceBase? other)
-        {
-            return this.Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            return GetKeyPath().GetHashCode();
-        }
     }
 }
