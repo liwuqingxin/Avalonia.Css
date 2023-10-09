@@ -183,7 +183,7 @@ namespace Nlnet.Avalonia.Css
                 this.WriteError(e.ToString());
                 
                 // TODO DELETE WHEN RLS.
-                Dispatcher.UIThread.Post(() => throw e);
+                Dispatcher.UIThread.Post(() => throw new Exception("Something wrong in acss. Please check the inner exception.", e));
             }
         }
 

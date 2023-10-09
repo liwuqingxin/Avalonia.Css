@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Concurrent;
 using System.IO;
 
@@ -31,9 +32,11 @@ public class FileSourceMonitor : IFileSourceMonitor
     {
         var keyPath = source.GetKeyPath();
         var dir     = Path.GetDirectoryName(keyPath);
-        if (dir == null)
+
+        if (Directory.Exists(dir) == false)
         {
-            throw new InvalidOperationException($"Can not get the directory from path '{keyPath}'.");
+            this.WriteError($"Directory not exist : '{dir}'. Skip to monitor it.");
+            return;
         }
 
         if (_monitors.TryGetValue(source, out var watcher) == false)

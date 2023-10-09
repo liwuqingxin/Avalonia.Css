@@ -51,8 +51,8 @@ namespace Nlnet.Avalonia.Css.App
                 loader.Load(Application.Current.Styles, new FileSource("Acss/Case.acss", $"{debugRelative}Acss/Case.acss"));
                 loader.Load(Application.Current.Styles, new FileSource("Acss/CodeEditor.acss", $"{debugRelative}Acss/CodeEditor.acss"));
                 
-                AppCssFile = loader.Load(Application.Current.Styles, new FileSource("Acss/app.acss", $"{debugRelative}Acss/App.acss"));
-                loader.Load(Application.Current.Styles, new FileSource("Acss/pages.acss", $"{debugRelative}Acss/Pages.acss"));
+                AppCssFile = loader.Load(Application.Current.Styles, new FileSource("Acss/App.acss", $"{debugRelative}Acss/App.acss"));
+                loader.Load(Application.Current.Styles, new FileSource("Acss/Pages.acss", $"{debugRelative}Acss/Pages.acss"));
             }
         }
 
