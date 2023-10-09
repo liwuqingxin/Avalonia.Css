@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Avalonia.Styling;
 
@@ -20,7 +18,7 @@ internal class AcssLoader : IAcssLoader
         
     }
 
-    IAcssFile? IAcssLoader.Load(Styles owner, ISource source, bool autoReload)
+    IAcssFile? IAcssLoader.Load(Styles owner, ISource source)
     {
         if (source.IsValid() == false)
         {
@@ -33,12 +31,12 @@ internal class AcssLoader : IAcssLoader
             return file;
         }
 
-        file = AcssFile.TryLoad(_context, owner, source, autoReload);
+        file = AcssFile.TryLoad(_context, owner, source);
         _context.TryAddAcssFile(file);
         return file;
     }
 
-    IEnumerable<IAcssFile> IAcssLoader.LoadCollection(Styles owner, ISourceCollection sourceCollection, bool autoReload)
+    IEnumerable<IAcssFile> IAcssLoader.LoadCollection(Styles owner, ISourceCollection sourceCollection)
     {
         if (sourceCollection.IsValid() == false)
         {
@@ -46,6 +44,6 @@ internal class AcssLoader : IAcssLoader
         }
 
         var sources = sourceCollection.GetSources();
-        return sources.Select(s => ((IAcssLoader)this).Load(owner, s, autoReload)).OfType<IAcssFile>().ToList();
+        return sources.Select(s => ((IAcssLoader)this).Load(owner, s)).OfType<IAcssFile>().ToList();
     }
 }

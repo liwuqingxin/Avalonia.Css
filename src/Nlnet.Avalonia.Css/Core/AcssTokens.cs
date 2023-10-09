@@ -37,7 +37,7 @@ internal class AcssTokens : IDisposable
         // TODO 取消事件绑定
         source.SourceChanged -= tokens.SourceOnSourceChanged;
         source.SourceChanged += tokens.SourceOnSourceChanged;
-        source.Attached(context);
+        source.Attach(context);
 
         return tokens;
     }
@@ -62,16 +62,15 @@ internal class AcssTokens : IDisposable
     public event EventHandler? FileChanged;
 
     /// <summary>
-    /// Fires if the file changed. This is invoked after the <see cref="FileChanged"/>.
+    /// Fires if the rely file changed. This is invoked after the <see cref="FileChanged"/>.
     /// </summary>
-    public event EventHandler? FileChanged2;
+    public event EventHandler? RelyChanged;
 
-    // TODO 调用
     internal void OnFileChanged()
     {
         this.ReloadFromFile();
         FileChanged?.Invoke(this, EventArgs.Empty);
-        FileChanged2?.Invoke(this, EventArgs.Empty);
+        RelyChanged?.Invoke(this, EventArgs.Empty);
     }
 
     
@@ -112,6 +111,7 @@ internal class AcssTokens : IDisposable
 
     private string GetPathAlignToThis(string path)
     {
+        // TODO How about the source that is not a file?
         if (File.Exists(path))
         {
             return path;
@@ -126,32 +126,32 @@ internal class AcssTokens : IDisposable
         _disposable = new CompositeDisposable();
         _imports?.ForEach(r =>
         {
-            r.FileChanged2 -= OnImportChanged;
-            r.FileChanged2 += OnImportChanged;
+            r.RelyChanged -= OnImportChanged;
+            r.RelyChanged += OnImportChanged;
         });
         _relies?.ForEach(r =>
         {
-            r.FileChanged2 -= OnRelyChanged;
-            r.FileChanged2 += OnRelyChanged;
+            r.RelyChanged -= OnRelyChanged;
+            r.RelyChanged += OnRelyChanged;
         });
         _bases?.ForEach(r =>
         {
-            r.FileChanged2 -= OnBaseChanged;
-            r.FileChanged2 += OnBaseChanged;
+            r.RelyChanged -= OnBaseChanged;
+            r.RelyChanged += OnBaseChanged;
         });
         _disposable.Add(Disposable.Create(() =>
         {
             _imports?.ForEach(r =>
             {
-                r.FileChanged2 -= OnImportChanged;
+                r.RelyChanged -= OnImportChanged;
             });
             _relies?.ForEach(r =>
             {
-                r.FileChanged2 -= OnRelyChanged;
+                r.RelyChanged -= OnRelyChanged;
             });
             _bases?.ForEach(r =>
             {
-                r.FileChanged2 -= OnBaseChanged;
+                r.RelyChanged -= OnBaseChanged;
             });
         }));
     }
@@ -159,13 +159,13 @@ internal class AcssTokens : IDisposable
     private void OnImportChanged(object? sender, EventArgs e)
     {
         FileChanged?.Invoke(sender, e);
-        FileChanged2?.Invoke(sender, e);
+        RelyChanged?.Invoke(sender, e);
     }
     
     private void OnRelyChanged(object? sender, EventArgs e)
     {
         FileChanged?.Invoke(sender, e);
-        FileChanged2?.Invoke(sender, e);
+        RelyChanged?.Invoke(sender, e);
     }
     
     private void OnBaseChanged(object? sender, EventArgs e)
@@ -176,7 +176,7 @@ internal class AcssTokens : IDisposable
         }
         
         FileChanged?.Invoke(sender, e);
-        FileChanged2?.Invoke(sender, e);
+        RelyChanged?.Invoke(sender, e);
     }
 
     private void Clear()

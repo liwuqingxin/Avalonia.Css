@@ -17,11 +17,19 @@ public interface IService
 public interface IServiceProvider
 {
     /// <summary>
-    /// Get the first service of <see cref="T"/> if it exists.
+    /// Get the first service of <see cref="T"/>.  If it does not exist, exception will be thrown.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public T GetService<T>() where T : class, IService;
+
+    /// <summary>
+    /// Try to get the first service of <see cref="T"/> if it exists.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="service"></param>
+    /// <returns></returns>
+    public bool TryGetService<T>(out T? service) where T : class, IService;
 
     /// <summary>
     /// Get all services of <see cref="T"/>.
@@ -151,7 +159,7 @@ public class AcssContext : IAcssContext, IService
         AddService(new AcssLoader(this));
 
         // File Watcher
-        AddService(new FileSourceMonitor(this));
+        AddService(new FileSourceMonitor());
 
         // Config
         AddService(new AcssConfiguration());
@@ -247,6 +255,12 @@ public class AcssContext : IAcssContext, IService
         }
 
         return service;
+    }
+
+    public bool TryGetService<T>(out T? service) where T : class, IService
+    {
+        service = _services.FirstOrDefault(s => s is T) as T;
+        return service != null;
     }
 
     IEnumerable<T> IServiceProvider.GetServices<T>()

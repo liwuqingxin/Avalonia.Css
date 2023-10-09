@@ -5,22 +5,32 @@ using System.IO;
 
 namespace Nlnet.Avalonia.Css;
 
+/// <summary>
+/// A file monitor that can provide file change notifications.
+/// </summary>
 public interface IFileSourceMonitor : IService
 {
-    public void AddSource(ISource source);
+    /// <summary>
+    /// Add a source that should be monitored.
+    /// </summary>
+    /// <param name="source"></param>
+    public void Monitor(ISource source);
 
-    public void RemoveSource(ISource source);
+    /// <summary>
+    /// Stop monitor for the <see cref="source"/>.
+    /// </summary>
+    /// <param name="source"></param>
+    public void StopMonitor(ISource source);
 }
 
 public class FileSourceMonitor : IFileSourceMonitor
 {
-    private readonly IAcssContext _acssContext;
     private readonly ConcurrentDictionary<string, ISource> _sources = new();
     private readonly ConcurrentDictionary<ISource, FileSystemWatcher> _monitors = new();
 
-    public FileSourceMonitor(IAcssContext acssContext)
+    public FileSourceMonitor()
     {
-        _acssContext = acssContext;
+        
     }
 
     void IService.Initialize()
@@ -28,7 +38,7 @@ public class FileSourceMonitor : IFileSourceMonitor
         
     }
 
-    public void AddSource(ISource source)
+    public void Monitor(ISource source)
     {
         var keyPath = source.GetKeyPath();
         var dir     = Path.GetDirectoryName(keyPath);
@@ -50,16 +60,18 @@ public class FileSourceMonitor : IFileSourceMonitor
         _sources[keyPath] = source;
     }
 
-    public void RemoveSource(ISource source)
+    public void StopMonitor(ISource source)
     {
-        if (_monitors.TryGetValue(source, out var watcher))
+        if (!_monitors.TryGetValue(source, out var watcher))
         {
-            watcher.Filters.Remove(Path.GetFileName(source.GetKeyPath()));
-            if (watcher.Filters.Count == 0)
-            {
-                watcher.Dispose();
-                _monitors.TryRemove(source, out _);
-            }
+            return;
+        }
+
+        watcher.Filters.Remove(Path.GetFileName(source.GetKeyPath()));
+        if (watcher.Filters.Count == 0)
+        {
+            watcher.Dispose();
+            _monitors.TryRemove(source, out _);
         }
     }
 

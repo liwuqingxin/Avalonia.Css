@@ -19,7 +19,9 @@ public abstract class SourceBase : ISource, IEquatable<SourceBase>
 
     public abstract ISource CreateFromPath(string path);
 
-    public abstract void Attached(IAcssContext context);
+    public abstract void Attach(IAcssContext context);
+
+    public abstract void Detach(IAcssContext context);
 
 
     public override bool Equals(object? obj)

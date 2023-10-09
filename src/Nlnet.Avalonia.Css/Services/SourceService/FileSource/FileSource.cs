@@ -81,10 +81,16 @@ namespace Nlnet.Avalonia.Css
             return new FileSource(path);
         }
 
-        public override void Attached(IAcssContext context)
+        public override void Attach(IAcssContext context)
         {
             var monitor = context.GetService<IFileSourceMonitor>();
-            monitor.AddSource(this);
+            monitor.Monitor(this);
+        }
+
+        public override void Detach(IAcssContext context)
+        {
+            var monitor = context.GetService<IFileSourceMonitor>();
+            monitor.StopMonitor(this);
         }
     }
 }

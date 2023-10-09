@@ -33,18 +33,24 @@ namespace Nlnet.Avalonia.Css
         /// Check if this source is valid.
         /// </summary>
         /// <returns></returns>
-        bool IsValid();
+        public bool IsValid();
 
         /// <summary>
         /// Create a source from a path.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        ISource CreateFromPath(string path);
+        public ISource CreateFromPath(string path);
 
         /// <summary>
-        /// The source attached to the context.
+        /// Attach the source to the context.
         /// </summary>
-        void Attached(IAcssContext context);
+        public void Attach(IAcssContext context);
+
+        /// <summary>
+        /// Detach from the context.
+        /// </summary>
+        /// <param name="context"></param>
+        public void Detach(IAcssContext context);
     }
 }

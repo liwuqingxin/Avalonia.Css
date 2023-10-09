@@ -38,12 +38,12 @@ public class FileSourceCollection : ISourceCollection
             return Enumerable.Empty<ISource>();
         }
 
-        var files = new DirectoryInfo(path)
-                    .GetFiles()
-                    .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase))
-                    .Select(f => new FileSource(f.FullName));
+        var fileSources = new DirectoryInfo(path)
+            .GetFiles()
+            .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase))
+            .Select(f => new FileSource(f.FullName));
 
-        return files;
+        return fileSources;
     }
 
     bool ISourceCollection.IsValid()
