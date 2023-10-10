@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Nlnet.Avalonia.Css.App.Views.WelcomeView">
+
+    <!-- WelcomeHost -->
+    <Border x:Name="WelcomeHost">
+        <Panel>
+            <nlnet:Icon x:Name="WelcomeLogo"
+                        nlnet:LoadedMixin.Attach="True"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg"
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        RenderOptions.EdgeMode="Unspecified" />
+
+            <nlnet:Icon x:Name="LogoImage"
+                        nlnet:LoadedMixin.Attach="True"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        RenderOptions.EdgeMode="Unspecified" />
+        </Panel>
+    </Border>
+
+</UserControl>

@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Nlnet.Avalonia.DevTools;
@@ -29,6 +31,12 @@ namespace Nlnet.Avalonia.Css.App.Views
         protected override void OnLoaded(RoutedEventArgs e)
         {
             base.OnLoaded(e);
+
+            if (this.Content is Visual visual)
+            {
+                var layer = AdornerLayer.GetAdornerLayer(visual);
+                layer?.Children.Add(new WelcomeView());
+            }
 
             if (this.DataContext is MainWindowViewModel vm)
             {
