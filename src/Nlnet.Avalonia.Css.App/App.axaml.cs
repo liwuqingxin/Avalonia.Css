@@ -50,9 +50,9 @@ namespace Nlnet.Avalonia.Css.App
 
                 loader.Load(Application.Current.Styles, new FileSource("Acss/Case.acss", $"{debugRelative}Acss/Case.acss"));
                 loader.Load(Application.Current.Styles, new FileSource("Acss/CodeEditor.acss", $"{debugRelative}Acss/CodeEditor.acss"));
-                
-                AppCssFile = loader.Load(Application.Current.Styles, new FileSource("Acss/App.acss", $"{debugRelative}Acss/App.acss"));
                 loader.Load(Application.Current.Styles, new FileSource("Acss/Pages.acss", $"{debugRelative}Acss/Pages.acss"));
+
+                LoadAppCssFile();
             }
         }
 
@@ -65,7 +65,7 @@ namespace Nlnet.Avalonia.Css.App
 
             var loader = AcssContext.Default.GetService<IAcssLoader>();
             const string debugRelative = "../../src/Nlnet.Avalonia.Css.App/";
-            AppCssFile = loader.Load(Application.Current.Styles, new FileSource("Acss/app.acss", debugRelative));
+            AppCssFile = loader.Load(Application.Current.Styles, new FileSource("Acss/App.acss", $"{debugRelative}Acss/App.acss"));
         }
 
         public override void OnFrameworkInitializationCompleted()
