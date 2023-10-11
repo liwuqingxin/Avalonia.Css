@@ -60,11 +60,11 @@ NtWindow#RootWindow{
         }
         
         // Welcome host.
-        NtWindow > Panel > Border#WelcomeHost{
+        NtWindow Border#WelcomeHost{
             Background: var(window-back);
         }
         // Animation to hide the welcome elements.
-        NtWindow > Panel > Border#WelcomeHost{
+        NtWindow Border#WelcomeHost{
             [[
                 ::animation[desc=Hide the welcome elements]{
                     IterationCount:1;
@@ -81,7 +81,7 @@ NtWindow#RootWindow{
             ]]
         }
         // Animation to show logo.
-        NtWindow > Panel > Border > Panel > Icon#WelcomeLogo{
+        NtWindow Icon#WelcomeLogo{
             Opacity:0;
             Width:200;
             Height:200;
