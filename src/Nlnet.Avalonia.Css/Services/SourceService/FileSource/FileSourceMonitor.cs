@@ -14,19 +14,19 @@ public interface IFileSourceMonitor : IService
     /// Add a source that should be monitored.
     /// </summary>
     /// <param name="source"></param>
-    public void Monitor(ISource source);
+    public void Monitor(FileSource source);
 
     /// <summary>
     /// Stop monitor for the <see cref="source"/>.
     /// </summary>
     /// <param name="source"></param>
-    public void StopMonitor(ISource source);
+    public void StopMonitor(FileSource source);
 }
 
 public class FileSourceMonitor : IFileSourceMonitor
 {
-    private readonly ConcurrentDictionary<string, ISource> _sources = new();
-    private readonly ConcurrentDictionary<ISource, FileSystemWatcher> _monitors = new();
+    private readonly ConcurrentDictionary<string, FileSource> _sources = new();
+    private readonly ConcurrentDictionary<FileSource, FileSystemWatcher> _monitors = new();
 
     public FileSourceMonitor()
     {
@@ -38,9 +38,9 @@ public class FileSourceMonitor : IFileSourceMonitor
         
     }
 
-    public void Monitor(ISource source)
+    public void Monitor(FileSource source)
     {
-        var keyPath = source.GetKeyPath();
+        var keyPath = source.GetKey();
         var dir     = Path.GetDirectoryName(keyPath);
 
         if (Directory.Exists(dir) == false)
@@ -60,14 +60,14 @@ public class FileSourceMonitor : IFileSourceMonitor
         _sources[keyPath] = source;
     }
 
-    public void StopMonitor(ISource source)
+    public void StopMonitor(FileSource source)
     {
         if (!_monitors.TryGetValue(source, out var watcher))
         {
             return;
         }
 
-        watcher.Filters.Remove(Path.GetFileName(source.GetKeyPath()));
+        watcher.Filters.Remove(Path.GetFileName(source.GetKey()));
         if (watcher.Filters.Count == 0)
         {
             watcher.Dispose();

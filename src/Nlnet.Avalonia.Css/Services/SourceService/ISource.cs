@@ -13,17 +13,6 @@ namespace Nlnet.Avalonia.Css
         public event EventHandler<EventArgs> SourceChanged;
 
         /// <summary>
-        /// <see cref="SourceChanged"/> event should be fired in this method.
-        /// </summary>
-        public void OnSourceChanged();
-
-        /// <summary>
-        /// Get the key path of the source. It is unique for a source.
-        /// </summary>
-        /// <returns></returns>
-        public string GetKeyPath();
-
-        /// <summary>
         /// Get the source content.
         /// </summary>
         /// <returns></returns>
@@ -39,8 +28,9 @@ namespace Nlnet.Avalonia.Css
         /// Create a source from a path.
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="alignPathToThis"></param>
         /// <returns></returns>
-        public ISource CreateFromPath(string path);
+        public ISource CreateFromPath(string path, bool alignPathToThis);
 
         /// <summary>
         /// Attach the source to the context.

@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Nlnet.Avalonia.Css
 {
-    public class FileSource : SourceBase
+    public class FileSource : SourceBase<string>
     {
         private readonly string  _standardPath;
         private readonly string? _preferStandardPath;
@@ -20,7 +20,7 @@ namespace Nlnet.Avalonia.Css
             _preferStandardPath = preferPath.GetStandardPath();
         }
 
-        public override string GetKeyPath()
+        public override string GetKey()
         {
             if (string.IsNullOrEmpty(_preferStandardPath) == false && File.Exists(_preferStandardPath))
             {
@@ -76,8 +76,12 @@ namespace Nlnet.Avalonia.Css
             return File.Exists(_preferStandardPath) || File.Exists(_standardPath);
         }
 
-        public override ISource CreateFromPath(string path)
+        public override ISource CreateFromPath(string path, bool alignPathToThis)
         {
+            if (alignPathToThis)
+            {
+                path = GetPathAlignToThis(path);
+            }
             return new FileSource(path);
         }
 
@@ -91,6 +95,20 @@ namespace Nlnet.Avalonia.Css
         {
             var monitor = context.GetService<IFileSourceMonitor>();
             monitor.StopMonitor(this);
+        }
+
+
+
+        private string GetPathAlignToThis(string path)
+        {
+            if (File.Exists(path))
+            {
+                return path;
+            }
+
+            var currentKeyPath = GetKey();
+            var dir = Path.GetDirectoryName(currentKeyPath);
+            return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
         }
     }
 }

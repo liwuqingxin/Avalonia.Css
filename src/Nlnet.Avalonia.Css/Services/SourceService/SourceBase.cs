@@ -2,22 +2,22 @@
 
 namespace Nlnet.Avalonia.Css;
 
-public abstract class SourceBase : ISource, IEquatable<SourceBase>
+public abstract class SourceBase<TKey> : ISource, IEquatable<SourceBase<TKey>>
 {
     public event EventHandler<EventArgs>? SourceChanged;
 
-    void ISource.OnSourceChanged()
+    public void OnSourceChanged()
     {
         SourceChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public abstract string GetKeyPath();
+    public abstract TKey GetKey();
 
     public abstract string? GetSource();
 
     public abstract bool IsValid();
 
-    public abstract ISource CreateFromPath(string path);
+    public abstract ISource CreateFromPath(string path, bool alignPathToThis);
 
     public abstract void Attach(IAcssContext context);
 
@@ -26,21 +26,21 @@ public abstract class SourceBase : ISource, IEquatable<SourceBase>
 
     public override bool Equals(object? obj)
     {
-        return obj is ISource source && Equals(GetKeyPath(), source.GetKeyPath());
+        return obj is SourceBase<TKey> source && Equals(GetKey(), source.GetKey());
     }
 
-    bool IEquatable<SourceBase>.Equals(SourceBase? other)
+    bool IEquatable<SourceBase<TKey>>.Equals(SourceBase<TKey>? other)
     {
         return this.Equals(other);
     }
 
     public override int GetHashCode()
     {
-        return GetKeyPath().GetHashCode();
+        return GetKey()?.GetHashCode() ?? 0;
     }
 
     public override string ToString()
     {
-        return $"{this.GetType()} : {GetKeyPath()}";
+        return $"{this.GetType()} : {GetKey()}";
     }
 }

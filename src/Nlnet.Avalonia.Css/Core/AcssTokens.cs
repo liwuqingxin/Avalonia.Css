@@ -18,8 +18,7 @@ internal class AcssTokens : IDisposable
     /// <returns></returns>
     public static AcssTokens? Get(IAcssContext context, ISource source)
     {
-        var key = source.GetKeyPath();
-        if (string.IsNullOrWhiteSpace(key))
+        if (source.IsValid() == false)
         {
             return null;
         }
@@ -96,9 +95,9 @@ internal class AcssTokens : IDisposable
         
         parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
 
-        _imports  = imports.Select(s => Get(_context, Source.CreateFromPath(GetPathAlignToThis(s)))).Where(t => t != null).ToList()!;
-        _relies   = relies.Select(s => Get(_context, Source.CreateFromPath(GetPathAlignToThis(s)))).ToList()!;
-        _bases    = bases.Select(s => Get(_context, Source.CreateFromPath(GetPathAlignToThis(s)))).ToList()!;
+        _imports  = imports.Select(s => Get(_context, Source.CreateFromPath(s, true))).Where(t => t != null).ToList()!;
+        _relies   = relies.Select(s => Get(_context, Source.CreateFromPath(s, true))).ToList()!;
+        _bases    = bases.Select(s => Get(_context, Source.CreateFromPath(s, true))).ToList()!;
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
         
         foreach (var acssStyle in GetStyles())
@@ -109,18 +108,6 @@ internal class AcssTokens : IDisposable
         PrepareRelies();
     }
 
-    private string GetPathAlignToThis(string path)
-    {
-        // TODO How about the source that is not a file?
-        if (File.Exists(path))
-        {
-            return path;
-        }
-
-        var dir = Path.GetDirectoryName(Source.GetKeyPath());
-        return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
-    }
-    
     private void PrepareRelies()
     {
         _disposable = new CompositeDisposable();
