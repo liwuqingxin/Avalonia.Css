@@ -4,6 +4,7 @@ using Avalonia.Styling;
 using Nlnet.Avalonia.Controls;
 using Nlnet.Avalonia.Css.Controls;
 using Nlnet.Avalonia.Senior.Controls;
+using System;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
@@ -47,22 +48,32 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             const string debugRelative = "../../src/Nlnet.Avalonia.Css.Fluent/";
 
-            _accentColorFile = loader.Load(this, new FileSource(
-                "Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss", 
-                $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss"));
-            
-            loader.LoadCollection(this, new FileSourceCollection(
-                "Acss/Nlnet.Avalonia.Css.Fluent/Resources", 
-                $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources"));
-            loader.LoadCollection(this, new FileSourceCollection(
-                "Acss/Nlnet.Avalonia.Css.Fluent/", 
-                $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/"));
-            loader.LoadCollection(this, new FileSourceCollection(
-                "Acss/Nlnet.Avalonia.Css.Fluent/Senior", 
-                $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Senior"));
-            loader.LoadCollection(this, new FileSourceCollection(
-                "Acss/Nlnet.Avalonia.Css.Fluent/MessageBox", 
-                $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/MessageBox"));
+            // Load acss sources.
+            {
+                _accentColorFile = loader.Load(this, new EmbeddedSource(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss")));
+
+                //_accentColorFile = loader.Load(this, new FileSource(
+                //    "Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss", 
+                //    $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss"));
+
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Resources")));
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent")));
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Senior")));
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/MessageBox")));
+
+                //loader.LoadCollection(this, new FileSourceCollection(
+                //    "Acss/Nlnet.Avalonia.Css.Fluent/Resources",
+                //    $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Resources"));
+                //loader.LoadCollection(this, new FileSourceCollection(
+                //    "Acss/Nlnet.Avalonia.Css.Fluent/",
+                //    $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/"));
+                //loader.LoadCollection(this, new FileSourceCollection(
+                //    "Acss/Nlnet.Avalonia.Css.Fluent/Senior",
+                //    $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/Senior"));
+                //loader.LoadCollection(this, new FileSourceCollection(
+                //    "Acss/Nlnet.Avalonia.Css.Fluent/MessageBox",
+                //    $"{debugRelative}Acss/Nlnet.Avalonia.Css.Fluent/MessageBox"));
+            }
         }
 
         public void UpdateThemeColor(bool reapplyStyle)

@@ -26,24 +26,7 @@ namespace Nlnet.Avalonia.Css
                 return null;
             }
 
-            try
-            {
-                using var stream = AssetLoader.Open(_uri);
-
-                var bytes  = new byte[stream.Length];
-                var length = stream.Read(bytes, 0, (int)stream.Length);
-
-                // Regex can not recognize utf8-BOM.
-                //var source = Encoding.UTF8.GetString(bytes);
-                var source = EncodingHelper.BytesToText(bytes, Encoding.UTF8);
-                
-                return source;
-            }
-            catch (Exception e)
-            {
-                this.WriteError(e.ToString());
-                return null;
-            }
+            return _uri.GetAssetOfString();
         }
 
         public override bool IsValid()
@@ -57,7 +40,7 @@ namespace Nlnet.Avalonia.Css
             {
                 path = GetPathAlignToThis(path);
             }
-            return new EmbeddedSource(new Uri(path));
+            return new EmbeddedSource(new Uri(path, UriKind.Absolute));
         }
 
         public override void Attach(IAcssContext context)
@@ -79,9 +62,9 @@ namespace Nlnet.Avalonia.Css
                 return path;
             }
 
-            var currentKeyPath = GetKey().AbsolutePath;
+            var currentKeyPath = GetKey().AbsoluteUri;
             var dir            = Path.GetDirectoryName(currentKeyPath);
-            return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
+            return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path).Replace('\\', '/').Replace("avares:/", "avares://");
         }
     }
 }

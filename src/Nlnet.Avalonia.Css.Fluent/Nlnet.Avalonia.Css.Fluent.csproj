@@ -55,6 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<AvaloniaResource Include="Acss\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="Acss\**">
 			<IncludeInPackage>true</IncludeInPackage>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
