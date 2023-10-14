@@ -95,9 +95,10 @@ internal class AcssTokens : IDisposable
         
         parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
 
-        _imports  = imports.Select(s => Get(_context, Source.CreateFromPath(s, true))).Where(t => t != null).ToList()!;
-        _relies   = relies.Select(s => Get(_context, Source.CreateFromPath(s, true))).ToList()!;
-        _bases    = bases.Select(s => Get(_context, Source.CreateFromPath(s, true))).ToList()!;
+        var sourceFactory = _context.GetService<ISourceFactory>();
+        _imports  = imports.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
+        _relies   = relies.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).ToList()!;
+        _bases    = bases.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).ToList()!;
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
         
         foreach (var acssStyle in GetStyles())

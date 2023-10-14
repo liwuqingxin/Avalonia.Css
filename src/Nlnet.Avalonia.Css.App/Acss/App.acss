@@ -1,4 +1,5 @@
-﻿base ../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+﻿//base ../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+base avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
 
 // Window
 NtWindow#RootWindow{

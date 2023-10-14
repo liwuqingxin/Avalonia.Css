@@ -42,7 +42,7 @@ internal class AcssParser : IAcssParser
                     {
                         index = i + 1;
                     }
-                    else if (Check(span, i + 1, '/'))
+                    else if (Check(span, i + 1, '/') && Check(span, i - 7, "avares:") == false)
                     {
                         if (index != -1)
                         {
@@ -170,7 +170,7 @@ internal class AcssParser : IAcssParser
         contentSpan = ReadOnlySpan<char>.Empty;
     }
 
-    private bool ParseKeywordLine(
+    private static bool ParseKeywordLine(
         string keyword,
         ReadOnlySpan<char> span, 
         ICollection<string> list,

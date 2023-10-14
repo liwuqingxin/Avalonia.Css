@@ -154,6 +154,7 @@ public class AcssContext : IAcssContext, IService
         // Factory
         AddService(new AcssResourceFactory(this));
         AddService(new AcssSectionFactory(this));
+        AddService(new DefaultSourceFactory());
 
         // Loader
         AddService(new AcssLoader(this));
