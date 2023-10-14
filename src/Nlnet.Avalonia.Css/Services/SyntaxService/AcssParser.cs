@@ -42,7 +42,7 @@ internal class AcssParser : IAcssParser
                     {
                         index = i + 1;
                     }
-                    else if (Check(span, i + 1, '/') && Check(span, i - 7, "avares:") == false)
+                    else if (Check(span, i + 1, '/') && Check(span, i - 7, "avares:") == false && Check(span, i - 7, "file:") == false)
                     {
                         if (index != -1)
                         {
