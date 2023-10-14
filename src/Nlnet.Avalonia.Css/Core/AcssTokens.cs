@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -20,6 +21,7 @@ internal class AcssTokens : IDisposable
     {
         if (source.IsValid() == false)
         {
+            typeof(AcssTokens).WriteError($"The source '{source}' is invalid. Skip it.");
             return null;
         }
 
@@ -97,8 +99,8 @@ internal class AcssTokens : IDisposable
 
         var sourceFactory = _context.GetService<ISourceFactory>();
         _imports  = imports.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
-        _relies   = relies.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).ToList()!;
-        _bases    = bases.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).ToList()!;
+        _relies   = relies.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
+        _bases    = bases.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
         
         foreach (var acssStyle in GetStyles())
