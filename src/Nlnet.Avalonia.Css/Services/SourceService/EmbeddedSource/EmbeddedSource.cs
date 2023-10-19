@@ -29,6 +29,39 @@ namespace Nlnet.Avalonia.Css
             }
         }
 
+        public EmbeddedSource(Uri uri, bool useRecommendedPreferSource, bool autoExportSourceToLocal)
+        {
+            _uri = uri;
+            if (useRecommendedPreferSource)
+            {
+                UseRecommendedPreferSource();
+            }
+
+            if (autoExportSourceToLocal)
+            {
+                var keyPath = $".{uri.AbsolutePath}";
+                if (File.Exists(keyPath))
+                {
+                    return;
+                }
+
+                try
+                {
+                    var dir = Path.GetDirectoryName(keyPath);
+                    if (string.IsNullOrEmpty(dir) == false)
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+
+                    File.WriteAllText(keyPath, GetSource());
+                }
+                catch (Exception e)
+                {
+                    this.WriteLine(e.ToString());
+                }
+            }
+        }
+
 
 
         public override Uri GetKey()
@@ -36,7 +69,7 @@ namespace Nlnet.Avalonia.Css
             return _uri;
         }
 
-        public override string? GetSource()
+        public sealed override string? GetSource()
         {
             if (IsValid() == false)
             {

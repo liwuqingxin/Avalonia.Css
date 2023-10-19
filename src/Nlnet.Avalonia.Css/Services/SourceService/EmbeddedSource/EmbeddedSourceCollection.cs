@@ -10,6 +10,7 @@ public class EmbeddedSourceCollection : ISourceCollection
 {
     private readonly bool _useRecommendedPreferSource;
     private readonly Uri  _baseUri;
+    private readonly bool _autoExportSourceToLocal;
 
     public EmbeddedSourceCollection(Uri baseUri)
     {
@@ -20,6 +21,13 @@ public class EmbeddedSourceCollection : ISourceCollection
     {
         _baseUri = baseUri;
         _useRecommendedPreferSource = useRecommendedPreferSource;
+    }
+
+    public EmbeddedSourceCollection(Uri baseUri, bool useRecommendedPreferSource, bool autoExportSourceToLocal)
+    {
+        _baseUri = baseUri;
+        _useRecommendedPreferSource = useRecommendedPreferSource;
+        _autoExportSourceToLocal = autoExportSourceToLocal;
     }
 
     IEnumerable<ISource> ISourceCollection.GetSources()
@@ -33,7 +41,7 @@ public class EmbeddedSourceCollection : ISourceCollection
 
         var fileSources = assets
                           .Where(u => string.Equals(Path.GetExtension(u.AbsolutePath), ".acss", StringComparison.InvariantCultureIgnoreCase))
-                          .Select(u => new EmbeddedSource(u, _useRecommendedPreferSource));
+                          .Select(u => new EmbeddedSource(u, _useRecommendedPreferSource, _autoExportSourceToLocal));
 
         return fileSources;
     }
