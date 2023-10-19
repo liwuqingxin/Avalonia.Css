@@ -7,7 +7,7 @@
     <Application.Styles>
         <FluentTheme />
 
-        <fluent:AcssFluentTheme />
+        <fluent:AcssFluentTheme UseRecommendedPreferSource="True"/>
         <!-- TODO Try to remove the ColorPicker resource. -->
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
     </Application.Styles>

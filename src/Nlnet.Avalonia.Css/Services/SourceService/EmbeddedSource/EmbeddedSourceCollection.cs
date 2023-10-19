@@ -8,11 +8,18 @@ namespace Nlnet.Avalonia.Css;
 
 public class EmbeddedSourceCollection : ISourceCollection
 {
-    private readonly Uri _baseUri;
+    private readonly bool _useRecommendedPreferSource;
+    private readonly Uri  _baseUri;
 
     public EmbeddedSourceCollection(Uri baseUri)
     {
         _baseUri = baseUri;
+    }
+
+    public EmbeddedSourceCollection(Uri baseUri, bool useRecommendedPreferSource)
+    {
+        _baseUri = baseUri;
+        _useRecommendedPreferSource = useRecommendedPreferSource;
     }
 
     IEnumerable<ISource> ISourceCollection.GetSources()
@@ -25,9 +32,8 @@ public class EmbeddedSourceCollection : ISourceCollection
         }
 
         var fileSources = assets
-                          .Where(u => string.Equals(Path.GetExtension(u.AbsolutePath), ".acss",
-                              StringComparison.InvariantCultureIgnoreCase))
-                          .Select(u => new EmbeddedSource(u));
+                          .Where(u => string.Equals(Path.GetExtension(u.AbsolutePath), ".acss", StringComparison.InvariantCultureIgnoreCase))
+                          .Select(u => new EmbeddedSource(u, _useRecommendedPreferSource));
 
         return fileSources;
     }

@@ -5,11 +5,9 @@ using Avalonia.Platform;
 
 namespace Nlnet.Avalonia.Css
 {
-    public class EmbeddedSource : SourceBase<Uri>
+    public class EmbeddedSource : SourceBase<Uri>, IPreferSourceOwner
     {
         private readonly Uri _uri;
-
-        public ISource? PreferSource { get; set; }
 
         public EmbeddedSource(Uri uri)
         {
@@ -20,6 +18,15 @@ namespace Nlnet.Avalonia.Css
         {
             _uri = uri;
             PreferSource = preferSource;
+        }
+
+        public EmbeddedSource(Uri uri, bool useRecommendedPreferSource)
+        {
+            _uri = uri;
+            if (useRecommendedPreferSource)
+            {
+                UseRecommendedPreferSource();
+            }
         }
 
 
@@ -80,6 +87,20 @@ namespace Nlnet.Avalonia.Css
         {
             this.OnSourceChanged();
         }
+
+
+
+        #region IPreferSourceOwner
+
+        public ISource? PreferSource { get; set; }
+
+        public void UseRecommendedPreferSource()
+        {
+            var keyPath = GetKey().AbsolutePath;
+            PreferSource = new FileSource($".{keyPath}");
+        }
+
+        #endregion
 
 
 
