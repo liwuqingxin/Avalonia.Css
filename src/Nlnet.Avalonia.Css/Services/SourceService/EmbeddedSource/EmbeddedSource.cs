@@ -9,10 +9,20 @@ namespace Nlnet.Avalonia.Css
     {
         private readonly Uri _uri;
 
+        public ISource? PreferSource { get; set; }
+
         public EmbeddedSource(Uri uri)
         {
             _uri = uri;
         }
+
+        public EmbeddedSource(Uri uri, ISource preferSource)
+        {
+            _uri = uri;
+            PreferSource = preferSource;
+        }
+
+
 
         public override Uri GetKey()
         {
@@ -24,6 +34,11 @@ namespace Nlnet.Avalonia.Css
             if (IsValid() == false)
             {
                 return null;
+            }
+
+            if (PreferSource != null && PreferSource.IsValid())
+            {
+                return PreferSource.GetSource();
             }
 
             return _uri.GetAssetOfString();
@@ -45,12 +60,25 @@ namespace Nlnet.Avalonia.Css
 
         public override void Attach(IAcssContext context)
         {
-            
+            if (PreferSource != null && PreferSource.IsValid())
+            {
+                PreferSource.Attach(context);
+                PreferSource.SourceChanged += PreferSourceOnSourceChanged;
+            }
         }
 
         public override void Detach(IAcssContext context)
         {
-            
+            if (PreferSource != null && PreferSource.IsValid())
+            {
+                PreferSource.Detach(context);
+                PreferSource.SourceChanged -= PreferSourceOnSourceChanged;
+            }
+        }
+
+        private void PreferSourceOnSourceChanged(object? sender, EventArgs e)
+        {
+            this.OnSourceChanged();
         }
 
 
