@@ -20,7 +20,7 @@
             <Flyout x:Key="SettingMenus">
                 <StackPanel x:Name="SettingsRoot">
                     <CheckBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
-                              Command="{Binding Path=ToggleBeforeLoadedAcssFile}"
+                              Command="{Binding Path=ToggleAppAcssFile}"
                               Content="Toggle 'app.acss'" />
                     <CheckBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               Content="Toggle Local Theme"
@@ -33,6 +33,11 @@
                               nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               Content="Toggle Top Most"
                               IsChecked="{Binding $parent[Window].Topmost}" />
+                    <CheckBox x:Name="CbxIsTransitionsEnabled"
+                              nlnet:NtWindow.IsHitTestVisibleInChrome="True"
+                              Command="{Binding Path=ToggleTransitions}"
+                              Content="Toggle Transitions"
+                              IsChecked="True" />
                     <ComboBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               ItemsSource="{Binding Path=Accents}"
                               SelectedItem="{Binding Path=Accent}" />
@@ -118,8 +123,8 @@
         </SplitView>
     </Grid>
 
-	<nlnet:NtWindow.Mask>
-		<!-- WelcomeHost -->
+    <nlnet:NtWindow.Mask>
+        <!-- WelcomeHost -->
         <Border x:Name="WelcomeHost" PointerPressed="WelcomeHost_OnPointerPressed">
             <Panel>
                 <nlnet:Icon x:Name="WelcomeLogo"
@@ -135,6 +140,6 @@
                             RenderOptions.EdgeMode="Unspecified" />
             </Panel>
         </Border>
-	</nlnet:NtWindow.Mask>
+    </nlnet:NtWindow.Mask>
 
 </nlnet:NtWindow>

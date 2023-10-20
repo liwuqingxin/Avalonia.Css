@@ -86,6 +86,17 @@ public interface IAcssContext : IServiceProvider
     /// <param name="tokens"></param>
     /// <returns></returns>
     internal bool TryGetAcssTokens(ISource source, out AcssTokens? tokens);
+
+    /// <summary>
+    /// Enable or disable transitions for the context.
+    /// </summary>
+    /// <param name="enable"></param>
+    public void EnableTransitions(bool enable);
+
+    /// <summary>
+    /// Reload whole context.
+    /// </summary>
+    public void Reload();
 }
 
 public class AcssContext : IAcssContext, IService
@@ -236,7 +247,22 @@ public class AcssContext : IAcssContext, IService
         tokens = null;
         return false;
     }
-    
+
+    void IAcssContext.EnableTransitions(bool enable)
+    {
+        var cfg = AcssContext.Default.GetService<IAcssConfiguration>();
+        cfg.EnableTransitions = enable;
+        (this as IAcssContext).Reload();
+    }
+
+    void IAcssContext.Reload()
+    {
+        foreach (var file in _files.Values)
+        {
+            file.Reload(true);
+        }
+    }
+
     #endregion
 
 

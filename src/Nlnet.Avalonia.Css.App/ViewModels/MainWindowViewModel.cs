@@ -190,7 +190,7 @@ namespace Nlnet.Avalonia.Css.App
 
         private bool _isBeforeLoadedAcssFileLoaded = true;
 
-        public void ToggleBeforeLoadedAcssFile()
+        public void ToggleAppAcssFile()
         {
             if (Application.Current is not App app)
             {
@@ -206,6 +206,20 @@ namespace Nlnet.Avalonia.Css.App
                 app.LoadAppCssFile();
             }
             _isBeforeLoadedAcssFileLoaded = !_isBeforeLoadedAcssFileLoaded;
+        }
+
+        #endregion
+
+
+
+        #region Enable Transitions
+
+        private bool _isTransitionsEnabled = true;
+
+        public void ToggleTransitions()
+        {
+            _isTransitionsEnabled = !_isTransitionsEnabled;
+            AcssContext.Default.EnableTransitions(_isTransitionsEnabled);
         }
 
         #endregion

@@ -27,6 +27,7 @@ namespace Nlnet.Avalonia.Css.App
 
             // Set the current theme.
             cfg.Theme = "green";
+            cfg.EnableTransitions = true;
 
             // Type resolver for Nlnet.Avalonia.Css.App
             typeResolverManager.LoadResolver(new GenericTypeResolver<App>());

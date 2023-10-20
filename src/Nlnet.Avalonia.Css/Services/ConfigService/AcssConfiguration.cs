@@ -12,11 +12,9 @@ namespace Nlnet.Avalonia.Css
     /// </remarks>
     internal class AcssConfiguration : IAcssConfiguration
     {
-        public string? Theme
-        {
-            get;
-            set;
-        }
+        public string? Theme { get; set; }
+
+        public bool EnableTransitions { get; set; } = true;
 
         public void Initialize()
         {
