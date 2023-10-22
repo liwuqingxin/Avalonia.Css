@@ -5,14 +5,14 @@ namespace Nlnet.Avalonia.Css.Controls
 {
     public class TemplatedControlExtension : AvaloniaObject
     {
+        public static void Use()
+        {
+
+        }
+
         static TemplatedControlExtension()
         {
             StyledElement.TemplatedParentProperty.Changed.AddClassHandler<StyledElement>(TemplatedParentChanged);
-        }
-
-        public static void Init()
-        {
-
         }
 
         private static void TemplatedParentChanged(StyledElement styledElement, AvaloniaPropertyChangedEventArgs args)

@@ -38,7 +38,8 @@ namespace Nlnet.Avalonia.Css.Fluent
 
         static AcssFluentTheme()
         {
-            TemplatedControlExtension.Init();
+            TemplatedControlExtension.Use();
+            SelectionDetailExtension.Use();
         }
 
         public AcssFluentTheme()
