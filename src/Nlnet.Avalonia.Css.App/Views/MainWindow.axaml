@@ -61,13 +61,14 @@
             <DropDownButton x:Name="TitleSettingButton"
                             Grid.Column="2"
                             Flyout="{DynamicResource SettingMenus}">
-                <nlnet:Icon nlnet:LoadedMixin.Attach="True" IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                <nlnet:Icon nlnet:LoadedMixin.Attach="True"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
             </DropDownButton>
         </Grid>
     </nlnet:NtWindow.TitleContent>
 
     <!-- Content -->
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,*" x:Name="MainWindowLayoutRoot">
         <SplitView Grid.Row="1"
                    DisplayMode="Inline"
                    IsPaneOpen="True"

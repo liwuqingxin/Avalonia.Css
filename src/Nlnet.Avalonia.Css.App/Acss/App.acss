@@ -184,7 +184,7 @@ NtWindow#RootWindow{
         }
 
         // Main layout.
-        NtWindow > Panel > Grid{
+        NtWindow > Grid#MainWindowLayoutRoot{
             Margin:8,8,0,0;
         }
         NtWindow Border#PageIconBorder{
