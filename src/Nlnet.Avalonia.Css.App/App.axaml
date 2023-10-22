@@ -1,8 +1,7 @@
 <Application x:Class="Nlnet.Avalonia.Css.App.App"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:fluent="https://www.nlnet.com/avalonia"
-             RequestedThemeVariant="{x:Static ThemeVariant.Light}">
+             xmlns:fluent="https://www.nlnet.com/avalonia">
 
     <Application.Styles>
         <FluentTheme />
