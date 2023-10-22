@@ -8,8 +8,9 @@ namespace Nlnet.Avalonia.Css;
 
 public class EmbeddedSourceCollection : ISourceCollection
 {
-    private readonly bool _useRecommendedPreferSource;
     private readonly Uri  _baseUri;
+    private readonly string? _preferLocalPath;
+    private readonly bool _useRecommendedPreferSource;
     private readonly bool _autoExportSourceToLocal;
 
     public EmbeddedSourceCollection(Uri baseUri)
@@ -17,16 +18,16 @@ public class EmbeddedSourceCollection : ISourceCollection
         _baseUri = baseUri;
     }
 
-    public EmbeddedSourceCollection(Uri baseUri, bool useRecommendedPreferSource)
+    public EmbeddedSourceCollection(Uri baseUri, string? preferLocalPath, bool useRecommendedPreferSource)
+        : this(baseUri)
     {
-        _baseUri = baseUri;
+        _preferLocalPath = preferLocalPath;
         _useRecommendedPreferSource = useRecommendedPreferSource;
     }
 
-    public EmbeddedSourceCollection(Uri baseUri, bool useRecommendedPreferSource, bool autoExportSourceToLocal)
+    public EmbeddedSourceCollection(Uri baseUri, string? preferLocalPath, bool useRecommendedPreferSource, bool autoExportSourceToLocal)
+        : this(baseUri, preferLocalPath, useRecommendedPreferSource)
     {
-        _baseUri = baseUri;
-        _useRecommendedPreferSource = useRecommendedPreferSource;
         _autoExportSourceToLocal = autoExportSourceToLocal;
     }
 
@@ -40,8 +41,8 @@ public class EmbeddedSourceCollection : ISourceCollection
         }
 
         var fileSources = assets
-                          .Where(u => string.Equals(Path.GetExtension(u.AbsolutePath), ".acss", StringComparison.InvariantCultureIgnoreCase))
-                          .Select(u => new EmbeddedSource(u, _useRecommendedPreferSource, _autoExportSourceToLocal));
+            .Where(u => string.Equals(Path.GetExtension(u.AbsolutePath), ".acss", StringComparison.InvariantCultureIgnoreCase))
+            .Select(u => new EmbeddedSource(u, _preferLocalPath, _useRecommendedPreferSource, _autoExportSourceToLocal));
 
         return fileSources;
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using Avalonia.Platform;
 
 namespace Nlnet.Avalonia.Css
@@ -14,51 +13,55 @@ namespace Nlnet.Avalonia.Css
             _uri = uri;
         }
 
-        public EmbeddedSource(Uri uri, ISource preferSource)
+        public EmbeddedSource(Uri uri, string? preferLocalSource, bool useRecommendedPreferSource) 
+            : this(uri)
         {
-            _uri = uri;
-            PreferSource = preferSource;
-        }
+            var source = preferLocalSource == null
+                ? null
+                : new FileSource(Path.Combine(preferLocalSource, $".{uri.AbsolutePath}"));
 
-        public EmbeddedSource(Uri uri, bool useRecommendedPreferSource)
-        {
-            _uri = uri;
-            if (useRecommendedPreferSource)
+            PreferSource = source;
+            if (preferLocalSource == null && useRecommendedPreferSource)
             {
                 UseRecommendedPreferSource();
             }
         }
 
-        public EmbeddedSource(Uri uri, bool useRecommendedPreferSource, bool autoExportSourceToLocal)
+        public EmbeddedSource(Uri uri, string? preferLocalSource, bool useRecommendedPreferSource, bool autoExportSourceToLocal)
+            : this(uri, preferLocalSource, useRecommendedPreferSource)
         {
-            _uri = uri;
-            if (useRecommendedPreferSource)
-            {
-                UseRecommendedPreferSource();
-            }
-
             if (autoExportSourceToLocal)
             {
-                var keyPath = $".{uri.AbsolutePath}";
-                if (File.Exists(keyPath))
+                ExportToLocal();
+            }
+        }
+
+        private void ExportToLocal()
+        {
+            if (PreferSource is not FileSource fileSource)
+            {
+                return;
+            }
+
+            var keyPath = fileSource.GetKey();
+            if (File.Exists(keyPath))
+            {
+                return;
+            }
+
+            try
+            {
+                var dir = Path.GetDirectoryName(keyPath);
+                if (string.IsNullOrEmpty(dir) == false)
                 {
-                    return;
+                    Directory.CreateDirectory(dir);
                 }
 
-                try
-                {
-                    var dir = Path.GetDirectoryName(keyPath);
-                    if (string.IsNullOrEmpty(dir) == false)
-                    {
-                        Directory.CreateDirectory(dir);
-                    }
-
-                    File.WriteAllText(keyPath, GetSource());
-                }
-                catch (Exception e)
-                {
-                    this.WriteLine(e.ToString());
-                }
+                File.WriteAllText(keyPath, GetSource());
+            }
+            catch (Exception e)
+            {
+                this.WriteLine(e.ToString());
             }
         }
 

@@ -9,6 +9,12 @@ using System.ComponentModel;
 
 namespace Nlnet.Avalonia.Css.Fluent
 {
+    /// <summary>
+    /// If you would like to create <see cref="AcssFluentTheme"/> in code-behind, you should call
+    /// <see cref="ISupportInitialize"/>.<see cref="ISupportInitialize.BeginInit"/> and
+    /// <see cref="ISupportInitialize"/>.<see cref="ISupportInitialize.EndInit"/>, and set properties
+    /// of <see cref="AcssFluentTheme"/> you want between that two functions.
+    /// </summary>
     public partial class AcssFluentTheme : Styles, ISupportInitialize
     {
         private readonly bool _suspendInitializeNotification;
@@ -24,6 +30,11 @@ namespace Nlnet.Avalonia.Css.Fluent
         /// Gets or sets the value that indicates if auto export all sources to local.
         /// </summary>
         public bool AutoExportSourceToLocal { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value that indicates the prefer local path. This has higher priority than <see cref="UseRecommendedPreferSource"/>.
+        /// </summary>
+        public string? PreferLocalPath { get; set; }
 
         static AcssFluentTheme()
         {
@@ -84,13 +95,12 @@ namespace Nlnet.Avalonia.Css.Fluent
 
             // Load acss sources.
             {
-                //new FileSource($"./Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss")
-                _accentColorFile = loader.Load(this, new EmbeddedSource(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss"), UseRecommendedPreferSource, AutoExportSourceToLocal));
-                
-                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Resources"), UseRecommendedPreferSource, AutoExportSourceToLocal));
-                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent"), UseRecommendedPreferSource, AutoExportSourceToLocal));
-                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Senior"), UseRecommendedPreferSource, AutoExportSourceToLocal));
-                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/MessageBox"), UseRecommendedPreferSource, AutoExportSourceToLocal));
+                _accentColorFile = loader.Load(this, new EmbeddedSource(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Resources/AccentColor.acss"), PreferLocalPath, UseRecommendedPreferSource, AutoExportSourceToLocal));
+
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Resources"), PreferLocalPath, UseRecommendedPreferSource, AutoExportSourceToLocal));
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent"), PreferLocalPath, UseRecommendedPreferSource, AutoExportSourceToLocal));
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Senior"), PreferLocalPath, UseRecommendedPreferSource, AutoExportSourceToLocal));
+                loader.LoadCollection(this, new EmbeddedSourceCollection(new Uri("avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/MessageBox"), PreferLocalPath, UseRecommendedPreferSource, AutoExportSourceToLocal));
             }
         }
 
