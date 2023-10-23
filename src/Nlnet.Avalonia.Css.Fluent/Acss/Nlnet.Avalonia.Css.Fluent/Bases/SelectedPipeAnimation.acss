@@ -1,0 +1,101 @@
+﻿.selected-pipe-animation {
+    [[
+        // PART_SelectedPipe
+        /template/ Border#PART_SelectedPipe{
+            Background: var(Accent);
+            Opacity:1;
+            Margin:1;
+            HorizontalAlignment: Left;
+            Width: 3;
+            Height: 16;
+            CornerRadius: 4;
+            RenderTransformOrigin: 50%,0%;
+            RenderTransform: scale(0,0);
+            Opacity: 0;
+        }
+        :sel-detail-leave-smaller /template/ Border#PART_SelectedPipe{
+            [[
+                ::animation{
+                    Duration:'0:0:.2';
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            ScaleTransform.ScaleY: 1;
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(98%)[
+                            ScaleTransform.ScaleY: 1.7;
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(100%)[
+                            ScaleTransform.ScaleY: 1.7;
+                            Opacity: 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :sel-detail-leave-lager /template/ Border#PART_SelectedPipe{
+            RenderTransformOrigin: 50%,100%;
+            [[
+                ::animation{
+                    Duration:'0:0:.2';
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            ScaleTransform.ScaleY: 1;
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(98%)[
+                            ScaleTransform.ScaleY: 1.7;
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(100%)[
+                            ScaleTransform.ScaleY: 1.7;
+                            Opacity: 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :sel-detail-enter-smaller /template/ Border#PART_SelectedPipe{            
+            [[
+                ::animation{
+                    Duration:'0:0:.2';
+                    Delay:0:0:.18;
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            ScaleTransform.ScaleY: 1.7;
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(100%)[
+                            ScaleTransform.ScaleY: 1;
+                            Opacity: 1;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :sel-detail-enter-lager /template/ Border#PART_SelectedPipe{
+            RenderTransformOrigin: 50%,100%;
+            [[
+                ::animation{
+                    Duration:'0:0:.2';
+                    Delay:0:0:.18;
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            ScaleTransform.ScaleY: 1.7;
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(100%)[
+                            ScaleTransform.ScaleY: 1;
+                            Opacity: 1;
+                        ]
+                    ]
+                }
+            ]]
+        }
+    ]]
+}
