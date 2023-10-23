@@ -7,6 +7,20 @@ using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
 {
+    public static class DebugThing
+    {
+        public static string? PreferLocalPath { get; set; }
+
+        static DebugThing()
+        {
+#if DEBUG
+            PreferLocalPath = "../../src/Nlnet.Avalonia.Css.Fluent/";
+#else
+            PreferLocalPath = null;
+#endif
+        }
+    }
+
     public partial class App : Application
     {
         public IAcssFile? AppCssFile;

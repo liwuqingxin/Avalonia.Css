@@ -1,13 +1,14 @@
 <Application x:Class="Nlnet.Avalonia.Css.App.App"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              xmlns:fluent="https://www.nlnet.com/avalonia">
 
     <Application.Styles>
         <FluentTheme />
 
         <fluent:AcssFluentTheme AutoExportSourceToLocal="True"
-                                PreferLocalPath="../../src/Nlnet.Avalonia.Css.Fluent/"
+                                PreferLocalPath="{x:Static app:DebugThing.PreferLocalPath}"
                                 UseRecommendedPreferSource="True" />
         <!-- TODO Try to remove the ColorPicker resource. -->
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />

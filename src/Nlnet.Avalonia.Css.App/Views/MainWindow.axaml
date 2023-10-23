@@ -36,7 +36,7 @@
                     <CheckBox x:Name="CbxIsTransitionsEnabled"
                               nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               Command="{Binding Path=ToggleTransitions}"
-                              Content="Toggle Transitions"
+                              Content="Toggle Transitions (Make a mess now...)"
                               IsChecked="True" />
                     <ComboBox nlnet:NtWindow.IsHitTestVisibleInChrome="True"
                               ItemsSource="{Binding Path=Accents}"
