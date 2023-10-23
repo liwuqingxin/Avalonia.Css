@@ -1,4 +1,8 @@
-﻿.selected-pipe-animation {
+﻿//
+// To use this animation, there must be a border named 'PART_SelectedPipe' in the control's tempalte.
+//
+
+.selected-pipe-animation {
     [[
         // PART_SelectedPipe
         /template/ Border#PART_SelectedPipe{
@@ -92,6 +96,24 @@
                         KeyFrame:(100%)[
                             ScaleTransform.ScaleY: 1;
                             Opacity: 1;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        
+        // To resolve the mess caused by virtualizing.
+        :not(:selected):not(:sel-detail-enter-lager):not(:sel-detail-enter-smaller) /template/ Border#PART_SelectedPipe{
+            [[
+                ::animation{
+                    Duration:'0:0:.2';
+                    FillMode:Forward;
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            Opacity: 0;
+                        ]
+                        KeyFrame:(100%)[
+                            Opacity: 0;
                         ]
                     ]
                 }
