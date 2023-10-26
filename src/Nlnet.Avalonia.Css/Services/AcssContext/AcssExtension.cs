@@ -24,7 +24,7 @@ public static class AcssExtension
     /// <param name="builder"></param>
     /// <param name="typeResolver"></param>
     /// <returns></returns>
-    public static AppBuilder WithTypeResolverForAcssDefaultBuilder(this AppBuilder builder, ITypeResolver typeResolver)
+    public static AppBuilder WithTypeResolverForAcssDefaultContext(this AppBuilder builder, ITypeResolver typeResolver)
     {
         var manager = AcssContext.Default.GetService<ITypeResolverManager>();
         manager.LoadResolver(typeResolver);
