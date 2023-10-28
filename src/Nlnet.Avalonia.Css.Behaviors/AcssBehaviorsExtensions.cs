@@ -8,11 +8,11 @@ public static class AcssBehaviorsExtensions
     #region Behavior
 
     /// <summary>
-    /// Use acss behavior feature for default css builder.
+    /// Use acss behavior feature for default css context.
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static AppBuilder UseAcssBehaviorForDefaultBuilder(this AppBuilder builder)
+    public static AppBuilder UseAcssBehaviorForDefaultContext(this AppBuilder builder)
     {
         var resolver = AcssContext.Default.GetService<IBehaviorResolverManager>();
         var declarer = AcssContext.Default.GetService<IBehaviorDeclarerManager>();

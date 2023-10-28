@@ -54,7 +54,7 @@ namespace Nlnet.Avalonia.Css.App
                 .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<App>())
 
                 // Use avalonia behavior.
-                .UseAcssBehaviorForDefaultBuilder();
+                .UseAcssBehaviorForDefaultContext();
         }
     }
 }
