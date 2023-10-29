@@ -40,7 +40,7 @@ namespace Nlnet.Avalonia.Css.App
 
 
             // Set the current theme.
-            cfg.Theme = "green";
+            cfg.Accent = "green";
             cfg.EnableTransitions = true;
 
             // Type resolver for Nlnet.Avalonia.Css.App

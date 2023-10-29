@@ -73,9 +73,9 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
         }
 
         var cfg = _context.GetService<IAcssConfiguration>();
-        if (Accent != null && !string.Equals(Accent, cfg.Theme, StringComparison.CurrentCultureIgnoreCase))
+        if (Accent != null && !string.Equals(Accent, cfg.Accent, StringComparison.CurrentCultureIgnoreCase))
         {
-            this.WriteWarning($"Current theme is '{cfg.Theme}'. This theme is '{Accent}'. Skip this.");
+            this.WriteWarning($"Current theme is '{cfg.Accent}'. This theme is '{Accent}'. Skip this.");
             return null;
         }
 
