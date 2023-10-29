@@ -5,8 +5,8 @@
     [[
         [UseSmoothScrolling=True] /template/ controls|NtScrollContentPresenter#PART_ContentPresenter{
             Transitions:[
-//                QuadraticEaseOut
-                VectorTransition(NtScrollContentPresenter.AnimatableOffset 0.4 0 .39,.94,.39,.94);
+                // QuadraticEaseOut
+                NtScrollContentPresenter.AnimatableOffset 0.4 0 .39,.94,.39,.94;
             ]
         }
     ]]

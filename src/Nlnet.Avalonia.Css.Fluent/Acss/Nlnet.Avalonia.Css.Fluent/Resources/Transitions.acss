@@ -1,25 +1,25 @@
 ﻿::res[desc=Transitions]{	
 	double(ts-duration): 0.125;
 
-	transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(ts-duration));
-	transition(stRenderTransform): TransformOperationsTransition(TemplatedControl.RenderTransform var(ts-duration));
-	transition(stBorderBrush): BrushTransition(TemplatedControl.BorderBrush var(ts-duration));
-	transition(stBackground): BrushTransition(TemplatedControl.Background var(ts-duration));
-	transition(stPaneBackground): BrushTransition(SplitView.Background var(ts-duration));
-	transition(stOpacity): DoubleTransition(TemplatedControl.Opacity var(ts-duration));
-	transition(stHeight): DoubleTransition(TemplatedControl.Height var(ts-duration));
-	transition(stWidth): DoubleTransition(TemplatedControl.Width var(ts-duration));
-	transition(stMaxHeight): DoubleTransition(TemplatedControl.MaxHeight var(ts-duration));
-	transition(stMaxWidth): DoubleTransition(TemplatedControl.MaxWidth var(ts-duration));
-	transition(stMinHeight): DoubleTransition(TemplatedControl.MinHeight var(ts-duration));
-	transition(stMinWidth): DoubleTransition(TemplatedControl.MinWidth var(ts-duration));
-	transition(stFontSize): DoubleTransition(TemplatedControl.FontSize var(ts-duration));
-	transition(stBorderThickness): ThicknessTransition(TemplatedControl.BorderThickness var(ts-duration));
-	transition(stMargin): ThicknessTransition(TemplatedControl.Margin var(ts-duration));
-	transition(stFill): BrushTransition(Shape.Fill var(ts-duration));
-	transition(stStroke): BrushTransition(Shape.Stroke var(ts-duration));
-	transition(stBoxShadow): BoxShadowsTransition(Border.BoxShadow var(ts-duration));
-	transition(stBorderBorderBrush): BrushTransition(Border.BorderBrush var(ts-duration));
-	transition(stBorderBorderThickness): ThicknessTransition(Border.BorderThickness var(ts-duration));
-	transition(stCornerRadius): CornerRadiusTransition(Border.CornerRadius var(ts-duration));
+	transition(stLayoutTransform): LayoutTransformControl.LayoutTransform var(ts-duration);
+	transition(stRenderTransform): TemplatedControl.RenderTransform var(ts-duration);
+	transition(stBorderBrush): TemplatedControl.BorderBrush var(ts-duration);
+	transition(stBackground): TemplatedControl.Background var(ts-duration);
+	transition(stPaneBackground): SplitView.Background var(ts-duration);
+	transition(stOpacity): TemplatedControl.Opacity var(ts-duration);
+	transition(stHeight): TemplatedControl.Height var(ts-duration);
+	transition(stWidth): TemplatedControl.Width var(ts-duration);
+	transition(stMaxHeight): TemplatedControl.MaxHeight var(ts-duration);
+	transition(stMaxWidth): TemplatedControl.MaxWidth var(ts-duration);
+	transition(stMinHeight): TemplatedControl.MinHeight var(ts-duration);
+	transition(stMinWidth): TemplatedControl.MinWidth var(ts-duration);
+	transition(stFontSize): TemplatedControl.FontSize var(ts-duration);
+	transition(stBorderThickness): TemplatedControl.BorderThickness var(ts-duration);
+	transition(stMargin): TemplatedControl.Margin var(ts-duration);
+	transition(stFill): Shape.Fill var(ts-duration);
+	transition(stStroke): Shape.Stroke var(ts-duration);
+	transition(stBoxShadow): Border.BoxShadow var(ts-duration);
+	transition(stBorderBorderBrush): Border.BorderBrush var(ts-duration);
+	transition(stBorderBorderThickness): Border.BorderThickness var(ts-duration);
+	transition(stCornerRadius): Border.CornerRadius var(ts-duration);
 }

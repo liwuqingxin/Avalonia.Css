@@ -42,7 +42,7 @@
         /template/ Border#PART_CheckGlyphContainer{
             Width:0; 
             Transitions:[
-                DoubleTransition(Border.Width 0.3)
+                Border.Width 0.3;
             ]            
         }
         :checked /template/ Border#PART_CheckGlyphContainer, :indeterminate /template/ Border#PART_CheckGlyphContainer{

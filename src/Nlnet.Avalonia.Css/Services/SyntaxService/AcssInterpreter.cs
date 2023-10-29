@@ -16,6 +16,48 @@ using Avalonia.Styling;
 
 namespace Nlnet.Avalonia.Css
 {
+    internal class TransitionTypes
+    {
+        private readonly Dictionary<Type,Type> _transitionsTypes;
+
+        public TransitionTypes()
+        {
+            // TODO 支持自定义 Transition
+            _transitionsTypes = new Dictionary<Type, Type>()
+            {
+                { typeof(IBrush), typeof(BrushTransition) },
+                { typeof(IEffect), typeof(EffectTransition) },
+                { typeof(ITransform), typeof(TransformOperationsTransition) },
+                { typeof(double), typeof(DoubleTransition) },
+                { typeof(float), typeof(FloatTransition) },
+                { typeof(int), typeof(IntegerTransition) },
+                { typeof(BoxShadows), typeof(BoxShadowsTransition) },
+                { typeof(Color), typeof(ColorTransition) },
+                { typeof(CornerRadius), typeof(CornerRadiusTransition) },
+                { typeof(Point), typeof(PointTransition) },
+                { typeof(RelativePoint), typeof(RelativePointTransition) },
+                { typeof(Size), typeof(SizeTransition) },
+                { typeof(Thickness), typeof(ThicknessTransition) },
+                { typeof(Vector), typeof(VectorTransition) },
+            };
+        }
+
+        public bool TryGetValue(Type propertyType, out Type transType)
+        {
+            foreach (var pair in _transitionsTypes)
+            {
+                if (pair.Key.IsAssignableFrom(propertyType))
+                {
+                    transType = pair.Value;
+                    return true;
+                }
+            }
+
+            transType = propertyType;
+            return false;
+        }
+    }
+
     internal class AcssInterpreter : IAcssInterpreter
     {
         // ' var (xxx) '
@@ -24,8 +66,6 @@ namespace Nlnet.Avalonia.Css
         private readonly Regex _bindingRegex = new("^\\s*\\$([a-zA-Z0-9_]+)#?([0-9]*)\\.(.*?)\\s*$", RegexOptions.IgnoreCase);
         // ' @xxx.xxx '
         private readonly Regex _staticInstanceRegex = new("^\\s*@([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)\\s*$", RegexOptions.IgnoreCase);
-        // ' xxx (xxx) '
-        private readonly Regex _transitionRegex = new("([a-zA-Z]+)\\((.*)\\)", RegexOptions.IgnoreCase);
         // ' KeyFrame (xxx) : '
         private readonly Regex _keyFrameRegex = new("^\\s*KeyFrame\\s*\\:\\((.*?)\\)\\s*$", RegexOptions.IgnoreCase);
         // ' xxx (xxx) '
@@ -44,7 +84,7 @@ namespace Nlnet.Avalonia.Css
         private IResourceProvidersManager _resourceProvidersManager = null!;
         private IBehaviorDeclarerManager _behaviorDeclarerManager = null!;
         private IBehaviorResolverManager _behaviorResolverManager = null!;
-        private Dictionary<string, Type> _transitionsTypes = null!;
+        private readonly TransitionTypes _transitionsTypes = new();
 
 
         public AcssInterpreter(IAcssContext context)
@@ -61,23 +101,6 @@ namespace Nlnet.Avalonia.Css
             _resourceProvidersManager = _context.GetService<IResourceProvidersManager>();
             _behaviorDeclarerManager = _context.GetService<IBehaviorDeclarerManager>();
             _behaviorResolverManager = _context.GetService<IBehaviorResolverManager>();
-
-            _transitionsTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
-            var types = typeof(Transition<>)
-                .Assembly
-                .GetTypes()
-                .Where(t => t.IsAssignableTo(typeof(ITransition)) && t.IsAbstract == false);
-
-            foreach (var t in types)
-            {
-                _transitionsTypes.Add(t.Name, t);
-                _transitionsTypes.Add(t.Name[..^10], t);
-            }
-
-            _transitionsTypes.Add("corner", typeof(CornerRadiusTransition));
-            _transitionsTypes.Add("int", typeof(IntegerTransition));
-            _transitionsTypes.Add("thick", typeof(ThicknessTransition));
-            _transitionsTypes.Add("shadow", typeof(ThicknessTransition));
         }
 
         public Selector? ToSelector(IAcssContext context, IAcssStyle acssStyle, IEnumerable<ISyntax> syntaxList)
@@ -356,31 +379,10 @@ namespace Nlnet.Avalonia.Css
 
         public ITransition? ParseTransition(string valueString, IResourceHost host)
         {
-            var match = _transitionRegex.Match(valueString);
-            if (match.Success == false)
-            {
-                this.WriteError($"Can not parse transition from string '{valueString}'. Skip it.");
-                return null;
-            }
-
-            // Type name.
-            var typeName = match.Groups[1].Value;
-            if(_transitionsTypes.TryGetValue(typeName, out var type) == false)
-            {
-                this.WriteError($"Can not recognize the transition type '{typeName}'. Skip it.");
-                return null;
-            }
-            if (Activator.CreateInstance(type) is not ITransition instance)
-            {
-                this.WriteError($"The type '{typeName}' is not an implementation of '{nameof(ITransition)}'. Skip it.");
-                return null;
-            }
-
-            // Value : [target type] [property] [duration] [delay] [easing].
+            // Value : [target type].[property] [duration] [delay] [easing].
             var targetType   = typeof(TemplatedControl);
             var property     = string.Empty;
-            var valuesString = match.Groups[2].Value;
-            var values       = valuesString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var values       = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (values.Length > 0)
             {
                 var propertyString = values[0];
@@ -403,12 +405,31 @@ namespace Nlnet.Avalonia.Css
                     property = propertyString;
                 }
             }
+
+            var avaloniaProperty = _interpreter.ParseAvaloniaProperty(targetType!, property);
+            if (avaloniaProperty == null)
+            {
+                this.WriteError($"Can not recognize the property '{property}' from type '{targetType}'. Skip it.");
+                return null;
+            }
+
+            if (_transitionsTypes.TryGetValue(avaloniaProperty.PropertyType, out var transType) == false)
+            {
+                this.WriteError($"Can not find the transition for type '{avaloniaProperty.PropertyType}' of the property '{avaloniaProperty.Name}'.");
+                return null;
+            }
+            if (Activator.CreateInstance(transType) is not ITransition instance)
+            {
+                this.WriteError($"Wrong type for transition : '{transType}'.");
+                return null;
+            }
+
             if (values.Length > 1)
             {
                 if (IsVar(values[1], out var keyDuration) && keyDuration != null)
                 {
                     host.GetResourceObservable(keyDuration).Subscribe(new AnonymousObserver<object?>(o =>
-                    {
+                    { 
                         switch (o)
                         {
                             case double d:
@@ -482,13 +503,6 @@ namespace Nlnet.Avalonia.Css
                 }
             }
 
-            var avaloniaProperty = _interpreter.ParseAvaloniaProperty(targetType!, property);
-            if (avaloniaProperty == null)
-            {
-                this.WriteError($"Can not recognize the property '{property}' from type '{targetType}'. Skip it.");
-                return null;
-            }
-            
             // TODO Cache property info and method info.
             var propertyProp = instance.GetType().GetProperty("Property", BindingFlags.Instance | BindingFlags.Public);
             propertyProp?.SetValue(instance, avaloniaProperty);

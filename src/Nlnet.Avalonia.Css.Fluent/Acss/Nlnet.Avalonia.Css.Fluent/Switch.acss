@@ -35,9 +35,9 @@
             Height:12;
             Fill:var(fore);
             Transitions:[
-                TransformOperationsTransition(TemplatedControl.RenderTransform 0.14);
-                DoubleTransition(Ellipse.Width 0.14 0 CircularEaseInOut);
-                BrushTransition(Ellipse.Fill 0.1);
+                TemplatedControl.RenderTransform 0.14;
+                Ellipse.Width 0.14 0 CircularEaseInOut;
+                Ellipse.Fill 0.1;
             ]
         }
         :pressed:not(:checked) /template/ Ellipse#SwitchKnob{

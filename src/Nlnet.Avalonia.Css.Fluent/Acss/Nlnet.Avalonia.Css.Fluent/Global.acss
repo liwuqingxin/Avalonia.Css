@@ -12,7 +12,7 @@ TextPresenter {
 Window {
     Background: var(window-back);
     Transitions:[
-        BrushTransition(Background 0.8);
+        Background 0.8;
     ]
     [[
         [IsActive=True] {

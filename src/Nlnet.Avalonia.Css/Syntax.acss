@@ -61,16 +61,16 @@
       TransformOperationsTransition for property 'LayoutTransformControl.LayoutTransform' with 'Duration=0.075', 'Delay=0.1', 'Easing=LinearEasing'. 
       DoubleTransition and other transitions are also available.
     */
-    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing);
+    transition(stLayoutTransform): LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing;
     
     // use var(key) for the duration property. Delay and Easing properties also support that.
-    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(ts-duration) var(transition-delay) LinearEasing);
+    transition(stLayoutTransform): LayoutTransformControl.LayoutTransform var(ts-duration) var(transition-delay) LinearEasing;
     
     // use simple syntax for BrushTransition, ThicknessTransition and TransformOperationsTransition.
-    transition(stLayoutTransform): brush(LayoutTransformControl.LayoutTransform var(ts-duration));
-    transition(stLayoutTransform): thick(LayoutTransformControl.Margin var(ts-duration));
-    transition(stLayoutTransform): thickness(LayoutTransformControl.Margin var(ts-duration));
-    transition(stLayoutTransform): TransformOperations(LayoutTransformControl.RenderTransform var(transition-duration) var(transition-delay) LinearEasing);
+    transition(stLayoutTransform): LayoutTransformControl.LayoutTransform var(ts-duration);
+    transition(stLayoutTransform): LayoutTransformControl.Margin var(ts-duration);
+    transition(stLayoutTransform): LayoutTransformControl.Margin var(ts-duration);
+    transition(stLayoutTransform): LayoutTransformControl.RenderTransform var(transition-duration) var(transition-delay) LinearEasing;
 }
 
 

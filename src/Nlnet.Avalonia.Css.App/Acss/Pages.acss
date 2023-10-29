@@ -165,13 +165,13 @@ ResourcesPage{
         ResourcesPage Border#Border2{
             BoxShadow: 0 10 20 0 #2666;
             Transitions:[
-                BoxShadowsTransition(Border.BoxShadow 0.2);
+                Border.BoxShadow 0.2;
             ]
         }
         
         ResourcesPage RollingBorder#RollingBorder{
             Transitions:[
-                DoubleTransition(RollingBorder.Percent 0.4);
+                RollingBorder.Percent 0.4;
             ]
         }
         ResourcesPage Border#Border3{
