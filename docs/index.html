@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Avalonia Css Documentation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="./_css/vue.css">
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/dolphin.css"> -->
+
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar-folder.min.css" />
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" /> -->
+</head>
+<body>
+
+  <div id="app">loading...</div>
+
+  <style>
+    :root {
+      --docsifytabs-border-color: #ededed;
+      --docsifytabs-tab-highlight-color: green;
+    }
+  </style>
+
+  <script>
+    window.$docsify = {
+      loadSidebar: true,
+      loadNavbar: true,
+      coverpage: true,
+      onlyCover: true,
+      search: 'auto',
+      subMaxLevel: 0,
+      name: '🎆 Docs of Avalonia Acss',
+      repo: '',
+      relativePath: false,
+      count:{
+        countable:true,
+        fontsize:'0.9em',
+        color:'rgb(90,90,90)',
+        language:'chinese'
+      },
+      tabs: {
+        persist    : true,      // default
+        sync       : true,      // default
+        theme      : 'classic', // default
+        tabComments: true,      // default
+        tabHeadings: true       // default
+      },
+      footer: {
+        copy: '<span>Acme &copy; 2023</span>',
+        auth: 'by Me',
+        pre: '<hr/>',
+        style: 'text-align: right;',
+        class: 'className',
+      },
+      sidebarDisplayLevel: 8, // set sidebar display level
+      alias: {
+        '/.*/_sidebar.md': '/zh-cn/v1.0.0/_sidebar.md',
+      },
+    }
+  </script>
+
+  <!-- Docsify v4 -->
+  <script src="./_js/docsify.min.js"></script>
+
+  <!-- Plugins -->
+  <script src="./_plugins/emoji.min.js"></script>
+  <script src="./_plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+  <script src="//unpkg.com/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
+  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+
+  <!-- code highlighting -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-csharp.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-xml.min.js"></script>
+
+</body>
+</html>
