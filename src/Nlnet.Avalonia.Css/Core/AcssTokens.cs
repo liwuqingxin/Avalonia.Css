@@ -214,17 +214,17 @@ internal class AcssTokens : IDisposable
 
     public IAcssStyle? TryGetBaseStyle(string key)
     {
-        if (_bases == null)
-        {
-            return null;
-        }
-        
         var s0 = GetStyles().FirstOrDefault(s => s.MatchKey(key));
         if (s0 != null)
         {
             return s0;
         }
 
+        if (_bases == null)
+        {
+            return null;
+        }
+        
         foreach (var tokens in _bases)
         {
             var s = tokens.GetStyles().FirstOrDefault(s => s.MatchKey(key));
