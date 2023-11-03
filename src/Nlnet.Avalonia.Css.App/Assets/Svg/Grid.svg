@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.040893555" y1="0.041947227" x2="1" y2="0.9999998" id="gradient_1">
+      <stop offset="0%" stop-color="#29A3F3" />
+      <stop offset="100%" stop-color="#047EDB" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="Grid" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="Grid" fill="none" stroke="none" />
+    <path d="M424 64C437.257 64 448 74.7434 448 88L448 424C448 437.257 437.257 448 424 448L88 448C74.7434 448 64 437.257 64 424L64 88C64 74.7434 74.7434 64 88 64L424 64Z" id="Vector" fill="url(#gradient_1)" fill-rule="evenodd" stroke="none" />
+    <g id="Group-2" transform="translate(64 64)">
+      <path d="M116 0L116 384L112 384L112 0L116 0Z" id="Path-1" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+      <path d="M273 0L273 265L269 265L269 0L273 0Z" id="Path-4" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+      <path d="M384 269L0 269L0 265L384 265L384 269Z" id="Path-3" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+      <path d="M269 133L116 133L116 129L269 129L269 133Z" id="Path-5" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>

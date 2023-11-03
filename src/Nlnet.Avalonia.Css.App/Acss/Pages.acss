@@ -57,8 +57,7 @@ CarouselPage Case[Header=Carousel] Button{
     VerticalAlignment: Stretch;
 }
 CarouselPage Case[Header=Carousel] Carousel>Icon{
-    Width: 256;
-    Height: 256;
+    Margin: 50;
 }
 CarouselPage Case[Header=Carousel] Icon#IconLeft{
     IconSize: 9;
