@@ -57,8 +57,7 @@ CarouselPage Case[Header=Carousel] Button{
     VerticalAlignment: Stretch;
 }
 CarouselPage Case[Header=Carousel] Carousel>Icon{
-    Width: 256;
-    Height: 256;
+    Margin: 50;
 }
 CarouselPage Case[Header=Carousel] Icon#IconLeft{
     IconSize: 9;
@@ -165,13 +164,13 @@ ResourcesPage{
         ResourcesPage Border#Border2{
             BoxShadow: 0 10 20 0 #2666;
             Transitions:[
-                BoxShadowsTransition(Border.BoxShadow 0.2);
+                Border.BoxShadow 0.2;
             ]
         }
         
         ResourcesPage RollingBorder#RollingBorder{
             Transitions:[
-                DoubleTransition(RollingBorder.Percent 0.4);
+                RollingBorder.Percent 0.4;
             ]
         }
         ResourcesPage Border#Border3{

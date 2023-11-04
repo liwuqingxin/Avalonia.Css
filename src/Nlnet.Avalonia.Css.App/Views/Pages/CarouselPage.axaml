@@ -31,8 +31,8 @@
                             </PageSlide.SlideInEasing>
                         </PageSlide>
                     </Carousel.PageTransition>
-                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg" />
-                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/brand.svg" />
+                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Acss.svg" />
+                    <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/logo.svg" />
                     <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Resources.svg" />
                     <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
                 </Carousel>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.011500001" y1="0.05540037" x2="0.99372214" y2="0.9162669" id="gradient_1">
+      <stop offset="0%" stop-color="#28AFEA" />
+      <stop offset="100%" stop-color="#047ED6" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.011500001" y1="0.05540037" x2="0.99372214" y2="0.9162669" id="gradient_2">
+      <stop offset="1.0288066%" stop-color="#28AFEA" stop-opacity="0.59607846" />
+      <stop offset="100%" stop-color="#047ED6" stop-opacity="0.59607846" />
+    </linearGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="TreeView" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="TreeView" fill="none" stroke="none" />
+    <path d="M139.157 400.556L211 400.556L211 430L139.157 430C120.843 430 106 414.183 106 394.667L106 165L133.631 165L133.631 383C133.631 386.926 133.373 391.611 137.5 396C141.627 400.389 146.454 400.556 150.138 400.556L139.157 400.556Z" id="Vector-2" fill="#64717C" fill-rule="evenodd" stroke="none" />
+    <path d="M130 255L211 255L211 284L130 284L130 255Z" id="Rectangle" fill="#64717C" fill-rule="evenodd" stroke="none" />
+    <g id="Group" transform="translate(49 45)">
+      <path d="M151.999 167.2L151.999 264.8C151.999 271.54 157.839 277 165.049 277L399.949 277C407.159 277 412.999 271.54 412.999 264.8L412.999 167.2C412.999 160.46 407.159 155 399.949 155L165.049 155C157.839 155 151.999 160.46 151.999 167.2L151.999 167.2Z" id="Shape-2" fill="url(#gradient_1)" stroke="none" />
+      <path d="M152 311.2L152 408.8C152 415.54 157.84 421 165.05 421L399.95 421C407.16 421 413 415.54 413 408.8L413 311.2C413 304.46 407.16 299 399.95 299L165.05 299C157.84 299 152 304.46 152 311.2L152 311.2Z" id="Shape-3" fill="url(#gradient_1)" stroke="none" />
+      <path d="M0 12.2L0 109.8C0 116.54 5.83988 122 13.05 122L247.95 122C255.16 122 261 116.54 261 109.8L261 12.2C261 5.4595 255.16 0 247.95 0L13.05 0C5.83988 0 0 5.4595 0 12.2L0 12.2Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+    </g>
+  </g>
+</svg>

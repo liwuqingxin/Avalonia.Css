@@ -117,7 +117,7 @@
             RenderTransformOrigin:0%,0%;
             Opacity:0;
             Transitions:[
-                TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.24 0 .4,.9,.4,.9);
+                LayoutTransformControl.LayoutTransform 0.24 0 .4,.9,.4,.9;
                 var(stOpacity);
             ]
         }
@@ -136,7 +136,7 @@
             Opacity:0;
             IsVisible: false;
             Transitions:[
-                DoubleTransition(TemplatedControl.Opacity 0.125 0.2);
+                TemplatedControl.Opacity 0.125 0.2;
             ]
         }
         :expanded /template/ ContentPresenter#PART_ContentPresenter{

@@ -13,5 +13,7 @@ internal class InternalTypeResolver : Resolver, ITypeResolver
     {
         TryAddType(nameof(TextDecorations), typeof(TextDecorations));
         //TryAddType(nameof(RhythmicTransformAnimator), typeof(RhythmicTransformAnimator));
+
+        
     }
 }

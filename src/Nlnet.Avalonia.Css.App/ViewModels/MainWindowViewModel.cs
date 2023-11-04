@@ -165,7 +165,7 @@ namespace Nlnet.Avalonia.Css.App
                 case nameof(Accent):
                 {
                     var cfg = AcssContext.Default.GetService<IAcssConfiguration>();
-                    cfg.Theme = Accent;
+                    cfg.Accent = Accent;
 
                     var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
                 

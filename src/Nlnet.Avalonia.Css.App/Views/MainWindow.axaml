@@ -7,7 +7,7 @@
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:nlnet="https://www.nlnet.com/avalonia"
                 Title="Avalonia fluent theme powered by Nlnet.Avalonia.Css library"
-                Icon="avares://Nlnet.Avalonia.Css.App/Assets/brand.ico"
+                Icon="avares://Nlnet.Avalonia.Css.App/Assets/logo.ico"
                 mc:Ignorable="d">
 
     <Design.DataContext>
@@ -53,7 +53,7 @@
     <nlnet:NtWindow.TitleContent>
         <Grid x:Name="TitleRoot" ColumnDefinitions="Auto,Auto,*">
             <nlnet:Icon x:Name="TitleLogo"
-                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/brand.svg"
+                        IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/logo.svg"
                         RenderOptions.EdgeMode="Unspecified" />
             <TextBlock x:Name="TitleText"
                        Grid.Column="1"
@@ -128,15 +128,15 @@
         <!-- WelcomeHost -->
         <Border x:Name="WelcomeHost" PointerPressed="WelcomeHost_OnPointerPressed">
             <Panel>
+                <!--<nlnet:Icon x:Name="WelcomeText"
+                            nlnet:LoadedMixin.Attach="True"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/AcssText.svg"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            RenderOptions.EdgeMode="Unspecified" />-->
+
                 <nlnet:Icon x:Name="WelcomeLogo"
                             nlnet:LoadedMixin.Attach="True"
-                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg"
-                            RenderOptions.BitmapInterpolationMode="HighQuality"
-                            RenderOptions.EdgeMode="Unspecified" />
-
-                <nlnet:Icon x:Name="LogoImage"
-                            nlnet:LoadedMixin.Attach="True"
-                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Welcome.svg"
+                            IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/logo.svg"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
                             RenderOptions.EdgeMode="Unspecified" />
             </Panel>

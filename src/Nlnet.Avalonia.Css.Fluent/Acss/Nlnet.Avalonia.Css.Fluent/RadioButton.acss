@@ -43,7 +43,7 @@
             Fill:var(ctrl-back);
             VerticalAlignment: Center;
             Transitions:[
-                DoubleTransition(Ellipse.StrokeThickness 0.125);
+                Ellipse.StrokeThickness 0.125;
                 var(stFill);
             ]           
         }

@@ -47,14 +47,14 @@ namespace Nlnet.Avalonia.Css.App
                 // Use avalonia css stuff.
                 .UseAcssDefaultContext()
                 // Type resolver for Nlnet.Avalonia.Svg
-                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Icon>())
+                .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<Icon>())
                 // Type resolver for Nlnet.Avalonia.SampleAssistant
-                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Case>())
+                .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<Case>())
                 // Type resolver for Nlnet.Avalonia.Css.App
-                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<App>())
+                .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<App>())
 
                 // Use avalonia behavior.
-                .UseAcssBehaviorForDefaultBuilder();
+                .UseAcssBehaviorForDefaultContext();
         }
     }
 }

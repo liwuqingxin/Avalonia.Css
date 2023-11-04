@@ -2,7 +2,7 @@
 
 namespace Nlnet.Avalonia.Css
 {
-    internal abstract class AcssResource
+    public abstract class AcssResource
     {
         private object? _value;
 
@@ -52,7 +52,7 @@ namespace Nlnet.Avalonia.Css
     }
 
 
-    internal abstract class AcssResourceBaseAndFac<T> : AcssResource, IResourceFactory where T : AcssResource, new()
+    public abstract class AcssResourceBaseAndFac<T> : AcssResource, IResourceFactory where T : AcssResource, new()
     {
         AcssResource IResourceFactory.Create()
         {

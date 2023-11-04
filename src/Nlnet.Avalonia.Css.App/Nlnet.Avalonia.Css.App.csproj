@@ -6,7 +6,7 @@
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
 		<FileVersion>$(FileVersion)</FileVersion>
-		<ApplicationIcon>Assets\brand.ico</ApplicationIcon>
+		<ApplicationIcon>Assets\logo.ico</ApplicationIcon>
 		<Configurations>Debug;Release;LinuxDebug</Configurations>
 
 		<OutputPath>$(SolutionDir)..\sample.output\</OutputPath>

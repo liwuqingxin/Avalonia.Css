@@ -1,6 +1,6 @@
 ﻿base ./Bases/Bases.acss;
 
-^ButtonSpinner @extend(.box, common-state){    
+^ButtonSpinner @extend(.box, .common-state){    
     Opacity: 1;
     MinHeight:28;
     RenderTransform: none;

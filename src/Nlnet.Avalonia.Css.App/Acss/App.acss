@@ -83,7 +83,7 @@ NtWindow#RootWindow{
             ]]
         }
         // Animation to show logo.
-        NtWindow Icon#WelcomeLogo{
+        NtWindow Icon#WelcomeText{
             Opacity:0;
             Width:200;
             Height:200;
@@ -113,10 +113,10 @@ NtWindow#RootWindow{
             ]]
         }
         // Animation to show logo.
-        NtWindow Icon#LogoImage{
+        NtWindow Icon#WelcomeLogo{
             Opacity:0;
         }
-        NtWindow Icon#LogoImage:is-loaded{
+        NtWindow Icon#WelcomeLogo:is-loaded{
             Width:200;
             Height:200;
             RenderTransform:none;
@@ -142,7 +142,7 @@ NtWindow#RootWindow{
         
                         /* Y */
                         KeyFrame:(0%)[
-                            TranslateTransform.Y:-280;
+                            TranslateTransform.Y:-240;
                             RotateTransform.Angle:-10;
                         ]
                         KeyFrame:(25% 0.3,0,0.7,1)[
