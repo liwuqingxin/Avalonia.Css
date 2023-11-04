@@ -65,5 +65,7 @@
 .box @extend(.ctrl, .border, .corner, .padding, .align) { }
 .common-state @extend(.pointerover, .pressed, .disabled) { }
 
+//
 // button
+//
 .button @extend(.fluent-box, .common-state) { }

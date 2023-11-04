@@ -2,48 +2,50 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace Nlnet.Avalonia.Css;
 
 /// <summary>
-/// This keeps the raw tokens for an acss file.
+/// This keeps the raw tokens for an acss source.
 /// </summary>
 internal class AcssTokens : IDisposable
 {
-    private static AcssTokens Empty { get; } = new();
-
     /// <summary>
-    /// Get tokens from a path. If it exists in the acss builder, just return it.
+    /// Get tokens from a source. If it exists in the acss context, just return it.
     /// </summary>
     /// <param name="context"></param>
-    /// <param name="filePath"></param>
+    /// <param name="source"></param>
     /// <returns></returns>
-    public static AcssTokens Get(IAcssContext context, string? filePath)
+    public static AcssTokens? Get(IAcssContext context, ISource source)
     {
-        if (filePath == null)
+        if (source.IsValid() == false)
         {
-            return Empty;
+            typeof(AcssTokens).WriteError($"The source '{source}' is invalid. Skip it.");
+            return null;
         }
 
-        var standardPath = filePath.GetStandardPath();
-
-        if (context.TryGetAcssTokens(standardPath, out var tokens) && tokens != null)
+        if (context.TryGetAcssTokens(source, out var tokens) && tokens != null)
         {
             return tokens;
         }
 
-        if (File.Exists(standardPath) == false)
-        {
-            return Empty;
-        }
-
-        tokens = new AcssTokens(context, standardPath);
+        tokens = new AcssTokens(context, source);
         tokens.DoParsing();
 
-        context.TryAddAcssTokens(standardPath, tokens);
+        context.TryAddAcssTokens(source, tokens);
+
+        // TODO 取消事件绑定
+        source.SourceChanged -= tokens.SourceOnSourceChanged;
+        source.SourceChanged += tokens.SourceOnSourceChanged;
+        source.Attach(context);
 
         return tokens;
+    }
+
+    private void SourceOnSourceChanged(object? sender, EventArgs e)
+    {
+        this.OnFileChanged();
     }
 
     private CompositeDisposable? _disposable;
@@ -53,7 +55,7 @@ internal class AcssTokens : IDisposable
     private List<AcssTokens>? _relies;
     private List<AcssTokens>? _bases;
 
-    public string? StandardPath { get; set; }
+    public ISource Source { get; set; }
 
     /// <summary>
     /// Fires if the file changed.
@@ -61,75 +63,44 @@ internal class AcssTokens : IDisposable
     public event EventHandler? FileChanged;
 
     /// <summary>
-    /// Fires if the file changed. This is invoked after the <see cref="FileChanged"/>.
+    /// Fires if the rely file changed. This is invoked after the <see cref="FileChanged"/>.
     /// </summary>
-    public event EventHandler? FileChanged2;
+    public event EventHandler? RelyChanged;
 
     internal void OnFileChanged()
     {
         this.ReloadFromFile();
         FileChanged?.Invoke(this, EventArgs.Empty);
-        FileChanged2?.Invoke(this, EventArgs.Empty);
+        RelyChanged?.Invoke(this, EventArgs.Empty);
     }
 
     
-
-    private AcssTokens()
-    {
-        _context = null!;
-        StandardPath = null;
-    }
     
-    private AcssTokens(IAcssContext context, string standardPath)
+    private AcssTokens(IAcssContext context, ISource source)
     {
         _context = context;
-        StandardPath = standardPath;
+        Source   = source;
     }
 
     private void DoParsing()
     {
         Clear();
 
-        if (StandardPath == null || File.Exists(StandardPath) == false)
-        {
-            return;
-        }
-
-        string acssSource;
-        lock (this)
-        {
-            try
-            {
-                acssSource = File.ReadAllText(StandardPath);
-            }
-            catch
-            {
-                Thread.Sleep(20);
-                try
-                {
-                    acssSource = File.ReadAllText(StandardPath);
-                }
-                catch (Exception exception)
-                {
-                    this.WriteError(exception.ToString());
-                    return;
-                }
-            }
-        }
-
-        if (string.IsNullOrEmpty(acssSource))
+        var content = Source.GetSource();
+        if (string.IsNullOrEmpty(content))
         {
             return;
         }
 
         var parser = _context.GetService<IAcssParser>();
-        var acssSpan = parser.RemoveComments(acssSource.ToCharArray());
+        var acssSpan = parser.RemoveComments(content.ToCharArray());
         
         parser.ParseImportsBasesAndRelies(acssSpan, out var imports, out var bases, out var relies, out var contentSpan);
 
-        _imports = imports.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
-        _relies = relies.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
-        _bases = bases.Select(s => Get(_context, GetPathAlignToThis(s))).ToList();
+        var sourceFactory = _context.GetService<ISourceFactory>();
+        _imports  = imports.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
+        _relies   = relies.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
+        _bases    = bases.Select(s => Get(_context, sourceFactory.CreateDependentSource(Source, s, true))).Where(t => t != null).ToList()!;
         _sections = parser.ParseSections(this, null, contentSpan).ToList();
         
         foreach (var acssStyle in GetStyles())
@@ -140,48 +111,37 @@ internal class AcssTokens : IDisposable
         PrepareRelies();
     }
 
-    private string GetPathAlignToThis(string path)
-    {
-        if (File.Exists(path))
-        {
-            return path;
-        }
-
-        var dir = Path.GetDirectoryName(StandardPath);
-        return string.IsNullOrEmpty(dir) ? path : Path.Combine(dir, path);
-    }
-    
     private void PrepareRelies()
     {
         _disposable = new CompositeDisposable();
         _imports?.ForEach(r =>
         {
-            r.FileChanged2 -= OnImportChanged;
-            r.FileChanged2 += OnImportChanged;
+            r.RelyChanged -= OnImportChanged;
+            r.RelyChanged += OnImportChanged;
         });
         _relies?.ForEach(r =>
         {
-            r.FileChanged2 -= OnRelyChanged;
-            r.FileChanged2 += OnRelyChanged;
+            r.RelyChanged -= OnRelyChanged;
+            r.RelyChanged += OnRelyChanged;
         });
         _bases?.ForEach(r =>
         {
-            r.FileChanged2 -= OnBaseChanged;
-            r.FileChanged2 += OnBaseChanged;
+            r.RelyChanged -= OnBaseChanged;
+            r.RelyChanged += OnBaseChanged;
         });
         _disposable.Add(Disposable.Create(() =>
         {
             _imports?.ForEach(r =>
             {
-                r.FileChanged2 -= OnImportChanged;
+                r.RelyChanged -= OnImportChanged;
             });
             _relies?.ForEach(r =>
             {
-                r.FileChanged2 -= OnRelyChanged;
+                r.RelyChanged -= OnRelyChanged;
             });
             _bases?.ForEach(r =>
             {
-                r.FileChanged2 -= OnBaseChanged;
+                r.RelyChanged -= OnBaseChanged;
             });
         }));
     }
@@ -189,13 +149,13 @@ internal class AcssTokens : IDisposable
     private void OnImportChanged(object? sender, EventArgs e)
     {
         FileChanged?.Invoke(sender, e);
-        FileChanged2?.Invoke(sender, e);
+        RelyChanged?.Invoke(sender, e);
     }
     
     private void OnRelyChanged(object? sender, EventArgs e)
     {
         FileChanged?.Invoke(sender, e);
-        FileChanged2?.Invoke(sender, e);
+        RelyChanged?.Invoke(sender, e);
     }
     
     private void OnBaseChanged(object? sender, EventArgs e)
@@ -206,7 +166,7 @@ internal class AcssTokens : IDisposable
         }
         
         FileChanged?.Invoke(sender, e);
-        FileChanged2?.Invoke(sender, e);
+        RelyChanged?.Invoke(sender, e);
     }
 
     private void Clear()

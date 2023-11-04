@@ -180,6 +180,7 @@
                             </Panel>
                         </Panel>
                     </VisualLayerManager>
+                    <ContentControl Content="{TemplateBinding Mask}"/>
                     <Grid x:Name="ResizeThumbs"
                           ColumnDefinitions="6,*,6"
                           IsVisible="False"

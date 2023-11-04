@@ -9,8 +9,7 @@
              mc:Ignorable="d">
 
     <StackPanel>
-        <nlnet:Icon x:Name="WelcomeLogo"
-                    Width="200"
+        <nlnet:Icon Width="200"
                     Height="180"
                     HorizontalAlignment="Left"
                     IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg"

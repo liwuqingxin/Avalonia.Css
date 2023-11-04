@@ -20,7 +20,13 @@ namespace Nlnet.Avalonia.Css
         /// <returns></returns>
         public static Transitions? Parse(IAcssContext context, string valueString)
         {
-            var interpreter = context.GetService<IAcssInterpreter>();
+            var config = context.GetService<IAcssConfiguration>();
+            if (config.EnableTransitions == false)
+            {
+                return null;
+            }
+
+            var interpreter    = context.GetService<IAcssInterpreter>();
             var transitions    = new Transitions();
             var transitionList = valueString[1..^1].Trim().Split(';', StringSplitOptions.RemoveEmptyEntries);
             var app            = Checks.CheckApplication();

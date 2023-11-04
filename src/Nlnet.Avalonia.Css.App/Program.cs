@@ -31,7 +31,7 @@ namespace Nlnet.Avalonia.Css.App
                     typeof(App).WriteError(e.InnerException.ToString());
                 }
 
-                Logger.Sink?.Log(LogEventLevel.Error, nameof(Program), null, e.ToString());
+                Logger.Sink?.Log(LogEventLevel.Error, nameof(Program), null, "{0}, {1}", e, e.InnerException);
             }
         }
 

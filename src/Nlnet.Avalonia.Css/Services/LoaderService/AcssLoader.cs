@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Avalonia.Styling;
 
@@ -15,54 +13,37 @@ internal class AcssLoader : IAcssLoader
         _context = acssContext;
     }
 
-    public void Initialize()
+    void IService.Initialize()
     {
         
     }
 
-    IAcssFile? IAcssLoader.Load(Styles owner, string filePath, string? preferredPath, bool autoReloadWhenFileChanged)
+    IAcssFile? IAcssLoader.Load(Styles owner, ISource source)
     {
-        var path = filePath;
-        if (string.IsNullOrWhiteSpace(preferredPath) == false && File.Exists(preferredPath))
+        if (source.IsValid() == false)
         {
-            path = preferredPath;
+            return null;
         }
-        
-        path = path.GetStandardPath();
-        if (_context.TryGetAcssFile(path, out var file))
+
+        // TODO Check context but owner here. Should fix it?
+        if (_context.TryGetAcssFile(source, out var file))
         {
             return file;
         }
 
-        if (File.Exists(path) == false)
-        {
-            this.WriteError($"Can not find acss file {path}. Skip it.");
-            return null;
-        }
-
-        file = AcssFile.TryLoad(_context, owner, path, autoReloadWhenFileChanged);
+        file = AcssFile.TryLoad(_context, owner, source);
         _context.TryAddAcssFile(file);
         return file;
     }
 
-    IEnumerable<IAcssFile> IAcssLoader.LoadFolder(Styles owner, string folderPath, string? preferredPath, bool autoReloadWhenFileChanged)
+    IEnumerable<IAcssFile> IAcssLoader.LoadCollection(Styles owner, ISourceCollection sourceCollection)
     {
-        var path = folderPath;
-        if (string.IsNullOrWhiteSpace(preferredPath) == false && Directory.Exists(preferredPath))
+        if (sourceCollection.IsValid() == false)
         {
-            path = preferredPath;
-        }
-        
-        if (Directory.Exists(path) == false)
-        {
-            this.WriteError($"Can not find the folder '{path}'. Skip it.");
             return Enumerable.Empty<IAcssFile>();
         }
 
-        var files = new DirectoryInfo(path)
-            .GetFiles()
-            .Where(f => string.Equals(f.Extension, ".acss", StringComparison.InvariantCultureIgnoreCase));
-
-        return files.Select(f => ((IAcssLoader)this).Load(owner, f.FullName, preferredPath, autoReloadWhenFileChanged)).OfType<IAcssFile>().ToList();
+        var sources = sourceCollection.GetSources();
+        return sources.Select(s => ((IAcssLoader)this).Load(owner, s)).OfType<IAcssFile>().ToList();
     }
 }

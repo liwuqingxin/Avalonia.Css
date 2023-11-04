@@ -1,4 +1,6 @@
-﻿base ../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+﻿//base ../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+//base file://../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+base avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
 
 // Window
 NtWindow#RootWindow{
@@ -60,11 +62,11 @@ NtWindow#RootWindow{
         }
         
         // Welcome host.
-        NtWindow > Panel > Border#WelcomeHost{
+        NtWindow Border#WelcomeHost{
             Background: var(window-back);
         }
         // Animation to hide the welcome elements.
-        NtWindow > Panel > Border#WelcomeHost{
+        NtWindow Border#WelcomeHost{
             [[
                 ::animation[desc=Hide the welcome elements]{
                     IterationCount:1;
@@ -81,7 +83,7 @@ NtWindow#RootWindow{
             ]]
         }
         // Animation to show logo.
-        NtWindow > Panel > Border > Panel > Icon#WelcomeLogo{
+        NtWindow Icon#WelcomeLogo{
             Opacity:0;
             Width:200;
             Height:200;
@@ -182,7 +184,7 @@ NtWindow#RootWindow{
         }
 
         // Main layout.
-        NtWindow > Panel > Grid{
+        NtWindow > Grid#MainWindowLayoutRoot{
             Margin:8,8,0,0;
         }
         NtWindow Border#PageIconBorder{

@@ -11,4 +11,9 @@ public interface IAcssConfiguration : IService
     /// The theme that decides which accent color would be used.
     /// </summary>
     public string? Theme { get; set; }
+
+    /// <summary>
+    /// Indicates if enable transitions.
+    /// </summary>
+    public bool EnableTransitions { get; set; }
 }

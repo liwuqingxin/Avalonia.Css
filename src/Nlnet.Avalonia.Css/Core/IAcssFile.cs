@@ -8,9 +8,9 @@ namespace Nlnet.Avalonia.Css;
 public interface IAcssFile : IStyle
 {
     /// <summary>
-    /// The standard file path.
+    /// The <see cref="ISource"/>.
     /// </summary>
-    public string StandardFilePath { get; }
+    public ISource Source { get; }
 
     /// <summary>
     /// Reload this from the file.

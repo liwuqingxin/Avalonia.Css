@@ -1,6 +1,7 @@
 ﻿base ./Bases/Bases.acss;
+base ./Bases/SelectedPipeAnimation.acss;
 
-^TabItem @extend(.corner, .align){
+^TabItem @extend(.corner, .align, .selected-pipe-animation){
     Foreground: var(fore);
     Background: Transparent;
     Opacity: 1;
@@ -17,32 +18,6 @@
          /template/ ContentPresenter#PART_ContentPresenter{
             Padding:10,0;
         }
-         /template/ Border#PART_SelectedPipe{
-            Background: var(Accent);
-            Opacity:0;
-            Margin:1;
-            RenderTransform: scale(0,0);
-            Transitions:[
-                var(stRenderTransform);
-                var(stOpacity);
-            ]
-        }
-        :selected /template/ Border#PART_SelectedPipe{
-            RenderTransform: scale(1,1);
-            Opacity:1;
-        }
-        [TabStripPlacement=Top]:selected:pointerover /template/ Border#PART_SelectedPipe, [TabStripPlacement=Bottom]:selected:pointerover /template/ Border#PART_SelectedPipe{
-            RenderTransform: scale(0.94,1);
-            Opacity:1;
-        }
-        [TabStripPlacement=Left]:selected:pointerover /template/ Border#PART_SelectedPipe, [TabStripPlacement=Right]:selected:pointerover /template/ Border#PART_SelectedPipe{
-            RenderTransform: scale(1,1.4);
-            Opacity:1;
-        }
-        :pointerover:pressed /template/ Border#PART_SelectedPipe{
-            RenderTransform: scale(1,1);
-            Opacity:1;
-        }
         [TabStripPlacement=Left] /template/ Border#PART_SelectedPipe{
             Width: 3;
             Height: 16;
@@ -56,20 +31,6 @@
             CornerRadius: 4;
             HorizontalAlignment: Right;
             VerticalAlignment: Center;
-        }
-        [TabStripPlacement=Top] /template/ Border#PART_SelectedPipe{
-            Height: 1;
-            Margin:4,0;
-            CornerRadius: 4;
-            HorizontalAlignment: Stretch;
-            VerticalAlignment: Bottom;
-        }
-        [TabStripPlacement=Bottom] /template/ Border#PART_SelectedPipe{
-            Height: 1;
-            Margin:4,0;
-            CornerRadius: 4;
-            HorizontalAlignment: Stretch;
-            VerticalAlignment: Top;
         }
 
          /template/ ContentControl#PART_IconContent{

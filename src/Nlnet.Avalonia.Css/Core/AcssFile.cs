@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Avalonia;
 using Avalonia.Styling;
@@ -9,47 +8,31 @@ using Avalonia.Threading;
 namespace Nlnet.Avalonia.Css
 {
     /// <summary>
-    /// An acss style instance that associated to a .acss file.
+    /// An acss style instance that associated to a .acss source.
     /// </summary>
     internal sealed class AcssFile : Styles, IAcssFile, IDisposable
     {
         #region Static
 
         /// <summary>
-        /// Load a avalonia css style from an acss file synchronously.
+        /// Load an avalonia css style from an acss source synchronously.
         /// </summary>
         /// <param name="context"></param>
         /// <param name="owner"></param>
-        /// <param name="standardFilePath"></param>
-        /// <param name="autoLoadWhenFileChanged"></param>
+        /// <param name="source"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">UI thread required.</exception>
-        internal static AcssFile TryLoad(IAcssContext context, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged = true)
+        internal static AcssFile TryLoad(IAcssContext context, Styles owner, ISource source)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
                 throw new InvalidOperationException($"{nameof(TryLoad)}() must be called in ui thread.");
             }
 
-            var styleFile = CreateStyles(context, owner, standardFilePath, autoLoadWhenFileChanged);
+            var styleFile = new AcssFile(context, owner, source);
             styleFile.Load(owner, false);
 
             return styleFile;
-        }
-
-        private static AcssFile CreateStyles(IAcssContext context, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
-        {
-            if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == standardFilePath) is { } exist)
-            {
-                return exist;
-            }
-
-            if (File.Exists(standardFilePath) == false)
-            {
-                throw new FileNotFoundException($"Can not find the acss file '{standardFilePath}'.");
-            }
-
-            return new AcssFile(context, owner, standardFilePath, autoLoadWhenFileChanged);
         }
 
         #endregion
@@ -61,11 +44,11 @@ namespace Nlnet.Avalonia.Css
         private CompositeDisposable? _disposable;
         private AcssTokens? _tokens;
 
-        private AcssFile(IAcssContext context, Styles owner, string standardFilePath, bool autoLoadWhenFileChanged)
+        private AcssFile(IAcssContext context, Styles owner, ISource source)
         {
             _context = context;
-            _owner = owner;
-            StandardFilePath = standardFilePath;
+            _owner   = owner;
+            Source   = source;
         }
 
         private void Load(Styles styles, bool reapplyStyle)
@@ -73,12 +56,16 @@ namespace Nlnet.Avalonia.Css
             var index = styles.IndexOf(this);
             
             _disposable?.Dispose();
-            _disposable = null;
-            _disposable ??= new CompositeDisposable();
+            _disposable = new CompositeDisposable();
 
             try
             {
-                _tokens = AcssTokens.Get(_context, StandardFilePath);
+                _tokens = AcssTokens.Get(_context, Source);
+                if (_tokens == null)
+                {
+                    return;
+                }
+
                 _tokens.FileChanged -= TokensOnFileChanged;
                 _tokens.FileChanged += TokensOnFileChanged;
 
@@ -169,6 +156,7 @@ namespace Nlnet.Avalonia.Css
                     this.Resources.ThemeDictionaries.Clear();
                     this.Resources.MergedDictionaries.Clear();
 
+                    // TODO Should dispose token's styles?
                     foreach (var acssStyle in _tokens.GetStyles())
                     {
                         acssStyle.Dispose();
@@ -189,7 +177,7 @@ namespace Nlnet.Avalonia.Css
                 this.WriteError(e.ToString());
                 
                 // TODO DELETE WHEN RLS.
-                Dispatcher.UIThread.Post(() => throw e);
+                Dispatcher.UIThread.Post(() => throw new Exception("Something wrong in acss. Please check the inner exception.", e));
             }
         }
 
@@ -205,14 +193,14 @@ namespace Nlnet.Avalonia.Css
 
         public override string ToString()
         {
-            return $"{nameof(AcssFile)} {StandardFilePath}";
+            return $"{nameof(AcssFile)} {Source}";
         }
 
 
 
         #region IAcssFile
 
-        public string StandardFilePath { get; }
+        public ISource Source { get; }
 
         public void Reload(bool reapplyStyle)
         {
@@ -224,6 +212,8 @@ namespace Nlnet.Avalonia.Css
             this.Dispose();
 
             _context.TryRemoveAcssFile(this);
+
+            // TODO What about tokens and source?
         }
 
         #endregion
