@@ -106,22 +106,33 @@
                    Text="The Button control provides a Click event to respond to user input from a touch, mouse, keyboard, stylus, or other input device. You can put different kinds of content in a button, such as text or an image, or you can restyle a button to give it a new look."
                    TextWrapping="Wrap" />
 
-        <app:IndependentCase Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
-            <Button Classes="primary" Content="Primary Button" ToolTip.Tip="This is button with classes='Primary'."/>
-        </app:IndependentCase>
-
-        <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
-            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" ToolTip.Tip="This is button with fluent:ButtonStyles.Style='Accent'."/>
-        </app:IndependentCase>
-
         <app:IndependentCase Header="Normal button.">
             <Button Content="Cancel" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Normal button with class = 'Secondary'.">
+			<StackPanel Orientation="Horizontal">
+                <Button Content="No" Classes="Secondary"/>
+                <Button Content="Cancel" Classes="Secondary"/>
+			</StackPanel>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Normal button with name = 'CancelButton'.">
+            <Button Content="Cancel" Name="CancelButton"/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Button with a image as content.">
             <Button Width="44" Height="44">
                 <Image Source="/Assets/orange.png" />
             </Button>
+        </app:IndependentCase>
+
+        <app:IndependentCase Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
+            <Button Classes="primary" Content="Primary Button" ToolTip.Tip="This is button with classes='Primary'."/>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
+            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" ToolTip.Tip="This is button with fluent:ButtonStyles.Style='Accent'."/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Button with ContextMenu and Flyout.">
