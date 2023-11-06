@@ -5,24 +5,24 @@
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:nlnet="https://www.nlnet.com/avalonia"
                 xmlns:views="clr-namespace:Nlnet.Avalonia.Css.Samples.Views"
-                xmlns:vm="using:Nlnet.Avalonia.Css.Samples.ViewModels"
                 Title="Nlnet.Avalonia.Css.Samples"
-                d:DesignHeight="450"
-                d:DesignWidth="800"
+                Width="600"
+                Height="450"
                 Icon="/Assets/avalonia-logo.ico"
-                TitleHeight="80"
+                TitleHeight="100"
+                WindowStartupLocation="CenterScreen"
                 mc:Ignorable="d">
     <nlnet:NtWindow.TitleContent>
         <StackPanel Margin="12"
                     Orientation="Horizontal"
                     Spacing="24">
-            <Image Width="60"
-                   Height="60"
+            <Image Width="80"
+                   Height="80"
                    VerticalAlignment="Center"
                    RenderOptions.BitmapInterpolationMode="HighQuality"
                    Source="/Assets/avalonia-logo.ico"
                    Stretch="Uniform" />
-            <TextBlock VerticalAlignment="Center" Text="Use Acss Fluent Theme" />
+            <TextBlock VerticalAlignment="Center" Text="Fluent Theme Powered by Acss" />
         </StackPanel>
     </nlnet:NtWindow.TitleContent>
     <views:MainView />

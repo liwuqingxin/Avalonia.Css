@@ -21,6 +21,6 @@ class Program
             .WithInterFont()
             .LogToTrace()
             .UseReactiveUI()
-            .UseAcssDefaultBuilder()
-            .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<App>());
+            .UseAcssDefaultContext()
+            .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<App>());
 }
