@@ -5,22 +5,20 @@ namespace Nlnet.Avalonia.Css
 {
     internal interface IAcssSection
     {
-        public IAcssBuilder AcssBuilder { get; }
-
-        public string Selector { get; set; }
-
         public IAcssSection? Parent { get; set; }
 
         public IEnumerable<IAcssSection>? Children { get; set; }
 
         public void InitialSection(IAcssParser parser, ReadOnlySpan<char> content);
+        
+        IAcssSection Clone();
     }
 
     internal abstract class AcssSection : IAcssSection
     {
-        public IAcssBuilder AcssBuilder { get; }
+        protected readonly IAcssContext Context;
 
-        public string Selector { get; set; }
+        public string Header { get; set; }
 
         public IAcssSection? Parent { get; set; }
 
@@ -28,10 +26,12 @@ namespace Nlnet.Avalonia.Css
 
         public abstract void InitialSection(IAcssParser parser, ReadOnlySpan<char> content);
 
-        protected AcssSection(IAcssBuilder acssBuilder, string selector)
+        public abstract IAcssSection Clone();
+
+        protected AcssSection(IAcssContext context, string header)
         {
-            AcssBuilder = acssBuilder;
-            Selector    = selector.Trim();
+            Context = context;
+            Header = header.Trim();
         }
     }
 }

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using DynamicData;
+using Nlnet.Avalonia.Css.App.Views;
 using Nlnet.Avalonia.Css.Fluent;
 using Nlnet.Avalonia.SampleAssistant;
 
@@ -12,29 +14,22 @@ namespace Nlnet.Avalonia.Css.App
 {
     public class MainWindowViewModel : NotifyPropertyChanged
     {
-        private ThemeVariant _mode      = ThemeVariant.Light;
-        private string?      _theme     = "green";
+        private readonly IMainViewService _viewService;
+        private ThemeVariant _theme     = ThemeVariant.Light;
+        private string?      _accent    = "green";
         private bool         _isLoading = true;
         private bool         _isLocalDark;
-        private bool         _isBeforeLoadedAcssFileLoaded = true;
+        private bool         _isEnabled = true;
+        private GalleryItem? _selectedGalleryItem;
+        private GalleryItem? _delaySelectedGalleryItem;
 
         public  List<ThemeVariant> Modes { get; set; }
 
-        public List<string> Themes { get; set; }
+        public List<string> Accents { get; set; }
 
-        public ThemeVariant Mode
-        {
-            get => _mode;
-            set
-            {
-                if (value == _mode)
-                    return;
-                _mode = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? Theme
+        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
+        
+        public ThemeVariant Theme
         {
             get => _theme;
             set
@@ -42,6 +37,18 @@ namespace Nlnet.Avalonia.Css.App
                 if (value == _theme)
                     return;
                 _theme = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string? Accent
+        {
+            get => _accent;
+            set
+            {
+                if (value == _accent)
+                    return;
+                _accent = value;
                 OnPropertyChanged();
             }
         }
@@ -70,17 +77,58 @@ namespace Nlnet.Avalonia.Css.App
             }
         }
 
-        public ObservableCollection<GalleryItem>? GalleryItems { get; set; }
-
-        public MainWindowViewModel()
+        public bool IsEnabled
         {
+            get => _isEnabled;
+            set
+            {
+                if (value == _isEnabled) return;
+                _isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public GalleryItem? SelectedGalleryItem
+        {
+            get => _selectedGalleryItem;
+            set
+            {
+                if (Equals(value, _selectedGalleryItem)) return;
+                _selectedGalleryItem = value;
+                OnPropertyChanged();
+                
+                DelaySelectedGalleryItem = null;
+                IsLoading = true;
+                Dispatcher.UIThread.Post(() =>
+                {
+                    DelaySelectedGalleryItem = value;
+                    IsLoading = false;
+                }, DispatcherPriority.ApplicationIdle);
+            }
+        }
+
+        public GalleryItem? DelaySelectedGalleryItem
+        {
+            get => _delaySelectedGalleryItem;
+            set
+            {
+                if (Equals(value, _delaySelectedGalleryItem)) return;
+                _delaySelectedGalleryItem = value;
+                OnPropertyChanged();
+                _viewService.ScrollToHome();
+            }
+        }
+
+        public MainWindowViewModel(IMainViewService viewService)
+        {
+            _viewService = viewService;
             Modes = new List<ThemeVariant>()
             {
                 ThemeVariant.Light,
                 ThemeVariant.Dark,
             };
 
-            Themes = new List<string>()
+            Accents = new List<string>()
             {
                 "blue",
                 "red",
@@ -112,27 +160,37 @@ namespace Nlnet.Avalonia.Css.App
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName is nameof(Theme))
+            switch (propertyName)
             {
-                AcssBuilder.Default.Configuration.Theme = Theme;
-
-                var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
-                
-                // TODO 关联性更新，使用import；
-                cssTheme?.UpdateTheme(false);
-                cssTheme?.UpdateResource(false);
-                cssTheme?.UpdateMode(false);
-            }
-            else if (propertyName is nameof(Mode))
-            {
-                if (Application.Current != null)
+                case nameof(Accent):
                 {
-                    Application.Current.RequestedThemeVariant = Mode;
+                    var cfg = AcssContext.Default.GetService<IAcssConfiguration>();
+                    cfg.Accent = Accent;
+
+                    var cssTheme = Application.Current?.Styles.FirstOrDefault(s => s is AcssFluentTheme) as AcssFluentTheme;
+                
+                    cssTheme?.UpdateThemeColor(false);
+                    break;
+                }
+                case nameof(Theme):
+                {
+                    if (Application.Current != null)
+                    {
+                        Application.Current.RequestedThemeVariant = Theme;
+                    }
+
+                    break;
                 }
             }
         }
 
-        public void ToggleBeforeLoadedAcssFile()
+
+        
+        #region Toggle Acss
+
+        private bool _isBeforeLoadedAcssFileLoaded = true;
+
+        public void ToggleAppAcssFile()
         {
             if (Application.Current is not App app)
             {
@@ -149,5 +207,21 @@ namespace Nlnet.Avalonia.Css.App
             }
             _isBeforeLoadedAcssFileLoaded = !_isBeforeLoadedAcssFileLoaded;
         }
+
+        #endregion
+
+
+
+        #region Enable Transitions
+
+        private bool _isTransitionsEnabled = true;
+
+        public void ToggleTransitions()
+        {
+            _isTransitionsEnabled = !_isTransitionsEnabled;
+            AcssContext.Default.EnableTransitions(_isTransitionsEnabled);
+        }
+
+        #endregion
     }
 }

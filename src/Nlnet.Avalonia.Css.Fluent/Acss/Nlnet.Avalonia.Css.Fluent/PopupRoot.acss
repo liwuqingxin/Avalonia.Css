@@ -1,16 +1,46 @@
 ﻿^PopupRoot {
     Background:var(item-back);
     [[
-        /template/ Border#PopupBorder{
+        /template/ RollingBorder#PopupBorder{
             CornerRadius: 6;
             BorderThickness: 1;
             Margin: 10,3,10,30;
-            BorderBrush:var(control-border);
+            BorderBrush:var(ctrl-border);
             ClipToBounds:False;
             Padding:0;
             RenderTransformOrigin:0%,0%;
         }
-        [(PopupStyles.Style)=Slide] /template/ Border#PopupBorder{
+        [(PopupStyles.Style)=Roll] /template/ RollingBorder#PopupBorder{
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:.4';
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            Opacity: 0;
+                            Percent: 65;
+                            BoxShadow: var(popup-none);
+                        ]
+                        KeyFrame:(20%)[
+                            Opacity: 1;
+                        ]
+                        KeyFrame:(60%)[
+                            Opacity: 1;
+                            BoxShadow: var(popup-none);
+                        ]
+                        KeyFrame:(90% .6,.4,.6,.4)[
+                            Percent: 100;
+                        ]
+                        KeyFrame:(100%)[
+                            Percent: 100;
+                            BoxShadow: var(popup-shadow);
+                        ]
+                    ]
+                }
+            ]] 
+        }
+        [(PopupStyles.Style)=Slide] /template/ RollingBorder#PopupBorder{
             Opacity:0;
             [[
                 ::animation{
@@ -18,44 +48,49 @@
                     IterationCount:1;
                     Duration:'0:0:.4';
                     KeyFrames:[
-                        KeyFrame:(0% 0,1,0.5,1)[
+                        KeyFrame:(0%)[
                             Opacity:0;
                             TranslateTransform.Y:-220;
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(80% 0,1,0.5,1)[
-                            Opacity:1;
-                            TranslateTransform.Y:0;
+                        KeyFrame:(50% .4,.95,.4,.95)[
                             BoxShadow: var(popup-none);
                         ]
-                        KeyFrame:(100%)[
+                        KeyFrame:(50% .4,.95,.4,.95)[
+                            Opacity:1;
+                            TranslateTransform.Y:0;
+                        ]
+                        KeyFrame:(100% .4,.95,.4,.95)[
                             Opacity:1;
                             TranslateTransform.Y:0;
                             BoxShadow: var(popup-shadow);
                         ]
                     ]
                 }
-            ]]
+            ]] 
         }
-        [(PopupStyles.Style)=Fade] /template/ Border#PopupBorder{
+        [(PopupStyles.Style)=Fade] /template/ RollingBorder#PopupBorder{
             Opacity:0;
+            CornerRadius: 8;
             BoxShadow: var(popup-shadow);
             RenderTransformOrigin: 50%,50%;
             [[
                 ::animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:.12';
+                    Duration:'0:0:.2';
                     KeyFrames:[
                         KeyFrame:(0%)[
                             Opacity:0;
-                            ScaleTransform.ScaleX:0.96;
-                            ScaleTransform.ScaleY:0.96;
+                            ScaleTransform.ScaleX:0.8;
+                            ScaleTransform.ScaleY:0.8;
+                            TranslateTransform.Y:-20;
                         ]
                         KeyFrame:(100% 0,1,1,1)[
                             Opacity:1;
                             ScaleTransform.ScaleX:1;
                             ScaleTransform.ScaleY:1;
+                            TranslateTransform.Y:0;
                         ]
                     ]
                 }

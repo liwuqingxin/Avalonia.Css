@@ -21,7 +21,7 @@
         }
         /template/ Rectangle#PART_BottomGridLine{
             Height: 1;
-            Fill: var(control-border);
+            Fill: var(ctrl-border);
         }
     ]]
 }

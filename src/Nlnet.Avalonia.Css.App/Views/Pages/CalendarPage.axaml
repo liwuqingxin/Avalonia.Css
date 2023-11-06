@@ -16,7 +16,7 @@
 
     <StackPanel>
         <TextBlock x:Name="PageDescription"
-                   Text="CalendarView shows a larger view for showing and selecting dates.DatePicker by contrast has a compact view with inline selection."
+                   Text="CalendarView shows a larger view for showing and selecting dates. DatePicker by contrast has a compact view with inline selection."
                    TextWrapping="Wrap" />
 
         <app:IndependentCase Header="DatePicker with SelectedData binding to ViewModel.">

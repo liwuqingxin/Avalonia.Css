@@ -1,12 +1,26 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Styling;
-using Avalonia.Threading;
+using Nlnet.Avalonia.SampleAssistant;
+using Nlnet.Avalonia.Svg.Controls;
 using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
 {
+    public static class DebugThing
+    {
+        public static string? PreferLocalPath { get; set; }
+
+        static DebugThing()
+        {
+#if DEBUG
+            PreferLocalPath = "../../src/Nlnet.Avalonia.Css.Fluent/";
+#else
+            PreferLocalPath = null;
+#endif
+        }
+    }
+
     public partial class App : Application
     {
         public IAcssFile? AppCssFile;
@@ -17,37 +31,45 @@ namespace Nlnet.Avalonia.Css.App
             AppLoader.Load("Nlnet.Avalonia.Svg.dll");
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
-            AcssBuilder.UseDefaultBuilder();
+            AcssContext.UseDefaultContext();
 
-            // Set the current mode and theme.
-            AcssBuilder.Default.Configuration.Theme = "green";
+            var typeResolverManager = AcssContext.Default.GetService<ITypeResolverManager>();
+            var loader = AcssContext.Default.GetService<IAcssLoader>();
+            var cfg = AcssContext.Default.GetService<IAcssConfiguration>();
+            var riderBuilder = AcssContext.Default.GetService<IRiderSettingsBuilder>();
+
+
+            // Set the current theme.
+            cfg.Accent = "green";
+            cfg.EnableTransitions = true;
 
             // Type resolver for Nlnet.Avalonia.Css.App
-            //CssBuilder.Default.LoadResolver(new GenericResolver<App>());
+            typeResolverManager.LoadResolver(new GenericTypeResolver<App>());
 
             // Type resolver for Nlnet.Avalonia.Svg
-            //CssBuilder.Default.LoadResolver(new GenericResolver<Icon>());
+            typeResolverManager.LoadResolver(new GenericTypeResolver<Icon>());
 
             // Type resolver for Nlnet.Avalonia.SampleAssistant
-            //CssBuilder.Default.LoadResolver(new GenericResolver<Case>());
+            typeResolverManager.LoadResolver(new GenericTypeResolver<Case>());
 
             // Load this. In this, CssFluentTheme will be loaded.
             AvaloniaXamlLoader.Load(this);
 
             // Build the rider settings file.
-            AcssBuilder.Default.TryBuildRiderSettingsForAcss(out _, out _, null);
+            riderBuilder.TryBuildRiderSettingsForAcss(out _, out _, null);
 
             if (Application.Current != null)
             {
                 // Load application acss files.
-                var loader = AcssBuilder.Default.BuildLoader();
                 const string debugRelative = "../../src/Nlnet.Avalonia.Css.App/";
 
-                loader.Load(Application.Current.Styles, "Acss/Case.acss", $"{debugRelative}Acss/", true);
-                loader.Load(Application.Current.Styles, "Acss/CodeEditor.acss", $"{debugRelative}Acss/", true);
-                
-                AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", $"{debugRelative}Acss/", true);
-                loader.Load(Application.Current.Styles, "Acss/pages.acss", $"{debugRelative}Acss/", true);
+                loader.Load(Application.Current.Styles, new FileSource("Acss/Case.acss", $"{debugRelative}Acss/Case.acss"));
+                loader.Load(Application.Current.Styles, new FileSource("Acss/CodeEditor.acss", $"{debugRelative}Acss/CodeEditor.acss"));
+                loader.Load(Application.Current.Styles, new FileSource("Acss/Pages.acss", $"{debugRelative}Acss/Pages.acss"));
+
+                loader.LoadCollection(Application.Current.Styles, new FileSourceCollection("Acss/AutoLoad"));
+
+                LoadAppCssFile();
             }
         }
 
@@ -58,9 +80,9 @@ namespace Nlnet.Avalonia.Css.App
                 return;
             }
 
-            var loader = AcssBuilder.Default.BuildLoader();
+            var loader = AcssContext.Default.GetService<IAcssLoader>();
             const string debugRelative = "../../src/Nlnet.Avalonia.Css.App/";
-            AppCssFile = loader.Load(Application.Current.Styles, "Acss/app.acss", debugRelative);
+            AppCssFile = loader.Load(Application.Current.Styles, new FileSource("Acss/App.acss", $"{debugRelative}Acss/App.acss"));
         }
 
         public override void OnFrameworkInitializationCompleted()

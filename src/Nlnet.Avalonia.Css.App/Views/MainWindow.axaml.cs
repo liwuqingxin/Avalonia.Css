@@ -1,27 +1,25 @@
-using System.Linq;
-using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 using Nlnet.Avalonia.DevTools;
 using Nlnet.Avalonia.Senior.Controls;
-using SelectionChangedEventArgs = Avalonia.Controls.SelectionChangedEventArgs;
 
 namespace Nlnet.Avalonia.Css.App.Views
 {
-    public partial class MainWindow : NtWindow
+    public interface IMainViewService
     {
-        private readonly TabControl _mainTab;
-
+        public void ScrollToHome();
+    }
+    
+    public partial class MainWindow : NtWindow, IMainViewService
+    {
         public MainWindow()
         {
             InitializeComponent(true);
 
-            this.DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(this);
 
-            _mainTab = this.FindControl<TabControl>("MainTabControl")!;
-
-            AvaloniaDevTools.UseDevTools(this);
+            this.UseDevTools();
         }
 
         protected override void OnLoaded(RoutedEventArgs e)
@@ -34,21 +32,17 @@ namespace Nlnet.Avalonia.Css.App.Views
             }
         }
 
-        private void MainTabControl_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+        void IMainViewService.ScrollToHome()
         {
-            if (!Equals(e.Source, _mainTab))
-            {
-                return;
-            }
-
-            // TODO 这里为何不能直接使用MainTabControl
             Dispatcher.UIThread.Post(() =>
             {
-                _mainTab.GetVisualDescendants()
-                    .OfType<ScrollViewer>()
-                    .FirstOrDefault(s => s.Name == "MainContentScrollViewer")
-                    ?.ScrollToHome();
+                MainContentScrollViewer?.ScrollToHome();
             });
+        }
+
+        private void WelcomeHost_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            this.BeginMoveDrag(e);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Avalonia.Animation;
@@ -13,62 +14,75 @@ namespace Nlnet.Avalonia.Css
     internal class AcssAnimation : AcssSection, IAcssAnimation
     {
         private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
-
-        private readonly IAcssBuilder _builder;
-
-        private Animation? _animation;
+        
+        private List<(string, string)>? _setters;
+        private Type? _selectorTargetType;
 
         public string? Description { get; set; }
 
-        public AcssAnimation(IAcssBuilder builder, string selector) : base(builder, selector)
+        public AcssAnimation(IAcssContext context, string header) : base(context, header)
         {
-            _builder = builder;
+            
         }
 
         public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
         {
-            var matchDesc = RegexDescription.Match(Selector);
+            var matchDesc = RegexDescription.Match(Header);
             if (matchDesc.Success)
             {
                 Description = matchDesc.Groups[1].Value;
             }
 
-            if (Parent is not IAcssStyle style)
+            _setters = parser.ParsePairs(content).ToList();
+        }
+
+        public override IAcssSection Clone()
+        {
+            var acssAnimation = new AcssAnimation(Context, Header)
             {
-                this.WriteError($"The parent of {nameof(AcssAnimation)} must be {nameof(AcssStyle)}. Skip it.");
-                return;
-            }
+                _setters = _setters,
+                _selectorTargetType = _selectorTargetType,
+                Description = Description,
+                Parent = Parent,
+                Children = Children,
+            };
             
-            var selectorTargetType = style.GetTargetType();
-            if (selectorTargetType == null)
-            {
-                this.WriteError($"The target type of the style is null. Skip it [{Description}].");
-                return;
-            }
-
-            _animation = new Animation();
-
-            var interpreter = _builder.Interpreter;
-            var setters     = parser.ParsePairs(content).ToList();
-            
-            _animation.ApplySetters(interpreter, setters, nameof(Animation.Children));
-
-            var childrenSetter = setters.FirstOrDefault(s => s.Item1 is nameof(Animation.Children) or nameof(KeyFrames));
-            var keyFrames      = interpreter.ParseKeyFrames(selectorTargetType, childrenSetter.Item2)?.ToList();
-            if (keyFrames == null || keyFrames.Count == 0)
-            {
-                this.WriteWarning($"No key frames detected in animation '{Description}'.");
-                _animation = null;
-            }
-            else
-            {
-                _animation.Children.AddRange(keyFrames);
-            }
+            return acssAnimation;
         }
 
         public IAnimation? ToAvaloniaAnimation()
         {
-            return _animation;
+            if (Parent is not IAcssStyle style)
+            {
+                this.WriteError($"The parent of {nameof(AcssAnimation)} must be {nameof(AcssStyle)}. Skip it.");
+                return null;
+            }
+
+            _selectorTargetType = style.GetTargetType();
+            if (_selectorTargetType == null)
+            {
+                this.WriteError($"The target type of the style is null. Skip it [{Description}].");
+                return null;
+            }
+            
+            var animation = new Animation();
+            var interpreter = Context.GetService<IAcssInterpreter>();
+
+            animation.ApplySetters(interpreter, _setters!, nameof(Animation.Children));
+
+            var childrenSetter = _setters!.FirstOrDefault(s => s.Item1 is nameof(Animation.Children) or nameof(KeyFrames));
+            var keyFrames = interpreter.ParseKeyFrames(_selectorTargetType!, childrenSetter.Item2)?.ToList();
+            if (keyFrames == null || keyFrames.Count == 0)
+            {
+                this.WriteWarning($"No key frames detected in animation '{Description}'.");
+                return null;
+            }
+            else
+            {
+                animation.Children.AddRange(keyFrames);
+            }
+
+            return animation;
         }
 
         public override string ToString()

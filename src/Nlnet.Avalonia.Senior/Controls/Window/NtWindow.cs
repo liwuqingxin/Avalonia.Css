@@ -25,13 +25,21 @@ namespace Nlnet.Avalonia.Senior.Controls
         public static readonly StyledProperty<double> TitleHeightProperty = AvaloniaProperty
             .Register<NtWindow, double>(nameof(TitleHeight), 40d);
 
-        public object TitleContent
+        public object? TitleContent
         {
             get { return GetValue(TitleContentProperty); }
             set { SetValue(TitleContentProperty, value); }
         }
-        public static readonly StyledProperty<object> TitleContentProperty = AvaloniaProperty
-            .Register<NtWindow, object>(nameof(TitleContent));
+        public static readonly StyledProperty<object?> TitleContentProperty = AvaloniaProperty
+            .Register<NtWindow, object?>(nameof(TitleContent));
+
+        public object? Mask
+        {
+            get { return GetValue(MaskProperty); }
+            set { SetValue(MaskProperty, value); }
+        }
+        public static readonly StyledProperty<object?> MaskProperty = AvaloniaProperty
+            .Register<NtWindow, object?>(nameof(Mask));
 
         public bool UseFullScreenButton
         {

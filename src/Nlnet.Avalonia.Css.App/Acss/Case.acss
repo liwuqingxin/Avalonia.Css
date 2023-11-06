@@ -10,7 +10,7 @@
         }
         /template/ Border#ContentBack{
             Background:var(window-back);
-            BorderBrush:var(control-border);
+            BorderBrush:var(ctrl-border);
             MinHeight:80;
             BorderThickness: 1,1,1,0;
             CornerRadius: 6,6,0,0;
@@ -28,8 +28,8 @@
             Margin:1,1,1,0;
             CornerRadius:0,6,0,0;
             BorderThickness:1,0,0,0;
-            BorderBrush:var(control-border);
-            Background:var(control-back);
+            BorderBrush:var(ctrl-border);
+            Background:var(ctrl-back);
         }
         /template/ Expander#SourceCodeExpander{
             HorizontalAlignment: Stretch;

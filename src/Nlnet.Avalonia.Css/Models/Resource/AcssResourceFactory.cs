@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Nlnet.Avalonia.Css;
 
-internal interface IAcssResourceFactory
+internal interface IAcssResourceFactory : IService
 {
     public bool TryGetResourceInstance(string def, string value, out AcssResource? resource);
 }
@@ -15,11 +15,11 @@ internal interface IAcssResourceFactory
 
 internal class AcssResourceFactory : IAcssResourceFactory
 {
-    private readonly IAcssBuilder _builder;
+    private readonly IAcssContext _context;
 
     private static readonly Dictionary<string, IResourceFactory> Factories = new(StringComparer.OrdinalIgnoreCase);
 
-    private static readonly Regex Regex = new Regex("^\\s*(.*)\\s*\\((.*)\\)", RegexOptions.IgnoreCase);
+    private static readonly Regex Regex = new("^\\s*(.*)\\s*\\((.*)\\)", RegexOptions.IgnoreCase);
 
     static AcssResourceFactory()
     {
@@ -46,9 +46,14 @@ internal class AcssResourceFactory : IAcssResourceFactory
         }
     }
 
-    public AcssResourceFactory(IAcssBuilder builder)
+    public AcssResourceFactory(IAcssContext context)
     {
-        _builder = builder;
+        _context = context;
+    }
+
+    public void Initialize()
+    {
+
     }
 
     public bool TryGetResourceInstance(string def, string value, out AcssResource? resource)
@@ -67,7 +72,7 @@ internal class AcssResourceFactory : IAcssResourceFactory
         if (Factories.TryGetValue(type, out var factory))
         {
             resource = factory.Create();
-            resource.AcceptCore(_builder, key, value);
+            resource.Accept(key, value);
             return true;
         }
 

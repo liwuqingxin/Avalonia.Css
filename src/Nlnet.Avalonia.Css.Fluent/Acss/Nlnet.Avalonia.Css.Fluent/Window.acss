@@ -2,6 +2,7 @@
     Background: var(window-back);
     TransparencyBackgroundFallback: Transparent;
     Foreground: var(fore);
-    TopLevel.SystemBarColor: var(control-back);
+    TopLevel.SystemBarColor: var(ctrl-back);
     ScrollViewer.IsScrollChainingEnabled: True;
+    PopupStyles.Style: Fade;
 }

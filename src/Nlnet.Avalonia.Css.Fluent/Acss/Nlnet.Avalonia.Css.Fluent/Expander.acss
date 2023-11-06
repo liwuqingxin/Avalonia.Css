@@ -1,48 +1,96 @@
-﻿
-^Expander {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border);
-    BorderThickness: 1;
-    CornerRadius: 6;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^Expander @extend(.box){
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Stretch;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Stretch;
     ClipToBounds:False;
     IsTabStop:false;
 
     [[
         :pressed{
-            BorderBrush: var(control-border-pressed-fluent);
+            BorderBrush: var(fluent-ctrl-border-pressed);
         }
-        /* Use animation to set visibility */
-        :expanded /template/ Border#ExpanderContent{
+        
+        /* Use animation for content translation */
+        :expanded:down /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
             [[
                 ::animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:0.1';
+                    Duration:'0:0:0.4';
                     KeyFrames:[
-                        KeyFrame:(100%)[
-                            IsVisible:True;
+                        KeyFrame:(0%)[
+                            TranslateTransform.Y : -4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.Y : -4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.Y : 0;
                         ]
                     ]
                 }
             ]]
         }
-        :not(:expanded) /template/ Border#ExpanderContent{
+        :expanded:up /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
             [[
                 ::animation{
                     FillMode:Forward;
                     IterationCount:1;
-                    Duration:'0:0:0.2';
+                    Duration:'0:0:0.4';
                     KeyFrames:[
-                        KeyFrame:(100%)[
-                            IsVisible:False;
+                        KeyFrame:(0%)[
+                            TranslateTransform.Y : 4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.Y : 4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.Y : 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :expanded:right /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            TranslateTransform.X : -4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.X : -4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.X : 0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        :expanded:left /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
+            RenderTransform: translate(0,-10px);
+            [[
+                ::animation{
+                    FillMode:Forward;
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    KeyFrames:[
+                        KeyFrame:(0%)[
+                            TranslateTransform.X : 4;
+                        ]
+                        KeyFrame:(0:0:0.15)[
+                            TranslateTransform.X : 4;
+                        ]
+                        KeyFrame:(100% .4,.6,.4,.6)[
+                            TranslateTransform.X : 0;
                         ]
                     ]
                 }
@@ -69,7 +117,7 @@
             RenderTransformOrigin:0%,0%;
             Opacity:0;
             Transitions:[
-                TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.3 0 SineEaseOut);
+                LayoutTransformControl.LayoutTransform 0.24 0 .4,.9,.4,.9;
                 var(stOpacity);
             ]
         }
@@ -80,18 +128,20 @@
             LayoutTransform:scale(0,1);
         }
         :expanded /template/ LayoutTransformControl#ExpanderContentLayoutRoot{
-            LayoutTransform:scale(1,1);
+            LayoutTransform: scale(1,1);
             Opacity:1;
         }
 
         /template/ ContentPresenter#PART_ContentPresenter{
             Opacity:0;
+            IsVisible: false;
             Transitions:[
-                DoubleTransition(TemplatedControl.Opacity 0.125 0.2);
+                TemplatedControl.Opacity 0.125 0.2;
             ]
         }
         :expanded /template/ ContentPresenter#PART_ContentPresenter{
             Opacity:1;
+            IsVisible: true;
         }
 
         :left{
@@ -108,18 +158,18 @@ Expander{
         /template/ ToggleButton:is-part Border#ToggleButtonBackground{
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
-            BorderBrush:var(control-border);
+            BorderBrush:var(ctrl-border);
             Transitions:[
                 var(stBackground);
                 var(stCornerRadius)
             ]
         }
         /template/ ToggleButton:pointerover Border#ToggleButtonBackground{
-            Background: var(control-back-hover);
-            BorderBrush:var(control-border-fluent);
+            Background: var(ctrl-back-hover);
+            BorderBrush:var(fluent-ctrl-border);
         }
         /template/ ToggleButton:pressed Border#ToggleButtonBackground{
-            BorderBrush:var(control-border-pressed-fluent);
+            BorderBrush:var(fluent-ctrl-border-pressed);
         }
 
 
@@ -151,6 +201,7 @@ Expander{
             Height:9;
         }
 
+
         /* pressed */
         :up /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(0, -3px);
@@ -164,6 +215,7 @@ Expander{
         :right /template/ ToggleButton#ExpanderHeader:pressed Path#ExpandCollapseChevron{
             RenderTransform: translate(3px, 0);
         }
+
 
         /* expand */
         :up /template/ ToggleButton#ExpanderHeader:checked Path#ExpandCollapseChevron{
@@ -180,7 +232,6 @@ Expander{
         }
 
 
-        
         /* Change layout when direction is left. */
         :left /template/ ToggleButton#ExpanderHeader ContentPresenter#PART_ContentPresenter:is-part{
             Grid.Column:1;

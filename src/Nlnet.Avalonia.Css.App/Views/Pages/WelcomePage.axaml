@@ -9,11 +9,9 @@
              mc:Ignorable="d">
 
     <StackPanel>
-        <nlnet:Icon x:Name="WelcomeLogo"
-                    Width="200"
-                    Height="180"
-                    HorizontalAlignment="Left"
-                    IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/Logo.svg"
+        <nlnet:Icon Width="600"
+                    HorizontalAlignment="Center"
+                    IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/AcssText.svg"
                     RenderOptions.BitmapInterpolationMode="HighQuality"
                     RenderOptions.EdgeMode="Unspecified" />
         <TextBlock x:Name="PageDescription"

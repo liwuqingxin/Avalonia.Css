@@ -25,8 +25,8 @@
          /template/ Ellipse#PART_Border{
             Width:20;
             Height:20;
-            Fill: var(control-back);
-            Stroke:var(control-border);
+            Fill: var(ctrl-back);
+            Stroke:var(ctrl-border);
             StrokeThickness: 1;
             Transitions:[
                 var(stFill);
@@ -34,21 +34,21 @@
             ] 
         }
         :pointerover /template/ Ellipse#PART_Border{
-            Fill: var(control-back-hover);
+            Fill: var(ctrl-back-hover);
         }
          /template/ Ellipse#PART_CheckGlyph{
             Width:0;
             Height:0;
             StrokeThickness:10;
-            Fill:var(control-back);
+            Fill:var(ctrl-back);
             VerticalAlignment: Center;
             Transitions:[
-                DoubleTransition(Ellipse.StrokeThickness 0.125);
+                Ellipse.StrokeThickness 0.125;
                 var(stFill);
             ]           
         }
         :checked /template/ Ellipse#PART_CheckGlyph{
-            Fill:var(control-back);
+            Fill:var(ctrl-back);
             Width:20;
             Height:20;
             Stroke:var(Accent);
@@ -58,11 +58,11 @@
             StrokeThickness:4;
         }
         :pressed:not(:checked) /template/ Ellipse#PART_CheckGlyph{
-            Fill:var(control-back);
+            Fill:var(ctrl-back);
             Width:18;
             Height:18;
             StrokeThickness:3;
-            Stroke:var(control-back-pressed);
+            Stroke:var(ctrl-back-pressed);
         }
         :checked:pressed /template/ Ellipse#PART_CheckGlyph{
             StrokeThickness:5;

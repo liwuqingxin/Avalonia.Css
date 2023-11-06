@@ -1,21 +1,16 @@
-﻿^DataGrid {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush: var(control-border);
-    BorderThickness: 1;
-    CornerRadius: 4;
+﻿base ./Bases/Bases.acss;
+
+^DataGrid @extend(.ctrl, .border, .corner, .align){
     Opacity: 1;
     Padding: 0;
     ClipToBounds: True;
     RenderTransform: none;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Stretch;
     MinWidth:200;
     SelectionMode: Extended;
     HeadersVisibility: All;
     GridLinesVisibility: All;
-    HorizontalGridLinesBrush: var(control-border);
-    VerticalGridLinesBrush: var(control-border);
+    HorizontalGridLinesBrush: var(ctrl-border);
+    VerticalGridLinesBrush: var(ctrl-border);
     VerticalScrollBarVisibility: Auto;
     HorizontalScrollBarVisibility: Auto;
     RowBackground: Transparent;
@@ -49,7 +44,7 @@ DataGrid ToggleButton#PART_ExpanderButton{
     Background: Transparent;
     [[
         :pointerover{
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
     ]]
 }

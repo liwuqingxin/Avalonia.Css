@@ -12,7 +12,7 @@
         <MenuFlyout x:Key="SharedMenuFlyout" Placement="Bottom">
             <MenuItem Header="Flyout Menu Item 1">
                 <MenuItem.Icon>
-                    <Image Source="/Assets/brand.ico" />
+                    <Image Source="/Assets/logo.ico" />
                 </MenuItem.Icon>
                 <MenuItem Header="StaysOpenOnClick" StaysOpenOnClick="True" />
                 <Separator />
@@ -57,7 +57,7 @@
         <ContextMenu x:Key="SharedMenu">
             <MenuItem Header="Context Menu Item 1">
                 <MenuItem.Icon>
-                    <Image Source="/Assets/brand.ico" />
+                    <Image Source="/Assets/logo.ico" />
                 </MenuItem.Icon>
                 <MenuItem Header="StaysOpenOnClick" StaysOpenOnClick="True" />
                 <Separator />
@@ -106,16 +106,19 @@
                    Text="The Button control provides a Click event to respond to user input from a touch, mouse, keyboard, stylus, or other input device. You can put different kinds of content in a button, such as text or an image, or you can restyle a button to give it a new look."
                    TextWrapping="Wrap" />
 
-        <app:IndependentCase Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
-            <Button Classes="primary" Content="Primary Button" ToolTip.Tip="This is button with classes='Primary'."/>
-        </app:IndependentCase>
-
-        <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
-            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" ToolTip.Tip="This is button with fluent:ButtonStyles.Style='Accent'."/>
-        </app:IndependentCase>
-
         <app:IndependentCase Header="Normal button.">
             <Button Content="Cancel" />
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Normal button with class = 'Secondary'.">
+			<StackPanel Orientation="Horizontal">
+                <Button Content="No" Classes="Secondary"/>
+                <Button Content="Cancel" Classes="Secondary"/>
+			</StackPanel>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Normal button with name = 'CancelButton'.">
+            <Button Content="Cancel" Name="CancelButton"/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Button with a image as content.">
@@ -124,19 +127,30 @@
             </Button>
         </app:IndependentCase>
 
+        <app:IndependentCase Description="ButtonStyle.Style is recommended instead." Header="Primary button with Classes='primary'.">
+            <Button Classes="primary" Content="Primary Button" ToolTip.Tip="This is button with classes='Primary'."/>
+        </app:IndependentCase>
+
+        <app:IndependentCase Header="Primary button that set ButtonStyles.Style='Accent'.">
+            <Button fluent:ButtonStyles.Style="Accent" Content="Accent Button" ToolTip.Tip="This is button with fluent:ButtonStyles.Style='Accent'."/>
+        </app:IndependentCase>
+
         <app:IndependentCase Header="Button with ContextMenu and Flyout.">
             <Button Content="Click to show Flyout or right click to show ContextMenu."
+                    ToolTip.Tip="Click to show Flyout or right click to show ContextMenu."
                     ContextMenu="{StaticResource SharedMenu}"
                     Flyout="{StaticResource SharedMenuFlyout}" />
         </app:IndependentCase>
 
         <app:IndependentCase Header="DropDownButton with Flyout.">
-            <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}" />
+            <DropDownButton Content="Drop Down" Flyout="{StaticResource SharedMenuFlyout}"
+                            ToolTip.Tip="Drop Down"/>
         </app:IndependentCase>
 
         <app:IndependentCase Header="Repeat button.">
             <RepeatButton x:Name="RepeatButton"
                           Click="RepeatButton_OnClick"
+                          ToolTip.Tip="Click And Hold"
                           Content="Click And Hold : 0" />
         </app:IndependentCase>
 

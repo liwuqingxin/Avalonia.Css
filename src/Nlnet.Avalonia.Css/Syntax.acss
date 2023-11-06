@@ -9,7 +9,7 @@
   Resources must be loaded before using them. 
   For example, the resources used by a style acss file must be loaded ahead of that acss file.
 */
-::res[mode=light][theme=blue][desc=亮色资源] {
+::res[theme=light][accent=blue][desc=亮色资源] {
 
     // SolidColorBrush with key 'key1'. The other value format that avalonia brush supported are also available.
     brush(key1): #333;      /* r=03, g=03, b=03 */
@@ -61,10 +61,16 @@
       TransformOperationsTransition for property 'LayoutTransformControl.LayoutTransform' with 'Duration=0.075', 'Delay=0.1', 'Easing=LinearEasing'. 
       DoubleTransition and other transitions are also available.
     */
-    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing);
+    transition(stLayoutTransform): LayoutTransformControl.LayoutTransform 0.075 0.1 LinearEasing;
     
     // use var(key) for the duration property. Delay and Easing properties also support that.
-    transition(stLayoutTransform): TransformOperationsTransition(LayoutTransformControl.LayoutTransform var(transition-duration) var(transition-delay) LinearEasing);
+    transition(stLayoutTransform): LayoutTransformControl.LayoutTransform var(ts-duration) var(transition-delay) LinearEasing;
+    
+    // use simple syntax for BrushTransition, ThicknessTransition and TransformOperationsTransition.
+    transition(stLayoutTransform): LayoutTransformControl.LayoutTransform var(ts-duration);
+    transition(stLayoutTransform): LayoutTransformControl.Margin var(ts-duration);
+    transition(stLayoutTransform): LayoutTransformControl.Margin var(ts-duration);
+    transition(stLayoutTransform): LayoutTransformControl.RenderTransform var(transition-duration) var(transition-delay) LinearEasing;
 }
 
 
@@ -183,4 +189,45 @@ Window{
             ]]
         }
     ]]
+}
+
+// Base style definition for basing on. 
+::base[input]{
+    Foreground: var(ctrl-fore);
+    Background: var(ctrl-back);
+    BorderThickness: 1;
+    CornerRadius: 4;
+    BorderBrush: var(ctrl-border);
+    [[
+        :pointerover{
+            Background: var(ctrl-back-hover);
+            Foreground: var(ctrl-fore-hover);
+        }
+        :focus{
+            Background: var(ctrl-back-focus);
+            Foreground: var(ctrl-fore-focus);
+        }
+    ]]
+}
+
+::base[with-transition]{
+    Transitions:[
+        var(stBackground);
+    ]
+}
+
+TextBox @extend input, with-transition{
+    Background: red;
+}
+
+ComboBox @extend input, with-transition{
+    Background: green;
+}
+
+DatePicker @extend input, with-transition{
+    Foreground: blue;
+}
+
+SearchBox @extend input{
+    Opacity: 0.8
 }

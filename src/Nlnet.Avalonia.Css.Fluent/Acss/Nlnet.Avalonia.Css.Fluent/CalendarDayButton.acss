@@ -37,10 +37,10 @@
         }
         
         :pointerover:not(:blackout){
-            Background:var(control-back-hover);
+            Background:var(ctrl-back-hover);
         }
         :pressed:not(:blackout){
-            Background:var(control-back-pressed);
+            Background:var(ctrl-back-pressed);
         }
         :selected{
             BorderBrush:var(Accent);

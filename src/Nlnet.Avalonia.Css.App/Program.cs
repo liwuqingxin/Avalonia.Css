@@ -31,7 +31,7 @@ namespace Nlnet.Avalonia.Css.App
                     typeof(App).WriteError(e.InnerException.ToString());
                 }
 
-                Logger.Sink?.Log(LogEventLevel.Error, nameof(Program), null, e.ToString());
+                Logger.Sink?.Log(LogEventLevel.Error, nameof(Program), null, "{0}, {1}", e, e.InnerException);
             }
         }
 
@@ -45,16 +45,16 @@ namespace Nlnet.Avalonia.Css.App
                 .LogToLocalFile()
 
                 // Use avalonia css stuff.
-                .UseAcssDefaultBuilder()
+                .UseAcssDefaultContext()
                 // Type resolver for Nlnet.Avalonia.Svg
-                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Icon>())
+                .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<Icon>())
                 // Type resolver for Nlnet.Avalonia.SampleAssistant
-                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<Case>())
+                .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<Case>())
                 // Type resolver for Nlnet.Avalonia.Css.App
-                .WithTypeResolverForAcssDefaultBuilder(new GenericTypeResolver<App>())
+                .WithTypeResolverForAcssDefaultContext(new GenericTypeResolver<App>())
 
                 // Use avalonia behavior.
-                .UseAcssBehaviorForDefaultBuilder();
+                .UseAcssBehaviorForDefaultContext();
         }
     }
 }

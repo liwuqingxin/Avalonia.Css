@@ -1,14 +1,14 @@
-﻿^TabStripItem{
+﻿base ./Bases/Bases.acss;
+base ./Bases/SelectedPipeAnimation.acss;
+
+^TabStripItem @extend(.corner, .align, .selected-pipe-animation){
     Foreground: var(fore);
     Background: Transparent;
     Opacity: 1;
-    CornerRadius: 4;
     RenderTransform: none;
-    Height:36;
-    HorizontalContentAlignment: Stretch;
     VerticalContentAlignment: Center;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Stretch;
+    Height:36;
+    ClipToBounds: True;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -17,31 +17,7 @@
     [[
         /template/ ContentPresenter#PART_ContentPresenter{
             Padding:10,0;
-        }
-        /template/ Border#PART_SelectedPipe{
-            Background: var(Accent);
-            Opacity:0;
-            Margin:1;
-            HorizontalAlignment: Left;
-            Width: 3;
-            Height: 16;
-            CornerRadius: 4;
-            RenderTransform: scale(0,0);
-            Transitions:[
-                var(stRenderTransform);
-                var(stOpacity);
-            ]
-        }
-        :selected /template/ Border#PART_SelectedPipe{
-            Opacity:1;
-            RenderTransform: scale(1,1);
-        }
-       
-        :pointerover:pressed /template/ Border#PART_SelectedPipe{
-            RenderTransform: scale(1,1);
-            Opacity:1;
-        }
-       
+        }       
         :pointerover{
             Foreground: var(fore-hover);
             Background: var(item-back-hover);

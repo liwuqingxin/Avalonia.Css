@@ -16,7 +16,7 @@ public interface IBehaviorDeclarer
 /// <summary>
 /// Management for all registered <see cref="IBehaviorDeclarer"/>.
 /// </summary>
-public interface IBehaviorDeclarerManager
+public interface IBehaviorDeclarerManager : IService
 {
     public void RegisterDeclarer<T>(string? key) where T : IBehaviorDeclarer;
 
@@ -28,6 +28,11 @@ public interface IBehaviorDeclarerManager
 internal class BehaviorDeclarerManager : IBehaviorDeclarerManager
 {
     private readonly Dictionary<string, Type> _behaviorDeclarers = new();
+
+    public void Initialize()
+    {
+
+    }
 
     public void RegisterDeclarer<T>(string? key) where T : IBehaviorDeclarer
     {

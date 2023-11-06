@@ -1,0 +1,298 @@
+﻿//base ../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+//base file://../../../sample.output/net6.0/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+base avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Bases/PageTransitionAnimation.acss;
+
+// Window
+NtWindow#RootWindow{
+    Width:1200;
+    Height:800;
+    TitleHeight: 80;
+    Topmost:True;
+    WindowStartupLocation:CenterScreen;
+    .acss:window.esc.close;
+    [[
+        // Title root.
+        NtWindow Grid#TitleRoot{
+            Height: 80;
+            VerticalAlignment: Top;
+        }
+        // Title logo.
+        NtWindow Icon#TitleLogo{
+            Height: 60;
+            Width: 60;
+            Margin: 24,0,12,0;
+            HorizontalAlignment: Left;
+            VerticalAlignment: Center;
+            IconStretch: Uniform;
+            RenderOptions.BitmapInterpolationMode: HighQuality;
+        }
+        // Title text.
+        NtWindow TextBlock#TitleText{
+            VerticalAlignment: Center;
+            Foreground: var(fore);
+            Text: Powered By Acss;
+            FontSize: 18;
+            FontFamily: Britannic Bold;
+            FontWeight: Bold;
+            FontStyle: Italic;
+            Margin: 0,0,40,0;
+        }
+        // Title setting Button.
+        NtWindow DropDownButton#TitleSettingButton{
+            BorderThickness: 1;
+            BorderBrush: var(window-back);
+            Background: var(window-back);
+            HorizontalAlignment:Left;
+            VerticalAlignment: Center;
+        }
+        NtWindow DropDownButton#TitleSettingButton:pointerover{
+            Background: var(ctrl-back);
+        }
+        NtWindow DropDownButton#TitleSettingButton>Icon{
+            Width: 24;
+            Height: 24;
+        }
+        
+        // Layout root of settings for app.
+        NtWindow StackPanel#SettingsRoot{
+            Spacing: 8;
+        }
+        NtWindow StackPanel#SettingsRoot>:is(Control){
+            HorizontalAlignment: Stretch;
+        }
+        
+        // Welcome host.
+        NtWindow Border#WelcomeHost{
+            Background: var(window-back);
+        }
+        // Animation to hide the welcome elements.
+        NtWindow Border#WelcomeHost{
+            [[
+                ::animation[desc=Hide the welcome elements]{
+                    IterationCount:1;
+                    Duration:'0:0:0.4';
+                    FillMode:Forward;
+                    Delay:'0:0:2.4';
+                    KeyFrames:[
+                        KeyFrame:(100% 0,0.6,0.6,1)[
+                            Opacity:0;
+                            IsVisible:False;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        // Animation to show logo.
+        NtWindow Icon#WelcomeText{
+            Opacity:0;
+            Width:200;
+            Height:200;
+            [[
+                ::animation[desc=Welcome animation]{
+                    IterationCount:1;
+                    Duration:'0:0:2';
+                    FillMode:Forward;
+                    Delay:'0:0:0.6';
+                    KeyFrames:[
+                        KeyFrame:(0% 0,0.6,0.6,1)[
+                            Opacity:0;
+                            TranslateTransform.Y:120;
+                        ]
+                        KeyFrame:(50% 0,0.6,0.6,1)[
+                            Opacity:1;
+                            TranslateTransform.Y:-40;
+                        ]
+                        KeyFrame:(70% 0,0.6,0.6,1)[
+                            TranslateTransform.Y:-40;
+                        ]
+                        KeyFrame:(100% 0.6,0,1,1)[
+                            TranslateTransform.Y:-400;
+                        ]
+                    ]
+                }
+            ]]
+        }
+        // Animation to show logo.
+        NtWindow Icon#WelcomeLogo{
+            Opacity:0;
+        }
+        NtWindow Icon#WelcomeLogo:is-loaded{
+            Width:200;
+            Height:200;
+            RenderTransform:none;
+            Opacity:0;
+            [[
+                ::animation[desc=Logo image initial animation]{
+                    IterationCount:1;
+                    Duration:'0:0:5';
+                    FillMode:Forward;
+                    Delay:'0:0:0';
+                    KeyFrames:[
+                        /* Opacity */
+                        KeyFrame:(0% 0,0.2,0.8,1)[
+                            Opacity:0;
+                            ScaleTransform.ScaleX:0.4;
+                            ScaleTransform.ScaleY:0.4;
+                        ]
+                        KeyFrame:(100% 0,0.2,0.8,1)[
+                            Opacity:1;
+                            ScaleTransform.ScaleX:1;
+                            ScaleTransform.ScaleY:1;
+                        ]
+        
+                        /* Y */
+                        KeyFrame:(0%)[
+                            TranslateTransform.Y:-240;
+                            RotateTransform.Angle:-10;
+                        ]
+                        KeyFrame:(25% 0.3,0,0.7,1)[
+                            TranslateTransform.Y:-80;
+                            RotateTransform.Angle:40;
+                        ]
+                        KeyFrame:(50% 0.3,0,0.7,1)[
+                            TranslateTransform.Y:-20;
+                            RotateTransform.Angle:10;
+                        ]
+                        KeyFrame:(75% 0.3,0,0.7,1)[
+                            TranslateTransform.Y:60;
+                            RotateTransform.Angle:30;
+                        ]
+                        KeyFrame:(100% 0.3,0,0.7,1)[
+                            TranslateTransform.Y:80;
+                            RotateTransform.Angle:0;
+                        ]
+        
+                        /* X */
+                        KeyFrame:(0%)[
+                            TranslateTransform.X:150;
+                        ]
+                        KeyFrame:(25% 0.5,0,0.7,0.9)[
+                            TranslateTransform.X:-180;
+                        ]
+                        KeyFrame:(50% 0.3,0,0.7,1)[
+                            TranslateTransform.X:120;
+                        ]
+                        KeyFrame:(75% 0.3,0,0.7,1)[
+                            TranslateTransform.X:-150;
+                        ]
+                        KeyFrame:(100% 0.3,0,0.7,1)[
+                            TranslateTransform.X:0;
+                        ]
+                    ]
+                }
+            ]]
+        }
+
+        // Main layout.
+        NtWindow > Grid#MainWindowLayoutRoot{
+            Margin:8,8,0,0;
+        }
+        NtWindow Border#PageIconBorder{
+            Background:var(ctrl-back);
+            BorderBrush:var(ctrl-border);
+            BorderThickness:1;
+            CornerRadius:6;
+            Padding:8;
+            Transitions:[
+                var(stBackground);
+                var(stBorderBrush);
+            ]
+        }
+        NtWindow Icon#PageIcon{
+            Height:64;
+            Width:64;
+        }
+        NtWindow TextBlock#PageName{
+            FontSize:32;
+            VerticalAlignment:Center;
+            Margin:16,0;            
+        }
+        NtWindow TextBlock#PageDescription{
+            LineHeight:24;
+            Foreground:var(fore);
+        }
+        NtWindow TextBlock#PageDescription>Run{
+            LineHeight:24;
+            Foreground:var(fore);
+        }
+        NtWindow TextBlock#LoadingText[IsVisible=True]{
+            Margin: 0,24,0,0;
+        }
+        
+        // Content Border.
+        NtWindow Border#ContentBorder{
+            Background: var(ctrl-back);
+            BorderThickness:1,1,0,0;
+            BorderBrush:var(ctrl-border);
+            CornerRadius:8,0,0,0;
+            Padding:24,24,4,0;
+            Margin:8,0,0,0;
+            Transitions:[
+                var(stBackground);
+                var(stBorderBrush);
+            ]
+        }
+        NtWindow NtScrollViewer#MainContentScrollViewer{
+            Margin:0,20,0,0;
+        }
+        NtWindow NtScrollViewer#MainContentScrollViewer > ContentControl{
+            Margin:0,0,12,0;
+        }
+        
+        /* StackPanel followed Case */
+        NtWindow Case > StackPanel{
+            Spacing:8;
+        }
+        
+        /* StackPanel followed UserControl */
+        NtWindow :is(UserControl) > StackPanel{
+            Spacing:24;
+            Margin:0,0,0,12;
+        }
+        
+        /* TabItem in main TabControl */
+        NtWindow TabStrip{
+            HorizontalAlignment: Stretch;
+            Margin:0,0,0,8;
+        }
+        NtWindow TabStrip#MainTabStrip > TabStripItem{
+            ClipToBounds:False;
+        }
+        NtWindow TabStrip#MainTabStrip > TabStripItem TextBlock{
+            VerticalAlignment: Center;
+        }
+        NtWindow TabStrip#MainTabStrip > TabStripItem Icon{
+            Opacity:1;
+            Width:24;
+            Height:24;
+            Margin:8,0,8,0;
+//            [[
+//                Icon:is-loaded{
+//                    [[
+//                        ::animation[desc=Svg icon loading animation]{
+//                            IterationCount:1;
+//                            Duration:'0:0:0.16';
+//                            FillMode:Forward;
+//                            Delay:'0:0:0';
+//                            KeyFrames:[
+//                                KeyFrame:(0% 0,0.2,0.8,1)[
+//                                    Opacity:0;
+//                                    TranslateTransform.Y:16;
+//                                    /* TranslateTransform.Y(RhythmicTransformAnimator):16; */
+//                                ]
+//                                KeyFrame:(100% 0,0.2,0.8,1)[
+//                                    Opacity:1;
+//                                    TranslateTransform.Y:0;
+//                                ]
+//                            ]
+//                        }
+//                    ]]
+//                }
+//            ]]
+        }
+        
+        NtWindow ContentControl#ContentHost:changed @extend(.page-trans-bottom-up) {
+
+        }
+    ]]
+}

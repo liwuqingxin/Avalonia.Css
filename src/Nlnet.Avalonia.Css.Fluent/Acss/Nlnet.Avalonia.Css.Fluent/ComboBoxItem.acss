@@ -1,15 +1,10 @@
-﻿
-^ComboBoxItem {
+﻿base ./Bases/Bases.acss;
+
+^ComboBoxItem @extend(.corner, .padding, .align){
     Background: var(combobox-item-back);
     Foreground: var(fore);
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    HorizontalAlignment: Stretch;
-    VerticalAlignment: Stretch;
     Transitions:[
         var(stRenderTransform);
         var(stBorderBrush);
@@ -24,7 +19,7 @@
         :pressed{
             Background: var(combobox-item-back-selected);
         }
-         /template/ Border#PART_Indicator {
+        /template/ Border#PART_Indicator {
             Background:var(Accent);
             HorizontalAlignment:Left;
             RenderTransform: scale(1,1);

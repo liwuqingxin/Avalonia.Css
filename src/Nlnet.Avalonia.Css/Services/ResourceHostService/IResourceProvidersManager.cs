@@ -8,7 +8,7 @@ namespace Nlnet.Avalonia.Css
     /// put into the application's resources, that would be resource provider for other consumers,
     /// just register it to this manager.
     /// </summary>
-    public interface IResourceProvidersManager
+    public interface IResourceProvidersManager : IService
     {
         /// <summary>
         /// Register a <see cref="IResourceProvider"/>. If you have a <see cref="IResourceProvider"/>, which
@@ -29,10 +29,10 @@ namespace Nlnet.Avalonia.Css
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
-        /// <param name="mode"></param>
+        /// <param name="theme"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool TryFindResource<T>(object key, ThemeVariant mode, out T? result);
+        public bool TryFindResource<T>(object key, ThemeVariant theme, out T? result);
 
         /// <summary>
         /// Try find a resource by key. Registered <see cref="IResourceProvider"/> list will be checked first, Application.Current next.

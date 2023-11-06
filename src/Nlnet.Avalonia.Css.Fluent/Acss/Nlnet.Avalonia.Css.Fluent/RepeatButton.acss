@@ -1,20 +1,9 @@
-﻿
-^RepeatButton {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^RepeatButton @extend(.button){
     Opacity: 1;
-    RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Center;
-    VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
-    ClipToBounds:False;
+    ClipToBounds: False;
     Transitions:[
-        var(stRenderTransform);
         var(stBackground);
         var(stBorderBrush);
         var(stOpacity);
@@ -22,15 +11,10 @@
 
     [[
         :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(control-back-hover);
-        }
-        :pressed:not(:is-part){
-            Foreground:var(fore-pressed);
-            BorderBrush:var(control-border-pressed-fluent);
-        }
-        :disabled{
-            Opacity:0.4;
+            Transitions:[
+                var(stBackground);
+                var(stOpacity);
+            ]
         }
     ]]
 }

@@ -1,10 +1,11 @@
-﻿^ListBoxItem{
+﻿base ./Bases/Bases.acss;
+base ./Bases/SelectedPipeAnimation.acss;
+
+^ListBoxItem @extend(.corner, .padding, .selected-pipe-animation){
     Foreground: var(fore);
     Background: var(item-back);
-    CornerRadius: 4;
     Height: 28;
     Margin: 0,2;
-    Padding: 8,4,8,5;
     VerticalContentAlignment: Center;
     Transitions:[
         var(stBackground);
@@ -24,26 +25,6 @@
         }
         :selected:pressed{
             Background: var(item-back-selected-pressed);
-        }
-        /template/ Border#PART_Indicator {
-            Background:var(Accent);
-            HorizontalAlignment:Left;
-            RenderTransform: scale(1,1);
-            Height:12;
-            Width:3;
-            Opacity:1;
-            Margin:1;
-            CornerRadius:2;
-            Transitions:[
-                var(stRenderTransform);
-                var(stOpacity);
-            ]
-        }
-        :pointerover /template/ Border#PART_Indicator {
-            RenderTransform: scale(1,1.4);
-        }
-        :pressed /template/ Border#PART_Indicator {
-            RenderTransform: scale(1,1);
         }
         :disabled{
             Opacity:0.4;

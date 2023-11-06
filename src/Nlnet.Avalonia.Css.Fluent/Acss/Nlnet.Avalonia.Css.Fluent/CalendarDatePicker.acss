@@ -1,21 +1,12 @@
-﻿
-^CalendarDatePicker {
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    CornerRadius: 4;
-    BorderThickness: 1;
-    Padding: 8,4,8,5;
+﻿base ./Bases/Bases.acss;
+
+^CalendarDatePicker @extend(.fluent-box, .disabled) {
     Opacity: 1;
     RenderTransform: none;
-    HorizontalContentAlignment: Stretch;
-    VerticalContentAlignment: Stretch;
-    HorizontalAlignment: Stretch;
     VerticalAlignment: Center;
-    ClipToBounds:True;
-    
+    HorizontalAlignment: Left;
+    ClipToBounds:True;    
     Transitions:[
-        var(stRenderTransform);
         var(stBorderBrush);
         var(stBackground);
         var(stOpacity);
@@ -44,7 +35,7 @@
         }
         /template/ Popup#PART_Popup{
             IsLightDismissEnabled:true;
-            VerticalOffset: 3;
+            VerticalOffset: 0;
             HorizontalOffset: -10.5;
             Placement:BottomEdgeAlignedLeft;
             PopupStyles.Style: Slide;

@@ -22,29 +22,31 @@
                         </TextBlock>
                     </LayoutTransformControl>
 
-                    <Panel>
-                <Border x:Name="ProgressBarRoot"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}" />
-                        <Panel x:Name="DeterminateRoot" Opacity="1">
-                            <Border x:Name="PART_Indicator"
-                                    Margin="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Foreground}"
-                                    CornerRadius="{TemplateBinding CornerRadius}" />
+                    <Border x:Name="ProgressBarRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+
+                        <Panel>
+                            <Panel x:Name="DeterminateRoot" Opacity="1">
+                                <Border x:Name="PART_Indicator"
+                                        Margin="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}" />
+                            </Panel>
+                            <Panel x:Name="IndeterminateRoot" Opacity="0">
+                                <Border x:Name="IndeterminateProgressBarIndicator"
+                                        Margin="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}" />
+                                <Border x:Name="IndeterminateProgressBarIndicator2"
+                                        Margin="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}" />
+                            </Panel>
                         </Panel>
-                        <Panel x:Name="IndeterminateRoot" Opacity="0">
-                            <Border x:Name="IndeterminateProgressBarIndicator"
-                                    Margin="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Foreground}"
-                                    CornerRadius="{TemplateBinding CornerRadius}" />
-                            <Border x:Name="IndeterminateProgressBarIndicator2"
-                                    Margin="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Foreground}"
-                                    CornerRadius="{TemplateBinding CornerRadius}" />
-                        </Panel>
-                    </Panel>
+                    </Border>
                 </DockPanel>
             </ControlTemplate>
         </Setter>

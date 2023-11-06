@@ -1,14 +1,21 @@
-﻿
-^ProgressBar {
+﻿base ./Bases/Bases.acss;
+
+^ProgressBar @extend(.corner){
     Foreground: var(Accent);
     Background: var(progressbar-back);
-    CornerRadius: 4;
+    ClipToBounds: false;
     Transitions:[   
         var(stBackground);
     ]
     [[
-         /template/ TextBlock#PART_ProgressText{
+        /template/ TextBlock#PART_ProgressText{
             Foreground: var(fore);
+        }
+        :indeterminate /template/ Border#ProgressBarRoot{
+            ClipToBounds: true;
+        }
+        :indeterminate{
+            ClipToBounds: true;
         }
         :horizontal{
             VerticalAlignment:Center;

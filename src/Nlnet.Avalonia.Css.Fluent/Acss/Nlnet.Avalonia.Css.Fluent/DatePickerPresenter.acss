@@ -1,19 +1,19 @@
 ﻿
 ^DatePickerPresenter {
     [[
-         /template/ DateTimePickerPanel {
+        /template/ DateTimePickerPanel {
             ItemHeight:30;
         }
 
 
         /* RepeatButton */
-         /template/ RepeatButton:is-part {
+        /template/ RepeatButton:is-part {
             Height:30;
             HorizontalAlignment:Stretch;
             BorderThickness:0;
             CornerRadius:0;
         }
-         /template/ RepeatButton[VerticalAlignment=Top] > Path {
+        /template/ RepeatButton[VerticalAlignment=Top] > Path {
             Data:M0,9 L10,0 20,9 19,10 10,2 1,10 z;
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
@@ -25,7 +25,7 @@
                 var(stRenderTransform);
             ]
         }
-         /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
+        /template/ RepeatButton[VerticalAlignment=Bottom] > Path {
             Data:M0,1 L10,10 20,1 19,0 10,8 1,0 z;
             HorizontalAlignment:Stretch;
             VerticalAlignment:Stretch;
@@ -37,17 +37,20 @@
                 var(stRenderTransform);
             ]
         }
-         /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
+        /template/ RepeatButton[VerticalAlignment=Top]:pressed > Path {
             RenderTransform:translate(0, -5px);
         }
-         /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
+        /template/ RepeatButton[VerticalAlignment=Bottom]:pressed > Path {
             RenderTransform:translate(0, 5px);
         }
-         /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
-            CornerRadius:0,6,0,0;
+        /template/ RepeatButton {
+            VerticalContentAlignment: Center;
         }
-         /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
-            CornerRadius:6,0,0,0;
+        /template/ Panel:pointerover RepeatButton:is-part#PART_DayUpButton {
+            CornerRadius:0,8,0,0;
+        }
+        /template/ Panel:pointerover RepeatButton:is-part#PART_YearUpButton {
+            CornerRadius:8,0,0,0;
         }
         
 
@@ -56,10 +59,14 @@
             [[
                 >ListBoxItem{
                     Padding:8,0;
+                    Margin: 4,0;
                     RenderTransform:none;
                     Transitions:[
                         var(stRenderTransform);
                     ]
+                }
+                >ListBoxItem /template/ ContentPresenter#PART_ContentPresenter{
+                    Margin: 0,2;
                 }
                 >ListBoxItem:pressed{
                     RenderTransform:scale(0.97,0.97);
@@ -71,50 +78,52 @@
         }
 
         /* 分割线 */
-         /template/ Rectangle#HighlightRect {
+        /template/ Rectangle#HighlightRect {
             VerticalAlignment:Center;
             Fill:var(Accent);
             Height:30;
             Opacity:0;
         }
-         /template/ Rectangle#PART_FirstSpacer {
+        /template/ Rectangle#PART_FirstSpacer {
             Width:1;
             HorizontalAlignment:Center;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
-         /template/ Rectangle#PART_SecondSpacer {
+        /template/ Rectangle#PART_SecondSpacer {
             Width:1;
             HorizontalAlignment:Center;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
 
 
         /* 底栏 */
-         /template/ Path#PART_AcceptButtonPath {
+        /template/ Path#PART_AcceptButtonPath {
             Data:M0.5,8.5 5,13.5 15.5,3;
             StrokeLineCap:Round;
             StrokeThickness:0.75;
             Stroke:var(fore);
         }
-         /template/ Path#PART_DismissButtonPath {
+        /template/ Path#PART_DismissButtonPath {
             Data:M2,2 14,14 M2,14 14 2;
             StrokeLineCap:Round;
             StrokeThickness:0.75;
             Stroke:var(fore);
         }
-         /template/ Button#PART_AcceptButton {
+        /template/ Button#PART_AcceptButton {
             Margin:4,4,2,4;
             CornerRadius:4;
+            HorizontalContentAlignment : Center;
             HorizontalAlignment:Stretch;
         }
-         /template/ Button#PART_DismissButton {
+        /template/ Button#PART_DismissButton {
             Margin:2,4,4,4;
             CornerRadius:4;
+            HorizontalContentAlignment : Center;
             HorizontalAlignment:Stretch;
         }
-         /template/ Rectangle#DatePickerFlyoutPresenterSpacer {
+        /template/ Rectangle#DatePickerFlyoutPresenterSpacer {
             Height:1;
-            Fill:var(control-border);
+            Fill:var(ctrl-border);
         }
     ]]
 }

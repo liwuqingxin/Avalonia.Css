@@ -1,5 +1,4 @@
-﻿
-^CalendarButton {
+﻿^CalendarButton{
     ClickMode:Release;
     Foreground: var(fore);
     Background: Transparent;
@@ -21,10 +20,10 @@
     ]
     [[
         :pointerover{
-            Background:var(control-back-hover);
+            Background:var(ctrl-back-hover);
         }
         :pressed{
-            Background:var(control-back-pressed);
+            Background:var(ctrl-back-pressed);
         }
         :selected{
             Background:var(Accent);
@@ -36,9 +35,6 @@
         :blackout{
             Foreground:var(watermark);
             Opacity:0.6;
-        }
-        :disabled{
-            Opacity:0.4;
         }
     ]]
 }

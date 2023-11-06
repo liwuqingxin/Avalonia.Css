@@ -1,1 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="512px" height="512px"><linearGradient id="SVGID_1_" x1="12.686" x2="35.58" y1="-22.592" y2="-59.841" gradientTransform="matrix(1 0 0 -1 0 -18)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#33bef0"/><stop offset="1" stop-color="#0a85d9"/></linearGradient><path fill="url(#SVGID_1_)" d="M42,8H6c-1.1,0-2,0.9-2,2v26c0,1.1,0.9,2,2,2h8v8c0,0.9,1.1,1.3,1.7,0.7l8.7-8.7H42c1.1,0,2-0.9,2-2V10	C44,8.9,43.1,8,42,8z"/><path d="M38.4,25.4c-0.2-0.4-0.8-1.1-1.9-1.1c-1,0-1.7,0.7-1.8,1l-8,12.7H42c1.1,0,2-0.9,2-2v-1.7L38.4,25.4z" opacity=".05"/><path d="M37.9,25.6c-0.2-0.3-0.6-0.9-1.4-0.9s-1.3,0.5-1.4,0.8L27.3,38H42c1.1,0,2-0.9,2-2v-0.7L37.9,25.6z" opacity=".07"/><linearGradient id="SVGID_2_" x1="-145.721" x2="43.567" y1="-510.407" y2="-293.309" gradientTransform="translate(0 342)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffda1c"/><stop offset="1" stop-color="#feb705"/></linearGradient><path fill="url(#SVGID_2_)" d="M47.8,42.3L37.5,25.8c0,0-0.3-0.6-1-0.6s-1,0.6-1,0.6L25.2,42.3c0,0-0.2,0.3-0.2,0.6c0,0.6,0.5,1.1,1.1,1.1	h20.8c0.6,0,1.1-0.5,1.1-1.1C48,42.5,47.8,42.3,47.8,42.3z"/><radialGradient id="SVGID_3_" cx="33.03" cy="39.187" r="5.802" gradientTransform="matrix(1 0 0 1.1091 0 -4.493)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4b4b4b"/><stop offset=".531" stop-color="#393939"/><stop offset="1" stop-color="#252525"/></radialGradient><path fill="url(#SVGID_3_)" d="M36.5,42c-0.4,0-0.8-0.1-1.1-0.4S35,40.9,35,40.5c0-0.4,0.1-0.8,0.4-1.1c0.3-0.3,0.6-0.4,1.1-0.4	c0.4,0,0.8,0.1,1.1,0.4c0.3,0.3,0.4,0.6,0.4,1.1c0,0.4-0.1,0.8-0.4,1.1S37,42,36.5,42z"/><radialGradient id="SVGID_4_" cx="33.64" cy="-311.224" r="8.742" gradientTransform="matrix(1.2233 0 0 .9425 -8.147 324.262)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4b4b4b"/><stop offset=".531" stop-color="#393939"/><stop offset="1" stop-color="#252525"/></radialGradient><path fill="url(#SVGID_4_)" d="M38,31.4l-0.3,6.3c0,0.2-0.2,0.3-0.5,0.3h-1.5c-0.2,0-0.5-0.2-0.5-0.3L35,31.4c0-0.2,0.2-0.4,0.5-0.4h2.1	C37.8,31,38,31.2,38,31.4z"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.21715" y1="-0.08741754" x2="0.78950006" y2="0.8680452" id="gradient_1">
+      <stop offset="0%" stop-color="#33BEF0" />
+      <stop offset="100%" stop-color="#0A85D9" />
+    </linearGradient>
+    <linearGradient gradientUnits="objectBoundingBox" x1="-7.422652" y1="-10.298246" x2="0.807261" y2="1.2495222" id="gradient_2">
+      <stop offset="0%" stop-color="#FFDA1C" />
+      <stop offset="100%" stop-color="#FEB705" />
+    </linearGradient>
+    <radialGradient gradientUnits="objectBoundingBox" cx="-65.66667%" cy="-1.0232925%" fx="-65.66667%" fy="-1.0232925%" r="5463.6055%" gradientTransform="translate(-0.65666676,-0.010232925),rotate(-127.243576),scale(1,1.0560877),translate(0.65666676,0.010232925)" id="gradient_3">
+      <stop offset="0%" stop-color="#4B4B4B" />
+      <stop offset="53.100002%" stop-color="#393939" />
+      <stop offset="100%" stop-color="#252525" />
+    </radialGradient>
+    <radialGradient gradientUnits="objectBoundingBox" cx="-66.50629%" cy="-0.95176697%" fx="-66.50629%" fy="-0.95176697%" r="68538.625%" gradientTransform="translate(-0.6650629,-0.00951767),scale(1,0.4285713),rotate(93.25655),scale(1,0.9933912),translate(0.6650629,0.00951767)" id="gradient_4">
+      <stop offset="0%" stop-color="#4B4B4B" />
+      <stop offset="53.100002%" stop-color="#393939" />
+      <stop offset="100%" stop-color="#252525" />
+    </radialGradient>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="MessageBox" clip-path="url(#clip_1)">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="MessageBox" fill="none" stroke="none" />
+    <path d="M448 85.3333L64 85.3333C52.2667 85.3333 42.6667 94.9333 42.6667 106.667L42.6667 384C42.6667 395.733 52.2667 405.333 64 405.333L149.333 405.333L149.333 490.667C149.333 500.267 161.067 504.533 167.467 498.133L260.267 405.333L448 405.333C459.733 405.333 469.333 395.733 469.333 384L469.333 106.667C469.333 94.9333 459.733 85.3333 448 85.3333L448 85.3333Z" id="Shape" fill="url(#gradient_1)" stroke="none" />
+    <path d="M409.6 270.933C407.467 266.667 401.067 259.2 389.333 259.2C378.667 259.2 371.2 266.667 370.133 269.867L284.8 405.333L448 405.333C459.733 405.333 469.333 395.733 469.333 384L469.333 365.867L409.6 270.933L409.6 270.933Z" id="Shape" fill="#000000" fill-opacity="0.05" stroke="none" />
+    <path d="M404.267 273.067C402.133 269.867 397.867 263.467 389.333 263.467C380.8 263.467 375.467 268.8 374.4 272L291.2 405.333L448 405.333C459.733 405.333 469.333 395.733 469.333 384L469.333 376.533L404.267 273.067L404.267 273.067Z" id="Shape" fill="#000000" fill-opacity="0.07" stroke="none" />
+    <path d="M509.867 451.2L400 275.2C400 275.2 396.8 268.8 389.333 268.8C381.867 268.8 378.667 275.2 378.667 275.2L268.8 451.2C268.8 451.2 266.667 454.4 266.667 457.6C266.667 464 272 469.333 278.4 469.333L500.267 469.333C506.667 469.333 512 464 512 457.6C512 453.333 509.867 451.2 509.867 451.2L509.867 451.2Z" id="Shape" fill="url(#gradient_2)" stroke="none" />
+    <path d="M389.333 448C385.067 448 380.8 446.933 377.6 443.733C374.4 440.533 373.333 436.267 373.333 432C373.333 427.733 374.4 423.467 377.6 420.267C380.8 417.067 384 416 389.333 416C393.6 416 397.867 417.067 401.067 420.267C404.267 423.467 405.333 426.667 405.333 432C405.333 436.267 404.267 440.533 401.067 443.733C397.867 446.933 394.667 448 389.333 448L389.333 448Z" id="Shape" fill="url(#gradient_3)" stroke="none" />
+    <path d="M405.333 334.933L402.133 402.133C402.133 404.267 400 405.333 396.8 405.333L380.8 405.333C378.667 405.333 375.467 403.2 375.467 402.133L373.333 334.933C373.333 332.8 375.467 330.667 378.667 330.667L401.067 330.667C403.2 330.667 405.333 332.8 405.333 334.933L405.333 334.933Z" id="Shape" fill="url(#gradient_4)" stroke="none" />
+  </g>
+</svg>

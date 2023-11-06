@@ -11,7 +11,7 @@
     </linearGradient>
     <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
     <clipPath id="clip_1">
-      <use xlink:href="#path_1" />
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
     </clipPath>
   </defs>
   <g id="TabControl" clip-path="url(#clip_1)">

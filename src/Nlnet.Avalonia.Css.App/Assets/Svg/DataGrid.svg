@@ -10,14 +10,14 @@
       <stop offset="93.09999%" stop-color="#125933" />
       <stop offset="100%" stop-color="#11522F" />
     </linearGradient>
-    <linearGradient gradientUnits="objectBoundingBox" x1="0.5" y1="1.3210375E-05" x2="0.49999997" y2="0.9999869" id="gradient_3">
+    <linearGradient gradientUnits="objectBoundingBox" x1="0.5" y1="1.3232231E-05" x2="0.5" y2="0.9999869" id="gradient_3">
       <stop offset="82.4%" stop-color="#135D36" />
       <stop offset="93.09999%" stop-color="#125933" />
       <stop offset="100%" stop-color="#11522F" />
     </linearGradient>
     <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
     <clipPath id="clip_1">
-      <use xlink:href="#path_1" />
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
     </clipPath>
   </defs>
   <g id="DataGrid" clip-path="url(#clip_1)">

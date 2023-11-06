@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
              xmlns:vm="clr-namespace:Nlnet.Avalonia.Css.Samples.ViewModels"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -16,10 +17,13 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <Grid>
+    <StackPanel Spacing="10">
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{Binding Greeting}" />
-        <Button Content="Ok" />
-    </Grid>
+        <Button HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="Ok" />
+        <ComboBox HorizontalAlignment="Center" ItemsSource="{nlnet:Enum VerticalAlignment}" />
+    </StackPanel>
 </UserControl>

@@ -2,20 +2,20 @@
     MinHeight: 32;
     Padding: 12,0,0,0;
     Foreground: var(fore);
-    Background: var(control-back);
+    Background: var(ctrl-back);
     VerticalContentAlignment: Center;
     HorizontalContentAlignment: Stretch;
     Focusable: False;
     [[
         /template/ Rectangle#VerticalSeparator{
             Width: 1;
-            Fill: var(control-border);
+            Fill: var(ctrl-border);
         }
         :pointerover{
-            Background: var(control-back-hover);
+            Background: var(ctrl-back-hover);
         }
         :pressed{
-            Background: var(control-back-pressed);
+            Background: var(ctrl-back-pressed);
         }
         :dragIndicator{
             Opacity: 0.5;

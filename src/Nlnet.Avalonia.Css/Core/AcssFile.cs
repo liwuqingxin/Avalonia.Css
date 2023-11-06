@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -10,137 +8,47 @@ using Avalonia.Threading;
 namespace Nlnet.Avalonia.Css
 {
     /// <summary>
-    /// An acss style instance that associated to a .acss file.
+    /// An acss style instance that associated to a .acss source.
     /// </summary>
     internal sealed class AcssFile : Styles, IAcssFile, IDisposable
     {
         #region Static
 
         /// <summary>
-        /// Load a avalonia css style from an acss file synchronously.
+        /// Load an avalonia css style from an acss source synchronously.
         /// </summary>
-        /// <param name="acssBuilder"></param>
+        /// <param name="context"></param>
         /// <param name="owner"></param>
-        /// <param name="standardFilePath"></param>
-        /// <param name="optionalSyncPath"></param>
-        /// <param name="autoLoadWhenFileChanged"></param>
+        /// <param name="source"></param>
         /// <returns></returns>
-        internal static AcssFile TryLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged = true)
-        {
-            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, optionalSyncPath, autoLoadWhenFileChanged);
-            styleFile.Load(owner, false);
-            return styleFile;
-        }
-
-        /// <summary>
-        /// Load a avalonia css style from an acss file asynchronously.
-        /// </summary>
-        /// <param name="acssBuilder"></param>
-        /// <param name="owner"></param>
-        /// <param name="standardFilePath"></param>
-        /// <param name="optionalSyncPath"></param>
-        /// <param name="autoLoadWhenFileChanged"></param>
-        /// <returns></returns>
-        internal static AcssFile TryBeginLoad(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged = true)
-        {
-            var styleFile = CreateStyles(acssBuilder, owner, standardFilePath, optionalSyncPath, autoLoadWhenFileChanged);
-            styleFile.BeginLoad(owner, false);
-            return styleFile;
-        }
-
-        private static AcssFile CreateStyles(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged)
+        /// <exception cref="InvalidOperationException">UI thread required.</exception>
+        internal static AcssFile TryLoad(IAcssContext context, Styles owner, ISource source)
         {
             if (Dispatcher.UIThread.CheckAccess() == false)
             {
-                throw new InvalidOperationException($"{nameof(AcssFile)}.{nameof(CreateStyles)}() should be called in ui thread.");
+                throw new InvalidOperationException($"{nameof(TryLoad)}() must be called in ui thread.");
             }
 
-            if (owner.OfType<AcssFile>().FirstOrDefault(s => s.StandardFilePath == standardFilePath) is { } exist)
-            {
-                return exist;
-            }
+            var styleFile = new AcssFile(context, owner, source);
+            styleFile.Load(owner, false);
 
-            if (File.Exists(standardFilePath) == false)
-            {
-                throw new FileNotFoundException($"Can not find the acss file '{standardFilePath}'.");
-            }
-
-            return new AcssFile(acssBuilder, owner, standardFilePath, optionalSyncPath, autoLoadWhenFileChanged);
+            return styleFile;
         }
 
         #endregion
 
 
 
-        private readonly IAcssBuilder             _acssBuilder;
-        private readonly Styles                   _owner;
-        private readonly FileSystemWatcher?       _watcher;
-        private          CompositeDisposable?     _disposable;
-        private          IEnumerable<IAcssStyle>? _acssStyles;
+        private readonly IAcssContext _context;
+        private readonly Styles _owner;
+        private CompositeDisposable? _disposable;
+        private AcssTokens? _tokens;
 
-        private AcssFile(IAcssBuilder acssBuilder, Styles owner, string standardFilePath, string? optionalSyncPath, bool autoLoadWhenFileChanged)
+        private AcssFile(IAcssContext context, Styles owner, ISource source)
         {
-            _acssBuilder     = acssBuilder;
-            _owner           = owner;
-            StandardFilePath = standardFilePath;
-            OptionalSyncPath = optionalSyncPath;
-
-            var dir = Path.GetDirectoryName(standardFilePath);
-            if (autoLoadWhenFileChanged && dir != null)
-            {
-                // TODO 改为文件监控，而不是文件夹监控
-                // TODO 统一处理监控，支持文件夹统一监控，而不用多实例监控
-                _watcher                     =  new FileSystemWatcher(dir);
-                _watcher.EnableRaisingEvents =  true;
-                _watcher.NotifyFilter        =  NotifyFilters.LastWrite;
-                _watcher.Filter              =  $"{Path.GetFileName(standardFilePath)}";
-                _watcher.Changed             += OnFileChanged;
-            }
-        }
-
-
-        private DateTime _lastRead = DateTime.MinValue;
-
-        private void OnFileChanged(object sender, FileSystemEventArgs e)
-        {
-            if (e.ChangeType != WatcherChangeTypes.Changed)
-            {
-                return;
-            }
-
-            var lastWriteTime = File.GetLastWriteTime(StandardFilePath);
-            if (lastWriteTime - _lastRead > TimeSpan.FromMilliseconds(50))
-            {
-                //
-                // Delay 20 milliseconds to avoid conflicting with vs code, or other editors.
-                //
-                Task.Delay(20).ContinueWith(t =>
-                {
-                    if (string.IsNullOrEmpty(OptionalSyncPath) == false)
-                    {
-                        try
-                        {
-                            var filename = Path.GetFileName(StandardFilePath);
-                            var syncFilePath = Path.Combine(OptionalSyncPath, filename);
-                            var standardPath = syncFilePath.GetStandardPath();
-                            if (standardPath == StandardFilePath)
-                            {
-                                this.WriteWarning("The optional sync path is same as the acss file path. Skip it.");
-                                return;
-                            }
-                            File.Copy(StandardFilePath, syncFilePath, true);
-                        }
-                        catch (Exception exception)
-                        {
-                            this.WriteError(exception.ToString());
-                        }
-                    }
-                
-                    BeginLoad(_owner, true);
-                });
-                
-                _lastRead = lastWriteTime;
-            }
+            _context = context;
+            _owner   = owner;
+            Source   = source;
         }
 
         private void Load(Styles styles, bool reapplyStyle)
@@ -148,23 +56,25 @@ namespace Nlnet.Avalonia.Css
             var index = styles.IndexOf(this);
             
             _disposable?.Dispose();
-            _disposable = null;
-            _disposable ??= new CompositeDisposable();
+            _disposable = new CompositeDisposable();
 
             try
             {
-                var parser = _acssBuilder.Parser;
-                var acssContent = File.ReadAllText(StandardFilePath);
-                var acssSpan = parser.RemoveCommentsAndLineBreaks(acssContent.ToCharArray());
-                var sections = parser.ParseSections(null, acssSpan).ToList();
-                var acssStyles = sections.OfType<IAcssStyle>().Where(s => !s.IsThemeChild).ToList();
-                var acssThemeChildStyles = sections.OfType<IAcssStyle>().Where(s => s.IsThemeChild).ToList();
-                var acssDictionaryList = sections.OfType<IAcssResourceDictionary>();
+                _tokens = AcssTokens.Get(_context, Source);
+                if (_tokens == null)
+                {
+                    return;
+                }
 
-                _acssStyles = sections.OfType<IAcssStyle>();
+                _tokens.FileChanged -= TokensOnFileChanged;
+                _tokens.FileChanged += TokensOnFileChanged;
+
+                var acssNormalStyles = _tokens.GetNormalStyles().ToList();
+                var acssThemeChildStyles = _tokens.GetThemeStyles().ToList();
+                var acssDictionaryList = _tokens.GetResourceDictionaries().ToList();
 
                 // Normal styles.
-                foreach (var acssStyle in acssStyles)
+                foreach (var acssStyle in acssNormalStyles)
                 {
                     var style = acssStyle.ToAvaloniaStyle();
                     if (style.Selector != null)
@@ -182,7 +92,6 @@ namespace Nlnet.Avalonia.Css
                         continue;
                     }
                     
-                    // TODO 检查 ThemeVariant;
                     var suc = styles.TryGetResource(acssThemeChildStyle.ThemeTargetType, null, out var themeResourceObject);
                     if (suc == false && Application.Current != null)
                     {
@@ -210,12 +119,12 @@ namespace Nlnet.Avalonia.Css
                 // Resources
                 foreach (var dictionary in acssDictionaryList)
                 {
-                    var dic = dictionary.ToAvaloniaResourceDictionary(_acssBuilder);
+                    var dic = dictionary.ToAvaloniaResourceDictionary();
                     if (dic == null)
                     {
                         continue;
                     }
-                    if (dictionary.IsModeResource())
+                    if (dictionary.IsThemeResource())
                     {
                         this.Resources.ThemeDictionaries.Add(dictionary.GetThemeVariant(), dic);
                     }
@@ -237,6 +146,8 @@ namespace Nlnet.Avalonia.Css
                 
                 _disposable.Add(Disposable.Create(() =>
                 {
+                    _tokens.FileChanged -= TokensOnFileChanged;
+
                     _owner.Owner.DetachStylesRecursively(this.OfType<Style>().ToList());
                     styles.Remove(this);
 
@@ -245,21 +156,16 @@ namespace Nlnet.Avalonia.Css
                     this.Resources.ThemeDictionaries.Clear();
                     this.Resources.MergedDictionaries.Clear();
 
-                    if (_acssStyles != null)
+                    // TODO Should dispose token's styles?
+                    foreach (var acssStyle in _tokens.GetStyles())
                     {
-                        foreach (var acssStyle in _acssStyles)
-                        {
-                            acssStyle.Dispose();
-                        }
+                        acssStyle.Dispose();
                     }
-                    _acssStyles = null;
                 }));
 
                 if (reapplyStyle)
                 {
-                    // TODO 资源更新是否需要重新应用？如何应用？
-
-                    var normalTypes = acssStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
+                    var normalTypes = acssNormalStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
                     _owner.Owner.ReapplyStyling(false, normalTypes!);
 
                     var themeTypes = acssThemeChildStyles.Select(s => s.GetTargetType()).Where(t => t != null).ToList();
@@ -269,43 +175,45 @@ namespace Nlnet.Avalonia.Css
             catch (Exception e)
             {
                 this.WriteError(e.ToString());
+                
+                // TODO DELETE WHEN RLS.
+                Dispatcher.UIThread.Post(() => throw new Exception("Something wrong in acss. Please check the inner exception.", e));
             }
         }
 
-        private void BeginLoad(Styles styles, bool reapplyStyle)
+        private void TokensOnFileChanged(object? sender, EventArgs e)
         {
-            Dispatcher.UIThread.Post(() => Load(styles, reapplyStyle));
+            Dispatcher.UIThread.Invoke(() => Load(_owner, true));
         }
 
         public void Dispose()
         {
             _disposable?.Dispose();
-            _watcher?.Dispose();
         }
 
         public override string ToString()
         {
-            return $"{nameof(AcssFile)} {StandardFilePath}";
+            return $"{nameof(AcssFile)} {Source}";
         }
 
 
 
         #region IAcssFile
 
-        public string StandardFilePath { get; }
-        
-        public string? OptionalSyncPath { get; }
+        public ISource Source { get; }
 
         public void Reload(bool reapplyStyle)
         {
-            this.BeginLoad(_owner, reapplyStyle);
+            _tokens?.OnFileChanged();
         }
 
         public void Unload()
         {
             this.Dispose();
 
-            _acssBuilder.TryRemoveAcssFile(this);
+            _context.TryRemoveAcssFile(this);
+
+            // TODO What about tokens and source?
         }
 
         #endregion

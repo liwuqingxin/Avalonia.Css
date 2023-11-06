@@ -359,3 +359,4 @@ dump/
 sample.output/
 build/nuget.bat
 build/nuget.local.bat
+desktop.ini

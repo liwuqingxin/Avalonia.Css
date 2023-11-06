@@ -10,7 +10,7 @@ internal interface IAcssSetter
 
     public string? RawValue { get; set; }
 
-    public Setter? ToAvaloniaSetter(IAcssBuilder builder, Type targetType);
+    public Setter? ToAvaloniaSetter(IAcssContext context, Type targetType);
 }
 
 internal class AcssSetter : IAcssSetter
@@ -37,14 +37,14 @@ internal class AcssSetter : IAcssSetter
         RawValue = value;
     }
 
-    public Setter? ToAvaloniaSetter(IAcssBuilder builder, Type targetType)
+    public Setter? ToAvaloniaSetter(IAcssContext context, Type targetType)
     {
         if (Property == null)
         {
             return null;
         }
 
-        var interpreter = builder.Interpreter;
+        var interpreter = context.GetService<IAcssInterpreter>();
         var property = interpreter.ParseAvaloniaProperty(targetType, Property);
         object? value;
         if (property == null)

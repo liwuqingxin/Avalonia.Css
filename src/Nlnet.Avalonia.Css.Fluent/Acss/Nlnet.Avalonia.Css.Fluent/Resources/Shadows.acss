@@ -1,0 +1,11 @@
+﻿::res[theme=light][desc=亮色资源] {
+	/* Shadow */
+	BoxShadow(popup-none): 0 0 0 0 #3666;
+	BoxShadow(popup-shadow): 0 10 20 0 #3666;
+}
+
+::res[theme=dark][desc=暗色资源] {
+	/* Shadow */
+	BoxShadow(popup-none): 0 0 0 0 #3000;
+	BoxShadow(popup-shadow): 0 0 20 2 #3000;
+}

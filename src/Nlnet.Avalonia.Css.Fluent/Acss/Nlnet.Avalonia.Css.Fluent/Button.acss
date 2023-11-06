@@ -1,22 +1,15 @@
-﻿^Button {
+﻿base ./Bases/Bases.acss;
+
+Button>Popup{
     PopupStyles.Style: Slide;
-    Foreground: var(fore);
-    Background: var(control-back);
-    BorderBrush:var(control-border-fluent);
-    BorderThickness: 1;
-    CornerRadius: 4;
-    Padding: 8,4,8,5;
+}
+
+^Button @extend(.button){
     Opacity: 1;
-    MinHeight:28;
-    RenderTransform: none;
-    HorizontalContentAlignment: Center;
-    HorizontalAlignment: Center;
+    ClipToBounds: False;
     VerticalContentAlignment: Center;
-    VerticalAlignment: Center;
-    ClipToBounds:False;
+    HorizontalContentAlignment: Center;
     Transitions:[
-        /* TransformOperationsTransition(RenderTransform 0.075 0 LinearEasing); */
-        var(stRenderTransform);
         var(stBackground);
         var(stBorderBrush);
         var(stOpacity);
@@ -24,23 +17,17 @@
 
     [[
         :pointerover{
-            Foreground: var(fore-hover);
-            Background: var(control-back-hover);
+            Transitions:[
+                var(stBackground);
+                var(stOpacity);
+            ]
         }
-        :pressed{
-            /* RenderTransform:scale(0.97,0.97); */
-            //Opacity:0.6;
-            Foreground:var(fore-pressed);
-            BorderBrush:var(control-border-pressed-fluent);
-        }
-        :disabled{
-            Opacity:0.4;
-        }
+
         // 主题分类
         .primary, .Primary, [(ButtonStyles.Style)=Accent] {
             Background: var(Accent);
             Foreground: #fff;
-            BorderBrush: var(control-border-accent-fluent);
+            BorderBrush: var(fluent-accent-ctrl-border);
             [[
                 :pointerover{
                     Background: var(Accent09);
@@ -48,7 +35,7 @@
                 }
                 :pressed{
                     Opacity:0.8;
-                    BorderBrush: var(control-border-accent-fluent-pressed);
+                    BorderBrush: var(fluent-accent-ctrl-border-pressed);
                 }
             ]]
         }
