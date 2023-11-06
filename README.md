@@ -12,8 +12,7 @@
     <img src="https://img.shields.io/badge/License-MIT-green">
   </a>
 </div>
-
-<br/><br/><br/>
+<br/><br/>
 
 ![acss-brand](img/AcssText.svg)
 
@@ -57,23 +56,19 @@ We provide fluent theme for Avalonia controls powered by Acss. More about the th
 
 ![fluent ui](./img/fluent-ui.png)
 
-Acss provides the ability of hot reloading. We can modify source code and view the result immediately.
+# Why Using Acss
 
-![acss](img/acss.gif)
-
-# # Why Using Acss
+> Theme = Structure + Styles
 
 Imagine we have a standard control library, where the functionality of its controls depends on the structure within their templates. If we want to modify the look of the controls, we usually need to rewrite all ControlTheme of them. This means we have to rewrite the control structure and the styles, even the resources. It's a painful work.
 
 Picture that with the Acss pattern, we extract the styles from the standard themes of the controls, retaining only the skeletal structure, the ControlTemplate. Any library can base on the standard structures, defining its own Acss library to achieve the desired look for the controls. Creators of those libraries don't need to painfully copy existing ControlTheme code for modifications. They don't need to worry about whether the control template is correct. The only thing they should concern is adjusting styles based on UI design!
 
-> Theme = Structure + Styles
+> Continuous focus makes our work smoother, more elegant, and more effective.
 
 Another case is when we create a new page, the traditional workflow usually involves layout, content population, writing business logic, style adjustments, and fine-tuning based on UI design. This is typically a developer's work, requiring continuous attention until the page is finished. Now, with the Acss pattern, the approach would involve functional personnel populating page content, writing business logic, and then handing it over to those who focus on visuals to harmonize the visual styles.
 
-> Continuous focus makes our work smoother, more elegant, and more effective.
-
-# Packages we provided
+# Packages We Provided
 
 - **Nlnet.Avalonia.Css**. This is the core for Acss.
 
