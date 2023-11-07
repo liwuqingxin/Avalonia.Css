@@ -143,8 +143,6 @@ namespace Nlnet.Avalonia.Css
 
         public static void DetachStylesRecursively(this IResourceHost? resourceHost, IReadOnlyList<Style> styles)
         {
-            return;
-            
             var list = new List<Style>();
             StylerHelper.FlattenStyles(list, styles);
             

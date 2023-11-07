@@ -48,7 +48,7 @@ namespace Nlnet.Avalonia.Css
                 case TextEncodingDetect.Encoding.Utf32NoBom:
                     return Encoding.UTF32.GetString(buff);
                 case TextEncodingDetect.Encoding.Ansi:
-                    if (IsChineseEncoding(Encoding.Default) && !IsChineseEncoding(encoding))
+                    if (IsChineseEncoding(Encoding.Default) && encoding != null && !IsChineseEncoding(encoding))
                     {
                         if (detect.IsChinese)
                         {

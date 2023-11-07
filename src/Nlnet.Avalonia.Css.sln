@@ -23,8 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Behavior
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.CompileGenerator", "Nlnet.Avalonia.Css.CompileGenerator\Nlnet.Avalonia.Css.CompileGenerator.csproj", "{8146BAB9-1888-44FF-B0A3-F240CC10A8F2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{80348AD6-C952-4230-89CA-0D42F7E619BF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.MessageBox", "Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj", "{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{64CD8901-8BEE-44FD-8AE0-6412D818FBA0}"
