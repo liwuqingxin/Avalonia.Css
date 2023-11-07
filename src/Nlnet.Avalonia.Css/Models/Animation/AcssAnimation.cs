@@ -15,6 +15,7 @@ namespace Nlnet.Avalonia.Css
     {
         private static readonly Regex RegexDescription = new("\\[desc=(.*?)\\]", RegexOptions.IgnoreCase);
         
+        private readonly IAcssContext _context;
         private List<(string, string)>? _setters;
         private Type? _selectorTargetType;
 
@@ -22,7 +23,7 @@ namespace Nlnet.Avalonia.Css
 
         public AcssAnimation(IAcssContext context, string header) : base(context, header)
         {
-            
+            _context = context;
         }
 
         public override void InitialSection(IAcssParser parser, ReadOnlySpan<char> content)
@@ -54,14 +55,18 @@ namespace Nlnet.Avalonia.Css
         {
             if (Parent is not IAcssStyle style)
             {
-                this.WriteError($"The parent of {nameof(AcssAnimation)} must be {nameof(AcssStyle)}. Skip it.");
+                _context.OnError(AcssErrors.Animation_With_Invalid_Parent,
+                    $"The parent of the animation '{Description}' must be {nameof(AcssStyle)}. Skip it.");
+
                 return null;
             }
 
             _selectorTargetType = style.GetTargetType();
             if (_selectorTargetType == null)
             {
-                this.WriteError($"The target type of the style is null. Skip it [{Description}].");
+                _context.OnError(AcssErrors.Animation_With_Invalid_Target_Type,
+                    $"The target type of the animation '{Description}' is null. Skip it.");
+
                 return null;
             }
             
@@ -74,7 +79,9 @@ namespace Nlnet.Avalonia.Css
             var keyFrames = interpreter.ParseKeyFrames(_selectorTargetType!, childrenSetter.Item2)?.ToList();
             if (keyFrames == null || keyFrames.Count == 0)
             {
-                this.WriteWarning($"No key frames detected in animation '{Description}'.");
+                _context.OnError(AcssErrors.Animation_With_Empty_Frames,
+                    $"No key frames detected in the animation '{Description}'. Skip it.");
+
                 return null;
             }
             else

@@ -112,7 +112,8 @@ namespace Nlnet.Avalonia.Css
                     }
                     else
                     {
-                        this.WriteError($"Can not find the ControlTheme for '{acssThemeChildStyle.ThemeTargetType}'. Skip it.");
+                        _context.OnError(AcssErrors.Control_Theme_Not_Found, 
+                            $"Can not find the ControlTheme for '{acssThemeChildStyle.ThemeTargetType}'. Skip it.");
                     }
                 }
 
@@ -174,10 +175,12 @@ namespace Nlnet.Avalonia.Css
             }
             catch (Exception e)
             {
-                this.WriteError(e.ToString());
-                
-                // TODO DELETE WHEN RLS.
+                _context.OnError(AcssErrors.Exception, e.ToString());
+
+#if DEBUG
+                // TODO Use config to control it.
                 Dispatcher.UIThread.Post(() => throw new Exception("Something wrong in acss. Please check the inner exception.", e));
+#endif
             }
         }
 

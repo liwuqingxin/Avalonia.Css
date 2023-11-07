@@ -12,11 +12,11 @@ public class TraceDiagnosisOutput : IDiagnosisOutput
 
     void IDiagnosisOutput.OnInfo(string message, string? caller)
     {
-        Trace.WriteLine($"[{DateTime.Now:HH:mm:ss fff}] ({caller}): {message}");
+        Trace.WriteLine($"[{DateTime.Now:HH:mm:ss fff}] {caller}(): {message}");
     }
 
     void IDiagnosisOutput.OnError(AcssErrors error, string message, string? caller)
     {
-        Trace.WriteLine($"[{DateTime.Now:HH:mm:ss fff}]     [Error] ({caller}): {message}");
+        Trace.WriteLine($"[{DateTime.Now:HH:mm:ss fff}]     [Error] {caller}(): {message}");
     }
 }

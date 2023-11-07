@@ -15,7 +15,7 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)
         {
-            this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
+            context.OnError(AcssErrors.Value_String_Invalid, $"Can not parse {nameof(Brush)} from string '{valueString}'.");
             return null;
         }
         
@@ -46,7 +46,7 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
             var color = colorString.TryParseColor();
             if (color == null)
             {
-                this.WriteError($"Can not parse {nameof(Brush)} from string '{valueString}'.");
+                context.OnError(AcssErrors.Value_String_Invalid, $"Can not parse {nameof(Brush)} from string '{valueString}'.");
                 return null;
             }
 

@@ -24,7 +24,7 @@ internal class AcssSetter : IAcssSetter
         var index = setterString.IndexOf(':');
         if (index == -1)
         {
-            this.WriteError($"Invalid setter string : '{setterString}'. Skip it.");
+            _context.OnError(AcssErrors.Value_String_Invalid, $"Invalid setter string '{setterString}'. Skip it.");
             return;
         }
         Property = setterString[..index];

@@ -11,7 +11,7 @@ internal class ColorResource : AcssResourceBaseAndFac<ColorResource>
         var values = valueString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length == 0)
         {
-            this.WriteError($"Can not parse {nameof(Color)} from string '{valueString}'.");
+            context.OnError(AcssErrors.Value_String_Invalid, $"Can not parse {nameof(Color)} from string '{valueString}'.");
             return null;
         }
 

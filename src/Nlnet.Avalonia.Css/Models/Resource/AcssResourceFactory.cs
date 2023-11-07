@@ -61,7 +61,7 @@ internal class AcssResourceFactory : IAcssResourceFactory
         var match = Regex.Match(def);
         if (match.Success == false)
         {
-            this.WriteError($"Resource '{def}' is invalid. Skip it.");
+            _context.OnError(AcssErrors.Resource_Invalid, $"Resource '{def}' is invalid. Skip it.");
             resource = null;
             return false;
         }
@@ -76,7 +76,7 @@ internal class AcssResourceFactory : IAcssResourceFactory
             return true;
         }
 
-        this.WriteError($"Resource type '{type}' is not supported now.");
+        _context.OnError(AcssErrors.Resource_Not_Supported, $"Resource type '{type}' is not supported now.");
         resource = null;
         return false;
     }

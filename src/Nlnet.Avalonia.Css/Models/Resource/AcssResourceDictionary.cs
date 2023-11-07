@@ -68,14 +68,15 @@ internal class AcssResourceDictionary : AcssSection, IAcssResourceDictionary
     {
         if (Resources.Count == 0)
         {
-            this.WriteWarning($"No resource detected. Skip this.");
+            _context.OnError(AcssErrors.ResourceDictionary_Empty, $"No resource detected. Skip this.");
             return null;
         }
 
         var cfg = _context.GetService<IAcssConfiguration>();
         if (Accent != null && !string.Equals(Accent, cfg.Accent, StringComparison.CurrentCultureIgnoreCase))
         {
-            this.WriteWarning($"Current theme is '{cfg.Accent}'. This theme is '{Accent}'. Skip this.");
+            _context.OnError(AcssErrors.ResourceDictionary_Accent_Not_Match, 
+                $"Current accent is '{cfg.Accent}'. This accent is '{Accent}'. Skip this.");
             return null;
         }
 

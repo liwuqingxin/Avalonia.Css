@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Nlnet.Avalonia.Css;
 
@@ -21,7 +19,7 @@ internal class AcssTokens : IDisposable
     {
         if (source.IsValid() == false)
         {
-            typeof(AcssTokens).WriteError($"The source '{source}' is invalid. Skip it.");
+            context.OnError(AcssErrors.Source_Invalid, $"The source '{source}' is invalid. Skip it.");
             return null;
         }
 
