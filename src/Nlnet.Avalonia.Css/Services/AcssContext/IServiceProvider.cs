@@ -38,6 +38,13 @@ public interface IServiceProvider
     public T GetService<T>() where T : class, IService;
 
     /// <summary>
+    /// Get the first service of <see cref="T"/>.  If it does not exist return null instead.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T? GetServiceIfExist<T>() where T : class, IService;
+
+    /// <summary>
     /// Try to get the first service of <see cref="T"/> if it exists.
     /// </summary>
     /// <typeparam name="T"></typeparam>

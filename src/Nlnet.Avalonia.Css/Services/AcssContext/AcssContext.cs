@@ -58,6 +58,9 @@ public class AcssContext : IAcssContext, IService
     {
         var services = this as IServiceProvider;
 
+        // Diagnosis
+        services.UseService<IDiagnosisOutput>(new TraceDiagnosisOutput());
+
         // Syntax
         services.UseService<IAcssInterpreter>(new AcssInterpreter(this));
         services.UseService<IAcssParser>(new AcssParser(this));
@@ -222,6 +225,11 @@ public class AcssContext : IAcssContext, IService
         }
 
         return service;
+    }
+
+    public T? GetServiceIfExist<T>() where T : class, IService
+    {
+        return _services.FirstOrDefault(s => s is T) is T service ? service : null;
     }
 
     bool IServiceProvider.TryGetService<T>(out T service) where T : class
