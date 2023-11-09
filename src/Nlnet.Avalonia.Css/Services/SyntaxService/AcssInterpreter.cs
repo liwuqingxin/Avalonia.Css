@@ -120,7 +120,7 @@ namespace Nlnet.Avalonia.Css
                 var splits = property.Split('.', StringSplitOptions.RemoveEmptyEntries);
                 if (splits.Length != 2)
                 {
-                    avaloniaObjectType.WriteError($"Can not recognize '{property}'. Skip it.");
+                    _context.OnError(AcssErrors.Property_String_Invalid, $"Can not recognize '{property}'. Skip it.");
                     return null;
                 }
 
@@ -137,7 +137,8 @@ namespace Nlnet.Avalonia.Css
             var field = avaloniaObjectType.GetField($"{property}Property", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
             if (field == null)
             {
-                avaloniaObjectType.WriteError($"Can not find '{property}Property' from '{avaloniaObjectType}'. Skip it.");
+                _context.OnError(AcssErrors.Property_Not_Found, 
+                    $"Can not find '{property}Property' from '{avaloniaObjectType}'. Skip it.");
             }
             var avaloniaProperty = field?.GetValue(avaloniaObjectType) as AvaloniaProperty;
             return avaloniaProperty;
@@ -177,7 +178,7 @@ namespace Nlnet.Avalonia.Css
             // Null.
             if (rawValue is null or "null" or "NULL")
             {
-                this.WriteLine($"Raw value is null.");
+                _context.OnError(AcssErrors.Value_String_Null, $"Raw value is null.");
                 return null;
             }
 
@@ -196,7 +197,7 @@ namespace Nlnet.Avalonia.Css
                 }
                 else
                 {
-                    this.WriteError($"Can not parse the value for enum type '{declaredType}'.");
+                    _context.OnError(AcssErrors.Value_String_Invalid, $"Can not parse the value for enum type '{declaredType}'.");
                     return null;
                 }
             }
@@ -245,7 +246,7 @@ namespace Nlnet.Avalonia.Css
                     }
                 }
 
-                this.WriteError($"Can not recognize the static instance of '{rawValue}'.");
+                _context.OnError(AcssErrors.Value_String_Invalid, $"Can not recognize the static instance of '{rawValue}'.");
 
                 return null;
             }
@@ -278,7 +279,7 @@ namespace Nlnet.Avalonia.Css
                 return internalParserMethod.Invoke(declaredType, new object?[] { _context, rawValue });
             }
 
-            declaredType.WriteError($"Can not parse the value '{rawValue}'. Skip it.");
+            _context.OnError(AcssErrors.Value_String_Invalid, $"Can not parse the value '{rawValue}'. Skip it.");
             return null;
         }
 
@@ -396,7 +397,8 @@ namespace Nlnet.Avalonia.Css
                     }
                     else
                     {
-                        this.WriteError($"Can not recognize the type '{ownerTypeName}'. Use {nameof(TemplatedControl)} as default.");
+                        _context.OnError(AcssErrors.Type_Not_Found, 
+                            $"Can not recognize the type '{ownerTypeName}'. Use {nameof(TemplatedControl)} as default.");
                     }
                     property = propertyString[++dotIndex..];
                 }
@@ -409,13 +411,15 @@ namespace Nlnet.Avalonia.Css
             var avaloniaProperty = _interpreter.ParseAvaloniaProperty(targetType!, property);
             if (avaloniaProperty == null)
             {
-                this.WriteError($"Can not recognize the property '{property}' from type '{targetType}'. Skip it.");
+                _context.OnError(AcssErrors.Property_Not_Found, 
+                    $"Can not recognize the property '{property}' from type '{targetType}'. Skip it.");
                 return null;
             }
 
             if (_transitionsTypes.TryGetValue(avaloniaProperty.PropertyType, out var transType) == false)
             {
-                this.WriteError($"Can not find the transition for type '{avaloniaProperty.PropertyType}' of the property '{avaloniaProperty.Name}'.");
+                _context.OnError(AcssErrors.Transition_Not_Found, 
+                    $"Can not find the transition for type '{avaloniaProperty.PropertyType}' of the property '{avaloniaProperty.Name}'.");
                 return null;
             }
             if (Activator.CreateInstance(transType) is not ITransition instance)

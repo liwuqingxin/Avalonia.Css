@@ -55,7 +55,7 @@ namespace Nlnet.Avalonia.Css
         {
             if (Parent is not IAcssStyle style)
             {
-                _context.OnError(AcssErrors.Animation_With_Invalid_Parent,
+                _context.OnError(AcssErrors.Animation_Parent_Invalid,
                     $"The parent of the animation '{Description}' must be {nameof(AcssStyle)}. Skip it.");
 
                 return null;
@@ -64,7 +64,7 @@ namespace Nlnet.Avalonia.Css
             _selectorTargetType = style.GetTargetType();
             if (_selectorTargetType == null)
             {
-                _context.OnError(AcssErrors.Animation_With_Invalid_Target_Type,
+                _context.OnError(AcssErrors.Animation_TargetType_Not_Found,
                     $"The target type of the animation '{Description}' is null. Skip it.");
 
                 return null;
@@ -79,7 +79,7 @@ namespace Nlnet.Avalonia.Css
             var keyFrames = interpreter.ParseKeyFrames(_selectorTargetType!, childrenSetter.Item2)?.ToList();
             if (keyFrames == null || keyFrames.Count == 0)
             {
-                _context.OnError(AcssErrors.Animation_With_Empty_Frames,
+                _context.OnError(AcssErrors.Animation_Empty,
                     $"No key frames detected in the animation '{Description}'. Skip it.");
 
                 return null;

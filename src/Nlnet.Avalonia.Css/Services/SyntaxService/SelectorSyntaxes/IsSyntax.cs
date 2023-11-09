@@ -16,7 +16,7 @@ internal class IsSyntax : ISyntax, ITypeSyntax
             return previous.Is(type!);
         }
 
-        this.WriteError($"Can not resolve the type '{TypeName}'.");
+        context.OnError(AcssErrors.Type_Not_Found, $"Can not resolve the type '{TypeName}'.");
         return previous;
     }
 }

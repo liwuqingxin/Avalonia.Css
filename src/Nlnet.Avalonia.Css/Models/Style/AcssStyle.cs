@@ -122,7 +122,8 @@ internal class AcssStyle : AcssSection, IAcssStyle
         {
             list.RemoveAt(index);
             list.Insert(index, setter);
-            this.WriteError($"Duplicated setter for property '{setter.Property}' is detected. Use the later one that value is '{setter.RawValue}'.");
+            _context.OnError(AcssErrors.Setter_Duplicated, 
+                $"Duplicated setter for property '{setter.Property}' is detected. Use the later one that value is '{setter.RawValue}'.");
         }
         else
         {
@@ -213,13 +214,14 @@ internal class AcssStyle : AcssSection, IAcssStyle
 
     public ChildStyle ToAvaloniaStyle()
     {
-        DiagnosisHelper.WriteLine($"---- Parsing style '{this}'.");
+        _context.OnInfo($"---- Parsing style '{this}'.");
 
         var style = NewStyle();
         var targetType = ((IAcssStyle)this).GetTargetType();
         if (targetType == null)
         {
-            this.WriteError($"The target type is null as raw header string is '{Header}'. Empty avalonia style is created.");
+            _context.OnError(AcssErrors.Style_TargetType_Not_Found, 
+                $"The target type is null as raw header string is '{Header}'. Empty avalonia style is created.");
             return style;
         }
 

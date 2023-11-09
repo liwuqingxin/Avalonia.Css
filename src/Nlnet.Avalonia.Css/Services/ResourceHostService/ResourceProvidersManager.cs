@@ -9,11 +9,12 @@ namespace Nlnet.Avalonia.Css;
 
 internal class ResourceProvidersManager : IResourceProvidersManager
 {
+    private readonly AcssContext _context;
     private readonly List<WeakReference<IResourceProvider>> _references = new();
 
-    public ResourceProvidersManager()
+    public ResourceProvidersManager(AcssContext acssContext)
     {
-        
+        _context = acssContext;
     }
 
     public void Initialize()
@@ -70,7 +71,7 @@ internal class ResourceProvidersManager : IResourceProvidersManager
             }
         }
 
-        this.WriteError($"Can not find the resource with key of '{key}' in {nameof(ResourceProvidersManager)}.");
+        _context.OnError(AcssErrors.Resource_Not_Found, $"Can not find the resource with key of '{key}' in {nameof(ResourceProvidersManager)}.");
 
         result = default;
         return false;

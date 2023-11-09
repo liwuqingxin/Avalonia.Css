@@ -19,18 +19,6 @@ internal class AcssSetter : IAcssSetter
 
     public string? RawValue { get; set; }
 
-    public AcssSetter(string setterString)
-    {
-        var index = setterString.IndexOf(':');
-        if (index == -1)
-        {
-            _context.OnError(AcssErrors.Value_String_Invalid, $"Invalid setter string '{setterString}'. Skip it.");
-            return;
-        }
-        Property = setterString[..index];
-        RawValue = setterString.Substring(index + 1, setterString.Length - index - 1);
-    }
-
     public AcssSetter(string name, string value)
     {
         Property = name;

@@ -112,7 +112,7 @@ namespace Nlnet.Avalonia.Css
                     }
                     else
                     {
-                        _context.OnError(AcssErrors.Control_Theme_Not_Found, 
+                        _context.OnError(AcssErrors.ControlTheme_Not_Found, 
                             $"Can not find the ControlTheme for '{acssThemeChildStyle.ThemeTargetType}'. Skip it.");
                     }
                 }

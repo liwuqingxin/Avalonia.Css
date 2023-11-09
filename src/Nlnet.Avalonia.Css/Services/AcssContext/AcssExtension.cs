@@ -14,7 +14,7 @@ public static class AcssExtension
     public static AppBuilder UseAcssDefaultContext(this AppBuilder builder)
     {
         AcssContext.UseDefaultContext();
-        builder.WriteLine($"======== Avalonia css default IAcssContext used...");
+        AcssContext.Default.OnInfo($"======== Avalonia css default IAcssContext used...");
         return builder;
     }
 

@@ -22,19 +22,22 @@ internal class AttachedPropertySyntax : ISyntax, ITypeSyntax
             var avaloniaProperty = interpreter.ParseAvaloniaProperty(type!, Property);
             if (avaloniaProperty == null)
             {
-                this.WriteError($"Can not resolve the property '{Property}' of the type '{type}'. '[{Property}={Value}]' skipped.");
+                context.OnError(AcssErrors.Property_Not_Found, 
+                    $"Can not resolve the property '{Property}' of the type '{type}'. '[{Property}={Value}]' skipped.");
                 return previous;
             }
             var value = interpreter.ParseValue(avaloniaProperty, Value);
             if (value == null)
             {
-                this.WriteError($"Can not resolve the value '{Value}' for property '{type}.{Property}'. Skip it.");
+                context.OnError(AcssErrors.Value_String_Invalid, 
+                    $"Can not resolve the value '{Value}' for property '{type}.{Property}'. Skip it.");
                 return previous;
             }
             return previous.PropertyEquals(avaloniaProperty, value);
         }
 
-        this.WriteError($"Can not resolve the type '{TypeName}'. '[{Property}={Value}]' skipped.");
+        context.OnError(AcssErrors.Type_Not_Found, 
+            $"Can not resolve the type '{TypeName}'. '[{Property}={Value}]' skipped.");
         return previous;
     }
 }

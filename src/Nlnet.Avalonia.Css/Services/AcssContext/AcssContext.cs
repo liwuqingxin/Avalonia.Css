@@ -68,7 +68,7 @@ public class AcssContext : IAcssContext, IService
         // Resolver
         services.UseService<ITypeResolverManager>(new TypeResolverManager());
         services.UseService<IValueParsingTypeAdapterManager>(new ValueParsingTypeAdapterManager());
-        services.UseService<IResourceProvidersManager>(new ResourceProvidersManager());
+        services.UseService<IResourceProvidersManager>(new ResourceProvidersManager(this));
         services.UseService<IBehaviorDeclarerManager>(new BehaviorDeclarerManager());
         services.UseService<IBehaviorResolverManager>(new BehaviorResolverManager());
 

@@ -16,7 +16,7 @@ internal class NotSyntax : ISyntax
         var selector = interpreter.ToSelector(context, acssStyle, Argument);
         if (selector == null)
         {
-            this.WriteError($"Can not apply ':not' selector for {Argument}");
+            context.OnError(AcssErrors.Selector_Invalid, $"Can not apply ':not' selector for {Argument}");
             return previous;
         }
 
