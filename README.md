@@ -52,6 +52,8 @@ If you're interested in getting involved or have any ideas, suggestions, or feed
 
 We provide fluent theme for Avalonia controls powered by Acss. More about the theme please see [Acss.Fluent](https://docs.en.avalonia.css.nlnet.net/documentation/zhu-ti-bang-zhu/ru-he-shi-yong-acss.fluent).
 
+See more about the acss showcase in [bilibili](https://space.bilibili.com/1117754194/channel/seriesdetail?sid=3739599) or [youtube](https://www.youtube.com/channel/UCYvEgvGj-JVYZrOrup3aoBQ).
+
 <br/>
 
 ![fluent ui](./img/fluent-ui.png)
