@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AssemblyVersion>$(AcssVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
+		<Configurations>Debug;Release;LinuxDebug</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--This helps with theme dll-s trimming. If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa. https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
+		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
+		<TrimmableAssembly Include="Avalonia.Themes.Default" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--For Avalonia.DevTools-->
+		<PackageReference Include="Avalonia.Angle.Windows.Natives" Version="2.1.0.2023020321" />
+
+		<PackageReference Include="Avalonia" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
+
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0" />
+		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="11.0.0" />
+		<PackageReference Include="Nlnet.Avalonia.DevTools" Version="1.0.0-self.1" />
+		<PackageReference Include="Nlnet.Sharp.Avalonia" Version="1.0.1-beta.3" />
+		<PackageReference Include="Nlnet.Sharp.Utils" Version="1.0.1-beta.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.Css\Nlnet.Avalonia.Css.csproj" />
+	</ItemGroup>
+
+</Project>

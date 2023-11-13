@@ -12,7 +12,7 @@ namespace Nlnet.Avalonia.Css
     /// </remarks>
     internal class AcssConfiguration : IAcssConfiguration
     {
-        public string? Accent { get; set; }
+        public string? Accent { get; set; } = "blue";
 
         public bool EnableTransitions { get; set; } = true;
 

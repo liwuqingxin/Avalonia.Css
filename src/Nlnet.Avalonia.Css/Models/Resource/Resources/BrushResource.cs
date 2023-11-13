@@ -36,6 +36,7 @@ internal class BrushResource : AcssResourceBaseAndFac<BrushResource>
             var brush = new SolidColorBrush()
             {
                 Opacity = opacity,
+                // BUG 这里不能是app范围内绑定，如果 FluentTheme 放在局部范围内，这里不会响应。
                 [!SolidColorBrush.ColorProperty] = app.GetResourceObservable(key!).ToBinding(),
             };
 

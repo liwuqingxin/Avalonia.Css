@@ -1,0 +1,20 @@
+<Window x:Class="Nlnet.Avalonia.Css.Sample.LocalContext.Views.AcssWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:nlnet="https://www.nlnet.com/avalonia"
+        Title="AcssWindow"
+        d:DesignHeight="450"
+        d:DesignWidth="800"
+        mc:Ignorable="d">
+    <Window.Styles>
+        <nlnet:AcssFluentTheme />
+    </Window.Styles>
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button Content="Acss Fluent Button" />
+        <ToggleButton Content="Acss Fluent Button" />
+        <TextBox />
+    </StackPanel>
+</Window>

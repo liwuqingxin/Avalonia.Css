@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{64CD8901
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B071EDD-C60F-4986-9FD9-406B89A32E97}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nlnet.Avalonia.Css.Sample.LocalContext", "Nlnet.Avalonia.Css.Sample.LocalContext\Nlnet.Avalonia.Css.Sample.LocalContext.csproj", "{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,12 @@ Global
 		{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
 		{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +115,7 @@ Global
 		{C6C78455-2E84-4595-B2FF-7ABD2692F6EE} = {B71ACD30-93EC-474B-9CE1-B441CECBEF16}
 		{71CDC9AB-A93C-4B11-A95E-C05C200934FF} = {3B071EDD-C60F-4986-9FD9-406B89A32E97}
 		{618E2CA9-5381-475B-A790-875F8ED0DA04} = {B71ACD30-93EC-474B-9CE1-B441CECBEF16}
+		{B2633690-9B5C-45D5-8FA2-4A276BB23CEC} = {B71ACD30-93EC-474B-9CE1-B441CECBEF16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04398A46-8E2A-4709-8509-159F6AD6D60A}
