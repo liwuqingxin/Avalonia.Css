@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Nlnet.Avalonia.DevTools;
 
 namespace Nlnet.Avalonia.Css.Sample.LocalContext
 {
@@ -9,6 +10,8 @@ namespace Nlnet.Avalonia.Css.Sample.LocalContext
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+
+            AvaloniaDevTools.UseDevTools();
         }
 
         public override void OnFrameworkInitializationCompleted()

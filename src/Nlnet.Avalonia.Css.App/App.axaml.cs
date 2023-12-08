@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Nlnet.Avalonia.DevTools;
 using Nlnet.Avalonia.SampleAssistant;
 using Nlnet.Avalonia.Svg.Controls;
 using Nlnet.Sharp.Utils;
@@ -27,6 +28,8 @@ namespace Nlnet.Avalonia.Css.App
 
         public override void Initialize()
         {
+            AvaloniaDevTools.UseDevTools();
+
             // Referenced libraries.
             AppLoader.Load("Nlnet.Avalonia.Svg.dll");
 

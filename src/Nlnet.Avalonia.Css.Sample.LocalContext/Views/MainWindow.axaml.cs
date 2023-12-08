@@ -1,6 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Nlnet.Avalonia.DevTools;
 
 namespace Nlnet.Avalonia.Css.Sample.LocalContext.Views
 {
@@ -9,8 +8,6 @@ namespace Nlnet.Avalonia.Css.Sample.LocalContext.Views
         public MainWindow()
         {
             InitializeComponent(true);
-
-            this.UseDevTools();
         }
 
         private void Button_OnClick(object? sender, RoutedEventArgs e)
