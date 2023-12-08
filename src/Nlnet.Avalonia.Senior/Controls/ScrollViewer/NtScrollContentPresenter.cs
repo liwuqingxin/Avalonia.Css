@@ -212,23 +212,28 @@ public class NtScrollContentPresenter : ScrollContentPresenter
             var x = Offset.X;
             var y = Offset.Y;
 
-            if (Extent.Height > Viewport.Height)
+            if (e.KeyModifiers == KeyModifiers.Shift)
             {
-                var height = isLogical ? scrollable!.ScrollSize.Height : viewer.SmoothScrollingStep;
-                y += -e.Delta.Y * height;
-                y =  Math.Max(y, 0);
-                y =  Math.Min(y, Extent.Height - Viewport.Height);
+                if (Extent.Width > Viewport.Width)
+                {
+                    var width = isLogical ? scrollable!.ScrollSize.Width : viewer.SmoothScrollingStep;
+                    x += -e.Delta.Y * width;
+                    x = Math.Max(x, 0);
+                    x = Math.Min(x, Extent.Width - Viewport.Width);
+                }
+            }
+            else
+            {
+                if (Extent.Height > Viewport.Height)
+                {
+                    var height = isLogical ? scrollable!.ScrollSize.Height : viewer.SmoothScrollingStep;
+                    y += -e.Delta.Y * height;
+                    y = Math.Max(y, 0);
+                    y = Math.Min(y, Extent.Height - Viewport.Height);
+                }
             }
 
-            if (Extent.Width > Viewport.Width)
-            {
-                var width = isLogical ? scrollable!.ScrollSize.Width : viewer.SmoothScrollingStep;
-                x += -e.Delta.X * width;
-                x =  Math.Max(x, 0);
-                x =  Math.Min(x, Extent.Width - Viewport.Width);
-            }
-
-            var newOffset     = new Vector(x, y);
+            var newOffset = new Vector(x, y);
             var offsetChanged = newOffset != Offset;
 
             // Do not set it directly to keep template binding available.
