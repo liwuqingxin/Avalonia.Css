@@ -20,6 +20,10 @@ Avalonia Css,  or Acss for short, does not follow the standard CSS (Cascading St
 
 Yes, it follows a pattern similar to **Html+CSS**.
 
+![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
+
+Many thanks to Jet Brains for [developer tools free of charge](https://www.jetbrains.com/community/opensource/?utm_campaign=opensource&utm_content=approved&utm_medium=email&utm_source=newsletter&utm_term=jblogo#support).
+
 # Features
 
 - Separation of Structure and Style
