@@ -7,7 +7,7 @@ NtWindow#RootWindow{
     Width:1200;
     Height:800;
     TitleHeight: 80;
-    Topmost:True;
+    Topmost:False;
     WindowStartupLocation:CenterScreen;
     .acss:window.esc.close;
     [[

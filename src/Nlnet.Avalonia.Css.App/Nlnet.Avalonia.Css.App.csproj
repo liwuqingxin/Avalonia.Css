@@ -43,6 +43,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Nlnet.Avalonia.Css.Behaviors\Nlnet.Avalonia.Css.Behaviors.csproj" />
+		<ProjectReference Include="..\Nlnet.Avalonia.MagicPanel\Nlnet.Avalonia.MagicPanel.csproj" />
 		<ProjectReference Include="..\Nlnet.Avalonia.MessageBox\Nlnet.Avalonia.MessageBox.csproj" />
 		<ProjectReference Include="..\Nlnet.Avalonia.SampleAssistant\Nlnet.Avalonia.SampleAssistant.csproj" />
 		<ProjectReference Include="..\Nlnet.Avalonia.Css.Fluent\Nlnet.Avalonia.Css.Fluent.csproj" />

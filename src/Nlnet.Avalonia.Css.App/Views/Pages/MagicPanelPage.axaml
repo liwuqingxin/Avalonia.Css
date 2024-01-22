@@ -1,0 +1,68 @@
+<UserControl x:Class="Nlnet.Avalonia.Css.App.Views.Pages.MagicPanelPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock x:Name="PageDescription"
+                   Text="Magic panel!"
+                   TextWrapping="Wrap" />
+
+        <app:IndependentCase Header="Default Layout">
+            <app:IndependentCase.Settings>
+                <Button Click="Button_OnClick" Content="重置布局" />
+            </app:IndependentCase.Settings>
+            <Grid Height="500"
+                  ColumnDefinitions="*,*"
+                  RowDefinitions="*,*">
+                <Grid.Styles>
+                    <Style Selector="Border">
+                        <Setter Property="Transitions">
+                            <Transitions>
+                                <DoubleTransition Property="Canvas.Top" Duration="0:0:0.3" Easing="0.4,0.6,0.4,0.6" />
+                                <DoubleTransition Property="Canvas.Left" Duration="0:0:0.3" Easing="0.4,0.6,0.4,0.6" />
+                            </Transitions>
+                        </Setter>
+                    </Style>
+                </Grid.Styles>
+                <nlnet:MagicPanel x:Name="Panel">
+                    <Border x:Name="Border1"
+                            Width="100"
+                            Height="100"
+                            Background="Red">
+                        <TextBlock Text="Size=(100,100)" />
+                    </Border>
+                    <Border x:Name="Border2" Background="Green">
+                        <TextBlock Text="Size=(Auto,Auto)" />
+                    </Border>
+                    <Border x:Name="Border3"
+                            Height="50"
+                            Background="Orange">
+                        <TextBlock Text="Size=(Auto,50)" />
+                    </Border>
+                    <Border x:Name="Border4"
+                            Width="80"
+                            Background="DodgerBlue">
+                        <TextBlock Text="Size=(80,Auto)" />
+                    </Border>
+                </nlnet:MagicPanel>
+                <GridSplitter Grid.Row="0"
+                              Grid.RowSpan="2"
+                              Grid.Column="0"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Stretch" />
+                <GridSplitter Grid.Row="0"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Bottom" />
+            </Grid>
+        </app:IndependentCase>
+
+    </StackPanel>
+</UserControl>

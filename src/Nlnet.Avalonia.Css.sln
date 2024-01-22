@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{64CD8901
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B071EDD-C60F-4986-9FD9-406B89A32E97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nlnet.Avalonia.MagicPanel", "Nlnet.Avalonia.MagicPanel\Nlnet.Avalonia.MagicPanel.csproj", "{9B59AB74-9556-4A71-BE2B-473404559347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,12 @@ Global
 		{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
 		{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F96BCAC-E6DF-4549-8BDD-E00F68C928AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B59AB74-9556-4A71-BE2B-473404559347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B59AB74-9556-4A71-BE2B-473404559347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B59AB74-9556-4A71-BE2B-473404559347}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
+		{9B59AB74-9556-4A71-BE2B-473404559347}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
+		{9B59AB74-9556-4A71-BE2B-473404559347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B59AB74-9556-4A71-BE2B-473404559347}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
