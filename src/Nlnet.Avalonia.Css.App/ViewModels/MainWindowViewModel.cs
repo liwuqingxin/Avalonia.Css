@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -154,6 +155,14 @@ namespace Nlnet.Avalonia.Css.App
                 }
                 GalleryItems.AddRange(t.Result);
             });
+
+            // TODO DELETE
+            {
+                Task.Delay(3000).ContinueWith(t =>
+                {
+                    SelectedGalleryItem = GalleryItems?.FirstOrDefault(g => g.Title.Contains("Magic"));
+                });
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)

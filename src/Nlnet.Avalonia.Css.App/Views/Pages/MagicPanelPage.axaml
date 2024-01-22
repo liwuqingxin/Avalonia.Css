@@ -15,7 +15,11 @@
 
         <app:IndependentCase Header="Default Layout">
             <app:IndependentCase.Settings>
-                <Button Click="Button_OnClick" Content="重置布局" />
+                <StackPanel>
+                    <Button Click="Button_OnClick" Content="重置布局" />
+                    <TextBox x:Name="TbxLayout" Watermark="Layout" />
+                    <TextBox x:Name="TbxLayoutStyle" Watermark="Layout Style" />
+                </StackPanel>
             </app:IndependentCase.Settings>
             <Grid Height="500"
                   ColumnDefinitions="*,*"
@@ -24,13 +28,20 @@
                     <Style Selector="Border">
                         <Setter Property="Transitions">
                             <Transitions>
-                                <DoubleTransition Property="Canvas.Top" Duration="0:0:0.3" Easing="0.4,0.6,0.4,0.6" />
-                                <DoubleTransition Property="Canvas.Left" Duration="0:0:0.3" Easing="0.4,0.6,0.4,0.6" />
+                                <DoubleTransition Easing="0.4,0.6,0.4,0.6"
+                                                  Property="Canvas.Top"
+                                                  Duration="0:0:0.3" />
+                                <DoubleTransition Easing="0.4,0.6,0.4,0.6"
+                                                  Property="Canvas.Left"
+                                                  Duration="0:0:0.3" />
                             </Transitions>
                         </Setter>
                     </Style>
                 </Grid.Styles>
-                <nlnet:MagicPanel x:Name="Panel">
+
+                <nlnet:MagicPanel x:Name="Panel"
+                                  Layout="{Binding #TbxLayout.Text}"
+                                  LayoutStyle="{Binding #TbxLayoutStyle.Text}">
                     <Border x:Name="Border1"
                             Width="100"
                             Height="100"
@@ -51,14 +62,18 @@
                         <TextBlock Text="Size=(80,Auto)" />
                     </Border>
                 </nlnet:MagicPanel>
+
                 <GridSplitter Grid.Row="0"
                               Grid.RowSpan="2"
                               Grid.Column="0"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Stretch" />
+                              Width="8"
+                              Margin="0,0,-4,0"
+                              HorizontalAlignment="Right" />
                 <GridSplitter Grid.Row="0"
                               Grid.Column="0"
                               Grid.ColumnSpan="2"
+                              Height="8"
+                              Margin="0,0,0,-4"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Bottom" />
             </Grid>

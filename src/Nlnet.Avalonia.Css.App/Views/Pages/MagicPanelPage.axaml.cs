@@ -23,6 +23,11 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             Canvas.SetLeft(Border2, random.NextDouble() * 200);
             Canvas.SetLeft(Border3, random.NextDouble() * 200);
             Canvas.SetLeft(Border4, random.NextDouble() * 200);
+            
+            Canvas.SetTop(Border1, random.NextDouble() * 200);
+            Canvas.SetTop(Border2, random.NextDouble() * 200);
+            Canvas.SetTop(Border3, random.NextDouble() * 200);
+            Canvas.SetTop(Border4, random.NextDouble() * 200);
         }
     }
 }

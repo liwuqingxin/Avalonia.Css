@@ -2,25 +2,31 @@ using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Controls
 {
-    public sealed class MagicPanel : Canvas
+    public sealed class MagicPanel : Canvas, INavigableContainer/*, IScrollSnapPointsInfo*/
     {
-        #region Definitions
+        #region Layouts
 
-        private static readonly Dictionary<string, ILayoutDefinition> InternalDefinitions = new(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, IMagicLayout> InternalLayouts = new(StringComparer.OrdinalIgnoreCase);
 
-        public static IReadOnlyDictionary<string, ILayoutDefinition> Definitions => InternalDefinitions;
+        public static IReadOnlyDictionary<string, IMagicLayout> Layouts => InternalLayouts;
 
-        public static void RegisterLayoutDefinition(ILayoutDefinition definition)
+        public static void RegisterLayout(IMagicLayout layout)
         {
-            var name = definition.GetName();
-            if (InternalDefinitions.TryGetValue(name, out _))
+            var names = layout.GetNames();
+            foreach (var name in names)
             {
-                throw new InvalidOperationException($"Layout definition with same name of '{name}' has existed.");
+                if (InternalLayouts.TryGetValue(name, out _))
+                {
+                    throw new InvalidOperationException($"Layout definition with same name of '{name}' has existed.");
+                }
+
+                InternalLayouts.Add(name, layout);
             }
         }
 
@@ -28,19 +34,27 @@ namespace Nlnet.Avalonia.Controls
 
 
 
-        private ILayoutDefinition _layout = DefaultLayoutDefinition.Default;
+        private IMagicLayout _layout = StackLayout.Default;
 
 
-
+        
         #region Properties
 
-        public string Layout
+        public string? Layout
         {
             get => GetValue(LayoutProperty);
             set => SetValue(LayoutProperty, value);
         }
-        public static readonly StyledProperty<string> LayoutProperty = AvaloniaProperty
-            .Register<MagicPanel, string>(nameof(Layout));
+        public static readonly StyledProperty<string?> LayoutProperty = AvaloniaProperty
+            .Register<MagicPanel, string?>(nameof(Layout));
+
+        public string? LayoutStyle
+        {
+            get => GetValue(LayoutStyleProperty);
+            set => SetValue(LayoutStyleProperty, value);
+        }
+        public static readonly StyledProperty<string?> LayoutStyleProperty = AvaloniaProperty
+            .Register<MagicPanel, string?>(nameof(LayoutStyle));
 
         #endregion
 
@@ -50,11 +64,19 @@ namespace Nlnet.Avalonia.Controls
 
         static MagicPanel()
         {
-            RegisterLayoutDefinition(DefaultLayoutDefinition.Default);
+            RegisterLayout(StackLayout.Default);
+            RegisterLayout(new WrapLayout());
+            RegisterLayout(new CanvasLayout());
 
             LayoutProperty.Changed.AddClassHandler<MagicPanel>((panel, args) =>
             {
-                panel._layout = panel.GetLayoutDefinition();
+                panel.InvalidateLayout();
+                panel.InvalidateMeasure();
+            });
+
+            LayoutStyleProperty.Changed.AddClassHandler<MagicPanel>((panel, args) =>
+            {
+                panel.ParseStyle();
                 panel.InvalidateMeasure();
             });
         }
@@ -64,20 +86,60 @@ namespace Nlnet.Avalonia.Controls
             this.Background = new SolidColorBrush(Colors.IndianRed, 0.1);
         }
 
-        private ILayoutDefinition GetLayoutDefinition()
+        private void InvalidateLayout()
         {
-            if (InternalDefinitions.TryGetValue(Layout, out var layoutDefinition))
+            if (Layout == null)
             {
-                return layoutDefinition;
+                _layout = StackLayout.Default;
+                return;
             }
 
-            return DefaultLayoutDefinition.Default;
+            _layout = InternalLayouts.TryGetValue(Layout, out var layoutDefinition)
+                ? layoutDefinition
+                : StackLayout.Default;
         }
-        
+
         #endregion
 
 
 
+        #region Style
+        
+        private void ParseStyle()
+        {
+            if (LayoutStyle == null)
+            {
+                return;
+            }
+
+            var setterPairs = LayoutStyle.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var setterPair in setterPairs)
+            {
+                var setter = ParseSetter(setterPair);
+                if (setter == null)
+                {
+                    continue;
+                }
+
+                _layout.ApplySetter(this, setter.Value.Item1, setter.Value.Item2);
+            }
+        }
+
+        private static (string,string)? ParseSetter(string setterPair)
+        {
+            var pair = setterPair.Split(':', StringSplitOptions.RemoveEmptyEntries);
+            if (pair.Length != 2)
+            {
+                return null;
+            }
+
+            return new ValueTuple<string, string>(pair[0].Trim(), pair[1].Trim());
+        }
+
+        #endregion
+
+
+        
         #region Measure & Arrange
 
         protected override Size MeasureCore(Size availableSize)
@@ -144,15 +206,15 @@ namespace Nlnet.Avalonia.Controls
                 return new Size();
             }
         }
-        
+
         protected override void ArrangeCore(Rect finalRect)
         {
             if (IsVisible)
             {
                 var useLayoutRounding = UseLayoutRounding;
-                var scale = LayoutHelper.GetLayoutScale(this);
+                var scale             = LayoutHelper.GetLayoutScale(this);
 
-                var margin = Margin;
+                var margin  = Margin;
                 var originX = finalRect.X + margin.Left;
                 var originY = finalRect.Y + margin.Top;
 
@@ -168,8 +230,8 @@ namespace Nlnet.Avalonia.Controls
                     Math.Max(0, finalRect.Width - margin.Left - margin.Right),
                     Math.Max(0, finalRect.Height - margin.Top - margin.Bottom));
                 var horizontalAlignment = HorizontalAlignment;
-                var verticalAlignment = VerticalAlignment;
-                var size = availableSizeMinusMargins;
+                var verticalAlignment   = VerticalAlignment;
+                var size                = availableSizeMinusMargins;
 
                 if (horizontalAlignment != HorizontalAlignment.Stretch)
                 {
@@ -185,7 +247,7 @@ namespace Nlnet.Avalonia.Controls
 
                 if (useLayoutRounding)
                 {
-                    size = LayoutHelper.RoundLayoutSizeUp(size, scale, scale);
+                    size                      = LayoutHelper.RoundLayoutSizeUp(size,                      scale, scale);
                     availableSizeMinusMargins = LayoutHelper.RoundLayoutSizeUp(availableSizeMinusMargins, scale, scale);
                 }
 
@@ -222,50 +284,80 @@ namespace Nlnet.Avalonia.Controls
                 Bounds = new Rect(originX, originY, size.Width, size.Height);
             }
         }
-
-        #endregion
-
-
-
-        #region Measure & Arrange Override
-
-        protected override Size MeasureOverride(Size availableSize)
-        {
-            return _layout.MeasureOverride(availableSize, Children);
-        }
-
-        protected override Size ArrangeOverride(Size finalSize)
-        {
-            _layout.ArrangeOverride(finalSize, this.Children);
-            
-            foreach (var child in this.Children)
-            {
-                this.ArrangeChild(child, finalSize);
-            }
-
-            return finalSize;
-        }
-
-        protected override void ArrangeChild(Control child, Size finalSize)
-        {
-            base.ArrangeChild(child, finalSize);
-        }
-
-        protected override void OnMeasureInvalidated()
-        {
-            base.OnMeasureInvalidated();
-        }
-
-        #endregion
         
-        
-
-        #region Utils
-
         private static Size NonNegative(Size size)
         {
             return new Size(Math.Max(size.Width, 0), Math.Max(size.Height, 0));
         }
+
+        #endregion
+
+
+        
+        #region Measure & Arrange Override
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            return _layout.MeasureOverride(this, availableSize, Children);
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            return _layout.ArrangeOverride(this, finalSize, this.Children);
+        }
+
+        #endregion
+
+
+        
+        #region INavigableContainer
+
+        IInputElement? INavigableContainer.GetControl(NavigationDirection direction, IInputElement? from, bool wrap)
+        {
+            return _layout.GetNavigatedControl(this, direction, from, wrap);
+        }
+
+        #endregion
+
+        
+
+        #region IScrollSnapPointsInfo
+
+        // private bool _areHorizontalSnapPointsRegular;
+        // private bool _areVerticalSnapPointsRegular;
+        //
+        // IReadOnlyList<double> IScrollSnapPointsInfo.GetIrregularSnapPoints(Orientation orientation, SnapPointsAlignment snapPointsAlignment)
+        // {
+        //     
+        // }
+        //
+        // double IScrollSnapPointsInfo.GetRegularSnapPoints(Orientation orientation, SnapPointsAlignment snapPointsAlignment, out double offset)
+        // {
+        // }
+        //
+        // bool IScrollSnapPointsInfo.AreHorizontalSnapPointsRegular
+        // {
+        //     get => _areHorizontalSnapPointsRegular;
+        //     set => _areHorizontalSnapPointsRegular = value;
+        // }
+        //
+        // bool IScrollSnapPointsInfo.AreVerticalSnapPointsRegular
+        // {
+        //     get => _areVerticalSnapPointsRegular;
+        //     set => _areVerticalSnapPointsRegular = value;
+        // }
+        //
+        // event EventHandler<RoutedEventArgs>? IScrollSnapPointsInfo.HorizontalSnapPointsChanged
+        // {
+        //     add => throw new NotImplementedException();
+        //     remove => throw new NotImplementedException();
+        // }
+        //
+        // event EventHandler<RoutedEventArgs>? IScrollSnapPointsInfo.VerticalSnapPointsChanged
+        // {
+        //     add => throw new NotImplementedException();
+        //     remove => throw new NotImplementedException();
+        // }
 
         #endregion
     }
