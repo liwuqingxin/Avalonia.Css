@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="Nlnet.Avalonia.DevTools" Version="1.0.1-beta.4" />
   </ItemGroup>
 
   <ItemGroup>

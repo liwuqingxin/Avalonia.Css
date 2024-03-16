@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="https://www.nlnet.com/avalonia"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -18,7 +19,7 @@
                 <Separator />
                 <MenuItem Header="Disabled" IsEnabled="False" />
                 <MenuItem Header="SubItem 2" />
-                <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                <MenuItem Header="SubItem 3 (_B)" HotKey="A" InputGesture="Ctrl+T" Command="{x:Static pages:NlnetCommands.ShowMessageCommand}" />
                 <MenuItem Header="SubItem 4">
                     <MenuItem.Icon>
                         <Image Source="/Assets/orange.png" />
@@ -63,7 +64,7 @@
                 <Separator />
                 <MenuItem Header="Disabled" IsEnabled="False" />
                 <MenuItem Header="SubItem 2" />
-                <MenuItem Header="SubItem 3" InputGesture="Ctrl+S" />
+                <MenuItem Header="SubItem 3 (_B)" HotKey="A" InputGesture="Ctrl+T" Command="{x:Static pages:NlnetCommands.ShowMessageCommand}" />
                 <MenuItem Header="SubItem 4">
                     <MenuItem.Icon>
                         <Image Source="/Assets/orange.png" />

@@ -59,7 +59,7 @@
                                              Opacity="0.85"
                                              Text="{TemplateBinding Title}"
                                              TextTrimming="{x:Static TextTrimming.CharacterEllipsis}"
-                                             TextWrapping="NoWrap" />
+                                             TextWrapping="Wrap" />
 
                         <ScrollViewer Grid.Row="1"
                                       Grid.Column="1"
