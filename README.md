@@ -38,12 +38,9 @@ Many thanks to Jet Brains for [developer tools free of charge](https://www.jetbr
 
 # Documentation
 
-The domain name used in the document is being filed and is temporarily unavailable for access. Please visit the temporary address of the document: https://yangqi1990917.gitbook.io/avalonia-css-document/.
-中文请访问这里：https://yangqi1990917.gitbook.io/avalonia-css-documentation-1/documentation/readme。
+Documentation is available [here](https://docs.en.avalonia.css.nlnet.net/documentation/readme).  Note that documentation for English is translated from Chinese by DeepL. If you have any problem with it, you are welcome to edit it in github.
 
-~~Documentation is available [here](https://docs.en.avalonia.css.nlnet.net/documentation/readme).  Note that documentation for English is translated from Chinese by DeepL. If you have any problem with it, you are welcome to edit it in github.~~
-
-> ~~中文文档请参考 [这里](https://docs.avalonia.css.nlnet.net/documentation/readme)。~~
+> 中文文档请参考 [这里](https://docs.avalonia.css.nlnet.net/documentation/readme)。
 
 # Usage
 
