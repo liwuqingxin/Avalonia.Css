@@ -5,8 +5,9 @@
              xmlns:avalonia="https://nlnet.com"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:nlnet="https://www.nlnet.net"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:controls="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -39,7 +40,7 @@
                                                FontSize="12"
                                                FontWeight="Normal"
                                                Foreground="LightGray"
-                                               Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(nlnet:RecyclePanel.ItemIndex), StringFormat=ItemIndex: {0}}" />
+                                               Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=(controls:RecyclePanel.ItemIndex), StringFormat=ItemIndex: {0}}" />
                                     <ContentPresenter Grid.Column="2"
                                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -59,7 +60,7 @@
                         VerticalAlignment="Center"
                         ClipToBounds="{Binding #CbxClipToBounds.IsChecked}">
                     <Panel>
-                        <nlnet:RecyclePanel ItemsSource="{nlnet:Enum system:DayOfWeek}" SelectedItem="{Binding #ComboBox.SelectedItem}" />
+                        <controls:RecyclePanel ItemsSource="{nlnet:Enum system:DayOfWeek}" SelectedItem="{Binding #ComboBox.SelectedItem}" />
                         <Border x:Name="HighlightBorder" IsHitTestVisible="False" />
                     </Panel>
                 </Border>

@@ -1,9 +1,10 @@
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Nlnet.Avalonia.DevTools;
 using Nlnet.Avalonia.SampleAssistant;
 using Nlnet.Avalonia.Svg.Controls;
-using Nlnet.Sharp.Utils;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -27,8 +28,10 @@ namespace Nlnet.Avalonia.Css.App
 
         public override void Initialize()
         {
+            AvaloniaDevTools.UseDevTools();
+            
             // Referenced libraries.
-            AppLoader.Load("Nlnet.Avalonia.Svg.dll");
+            Nlnet.Sharp.AssemblyLoader.Load(Path.GetFullPath("./Nlnet.Avalonia.Svg.dll"));
 
             // Use default css builder. It has same effect to CssExtension.UseAvaloniaCssDefaultBuilder().
             AcssContext.UseDefaultContext();

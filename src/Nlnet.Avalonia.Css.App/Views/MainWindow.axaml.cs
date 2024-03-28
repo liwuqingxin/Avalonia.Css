@@ -18,8 +18,6 @@ namespace Nlnet.Avalonia.Css.App.Views
             InitializeComponent(true);
 
             DataContext = new MainWindowViewModel(this);
-
-            this.UseDevTools();
         }
 
         protected override void OnLoaded(RoutedEventArgs e)

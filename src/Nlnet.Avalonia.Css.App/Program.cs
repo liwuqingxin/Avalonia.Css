@@ -5,8 +5,7 @@ using Avalonia.Logging;
 using Nlnet.Avalonia.Css.Behaviors;
 using Nlnet.Avalonia.SampleAssistant;
 using Nlnet.Avalonia.Svg.Controls;
-using Nlnet.Sharp.Avalonia;
-using Nlnet.Sharp.Utils;
+using Nlnet.Sharp;
 
 namespace Nlnet.Avalonia.Css.App
 {
@@ -25,10 +24,10 @@ namespace Nlnet.Avalonia.Css.App
             }
             catch (Exception e)
             {
-                typeof(App).WriteError(e.ToString());
+                typeof(App).Trace(e.ToString());
                 if (e.InnerException != null)
                 {
-                    typeof(App).WriteError(e.InnerException.ToString());
+                    typeof(App).Trace(e.InnerException.ToString());
                 }
 
                 Logger.Sink?.Log(LogEventLevel.Error, nameof(Program), null, "{0}, {1}", e, e.InnerException);

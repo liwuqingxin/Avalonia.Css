@@ -4,7 +4,8 @@
              xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:nlnet="https://www.nlnet.net"
+             xmlns:controls="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -47,14 +48,14 @@
                        UseLightDismissOverlayMode="{Binding #CbxLightDismiss.IsChecked}">
                 <SplitView.Pane>
                     <ListBox>
-                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
-                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
-                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
-                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
-                        <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <controls:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <controls:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <controls:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <controls:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
+                        <controls:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/WindowSettings.svg" />
                     </ListBox>
                 </SplitView.Pane>
-                <nlnet:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/CheckBox.svg" />
+                <controls:Icon IconSvg="avares://Nlnet.Avalonia.Css.App/Assets/Svg/CheckBox.svg" />
             </SplitView>
         </app:IndependentCase>
 

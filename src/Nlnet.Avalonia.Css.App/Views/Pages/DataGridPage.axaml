@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:global="clr-namespace:"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:nlnet="https://www.nlnet.net"
              xmlns:test="clr-namespace:HS.IMF.BaseControls.Gallery.Test"
              d:DesignHeight="450"
              d:DesignWidth="800"

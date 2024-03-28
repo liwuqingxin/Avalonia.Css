@@ -6,7 +6,8 @@
              xmlns:dialogs="clr-namespace:Avalonia.Dialogs;assembly=Avalonia.Dialogs"
              xmlns:internal="clr-namespace:Avalonia.Dialogs.Internal;assembly=Avalonia.Dialogs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:nlnet="https://www.nlnet.net"
+             xmlns:controls="https://www.nlnet.com/avalonia"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -20,11 +21,11 @@
                 <StackPanel MinWidth="160" Spacing="6">
                     <ComboBox x:Name="CbxImage"
                               HorizontalAlignment="Stretch"
-                              ItemsSource="{nlnet:Enum nlnet:Images}"
+                              ItemsSource="{nlnet:Enum controls:Images}"
                               SelectedIndex="1" />
                     <ComboBox x:Name="CbxButtons"
                               HorizontalAlignment="Stretch"
-                              ItemsSource="{nlnet:Enum nlnet:Buttons}"
+                              ItemsSource="{nlnet:Enum controls:Buttons}"
                               SelectedIndex="0" />
                     <ComboBox x:Name="CbxNotificationType"
                               HorizontalAlignment="Stretch"
