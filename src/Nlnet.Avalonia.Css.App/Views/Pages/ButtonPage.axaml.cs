@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Nlnet.Avalonia.Controls;
 using Nlnet.Avalonia.SampleAssistant;
-using Nlnet.Sharp.Avalonia;
+using Nlnet.Sharp;
 
 namespace Nlnet.Avalonia.Css.App.Views.Pages
 {

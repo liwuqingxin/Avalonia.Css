@@ -36,9 +36,7 @@
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)'=='LinuxDebug'" Version="11.0.0" />
 		<PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" Version="11.0.0" />
-		<PackageReference Include="Nlnet.Avalonia.DevTools" Version="1.0.1-beta.6" />
-		<PackageReference Include="Nlnet.Sharp.Avalonia" Version="1.0.1-beta.4" />
-		<PackageReference Include="Nlnet.Sharp.Utils" Version="1.0.1-beta.4" />
+		<PackageReference Include="Nlnet.Avalonia.DevTools" Version="1.0.1-beta.21" />
 	</ItemGroup>
 
 	<ItemGroup>
