@@ -9,6 +9,15 @@ namespace Nlnet.Avalonia;
 
 public class CanvasLayout : IMagicLayout
 {
+    public static CanvasLayout Default { get; } = new();
+
+    private CanvasLayout()
+    {
+        
+    }
+    
+    
+    
     public IEnumerable<string> GetNames()
     {
         yield return "Canvas";

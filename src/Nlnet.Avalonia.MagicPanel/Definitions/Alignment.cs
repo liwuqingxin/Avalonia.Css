@@ -13,7 +13,7 @@ public enum Alignment
 
 public static class AlignmentExtensions
 {
-    public static VerticalAlignment GetVerticalAlignment(this Alignment alignment)
+    public static VerticalAlignment ToVertical(this Alignment alignment)
     {
         return alignment switch
         {
@@ -25,7 +25,7 @@ public static class AlignmentExtensions
         };
     }
     
-    public static HorizontalAlignment GetHorizontalAlignment(this Alignment alignment)
+    public static HorizontalAlignment ToHorizontal(this Alignment alignment)
     {
         return alignment switch
         {

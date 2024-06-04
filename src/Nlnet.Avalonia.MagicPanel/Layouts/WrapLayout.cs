@@ -12,6 +12,15 @@ namespace Nlnet.Avalonia;
 
 public class WrapLayout : LinearPanel, IMagicLayout
 {
+    public static WrapLayout Default { get; } = new();
+
+    private WrapLayout()
+    {
+        
+    }
+    
+    
+    
     public IEnumerable<string> GetNames()
     {
         yield return "Wrap";
@@ -73,7 +82,7 @@ public class WrapLayout : LinearPanel, IMagicLayout
         return new Size(width, height);
     }
 
- public Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
+    public Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
     {
         var isHorizontal = GetOrientation(panel) == Orientation.Horizontal;
         
@@ -87,7 +96,7 @@ public class WrapLayout : LinearPanel, IMagicLayout
 
     private static void ArrangeChild(MagicPanel panel, Layoutable child, Size finalSize, bool isHorizontal)
     {
-        var location = InternalLayoutHelper.GetLocation(child, finalSize);
+        var location = LayoutHelper.GetTopLeft(child, finalSize);
         
         var width  = child.DesiredSize.Width;
         var height = child.DesiredSize.Height;
@@ -109,7 +118,7 @@ public class WrapLayout : LinearPanel, IMagicLayout
                 var diagnosis = child.GetDiagnostic(Layoutable.VerticalAlignmentProperty);
                 if (diagnosis.Priority == BindingPriority.Unset)
                 {
-                    child.SetCurrentValue(Layoutable.VerticalAlignmentProperty, alignment.GetVerticalAlignment());
+                    child.SetCurrentValue(Layoutable.VerticalAlignmentProperty, alignment.ToVertical());
                 }
             }
             else
@@ -117,7 +126,7 @@ public class WrapLayout : LinearPanel, IMagicLayout
                 var diagnosis = child.GetDiagnostic(Layoutable.HorizontalAlignmentProperty);
                 if (diagnosis.Priority == BindingPriority.Unset)
                 {
-                    child.SetCurrentValue(Layoutable.HorizontalAlignmentProperty, alignment.GetHorizontalAlignment());
+                    child.SetCurrentValue(Layoutable.HorizontalAlignmentProperty, alignment.ToHorizontal());
                 }
             }
         }

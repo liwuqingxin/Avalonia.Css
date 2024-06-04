@@ -12,6 +12,11 @@ public class StackLayout : LinearPanel, IMagicLayout
 {
     public static StackLayout Default { get; } = new();
 
+    private StackLayout()
+    {
+        
+    }
+
     
     
     public IEnumerable<string> GetNames()
@@ -22,27 +27,29 @@ public class StackLayout : LinearPanel, IMagicLayout
 
     public Size MeasureOverride(MagicPanel panel, Size availableSize, IReadOnlyList<Control> children)
     {
-        var orientation = GetOrientation(panel);
-        var spacing     = GetSpacing(panel);
+        var orientation  = GetOrientation(panel);
+        var spacing      = GetSpacing(panel);
+        var isHorizontal = orientation == Orientation.Horizontal;
         
         var width          = 0d;
         var height         = 0d;
-        var isHorizontal   = orientation == Orientation.Horizontal;
         var existedVisible = false;
         var index          = 0;
 
-        var availableSize1 = !isHorizontal
-            ? availableSize.WithHeight(double.PositiveInfinity)
-            : availableSize.WithWidth(double.PositiveInfinity);
+        var availableSize1 = isHorizontal
+            ? availableSize.WithWidth(double.PositiveInfinity)
+            : availableSize.WithHeight(double.PositiveInfinity);
 
         for (var count = children.Count; index < count; ++index)
         {
             var control   = children[index];
             var isVisible = control.IsVisible;
-            if (isVisible && !existedVisible)
+            if (isVisible)
             {
                 existedVisible = true;
             }
+            
+            LayoutHelper.ApplyAlignmentToChild(control, GetItemsAlignment(panel), isHorizontal);
 
             control.Measure(availableSize1);
             
@@ -86,7 +93,7 @@ public class StackLayout : LinearPanel, IMagicLayout
 
     private static void ArrangeChild(MagicPanel panel, Layoutable child, Size finalSize, bool isHorizontal)
     {
-        var location = InternalLayoutHelper.GetLocation(child, finalSize);
+        var location = LayoutHelper.GetTopLeft(child, finalSize);
         
         var width  = child.DesiredSize.Width;
         var height = child.DesiredSize.Height;
@@ -98,8 +105,6 @@ public class StackLayout : LinearPanel, IMagicLayout
         {
             width = finalSize.Width;
         }
-        
-        InternalLayoutHelper.ApplyAlignment(child, GetItemsAlignment(panel), isHorizontal);
         
         child.Arrange(new Rect(location, new Size(width, height)));
     }

@@ -10,6 +10,38 @@ namespace Nlnet.Avalonia.Controls
 {
     public sealed class MagicPanel : Canvas, INavigableContainer/*, IScrollSnapPointsInfo*/
     {
+        private IMagicLayout _layout = StackLayout.Default;
+        
+        
+        
+        #region Arranged Size
+
+        public static double GetArrangedWidth(Control host)
+        {
+            return host.GetValue(ArrangedWidthProperty);
+        }
+        public static void SetArrangedWidth(Control host, double value)
+        {
+            host.SetValue(ArrangedWidthProperty, value);
+        }
+        public static readonly AttachedProperty<double> ArrangedWidthProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, double>("ArrangedWidth");
+
+        public static double GetArrangedHeight(Control host)
+        {
+            return host.GetValue(ArrangedHeightProperty);
+        }
+        public static void SetArrangedHeight(Control host, double value)
+        {
+            host.SetValue(ArrangedHeightProperty, value);
+        }
+        public static readonly AttachedProperty<double> ArrangedHeightProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, double>("ArrangedHeight");
+
+        #endregion
+        
+        
+        
         #region Layouts
 
         private static readonly Dictionary<string, IMagicLayout> InternalLayouts = new(StringComparer.OrdinalIgnoreCase);
@@ -31,10 +63,6 @@ namespace Nlnet.Avalonia.Controls
         }
 
         #endregion
-
-
-
-        private IMagicLayout _layout = StackLayout.Default;
 
 
         
@@ -65,28 +93,31 @@ namespace Nlnet.Avalonia.Controls
         static MagicPanel()
         {
             RegisterLayout(StackLayout.Default);
-            RegisterLayout(new WrapLayout());
-            RegisterLayout(new CanvasLayout());
-
+            RegisterLayout(WrapLayout.Default);
+            RegisterLayout(CanvasLayout.Default);
+            
             LayoutProperty.Changed.AddClassHandler<MagicPanel>((panel, args) =>
             {
-                panel.InvalidateLayout();
+                panel.ResetLayout();
                 panel.InvalidateMeasure();
             });
 
             LayoutStyleProperty.Changed.AddClassHandler<MagicPanel>((panel, args) =>
             {
-                panel.ParseStyle();
+                panel.ResetStyle();
                 panel.InvalidateMeasure();
             });
         }
 
         public MagicPanel()
         {
-            this.Background = new SolidColorBrush(Colors.IndianRed, 0.1);
+            // TODO DELETE
+            {
+                this.Background = new SolidColorBrush(Colors.IndianRed, 0.1);    
+            }
         }
 
-        private void InvalidateLayout()
+        private void ResetLayout()
         {
             if (Layout == null)
             {
@@ -99,13 +130,7 @@ namespace Nlnet.Avalonia.Controls
                 : StackLayout.Default;
         }
 
-        #endregion
-
-
-
-        #region Style
-        
-        private void ParseStyle()
+        private void ResetStyle()
         {
             if (LayoutStyle == null)
             {
@@ -135,7 +160,7 @@ namespace Nlnet.Avalonia.Controls
 
             return new ValueTuple<string, string>(pair[0].Trim(), pair[1].Trim());
         }
-
+        
         #endregion
 
 
@@ -152,14 +177,14 @@ namespace Nlnet.Avalonia.Controls
 
                 if (useLayoutRounding)
                 {
-                    scale  = LayoutHelper.GetLayoutScale(this);
-                    margin = LayoutHelper.RoundLayoutThickness(margin, scale, scale);
+                    scale  = global::Avalonia.Layout.LayoutHelper.GetLayoutScale(this);
+                    margin = global::Avalonia.Layout.LayoutHelper.RoundLayoutThickness(margin, scale, scale);
                 }
 
                 ApplyStyling();
                 ApplyTemplate();
 
-                var constrained = LayoutHelper.ApplyLayoutConstraints(
+                var constrained = global::Avalonia.Layout.LayoutHelper.ApplyLayoutConstraints(
                     this,
                     availableSize.Deflate(margin));
                 var measured = MeasureOverride(constrained);
@@ -193,7 +218,7 @@ namespace Nlnet.Avalonia.Controls
 
                 if (useLayoutRounding)
                 {
-                    (width, height) = LayoutHelper.RoundLayoutSizeUp(new Size(width, height), scale, scale);
+                    (width, height) = global::Avalonia.Layout.LayoutHelper.RoundLayoutSizeUp(new Size(width, height), scale, scale);
                 }
 
                 width  = Math.Min(width,  availableSize.Width);
@@ -212,7 +237,7 @@ namespace Nlnet.Avalonia.Controls
             if (IsVisible)
             {
                 var useLayoutRounding = UseLayoutRounding;
-                var scale             = LayoutHelper.GetLayoutScale(this);
+                var scale             = global::Avalonia.Layout.LayoutHelper.GetLayoutScale(this);
 
                 var margin  = Margin;
                 var originX = finalRect.X + margin.Left;
@@ -223,7 +248,7 @@ namespace Nlnet.Avalonia.Controls
                 // If the margin isn't pre-rounded some sizes will be offset by 1 pixel in certain scales.
                 if (useLayoutRounding)
                 {
-                    margin = LayoutHelper.RoundLayoutThickness(margin, scale, scale);
+                    margin = global::Avalonia.Layout.LayoutHelper.RoundLayoutThickness(margin, scale, scale);
                 }
 
                 var availableSizeMinusMargins = new Size(
@@ -243,12 +268,12 @@ namespace Nlnet.Avalonia.Controls
                     size = size.WithHeight(Math.Min(size.Height, DesiredSize.Height - margin.Top - margin.Bottom));
                 }
 
-                size = LayoutHelper.ApplyLayoutConstraints(this, size);
+                size = global::Avalonia.Layout.LayoutHelper.ApplyLayoutConstraints(this, size);
 
                 if (useLayoutRounding)
                 {
-                    size                      = LayoutHelper.RoundLayoutSizeUp(size,                      scale, scale);
-                    availableSizeMinusMargins = LayoutHelper.RoundLayoutSizeUp(availableSizeMinusMargins, scale, scale);
+                    size                      = global::Avalonia.Layout.LayoutHelper.RoundLayoutSizeUp(size,                      scale, scale);
+                    availableSizeMinusMargins = global::Avalonia.Layout.LayoutHelper.RoundLayoutSizeUp(availableSizeMinusMargins, scale, scale);
                 }
 
                 size = ArrangeOverride(size).Constrain(size);
@@ -277,8 +302,8 @@ namespace Nlnet.Avalonia.Controls
 
                 if (useLayoutRounding)
                 {
-                    originX = LayoutHelper.RoundLayoutValue(originX, scale);
-                    originY = LayoutHelper.RoundLayoutValue(originY, scale);
+                    originX = global::Avalonia.Layout.LayoutHelper.RoundLayoutValue(originX, scale);
+                    originY = global::Avalonia.Layout.LayoutHelper.RoundLayoutValue(originY, scale);
                 }
 
                 Bounds = new Rect(originX, originY, size.Width, size.Height);
@@ -294,7 +319,7 @@ namespace Nlnet.Avalonia.Controls
 
 
         
-        #region Measure & Arrange Override
+        #region MeasureOverride & ArrangeOverride
 
         protected override Size MeasureOverride(Size availableSize)
         {
