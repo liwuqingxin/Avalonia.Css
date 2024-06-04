@@ -6,7 +6,7 @@
         [UseSmoothScrolling=True] /template/ NtScrollContentPresenter#PART_ContentPresenter{
             Transitions:[
                 // QuadraticEaseOut
-                NtScrollContentPresenter.AnimatableOffset 0.4 0 .39,.94,.39,.94;
+                NtScrollContentPresenter.AnimatableOffset 0.4 0 .4,.14,.6,.86;
             ]
         }
     ]]

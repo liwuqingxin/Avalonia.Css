@@ -31,8 +31,8 @@ public class StackLayout : LinearPanel, IMagicLayout
         var spacing      = GetSpacing(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
         
-        var width          = 0d;
-        var height         = 0d;
+        var desiredWidth   = 0d;
+        var desiredHeight  = 0d;
         var existedVisible = false;
         var index          = 0;
 
@@ -42,71 +42,84 @@ public class StackLayout : LinearPanel, IMagicLayout
 
         for (var count = children.Count; index < count; ++index)
         {
-            var control   = children[index];
-            var isVisible = control.IsVisible;
+            var child     = children[index];
+            var isVisible = child.IsVisible;
             if (isVisible)
             {
                 existedVisible = true;
             }
             
-            LayoutHelper.ApplyAlignmentToChild(control, GetItemsAlignment(panel), isHorizontal);
+            // LayoutHelper.ApplyAlignmentToChild(control, GetItemsAlignment(panel), isHorizontal);
 
-            control.Measure(availableSize1);
+            child.Measure(availableSize1);
             
-            var desiredSize = control.DesiredSize;
+            var desiredSize = child.DesiredSize;
+            
+            // Location
+            // TODO Consider the alignment of the child and the panel.
             if (isHorizontal)
             {
-                Canvas.SetLeft(control, width);
-                Canvas.SetTop(control, 0);
+                Canvas.SetLeft(child, desiredWidth);
+                Canvas.SetTop(child, 0);
                 
-                width = width + (isVisible ? spacing : 0.0) + desiredSize.Width;
-                height = Math.Max(height, desiredSize.Height);
+                desiredWidth = desiredWidth + (isVisible ? spacing : 0.0) + desiredSize.Width;
+                desiredHeight = Math.Max(desiredHeight, desiredSize.Height);
             }
             else
             {
-                Canvas.SetLeft(control, 0);
-                Canvas.SetTop(control, height);
+                Canvas.SetLeft(child, 0);
+                Canvas.SetTop(child, desiredHeight);
                 
-                width  = Math.Max(width, desiredSize.Width);
-                height = height + (isVisible ? spacing : 0.0) + desiredSize.Height;
+                desiredWidth  = Math.Max(desiredWidth, desiredSize.Width);
+                desiredHeight = desiredHeight + (isVisible ? spacing : 0.0) + desiredSize.Height;
             }
+            
+            // Size
+            // TODO Test for availableSize.
+            var width  = child.DesiredSize.Width;
+            var height = child.DesiredSize.Height;
+            if (isHorizontal)
+            {
+                height = availableSize.Height;
+            }
+            else
+            {
+                width = availableSize.Width;
+            }
+            
+            MagicPanel.SetArrangedWidth(child, width);
+            MagicPanel.SetArrangedHeight(child, height);
         }
 
         var size = !isHorizontal
-            ? new Size(width, height - (existedVisible ? spacing : 0.0))
-            : new Size(width - (existedVisible ? spacing : 0.0), height);
+            ? new Size(desiredWidth, desiredHeight - (existedVisible ? spacing : 0.0))
+            : new Size(desiredWidth - (existedVisible ? spacing : 0.0), desiredHeight);
 
         return size;
     }
 
     public Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
-    {
-        var isHorizontal = GetOrientation(panel) == Orientation.Horizontal;
-        
+    {        
         foreach (var child in children)
         {
-            ArrangeChild(panel, child, finalSize, isHorizontal);
+            var location = LayoutHelper.GetTopLeft(child, finalSize);
+            var width    = MagicPanel.GetArrangedWidth(child);
+            var height   = MagicPanel.GetArrangedHeight(child);
+
+            if (double.IsNaN(width))
+            {
+                width = finalSize.Width;
+            }
+            
+            if (double.IsNaN(height))
+            {
+                height = finalSize.Height;
+            }
+        
+            child.Arrange(new Rect(location, new Size(width, height)));
         }
 
         return finalSize;
-    }
-
-    private static void ArrangeChild(MagicPanel panel, Layoutable child, Size finalSize, bool isHorizontal)
-    {
-        var location = LayoutHelper.GetTopLeft(child, finalSize);
-        
-        var width  = child.DesiredSize.Width;
-        var height = child.DesiredSize.Height;
-        if (isHorizontal)
-        {
-            height = finalSize.Height;
-        }
-        else
-        {
-            width = finalSize.Width;
-        }
-        
-        child.Arrange(new Rect(location, new Size(width, height)));
     }
     
     public IInputElement? GetNavigatedControl(MagicPanel panel, NavigationDirection direction, IInputElement? from, bool wrap)

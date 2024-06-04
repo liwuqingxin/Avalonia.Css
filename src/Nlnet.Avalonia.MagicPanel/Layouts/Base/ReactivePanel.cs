@@ -16,8 +16,7 @@ public class ReactivePanel : AvaloniaObject
     }
     public static readonly AttachedProperty<double> SpacingProperty = AvaloniaProperty
         .RegisterAttached<ReactivePanel, MagicPanel, double>("Spacing");
-
-
+    
     public static Alignment GetItemsAlignment(MagicPanel host)
     {
         return host.GetValue(ItemsAlignmentProperty);

@@ -30,10 +30,16 @@
                             <Transitions>
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
                                                   Property="Canvas.Top"
-                                                  Duration="0:0:0.3" />
+                                                  Duration="0:0:.3" />
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
                                                   Property="Canvas.Left"
-                                                  Duration="0:0:0.3" />
+                                                  Duration="0:0:.3" />
+                                <DoubleTransition Easing="0.4,0.7,0.4,0.7"
+                                                  Property="nlnet:MagicPanel.ArrangedWidth"
+                                                  Duration="0:0:.3" />
+                                <DoubleTransition Easing="0.4,0.7,0.4,0.7"
+                                                  Property="nlnet:MagicPanel.ArrangedHeight"
+                                                  Duration="0:0:.3" />
                             </Transitions>
                         </Setter>
                     </Style>

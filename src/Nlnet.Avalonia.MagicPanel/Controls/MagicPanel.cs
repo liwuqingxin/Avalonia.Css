@@ -16,27 +16,27 @@ namespace Nlnet.Avalonia.Controls
         
         #region Arranged Size
 
-        public static double GetArrangedWidth(Control host)
+        public static double GetArrangedWidth(Layoutable host)
         {
             return host.GetValue(ArrangedWidthProperty);
         }
-        public static void SetArrangedWidth(Control host, double value)
+        public static void SetArrangedWidth(Layoutable host, double value)
         {
             host.SetValue(ArrangedWidthProperty, value);
         }
         public static readonly AttachedProperty<double> ArrangedWidthProperty = AvaloniaProperty
-            .RegisterAttached<MagicPanel, Control, double>("ArrangedWidth");
+            .RegisterAttached<MagicPanel, Layoutable, double>("ArrangedWidth", double.NaN);
 
-        public static double GetArrangedHeight(Control host)
+        public static double GetArrangedHeight(Layoutable host)
         {
             return host.GetValue(ArrangedHeightProperty);
         }
-        public static void SetArrangedHeight(Control host, double value)
+        public static void SetArrangedHeight(Layoutable host, double value)
         {
             host.SetValue(ArrangedHeightProperty, value);
         }
         public static readonly AttachedProperty<double> ArrangedHeightProperty = AvaloniaProperty
-            .RegisterAttached<MagicPanel, Control, double>("ArrangedHeight");
+            .RegisterAttached<MagicPanel, Layoutable, double>("ArrangedHeight", double.NaN);
 
         #endregion
         
@@ -92,6 +92,8 @@ namespace Nlnet.Avalonia.Controls
 
         static MagicPanel()
         {
+            AffectsParentArrange<Canvas>(ArrangedWidthProperty, ArrangedHeightProperty);
+            
             RegisterLayout(StackLayout.Default);
             RegisterLayout(WrapLayout.Default);
             RegisterLayout(CanvasLayout.Default);
