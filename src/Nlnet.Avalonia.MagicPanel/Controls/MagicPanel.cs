@@ -20,7 +20,7 @@ namespace Nlnet.Avalonia.Controls
         {
             return host.GetValue(ArrangedWidthProperty);
         }
-        public static void SetArrangedWidth(Layoutable host, double value)
+        internal static void SetArrangedWidth(Layoutable host, double value)
         {
             host.SetValue(ArrangedWidthProperty, value);
         }
@@ -31,7 +31,7 @@ namespace Nlnet.Avalonia.Controls
         {
             return host.GetValue(ArrangedHeightProperty);
         }
-        public static void SetArrangedHeight(Layoutable host, double value)
+        internal static void SetArrangedHeight(Layoutable host, double value)
         {
             host.SetValue(ArrangedHeightProperty, value);
         }

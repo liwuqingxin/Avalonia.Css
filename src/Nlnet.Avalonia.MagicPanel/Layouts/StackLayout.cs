@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -29,62 +31,91 @@ public class StackLayout : LinearPanel, IMagicLayout
     {
         var orientation  = GetOrientation(panel);
         var spacing      = GetSpacing(panel);
+        var alignment    = GetItemsAlignment(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
         
-        var desiredWidth   = 0d;
-        var desiredHeight  = 0d;
-        var existedVisible = false;
-        var index          = 0;
-
-        var availableSize1 = isHorizontal
+        var existedVisible     = false;
+        var panelDesiredWidth  = 0d;
+        var panelDesiredHeight = 0d;
+        var index              = 0;
+        
+        // Measure all children with stackPanel's constraint.
+        var constraintSize = isHorizontal
             ? availableSize.WithWidth(double.PositiveInfinity)
             : availableSize.WithHeight(double.PositiveInfinity);
-
-        for (var count = children.Count; index < count; ++index)
+        foreach (var child in children)
         {
-            var child     = children[index];
-            var isVisible = child.IsVisible;
-            if (isVisible)
+            if (child.IsVisible)
             {
                 existedVisible = true;
             }
-            
-            // LayoutHelper.ApplyAlignmentToChild(control, GetItemsAlignment(panel), isHorizontal);
+            child.Measure(constraintSize);
+        }
 
-            child.Measure(availableSize1);
-            
+        // Constraint all.
+        var constraintWidth  = 0d;
+        var constraintHeight = 0d;
+        if (isHorizontal)
+        {
+            constraintWidth  = double.PositiveInfinity;
+            constraintHeight = availableSize.Height;
+            if (double.IsInfinity(constraintHeight))
+            {
+                constraintHeight = children.Max(control => control.DesiredSize.Height);
+            }
+        }
+        else
+        {
+            constraintHeight = double.PositiveInfinity;
+            constraintWidth  = availableSize.Width;
+            if (double.IsInfinity(constraintWidth))
+            {
+                constraintWidth = children.Max(control => control.DesiredSize.Width);
+            }
+        }
+        constraintSize = new Size(constraintWidth, constraintHeight);
+
+        for (var count = children.Count; index < count; ++index)
+        {
+            var child       = children[index];
+            var isVisible   = child.IsVisible;
             var desiredSize = child.DesiredSize;
             
             // Location
-            // TODO Consider the alignment of the child and the panel.
+            var isAlignItemsStretch = false;
             if (isHorizontal)
             {
-                Canvas.SetLeft(child, desiredWidth);
-                Canvas.SetTop(child, 0);
+                var start = LocateStartWithAlignment(alignment, constraintSize.Height, desiredSize.Height, out isAlignItemsStretch);
+                Canvas.SetLeft(child, panelDesiredWidth);
+                Canvas.SetTop(child, start);
                 
-                desiredWidth = desiredWidth + (isVisible ? spacing : 0.0) + desiredSize.Width;
-                desiredHeight = Math.Max(desiredHeight, desiredSize.Height);
+                panelDesiredWidth = panelDesiredWidth + (isVisible ? spacing : 0.0) + desiredSize.Width;
+                panelDesiredHeight = Math.Max(panelDesiredHeight, desiredSize.Height);
             }
             else
             {
-                Canvas.SetLeft(child, 0);
-                Canvas.SetTop(child, desiredHeight);
+                var start = LocateStartWithAlignment(alignment, constraintSize.Width, desiredSize.Width, out isAlignItemsStretch);
+                Canvas.SetLeft(child, start);
+                Canvas.SetTop(child, panelDesiredHeight);
                 
-                desiredWidth  = Math.Max(desiredWidth, desiredSize.Width);
-                desiredHeight = desiredHeight + (isVisible ? spacing : 0.0) + desiredSize.Height;
+                panelDesiredWidth  = Math.Max(panelDesiredWidth, desiredSize.Width);
+                panelDesiredHeight = panelDesiredHeight + (isVisible ? spacing : 0.0) + desiredSize.Height;
             }
             
             // Size
-            // TODO Test for availableSize.
             var width  = child.DesiredSize.Width;
             var height = child.DesiredSize.Height;
-            if (isHorizontal)
+            if (isAlignItemsStretch)
             {
-                height = availableSize.Height;
-            }
-            else
-            {
-                width = availableSize.Width;
+                // TODO Test for availableSize.
+                if (isHorizontal)
+                {
+                    height = constraintSize.Height;
+                }
+                else
+                {
+                    width = constraintSize.Width;
+                }    
             }
             
             MagicPanel.SetArrangedWidth(child, width);
@@ -92,27 +123,69 @@ public class StackLayout : LinearPanel, IMagicLayout
         }
 
         var size = !isHorizontal
-            ? new Size(desiredWidth, desiredHeight - (existedVisible ? spacing : 0.0))
-            : new Size(desiredWidth - (existedVisible ? spacing : 0.0), desiredHeight);
+            ? new Size(panelDesiredWidth, panelDesiredHeight - (existedVisible ? spacing : 0.0))
+            : new Size(panelDesiredWidth - (existedVisible ? spacing : 0.0), panelDesiredHeight);
 
         return size;
+    }
+
+    private static double LocateStartWithAlignment(Alignment alignment, double constraint, double desired, out bool isAlignItemsStretch)
+    {
+        var start = 0d;
+        isAlignItemsStretch = false;
+        
+        switch (alignment)
+        {
+            case Alignment.Start:
+                start = 0d;
+                break;
+            case Alignment.End:
+                start = constraint - desired;
+                break;
+            case Alignment.Stretch:
+                isAlignItemsStretch = true;
+                break;
+            case Alignment.Center:
+                start = (constraint - desired) / 2;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return start;
     }
 
     public Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
     {        
         foreach (var child in children)
         {
+            if (child.IsEffectivelyVisible == false)
+            {
+                continue;
+            }
+            
             var location = LayoutHelper.GetTopLeft(child, finalSize);
             var width    = MagicPanel.GetArrangedWidth(child);
             var height   = MagicPanel.GetArrangedHeight(child);
-
-            if (double.IsNaN(width))
+            
+            if (double.IsFinite(location.X) == false)
             {
+                Trace.WriteLine("MagicPanel: location of X is not finite.");
+                location = location.WithX(0);
+            }
+            if (double.IsFinite(location.Y) == false)
+            {
+                Trace.WriteLine("MagicPanel: location of Y is not finite.");
+                location = location.WithY(0);
+            }
+            if (double.IsFinite(width) == false)
+            {
+                Trace.WriteLine("MagicPanel: width is not finite.");
                 width = finalSize.Width;
             }
-            
-            if (double.IsNaN(height))
+            if (double.IsFinite(height) == false)
             {
+                Trace.WriteLine("MagicPanel: height is not finite.");
                 height = finalSize.Height;
             }
         

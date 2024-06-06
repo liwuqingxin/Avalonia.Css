@@ -15,13 +15,13 @@
 
         <app:IndependentCase Header="Default Layout">
             <app:IndependentCase.Settings>
-                <StackPanel>
+                <StackPanel Width="200">
                     <Button Click="Button_OnClick" Content="重置布局" />
                     <TextBox x:Name="TbxLayout" Watermark="Layout" />
                     <TextBox x:Name="TbxLayoutStyle" Watermark="Layout Style" />
                 </StackPanel>
             </app:IndependentCase.Settings>
-            <Grid Height="500"
+            <Grid Height="450"
                   ColumnDefinitions="*,*"
                   RowDefinitions="*,*">
                 <Grid.Styles>
@@ -45,29 +45,52 @@
                     </Style>
                 </Grid.Styles>
 
-                <nlnet:MagicPanel x:Name="Panel"
+                <Canvas>
+                    <nlnet:MagicPanel x:Name="Panel"
+                                      Layout="{Binding #TbxLayout.Text}"
+                                      LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                        <Border x:Name="Border1"
+                                Width="100"
+                                Height="100"
+                                Background="Red">
+                            <TextBlock Text="Size = (100,100)" />
+                        </Border>
+                        <Border x:Name="Border2" Background="Green">
+                            <TextBlock Text="Size = (Auto,Auto)" />
+                        </Border>
+                        <Border x:Name="Border3"
+                                Height="50"
+                                Background="Orange">
+                            <TextBlock Text="Size = (Auto,50)" />
+                        </Border>
+                        <Border x:Name="Border4"
+                                Width="80"
+                                Background="DodgerBlue">
+                            <TextBlock Text="Size = (80,Auto)" />
+                        </Border>
+                    </nlnet:MagicPanel>
+                </Canvas>
+
+                <nlnet:MagicPanel Grid.Row="1"
+                                  Grid.Column="1"
                                   Layout="{Binding #TbxLayout.Text}"
                                   LayoutStyle="{Binding #TbxLayoutStyle.Text}">
-                    <Border x:Name="Border1"
-                            Width="100"
+                    <Border Width="100"
                             Height="100"
                             Background="Red">
-                        <TextBlock Text="Size=(100,100)" />
+                        <TextBlock Text="Size = (100,100)" />
                     </Border>
-                    <Border x:Name="Border2" Background="Green">
-                        <TextBlock Text="Size=(Auto,Auto)" />
+                    <Border Background="Green">
+                        <TextBlock Text="Size = (Auto,Auto)" />
                     </Border>
-                    <Border x:Name="Border3"
-                            Height="50"
-                            Background="Orange">
-                        <TextBlock Text="Size=(Auto,50)" />
+                    <Border Height="50" Background="Orange">
+                        <TextBlock Text="Size = (Auto,50)" />
                     </Border>
-                    <Border x:Name="Border4"
-                            Width="80"
-                            Background="DodgerBlue">
-                        <TextBlock Text="Size=(80,Auto)" />
+                    <Border Width="80" Background="DodgerBlue">
+                        <TextBlock Text="Size = (80,Auto)" />
                     </Border>
                 </nlnet:MagicPanel>
+
 
                 <GridSplitter Grid.Row="0"
                               Grid.RowSpan="2"
