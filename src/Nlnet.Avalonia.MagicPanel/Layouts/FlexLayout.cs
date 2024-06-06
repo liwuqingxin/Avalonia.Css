@@ -1,33 +1,29 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Layout;
 using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
-public class StackLayout : LinearPanel, IMagicLayout
+public class FlexLayout : StackLayout
 {
-    public static StackLayout Default { get; } = new();
-
-    private protected StackLayout()
+    public new static FlexLayout Default { get; } = new();
+    
+    private FlexLayout()
     {
         
     }
-
     
-    
-    public virtual IEnumerable<string> GetNames()
+    public override IEnumerable<string> GetNames()
     {
-        yield return "Stack";
-        yield return "StackPanel";
+        yield return "Flex";
+        yield return "FlexPanel";
     }
 
-    public virtual Size MeasureOverride(MagicPanel panel, Size availableSize, IReadOnlyList<Control> children)
+    public override Size MeasureOverride(MagicPanel panel, Size availableSize, IReadOnlyList<Control> children)
     {
         var orientation  = GetOrientation(panel);
         var spacing      = GetSpacing(panel);
@@ -41,8 +37,8 @@ public class StackLayout : LinearPanel, IMagicLayout
         
         // Measure all children with stackPanel's constraint.
         var constraintSize = isHorizontal
-            ? availableSize.WithWidth(double.PositiveInfinity)
-            : availableSize.WithHeight(double.PositiveInfinity);
+            ? availableSize.WithWidth(availableSize.Width / children.Count)
+            : availableSize.WithHeight(availableSize.Height / children.Count);
         foreach (var child in children)
         {
             if (child.IsVisible)
@@ -128,110 +124,5 @@ public class StackLayout : LinearPanel, IMagicLayout
             : new Size(panelDesiredWidth - (existedVisible ? spacing : 0.0), panelDesiredHeight);
 
         return size;
-    }
-
-    protected static double LocateStartWithAlignment(
-        Alignment alignment,
-        Alignment? childAlignment,
-        double constraint,
-        double desired,
-        out bool isAlignItemsStretch)
-    {
-        var align = childAlignment ?? alignment;
-        var start = 0d;
-        isAlignItemsStretch = false;
-        
-        switch (align)
-        {
-            case Alignment.Start:
-                start = 0d;
-                break;
-            case Alignment.End:
-                start = constraint - desired;
-                break;
-            case Alignment.Stretch:
-                isAlignItemsStretch = true;
-                break;
-            case Alignment.Center:
-                start = (constraint - desired) / 2;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        return start;
-    }
-
-    public virtual Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
-    {        
-        foreach (var child in children)
-        {
-            if (child.IsEffectivelyVisible == false)
-            {
-                continue;
-            }
-            
-            var location = LayoutHelper.GetTopLeft(child, finalSize);
-            var width    = MagicPanel.GetArrangedWidth(child);
-            var height   = MagicPanel.GetArrangedHeight(child);
-            
-            if (double.IsFinite(location.X) == false)
-            {
-                Trace.WriteLine("MagicPanel: location of X is not finite.");
-                location = location.WithX(0);
-            }
-            if (double.IsFinite(location.Y) == false)
-            {
-                Trace.WriteLine("MagicPanel: location of Y is not finite.");
-                location = location.WithY(0);
-            }
-            if (double.IsFinite(width) == false)
-            {
-                Trace.WriteLine("MagicPanel: width is not finite.");
-                width = finalSize.Width;
-            }
-            if (double.IsFinite(height) == false)
-            {
-                Trace.WriteLine("MagicPanel: height is not finite.");
-                height = finalSize.Height;
-            }
-        
-            child.Arrange(new Rect(location, new Size(width, height)));
-        }
-
-        return finalSize;
-    }
-    
-    public virtual IInputElement? GetNavigatedControl(MagicPanel panel, NavigationDirection direction, IInputElement? from, bool wrap)
-    {
-        return null;
-    }
-
-    public virtual void ApplySetter(MagicPanel panel, string property, string value)
-    {
-        switch (property.ToLower())
-        {
-            case "orientation":
-            case "direction":
-            {
-                ApplyOrientation(panel, value);
-                break;
-            }
-            case "space":
-            case "spacing":
-            case "gap":
-            {
-                ApplySpacing(panel, value);
-                break;
-            }
-            case "align":
-            case "alignitems":
-            case "alignment":
-            case "itemsalignment":
-            {
-                ApplyItemsAlignment(panel, value);
-                break;
-            }
-        }
     }
 }

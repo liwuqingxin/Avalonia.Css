@@ -106,6 +106,7 @@ namespace Nlnet.Avalonia.Controls
             AffectsParentArrange<Canvas>(ArrangedWidthProperty, ArrangedHeightProperty);
             
             RegisterLayout(StackLayout.Default);
+            RegisterLayout(FlexLayout.Default);
             RegisterLayout(WrapLayout.Default);
             RegisterLayout(CanvasLayout.Default);
             

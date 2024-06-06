@@ -72,9 +72,7 @@
                 </Canvas>
 
                 <ScrollViewer Grid.Row="1"
-                              Grid.Column="1"
-                              HorizontalScrollBarVisibility="Auto"
-                              VerticalScrollBarVisibility="Auto">
+                              Grid.Column="1">
                     <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
                         <Border Width="100"
                                 Height="100"
