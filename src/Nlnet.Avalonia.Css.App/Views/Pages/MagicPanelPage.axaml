@@ -71,25 +71,30 @@
                     </nlnet:MagicPanel>
                 </Canvas>
 
-                <nlnet:MagicPanel Grid.Row="1"
-                                  Grid.Column="1"
-                                  Layout="{Binding #TbxLayout.Text}"
-                                  LayoutStyle="{Binding #TbxLayoutStyle.Text}">
-                    <Border Width="100"
-                            Height="100"
-                            Background="Red">
-                        <TextBlock Text="Size = (100,100)" />
-                    </Border>
-                    <Border Background="Green">
-                        <TextBlock Text="Size = (Auto,Auto)" />
-                    </Border>
-                    <Border Height="50" Background="Orange" nlnet:MagicPanel.Alignment="Stretch">
-                        <TextBlock Text="Size = (Auto,50), Stretch" />
-                    </Border>
-                    <Border Width="80" Background="DodgerBlue">
-                        <TextBlock Text="Size = (80,Auto)" />
-                    </Border>
-                </nlnet:MagicPanel>
+                <ScrollViewer Grid.Row="1"
+                              Grid.Column="1"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                        <Border Width="100"
+                                Height="100"
+                                Background="Red">
+                            <TextBlock Text="Size = (100,100)" />
+                        </Border>
+                        <Border Background="Green">
+                            <TextBlock Text="Size = (Auto,Auto)" />
+                        </Border>
+                        <Border Height="50"
+                                nlnet:MagicPanel.Alignment="Stretch"
+                                Background="Orange">
+                            <TextBlock Text="Size = (Auto,50), Stretch" />
+                        </Border>
+                        <Border Width="80" Background="DodgerBlue">
+                            <TextBlock Text="Size = (80,Auto)" />
+                        </Border>
+                    </nlnet:MagicPanel>
+                </ScrollViewer>
+
 
 
                 <GridSplitter Grid.Row="0"
