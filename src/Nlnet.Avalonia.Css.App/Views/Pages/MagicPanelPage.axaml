@@ -83,8 +83,8 @@
                     <Border Background="Green">
                         <TextBlock Text="Size = (Auto,Auto)" />
                     </Border>
-                    <Border Height="50" Background="Orange">
-                        <TextBlock Text="Size = (Auto,50)" />
+                    <Border Height="50" Background="Orange" nlnet:MagicPanel.Alignment="Stretch">
+                        <TextBlock Text="Size = (Auto,50), Stretch" />
                     </Border>
                     <Border Width="80" Background="DodgerBlue">
                         <TextBlock Text="Size = (80,Auto)" />

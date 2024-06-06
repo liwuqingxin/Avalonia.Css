@@ -14,7 +14,7 @@ namespace Nlnet.Avalonia.Controls
         
         
         
-        #region Arranged Size
+        #region Attached Properties
 
         public static double GetArrangedWidth(Layoutable host)
         {
@@ -38,6 +38,17 @@ namespace Nlnet.Avalonia.Controls
         public static readonly AttachedProperty<double> ArrangedHeightProperty = AvaloniaProperty
             .RegisterAttached<MagicPanel, Layoutable, double>("ArrangedHeight", double.NaN);
 
+        public static Alignment? GetAlignment(Control host)
+        {
+            return host.GetValue(AlignmentProperty);
+        }
+        public static void SetAlignment(Control host, Alignment? value)
+        {
+            host.SetValue(AlignmentProperty, value);
+        }
+        public static readonly AttachedProperty<Alignment?> AlignmentProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, Alignment?>("Alignment");
+        
         #endregion
         
         

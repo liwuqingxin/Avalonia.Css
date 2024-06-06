@@ -83,9 +83,10 @@ public class StackLayout : LinearPanel, IMagicLayout
             
             // Location
             var isAlignItemsStretch = false;
+            var childAlignment      = MagicPanel.GetAlignment(child); 
             if (isHorizontal)
             {
-                var start = LocateStartWithAlignment(alignment, constraintSize.Height, desiredSize.Height, out isAlignItemsStretch);
+                var start = LocateStartWithAlignment(alignment, childAlignment, constraintSize.Height, desiredSize.Height, out isAlignItemsStretch);
                 Canvas.SetLeft(child, panelDesiredWidth);
                 Canvas.SetTop(child, start);
                 
@@ -94,7 +95,7 @@ public class StackLayout : LinearPanel, IMagicLayout
             }
             else
             {
-                var start = LocateStartWithAlignment(alignment, constraintSize.Width, desiredSize.Width, out isAlignItemsStretch);
+                var start = LocateStartWithAlignment(alignment, childAlignment, constraintSize.Width, desiredSize.Width, out isAlignItemsStretch);
                 Canvas.SetLeft(child, start);
                 Canvas.SetTop(child, panelDesiredHeight);
                 
@@ -129,12 +130,18 @@ public class StackLayout : LinearPanel, IMagicLayout
         return size;
     }
 
-    private static double LocateStartWithAlignment(Alignment alignment, double constraint, double desired, out bool isAlignItemsStretch)
+    private static double LocateStartWithAlignment(
+        Alignment alignment,
+        Alignment? childAlignment,
+        double constraint,
+        double desired,
+        out bool isAlignItemsStretch)
     {
+        var align = childAlignment ?? alignment;
         var start = 0d;
         isAlignItemsStretch = false;
         
-        switch (alignment)
+        switch (align)
         {
             case Alignment.Start:
                 start = 0d;
