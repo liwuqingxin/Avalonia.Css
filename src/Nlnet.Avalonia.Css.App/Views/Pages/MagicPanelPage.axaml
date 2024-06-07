@@ -18,27 +18,36 @@
 
         <app:IndependentCase Header="Default Layout">
             <app:IndependentCase.Settings>
-                <StackPanel Width="200">
+                <StackPanel Width="200" Spacing="6">
                     <TextBox x:Name="TbxLayout" Watermark="Layout" />
                     <TextBox x:Name="TbxLayoutStyle" Watermark="Layout Style" />
-                    <ListBox x:Name="LayoutList"
-                             ItemsSource="{sharp:Enum pages:Layouts}"
-                             SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="LayoutList:"/>
+                    <ComboBox x:Name="LayoutList"
+                              ItemsSource="{sharp:Enum pages:Layouts}"
+                              SelectionChanged="List_OnSelectionChanged" />
                     <CheckBox x:Name="CbxReverse"
                               Content="Reverse"
                               IsCheckedChanged="CbxReverse_OnIsCheckedChanged" />
-                    <ListBox x:Name="OrientationList"
+                    <TextBlock Text="OrientationList:"/>
+                    <ComboBox x:Name="OrientationList"
                              ItemsSource="{sharp:Enum pages:Orientations}"
                              SelectionChanged="List_OnSelectionChanged" />
-                    <ListBox x:Name="SpacingList"
-                             ItemsSource="{sharp:Enum pages:Spacings}"
-                             SelectionChanged="List_OnSelectionChanged" />
-                    <ListBox x:Name="AlignmentList"
-                             ItemsSource="{sharp:Enum avalonia:Alignment}"
-                             SelectionChanged="List_OnSelectionChanged" />
-                    <ListBox x:Name="JustifyContentList"
-                             ItemsSource="{sharp:Enum avalonia:JustifyContent}"
-                             SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="SpacingList:"/>
+                    <ComboBox x:Name="SpacingList"
+                              ItemsSource="{sharp:Enum pages:Spacings}"
+                              SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="AlignmentList:"/>
+                    <ComboBox x:Name="AlignmentList"
+                              ItemsSource="{sharp:Enum avalonia:Alignment}"
+                              SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="JustifyContentList:"/>
+                    <ComboBox x:Name="JustifyContentList"
+                              ItemsSource="{sharp:Enum avalonia:JustifyContent}"
+                              SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="AlignContentList:"/>
+                    <ComboBox x:Name="AlignContentList"
+                              ItemsSource="{sharp:Enum avalonia:AlignContent}"
+                              SelectionChanged="List_OnSelectionChanged" />
                 </StackPanel>
             </app:IndependentCase.Settings>
             <Grid Height="450"

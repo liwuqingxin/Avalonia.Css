@@ -29,7 +29,7 @@ public class StackLayout : MagicLayout
         var orientation  = LayoutEx.GetOrientation(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
         var spacing      = LayoutEx.GetSpacing(panel);
-        var alignment    = LayoutEx.GetItemsAlignment(panel);
+        var alignment    = LayoutEx.GetAlignItems(panel);
 
         var panelDesiredWidth  = 0d;
         var panelDesiredHeight = 0d;

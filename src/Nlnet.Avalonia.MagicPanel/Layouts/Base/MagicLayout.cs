@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Nlnet.Avalonia.Controls;
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CommentTypo
 
 namespace Nlnet.Avalonia;
 
@@ -61,6 +62,8 @@ public abstract class MagicLayout : AvaloniaObject, IMagicLayout
 
     public virtual void ApplySetter(MagicPanel panel, string property, string value)
     {
+        // css: https://www.runoob.com/w3cnote/flex-grammar.html
+        
         switch (property)
         {
             case "space":
@@ -72,19 +75,27 @@ public abstract class MagicLayout : AvaloniaObject, IMagicLayout
             }
             case "align":
             case "alignment":
-            case "alignchild":
             case "alignitems":
-            case "align-child":
+            case "align-items":
             {
-                panel.ApplyItemsAlignment(value);
+                panel.ApplyAlignItems(value);
                 break;
             }
             case "justify":
             case "justifycontent":
+            case "justify-content":
+            {
                 panel.ApplyJustifyContent(value);
                 break;
+            }
+            case "align-content":
+            {
+                panel.ApplyAlignContent(value);
+                break;
+            }
             case "orientation":
             case "direction":
+            case "flex-direction":
             {
                 panel.ApplyOrientation(value);
                 break;
@@ -95,16 +106,10 @@ public abstract class MagicLayout : AvaloniaObject, IMagicLayout
                 panel.ApplyReverse(value);
                 break;
             }
-            
-            // css: https://www.runoob.com/w3cnote/flex-grammar.html
-            case "flex-direction":
-            {
-                // flex-direction: row | row-reverse | column | column-reverse;
-                break;
-            }
+            case "wrap":
             case "flex-wrap":
             {
-                // flex-wrap: nowrap | wrap | wrap-reverse;
+                panel.ApplyFlexWrap(value);
                 break;
             }
             case "flex-flow":
@@ -116,22 +121,8 @@ public abstract class MagicLayout : AvaloniaObject, IMagicLayout
                     break;
                 }
                 
-                break;
-            }
-            case "justify-content":
-            {
-                // justify-content: flex-start | flex-end | center | space-between | space-around;
-                break;
-            }
-            case "align-items":
-            {
-                // align-items: flex-start | flex-end | center | baseline | stretch;
-
-                break;
-            }
-            case "align-content":
-            {
-                // align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+                ApplySetter(panel, "flex-direction", values[0]);
+                ApplySetter(panel, "flex-wrap",      values[1]);
                 break;
             }
         }

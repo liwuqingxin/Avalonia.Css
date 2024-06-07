@@ -15,9 +15,9 @@ public enum Alignment
 
 public enum JustifyContent
 {
+    Center,
     Start,
     End,
-    Center,
     SpaceEqual,
     SpaceBetween,
     SpaceAround,
@@ -28,6 +28,17 @@ public enum FlexWrap
     NoWrap,
     Wrap,
     WrapReverse,
+}
+
+public enum AlignContent
+{
+    Stretch,
+    Center,
+    Start,
+    End,
+    SpaceEqual,
+    SpaceBetween,
+    SpaceAround,
 }
 
 

@@ -51,13 +51,19 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             var alignment = AlignmentList.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(alignment) == false)
             {
-                builder.Append($"align:{alignment};");
+                builder.Append($"align-items:{alignment};");
             }
 
             var justifyContent = JustifyContentList.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(justifyContent) == false)
             {
                 builder.Append($"justify-content:{justifyContent};");
+            }
+            
+            var alignContent = AlignContentList.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(alignContent) == false)
+            {
+                builder.Append($"align-content:{alignContent};");
             }
             
             TbxLayoutStyle.Text = builder.ToString();

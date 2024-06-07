@@ -90,7 +90,7 @@ namespace Nlnet.Avalonia.Controls
                 LayoutEx.OrientationProperty,
                 LayoutEx.ReverseProperty,
                 LayoutEx.SpacingProperty,
-                LayoutEx.ItemsAlignmentProperty);
+                LayoutEx.AlignItemsProperty);
             
             RegisterLayout(StackLayout.Default);
             RegisterLayout(FlexLayout.Default);

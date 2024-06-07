@@ -114,8 +114,8 @@ public class WrapLayout : MagicLayout
             width = finalSize.Width;
         }
 
-        // ApplyParentPanel's ItemsAlignment.
-        var alignment = LayoutEx.GetItemsAlignment(panel);
+        // ApplyParentPanel's AlignItems.
+        var alignment = LayoutEx.GetAlignItems(panel);
         try
         {
             if (isHorizontal)

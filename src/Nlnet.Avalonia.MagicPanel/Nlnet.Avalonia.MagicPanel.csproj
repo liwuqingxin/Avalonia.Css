@@ -59,8 +59,4 @@
         <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Assets\"/>
-    </ItemGroup>
-
 </Project>
