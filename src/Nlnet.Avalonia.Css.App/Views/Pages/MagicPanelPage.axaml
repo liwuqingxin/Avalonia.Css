@@ -36,6 +36,9 @@
                     <ListBox x:Name="AlignmentList"
                              ItemsSource="{sharp:Enum avalonia:Alignment}"
                              SelectionChanged="List_OnSelectionChanged" />
+                    <ListBox x:Name="JustifyContentList"
+                             ItemsSource="{sharp:Enum avalonia:JustifyContent}"
+                             SelectionChanged="List_OnSelectionChanged" />
                 </StackPanel>
             </app:IndependentCase.Settings>
             <Grid Height="450"

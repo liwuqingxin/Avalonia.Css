@@ -11,14 +11,6 @@ namespace Nlnet.Avalonia;
 
 public class FlexLayout : MagicLayout
 {
-    #region Properties
-
-    
-
-    #endregion
-    
-    
-    
     public static FlexLayout Default { get; } = new();
     
     private FlexLayout()

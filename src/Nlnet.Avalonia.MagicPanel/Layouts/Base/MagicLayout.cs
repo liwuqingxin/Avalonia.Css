@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Avalonia;
@@ -74,14 +75,16 @@ public abstract class MagicLayout : AvaloniaObject, IMagicLayout
             case "alignchild":
             case "alignitems":
             case "align-child":
-            case "align-items":
             {
                 panel.ApplyItemsAlignment(value);
                 break;
             }
+            case "justify":
+            case "justifycontent":
+                panel.ApplyJustifyContent(value);
+                break;
             case "orientation":
             case "direction":
-            case "flex-direction":
             {
                 panel.ApplyOrientation(value);
                 break;
@@ -90,6 +93,45 @@ public abstract class MagicLayout : AvaloniaObject, IMagicLayout
             case "reverse":
             {
                 panel.ApplyReverse(value);
+                break;
+            }
+            
+            // css: https://www.runoob.com/w3cnote/flex-grammar.html
+            case "flex-direction":
+            {
+                // flex-direction: row | row-reverse | column | column-reverse;
+                break;
+            }
+            case "flex-wrap":
+            {
+                // flex-wrap: nowrap | wrap | wrap-reverse;
+                break;
+            }
+            case "flex-flow":
+            {
+                // flex-flow: <flex-direction> <flex-wrap>;
+                var values = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (values.Length != 2)
+                {
+                    break;
+                }
+                
+                break;
+            }
+            case "justify-content":
+            {
+                // justify-content: flex-start | flex-end | center | space-between | space-around;
+                break;
+            }
+            case "align-items":
+            {
+                // align-items: flex-start | flex-end | center | baseline | stretch;
+
+                break;
+            }
+            case "align-content":
+            {
+                // align-content: flex-start | flex-end | center | space-between | space-around | stretch;
                 break;
             }
         }

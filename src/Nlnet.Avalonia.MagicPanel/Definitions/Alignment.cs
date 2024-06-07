@@ -3,6 +3,8 @@ using Avalonia.Layout;
 
 namespace Nlnet.Avalonia;
 
+// About flex layout see https://www.runoob.com/w3cnote/flex-grammar.html.
+
 public enum Alignment
 {
     Stretch,
@@ -11,6 +13,25 @@ public enum Alignment
     End,
 }
 
+public enum JustifyContent
+{
+    Start,
+    End,
+    Center,
+    SpaceEqual,
+    SpaceBetween,
+    SpaceAround,
+}
+
+public enum FlexWrap
+{
+    NoWrap,
+    Wrap,
+    WrapReverse,
+}
+
+
+[Obsolete]
 public static class AlignmentExtensions
 {
     public static VerticalAlignment ToVertical(this Alignment alignment)
@@ -36,13 +57,5 @@ public static class AlignmentExtensions
             _                 => throw new ArgumentOutOfRangeException(nameof(alignment), alignment, null)
         };
     }
-}
-
-
-public enum FlexWrap
-{
-    NoWrap,
-    Wrap,
-    WrapReverse,
 }
 

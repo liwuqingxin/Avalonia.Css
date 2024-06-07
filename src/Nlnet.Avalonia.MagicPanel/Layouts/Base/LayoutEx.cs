@@ -54,6 +54,18 @@ public class LayoutEx : AvaloniaObject
     }
     public static readonly AttachedProperty<Alignment> ItemsAlignmentProperty = AvaloniaProperty
         .RegisterAttached<LayoutEx, MagicPanel, Alignment>("ItemsAlignment");
+
+    // JustifyContent
+    public static JustifyContent GetJustifyContent(MagicPanel host)
+    {
+        return host.GetValue(JustifyContentProperty);
+    }
+    public static void SetJustifyContent(MagicPanel host, JustifyContent value)
+    {
+        host.SetValue(JustifyContentProperty, value);
+    }
+    public static readonly AttachedProperty<JustifyContent> JustifyContentProperty = AvaloniaProperty
+        .RegisterAttached<LayoutEx, MagicPanel, JustifyContent>("JustifyContent");
     
     // Orientation
     public static Orientation GetOrientation(MagicPanel host)
@@ -100,6 +112,16 @@ internal static class LayoutExtensions
         }
 
         panel.SetCurrentValue(LayoutEx.ItemsAlignmentProperty, v);
+    }
+
+    public static void ApplyJustifyContent(this MagicPanel panel, string value)
+    {
+        if (Enum.TryParse<JustifyContent>(value, true, out var v) == false)
+        {
+            return;
+        }
+
+        panel.SetCurrentValue(LayoutEx.JustifyContentProperty, v);
     }
     
     public static void ApplyOrientation(this MagicPanel panel, string value)

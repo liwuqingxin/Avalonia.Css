@@ -53,6 +53,12 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             {
                 builder.Append($"align:{alignment};");
             }
+
+            var justifyContent = JustifyContentList.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(justifyContent) == false)
+            {
+                builder.Append($"justify-content:{justifyContent};");
+            }
             
             TbxLayoutStyle.Text = builder.ToString();
             TbxLayout.Text = LayoutList.SelectedItem?.ToString();
