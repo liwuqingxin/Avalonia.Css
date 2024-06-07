@@ -10,7 +10,7 @@ using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
-public class WrapLayout : LinearLayout
+public class WrapLayout : MagicLayout
 {
     public static WrapLayout Default { get; } = new();
 
@@ -84,7 +84,7 @@ public class WrapLayout : LinearLayout
 
     public override Size ArrangeOverride(MagicPanel panel, IReadOnlyList<Control> children, Size finalSize)
     {
-        var isHorizontal = GetOrientation(panel) == Orientation.Horizontal;
+        var isHorizontal = LayoutEx.GetOrientation(panel) == Orientation.Horizontal;
         
         foreach (var child in children)
         {
@@ -115,7 +115,7 @@ public class WrapLayout : LinearLayout
         }
 
         // ApplyParentPanel's ItemsAlignment.
-        var alignment = GetItemsAlignment(panel);
+        var alignment = LayoutEx.GetItemsAlignment(panel);
         try
         {
             if (isHorizontal)

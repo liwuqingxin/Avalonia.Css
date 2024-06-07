@@ -9,7 +9,7 @@ using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
-public class StackLayout : LinearLayout
+public class StackLayout : MagicLayout
 {
     public static StackLayout Default { get; } = new();
 
@@ -26,10 +26,10 @@ public class StackLayout : LinearLayout
 
     public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
-        var orientation  = GetOrientation(panel);
+        var orientation  = LayoutEx.GetOrientation(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
-        var spacing      = GetSpacing(panel);
-        var alignment    = GetItemsAlignment(panel);
+        var spacing      = LayoutEx.GetSpacing(panel);
+        var alignment    = LayoutEx.GetItemsAlignment(panel);
 
         var panelDesiredWidth  = 0d;
         var panelDesiredHeight = 0d;
@@ -86,8 +86,8 @@ public class StackLayout : LinearLayout
                 }    
             }
             
-            MagicPanel.SetArrangedWidth(child, width);
-            MagicPanel.SetArrangedHeight(child, height);
+            LayoutEx.SetArrangedWidth(child, width);
+            LayoutEx.SetArrangedHeight(child, height);
         }
 
         var size = isHorizontal

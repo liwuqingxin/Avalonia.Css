@@ -16,29 +16,7 @@ namespace Nlnet.Avalonia.Controls
         
         
         #region Attached Properties
-
-        public static double GetArrangedWidth(Layoutable host)
-        {
-            return host.GetValue(ArrangedWidthProperty);
-        }
-        internal static void SetArrangedWidth(Layoutable host, double value)
-        {
-            host.SetValue(ArrangedWidthProperty, value);
-        }
-        public static readonly AttachedProperty<double> ArrangedWidthProperty = AvaloniaProperty
-            .RegisterAttached<MagicPanel, Layoutable, double>("ArrangedWidth", double.NaN);
-
-        public static double GetArrangedHeight(Layoutable host)
-        {
-            return host.GetValue(ArrangedHeightProperty);
-        }
-        internal static void SetArrangedHeight(Layoutable host, double value)
-        {
-            host.SetValue(ArrangedHeightProperty, value);
-        }
-        public static readonly AttachedProperty<double> ArrangedHeightProperty = AvaloniaProperty
-            .RegisterAttached<MagicPanel, Layoutable, double>("ArrangedHeight", double.NaN);
-
+        
         public static Alignment? GetAlignment(Control host)
         {
             return host.GetValue(AlignmentProperty);
@@ -104,7 +82,15 @@ namespace Nlnet.Avalonia.Controls
 
         static MagicPanel()
         {
-            AffectsParentArrange<Canvas>(ArrangedWidthProperty, ArrangedHeightProperty);
+            AffectsParentArrange<MagicPanel>(
+                LayoutEx.ArrangedWidthProperty, 
+                LayoutEx.ArrangedHeightProperty);
+            
+            AffectsMeasure<MagicPanel>(
+                LayoutEx.OrientationProperty,
+                LayoutEx.ReverseProperty,
+                LayoutEx.SpacingProperty,
+                LayoutEx.ItemsAlignmentProperty);
             
             RegisterLayout(StackLayout.Default);
             RegisterLayout(FlexLayout.Default);
@@ -339,7 +325,7 @@ namespace Nlnet.Avalonia.Controls
         private IReadOnlyList<Control> GetVisibleChildren()
         {
             var children = this.Children.Where(c => c.IsVisible);
-            if (LinearLayout.GetReverse(this))
+            if (LayoutEx.GetReverse(this))
             {
                 children = children.Reverse();
             }

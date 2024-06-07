@@ -9,8 +9,16 @@ using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
-public class FlexLayout : LinearLayout
+public class FlexLayout : MagicLayout
 {
+    #region Properties
+
+    
+
+    #endregion
+    
+    
+    
     public static FlexLayout Default { get; } = new();
     
     private FlexLayout()
@@ -26,7 +34,7 @@ public class FlexLayout : LinearLayout
 
     public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
-        var orientation  = GetOrientation(panel);
+        var orientation  = LayoutEx.GetOrientation(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
         
         // If the extend direction has no restriction, just regard as stack layout.
@@ -45,8 +53,8 @@ public class FlexLayout : LinearLayout
             }
         }
         
-        var spacing   = GetSpacing(panel);
-        var alignment = GetItemsAlignment(panel);
+        var spacing   = LayoutEx.GetSpacing(panel);
+        var alignment = LayoutEx.GetItemsAlignment(panel);
 
         var panelDesiredWidth  = 0d;
         var panelDesiredHeight = 0d;
@@ -102,8 +110,8 @@ public class FlexLayout : LinearLayout
                 }    
             }
             
-            MagicPanel.SetArrangedWidth(child, width);
-            MagicPanel.SetArrangedHeight(child, height);
+            LayoutEx.SetArrangedWidth(child, width);
+            LayoutEx.SetArrangedHeight(child, height);
         }
 
         var size = isHorizontal

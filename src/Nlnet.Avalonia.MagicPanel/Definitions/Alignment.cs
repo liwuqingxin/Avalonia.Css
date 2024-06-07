@@ -37,3 +37,12 @@ public static class AlignmentExtensions
         };
     }
 }
+
+
+public enum FlexWrap
+{
+    NoWrap,
+    Wrap,
+    WrapReverse,
+}
+

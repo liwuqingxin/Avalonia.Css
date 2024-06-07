@@ -52,10 +52,10 @@
                                                   Property="Canvas.Left"
                                                   Duration="0:0:.3" />
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
-                                                  Property="nlnet:MagicPanel.ArrangedWidth"
+                                                  Property="nlnet:LayoutEx.ArrangedWidth"
                                                   Duration="0:0:.3" />
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
-                                                  Property="nlnet:MagicPanel.ArrangedHeight"
+                                                  Property="nlnet:LayoutEx.ArrangedHeight"
                                                   Duration="0:0:.3" />
                             </Transitions>
                         </Setter>

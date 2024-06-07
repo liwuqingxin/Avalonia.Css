@@ -1,39 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Nlnet.Avalonia.Controls;
+// ReSharper disable StringLiteralTypo
 
 namespace Nlnet.Avalonia;
 
-public abstract class ReactiveLayout : AvaloniaObject, IMagicLayout
+public abstract class MagicLayout : AvaloniaObject, IMagicLayout
 {
-    public static double GetSpacing(MagicPanel host)
-    {
-        return host.GetValue(SpacingProperty);
-    }
-    public static void SetSpacing(MagicPanel host, double value)
-    {
-        host.SetValue(SpacingProperty, value);
-    }
-    public static readonly AttachedProperty<double> SpacingProperty = AvaloniaProperty
-        .RegisterAttached<ReactiveLayout, MagicPanel, double>("Spacing");
-    
-    public static Alignment GetItemsAlignment(MagicPanel host)
-    {
-        return host.GetValue(ItemsAlignmentProperty);
-    }
-    public static void SetItemsAlignment(MagicPanel host, Alignment value)
-    {
-        host.SetValue(ItemsAlignmentProperty, value);
-    }
-    public static readonly AttachedProperty<Alignment> ItemsAlignmentProperty = AvaloniaProperty
-        .RegisterAttached<ReactiveLayout, MagicPanel, Alignment>("ItemsAlignment");
-    
-    
-    
     #region IMagicLayout
 
     public abstract IEnumerable<string> GetNames();
@@ -50,8 +26,8 @@ public abstract class ReactiveLayout : AvaloniaObject, IMagicLayout
             }
             
             var location = child.GetTopLeft(finalSize);
-            var width    = MagicPanel.GetArrangedWidth(child);
-            var height   = MagicPanel.GetArrangedHeight(child);
+            var width    = LayoutEx.GetArrangedWidth(child);
+            var height   = LayoutEx.GetArrangedHeight(child);
             
             if (double.IsFinite(location.X) == false)
             {
@@ -90,39 +66,33 @@ public abstract class ReactiveLayout : AvaloniaObject, IMagicLayout
             case "spacing":
             case "gap":
             {
-                ApplySpacing(panel, value);
+                panel.ApplySpacing(value);
                 break;
             }
             case "align":
             case "alignment":
             case "alignchild":
             case "alignitems":
-            case "itemsalignment":
+            case "align-child":
+            case "align-items":
             {
-                ApplyItemsAlignment(panel, value);
+                panel.ApplyItemsAlignment(value);
+                break;
+            }
+            case "orientation":
+            case "direction":
+            case "flex-direction":
+            {
+                panel.ApplyOrientation(value);
+                break;
+            }
+            case "r":
+            case "reverse":
+            {
+                panel.ApplyReverse(value);
                 break;
             }
         }
-    }
-
-    private static void ApplySpacing(MagicPanel panel, string value)
-    {
-        if (double.TryParse(value, out var v) == false)
-        {
-            return;
-        }
-
-        panel.SetCurrentValue(SpacingProperty, v);
-    }
-
-    private static void ApplyItemsAlignment(MagicPanel panel, string value)
-    {
-        if (Enum.TryParse<Alignment>(value, true, out var v) == false)
-        {
-            return;
-        }
-
-        panel.SetCurrentValue(ItemsAlignmentProperty, v);
     }
 
     #endregion
