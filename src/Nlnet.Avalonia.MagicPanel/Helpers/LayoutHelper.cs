@@ -1,14 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
-using Avalonia.Diagnostics;
 using Avalonia.Layout;
 
 namespace Nlnet.Avalonia;
 
 internal static class LayoutHelper
 {
-    public static Point GetTopLeft(Layoutable child, Size finalSize)
+    public static double LocateStartWithAlignment(
+        Alignment  alignment,
+        Alignment? childAlignment,
+        double     constraint,
+        double     desired,
+        out bool   isStretch)
+    {
+        var align = childAlignment ?? alignment;
+        var start = 0d;
+        isStretch = false;
+        
+        switch (align)
+        {
+            case Alignment.Start:
+                start = 0d;
+                break;
+            case Alignment.End:
+                start = constraint - desired;
+                break;
+            case Alignment.Stretch:
+                isStretch = true;
+                break;
+            case Alignment.Center:
+                start = (constraint - desired) / 2;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return start;
+    }
+    
+    public static Point GetTopLeft(this Layoutable child, Size finalSize)
     {
         var x = 0.0;
         var y = 0.0;
@@ -44,30 +77,42 @@ internal static class LayoutHelper
         return new Point(x, y);
     }
 
-    public static void ApplyAlignmentToChild(Layoutable child, Alignment alignment, bool isHorizontal)
+    public static void JustMeasure(this IReadOnlyList<Control> children, Size constraint, out bool existedVisible)
     {
-        try
+        existedVisible = false;
+        foreach (var child in children.Where(child => child.IsVisible))
         {
-            if (isHorizontal)
+            existedVisible = true;
+            child.Measure(constraint);
+        }
+    }
+
+    public static void LiberateExtendDirection(this ref Size constraintSize, bool isHorizontal)
+    {
+        constraintSize = isHorizontal
+            ? constraintSize.WithWidth(double.PositiveInfinity)
+            : constraintSize.WithHeight(double.PositiveInfinity);
+    }
+
+    public static void ConstraintNoExtendDirectionWithChildrenMaxDesiredIfNotConstraint(this ref Size constraintSize, IReadOnlyList<Control> children, bool isHorizontal)
+    {
+        var constraintWidth  = constraintSize.Width;
+        var constraintHeight = constraintSize.Height;
+        
+        if (isHorizontal)
+        {
+            if (double.IsInfinity(constraintHeight))
             {
-                var diagnosis = child.GetDiagnostic(Layoutable.VerticalAlignmentProperty);
-                if (diagnosis.Priority == BindingPriority.Unset)
-                {
-                    child.SetCurrentValue(Layoutable.VerticalAlignmentProperty, alignment.ToVertical());
-                }
-            }
-            else
-            {
-                var diagnosis = child.GetDiagnostic(Layoutable.HorizontalAlignmentProperty);
-                if (diagnosis.Priority == BindingPriority.Unset)
-                {
-                    child.SetCurrentValue(Layoutable.HorizontalAlignmentProperty, alignment.ToHorizontal());
-                }
+                constraintSize = new Size(constraintWidth, children.Max(control => control.DesiredSize.Height));
             }
         }
-        catch
+        else
         {
-            // ignore
+            if (double.IsInfinity(constraintWidth))
+            {
+                constraintSize  = new Size(children.Max(control => control.DesiredSize.Width), constraintHeight);
+            }
         }
+        
     }
 }

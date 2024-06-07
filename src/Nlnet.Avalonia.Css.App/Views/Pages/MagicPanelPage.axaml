@@ -2,9 +2,12 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:app="clr-namespace:Nlnet.Avalonia.Css.App"
+             xmlns:avalonia="clr-namespace:Nlnet.Avalonia;assembly=Nlnet.Avalonia.MagicPanel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:nlnet="https://www.nlnet.com/avalonia"
+             xmlns:pages="clr-namespace:Nlnet.Avalonia.Css.App.Views.Pages"
+             xmlns:sharp="https://www.nlnet.net"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -16,9 +19,23 @@
         <app:IndependentCase Header="Default Layout">
             <app:IndependentCase.Settings>
                 <StackPanel Width="200">
-                    <Button Click="Button_OnClick" Content="重置布局" />
                     <TextBox x:Name="TbxLayout" Watermark="Layout" />
                     <TextBox x:Name="TbxLayoutStyle" Watermark="Layout Style" />
+                    <ListBox x:Name="LayoutList"
+                             ItemsSource="{sharp:Enum pages:Layouts}"
+                             SelectionChanged="List_OnSelectionChanged" />
+                    <CheckBox x:Name="CbxReverse"
+                              Content="Reverse"
+                              IsCheckedChanged="CbxReverse_OnIsCheckedChanged" />
+                    <ListBox x:Name="OrientationList"
+                             ItemsSource="{sharp:Enum pages:Orientations}"
+                             SelectionChanged="List_OnSelectionChanged" />
+                    <ListBox x:Name="SpacingList"
+                             ItemsSource="{sharp:Enum pages:Spacings}"
+                             SelectionChanged="List_OnSelectionChanged" />
+                    <ListBox x:Name="AlignmentList"
+                             ItemsSource="{sharp:Enum avalonia:Alignment}"
+                             SelectionChanged="List_OnSelectionChanged" />
                 </StackPanel>
             </app:IndependentCase.Settings>
             <Grid Height="450"
@@ -45,34 +62,49 @@
                     </Style>
                 </Grid.Styles>
 
+                <!-- No Constraint -->
                 <Canvas>
-                    <nlnet:MagicPanel x:Name="Panel"
-                                      Layout="{Binding #TbxLayout.Text}"
-                                      LayoutStyle="{Binding #TbxLayoutStyle.Text}">
-                        <Border x:Name="Border1"
-                                Width="100"
+                    <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                        <Border Width="100"
                                 Height="100"
                                 Background="Red">
                             <TextBlock Text="Size = (100,100)" />
                         </Border>
-                        <Border x:Name="Border2" Background="Green">
+                        <Border Background="Green">
                             <TextBlock Text="Size = (Auto,Auto)" />
                         </Border>
-                        <Border x:Name="Border3"
-                                Height="50"
-                                Background="Orange">
+                        <Border Height="50" Background="Orange">
                             <TextBlock Text="Size = (Auto,50)" />
                         </Border>
-                        <Border x:Name="Border4"
-                                Width="80"
-                                Background="DodgerBlue">
+                        <Border Width="80" Background="DodgerBlue">
                             <TextBlock Text="Size = (80,Auto)" />
                         </Border>
                     </nlnet:MagicPanel>
                 </Canvas>
 
-                <ScrollViewer Grid.Row="1"
-                              Grid.Column="1">
+                <!-- All Constraint -->
+                <nlnet:MagicPanel Grid.Row="0"
+                                  Grid.Column="1"
+                                  Layout="{Binding #TbxLayout.Text}"
+                                  LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                    <Border Width="100"
+                            Height="100"
+                            Background="Red">
+                        <TextBlock Text="Size = (100,100)" />
+                    </Border>
+                    <Border Background="Green">
+                        <TextBlock Text="Size = (Auto,Auto)" />
+                    </Border>
+                    <Border Height="50" Background="Orange">
+                        <TextBlock Text="Size = (Auto,50)" />
+                    </Border>
+                    <Border Width="80" Background="DodgerBlue">
+                        <TextBlock Text="Size = (80,Auto)" />
+                    </Border>
+                </nlnet:MagicPanel>
+
+                <!-- Horizontal Constraint -->
+                <ScrollViewer Grid.Row="1" Grid.Column="1">
                     <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
                         <Border Width="100"
                                 Height="100"

@@ -10,7 +10,7 @@ using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
-public class WrapLayout : LinearPanel, IMagicLayout
+public class WrapLayout : LinearLayout
 {
     public static WrapLayout Default { get; } = new();
 
@@ -21,13 +21,13 @@ public class WrapLayout : LinearPanel, IMagicLayout
     
     
     
-    public IEnumerable<string> GetNames()
+    public override IEnumerable<string> GetNames()
     {
         yield return "Wrap";
         yield return "WrapPanel";
     }
 
-    public Size MeasureOverride(MagicPanel panel, Size availableSize, IReadOnlyList<Control> children)
+    public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
         var availableWidth = availableSize.Width;
         if (double.IsNaN(availableWidth))
@@ -82,7 +82,7 @@ public class WrapLayout : LinearPanel, IMagicLayout
         return new Size(width, height);
     }
 
-    public Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
+    public override Size ArrangeOverride(MagicPanel panel, IReadOnlyList<Control> children, Size finalSize)
     {
         var isHorizontal = GetOrientation(panel) == Orientation.Horizontal;
         
@@ -94,9 +94,14 @@ public class WrapLayout : LinearPanel, IMagicLayout
         return finalSize;
     }
 
+    public override IInputElement? GetNavigatedControl(MagicPanel panel, NavigationDirection direction, IInputElement? from, bool wrap)
+    {
+        return null;
+    }
+
     private static void ArrangeChild(MagicPanel panel, Layoutable child, Size finalSize, bool isHorizontal)
     {
-        var location = LayoutHelper.GetTopLeft(child, finalSize);
+        var location = child.GetTopLeft(finalSize);
         
         var width  = child.DesiredSize.Width;
         var height = child.DesiredSize.Height;
@@ -136,15 +141,5 @@ public class WrapLayout : LinearPanel, IMagicLayout
         }
         
         child.Arrange(new Rect(location, new Size(width, height)));
-    }
-
-    public IInputElement? GetNavigatedControl(MagicPanel panel, NavigationDirection direction, IInputElement? from, bool wrap)
-    {
-        return null;
-    }
-
-    public void ApplySetter(MagicPanel panel, string property, string value)
-    {
-        return;
     }
 }

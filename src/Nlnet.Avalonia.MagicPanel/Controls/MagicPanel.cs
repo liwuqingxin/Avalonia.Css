@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -160,16 +161,16 @@ namespace Nlnet.Avalonia.Controls
                     continue;
                 }
 
-                _layout.ApplySetter(this, setter.Value.Item1, setter.Value.Item2);
+                _layout.ApplySetter(this, setter.Value.Item1.ToLower(), setter.Value.Item2);
             }
         }
 
         private static (string,string)? ParseSetter(string setterPair)
         {
             var pair = setterPair.Split(':', StringSplitOptions.RemoveEmptyEntries);
-            if (pair.Length != 2)
+            if (pair.Length == 1)
             {
-                return null;
+                return new ValueTuple<string, string>(setterPair, string.Empty);
             }
 
             return new ValueTuple<string, string>(pair[0].Trim(), pair[1].Trim());
@@ -335,14 +336,25 @@ namespace Nlnet.Avalonia.Controls
         
         #region MeasureOverride & ArrangeOverride
 
+        private IReadOnlyList<Control> GetVisibleChildren()
+        {
+            var children = this.Children.Where(c => c.IsVisible);
+            if (LinearLayout.GetReverse(this))
+            {
+                children = children.Reverse();
+            }
+
+            return children.ToList();
+        }
+
         protected override Size MeasureOverride(Size availableSize)
         {
-            return _layout.MeasureOverride(this, availableSize, Children);
+            return _layout.MeasureOverride(this, GetVisibleChildren(), availableSize);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            return _layout.ArrangeOverride(this, finalSize, this.Children);
+            return _layout.ArrangeOverride(this, GetVisibleChildren(), finalSize);
         }
 
         #endregion

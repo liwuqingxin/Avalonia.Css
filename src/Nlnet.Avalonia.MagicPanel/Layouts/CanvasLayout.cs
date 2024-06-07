@@ -23,12 +23,12 @@ public class CanvasLayout : IMagicLayout
         yield return "Canvas";
     }
 
-    public Size MeasureOverride(MagicPanel panel, Size availableSize, IReadOnlyList<Control> children)
+    public Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
         return new Size();
     }
 
-    public Size ArrangeOverride(MagicPanel panel, Size finalSize, IReadOnlyList<Control> children)
+    public Size ArrangeOverride(MagicPanel panel, IReadOnlyList<Control> children, Size finalSize)
     {
         foreach (var child in children)
         {
