@@ -9,14 +9,15 @@ using Avalonia.Media;
 
 namespace Nlnet.Avalonia.Controls
 {
-    public sealed class MagicPanel : Canvas, INavigableContainer/*, IScrollSnapPointsInfo*/
+    public sealed class MagicPanel : Panel, INavigableContainer /*, IScrollSnapPointsInfo*/
     {
         private IMagicLayout _layout = StackLayout.Default;
-        
-        
+
+
         
         #region Attached Properties
-        
+
+        // TODO AlignSelf
         public static Alignment? GetAlignment(Control host)
         {
             return host.GetValue(AlignmentProperty);
@@ -27,10 +28,94 @@ namespace Nlnet.Avalonia.Controls
         }
         public static readonly AttachedProperty<Alignment?> AlignmentProperty = AvaloniaProperty
             .RegisterAttached<MagicPanel, Control, Alignment?>("Alignment");
-        
+
+        // Spacing
+        public static double GetSpacing(MagicPanel host)
+        {
+            return host.GetValue(SpacingProperty);
+        }
+        public static void SetSpacing(MagicPanel host, double value)
+        {
+            host.SetValue(SpacingProperty, value);
+        }
+        public static readonly AttachedProperty<double> SpacingProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, double>("Spacing", 0d);
+
+        // AlignItems
+        public static Alignment GetAlignItems(MagicPanel host)
+        {
+            return host.GetValue(AlignItemsProperty);
+        }
+        public static void SetAlignItems(MagicPanel host, Alignment value)
+        {
+            host.SetValue(AlignItemsProperty, value);
+        }
+        public static readonly AttachedProperty<Alignment> AlignItemsProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, Alignment>("AlignItems", Alignment.Stretch);
+
+        // JustifyContent
+        public static JustifyContent GetJustifyContent(MagicPanel host)
+        {
+            return host.GetValue(JustifyContentProperty);
+        }
+        public static void SetJustifyContent(MagicPanel host, JustifyContent value)
+        {
+            host.SetValue(JustifyContentProperty, value);
+        }
+        public static readonly AttachedProperty<JustifyContent> JustifyContentProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, JustifyContent>("JustifyContent", JustifyContent.Center);
+
+        // AlignContent
+        public static AlignContent GetAlignContent(MagicPanel host)
+        {
+            return host.GetValue(AlignContentProperty);
+        }
+        public static void SetAlignContent(MagicPanel host, AlignContent value)
+        {
+            host.SetValue(AlignContentProperty, value);
+        }
+        public static readonly AttachedProperty<AlignContent> AlignContentProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, AlignContent>("AlignContent", AlignContent.Stretch);
+
+        // Orientation
+        public static Orientation GetOrientation(MagicPanel host)
+        {
+            return host.GetValue(OrientationProperty);
+        }
+        public static void SetOrientation(MagicPanel host, Orientation value)
+        {
+            host.SetValue(OrientationProperty, value);
+        }
+        public static readonly AttachedProperty<Orientation> OrientationProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, Orientation>("Orientation", Orientation.Vertical);
+
+        // Reverse
+        public static bool GetReverse(MagicPanel host)
+        {
+            return host.GetValue(ReverseProperty);
+        }
+        public static void SetReverse(MagicPanel host, bool value)
+        {
+            host.SetValue(ReverseProperty, value);
+        }
+        public static readonly AttachedProperty<bool> ReverseProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, bool>("Reverse", false);
+
+        // FlexWrap
+        public static FlexWrap GetFlexWrap(MagicPanel host)
+        {
+            return host.GetValue(FlexWrapProperty);
+        }
+        public static void SetFlexWrap(MagicPanel host, FlexWrap value)
+        {
+            host.SetValue(FlexWrapProperty, value);
+        }
+        public static readonly AttachedProperty<FlexWrap> FlexWrapProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, MagicPanel, FlexWrap>("FlexWrap", FlexWrap.NoWrap);
+
         #endregion
-        
-        
+
+
         
         #region Layouts
 
@@ -83,20 +168,26 @@ namespace Nlnet.Avalonia.Controls
         static MagicPanel()
         {
             AffectsParentArrange<MagicPanel>(
-                LayoutEx.ArrangedWidthProperty, 
-                LayoutEx.ArrangedHeightProperty);
-            
+                LayoutEx.ArrangedWidthProperty,
+                LayoutEx.ArrangedHeightProperty,
+                LayoutEx.ArrangedLeftProperty,
+                LayoutEx.ArrangedTopProperty);
+
             AffectsMeasure<MagicPanel>(
-                LayoutEx.OrientationProperty,
-                LayoutEx.ReverseProperty,
-                LayoutEx.SpacingProperty,
-                LayoutEx.AlignItemsProperty);
-            
+                AlignmentProperty,
+                SpacingProperty,
+                JustifyContentProperty,
+                AlignItemsProperty,
+                AlignContentProperty,
+                OrientationProperty,
+                ReverseProperty,
+                FlexWrapProperty);
+
             RegisterLayout(StackLayout.Default);
             RegisterLayout(FlexLayout.Default);
             RegisterLayout(WrapLayout.Default);
             RegisterLayout(CanvasLayout.Default);
-            
+
             LayoutProperty.Changed.AddClassHandler<MagicPanel>((panel, args) =>
             {
                 panel.ResetLayout();
@@ -114,7 +205,7 @@ namespace Nlnet.Avalonia.Controls
         {
             // TODO DELETE
             {
-                this.Background = new SolidColorBrush(Colors.IndianRed, 0.1);    
+                this.Background = new SolidColorBrush(Colors.IndianRed, 0.1);
             }
         }
 
@@ -151,7 +242,7 @@ namespace Nlnet.Avalonia.Controls
             }
         }
 
-        private static (string,string)? ParseSetter(string setterPair)
+        private static (string, string)? ParseSetter(string setterPair)
         {
             var pair = setterPair.Split(':', StringSplitOptions.RemoveEmptyEntries);
             if (pair.Length == 1)
@@ -161,7 +252,7 @@ namespace Nlnet.Avalonia.Controls
 
             return new ValueTuple<string, string>(pair[0].Trim(), pair[1].Trim());
         }
-        
+
         #endregion
 
 
@@ -273,7 +364,7 @@ namespace Nlnet.Avalonia.Controls
 
                 if (useLayoutRounding)
                 {
-                    size                      = global::Avalonia.Layout.LayoutHelper.RoundLayoutSizeUp(size,                      scale, scale);
+                    size = global::Avalonia.Layout.LayoutHelper.RoundLayoutSizeUp(size, scale, scale);
                     availableSizeMinusMargins = global::Avalonia.Layout.LayoutHelper.RoundLayoutSizeUp(availableSizeMinusMargins, scale, scale);
                 }
 
@@ -310,7 +401,7 @@ namespace Nlnet.Avalonia.Controls
                 Bounds = new Rect(originX, originY, size.Width, size.Height);
             }
         }
-        
+
         private static Size NonNegative(Size size)
         {
             return new Size(Math.Max(size.Width, 0), Math.Max(size.Height, 0));
@@ -325,7 +416,7 @@ namespace Nlnet.Avalonia.Controls
         private IReadOnlyList<Control> GetVisibleChildren()
         {
             var children = this.Children.Where(c => c.IsVisible);
-            if (LayoutEx.GetReverse(this))
+            if (MagicPanel.GetReverse(this))
             {
                 children = children.Reverse();
             }
@@ -358,7 +449,7 @@ namespace Nlnet.Avalonia.Controls
 
         #endregion
 
-        
+
 
         #region IScrollSnapPointsInfo
 

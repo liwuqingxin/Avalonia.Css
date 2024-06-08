@@ -58,10 +58,10 @@
                         <Setter Property="Transitions">
                             <Transitions>
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
-                                                  Property="Canvas.Top"
+                                                  Property="nlnet:LayoutEx.ArrangedTop"
                                                   Duration="0:0:.3" />
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
-                                                  Property="Canvas.Left"
+                                                  Property="nlnet:LayoutEx.ArrangedLeft"
                                                   Duration="0:0:.3" />
                                 <DoubleTransition Easing="0.4,0.7,0.4,0.7"
                                                   Property="nlnet:LayoutEx.ArrangedWidth"

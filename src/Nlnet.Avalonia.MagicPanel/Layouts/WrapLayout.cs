@@ -84,7 +84,7 @@ public class WrapLayout : MagicLayout
 
     public override Size ArrangeOverride(MagicPanel panel, IReadOnlyList<Control> children, Size finalSize)
     {
-        var isHorizontal = LayoutEx.GetOrientation(panel) == Orientation.Horizontal;
+        var isHorizontal = MagicPanel.GetOrientation(panel) == Orientation.Horizontal;
         
         foreach (var child in children)
         {
@@ -115,7 +115,7 @@ public class WrapLayout : MagicLayout
         }
 
         // ApplyParentPanel's AlignItems.
-        var alignment = LayoutEx.GetAlignItems(panel);
+        var alignment = MagicPanel.GetAlignItems(panel);
         try
         {
             if (isHorizontal)

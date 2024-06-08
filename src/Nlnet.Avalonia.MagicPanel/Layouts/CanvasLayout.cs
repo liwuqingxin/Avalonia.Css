@@ -40,6 +40,7 @@ public class CanvasLayout : IMagicLayout
 
     private static void ArrangeChild(Layoutable child, Size finalSize)
     {
+        // TODO 不再使用Canvas.Left/Top/...
         var x    = 0.0;
         var y    = 0.0;
         var left = Canvas.GetLeft(child);

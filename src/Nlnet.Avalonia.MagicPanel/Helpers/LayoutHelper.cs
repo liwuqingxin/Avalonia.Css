@@ -44,39 +44,10 @@ internal static class LayoutHelper
     
     public static Point GetTopLeft(this Layoutable child, Size finalSize)
     {
-        // TODO Use custom Top/Left instead of Canvas.Top and Canvas.Left. 
-        var x = 0.0;
-        var y = 0.0;
+        var left = LayoutEx.GetArrangedLeft(child);
+        var top  = LayoutEx.GetArrangedTop(child);
         
-        var left = Canvas.GetLeft(child);
-        if (!double.IsNaN(left))
-        {
-            x = left;
-        }
-        else
-        {
-            var right = Canvas.GetRight(child);
-            if (!double.IsNaN(right))
-            {
-                x = finalSize.Width - child.DesiredSize.Width - right;
-            }
-        }
-        
-        var top = Canvas.GetTop(child);
-        if (!double.IsNaN(top))
-        {
-            y = top;
-        }
-        else
-        {
-            var bottom = Canvas.GetBottom(child);
-            if (!double.IsNaN(bottom))
-            {
-                y = finalSize.Height - child.DesiredSize.Height - bottom;
-            }
-        }
-
-        return new Point(x, y);
+        return new Point(left, top);
     }
 
     public static void JustMeasure(this IReadOnlyList<Control> children, Size constraint)
@@ -105,7 +76,7 @@ internal static class LayoutHelper
 
     public static void TileAndAlign(this Control child, double width, double height, double alignPoint, IMaCa maca)
     {
-        Canvas.SetLeft(child, maca.TileXOrAlign(width, alignPoint));
-        Canvas.SetTop(child, maca.TileYOrAlign(height, alignPoint));
+        LayoutEx.SetArrangedLeft(child, maca.TileXOrAlign(width, alignPoint));
+        LayoutEx.SetArrangedTop(child, maca.TileYOrAlign(height, alignPoint));
     }
 }

@@ -57,7 +57,7 @@ public class FlexLayout : MagicLayout
 
     public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
-        var orientation  = LayoutEx.GetOrientation(panel);
+        var orientation  = MagicPanel.GetOrientation(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
         
         // If the main axis has no restriction, just regard as stack layout.
@@ -77,11 +77,11 @@ public class FlexLayout : MagicLayout
         }
         
         // Properties.
-        var spacing        = LayoutEx.GetSpacing(panel);
-        var alignment      = LayoutEx.GetAlignItems(panel);
-        var justifyContent = LayoutEx.GetJustifyContent(panel);
-        var alignContent   = LayoutEx.GetAlignContent(panel);
-        var flexWrap       = LayoutEx.GetFlexWrap(panel);
+        var spacing        = MagicPanel.GetSpacing(panel);
+        var alignment      = MagicPanel.GetAlignItems(panel);
+        var justifyContent = MagicPanel.GetJustifyContent(panel);
+        var alignContent   = MagicPanel.GetAlignContent(panel);
+        var flexWrap       = MagicPanel.GetFlexWrap(panel);
         
         // All info.
         var info = new FlexInfo(availableSize, isHorizontal, spacing, alignment, justifyContent, alignContent);

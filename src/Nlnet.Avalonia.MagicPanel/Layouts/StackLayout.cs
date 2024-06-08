@@ -23,9 +23,9 @@ public class StackLayout : MagicLayout
 
     public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
-        var orientation = LayoutEx.GetOrientation(panel);
-        var spacing     = LayoutEx.GetSpacing(panel);
-        var alignment   = LayoutEx.GetAlignItems(panel);
+        var orientation = MagicPanel.GetOrientation(panel);
+        var spacing     = MagicPanel.GetSpacing(panel);
+        var alignment   = MagicPanel.GetAlignItems(panel);
         var maca        = orientation.GetMaCa();
 
         var panelDesiredWidth  = 0d;
