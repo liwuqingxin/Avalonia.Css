@@ -42,7 +42,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(SpacingProperty, value);
     }
     public static readonly AttachedProperty<double> SpacingProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, MagicPanel, double>("Spacing");
+        .RegisterAttached<LayoutEx, MagicPanel, double>("Spacing", 0d);
     
     // AlignItems
     public static Alignment GetAlignItems(MagicPanel host)
@@ -54,7 +54,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(AlignItemsProperty, value);
     }
     public static readonly AttachedProperty<Alignment> AlignItemsProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, MagicPanel, Alignment>("AlignItems");
+        .RegisterAttached<LayoutEx, MagicPanel, Alignment>("AlignItems", Alignment.Stretch);
 
     // JustifyContent
     public static JustifyContent GetJustifyContent(MagicPanel host)
@@ -66,7 +66,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(JustifyContentProperty, value);
     }
     public static readonly AttachedProperty<JustifyContent> JustifyContentProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, MagicPanel, JustifyContent>("JustifyContent");
+        .RegisterAttached<LayoutEx, MagicPanel, JustifyContent>("JustifyContent", JustifyContent.Center);
     
     // AlignContent
     public static AlignContent GetAlignContent(MagicPanel host)
@@ -78,7 +78,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(AlignContentProperty, value);
     }
     public static readonly AttachedProperty<AlignContent> AlignContentProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, MagicPanel, AlignContent>("AlignContent");
+        .RegisterAttached<LayoutEx, MagicPanel, AlignContent>("AlignContent", AlignContent.Stretch);
     
     // Orientation
     public static Orientation GetOrientation(MagicPanel host)
@@ -102,7 +102,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(ReverseProperty, value);
     }
     public static readonly AttachedProperty<bool> ReverseProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, MagicPanel, bool>("Reverse");
+        .RegisterAttached<LayoutEx, MagicPanel, bool>("Reverse", false);
 
     // FlexWrap
     public static FlexWrap GetFlexWrap(MagicPanel host)
@@ -114,7 +114,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(FlexWrapProperty, value);
     }
     public static readonly AttachedProperty<FlexWrap> FlexWrapProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, MagicPanel, FlexWrap>("FlexWrap");
+        .RegisterAttached<LayoutEx, MagicPanel, FlexWrap>("FlexWrap", FlexWrap.NoWrap);
 }
 
 internal static class LayoutExtensions

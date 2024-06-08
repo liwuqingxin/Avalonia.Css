@@ -11,6 +11,37 @@ namespace Nlnet.Avalonia;
 
 public class FlexLayout : MagicLayout
 {
+    private struct FlexInfo
+    {
+        public FlexInfo(
+            Size           constraintSize,
+            bool           isHorizontal,
+            double         spacing,
+            Alignment      alignItems,
+            JustifyContent justifyContent,
+            AlignContent   alignContent)
+        {
+            ConstraintSize = constraintSize;
+            IsHorizontal   = isHorizontal;
+            Spacing        = spacing;
+            AlignItems     = alignItems;
+            JustifyContent = justifyContent;
+            AlignContent   = alignContent;
+        }
+
+        public Size ConstraintSize { get; }
+
+        public bool IsHorizontal { get; }
+
+        public double Spacing { get; }
+
+        public Alignment AlignItems { get; }
+
+        public JustifyContent JustifyContent { get; }
+
+        public AlignContent AlignContent { get; }
+    }
+
     public static FlexLayout Default { get; } = new();
     
     private FlexLayout()
@@ -29,7 +60,7 @@ public class FlexLayout : MagicLayout
         var orientation  = LayoutEx.GetOrientation(panel);
         var isHorizontal = orientation == Orientation.Horizontal;
         
-        // If the extend direction has no restriction, just regard as stack layout.
+        // If the main axis has no restriction, just regard as stack layout.
         if (isHorizontal)
         {
             if (double.IsInfinity(availableSize.Width))
@@ -45,72 +76,27 @@ public class FlexLayout : MagicLayout
             }
         }
         
-        var spacing   = LayoutEx.GetSpacing(panel);
-        var alignment = LayoutEx.GetAlignItems(panel);
-
-        var panelDesiredWidth  = 0d;
-        var panelDesiredHeight = 0d;
-        var index              = 0;
+        // Properties.
+        var spacing        = LayoutEx.GetSpacing(panel);
+        var alignment      = LayoutEx.GetAlignItems(panel);
+        var justifyContent = LayoutEx.GetJustifyContent(panel);
+        var alignContent   = LayoutEx.GetAlignContent(panel);
+        var flexWrap       = LayoutEx.GetFlexWrap(panel);
+        
+        // All info.
+        var info = new FlexInfo(availableSize, isHorizontal, spacing, alignment, justifyContent, alignContent);
 
         // Measure all children.
-        var constraintSize = availableSize;
-        children.JustMeasure(constraintSize, out var existedVisible);
-
-        // Constraint all.
-        constraintSize.ConstraintNoExtendDirectionWithChildrenMaxDesiredIfNotConstraint(children, isHorizontal);
-
-        for (var count = children.Count; index < count; ++index)
+        children.JustMeasure(availableSize);
+        
+        // Deal with wrap.
+        return flexWrap switch
         {
-            var child       = children[index];
-            var desiredSize = child.DesiredSize;
-            
-            // Location
-            var isStretch      = false;
-            var childAlignment = MagicPanel.GetAlignment(child); 
-            if (isHorizontal)
-            {
-                var start = LayoutHelper.LocateStartWithAlignment(alignment, childAlignment, constraintSize.Height, desiredSize.Height, out isStretch);
-                Canvas.SetLeft(child, panelDesiredWidth);
-                Canvas.SetTop(child, start);
-                
-                panelDesiredWidth  = panelDesiredWidth + spacing + desiredSize.Width;
-                panelDesiredHeight = Math.Max(panelDesiredHeight, desiredSize.Height);
-            }
-            else
-            {
-                var start = LayoutHelper.LocateStartWithAlignment(alignment, childAlignment, constraintSize.Width, desiredSize.Width, out isStretch);
-                Canvas.SetLeft(child, start);
-                Canvas.SetTop(child, panelDesiredHeight);
-                
-                panelDesiredWidth  = Math.Max(panelDesiredWidth, desiredSize.Width);
-                panelDesiredHeight = panelDesiredHeight + spacing + desiredSize.Height;
-            }
-            
-            // Size
-            var width  = child.DesiredSize.Width;
-            var height = child.DesiredSize.Height;
-            if (isStretch)
-            {
-                // TODO Test for availableSize.
-                if (isHorizontal)
-                {
-                    height = constraintSize.Height;
-                }
-                else
-                {
-                    width = constraintSize.Width;
-                }    
-            }
-            
-            LayoutEx.SetArrangedWidth(child, width);
-            LayoutEx.SetArrangedHeight(child, height);
-        }
-
-        var size = isHorizontal
-            ? new Size(panelDesiredWidth - (existedVisible ? spacing : 0.0), panelDesiredHeight)
-            : new Size(panelDesiredWidth, panelDesiredHeight - (existedVisible ? spacing : 0.0));
-
-        return size;
+            FlexWrap.NoWrap      => MeasureNoWrap(panel, children, info),
+            FlexWrap.Wrap        => MeasureWrap(panel, children, info),
+            FlexWrap.WrapReverse => MeasureWrapReverse(panel, children, info),
+            _                    => new Size()
+        };
     }
 
     public override IInputElement? GetNavigatedControl(MagicPanel panel, NavigationDirection direction, IInputElement? from, bool wrap)
@@ -119,6 +105,140 @@ public class FlexLayout : MagicLayout
     }
 
 
+
+    #region Measures
+    
+    private Size MeasureNoWrap(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
+    {
+        return new Size();
+        
+        // var panelDesiredWidth  = 0d;
+        // var panelDesiredHeight = 0d;
+        // var index              = 0;
+        //
+        // // Measure all children.
+        // var constraintSize = availableSize;
+        // children.JustMeasure(constraintSize, out var existedVisible);
+        //
+        // // Constraint all.
+        // constraintSize.ConstraintCrossDirectionWithChildrenMaxDesiredIfNotConstraint(children, isHorizontal);
+        //
+        // for (var count = children.Count; index < count; ++index)
+        // {
+        //     var child       = children[index];
+        //     var desiredSize = child.DesiredSize;
+        //     
+        //     // Location
+        //     var isStretch      = false;
+        //     var childAlignment = MagicPanel.GetAlignment(child); 
+        //     if (isHorizontal)
+        //     {
+        //         var start = LayoutHelper.LocateStartWithAlignment(alignment, childAlignment, constraintSize.Height, desiredSize.Height, out isStretch);
+        //         Canvas.SetLeft(child, panelDesiredWidth);
+        //         Canvas.SetTop(child, start);
+        //         
+        //         panelDesiredWidth  = panelDesiredWidth + spacing + desiredSize.Width;
+        //         panelDesiredHeight = Math.Max(panelDesiredHeight, desiredSize.Height);
+        //     }
+        //     else
+        //     {
+        //         var start = LayoutHelper.LocateStartWithAlignment(alignment, childAlignment, constraintSize.Width, desiredSize.Width, out isStretch);
+        //         Canvas.SetLeft(child, start);
+        //         Canvas.SetTop(child, panelDesiredHeight);
+        //         
+        //         panelDesiredWidth  = Math.Max(panelDesiredWidth, desiredSize.Width);
+        //         panelDesiredHeight = panelDesiredHeight + spacing + desiredSize.Height;
+        //     }
+        //     
+        //     // Size
+        //     var width  = child.DesiredSize.Width;
+        //     var height = child.DesiredSize.Height;
+        //     if (isStretch)
+        //     {
+        //         // TODO Test for availableSize.
+        //         if (isHorizontal)
+        //         {
+        //             height = constraintSize.Height;
+        //         }
+        //         else
+        //         {
+        //             width = constraintSize.Width;
+        //         }    
+        //     }
+        //     
+        //     LayoutEx.SetArrangedWidth(child, width);
+        //     LayoutEx.SetArrangedHeight(child, height);
+        // }
+        //
+        // var size = isHorizontal
+        //     ? new Size(panelDesiredWidth - (existedVisible ? spacing : 0.0), panelDesiredHeight)
+        //     : new Size(panelDesiredWidth, panelDesiredHeight - (existedVisible ? spacing : 0.0));
+        //
+        // return size;
+    }
+
+    private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
+    {
+        throw new NotImplementedException();
+    }
+
+    private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
+
+
+
+    #region No Wrap
+
+    private static double ArrangeMainDirection(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
+    {
+        
+        var totalDesired = children.Sum(c => c.DesiredSize.Width);
+
+        return 0;
+    }
+    
+    private static double ArrangeCrossDirection(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
+    {
+        // Constraint all.
+        var constraintSize = info.ConstraintSize;
+        // constraintSize.ConstraintCrossAxisWithChildrenMaxDesiredIfNotConstraint(children, info.IsHorizontal);
+
+        foreach (var child in children)
+        {
+            var start = LayoutHelper.LocateStartWithAlignment(
+                info.AlignItems, 
+                MagicPanel.GetAlignment(child),
+                constraintSize.Height,
+                child.DesiredSize.Height,
+                out var isStretch);    
+        }
+        
+        
+        switch (info.AlignItems)
+        {
+            case Alignment.Stretch:
+            {
+                
+                return constraintSize.Height;
+            }
+            case Alignment.Center:
+                break;
+            case Alignment.Start:
+                break;
+            case Alignment.End:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return 0;
+    }
+
+    #endregion
 
     private static List<double> CalculatePosition(IList<Control> children, Size constraintSize, bool isHorizontal)
     {

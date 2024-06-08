@@ -335,12 +335,14 @@ namespace Nlnet.Avalonia.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            return _layout.MeasureOverride(this, GetVisibleChildren(), availableSize);
+            var children = GetVisibleChildren();
+            return children.Count == 0 ? new Size() : _layout.MeasureOverride(this, children, availableSize);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            return _layout.ArrangeOverride(this, GetVisibleChildren(), finalSize);
+            var children = GetVisibleChildren();
+            return children.Count == 0 ? new Size() : _layout.ArrangeOverride(this, children, finalSize);
         }
 
         #endregion

@@ -29,6 +29,7 @@ internal static class LayoutHelper
                 start = constraint - desired;
                 break;
             case Alignment.Stretch:
+                start     = 0d;
                 isStretch = true;
                 break;
             case Alignment.Center:
@@ -43,6 +44,7 @@ internal static class LayoutHelper
     
     public static Point GetTopLeft(this Layoutable child, Size finalSize)
     {
+        // TODO Use custom Top/Left instead of Canvas.Top and Canvas.Left. 
         var x = 0.0;
         var y = 0.0;
         
@@ -77,42 +79,33 @@ internal static class LayoutHelper
         return new Point(x, y);
     }
 
-    public static void JustMeasure(this IReadOnlyList<Control> children, Size constraint, out bool existedVisible)
+    public static void JustMeasure(this IReadOnlyList<Control> children, Size constraint)
     {
-        existedVisible = false;
-        foreach (var child in children.Where(child => child.IsVisible))
+        foreach (var child in children)
         {
-            existedVisible = true;
             child.Measure(constraint);
         }
     }
 
-    public static void LiberateExtendDirection(this ref Size constraintSize, bool isHorizontal)
+    public static void LiberateMainAxis(this ref Size constraintSize, IMaCa maca)
     {
-        constraintSize = isHorizontal
-            ? constraintSize.WithWidth(double.PositiveInfinity)
-            : constraintSize.WithHeight(double.PositiveInfinity);
+        maca.WithMav(ref constraintSize, double.PositiveInfinity);
     }
 
-    public static void ConstraintNoExtendDirectionWithChildrenMaxDesiredIfNotConstraint(this ref Size constraintSize, IReadOnlyList<Control> children, bool isHorizontal)
+    public static void ConstraintCrossAxisWithChildrenMaxDesiredIfNotConstraint(this ref Size constraintSize, IReadOnlyList<Control> children, IMaCa maca)
     {
-        var constraintWidth  = constraintSize.Width;
-        var constraintHeight = constraintSize.Height;
-        
-        if (isHorizontal)
+        if (double.IsFinite(maca.CaV(constraintSize)))
         {
-            if (double.IsInfinity(constraintHeight))
-            {
-                constraintSize = new Size(constraintWidth, children.Max(control => control.DesiredSize.Height));
-            }
-        }
-        else
-        {
-            if (double.IsInfinity(constraintWidth))
-            {
-                constraintSize  = new Size(children.Max(control => control.DesiredSize.Width), constraintHeight);
-            }
+            return;
         }
         
+        var value = children.Max(control => maca.CaV(control.DesiredSize));
+        maca.WithCav(ref constraintSize, value);
+    }
+
+    public static void TileAndAlign(this Control child, double width, double height, double alignPoint, IMaCa maca)
+    {
+        Canvas.SetLeft(child, maca.TileXOrAlign(width, alignPoint));
+        Canvas.SetTop(child, maca.TileYOrAlign(height, alignPoint));
     }
 }
