@@ -4,44 +4,12 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Layout;
 using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
 public class FlexLayout : MagicLayout
 {
-    private struct FlexInfo
-    {
-        public FlexInfo(
-            Size           constraintSize,
-            bool           isHorizontal,
-            double         spacing,
-            Alignment      alignItems,
-            JustifyContent justifyContent,
-            AlignContent   alignContent)
-        {
-            ConstraintSize = constraintSize;
-            IsHorizontal   = isHorizontal;
-            Spacing        = spacing;
-            AlignItems     = alignItems;
-            JustifyContent = justifyContent;
-            AlignContent   = alignContent;
-        }
-
-        public Size ConstraintSize { get; }
-
-        public bool IsHorizontal { get; }
-
-        public double Spacing { get; }
-
-        public Alignment AlignItems { get; }
-
-        public JustifyContent JustifyContent { get; }
-
-        public AlignContent AlignContent { get; }
-    }
-
     public static FlexLayout Default { get; } = new();
     
     private FlexLayout()
@@ -57,44 +25,25 @@ public class FlexLayout : MagicLayout
 
     public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
-        var orientation  = MagicPanel.GetOrientation(panel);
-        var isHorizontal = orientation == Orientation.Horizontal;
+        var orientation = MagicPanel.GetOrientation(panel);
+        var maca        = orientation.GetMaCa();
         
         // If the main axis has no restriction, just regard as stack layout.
-        if (isHorizontal)
+        if (double.IsInfinity(maca.MaV(availableSize)))
         {
-            if (double.IsInfinity(availableSize.Width))
-            {
-                return StackLayout.Default.MeasureOverride(panel, children, availableSize);
-            }
-        }
-        else
-        {
-            if (double.IsInfinity(availableSize.Height))
-            {
-                return StackLayout.Default.MeasureOverride(panel, children, availableSize);
-            }
+            return StackLayout.Default.MeasureOverride(panel, children, availableSize);
         }
         
-        // Properties.
-        var spacing        = MagicPanel.GetSpacing(panel);
-        var alignment      = MagicPanel.GetAlignItems(panel);
-        var justifyContent = MagicPanel.GetJustifyContent(panel);
-        var alignContent   = MagicPanel.GetAlignContent(panel);
-        var flexWrap       = MagicPanel.GetFlexWrap(panel);
-        
-        // All info.
-        var info = new FlexInfo(availableSize, isHorizontal, spacing, alignment, justifyContent, alignContent);
-
         // Measure all children.
         children.JustMeasure(availableSize);
         
         // Deal with wrap.
+        var flexWrap = MagicPanel.GetFlexWrap(panel);
         return flexWrap switch
         {
-            FlexWrap.NoWrap      => MeasureNoWrap(panel, children, info),
-            FlexWrap.Wrap        => MeasureWrap(panel, children, info),
-            FlexWrap.WrapReverse => MeasureWrapReverse(panel, children, info),
+            FlexWrap.NoWrap      => MeasureNoWrap(panel, children, availableSize, maca),
+            FlexWrap.Wrap        => MeasureWrap(panel, children, availableSize, maca),
+            FlexWrap.WrapReverse => MeasureWrapReverse(panel, children, availableSize, maca),
             _                    => new Size()
         };
     }
@@ -108,163 +57,69 @@ public class FlexLayout : MagicLayout
 
     #region Measures
     
-    private Size MeasureNoWrap(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
+    private Size MeasureNoWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
     {
-        return new Size();
+        var spacing        = MagicPanel.GetSpacing(panel);
+        var alignItems     = MagicPanel.GetAlignItems(panel);
+        var justifyContent = MagicPanel.GetJustifyContent(panel);
+        var alignContent   = MagicPanel.GetAlignContent(panel);
         
-        // var panelDesiredWidth  = 0d;
-        // var panelDesiredHeight = 0d;
-        // var index              = 0;
-        //
-        // // Measure all children.
-        // var constraintSize = availableSize;
-        // children.JustMeasure(constraintSize, out var existedVisible);
-        //
-        // // Constraint all.
-        // constraintSize.ConstraintCrossDirectionWithChildrenMaxDesiredIfNotConstraint(children, isHorizontal);
-        //
-        // for (var count = children.Count; index < count; ++index)
-        // {
-        //     var child       = children[index];
-        //     var desiredSize = child.DesiredSize;
-        //     
-        //     // Location
-        //     var isStretch      = false;
-        //     var childAlignment = MagicPanel.GetAlignment(child); 
-        //     if (isHorizontal)
-        //     {
-        //         var start = LayoutHelper.LocateStartWithAlignment(alignment, childAlignment, constraintSize.Height, desiredSize.Height, out isStretch);
-        //         Canvas.SetLeft(child, panelDesiredWidth);
-        //         Canvas.SetTop(child, start);
-        //         
-        //         panelDesiredWidth  = panelDesiredWidth + spacing + desiredSize.Width;
-        //         panelDesiredHeight = Math.Max(panelDesiredHeight, desiredSize.Height);
-        //     }
-        //     else
-        //     {
-        //         var start = LayoutHelper.LocateStartWithAlignment(alignment, childAlignment, constraintSize.Width, desiredSize.Width, out isStretch);
-        //         Canvas.SetLeft(child, start);
-        //         Canvas.SetTop(child, panelDesiredHeight);
-        //         
-        //         panelDesiredWidth  = Math.Max(panelDesiredWidth, desiredSize.Width);
-        //         panelDesiredHeight = panelDesiredHeight + spacing + desiredSize.Height;
-        //     }
-        //     
-        //     // Size
-        //     var width  = child.DesiredSize.Width;
-        //     var height = child.DesiredSize.Height;
-        //     if (isStretch)
-        //     {
-        //         // TODO Test for availableSize.
-        //         if (isHorizontal)
-        //         {
-        //             height = constraintSize.Height;
-        //         }
-        //         else
-        //         {
-        //             width = constraintSize.Width;
-        //         }    
-        //     }
-        //     
-        //     LayoutEx.SetArrangedWidth(child, width);
-        //     LayoutEx.SetArrangedHeight(child, height);
-        // }
-        //
-        // var size = isHorizontal
-        //     ? new Size(panelDesiredWidth - (existedVisible ? spacing : 0.0), panelDesiredHeight)
-        //     : new Size(panelDesiredWidth, panelDesiredHeight - (existedVisible ? spacing : 0.0));
-        //
-        // return size;
-    }
+        var panelDesiredWidth  = 0d;
+        var panelDesiredHeight = 0d;
 
-    private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
-    {
-        throw new NotImplementedException();
-    }
-
-    private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
-    {
-        throw new NotImplementedException();
-    }
-
-    #endregion
-
-
-
-    #region No Wrap
-
-    private static double ArrangeMainDirection(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
-    {
+        var childrenDesired = children.Sum(child => maca.MaV(child.DesiredSize));
         
-        var totalDesired = children.Sum(c => c.DesiredSize.Width);
-
-        return 0;
-    }
-    
-    private static double ArrangeCrossDirection(MagicPanel panel, IReadOnlyList<Control> children, FlexInfo info)
-    {
-        // Constraint all.
-        var constraintSize = info.ConstraintSize;
-        // constraintSize.ConstraintCrossAxisWithChildrenMaxDesiredIfNotConstraint(children, info.IsHorizontal);
+        // Constraint cross axis.
+        var constraintSize = availableSize;
+        constraintSize.ConstraintCrossAxisWithChildrenMaxDesiredIfNotConstraint(children, maca);
 
         foreach (var child in children)
         {
+            继续
+            var desiredSize = child.DesiredSize;
+            
+            // Align items to the point start.
+            var childAlignment = MagicPanel.GetAlignment(child);
             var start = LayoutHelper.LocateStartWithAlignment(
-                info.AlignItems, 
-                MagicPanel.GetAlignment(child),
-                constraintSize.Height,
-                child.DesiredSize.Height,
-                out var isStretch);    
-        }
-        
-        
-        switch (info.AlignItems)
-        {
-            case Alignment.Stretch:
+                alignItems, 
+                childAlignment,
+                maca.CaV(constraintSize),
+                maca.CaV(desiredSize),
+                out var isStretch);
+            
+            // Tile and align the child.
+            child.TileAndAlign(panelDesiredWidth, panelDesiredHeight, start, maca);
+            
+            // Calculate panel desired size.
+            maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, spacing + maca.MaV(desiredSize));
+            maca.MaxCav(ref panelDesiredWidth, ref panelDesiredHeight, maca.CaV(desiredSize));
+            
+            // Size.
+            var width  = child.DesiredSize.Width;
+            var height = child.DesiredSize.Height;
+            if (isStretch)
             {
-                
-                return constraintSize.Height;
+                maca.WithCav(ref width, ref height, maca.CaV(constraintSize));
             }
-            case Alignment.Center:
-                break;
-            case Alignment.Start:
-                break;
-            case Alignment.End:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            LayoutEx.SetArrangedWidth(child, width);
+            LayoutEx.SetArrangedHeight(child, height);
         }
+        
+        // Remove last spacing.
+        maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, -spacing);
+        
+        return new Size(panelDesiredWidth, panelDesiredHeight);
+    }
 
-        return 0;
+    private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
+    {
+        throw new NotImplementedException();
+    }
+
+    private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
+    {
+        throw new NotImplementedException();
     }
 
     #endregion
-
-    private static List<double> CalculatePosition(IList<Control> children, Size constraintSize, bool isHorizontal)
-    {
-        var points = new List<double>();
-        if (isHorizontal)
-        {
-            var totalDesired = children.Sum(c => c.DesiredSize.Width);
-            if (totalDesired >= constraintSize.Width)
-            {
-                var cursor = 0d;
-                foreach (var child in children)
-                {
-                    points.Add(cursor);
-                    cursor += child.DesiredSize.Width / totalDesired * constraintSize.Width;
-                }
-            }
-            else
-            {
-                
-            }
-        }
-        else
-        {
-            
-        }
-
-        return points;
-    }
 }

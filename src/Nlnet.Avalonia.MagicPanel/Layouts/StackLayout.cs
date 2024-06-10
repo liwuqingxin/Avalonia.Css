@@ -30,19 +30,17 @@ public class StackLayout : MagicLayout
 
         var panelDesiredWidth  = 0d;
         var panelDesiredHeight = 0d;
-        var index              = 0;
         
         // Measure all children.
         var constraintSize = availableSize;
         constraintSize.LiberateMainAxis(maca);
         children.JustMeasure(constraintSize);
 
-        // Constraint all.
+        // Constraint cross axis.
         constraintSize.ConstraintCrossAxisWithChildrenMaxDesiredIfNotConstraint(children, maca);
 
-        for (var count = children.Count; index < count; ++index)
+        foreach (var child in children)
         {
-            var child       = children[index];
             var desiredSize = child.DesiredSize;
             
             // Align items to the point start.

@@ -35,39 +35,25 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             var builder = new StringBuilder();
 
             builder.Append(CbxReverse.IsChecked == true ? "reverse;" : "reverse:false;");
-
-            var spacing = SpacingList.SelectedItem?.ToString().Substring(1);
-            if (string.IsNullOrEmpty(spacing) == false)
-            {
-                builder.Append($"space:{spacing};");
-            }
-
-            var orientation = OrientationList.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(orientation) == false)
-            {
-                builder.Append($"orientation:{orientation};");
-            }
-
-            var alignment = AlignmentList.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(alignment) == false)
-            {
-                builder.Append($"align-items:{alignment};");
-            }
-
-            var justifyContent = JustifyContentList.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(justifyContent) == false)
-            {
-                builder.Append($"justify-content:{justifyContent};");
-            }
             
-            var alignContent = AlignContentList.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(alignContent) == false)
-            {
-                builder.Append($"align-content:{alignContent};");
-            }
+            AppendConfiguration(builder, SpacingList,        "space");
+            AppendConfiguration(builder, OrientationList,    "orientation");
+            AppendConfiguration(builder, AlignmentList,      "align-items");
+            AppendConfiguration(builder, JustifyContentList, "justify-content");
+            AppendConfiguration(builder, AlignContentList,   "align-content");
+            AppendConfiguration(builder, FlexWrapList,       "flex-wrap");
             
             TbxLayoutStyle.Text = builder.ToString();
             TbxLayout.Text = LayoutList.SelectedItem?.ToString();
+        }
+
+        private void AppendConfiguration(StringBuilder builder, ComboBox comboBox, string property)
+        {
+            var value = comboBox.SelectedItem?.ToString()?.Replace("_","");
+            if (string.IsNullOrEmpty(value) == false)
+            {
+                builder.Append($"{property}:{value};");
+            }
         }
     }
 }

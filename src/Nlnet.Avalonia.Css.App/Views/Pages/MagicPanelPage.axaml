@@ -48,6 +48,10 @@
                     <ComboBox x:Name="AlignContentList"
                               ItemsSource="{sharp:Enum avalonia:AlignContent}"
                               SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="FlexWrapList:"/>
+                    <ComboBox x:Name="FlexWrapList"
+                              ItemsSource="{sharp:Enum avalonia:FlexWrap}"
+                              SelectionChanged="List_OnSelectionChanged" />
                 </StackPanel>
             </app:IndependentCase.Settings>
             <Grid Height="450"
