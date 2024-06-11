@@ -73,10 +73,4 @@ internal static class LayoutHelper
         var value = children.Max(control => maca.CaV(control.DesiredSize));
         maca.WithCav(ref constraintSize, value);
     }
-
-    public static void TileAndAlign(this Control child, double width, double height, double alignPoint, IMaCa maca)
-    {
-        LayoutEx.SetArrangedLeft(child, maca.TileXOrAlign(width, alignPoint));
-        LayoutEx.SetArrangedTop(child, maca.TileYOrAlign(height, alignPoint));
-    }
 }

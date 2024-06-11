@@ -53,7 +53,8 @@ public class StackLayout : MagicLayout
                 out var isStretch);
             
             // Tile and align the child.
-            child.TileAndAlign(panelDesiredWidth, panelDesiredHeight, start, maca);
+            maca.Tile(child, maca.MaV(panelDesiredWidth, panelDesiredHeight));
+            maca.Align(child, start);
             
             // Calculate panel desired size.
             maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, spacing + maca.MaV(desiredSize));

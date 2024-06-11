@@ -7,6 +7,10 @@ namespace Nlnet.Avalonia;
 
 public interface IMaCa
 {
+    public double MaV(double x, double y);
+    
+    public double CaV(double x, double y);
+    
     public double MaV(Size size);
   
     public double CaV(Size size);
@@ -23,17 +27,17 @@ public interface IMaCa
     
     public void WithCav(ref Size size, double value);
     
-    public void WithMav(ref double width, ref double height, double value);
+    public void WithMav(ref double x, ref double y, double value);
     
-    public void WithCav(ref double width, ref double height, double value);
+    public void WithCav(ref double x, ref double y, double value);
 
-    public void AccumulateMav(ref double width, ref double height, double value);
+    public void AccumulateMav(ref double x, ref double y, double value);
     
-    public void MaxCav(ref double   width, ref double height, double value);
-    
-    double TileXOrAlign(double x, double alignPoint);
-    
-    double TileYOrAlign(double y, double alignPoint);
+    public void MaxCav(ref double x, ref double y, double value);
+
+    void Align(Control control, double alignPoint);
+
+    void Tile(Control control, double tilePoint);
 }
 
 public static class MaCaExtension
@@ -52,6 +56,10 @@ public class HorizontalMaCa : IMaCa
     {
         
     }
+    
+    double IMaCa.MaV(double x, double y) => x;
+
+    double IMaCa.CaV(double x, double y) => y;
 
     double IMaCa.MaV(Size size) => size.Width;
 
@@ -69,17 +77,17 @@ public class HorizontalMaCa : IMaCa
 
     void IMaCa.WithCav(ref Size size, double value) => size = size.WithHeight(value);
 
-    void IMaCa.WithMav(ref double width, ref double height, double value) => width = value;
+    void IMaCa.WithMav(ref double x, ref double y, double value) => x = value;
     
-    void IMaCa.WithCav(ref double width, ref double height, double value) => height = value;
+    void IMaCa.WithCav(ref double x, ref double y, double value) => y = value;
 
-    void IMaCa.AccumulateMav(ref double width, ref double height, double value) => width += value;
+    void IMaCa.AccumulateMav(ref double x, ref double y, double value) => x += value;
 
-    void IMaCa.MaxCav(ref double width, ref double height, double value) => height = Math.Max(height, value);
+    void IMaCa.MaxCav(ref double x, ref double y, double value) => y = Math.Max(y, value);
+
+    void IMaCa.Align(Control control, double alignPoint) => LayoutEx.SetArrangedTop(control, alignPoint);
     
-    double IMaCa.TileXOrAlign(double x, double alignPoint) => x;
-
-    double IMaCa.TileYOrAlign(double y, double alignPoint) => alignPoint;
+    void IMaCa.Tile(Control control, double tilePoint) => LayoutEx.SetArrangedLeft(control, tilePoint);
 }
 
 public class VerticalMaCa : IMaCa
@@ -90,6 +98,10 @@ public class VerticalMaCa : IMaCa
     {
         
     }
+    
+    double IMaCa.MaV(double x, double y) => y;
+
+    double IMaCa.CaV(double x, double y) => x;
     
     double IMaCa.MaV(Size size) => size.Height;
 
@@ -107,15 +119,15 @@ public class VerticalMaCa : IMaCa
 
     void IMaCa.WithCav(ref Size size, double value) => size = size.WithWidth(value);
     
-    void IMaCa.WithMav(ref double width, ref double height, double value) => height = value;
+    void IMaCa.WithMav(ref double x, ref double y, double value) => y = value;
     
-    void IMaCa.WithCav(ref double width, ref double height, double value) => width = value;
+    void IMaCa.WithCav(ref double x, ref double y, double value) => x = value;
     
-    void IMaCa.AccumulateMav(ref double width, ref double height, double value) => height += value;
+    void IMaCa.AccumulateMav(ref double x, ref double y, double value) => y += value;
 
-    void IMaCa.MaxCav(ref double width, ref double height, double value) => width = Math.Max(width, value);
+    void IMaCa.MaxCav(ref double x, ref double y, double value) => x = Math.Max(x, value);
     
-    double IMaCa.TileXOrAlign(double x, double alignPoint) => alignPoint;
-
-    double IMaCa.TileYOrAlign(double y, double alignPoint) => y;
+    void IMaCa.Align(Control control, double alignPoint) => LayoutEx.SetArrangedLeft(control, alignPoint);
+    
+    void IMaCa.Tile(Control control, double tilePoint) => LayoutEx.SetArrangedTop(control, tilePoint);
 }

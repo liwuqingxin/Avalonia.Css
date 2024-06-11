@@ -75,7 +75,6 @@ public class FlexLayout : MagicLayout
 
         foreach (var child in children)
         {
-            继续
             var desiredSize = child.DesiredSize;
             
             // Align items to the point start.
@@ -88,7 +87,9 @@ public class FlexLayout : MagicLayout
                 out var isStretch);
             
             // Tile and align the child.
-            child.TileAndAlign(panelDesiredWidth, panelDesiredHeight, start, maca);
+            maca.Tile(child, maca.MaV(panelDesiredWidth, panelDesiredHeight));
+            继续
+            // maca.Align(child, start);
             
             // Calculate panel desired size.
             maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, spacing + maca.MaV(desiredSize));
