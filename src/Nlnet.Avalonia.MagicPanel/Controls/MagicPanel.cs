@@ -15,19 +15,7 @@ namespace Nlnet.Avalonia.Controls
 
 
         
-        #region Attached Properties
-
-        // TODO AlignSelf
-        public static Alignment? GetAlignment(Control host)
-        {
-            return host.GetValue(AlignmentProperty);
-        }
-        public static void SetAlignment(Control host, Alignment? value)
-        {
-            host.SetValue(AlignmentProperty, value);
-        }
-        public static readonly AttachedProperty<Alignment?> AlignmentProperty = AvaloniaProperty
-            .RegisterAttached<MagicPanel, Control, Alignment?>("Alignment");
+        #region Panel Properties
 
         // Spacing
         public static double GetSpacing(MagicPanel host)
@@ -116,6 +104,72 @@ namespace Nlnet.Avalonia.Controls
         #endregion
 
 
+
+        #region Item Properties
+        
+        // AlignSelf
+        public static Alignment? GetAlignSelf(Control host)
+        {
+            return host.GetValue(AlignSelfProperty);
+        }
+        public static void SetAlignSelf(Control host, Alignment? value)
+        {
+            host.SetValue(AlignSelfProperty, value);
+        }
+        public static readonly AttachedProperty<Alignment?> AlignSelfProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, Alignment?>("AlignSelf");
+
+        // Order
+        public static int GetOrder(Control host)
+        {
+            return host.GetValue(OrderProperty);
+        }
+        public static void SetOrder(Control host, int value)
+        {
+            host.SetValue(OrderProperty, value);
+        }
+        public static readonly AttachedProperty<int> OrderProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, int>("Order");
+
+        // FlexGrow
+        public static double GetFlexGrow(Control host)
+        {
+            return host.GetValue(FlexGrowProperty);
+        }
+        public static void SetFlexGrow(Control host, double value)
+        {
+            host.SetValue(FlexGrowProperty, value);
+        }
+        public static readonly AttachedProperty<double> FlexGrowProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, double>("FlexGrow", 0);
+
+        // FlexShrink
+        public static double GetFlexShrink(Control host)
+        {
+            return host.GetValue(FlexShrinkProperty);
+        }
+        public static void SetFlexShrink(Control host, double value)
+        {
+            host.SetValue(FlexShrinkProperty, value);
+        }
+        public static readonly AttachedProperty<double> FlexShrinkProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, double>("FlexShrink", 1);
+
+        // FlexBasis
+        public static double GetFlexBasis(Control host)
+        {
+            return host.GetValue(FlexBasisProperty);
+        }
+        public static void SetFlexBasis(Control host, double value)
+        {
+            host.SetValue(FlexBasisProperty, value);
+        }
+        public static readonly AttachedProperty<double> FlexBasisProperty = AvaloniaProperty
+            .RegisterAttached<MagicPanel, Control, double>("FlexBasis", double.NaN);
+
+        #endregion
+
+
         
         #region Layouts
 
@@ -167,14 +221,7 @@ namespace Nlnet.Avalonia.Controls
 
         static MagicPanel()
         {
-            AffectsParentArrange<MagicPanel>(
-                LayoutEx.ArrangedWidthProperty,
-                LayoutEx.ArrangedHeightProperty,
-                LayoutEx.ArrangedLeftProperty,
-                LayoutEx.ArrangedTopProperty);
-
             AffectsMeasure<MagicPanel>(
-                AlignmentProperty,
                 SpacingProperty,
                 JustifyContentProperty,
                 AlignItemsProperty,
@@ -182,7 +229,20 @@ namespace Nlnet.Avalonia.Controls
                 OrientationProperty,
                 ReverseProperty,
                 FlexWrapProperty);
+            
+            AffectsParentMeasure<MagicPanel>(
+                AlignSelfProperty,
+                OrderProperty,
+                FlexGrowProperty,
+                FlexShrinkProperty,
+                FlexBasisProperty);
 
+            AffectsParentArrange<MagicPanel>(
+                LayoutEx.ArrangedWidthProperty,
+                LayoutEx.ArrangedHeightProperty,
+                LayoutEx.ArrangedLeftProperty,
+                LayoutEx.ArrangedTopProperty);
+            
             RegisterLayout(StackLayout.Default);
             RegisterLayout(FlexLayout.Default);
             RegisterLayout(WrapLayout.Default);
@@ -416,12 +476,9 @@ namespace Nlnet.Avalonia.Controls
         private IReadOnlyList<Control> GetVisibleChildren()
         {
             var children = this.Children.Where(c => c.IsVisible);
-            if (MagicPanel.GetReverse(this))
-            {
-                children = children.Reverse();
-            }
-
-            return children.ToList();
+            return GetReverse(this) 
+                ? children.OrderBy(GetOrder).Reverse().ToList() 
+                : children.OrderBy(GetOrder).ToList();
         }
 
         protected override Size MeasureOverride(Size availableSize)

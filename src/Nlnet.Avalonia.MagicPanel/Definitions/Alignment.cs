@@ -18,7 +18,7 @@ public enum JustifyContent
     Center,
     Start,
     End,
-    SpaceEqual,
+    SpaceEvenly,
     SpaceBetween,
     SpaceAround,
 }
@@ -36,7 +36,7 @@ public enum AlignContent
     Center,
     Start,
     End,
-    SpaceEqual,
+    SpaceEvenly,
     SpaceBetween,
     SpaceAround,
 }

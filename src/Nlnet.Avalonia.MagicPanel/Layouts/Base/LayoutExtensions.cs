@@ -60,8 +60,8 @@ internal static class LayoutExtensions
             case "flex-end":
                 panel.SetCurrentValue(MagicPanel.JustifyContentProperty, JustifyContent.End);
                 break;
-            case "space-equal":
-                panel.SetCurrentValue(MagicPanel.JustifyContentProperty, JustifyContent.SpaceEqual);
+            case "space-evenly":
+                panel.SetCurrentValue(MagicPanel.JustifyContentProperty, JustifyContent.SpaceEvenly);
                 break;
             case "space-between":
                 panel.SetCurrentValue(MagicPanel.JustifyContentProperty, JustifyContent.SpaceBetween);
@@ -86,8 +86,8 @@ internal static class LayoutExtensions
             case "flex-end":
                 panel.SetCurrentValue(MagicPanel.AlignContentProperty, AlignContent.End);
                 break;
-            case "space-equal":
-                panel.SetCurrentValue(MagicPanel.AlignContentProperty, AlignContent.SpaceEqual);
+            case "space-evenly":
+                panel.SetCurrentValue(MagicPanel.AlignContentProperty, AlignContent.SpaceEvenly);
                 break;
             case "space-between":
                 panel.SetCurrentValue(MagicPanel.AlignContentProperty, AlignContent.SpaceBetween);

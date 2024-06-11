@@ -44,7 +44,7 @@ public class StackLayout : MagicLayout
             var desiredSize = child.DesiredSize;
             
             // Align items to the point start.
-            var childAlignment = MagicPanel.GetAlignment(child);
+            var childAlignment = MagicPanel.GetAlignSelf(child);
             var start = LayoutHelper.LocateStartWithAlignment(
                 alignment, 
                 childAlignment,
