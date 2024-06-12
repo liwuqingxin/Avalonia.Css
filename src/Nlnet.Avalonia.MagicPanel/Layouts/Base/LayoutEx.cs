@@ -15,7 +15,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(ArrangedWidthProperty, value);
     }
     public static readonly AttachedProperty<double> ArrangedWidthProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedWidth", double.NaN);
+        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedWidth", 0);
 
     // ArrangedHeight
     public static double GetArrangedHeight(Layoutable host)
@@ -27,7 +27,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(ArrangedHeightProperty, value);
     }
     public static readonly AttachedProperty<double> ArrangedHeightProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedHeight", double.NaN);
+        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedHeight", 0);
 
     // ArrangedLeft
     public static double GetArrangedLeft(Layoutable host)
@@ -39,7 +39,7 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(ArrangedLeftProperty, value);
     }
     public static readonly AttachedProperty<double> ArrangedLeftProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedLeft");
+        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedLeft", 0);
 
     // ArrangedTop
     public static double GetArrangedTop(Layoutable host)
@@ -51,5 +51,5 @@ public class LayoutEx : AvaloniaObject
         host.SetValue(ArrangedTopProperty, value);
     }
     public static readonly AttachedProperty<double> ArrangedTopProperty = AvaloniaProperty
-        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedTop");
+        .RegisterAttached<LayoutEx, Layoutable, double>("ArrangedTop", 0);
 }

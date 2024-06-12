@@ -19,144 +19,247 @@
         <app:IndependentCase Header="Default Layout">
             <app:IndependentCase.Settings>
                 <StackPanel Width="200" Spacing="6">
+                    <StackPanel.Styles>
+                        <Style Selector="StackPanel&gt;TextBlock">
+                            <Setter Property="FontSize" Value="10" />
+                            <Setter Property="Foreground" Value="LightGray" />
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Style>
+                    </StackPanel.Styles>
                     <TextBox x:Name="TbxLayout" Watermark="Layout" />
                     <TextBox x:Name="TbxLayoutStyle" Watermark="Layout Style" />
-                    <TextBlock Text="LayoutList:"/>
+                    <TextBlock Text="LayoutList:" />
                     <ComboBox x:Name="LayoutList"
                               ItemsSource="{sharp:Enum pages:Layouts}"
+                              SelectedIndex="0"
                               SelectionChanged="List_OnSelectionChanged" />
                     <CheckBox x:Name="CbxReverse"
                               Content="Reverse"
                               IsCheckedChanged="CbxReverse_OnIsCheckedChanged" />
-                    <TextBlock Text="OrientationList:"/>
+                    <TextBlock Text="OrientationList:" />
                     <ComboBox x:Name="OrientationList"
-                             ItemsSource="{sharp:Enum pages:Orientations}"
-                             SelectionChanged="List_OnSelectionChanged" />
-                    <TextBlock Text="SpacingList:"/>
+                              ItemsSource="{sharp:Enum pages:Orientations}"
+                              SelectedIndex="0"
+                              SelectionChanged="List_OnSelectionChanged" />
+                    <TextBlock Text="SpacingList:" />
                     <ComboBox x:Name="SpacingList"
                               ItemsSource="{sharp:Enum pages:Spacings}"
                               SelectionChanged="List_OnSelectionChanged" />
-                    <TextBlock Text="AlignmentList:"/>
+                    <TextBlock Text="AlignmentList:" />
                     <ComboBox x:Name="AlignmentList"
                               ItemsSource="{sharp:Enum avalonia:Alignment}"
+                              SelectedIndex="0"
                               SelectionChanged="List_OnSelectionChanged" />
-                    <TextBlock Text="JustifyContentList:"/>
+                    <TextBlock Text="JustifyContentList:" />
                     <ComboBox x:Name="JustifyContentList"
                               ItemsSource="{sharp:Enum avalonia:JustifyContent}"
+                              SelectedIndex="0"
                               SelectionChanged="List_OnSelectionChanged" />
-                    <TextBlock Text="AlignContentList:"/>
+                    <TextBlock Text="AlignContentList:" />
                     <ComboBox x:Name="AlignContentList"
                               ItemsSource="{sharp:Enum avalonia:AlignContent}"
                               SelectionChanged="List_OnSelectionChanged" />
-                    <TextBlock Text="FlexWrapList:"/>
+                    <TextBlock Text="FlexWrapList:" />
                     <ComboBox x:Name="FlexWrapList"
                               ItemsSource="{sharp:Enum avalonia:FlexWrap}"
                               SelectionChanged="List_OnSelectionChanged" />
                 </StackPanel>
             </app:IndependentCase.Settings>
-            <Grid Height="450"
-                  ColumnDefinitions="*,*"
-                  RowDefinitions="*,*">
-                <Grid.Styles>
+            <TabControl Height="400" Padding="8">
+                <TabControl.Styles>
                     <Style Selector="Border">
                         <Setter Property="Transitions">
                             <Transitions>
-                                <DoubleTransition Easing="0.4,0.7,0.4,0.7"
+                                <DoubleTransition Easing="0.5,0.8,0.5,0.8"
                                                   Property="nlnet:LayoutEx.ArrangedTop"
                                                   Duration="0:0:.3" />
-                                <DoubleTransition Easing="0.4,0.7,0.4,0.7"
+                                <DoubleTransition Easing="0.5,0.8,0.5,0.8"
                                                   Property="nlnet:LayoutEx.ArrangedLeft"
                                                   Duration="0:0:.3" />
-                                <DoubleTransition Easing="0.4,0.7,0.4,0.7"
+                                <DoubleTransition Easing="0.5,0.8,0.5,0.8"
                                                   Property="nlnet:LayoutEx.ArrangedWidth"
                                                   Duration="0:0:.3" />
-                                <DoubleTransition Easing="0.4,0.7,0.4,0.7"
+                                <DoubleTransition Easing="0.5,0.8,0.5,0.8"
                                                   Property="nlnet:LayoutEx.ArrangedHeight"
                                                   Duration="0:0:.3" />
                             </Transitions>
                         </Setter>
                     </Style>
-                </Grid.Styles>
+                </TabControl.Styles>
 
                 <!-- No Constraint -->
-                <Canvas>
-                    <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
-                        <Border Width="100"
-                                Height="100"
-                                Background="Red">
-                            <TextBlock Text="Size = (100,100)" />
-                        </Border>
-                        <Border Background="Green">
-                            <TextBlock Text="Size = (Auto,Auto)" />
-                        </Border>
-                        <Border Height="50" Background="Orange">
-                            <TextBlock Text="Size = (Auto,50)" />
-                        </Border>
-                        <Border Width="80" Background="DodgerBlue">
-                            <TextBlock Text="Size = (80,Auto)" />
-                        </Border>
-                    </nlnet:MagicPanel>
-                </Canvas>
+                <TabItem Header="No Constraint">
+                    <Grid ColumnDefinitions="4*,*" RowDefinitions="4*,*">
+                        <Canvas>
+                            <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                                <Border Width="100"
+                                        Height="100"
+                                        Background="Red">
+                                    <TextBlock Text="Size = (100,100)" />
+                                </Border>
+                                <Border Background="Green">
+                                    <TextBlock Text="Size = (Auto,Auto)" />
+                                </Border>
+                                <Border Height="50" Background="Orange">
+                                    <TextBlock Text="Size = (Auto,50)" />
+                                </Border>
+                                <Border Width="80" Background="DodgerBlue">
+                                    <TextBlock Text="Size = (80,Auto)" />
+                                </Border>
+                            </nlnet:MagicPanel>
+                        </Canvas>
+
+                        <GridSplitter Grid.Row="0"
+                                      Grid.RowSpan="2"
+                                      Grid.Column="0"
+                                      Width="8"
+                                      Margin="0,0,-4,0"
+                                      HorizontalAlignment="Right" />
+                        <GridSplitter Grid.Row="0"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Height="8"
+                                      Margin="0,0,0,-4"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Bottom" />
+                    </Grid>
+                </TabItem>
 
                 <!-- All Constraint -->
-                <nlnet:MagicPanel Grid.Row="0"
-                                  Grid.Column="1"
-                                  Layout="{Binding #TbxLayout.Text}"
-                                  LayoutStyle="{Binding #TbxLayoutStyle.Text}">
-                    <Border Width="100"
-                            Height="100"
-                            Background="Red">
-                        <TextBlock Text="Size = (100,100)" />
-                    </Border>
-                    <Border Background="Green">
-                        <TextBlock Text="Size = (Auto,Auto)" />
-                    </Border>
-                    <Border Height="50" Background="Orange">
-                        <TextBlock Text="Size = (Auto,50)" />
-                    </Border>
-                    <Border Width="80" Background="DodgerBlue">
-                        <TextBlock Text="Size = (80,Auto)" />
-                    </Border>
-                </nlnet:MagicPanel>
+                <TabItem Header="All Constraint">
+                    <Grid ColumnDefinitions="4*,*" RowDefinitions="4*,*">
+                        <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                            <Border Width="100"
+                                    Height="100"
+                                    Background="Red">
+                                <TextBlock Text="Size = (100,100)" />
+                            </Border>
+                            <Border Background="Green">
+                                <TextBlock Text="Size = (Auto,Auto)" />
+                            </Border>
+                            <Border Height="50" Background="Orange">
+                                <TextBlock Text="Size = (Auto,50)" />
+                            </Border>
+                            <Border Width="80" Background="DodgerBlue">
+                                <TextBlock Text="Size = (80,Auto)" />
+                            </Border>
+                        </nlnet:MagicPanel>
+
+                        <GridSplitter Grid.Row="0"
+                                      Grid.RowSpan="2"
+                                      Grid.Column="0"
+                                      Width="8"
+                                      Margin="0,0,-4,0"
+                                      HorizontalAlignment="Right" />
+                        <GridSplitter Grid.Row="0"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Height="8"
+                                      Margin="0,0,0,-4"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Bottom" />
+                    </Grid>
+                </TabItem>
 
                 <!-- Horizontal Constraint -->
-                <ScrollViewer Grid.Row="1" Grid.Column="1">
-                    <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
-                        <Border Width="100"
-                                Height="100"
-                                Background="Red">
-                            <TextBlock Text="Size = (100,100)" />
-                        </Border>
-                        <Border Background="Green">
-                            <TextBlock Text="Size = (Auto,Auto)" />
-                        </Border>
-                        <Border Height="50"
-                                nlnet:MagicPanel.AlignSelf="Stretch"
-                                Background="Orange">
-                            <TextBlock Text="Size = (Auto,50), Stretch" />
-                        </Border>
-                        <Border Width="80" Background="DodgerBlue">
-                            <TextBlock Text="Size = (80,Auto)" />
-                        </Border>
-                    </nlnet:MagicPanel>
-                </ScrollViewer>
+                <TabItem Header="Horizontal Constraint">
+                    <Grid ColumnDefinitions="4*,*" RowDefinitions="4*,*">
+                        <ScrollViewer>
+                            <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                                <Border Width="100"
+                                        Height="100"
+                                        Background="Red">
+                                    <TextBlock Text="Size = (100,100)" />
+                                </Border>
+                                <Border Background="Green">
+                                    <TextBlock Text="Size = (Auto,Auto)" />
+                                </Border>
+                                <Border Height="50"
+                                        nlnet:MagicPanel.AlignSelf="Stretch"
+                                        Background="Orange">
+                                    <TextBlock Text="Size = (Auto,50), Stretch" />
+                                </Border>
+                                <Border Width="80" Background="DodgerBlue">
+                                    <TextBlock Text="Size = (80,Auto)" />
+                                </Border>
+                            </nlnet:MagicPanel>
+                        </ScrollViewer>
 
+                        <GridSplitter Grid.Row="0"
+                                      Grid.RowSpan="2"
+                                      Grid.Column="0"
+                                      Width="8"
+                                      Margin="0,0,-4,0"
+                                      HorizontalAlignment="Right" />
+                        <GridSplitter Grid.Row="0"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Height="8"
+                                      Margin="0,0,0,-4"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Bottom" />
+                    </Grid>
+                </TabItem>
 
+                <!-- Grow and Shrink -->
+                <TabItem Header="Grow and Shrink">
+                    <Grid ColumnDefinitions="4*,*" RowDefinitions="4*,*">
+                        <nlnet:MagicPanel Layout="{Binding #TbxLayout.Text}" LayoutStyle="{Binding #TbxLayoutStyle.Text}">
+                            <Border Background="Red"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="Green"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="Orange"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="DodgerBlue"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                        </nlnet:MagicPanel>
 
-                <GridSplitter Grid.Row="0"
-                              Grid.RowSpan="2"
-                              Grid.Column="0"
-                              Width="8"
-                              Margin="0,0,-4,0"
-                              HorizontalAlignment="Right" />
-                <GridSplitter Grid.Row="0"
-                              Grid.Column="0"
-                              Grid.ColumnSpan="2"
-                              Height="8"
-                              Margin="0,0,0,-4"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Bottom" />
-            </Grid>
+                        <GridSplitter Grid.Row="0"
+                                      Grid.RowSpan="2"
+                                      Grid.Column="0"
+                                      Width="8"
+                                      Margin="0,0,-4,0"
+                                      HorizontalAlignment="Right" />
+                        <GridSplitter Grid.Row="0"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Height="8"
+                                      Margin="0,0,0,-4"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Bottom" />
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
         </app:IndependentCase>
 
     </StackPanel>

@@ -24,8 +24,8 @@ public class StackLayout : MagicLayout
     public override Size MeasureOverride(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize)
     {
         var orientation = MagicPanel.GetOrientation(panel);
-        var spacing     = MagicPanel.GetSpacing(panel);
-        var alignment   = MagicPanel.GetAlignItems(panel);
+        var gap         = MagicPanel.GetSpacing(panel);
+        var alignItems  = MagicPanel.GetAlignItems(panel);
         var maca        = orientation.GetMaCa();
 
         var panelDesiredWidth  = 0d;
@@ -41,24 +41,18 @@ public class StackLayout : MagicLayout
 
         foreach (var child in children)
         {
-            var desiredSize = child.DesiredSize;
-            
             // Align items to the point start.
             var childAlignment = MagicPanel.GetAlignSelf(child);
             var start = LayoutHelper.LocateStartWithAlignment(
-                alignment, 
+                alignItems, 
                 childAlignment,
                 maca.CaV(constraintSize),
-                maca.CaV(desiredSize),
+                maca.CaV(child.DesiredSize),
                 out var isStretch);
             
             // Tile and align the child.
             maca.Tile(child, maca.MaV(panelDesiredWidth, panelDesiredHeight));
             maca.Align(child, start);
-            
-            // Calculate panel desired size.
-            maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, spacing + maca.MaV(desiredSize));
-            maca.MaxCav(ref panelDesiredWidth, ref panelDesiredHeight, maca.CaV(desiredSize));
             
             // Size.
             var width  = child.DesiredSize.Width;
@@ -69,10 +63,14 @@ public class StackLayout : MagicLayout
             }
             LayoutEx.SetArrangedWidth(child, width);
             LayoutEx.SetArrangedHeight(child, height);
+            
+            // Calculate panel desired size.
+            maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, gap + maca.MaV(width, height));
+            maca.MaxCav(ref panelDesiredWidth, ref panelDesiredHeight, maca.CaV(width, height));
         }
         
         // Remove last spacing.
-        maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, -spacing);
+        maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, -gap);
         
         return new Size(panelDesiredWidth, panelDesiredHeight);
     }

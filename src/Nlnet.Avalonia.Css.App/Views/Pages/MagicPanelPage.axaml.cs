@@ -30,8 +30,19 @@ namespace Nlnet.Avalonia.Css.App.Views.Pages
             UpdateLayoutAndStyles();
         }
 
+        protected override void OnLoaded(RoutedEventArgs e)
+        {
+            base.OnLoaded(e);
+            UpdateLayoutAndStyles();
+        }
+
         private void UpdateLayoutAndStyles()
         {
+            if (this.IsInitialized == false)
+            {
+                return;
+            }
+            
             var builder = new StringBuilder();
 
             builder.Append(CbxReverse.IsChecked == true ? "reverse;" : "reverse:false;");

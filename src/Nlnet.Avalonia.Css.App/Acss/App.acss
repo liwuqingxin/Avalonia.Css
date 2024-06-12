@@ -4,8 +4,8 @@ base avares://Nlnet.Avalonia.Css.Fluent/Acss/Nlnet.Avalonia.Css.Fluent/Bases/Pag
 
 // Window
 NtWindow#RootWindow{
-    Width:1200;
-    Height:800;
+    Width:1400;
+    Height:1000;
     TitleHeight: 80;
     Topmost:False;
     WindowStartupLocation:CenterScreen;

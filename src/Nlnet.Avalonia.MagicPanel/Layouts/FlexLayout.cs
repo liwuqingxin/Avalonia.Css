@@ -37,7 +37,7 @@ public class FlexLayout : MagicLayout
         // Measure all children.
         children.JustMeasure(availableSize);
         
-        // Deal with wrap.
+        // Deal with wrapping.
         var flexWrap = MagicPanel.GetFlexWrap(panel);
         return flexWrap switch
         {
@@ -59,24 +59,27 @@ public class FlexLayout : MagicLayout
     
     private Size MeasureNoWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
     {
-        var spacing        = MagicPanel.GetSpacing(panel);
+        var gap            = MagicPanel.GetSpacing(panel);
         var alignItems     = MagicPanel.GetAlignItems(panel);
         var justifyContent = MagicPanel.GetJustifyContent(panel);
-        var alignContent   = MagicPanel.GetAlignContent(panel);
+        // var alignContent   = MagicPanel.GetAlignContent(panel);
+
+        var totalGap          = gap * (children.Count - 1);
+        var childrenDesired   = children.Sum(child => child.GetFlexBasis(maca));
+        var spaced            = maca.MaV(availableSize) - childrenDesired - totalGap;
+        var computedSizes     = ComputeChildrenSize(children, spaced, maca);
+        var totalComputedSize = computedSizes.Aggregate(0d, (i, d) => i + d);
+        var jcSpace           = maca.MaV(availableSize) - totalComputedSize - totalGap;
+        var jcPieces          = justifyContent.GetJustifyContentSpacePieces(children.Count);
+        var jcSpacePerPiece   = jcSpace / jcPieces;
+        var jcStart           = justifyContent.GetJustifyContentStart(jcSpacePerPiece);
+        var jcSpaceBetween    = justifyContent.GetJustifyContentSpaceBetween(jcSpacePerPiece);
         
         var panelDesiredWidth  = 0d;
         var panelDesiredHeight = 0d;
-
-        var totalSpacing                = spacing * (children.Count - 1);
-        var childrenDesired             = children.Sum(child => child.GetFlexBasis(maca));
-        var spaced                      = maca.MaV(availableSize) - childrenDesired - totalSpacing;
-        var computedSizes               = ComputeChildrenSize(children, spaced, maca);
-        var totalComputedSize           = computedSizes.Aggregate(0d, (i, d) => i + d);
-        var justifyContentSpace         = maca.MaV(availableSize) - totalComputedSize - totalSpacing;
-        var justifyContentPieces        = justifyContent.GetJustifyContentSpacePieces(children.Count);
-        var justifyContentSpacePerPiece = justifyContentSpace / justifyContentPieces;
-        var justifyContentStart         = justifyContent.GetJustifyContentStart(justifyContentSpacePerPiece);
-        var justifyContentSpaceBetween  = justifyContent.GetJustifyContentSpaceBetween(justifyContentSpacePerPiece);
+        
+        // Set start of the main axis.
+        maca.WithMav(ref panelDesiredWidth, ref panelDesiredHeight, jcStart);
         
         // Constraint cross axis.
         var constraintSize = availableSize;
@@ -86,39 +89,40 @@ public class FlexLayout : MagicLayout
         {
             var child        = children[i];
             var computedSize = computedSizes[i];
-            var desiredSize  = child.DesiredSize;
 
+            // Tile and align the child.
+            maca.Tile(child, maca.MaV(panelDesiredWidth, panelDesiredHeight));
+            
             // Align items to the point start.
             var childAlignment = MagicPanel.GetAlignSelf(child);
             var start = LayoutHelper.LocateStartWithAlignment(
                 alignItems,
                 childAlignment,
                 maca.CaV(constraintSize),
-                maca.CaV(desiredSize),
+                maca.CaV(child.DesiredSize),
                 out var isStretch);
             maca.Align(child, start);
-            
-            计算
-
-
-            // Calculate panel desired size.
-            // maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, spacing + maca.MaV(desiredSize));
-            maca.MaxCav(ref panelDesiredWidth, ref panelDesiredHeight, maca.CaV(desiredSize));
 
             // Size.
-            var width  = child.DesiredSize.Width;
-            var height = child.DesiredSize.Height;
+            var width   = 0d;
+            var height  = 0d;
+            var cavSize = maca.CaV(child.DesiredSize);
             if (isStretch)
             {
-                maca.WithCav(ref width, ref height, maca.CaV(constraintSize));
+                cavSize = maca.CaV(constraintSize);
             }
-
+            maca.WithMav(ref width, ref height, computedSize);
+            maca.WithCav(ref width, ref height, cavSize);
             LayoutEx.SetArrangedWidth(child, width);
             LayoutEx.SetArrangedHeight(child, height);
+            
+            // Calculate panel desired size.
+            maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, gap + jcSpaceBetween + maca.MaV(width, height));
+            maca.MaxCav(ref panelDesiredWidth, ref panelDesiredHeight, maca.CaV(width, height));
         }
 
         // Remove last spacing.
-        maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, -spacing);
+        maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, -gap);
         
         return new Size(panelDesiredWidth, panelDesiredHeight);
     }
@@ -154,6 +158,8 @@ public class FlexLayout : MagicLayout
                 return children.Select(c => c.GetFlexBasis(maca) + MagicPanel.GetFlexShrink(c) * spacePerPiece).ToList();
             }
         }
+
+        throw new NotImplementedException();
     }
 
     private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
