@@ -59,10 +59,31 @@ public class FlexLayout : MagicLayout
     
     private Size MeasureNoWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
     {
+        return MeasureLine(panel, children, availableSize, maca, 0);
+    }
+
+    private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
+    {
+        var alignContent   = MagicPanel.GetAlignContent(panel);
+
+
+        return new Size();
+    }
+
+    private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
+    {
+        return new Size();
+    }
+
+    #endregion
+
+
+
+    private static Size MeasureLine(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca, double lineStart)
+    {
         var gap            = MagicPanel.GetSpacing(panel);
         var alignItems     = MagicPanel.GetAlignItems(panel);
         var justifyContent = MagicPanel.GetJustifyContent(panel);
-        // var alignContent   = MagicPanel.GetAlignContent(panel);
 
         var totalGap          = gap * (children.Count - 1);
         var childrenDesired   = children.Sum(child => child.GetFlexBasis(maca));
@@ -100,7 +121,7 @@ public class FlexLayout : MagicLayout
                 childAlignment,
                 maca.CaV(constraintSize),
                 maca.CaV(child.DesiredSize),
-                out var isStretch);
+                out var isStretch) + lineStart;
             maca.Align(child, start);
 
             // Size.
@@ -126,16 +147,4 @@ public class FlexLayout : MagicLayout
         
         return new Size(panelDesiredWidth, panelDesiredHeight);
     }
-
-    private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
-    {
-        throw new NotImplementedException();
-    }
-
-    private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
-    {
-        throw new NotImplementedException();
-    }
-
-    #endregion
 }
