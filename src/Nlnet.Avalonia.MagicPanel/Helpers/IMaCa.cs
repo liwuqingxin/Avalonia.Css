@@ -19,10 +19,6 @@ public interface IMaCa
     
     public double CaV(Point p);
     
-    public double MaV(Control control);
-    
-    public double CaV(Control control);
-    
     public void WithMav(ref Size size, double value);
     
     public void WithCav(ref Size size, double value);
@@ -69,10 +65,6 @@ public class HorizontalMaCa : IMaCa
 
     double IMaCa.CaV(Point p) => p.Y;
 
-    double IMaCa.MaV(Control control) => control.Width;
-
-    double IMaCa.CaV(Control control) => control.Height;
-
     void IMaCa.WithMav(ref Size size, double value) => size = size.WithWidth(value);
 
     void IMaCa.WithCav(ref Size size, double value) => size = size.WithHeight(value);
@@ -110,10 +102,6 @@ public class VerticalMaCa : IMaCa
     double IMaCa.MaV(Point p) => p.Y;
 
     double IMaCa.CaV(Point p) => p.X;
-
-    double IMaCa.MaV(Control control) => control.Height;
-
-    double IMaCa.CaV(Control control) => control.Width;
     
     void IMaCa.WithMav(ref Size size, double value) => size = size.WithHeight(value);
 

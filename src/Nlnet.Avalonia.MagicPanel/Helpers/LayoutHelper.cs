@@ -128,4 +128,39 @@ internal static class LayoutHelper
         };
     }
     
+    public static IList<double> ComputeSizes(this IReadOnlyList<Control> children, double spaced, IMaCa maca)
+    {
+        switch (spaced)
+        {
+            case 0:
+            {
+                return children.Select(c => c.GetFlexBasis(maca)).ToList();
+            }
+            case > 0:
+            {
+                var pieces = children.Sum(MagicPanel.GetFlexGrow);
+                if (pieces == 0)
+                {
+                    return children.Select(c => c.GetFlexBasis(maca)).ToList();
+                }
+
+                var spacePerPiece = spaced / Math.Max(pieces, 1);
+                return children.Select(c => c.GetFlexBasis(maca) + MagicPanel.GetFlexGrow(c) * spacePerPiece).ToList();
+            }
+            case < 0:
+            {
+                var pieces = children.Sum(MagicPanel.GetFlexShrink);
+                if (pieces == 0)
+                {
+                    return children.Select(c => c.GetFlexBasis(maca)).ToList();
+                }
+
+                var spacePerPiece = spaced / Math.Max(pieces, 1);
+                return children.Select(c => c.GetFlexBasis(maca) + MagicPanel.GetFlexShrink(c) * spacePerPiece).ToList();
+            }
+        }
+
+        throw new NotImplementedException();
+    }
+    
 }

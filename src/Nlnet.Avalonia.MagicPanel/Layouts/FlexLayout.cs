@@ -67,7 +67,7 @@ public class FlexLayout : MagicLayout
         var totalGap          = gap * (children.Count - 1);
         var childrenDesired   = children.Sum(child => child.GetFlexBasis(maca));
         var spaced            = maca.MaV(availableSize) - childrenDesired - totalGap;
-        var computedSizes     = ComputeChildrenSize(children, spaced, maca);
+        var computedSizes     = children.ComputeSizes(spaced, maca);
         var totalComputedSize = computedSizes.Aggregate(0d, (i, d) => i + d);
         var jcSpace           = maca.MaV(availableSize) - totalComputedSize - totalGap;
         var jcPieces          = justifyContent.GetJustifyContentSpacePieces(children.Count);
@@ -125,41 +125,6 @@ public class FlexLayout : MagicLayout
         maca.AccumulateMav(ref panelDesiredWidth, ref panelDesiredHeight, -gap);
         
         return new Size(panelDesiredWidth, panelDesiredHeight);
-    }
-
-    private static IList<double> ComputeChildrenSize(IReadOnlyList<Control> children, double spaced, IMaCa maca)
-    {
-        switch (spaced)
-        {
-            case 0:
-            {
-                return children.Select(c => c.GetFlexBasis(maca)).ToList();
-            }
-            case > 0:
-            {
-                var pieces = children.Sum(MagicPanel.GetFlexGrow);
-                if (pieces == 0)
-                {
-                    return children.Select(c => c.GetFlexBasis(maca)).ToList();
-                }
-
-                var spacePerPiece = spaced / Math.Max(pieces, 1);
-                return children.Select(c => c.GetFlexBasis(maca) + MagicPanel.GetFlexGrow(c) * spacePerPiece).ToList();
-            }
-            case < 0:
-            {
-                var pieces = children.Sum(MagicPanel.GetFlexShrink);
-                if (pieces == 0)
-                {
-                    return children.Select(c => c.GetFlexBasis(maca)).ToList();
-                }
-
-                var spacePerPiece = spaced / Math.Max(pieces, 1);
-                return children.Select(c => c.GetFlexBasis(maca) + MagicPanel.GetFlexShrink(c) * spacePerPiece).ToList();
-            }
-        }
-
-        throw new NotImplementedException();
     }
 
     private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
