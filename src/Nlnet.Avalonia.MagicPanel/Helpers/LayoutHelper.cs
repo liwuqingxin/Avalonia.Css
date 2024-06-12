@@ -8,6 +8,19 @@ using Nlnet.Avalonia.Controls;
 
 namespace Nlnet.Avalonia;
 
+internal struct FlexLine
+{
+    public List<Control> Line { get; }
+    
+    public double CrossSize { get; set; }
+
+    public FlexLine()
+    {
+        Line      = new List<Control>();
+        CrossSize = 0;
+    }
+}
+
 internal static class LayoutHelper
 {
     public static double LocateStartWithAlignment(
@@ -61,7 +74,7 @@ internal static class LayoutHelper
 
     public static void LiberateMainAxis(this ref Size constraintSize, IMaCa maca)
     {
-        maca.WithMav(ref constraintSize, double.PositiveInfinity);
+        maca.SetMav(ref constraintSize, double.PositiveInfinity);
     }
 
     public static void ConstraintCrossAxisWithChildrenMaxDesiredIfNotConstraint(this ref Size constraintSize, IReadOnlyList<Control> children, IMaCa maca)
@@ -72,7 +85,7 @@ internal static class LayoutHelper
         }
         
         var value = children.Max(control => maca.CaV(control.DesiredSize));
-        maca.WithCav(ref constraintSize, value);
+        maca.SetCav(ref constraintSize, value);
     }
 
     public static double GetFlexBasis(this Control control, IMaCa maca)
@@ -163,4 +176,41 @@ internal static class LayoutHelper
         throw new NotImplementedException();
     }
     
+    public static IEnumerable<FlexLine> WrapToLines(this IReadOnlyList<Control> children, Size availableSize, double gap, IMaCa maca)
+    {
+        继续
+        var flexLine       = new FlexLine();
+        var lineConstraint = maca.MaV(availableSize);
+        var lineSize       = 0d;
+        foreach (var child in children)
+        {
+            var desiredSize = child.GetFlexBasis(maca);
+            lineSize += desiredSize;
+            if (lineSize <= lineConstraint)
+            {
+                flexLine.Line.Add(child);
+                lineSize += gap;
+            }
+            else
+            {
+                if (flexLine.Line.Count == 0)
+                {
+                    flexLine.Line.Add(child);
+                    yield return flexLine;
+                    flexLine = new FlexLine();
+                    lineSize = 0d;
+                }
+                else
+                {
+                    yield return flexLine;
+                    flexLine = new FlexLine();
+                    lineSize = desiredSize;
+                    flexLine.Line.Add(child);
+                    lineSize += gap;    
+                }
+            }
+        }
+
+        yield return flexLine;
+    }
 }

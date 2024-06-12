@@ -64,20 +64,56 @@ public class FlexLayout : MagicLayout
 
     private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
     {
-        var alignContent   = MagicPanel.GetAlignContent(panel);
-
-
-        return new Size();
+        return MeasureLines(panel, children, availableSize, maca, false);
     }
 
     private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
     {
-        return new Size();
+        return MeasureLines(panel, children, availableSize, maca, true);
     }
 
     #endregion
 
 
+    
+    private static Size MeasureLines(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca, bool reverse)
+    {
+        var alignContent = MagicPanel.GetAlignContent(panel);
+        var gap          = MagicPanel.GetSpacing(panel);
+        var lines        = children.WrapToLines(availableSize, gap, maca).ToList();
+        if (reverse)
+        {
+            lines.Reverse();
+        }
+        
+        var totalGap          = gap * (lines.Count - 1);
+        var linesDesired      = lines.Sum(line => line.Max(i => maca.CaV(i.DesiredSize)));
+        var spaced            = maca.CaV(availableSize) - linesDesired - totalGap;
+        var computedSizes     = lines.ComputeSizes(spaced, maca);
+        var totalComputedSize = computedSizes.Aggregate(0d, (i, d) => i + d);
+        var acSpace           = maca.MaV(availableSize) - totalComputedSize - totalGap;
+        var acPieces          = alignContent.GetJustifyContentSpacePieces(lines.Count);
+        var acSpacePerPiece   = acSpace / acPieces;
+        var acStart           = alignContent.GetJustifyContentStart(jcSpacePerPiece);
+        var acSpaceBetween    = alignContent.GetJustifyContentSpaceBetween(jcSpacePerPiece);
+
+        var start  = 0d;
+        var width  = 0d;
+        var height = 0d;
+        foreach (var line in lines)
+        {
+            var cavConstraint = line.Max(i => maca.CaV(i.DesiredSize));
+            var desiredSize   = MeasureLine(panel, line, maca.WithCav(availableSize, cavConstraint), maca, start);
+            
+            // Calculate panel desired size.
+            maca.AccumulateCav(ref width, ref height, gap + maca.CaV(desiredSize));
+            maca.MaxMav(ref width, ref height, maca.MaV(desiredSize));
+            
+            start = maca.CaV(width, height);
+        }
+        
+        return new Size(width, height);
+    }
 
     private static Size MeasureLine(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca, double lineStart)
     {
@@ -100,7 +136,7 @@ public class FlexLayout : MagicLayout
         var panelDesiredHeight = 0d;
         
         // Set start of the main axis.
-        maca.WithMav(ref panelDesiredWidth, ref panelDesiredHeight, jcStart);
+        maca.SetMav(ref panelDesiredWidth, ref panelDesiredHeight, jcStart);
         
         // Constraint cross axis.
         var constraintSize = availableSize;
@@ -132,8 +168,8 @@ public class FlexLayout : MagicLayout
             {
                 cavSize = maca.CaV(constraintSize);
             }
-            maca.WithMav(ref width, ref height, computedSize);
-            maca.WithCav(ref width, ref height, cavSize);
+            maca.SetMav(ref width, ref height, computedSize);
+            maca.SetCav(ref width, ref height, cavSize);
             LayoutEx.SetArrangedWidth(child, width);
             LayoutEx.SetArrangedHeight(child, height);
             

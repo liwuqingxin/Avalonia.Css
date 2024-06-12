@@ -19,15 +19,23 @@ public interface IMaCa
     
     public double CaV(Point p);
     
-    public void WithMav(ref Size size, double value);
+    public void SetMav(ref Size size, double value);
     
-    public void WithCav(ref Size size, double value);
+    public void SetCav(ref Size size, double value);
     
-    public void WithMav(ref double x, ref double y, double value);
+    public void SetMav(ref double x, ref double y, double value);
     
-    public void WithCav(ref double x, ref double y, double value);
+    public void SetCav(ref double x, ref double y, double value);
+    
+    public Size WithMav(Size size, double value);
+    
+    public Size WithCav(Size size, double value);
 
     public void AccumulateMav(ref double x, ref double y, double value);
+    
+    public void AccumulateCav(ref double x, ref double y, double value);
+    
+    public void MaxMav(ref double x, ref double y, double value);
     
     public void MaxCav(ref double x, ref double y, double value);
 
@@ -65,16 +73,24 @@ public class HorizontalMaCa : IMaCa
 
     double IMaCa.CaV(Point p) => p.Y;
 
-    void IMaCa.WithMav(ref Size size, double value) => size = size.WithWidth(value);
+    void IMaCa.SetMav(ref Size size, double value) => size = size.WithWidth(value);
 
-    void IMaCa.WithCav(ref Size size, double value) => size = size.WithHeight(value);
+    void IMaCa.SetCav(ref Size size, double value) => size = size.WithHeight(value);
 
-    void IMaCa.WithMav(ref double x, ref double y, double value) => x = value;
+    void IMaCa.SetMav(ref double x, ref double y, double value) => x = value;
     
-    void IMaCa.WithCav(ref double x, ref double y, double value) => y = value;
+    void IMaCa.SetCav(ref double x, ref double y, double value) => y = value;
+    
+    Size IMaCa.WithMav(Size size, double value) => size.WithWidth(value);
+
+    Size IMaCa.WithCav(Size size, double value) => size.WithHeight(value);
 
     void IMaCa.AccumulateMav(ref double x, ref double y, double value) => x += value;
+    
+    void IMaCa.AccumulateCav(ref double x, ref double y, double value) => y += value;
 
+    void IMaCa.MaxMav(ref double x, ref double y, double value) => x = Math.Max(x, value);
+    
     void IMaCa.MaxCav(ref double x, ref double y, double value) => y = Math.Max(y, value);
 
     void IMaCa.Align(Control control, double alignPoint) => LayoutEx.SetArrangedTop(control, alignPoint);
@@ -103,16 +119,24 @@ public class VerticalMaCa : IMaCa
 
     double IMaCa.CaV(Point p) => p.X;
     
-    void IMaCa.WithMav(ref Size size, double value) => size = size.WithHeight(value);
+    void IMaCa.SetMav(ref Size size, double value) => size = size.WithHeight(value);
 
-    void IMaCa.WithCav(ref Size size, double value) => size = size.WithWidth(value);
+    void IMaCa.SetCav(ref Size size, double value) => size = size.WithWidth(value);
     
-    void IMaCa.WithMav(ref double x, ref double y, double value) => y = value;
+    void IMaCa.SetMav(ref double x, ref double y, double value) => y = value;
     
-    void IMaCa.WithCav(ref double x, ref double y, double value) => x = value;
+    void IMaCa.SetCav(ref double x, ref double y, double value) => x = value;
+    
+    Size IMaCa.WithMav(Size size, double value) => size.WithHeight(value);
+
+    Size IMaCa.WithCav(Size size, double value) => size.WithWidth(value);
     
     void IMaCa.AccumulateMav(ref double x, ref double y, double value) => y += value;
+    
+    void IMaCa.AccumulateCav(ref double x, ref double y, double value) => x += value;
 
+    void IMaCa.MaxMav(ref double x, ref double y, double value) => y = Math.Max(y, value);
+    
     void IMaCa.MaxCav(ref double x, ref double y, double value) => x = Math.Max(x, value);
     
     void IMaCa.Align(Control control, double alignPoint) => LayoutEx.SetArrangedLeft(control, alignPoint);

@@ -59,7 +59,7 @@ public class StackLayout : MagicLayout
             var height = child.DesiredSize.Height;
             if (isStretch)
             {
-                maca.WithCav(ref width, ref height, maca.CaV(constraintSize));
+                maca.SetCav(ref width, ref height, maca.CaV(constraintSize));
             }
             LayoutEx.SetArrangedWidth(child, width);
             LayoutEx.SetArrangedHeight(child, height);

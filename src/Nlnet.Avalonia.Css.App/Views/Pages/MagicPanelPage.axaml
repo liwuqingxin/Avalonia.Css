@@ -241,6 +241,43 @@
                                     <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
                                 </StackPanel>
                             </Border>
+                            
+                            <Border Background="Red"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="Green"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="Orange"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="DodgerBlue"
+                                    BorderBrush="White"
+                                    BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexGrow), StringFormat=Grow:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.FlexShrink), StringFormat=Shrink:{0}}" />
+                                    <TextBlock Text="{Binding $parent[Border].(nlnet:MagicPanel.Order), StringFormat=Order:{0}}" />
+                                </StackPanel>
+                            </Border>
                         </nlnet:MagicPanel>
 
                         <GridSplitter Grid.Row="0"
