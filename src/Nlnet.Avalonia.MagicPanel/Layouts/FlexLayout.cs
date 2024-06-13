@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
@@ -41,9 +40,9 @@ public class FlexLayout : MagicLayout
         var flexWrap = MagicPanel.GetFlexWrap(panel);
         return flexWrap switch
         {
-            FlexWrap.NoWrap      => MeasureNoWrap(panel, children, availableSize, maca),
-            FlexWrap.Wrap        => MeasureWrap(panel, children, availableSize, maca),
-            FlexWrap.WrapReverse => MeasureWrapReverse(panel, children, availableSize, maca),
+            FlexWrap.NoWrap      => MeasureLine(panel, children, availableSize, maca, 0),
+            FlexWrap.Wrap        => MeasureLines(panel, children, availableSize, maca, false),
+            FlexWrap.WrapReverse => MeasureLines(panel, children, availableSize, maca, true),
             _                    => new Size()
         };
     }
@@ -52,27 +51,6 @@ public class FlexLayout : MagicLayout
     {
         return null;
     }
-
-
-
-    #region Measures
-    
-    private Size MeasureNoWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
-    {
-        return MeasureLine(panel, children, availableSize, maca, 0);
-    }
-
-    private Size MeasureWrap(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
-    {
-        return MeasureLines(panel, children, availableSize, maca, false);
-    }
-
-    private Size MeasureWrapReverse(MagicPanel panel, IReadOnlyList<Control> children, Size availableSize, IMaCa maca)
-    {
-        return MeasureLines(panel, children, availableSize, maca, true);
-    }
-
-    #endregion
 
 
     
@@ -86,30 +64,37 @@ public class FlexLayout : MagicLayout
             lines.Reverse();
         }
         
-        var totalGap          = gap * (lines.Count - 1);
-        var linesDesired      = lines.Sum(line => line.Max(i => maca.CaV(i.DesiredSize)));
-        var spaced            = maca.CaV(availableSize) - linesDesired - totalGap;
-        var computedSizes     = lines.ComputeSizes(spaced, maca);
-        var totalComputedSize = computedSizes.Aggregate(0d, (i, d) => i + d);
-        var acSpace           = maca.MaV(availableSize) - totalComputedSize - totalGap;
-        var acPieces          = alignContent.GetJustifyContentSpacePieces(lines.Count);
-        var acSpacePerPiece   = acSpace / acPieces;
-        var acStart           = alignContent.GetJustifyContentStart(jcSpacePerPiece);
-        var acSpaceBetween    = alignContent.GetJustifyContentSpaceBetween(jcSpacePerPiece);
+        var totalGap     = gap * (lines.Count - 1);
+        var linesDesired = lines.Sum(line => line.CrossSize);
+        var spaced       = maca.CaV(availableSize) - linesDesired - totalGap;
 
-        var start  = 0d;
+        var acSpace = spaced;
+        if (alignContent == AlignContent.Stretch)
+        {
+            acSpace = 0;
+        }
+        var acPieces        = alignContent.GetAlignContentSpacePieces(lines.Count);
+        var acSpacePerPiece = acSpace / acPieces;
+        var acStart         = alignContent.GetAlignContentStart(acSpacePerPiece);
+        var acSpaceBetween  = alignContent.GetAlignContentSpaceBetween(acSpacePerPiece);
+
+        var start  = acStart;
         var width  = 0d;
         var height = 0d;
         foreach (var line in lines)
         {
-            var cavConstraint = line.Max(i => maca.CaV(i.DesiredSize));
-            var desiredSize   = MeasureLine(panel, line, maca.WithCav(availableSize, cavConstraint), maca, start);
+            var cavConstraint = line.CrossSize;
+            if (alignContent == AlignContent.Stretch)
+            {
+                cavConstraint += spaced / lines.Count;
+            }
+            var desiredSize   = MeasureLine(panel, line.Line, maca.WithCav(availableSize, cavConstraint), maca, start);
             
             // Calculate panel desired size.
-            maca.AccumulateCav(ref width, ref height, gap + maca.CaV(desiredSize));
+            maca.AccumulateCav(ref width, ref height, gap + acSpaceBetween + maca.CaV(desiredSize));
             maca.MaxMav(ref width, ref height, maca.MaV(desiredSize));
             
-            start = maca.CaV(width, height);
+            start = maca.CaV(width, height) + acStart;
         }
         
         return new Size(width, height);

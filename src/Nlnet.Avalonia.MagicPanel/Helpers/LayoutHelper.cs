@@ -178,7 +178,6 @@ internal static class LayoutHelper
     
     public static IEnumerable<FlexLine> WrapToLines(this IReadOnlyList<Control> children, Size availableSize, double gap, IMaCa maca)
     {
-        继续
         var flexLine       = new FlexLine();
         var lineConstraint = maca.MaV(availableSize);
         var lineSize       = 0d;
@@ -189,13 +188,15 @@ internal static class LayoutHelper
             if (lineSize <= lineConstraint)
             {
                 flexLine.Line.Add(child);
-                lineSize += gap;
+                lineSize           += gap;
+                flexLine.CrossSize =  Math.Max(flexLine.CrossSize, maca.CaV(child.DesiredSize));
             }
             else
             {
                 if (flexLine.Line.Count == 0)
                 {
                     flexLine.Line.Add(child);
+                    flexLine.CrossSize = Math.Max(flexLine.CrossSize, maca.CaV(child.DesiredSize));
                     yield return flexLine;
                     flexLine = new FlexLine();
                     lineSize = 0d;
@@ -206,11 +207,57 @@ internal static class LayoutHelper
                     flexLine = new FlexLine();
                     lineSize = desiredSize;
                     flexLine.Line.Add(child);
-                    lineSize += gap;    
+                    lineSize           += gap;    
+                    flexLine.CrossSize =  Math.Max(flexLine.CrossSize, maca.CaV(child.DesiredSize));
                 }
             }
         }
 
         yield return flexLine;
+    }
+    
+    public static int GetAlignContentSpacePieces(this AlignContent alignContent, int count)
+    {
+        return alignContent switch
+        {
+            AlignContent.Stretch      => -1,
+            AlignContent.Center       => 2,
+            AlignContent.Start        => 1,
+            AlignContent.End          => 1,
+            AlignContent.SpaceEvenly  => count + 1,
+            AlignContent.SpaceBetween => Math.Max(count - 1, 1),
+            AlignContent.SpaceAround  => count * 2,
+            _                         => throw new ArgumentOutOfRangeException(nameof(alignContent), alignContent, null)
+        };
+    }
+
+    public static double GetAlignContentStart(this AlignContent alignContent, double spacePerPiece)
+    {
+        return alignContent switch
+        {
+            AlignContent.Stretch      => 0,
+            AlignContent.Center       => spacePerPiece,
+            AlignContent.Start        => 0,
+            AlignContent.End          => spacePerPiece,
+            AlignContent.SpaceEvenly  => spacePerPiece,
+            AlignContent.SpaceBetween => 0,
+            AlignContent.SpaceAround  => spacePerPiece,
+            _                         => throw new ArgumentOutOfRangeException(nameof(alignContent), alignContent, null)
+        };
+    }
+    
+    public static double GetAlignContentSpaceBetween(this AlignContent alignContent, double spacePerPiece)
+    {
+        return alignContent switch
+        {
+            AlignContent.Stretch      => 0,
+            AlignContent.Center       => 0,
+            AlignContent.Start        => 0,
+            AlignContent.End          => 0,
+            AlignContent.SpaceEvenly  => spacePerPiece,
+            AlignContent.SpaceBetween => spacePerPiece,
+            AlignContent.SpaceAround  => spacePerPiece * 2,
+            _                         => throw new ArgumentOutOfRangeException(nameof(alignContent), alignContent, null)
+        };
     }
 }
