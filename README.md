@@ -20,6 +20,13 @@ Avalonia Css,  or Acss for short, does not follow the standard CSS (Cascading St
 
 Yes, it follows a pattern similar to **Html+CSS**.
 
+# Promotion
+
+I recently discovered an Avalonia control library that follows the Ant Design style—it’s impressively well-crafted. After speaking with the core developer, we agreed to support each other through mutual promotion. If you're interested, feel free to check it out at the [here](https://github.com/chinware/AtomUI).
+
+![](https://github.com/chinware/AtomUI/blob/develop/resources/images/readme/AtomUIOSS.png)
+
+
 ![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
 
 Many thanks to Jet Brains for [developer tools free of charge](https://www.jetbrains.com/community/opensource/?utm_campaign=opensource&utm_content=approved&utm_medium=email&utm_source=newsletter&utm_term=jblogo#support).
