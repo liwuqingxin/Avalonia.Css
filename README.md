@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=liwuqingxin&project=Avalonia.Css&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 <div align="left">
   <a href="https://github.com/microsoft/dotnet">
     <img src="https://img.shields.io/badge/-.NET-red">
